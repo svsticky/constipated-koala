@@ -1,7 +1,22 @@
 <h1>Ledenoverzicht v1</h1>
 
 <% @members.each do |member| %>
-  <tr>
-    <td><%= member.first_name %></td>
-  </tr>
+  <table>
+    <tr>
+      <td><%= link_to "#{member.id}", member %></td>
+      <td><%= member.first_name %></td>
+      <td><%= member.infix %></td>
+      <td><%= member.last_name %></td>
+      <td><%= member.address %></td>
+      <td><%= member.house_number %></td>
+      <td><%= member.postal_code %></td>
+      <td><%= member.phone_number %></td>
+      <td><%= member.email %></td>
+      <td><%= member.gender %></td>
+      <td><%= member.student_id %></td>
+      <td><%= member.birth_date %></td>
+      <td><%= member.join_date %></td>
+      <td><%= member.comments %></td>
+    </tr>
+  </table>
 <% end %>
