@@ -1,11 +1,13 @@
-<h1>Ledenoverzicht v1</h1>
+<h1>Ledenoverzicht v1.1</h1>
 
-<% @members.each do |member| %>
-  <table>
+<table>
+  <% @members.each do |member| %>
     <tr>
       <td><%= link_to "#{member.id}", member %></td>
       <td><%= member.first_name %></td>
-      <td><%= member.infix %></td>
+        <% if member.infix != '' %>
+        <td><%= member.infix %></td>
+        <% end %>
       <td><%= member.last_name %></td>
       <td><%= member.address %></td>
       <td><%= member.house_number %></td>
@@ -16,7 +18,8 @@
       <td><%= member.student_id %></td>
       <td><%= member.birth_date %></td>
       <td><%= member.join_date %></td>
-      <td><%= member.comments %></td>
-    </tr>
-  </table>
-<% end %>
+      <% if member.comments != '' %>
+        <td><%= member.comments %></td>
+      <% end %>
+  <% end %>
+</table>

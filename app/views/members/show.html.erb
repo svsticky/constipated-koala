@@ -2,7 +2,9 @@
 
 <table>
   <tr><td><%= @member.first_name %><td></tr>
-  <tr><td><%= @member.infix %></tr>
+      <% if @member.infix != '' %>
+        <tr><td><%= @member.infix %></tr>
+      <% end %>
   <tr><td><%= @member.last_name %></td></tr>
   <tr><td><%= @member.address %></td></tr>
   <tr><td><%= @member.house_number %></td></tr>
@@ -13,5 +15,7 @@
   <tr><td><%= @member.student_id %></td></tr>
   <tr><td><%= @member.birth_date %></td></tr>
   <tr><td><%= @member.join_date %></td></tr>
-  <tr><td><%= @member.comments %></td></tr>
+  <% if @member.comments != '' %>
+    <tr><td><%= @member.comments %></tr>
+  <% end %>
 </table>
