@@ -1,4 +1,5 @@
 <h1><%= @member.first_name %> <%= @member.infix %> <%= @member.last_name %> </h1>
+<p><%= link_to 'Back', members_path %><br><%= link_to 'Edit', edit_member_path(@member.id) %></p>
 
 <table>
   <tr><td><%= @member.first_name %><td></tr>
