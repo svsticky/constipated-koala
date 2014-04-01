@@ -10,7 +10,7 @@
     <tr><td>Postal code: </td><td><%= f.text_field :postal_code, :value => @member.postal_code %></td></tr>
     <tr><td>Phone number: </td><td><%= f.telephone_field :phone_number, :value => @member.phone_number %></td></tr>
     <tr><td>Email: </td><td><%= f.email_field :email, :value => @member.email %></td></tr>
-    <tr><td>Gender: </td><td><%= f.select :gender, options_for_select([['male', 1],['female',2]]), :value => @member.gender %>
+    <tr><td>Gender: </td><td><%= f.select :gender, options_for_select([['Male', 'm'],['Female','f']]), :value => @member.gender %>
     <tr><td>Student id: </td><td><%= f.number_field :student_id, :value => @member.student_id %></td></tr>
     <tr><td>Birthdate: </td><td><%= f.date_field :birth_date, :value => @member.birth_date %></td></tr>
     <tr><td>Joindate: </td><td><%= f.date_field :join_date, :value => @member.join_date %></td></tr>

@@ -19,7 +19,7 @@ Faker::Config.locale = :nl
                 city: Faker::Address.city,
                 phone_number: Faker::PhoneNumber.cell_phone,
                 email: Faker::Internet.email,
-                gender: ['male', 'female'].sample,
+                gender: ['m', 'f'].sample,
                 student_id: Faker::Number.number(7),
                 birth_date: Faker::Business.credit_card_expiry_date,
                 join_date: Faker::Business.credit_card_expiry_date,
