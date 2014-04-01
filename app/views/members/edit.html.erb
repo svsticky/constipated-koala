@@ -2,24 +2,21 @@
 <p><%= link_to 'Cancel', member_path %></p>
 
 <%= form_for :member, url: member_path(@member), method: :patch do |f| %>
-<table>
-  <tr><td>First name: </td><td><%= f.text_field :first_name, :value => @member.first_name %><td></tr>
-
-      <% if @member.infix != '' %>
-        <tr><td>Infix: </td><td><%= f.text_field :infix, :value => @member.infix %></td></tr>
-      <% end %>
-
-      <tr><td>Last name: </td><td><%= f.text_field :last_name, :value => @member.last_name %></td></tr>
-      <tr><td>Address: </td><td><%= f.text_field :address, :value => @member.address %></td><td>Nr </td><td><%= f.number_field :house_number, :value => @member.house_number %></td></tr>
-      <tr><td>Postal code: </td><td><%= f.text_field :postal_code, :value => @member.postal_code %></td></tr>
-      <tr><td>Phone number: </td><td><%= f.telephone_field :telephone_number, :value => @member.phone_number %></td></tr>
-      <tr><td>Email: </td><td><%= f.email_field :email, :value => @member.email %></td></tr>
-      <tr><td>Gender: </td><td><%= f.select :gender, options_for_select([['male', 1],['female',2]]), :value => @member.gender %>
-        <tr><td>Student id: </td><td><%= f.number_field :student_id, :value => @member.student_id %></td></tr>
-        <tr><td>Birthdate: </td><td><%= f.date_field :birth_date, :value => @member.birth_date %></td></tr>
-        <tr><td>Joindate: </td><td><%= f.date_field :join_date, :value => @member.join_date %></td></tr>
-  <% if @member.comments != '' %>
+  <table>
+    <tr><td>First name: </td><td><%= f.text_field :first_name, :value => @member.first_name %><td></tr>
+    <tr><td>Infix: </td><td><%= f.text_field :infix, :value => @member.infix %></td></tr>
+    <tr><td>Last name: </td><td><%= f.text_field :last_name, :value => @member.last_name %></td></tr>
+    <tr><td>Address: </td><td><%= f.text_field :address, :value => @member.address %></td><td>Nr :</td><td><%= f.text_field :house_number, :value => @member.house_number %></td></tr>
+    <tr><td>Postal code: </td><td><%= f.text_field :postal_code, :value => @member.postal_code %></td></tr>
+    <tr><td>Phone number: </td><td><%= f.telephone_field :phone_number, :value => @member.phone_number %></td></tr>
+    <tr><td>Email: </td><td><%= f.email_field :email, :value => @member.email %></td></tr>
+    <tr><td>Gender: </td><td><%= f.select :gender, options_for_select([['male', 1],['female',2]]), :value => @member.gender %>
+    <tr><td>Student id: </td><td><%= f.number_field :student_id, :value => @member.student_id %></td></tr>
+    <tr><td>Birthdate: </td><td><%= f.date_field :birth_date, :value => @member.birth_date %></td></tr>
+    <tr><td>Joindate: </td><td><%= f.date_field :join_date, :value => @member.join_date %></td></tr>
     <tr><td>Comments: </td><td><%= f.text_field :comments, :value => @member.comments %></tr>
-  <% end %>
   </table>
+  <p>
+    <%= f.submit %>
+  </p>
 <% end %>
