@@ -5,9 +5,7 @@
     <tr>
       <td><%= link_to "#{member.id}", member %></td>
       <td><%= member.first_name %></td>
-        <% if member.infix != '' %>
-        <td><%= member.infix %></td>
-        <% end %>
+      <td><%= member.infix %></td>
       <td><%= member.last_name %></td>
       <td><%= member.address %></td>
       <td><%= member.house_number %></td>
@@ -18,8 +16,7 @@
       <td><%= member.student_id %></td>
       <td><%= member.birth_date %></td>
       <td><%= member.join_date %></td>
-      <% if member.comments != '' %>
-        <td><%= member.comments %></td>
-      <% end %>
+      <td><%= member.comments %></td>
+    </tr>
   <% end %>
 </table>
