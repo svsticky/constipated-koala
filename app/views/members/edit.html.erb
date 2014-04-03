@@ -2,6 +2,15 @@
 <p><%= link_to 'Cancel', member_path %></p>
 
 <%= form_for :member, url: member_path(@member), method: :patch do |f| %>
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> in this edit, please fix them!</h2>
+      <ul>
+        <% @member.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </div>
+  <% end %>
   <table>
     <tr><td>First name: </td><td><%= f.text_field :first_name, :value => @member.first_name %><td></tr>
     <tr><td>Infix: </td><td><%= f.text_field :infix, :value => @member.infix %></td></tr>
