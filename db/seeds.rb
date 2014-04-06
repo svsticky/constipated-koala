@@ -9,7 +9,7 @@ require "faker"
 
 Faker::Config.locale = :nl
 
-50.times do
+150.times do
   Member.create(first_name: Faker::Name.first_name,
                 infix: '',
                 last_name: Faker::Name.last_name,
