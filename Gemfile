@@ -6,6 +6,9 @@ gem 'rails', '4.0.4'
 # Gem voor genereren van nepdata voor in de dev versie
 gem 'faker'
 
+# UI gem semantic ui
+gem 'semantic-ui-sass', '~> 0.15.4.0'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
