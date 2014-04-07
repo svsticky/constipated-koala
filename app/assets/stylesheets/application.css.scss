@@ -12,3 +12,8 @@
  *= require_tree .
  */
 @import "semantic-ui";
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif /*rtl:prepend:"Droid Arabic Kufi","Droid Sans", */;
+  font-size: 10pt
+}
