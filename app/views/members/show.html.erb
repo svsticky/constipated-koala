@@ -1,22 +1,33 @@
-<h1><%= @member.first_name %> <%= @member.infix %> <%= @member.last_name %> </h1>
-<p><%= link_to 'Back', members_path %><br><%= link_to 'Edit', edit_member_path(@member.id) %></p>
+<h1 class="ui dividing header">Lid gegevens</h1>
 
-<table>
-  <tr><td><%= @member.first_name %><td></tr>
-      <% if @member.infix != '' %>
-        <tr><td><%= @member.infix %></tr>
-      <% end %>
-  <tr><td><%= @member.last_name %></td></tr>
-  <tr><td><%= @member.address %></td></tr>
-  <tr><td><%= @member.house_number %></td></tr>
-  <tr><td><%= @member.postal_code %></td></tr>
-  <tr><td><%= @member.phone_number %></td></tr>
-  <tr><td><%= @member.email %></td></tr>
-  <tr><td><%= @member.gender %></td></tr>
-  <tr><td><%= @member.student_id %></td></tr>
-  <tr><td><%= @member.birth_date %></td></tr>
-  <tr><td><%= @member.join_date %></td></tr>
-  <% if @member.comments != '' %>
-    <tr><td><%= @member.comments %></tr>
-  <% end %>
-</table>
+<div class="ui segment">
+    <h5 class="ui dividing header">NAW gegevens</h5>
+    <p><%= @member.first_name %>
+    <% if @member.infix != '' %>
+      <%= @member.infix %>
+    <% end %>
+    <%= @member.last_name %><br>
+    <%= @member.address %> <%= @member.house_number %><br>
+    <%= @member.postal_code %> <%= @member.city %><br>
+  </p>
+  <h5 class="ui dividing header">Contactgegevens</h5>
+  <p>
+    Telefoonnummer: <%= @member.phone_number %><br>
+    Email: <%= @member.email %><br>
+  </p>
+  <h5 class="ui dividing header">Studiegerelateerd</h5>
+  <p>
+    Studentnummer: <%= @member.student_id %><br>
+  </p>
+  <h5 class="ui dividing header">Overig</h5>
+  <p>
+    Geboortedatum: <%= @member.birth_date %><br>
+    Lid geworden op: <%= @member.join_date %><br>
+  </p>
+    <% if @member.comments != '' %>
+      Comments: <%= @member.comments %><br>
+    <% end %>
+</div>
+
+<div class="ui small basic button"><%= link_to 'Back', members_path %></div>
+<div class="ui small basic button"><%= link_to 'Edit', edit_member_path(@member.id) %></div>
