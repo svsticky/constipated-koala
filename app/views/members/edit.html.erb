@@ -53,9 +53,23 @@
     </div>
     <div class="field">
       <label>Geslacht</label>
-      <%= f.select :gender, options_for_select([['Male', 'm'],['Female','f']]), :value => @member.gender %>
+      <div class="ui selection  dropdown"> 
+        <div class="default text">Geslacht</div>
+         <i class="dropdown icon"></i>
+        <input type="hidden" name="member_gender"></input>
+        <div class="menu">
+          <div class="item" data-value="m">Man</div>
+          <div class="item" data-value="f">Vrouw</div>
+
+      </div>
+      </div>
+      <script>
+$('.ui.selection.dropdown')
+  .dropdown()
+;
+      </script>
     </div>
-  </div>
+    </div>
   <div class="three fields">
     <div class="field">
       <label>Studentnummer</label>
@@ -75,7 +89,7 @@
         <%= f.text_area :comments, :value => @member.comments %>
       </div>
     </div>
-  <div class="ui blue submit button">
-    <%= f.submit %>
-  </div>
+  <button class="ui blue submit button" type="submit">
+    Wijzig
+  </button>
 <% end %>
