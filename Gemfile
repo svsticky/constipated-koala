@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
+#Gem voor html5 stubs met form features
+gem 'modernizr-rails'
+
 # Gem voor genereren van nepdata voor in de dev versie
 gem 'faker'
 

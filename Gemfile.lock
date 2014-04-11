@@ -53,6 +53,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     minitest (4.7.5)
+    modernizr-rails (2.7.1)
     multi_json (1.9.2)
     polyglot (0.3.4)
     rack (1.5.2)
@@ -117,6 +118,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 1.2)
   jquery-rails
+  modernizr-rails
   rails (= 4.0.4)
   sass-rails (~> 4.0.2)
   sdoc
