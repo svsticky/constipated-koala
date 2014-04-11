@@ -1,6 +1,10 @@
 class MembersController < ApplicationController
   def index
-    @members = Member.all
+    if params[:search]
+      @members = Member.search(params[:search])
+    else
+      @members = Member.all
+    end
   end
 
   def show

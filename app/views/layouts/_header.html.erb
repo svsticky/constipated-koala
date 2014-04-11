@@ -5,9 +5,11 @@
     </a>
     <div class="right menu">
       <div class="item">
-        <div class="ui icon input">
-        <input type="text" placeholder="Search...">
-        <i class="search link icon"></i>
+        <div class="ui mini icon input">
+          <%= form_tag members_path, :method => 'get' do %>
+            <%= text_field_tag :search, params[:search], placeholder: 'Zoek hier' %>
+          <% end %>
+          <i class="search link icon" type="submit"></i>
         </div>
       </div>
       <div class="item">

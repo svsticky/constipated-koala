@@ -13,4 +13,8 @@ class Member < ActiveRecord::Base
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
+
+  def self.search(query)
+    where("first_name like ? OR last_name like ?", "%#{query}%", "%#{query}%")
+  end
 end
