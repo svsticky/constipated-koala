@@ -29,5 +29,5 @@
     <% end %>
 </div>
 
-<div class="ui small basic button"><%= link_to 'Back', members_path %></div>
-<div class="ui small basic button"><%= link_to 'Edit', edit_member_path(@member.id) %></div>
+<%= link_to 'Back', members_path, { :class => "ui small button" } %>
+<%= link_to 'Edit', edit_member_path(@member.id), { :class => "ui small button" } %>

@@ -1,19 +1,20 @@
 <h1 class="ui dividing header">Aanpassen lid: <%= @member.first_name %> <%= @member.infix %> <%= @member.last_name %> </h1>
-<div class="ui small basic button"><%= link_to 'Cancel', member_path %></div>
+
+<% if @member.errors.any? %>
+  <div class="ui warning form segment" id="error_explanation">
+    <div class="ui warning message">
+      <div class="header">Er is een fout opgetreden.</div>
+      <ul class="list">
+        <% @member.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
 
 <div class="ui form segment">
 <%= form_for :member, url: member_path(@member), method: :patch do |f| %>
-  <% if @member.errors.any? %>
-    <div class="ui warning form segment" id="error_explanation">
-      <div class="ui warning message">
-        <div class="header">Er is een fout opgetreden.</div>
-        <ul class="list">
-          <% @member.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-  <% end %>
     <div class="three fields">
       <div class="field">
         <label>Voornaam</label>
@@ -34,7 +35,7 @@
       <%= f.text_field :address, :value => @member.address %>
     </div>
     <div class="field">
-      <label>Nr</label>
+      <label>Huisnummer</label>
       <%= f.text_field :house_number, :value => @member.house_number %>
     </div>
     <div class="field">
@@ -88,8 +89,8 @@ $('.ui.selection.dropdown')
         <label>Comments</label>
         <%= f.text_area :comments, :value => @member.comments %>
       </div>
+      <button class="ui positive small button" type="submit">Opslaan</button>
+      <%= link_to 'Annuleren', member_path, { :class => "ui small button" } %>
     </div>
-  <button class="ui blue submit button" type="submit">
-    Wijzig
-  </button>
+  </div>
 <% end %>
