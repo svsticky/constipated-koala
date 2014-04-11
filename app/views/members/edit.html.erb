@@ -46,21 +46,24 @@
       <label>Woonplaats</label>
       <%= f.text_field :city, :value => @member.city %>
     </div>
-     <div class="field">
-      <label>Geslacht</label>
-      <div class="ui selection  dropdown"> 
-        <div class="default text">Geslacht</div>
-         <i class="dropdown icon"></i>
+      <div class="field">
+        <label>Geslacht</label>
+        <div class="ui selection dropdown">
+        <% if @member.gender == 'm' %>
+        <div class="default text">Man</div>
+        <% else %>
+        <div class="default text">Vrouw</div>
+        <% end %>  
+        <i class="dropdown icon"></i>
         <input type="hidden" name="member_gender"></input>
         <div class="menu">
-          <div class="item" data-value="m">Man</div>
-          <div class="item" data-value="f">Vrouw</div>
+            <div class="item" data-value="m">Man</div>
+            <div class="item" data-value="f">Vrouw</div>
         </div>
       </div>
       <script>
-$('.ui.selection.dropdown')
-  .dropdown()
-;
+        $('.ui.selection.dropdown')
+        .dropdown();
       </script>
     </div>
   </div>
