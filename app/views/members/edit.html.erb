@@ -29,7 +29,7 @@
         <%= f.text_field :last_name, :value => @member.last_name %>
     </div>
   </div>
-  <div class="three fields">
+  <div class="five fields">
     <div class="field">
       <label>Adres</label>
       <%= f.text_field :address, :value => @member.address %>
@@ -42,17 +42,11 @@
       <label>Postcode</label>
       <%= f.text_field :postal_code, :value => @member.postal_code %>
     </div>
-  </div>
-  <div class="three fields">
     <div class="field">
-      <label>Telefoonnummer</label>
-      <%= f.telephone_field :phone_number, :value => @member.phone_number %>
+      <label>Woonplaats</label>
+      <%= f.text_field :city, :value => @member.city %>
     </div>
-    <div class="field">
-      <label>Email</label>
-      <%= f.email_field :email, :value => @member.email %>
-    </div>
-    <div class="field">
+     <div class="field">
       <label>Geslacht</label>
       <div class="ui selection  dropdown"> 
         <div class="default text">Geslacht</div>
@@ -61,8 +55,7 @@
         <div class="menu">
           <div class="item" data-value="m">Man</div>
           <div class="item" data-value="f">Vrouw</div>
-
-      </div>
+        </div>
       </div>
       <script>
 $('.ui.selection.dropdown')
@@ -70,7 +63,17 @@ $('.ui.selection.dropdown')
 ;
       </script>
     </div>
+  </div>
+  <div class="two fields">
+    <div class="field">
+      <label>Telefoonnummer</label>
+      <%= f.telephone_field :phone_number, :value => @member.phone_number %>
     </div>
+    <div class="field">
+      <label>Email</label>
+      <%= f.email_field :email, :value => @member.email %>
+    </div>
+  </div>
   <div class="three fields">
     <div class="field">
       <label>Studentnummer</label>
