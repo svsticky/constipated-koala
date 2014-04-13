@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+  before_action :authenticate_admin!
   def index
     if params[:search]
       @members = Member.search(params[:search])

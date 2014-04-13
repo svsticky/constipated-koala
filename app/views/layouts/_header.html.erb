@@ -13,9 +13,7 @@
         </div>
       </div>
       <div class="item">
-        Hey, Onderwijs</div>
-      <div class="item">
-        <div class="ui small button">Loguit</div>
+        <%= link_to 'Log uit', destroy_admin_session_path, { :method => :delete, :class => "small ui button" } %>
       </div>
     </div>
   </div>
