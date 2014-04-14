@@ -1,8 +1,8 @@
 <h1 class="ui dividing header">Aanpassen lid: <%= @member.first_name %> <%= @member.infix %> <%= @member.last_name %> </h1>
 
 <% if @member.errors.any? %>
-  <div class="ui warning form segment" id="error_explanation">
-    <div class="ui warning message">
+  <div class="ui error form segment" id="error_explanation">
+    <div class="ui error message">
       <div class="header">Er is een fout opgetreden.</div>
       <ul class="list">
         <% @member.errors.full_messages.each do |msg| %>

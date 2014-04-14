@@ -13,7 +13,12 @@
   <p><%= notice %></p>
 <% end %>
 <% if alert %>
-  <p><%= alert %></p>
+  <div class="ui error form segment">
+    <div class="ui error message">
+      <div class="header">Er is iets foutgegaan...</div>
+      <p><%= alert %></p>
+    </div>
+  </div>
 <% end %>
 <%= yield %>
 <%= render "layouts/footer" %>
