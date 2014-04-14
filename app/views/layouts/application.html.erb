@@ -10,7 +10,12 @@
 <body>
 <%= render "layouts/header" %>
 <% if notice %>
-  <p><%= notice %></p>
+  <div class="ui segment">
+    <div class="ui blue message">
+      <div class="header">Succes!</div>
+      <p><%= notice %></p>
+    </div>
+  </div>
 <% end %>
 <% if alert %>
   <div class="ui error form segment">
