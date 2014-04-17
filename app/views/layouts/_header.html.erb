@@ -12,6 +12,9 @@
           <i class="search link icon" type="submit"></i>
         </div>
       </div>
+      <a href="<%= edit_admin_registration_path %>" class="item">
+        <i class="icon settings"></i>
+      </a>
       <div class="item">
         <%= link_to 'Log uit', destroy_admin_session_path, { :method => :delete, :class => "small ui button" } %>
       </div>
