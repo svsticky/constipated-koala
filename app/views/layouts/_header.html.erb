@@ -1,6 +1,6 @@
 <header>
   <div class="ui inverted purple menu">
-    <a href="<%= members_path %>"class="item">
+    <a href="<%= root_path %>" class="item">
       <i class="home icon"></i> Home
     </a>
     <div class="right menu">
@@ -16,7 +16,7 @@
         <i class="icon settings"></i>
       </a>
       <div class="item">
-        <%= link_to 'Log uit', destroy_admin_session_path, { :method => :delete, :class => "small ui button" } %>
+        <%= link_to 'Log uit', destroy_admin_session_path, { :method => :delete, :class => "ui small button" } %>
       </div>
     </div>
   </div>
