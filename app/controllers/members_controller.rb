@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
-  before_action :authenticate_admin!
+  skip_before_action :authenticate_admin!, only: [:new, :create]
+  
   def index
     if params[:search]
       @members = Member.search(params[:search])
@@ -11,6 +12,18 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
   end
+  
+  def new
+  	@member = Member.new
+  end
+  
+  def create
+  	if @member.save(member_post_params())
+  		redirect_to @member
+  	else
+  		render 'new'
+  	end
+  end
 
   def edit
     @member = Member.find(params[:id])
@@ -19,7 +32,7 @@ class MembersController < ApplicationController
   def update
     @member = Member.find(params[:id])
 
-    if @member.update(admin_post_params)
+    if @member.update(member_post_params)
       redirect_to @member
     else
       render 'edit'
@@ -27,7 +40,7 @@ class MembersController < ApplicationController
   end
 
   private
-  def admin_post_params
+  def member_post_params
     params[:member].permit(:first_name,
                                    :infix,
                                    :last_name,

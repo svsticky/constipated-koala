@@ -17,3 +17,8 @@ body {
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif /*rtl:prepend:"Droid Arabic Kufi","Droid Sans", */;
   font-size: 10pt
 }
+
+div.input.mini {
+	position: relative; 
+	top: 4px;
+}
