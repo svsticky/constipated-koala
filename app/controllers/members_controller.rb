@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  skip_before_action :authenticate_admin!, only: [:new, :create]
+  #skip_before_action :authenticate_admin!, only: [:new_public, :create]
   
   def index
     if params[:search]
@@ -13,16 +13,20 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
   end
   
+  def new_public
+  end
+  
   def new
-  	@member = Member.new
   end
   
   def create
-  	if @member.save(member_post_params())
-  		redirect_to @member
-  	else
-  		render 'new'
-  	end
+		@member = Member.new(member_post_params)   
+		
+		if @member.save
+			redirect_to @member
+		else
+			render 'new'
+		end
   end
 
   def edit

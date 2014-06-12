@@ -15,14 +15,17 @@ gem 'modernizr-rails'
 # Gem voor genereren van nepdata voor in de dev versie
 gem 'faker'
 
-# UI gem semantic ui
-gem 'semantic-ui-sass', '~> 0.15.4.0'
-
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
+
+# Use bootstrap
+gem 'bootstrap-sass'
+
+# use font awesome
+gem 'font-awesome-sass'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

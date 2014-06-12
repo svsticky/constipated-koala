@@ -1,0 +1,51 @@
+%aside#nav-container{role: 'navigation'}
+  #nav-wrapper
+    %ul#nav{'data-collapse-nav' => ''}
+      %li{ :class => ('active' if yield(:page) == 'home') }
+        %a{href: '/'}
+          %span Home
+          %i.fa.fa-desktop
+            %span.icon-bg.bg-danger
+      %li{ :class => ('active' if yield(:page) == 'members') }
+        %a{href: '/members'}
+          %span Leden
+          %i.fa.fa-user
+            %span.icon-bg.bg-orange
+      %li{ :class => ('active' if yield(:page) == 'committees') }
+        %a{href: '/committees'}
+          %span Commissies
+          %i.fa.fa-users
+            %span.icon-bg.bg-warning
+      %li{ :class => ('active' if yield(:page) == 'activities') }
+        %a{href: '/activities'}
+          %span Activiteiten
+          %i.fa.fa-ticket
+            %span.icon-bg.bg-success
+      %li{ :class => ('active' if yield(:page) == 'mongoose') }
+        %a{href: '#'}
+          %span Mongoose
+          %i.fa.fa-shopping-cart
+            %span.icon-bg.bg-info
+        %ul.sub-nav{style: 'display: none;'}
+          %li
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span Voorraad
+          %li
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span Verkoop
+          %li
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span Tegoed
+      %li{ :class => ('active' if yield(:page) == 'tasks') }
+        %a{href: '#'}
+          %span Taken
+          %i.fa.fa-tasks
+            %span.icon-bg.bg-primary
+      %li{ :class => ('active' if yield(:page) == 'settings') }
+        %a{href: '#'}
+          %span Instellingen
+          %i.fa.fa-gears
+            %span.icon-bg.bg-violet

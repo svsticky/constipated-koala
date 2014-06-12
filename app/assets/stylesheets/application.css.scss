@@ -10,10 +10,22 @@
  *
  *= require_self
  *= require_tree .
+ *= require font-awesome
  */
-@import "semantic-ui";
+ 
+@import "lato.css";
+@import "style.css";
 
-body {
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif /*rtl:prepend:"Droid Arabic Kufi","Droid Sans", */;
-  font-size: 10pt
+table.table > tbody > tr > td > a {
+  display: block;
+  padding: 10px;
+}
+
+table.table > tbody > tr > td {
+	padding: 0px;
+}
+
+table.table > tbody > tr:hover > td > a {
+	text-decoration: underline;
+	//background-color: white;
 }

@@ -1,0 +1,44 @@
+- content_for(:page, 'members')
+- content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
+
+%section#content
+  .page.page-form
+    .row
+      %div
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Algemene gegevens
+            .panel-body
+              %p #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
+              %p 
+                #{@member.address} #{@member.house_number} 
+                %br
+                #{@member.postal_code} #{@member.city}
+              %p 
+                #{@member.phone_number}
+                %br
+                #{@member.email}
+              %p= @member.comments
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Studie gegevens
+            .panel-body
+              %p= @member.student_id
+              Studie
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Sticky
+            .panel-body
+              %p= @member.join_date
+              commissies
+        .col-md-12
+          .panel.panel-default
+            .panel-body
+              = link_to 'Back', members_path, { :class => "button btn btn-default" }
+              = link_to 'Edit', edit_member_path(@member.id), { :class => "button btn btn-warning" }

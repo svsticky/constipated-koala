@@ -1,0 +1,94 @@
+- content_for(:page, 'members')
+- content_for(:title, 'Constipated koala | leden')
+
+%section#content
+  .page.page-form
+    .row
+      %form.form-validation{name: 'form_constraints'}
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Algemene gegevens
+            .panel-body
+              .form-group
+                .row
+                  .col-md-5
+                    %label{for: ''} Voornaam
+                    %input.form-control{type: 'text'}/
+                  .col-md-2
+                    %label{for: ''} Tussenvoegsel
+                    %input.form-control{type: 'text'}/
+                  .col-md-5
+                    %label{for: ''} Achternaam
+                    %input.form-control{type: 'text'}/
+              .form-group
+                .row
+                  .col-md-6
+                    %label{for: ''} Geslacht
+                    .ui-select{style: ' width: 200px; '}
+                      %select{style: 'margin-top: 0px; margin-bottom: 0px; padding-top: 9px; padding-bottom: 9px;'}
+                        %option{value: 'm'} Man
+                        %option{value: 'f'} Vrouw
+                  .col-md-6
+                    %label{for: ''} Geboortedatum
+                    %input.form-control{type: 'date'}/
+              .form-group
+                .row
+                  .col-md-8
+                    %label{for: ''} Adres
+                    %input.form-control{type: 'text'}/
+                  .col-md-4
+                    %label{for: ''} Huisnummer
+                    %input.form-control{type: 'text'}/
+              .form-group
+                .row
+                  .col-md-6
+                    %label{for: ''} Postcode
+                    %input.form-control{type: 'text'}/
+                  .col-md-6
+                    %label{for: ''} Woonplaats
+                    %input.form-control{type: 'text'}/
+              .form-group
+                %label{for: ''} Telefoonnummer
+                %input.form-control{type: 'tel'}/
+              .form-group
+                %label{for: ''} E-mailadres
+                %input.form-control{type: 'email'}/
+              .form-group
+                %label{for: ''} Comments
+                %textarea.form-control{rows: '10'}
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Profielfoto
+            .panel-body
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Studie gegevens
+            .panel-body
+              .form-group
+                %label{for: ''} Studentnummer
+                %input.form-control{type: 'text'}/
+              .form-group
+                %label{for: ''} Studie
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Sticky
+            .panel-body
+              .form-group
+                %label{for: ''} Lidmaatschap
+                %input.form-control{type: 'date'}/
+              .form-group
+                %label{for: ''} Groepen
+                commissies, besturen, en taskforces
+        .col-md-12
+          .panel.panel-default
+            .panel-body
+              %button.btn.btn-success{type: 'submit'} Opslaan
+              %button.btn.btn-default Annuleren
