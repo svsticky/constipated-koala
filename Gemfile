@@ -6,6 +6,9 @@ gem 'rails', '4.0.4'
 #authentication gem
 gem 'devise'
 
+#use of Haml
+gem 'haml'
+
 #Gem voor html5 stubs met form features
 gem 'modernizr-rails'
 
