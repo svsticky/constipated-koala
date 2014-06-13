@@ -1,6 +1,8 @@
 %section#header.top-header
   %header.clearfix
-    %a.toggle-min{href: "#"}
+    %a.hidden-xs.toggle-min{href: "#"}
+      %i.fa.fa-bars
+    %a.visible-xs.toggle-min{href: "#", 'data-toggle-min-nav' => '', 'data-toggle' => 'collapse', 'data-target' => '#nav-wrapper'}
       %i.fa.fa-bars
     .logo
       %a{href: '/'}
