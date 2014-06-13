@@ -15,21 +15,3 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
-
-$( document ).ready(function() {
-	if( document.cookie.search('nav-min') >= 0 )
-		$('#app div').addClass('nav-min');
-
-	$('.toggle-min').click(function(event){
-	  event.preventDefault();
-	  
-	  $('#app div').toggleClass('nav-min');
-	  
-	  if( $('#app div').hasClass('nav-min') ){
-	  	document.cookie = 'nav-min=true; path=/;';
-	  }else{
-	  	document.cookie = 'nav-min=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
-	  }
-	  
-	});
-});
