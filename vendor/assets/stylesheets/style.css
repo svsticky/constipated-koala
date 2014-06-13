@@ -3902,7 +3902,7 @@ input[type="button"].btn-block {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     z-index: 1000;
     display: none;
     float: left;
@@ -5867,6 +5867,11 @@ a.list-group-item-danger.active:focus {
     line-height: 1.3;
 }
 
+a.panel {
+	display: block;
+	color: #767676;	
+}
+
 .panel {
     margin-bottom: 20px;
     background-color: white;
@@ -5874,6 +5879,11 @@ a.list-group-item-danger.active:focus {
     border-radius: 2px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel.clickable:hover {
+	text-decoration: none;
+	border-color: #767676;
 }
 
 .panel-body {
@@ -8575,7 +8585,7 @@ html {
 .dropdown-menu.with-arrow:before {
     content: " ";
     position: absolute;
-    left: 12px;
+    right: 7px;
     top: -16px;
     border: 8px solid transparent;
     border-bottom: 8px solid rgba(0, 0, 0, 0.15);
@@ -8584,7 +8594,7 @@ html {
 .dropdown-menu.with-arrow:after {
     content: " ";
     position: absolute;
-    left: 13px;
+    right: 7px;
     top: -14px;
     border: 7px solid transparent;
     border-bottom: 7px solid white;
@@ -10859,7 +10869,7 @@ button.toast-close-button {
     display: none;
     z-index: 11;
     position: absolute;
-    left: 180px;
+    left: 17px;
     top: 10px;
     line-height: 30px;
     font-size: 18px;

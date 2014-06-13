@@ -18,7 +18,9 @@
 
 table.table > tbody > tr > td > a {
   display: block;
-  padding: 10px;
+  padding: 0px 10px;
+  height: 35px;
+  line-height: 40px;
 }
 
 table.table > tbody > tr > td {

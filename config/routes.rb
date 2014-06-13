@@ -1,5 +1,6 @@
 ConstipatedKoala::Application.routes.draw do
 
+  get "home/index"
   devise_for :admins, controllers: {registrations: "admin_devise/registrations",
                                     unlocks: "admin_devise/unlocks",
                                     passwords: "admin_devise/passwords"}
@@ -9,7 +10,7 @@ ConstipatedKoala::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'members#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

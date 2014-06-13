@@ -1,14 +1,45 @@
 %section#header.top-header
   %header.clearfix
-    /
-      <a href='#' data-target='#app' data-toggle='nav-min' class='toggle-min'>
-      <i class='fa fa-bars'></i>
-      </a>
+    %a.toggle-min{href: "#"}
+      %i.fa.fa-bars
     .logo
       %a{href: '/'}
         %span Constipated koala
-    .top-nav
-      %ul.nav-left.list-unstyled
+    .top-nav      
+      %ul.nav-right.pull-right.list-unstyled
+        %li.dropdown.text-normal.nav-profile
+          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
+            =image_tag  'martijn.jpg', :class => 'img-circle img30_30'
+            %span.hidden-xs
+              %span Martijn Casteel
+          %ul.dropdown-menu.with-arrow.pull-right
+            %li
+              %a{href: '/admins/edit'}
+                %i.fa.fa-user
+                %span Profiel
+            %li
+              %a{href: '/admins/sign_out', 'data-method' => :delete}
+                %i.fa.fa-sign-out
+                %span Log uit
+      %ul.nav-right.pull-right.list-unstyled
+        %li.dropdown
+          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
+            %span.badge.badge-info 2
+            %i.fa.fa-bell-o
+          .dropdown-menu.with-arrow.panel.panel-default
+            .panel-heading
+              Er zijn 2 notificaties.
+            %ul.list-group
+              %a{href: '/members'}
+                %li.list-group-item
+                  .media-body
+                    %span.block Er zijn 234 nieuwe inschrijvingen
+                    %span.text-muted.block 2min ago
+              %a{href: '#'}
+                %li.list-group-item
+                  .media-body
+                    %span.block Martijn Casteel heeft zijn tegoed opgewaardeerd
+                    %span.text-muted 3 hours ago
         %li.dropdown
           %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
             / <span class='badge badge-warning'>3</span>
@@ -30,37 +61,4 @@
                   %span.block Lynda sent you a mail
                   %span.text-muted 9 hours ago
             .panel-footer
-              %a{href: '#'} Toon alle taken.
-        %li.dropdown
-          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            %span.badge.badge-info 2
-            %i.fa.fa-bell-o
-          .dropdown-menu.with-arrow.panel.panel-default
-            .panel-heading
-              Er zijn 2 notificaties.
-            %ul.list-group
-              %a{href: '/members'}
-                %li.list-group-item
-                  .media-body
-                    %span.block Er zijn 234 nieuwe inschrijvingen
-                    %span.text-muted.block 2min ago
-              %a{href: '#'}
-                %li.list-group-item
-                  .media-body
-                    %span.block Martijn Casteel heeft zijn tegoed opgewaardeerd
-                    %span.text-muted 3 hours ago
-      %ul.nav-right.pull-right.list-unstyled
-        %li.dropdown.text-normal.nav-profile
-          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            =image_tag  'martijn.jpg', :class => 'img-circle img30_30'
-            %span.hidden-xs
-              %span Martijn Casteel
-          %ul.dropdown-menu.with-arrow.pull-right
-            %li
-              %a{href: '/admins/edit'}
-                %i.fa.fa-user
-                %span Profiel
-            %li
-              %a{href: '/admins/sign_out', 'data-method' => :delete}
-                %i.fa.fa-sign-out
-                %span Log uit
+              %a{href: '#'} Toon alle taken.  
