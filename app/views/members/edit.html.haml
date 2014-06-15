@@ -5,13 +5,15 @@
   .page.page-form
     .row
       = form_for :member, url: member_path(@member), method: :patch, :class => 'form-validation' do |f|
+      
         - if @member.errors.any?
-          #error_explanation.ui.error.form.segment
-            .ui.error.message
-              .header Er is een fout opgetreden.
-              %ul.list
-                - @member.errors.full_messages.each do |msg|
-                  %li= msg
+          .col-md-12
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span Oh snap, niet alles is goed ingevuld;
+              %ul
+              - @member.errors.full_messages.each do |msg|
+                %li= msg
       
         .col-md-6
           .panel.panel-default
@@ -35,9 +37,7 @@
                   .col-md-6
                     %label{for: ''} Geslacht
                     .ui-select{style: ' width: 200px; '}
-                      %select{style: 'margin-top: 0px; margin-bottom: 0px; padding-top: 9px; padding-bottom: 9px;'}
-                        %option{value: 'm', :selected => @member.gender == 'm'} Man
-                        %option{value: 'f', :selected => @member.gender == 'f'} Vrouw
+                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]])
                   .col-md-6
                     %label{for: ''} Geboortedatum
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
@@ -80,7 +80,7 @@
             .panel-body
               .form-group
                 %label{for: ''} Studentnummer
-                = f.number_field :student_id, :value => @member.student_id, :class => 'form-control'
+                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
               .form-group
                 %label{for: ''} Studie
         .col-md-6
@@ -93,7 +93,7 @@
                 %label{for: ''} Lidmaatschap
                 = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
               .form-group
-                %label{for: ''} Commissies
+                %label{for: ''} Groepen
                 commissies
         .col-md-12
           .panel.panel-default

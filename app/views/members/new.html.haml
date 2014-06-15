@@ -4,7 +4,17 @@
 %section#content
   .page.page-form
     .row
-      %form.form-validation{name: 'form_constraints'}
+      = form_for :member, url: members_path, method: :post, :class => 'form-validation' do |f|
+      
+        - if @member.errors.any?
+          .col-md-12
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span Oh snap, niet alles is goed ingevuld;
+              %ul
+              - @member.errors.full_messages.each do |msg|
+                %li= msg
+      
         .col-md-6
           .panel.panel-default
             .panel-heading
@@ -15,49 +25,47 @@
                 .row
                   .col-md-5
                     %label{for: ''} Voornaam
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
                   .col-md-2
                     %label{for: ''} Tussenvoegsel
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :infix, :value => @member.infix, :class => 'form-control'
                   .col-md-5
                     %label{for: ''} Achternaam
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
               .form-group
                 .row
                   .col-md-6
                     %label{for: ''} Geslacht
                     .ui-select{style: ' width: 200px; '}
-                      %select{style: 'margin-top: 0px; margin-bottom: 0px; padding-top: 9px; padding-bottom: 9px;'}
-                        %option{value: 'm'} Man
-                        %option{value: 'f'} Vrouw
+                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]])
                   .col-md-6
                     %label{for: ''} Geboortedatum
-                    %input.form-control{type: 'date'}/
+                    = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
               .form-group
                 .row
                   .col-md-8
                     %label{for: ''} Adres
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :address, :value => @member.address, :class => 'form-control'
                   .col-md-4
                     %label{for: ''} Huisnummer
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
               .form-group
                 .row
                   .col-md-6
                     %label{for: ''} Postcode
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
                   .col-md-6
                     %label{for: ''} Woonplaats
-                    %input.form-control{type: 'text'}/
+                    = f.text_field :city, :value => @member.city, :class => 'form-control'
               .form-group
                 %label{for: ''} Telefoonnummer
-                %input.form-control{type: 'tel'}/
+                = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
               .form-group
                 %label{for: ''} E-mailadres
-                %input.form-control{type: 'email'}/
+                = f.email_field :email, :value => @member.email, :class => 'form-control'
               .form-group
                 %label{for: ''} Comments
-                %textarea.form-control{rows: '10'}
+                = f.text_area :comments, :value => @member.comments, :class => 'form-control'
         .col-md-6
           .panel.panel-default
             .panel-heading
@@ -72,7 +80,7 @@
             .panel-body
               .form-group
                 %label{for: ''} Studentnummer
-                %input.form-control{type: 'text'}/
+                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
               .form-group
                 %label{for: ''} Studie
         .col-md-6
@@ -83,12 +91,12 @@
             .panel-body
               .form-group
                 %label{for: ''} Lidmaatschap
-                %input.form-control{type: 'date'}/
+                = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
               .form-group
                 %label{for: ''} Groepen
-                commissies, besturen, en taskforces
+                commissies
         .col-md-12
           .panel.panel-default
             .panel-body
               %button.btn.btn-success{type: 'submit'} Opslaan
-              %button.btn.btn-default Annuleren
+              = link_to 'Annuleren', members_path, { :class => 'button btn btn-default' }

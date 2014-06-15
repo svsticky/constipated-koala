@@ -22,10 +22,10 @@ module ConstipatedKoala
     
     config.to_prepare do
 	    Devise::SessionsController.layout false
-	    # Devise::RegistrationsController.layout "devise"
-	    # Devise::ConfirmationsController.layout "devise"
-	    # Devise::UnlocksController.layout "devise"            
-	    # Devise::PasswordsController.layout "devise"        
+	    Devise::RegistrationsController.layout false
+	    Devise::ConfirmationsController.layout false
+	    Devise::UnlocksController.layout false            
+	    Devise::PasswordsController.layout false        
 	end
   end
 end

@@ -15,6 +15,6 @@ class Member < ActiveRecord::Base
   #validates :comments
 
   def self.search(query)
-    where("first_name like ? OR last_name like ?", "%#{query}%", "%#{query}%")
+    where("first_name like ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
   end
 end

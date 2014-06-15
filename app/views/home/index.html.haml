@@ -8,7 +8,8 @@
           %span.box-icon.bg-success
             %i.fa.fa-user
           .box-info
-            %p.size-h2 1120
+            %p.size-h2 
+              = Member.count(:all)
             %p.text-muted Leden
       .col-lg-3.col-xsm-6
         %a.panel.mini-box.clickable{href: '/activities'}
