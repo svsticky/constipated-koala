@@ -21,21 +21,14 @@
                 %br
                 #{@member.email}
               %p= @member.comments  
-          .panel.panel-default
-            .panel-heading
-              %span.glyphicon.glyphicon-th
-              Sticky
-            .panel-body
-              %p= @member.join_date
-              commissies 
-              = @member.gravatar   
+          - if admin_signed_in? && current_admin.member.id == @member.id
+            .panel.panel-default
+              .panel-heading
+                %span.glyphicon.glyphicon-th
+                Admin gegevens 
+              .panel-body
+                %p= current_admin.member
         .col-md-5
-          .panel.panel-default
-            .panel-heading
-              %span.glyphicon.glyphicon-th
-              Admin gegevens
-            .panel-body
-              %p admin admin ^^, alleen als het een admin is dan dit venster erbij. mooi op 1 plek, als dat kan, vast wel :)
           .panel.panel-default
             .panel-heading
               %span.glyphicon.glyphicon-th
@@ -43,6 +36,14 @@
             .panel-body
               %p= @member.student_id
               Studie
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Sticky
+            .panel-body
+              %p= @member.join_date
+              commissies 
+              = @member.gravatar
           .panel.panel-default
             .panel-body
               = link_to 'Back', members_path, { :class => 'button btn btn-default' }

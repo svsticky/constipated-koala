@@ -11,9 +11,9 @@
       %ul.nav-right.pull-right.list-unstyled
         %li.dropdown.text-normal.nav-profile
           %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            =image_tag  'martijn.jpg', :class => 'img-circle img30_30'
+            =image_tag "https://secure.gravatar.com/avatar/#{current_admin.member.gravatar}?d=mm", :class => 'img-circle img30_30'
             %span.hidden-xs
-              %span Martijn Casteel
+              %span #{current_admin.member.first_name} #{current_admin.member.infix} #{current_admin.member.last_name}
           %ul.dropdown-menu.with-arrow.pull-right
             %li
               %a{href: '/admins/edit'}
