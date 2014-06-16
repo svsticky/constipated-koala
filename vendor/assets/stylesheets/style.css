@@ -2735,6 +2735,14 @@ select[multiple].input-lg,
     border-color: #cfcfcf;
 }
 
+.btn.inactive {
+  cursor: default;
+}
+
+.bin.btn-default.inactive:hover {
+  color: #fafafa;
+}
+
 .open .btn-default.dropdown-toggle {
     color: #767676;
     background-color: #e6e6e6;

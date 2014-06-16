@@ -13,6 +13,10 @@ class Member < ActiveRecord::Base
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
+  
+  def gravatar
+    Digest::MD5.hexdigest(self.email)
+  end
 
   def self.search(query)
     where("first_name like ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
