@@ -63,6 +63,7 @@
               .form-group
                 %label{for: ''} E-mailadres
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
+                %span.help-block Dit kan niet je studenten email zijn!
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'

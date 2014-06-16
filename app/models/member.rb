@@ -19,6 +19,7 @@ class Member < ActiveRecord::Base
   end
 
   def self.search(query)
-    where("first_name like ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
+#    Person.find(:all, :conditions => 
+    where("first_name LIKE ? OR last_name LIKE ?", "%#{query}%", "%#{query}%")
   end
 end

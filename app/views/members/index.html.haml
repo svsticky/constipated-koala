@@ -1,7 +1,9 @@
 - content_for(:page, 'members')
-- content_for(:title, 'Constipated koala | leden')
+- content_for(:title, 'Constipated koala | leden') 
 
 %section#content
+  = render 'layouts/search' 
+
   .page.page-table
     %section.panel.panel-default.table-dynamic
       .panel-heading

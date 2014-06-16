@@ -2735,12 +2735,8 @@ select[multiple].input-lg,
     border-color: #cfcfcf;
 }
 
-.btn.inactive {
+.btn.btn-inactive {
   cursor: default;
-}
-
-.bin.btn-default.inactive:hover {
-  color: #fafafa;
 }
 
 .open .btn-default.dropdown-toggle {
@@ -2783,6 +2779,11 @@ fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default.active {
     background-color: #176698;
     border-color: #114b70;
 }
+
+.btn-primary.btn-inactive:hover {
+  background-color: #1c7ebb !important;
+}
+
 
 .open .btn-primary.dropdown-toggle {
     color: white;
@@ -10105,6 +10106,14 @@ button.toast-close-button {
 
 .page {
     padding: 15px;
+}
+
+div.page.search{
+    padding-bottom: 0px;
+}
+
+div.page.search > section.panel {
+    margin-bottom: 0px;
 }
 
 .page-form-ele h3 {
