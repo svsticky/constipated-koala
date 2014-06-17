@@ -3,5 +3,6 @@
     .panel-body
       = form_tag members_path, :method => 'get' do
         .input-group
-          = text_field_tag :search, params[:search], placeholder: 'zoeken', class: 'form-control', autofocus: true 
-          %span.input-group-addon{ type: 'submit', style: 'display: table-cell;', class: 'fa fa-search'}
+          = text_field_tag :search, params[:search], :autofocus => true,  placeholder: 'zoek lid op voornaam, achternaam, of studentnummer', class: 'form-control'
+          %span.input-group-btn
+            %button.btn.btn-primary.fa.fa-search{ type: 'submit', style: 'padding: 9px 20px;' }
