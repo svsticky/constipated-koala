@@ -48,7 +48,7 @@
             .panel-body
               = link_to 'Back', members_path, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
-  .ui-timeline
+  .ui-timeline{:style => 'display: none;'}
     %article.tl-item
       .tl-body
         .tl-entry
