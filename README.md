@@ -26,7 +26,7 @@ Op dit moment is het mogelijk om leden te bekijken/doorzoeken/aanpassen. In de k
 ```
 ConstipatedKoala is licensed under the GPLv3 license.
 
-Copyright (C) 2014 Tako Marks
+Copyright (C) 2014 Tako Marks, Martijn Casteel
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
