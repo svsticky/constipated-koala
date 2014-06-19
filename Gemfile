@@ -4,16 +4,16 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 
 #authentication gem
-gem 'devise'
+gem 'devise', '~> 3.2.4'
 
 #use of Haml
-gem 'haml'
+gem 'haml', '~> 4.0.3'
 
 #Gem voor html5 stubs met form features
-gem 'modernizr-rails'
+gem 'modernizr-rails', '~> 2.7.1'
 
 # Gem voor genereren van nepdata voor in de dev versie
-gem 'faker'
+gem 'faker', '~> 1.3.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -22,10 +22,10 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.2'
 
 # Use bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.1.1'
 
 # use font awesome
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.1.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
