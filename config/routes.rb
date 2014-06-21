@@ -4,7 +4,8 @@ ConstipatedKoala::Application.routes.draw do
   devise_for :admins, controllers: {registrations: "admin_devise/registrations",
                                     unlocks: "admin_devise/unlocks",
                                     passwords: "admin_devise/passwords"}
-  resources :members
+
+  resources :members, :activities
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

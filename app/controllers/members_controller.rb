@@ -15,6 +15,7 @@ class MembersController < ApplicationController
   
   def new
   	@member = Member.new
+    @member.educations.build
   end
   
   def create
@@ -29,10 +30,20 @@ class MembersController < ApplicationController
 
   def edit
     @member = Member.find(params[:id])
+    
+         
+     if @member.educations.length < 1
+       @member.educations.build( :id => '0' )
+     end
+    
+     if @member.educations.length < 2
+       @member.educations.build( :id => '-1' )
+     end
+     
   end
 
   def update
-    @member = Member.find(params[:id])
+    @member = Member.includes(:educations).find(params[:id])
 
     if @member.update(member_post_params)
       redirect_to @member
@@ -43,7 +54,7 @@ class MembersController < ApplicationController
 
   private
   def member_post_params
-    params[:member].permit(:first_name,
+    params.require(:member).permit(:first_name,
                                    :infix,
                                    :last_name,
                                    :address,
@@ -56,6 +67,9 @@ class MembersController < ApplicationController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-                                   :comments)
+                                   :comments,
+                                   educations_attributes: [ :id, :name_id, :start_date, :end_date, :_destroy ])
+                                   
+#                                    :educations_attributes => { :id => NIL, :name_id => '', :start_date => Date.new, :end_date => '', :_destroy => false })
   end
 end

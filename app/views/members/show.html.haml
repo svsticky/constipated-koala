@@ -36,8 +36,14 @@
               %span.glyphicon.glyphicon-th
               Studie gegevens
             .panel-body
-              %p= @member.student_id
-              Studie
+              %dl.dl-horizontal
+                %dt #
+                %dd= @member.student_id
+  
+              %dl.dl-horizontal
+                - @member.educations.each do |study|
+                  %dt= study.name(study)
+                  %dd #{study.start_date}  -  #{study.end_date}
           .panel.panel-default
             .panel-heading
               %span.glyphicon.glyphicon-th

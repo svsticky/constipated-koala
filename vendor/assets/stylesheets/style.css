@@ -7755,7 +7755,7 @@ input.input-danger:focus {
     position: relative;
 }
 
-.ui-select > select {
+.ui-select select {
     padding: 9px 15px 9px 10px;
     width: 200px;
     position: relative;
@@ -11143,5 +11143,11 @@ div.page.search > section.panel {
 
 .form-validation .ng-invalid.ng-dirty {
     border-color: #e94b3b;
+}
+
+label a.close {
+  position: relative;
+  top: -2px;
+  left: 5px;
 }
 

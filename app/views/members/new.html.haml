@@ -37,7 +37,7 @@
                   .col-md-6
                     %label{for: ''} Geslacht
                     .ui-select{style: ' width: 200px; '}
-                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]])
+                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]], @member.gender)
                   .col-md-6
                     %label{for: ''} Geboortedatum
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
@@ -83,6 +83,22 @@
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
               .form-group
                 %label{for: ''} Studie
+                %a.close{ :type => 'button' } +
+                - @member.educations.each do |education|
+                  = f.fields_for 'educations_attributes[]', education do |fs|
+                    .form-group
+                      = fs.hidden_field :id    
+                      .row
+                        .col-md-4
+                          .ui-select
+                            = fs.select :name_id, options_for_select(education.list, education.name_id) 
+                        .col-md-4
+                          = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
+                        .col-md-4                      
+                          = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
+                        = fs.hidden_field :_destroy
+                .callout.callout-info
+                  %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
         .col-md-6
           .panel.panel-default
             .panel-heading

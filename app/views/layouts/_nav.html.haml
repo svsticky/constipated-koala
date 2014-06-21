@@ -14,7 +14,7 @@
           %i.fa.fa-user
             %span.icon-bg.bg-orange
       %li{ :class => ('active' if yield(:page) == 'committees') }
-        %a{href: '/committees'}
+        %a{href: '#'}
           %span Commissies
           %i.fa.fa-users
             %span.icon-bg.bg-warning
@@ -41,6 +41,11 @@
             %a{href: '#'}
               %i.fa.fa-caret-right
               %span Tegoed
+      %li{ :class => ('active' if yield(:page) == 'contacts') }
+        %a{href: '#'}
+          %span Contacten
+          %i.fa.fa-envelope
+            %span.icon-bg.bg-primary-light
       %li{ :class => ('active' if yield(:page) == 'tasks') }
         %a{href: '#'}
           %span Taken
@@ -51,7 +56,7 @@
           %span Instellingen
           %i.fa.fa-gears
             %span.icon-bg.bg-violet
-            
+             
 :javascript
   $( document ).ready(function() {
     if( document.cookie.search('nav-min') >= 0 )

@@ -10,44 +10,45 @@
         %span.glyphicon.glyphicon-th
         Leden
         %a.close{ :type => 'button', :href => '/members/new' } +
-      %table.table.table-bordered.table-striped.table-responsive
-        %thead
-          %tr
-            %th
-              .th
-                Voornaam
-                %span.glyphicon.glyphicon-chevron-up
-                %span.glyphicon.glyphicon-chevron-down
-            %th
-              .th
-                Tussenvoegsel
-            %th
-              .th
-                Achternaam
-                %span.glyphicon.glyphicon-chevron-up
-                %span.glyphicon.glyphicon-chevron-down
-            %th
-              .th
-                Telefoonnummer
-            %th
-              .th
-                E-mailadres
-            %th
-              .th
-                Studentnummer
-            %th
-              .th
-                Studie
-                %span.glyphicon.glyphicon-chevron-up
-                %span.glyphicon.glyphicon-chevron-down
-        %tbody
-        - @members.each do |member|
-          %tr
-            %td= link_to "#{member.first_name}", member
-            %td= link_to "#{member.infix}", member
-            %td= link_to "#{member.last_name}", member
-            %td= link_to "#{member.phone_number}", member
-            %td= link_to "#{member.email}", member
-            %td= link_to "#{member.student_id}", member
-            %td TODO studie
-      %footer.table-footer
+      .table-responsive
+        %table.table.table-bordered.table-striped
+          %thead
+            %tr
+              %th
+                .th
+                  Voornaam
+                  %span.glyphicon.glyphicon-chevron-up
+                  %span.glyphicon.glyphicon-chevron-down
+              %th
+                .th
+                  Tussenvoegsel
+              %th
+                .th
+                  Achternaam
+                  %span.glyphicon.glyphicon-chevron-up
+                  %span.glyphicon.glyphicon-chevron-down
+              %th
+                .th
+                  Telefoonnummer
+              %th
+                .th
+                  E-mailadres
+              %th
+                .th
+                  Studentnummer
+              %th
+                .th
+                  Studie
+                  %span.glyphicon.glyphicon-chevron-up
+                  %span.glyphicon.glyphicon-chevron-down
+          %tbody
+          - @members.each do |member|
+            %tr
+              %td= link_to "#{member.first_name}", member
+              %td= link_to "#{member.infix}", member
+              %td= link_to "#{member.last_name}", member
+              %td= link_to "#{member.phone_number}", member
+              %td= link_to "#{member.email}", member
+              %td= link_to "#{member.student_id}", member
+              %td= link_to "#{member.studies}", member
+      /%footer.table-footer
