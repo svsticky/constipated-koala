@@ -14,29 +14,24 @@ class MembersController < ApplicationController
   end
   
   def new
-  	@member = Member.new
-    @member.educations.build
+    @member = Member.new
+    @member.educations.build( :id => '-1' )
   end
   
   def create
-		@member = Member.new(member_post_params)   
-		
-		if @member.save
-			redirect_to @member
-		else
-			render 'new'
-		end
+    @member = Member.new(member_post_params)   
+    
+    if @member.save
+      redirect_to @member
+    else
+      render 'new'
+    end
   end
 
   def edit
     @member = Member.find(params[:id])
     
-         
      if @member.educations.length < 1
-       @member.educations.build( :id => '0' )
-     end
-    
-     if @member.educations.length < 2
        @member.educations.build( :id => '-1' )
      end
      

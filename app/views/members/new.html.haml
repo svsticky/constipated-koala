@@ -82,21 +82,25 @@
                 %label{for: ''} Studentnummer
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
               .form-group
-                %label{for: ''} Studie
-                %a.close{ :type => 'button' } +
+                %label{for: ''} 
+                  Studie
+                  %a.close{ :type => 'button' } +
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
-                    .form-group
-                      = fs.hidden_field :id    
+                    .form-group.copyable
+                      - if education.id > 0
+                        = fs.hidden_field :id, :class => 'id' 
                       .row
                         .col-md-4
                           .ui-select
                             = fs.select :name_id, options_for_select(education.list, education.name_id) 
-                        .col-md-4
+                        .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
-                        .col-md-4                      
+                        .col-md-4{ :style => 'padding-right: 0px; width: 202px; '}                    
                           = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
-                        = fs.hidden_field :_destroy
+                        = fs.hidden_field :_destroy, :class => 'destroy'
+                        %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
+                          %span.fa.fa-trash-o
                 .callout.callout-info
                   %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
         .col-md-6

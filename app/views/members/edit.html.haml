@@ -89,7 +89,7 @@
                   %a.close{ :type => 'button' } +
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
-                    .form-group
+                    .form-group.copyable
                       - if education.id > 0
                         = fs.hidden_field :id, :class => 'id' 
                       .row
@@ -122,32 +122,3 @@
             .panel-body
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
-
-:javascript
-  $('label a.close').bind( "click", function() {
-    alert( "ADD?" );
-  });
-  
-  $('.form-group a.btn.destroy').bind( "click", function(){
-    var row = $( this ).closest('.form-group');
-    
-    var destroy = $( row ).find('input.destroy');
-    console.log(destroy.val());
- 
-    if(destroy.val() == 'true'){
-      $( row ).find('input').removeAttr('disabled');
-      $( row ).find('select').removeAttr('style');
-      
-      $( destroy ).val("false")
-      $( this ).html("<span class='fa fa-trash-o'></span>");
-    }else{
-      if(!$( row ).find('input.id').val())
-        $( row ).find('input[type="hidden"]').attr('disabled', 'disabled');
-      $( row ).find('input.form-control').attr('disabled', 'disabled');
-      $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
-      
-      $( destroy ).val("true")
-      $( this ).html("<span class='fa fa-undo'></span>");
-    }
-    
-  });
