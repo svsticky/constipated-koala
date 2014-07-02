@@ -23,6 +23,7 @@
               %a{href: '/admins/sign_out', 'data-method' => :delete}
                 %i.fa.fa-sign-out
                 %span Log uit
+    /
       %ul.nav-right.pull-right.list-unstyled
         %li.dropdown
           %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
@@ -42,25 +43,3 @@
                   .media-body
                     %span.block Martijn Casteel heeft zijn tegoed opgewaardeerd
                     %span.text-muted 3 hours ago
-        %li.dropdown
-          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            / <span class='badge badge-warning'>3</span>
-            %i.fa.fa-pencil-square-o
-          .dropdown-menu.with-arrow.panel.panel-default
-            .panel-heading
-              Je hebt nog 3 taken.
-            %ul.list-group
-              %li.list-group-item
-                .media-body
-                  %span.block Lisa sent you a mail
-                  %span.text-muted.block 2min ago
-              %li.list-group-item
-                .media-body
-                  %span.block Jane sent you a mail
-                  %span.text-muted 3 hours ago
-              %li.list-group-item
-                .media-body
-                  %span.block Lynda sent you a mail
-                  %span.text-muted 9 hours ago
-            .panel-footer
-              %a{href: '#'} Toon alle taken.  

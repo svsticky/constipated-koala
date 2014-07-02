@@ -2,6 +2,8 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function(){
+
+  //$('.chosen').chosen();
   
   $('label a.close').bind( "click", function() {
     var row = $('.copyable:last').clone().insertAfter($('.copyable:last'));
@@ -14,6 +16,13 @@ $(document).ready(function(){
       id = +id - 1;
     else
       id = -1;
+      
+    //if removed set new one to be active
+    $( row ).find('input').removeAttr('disabled');
+    $( row ).find('select').removeAttr('disabled').removeAttr('style');
+    $( row ).find('input.destroy').val("false")
+    $( row ).find('a.btn.destroy').html("<span class='fa fa-trash-o'></span>");
+    destroy();
 
     //replace all inputs and select name and id?
     $(row).find('input').each(function() {
@@ -24,27 +33,31 @@ $(document).ready(function(){
     
   });
   
-  $('.form-group a.btn.destroy').bind( "click", function(){
-    var row = $( this ).closest('.form-group');
+  function destroy(){
+    $('.form-group a.btn.destroy').bind( "click", function(){
+      var row = $( this ).closest('.form-group');
+      
+      var destroy = $( row ).find('input.destroy');
+      console.log(destroy.val());
     
-    var destroy = $( row ).find('input.destroy');
-    console.log(destroy.val());
+      if(destroy.val() == 'true'){
+        $( row ).find('input').removeAttr('disabled');
+        $( row ).find('select').removeAttr('disabled').removeAttr('style');
+        
+        $( destroy ).val("false")
+        $( this ).html("<span class='fa fa-trash-o'></span>");
+      }else{
+        if(!$( row ).find('input.id').val())
+          $( row ).find('input[type="hidden"]').attr('disabled', 'disabled');
+        $( row ).find('input.form-control').attr('disabled', 'disabled');
+        $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
+        
+        $( destroy ).val("true")
+        $( this ).html("<span class='fa fa-undo'></span>");
+      }
+      
+    });
+  }
   
-    if(destroy.val() == 'true'){
-      $( row ).find('input').removeAttr('disabled');
-      $( row ).find('select').removeAttr('style');
-      
-      $( destroy ).val("false")
-      $( this ).html("<span class='fa fa-trash-o'></span>");
-    }else{
-      if(!$( row ).find('input.id').val())
-        $( row ).find('input[type="hidden"]').attr('disabled', 'disabled');
-      $( row ).find('input.form-control').attr('disabled', 'disabled');
-      $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
-      
-      $( destroy ).val("true")
-      $( this ).html("<span class='fa fa-undo'></span>");
-    }
-    
-  });
+  destroy();
 });

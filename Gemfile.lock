@@ -54,7 +54,11 @@ GEM
     haml (4.0.5)
       tilt
     hike (1.2.3)
+    httpclient (2.4.0)
     i18n (0.6.9)
+    impressionist (1.5.1)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     jbuilder (2.1.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -66,9 +70,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile (0.6.0)
     minitest (5.3.5)
     modernizr-rails (2.7.1)
     multi_json (1.10.1)
+    nokogiri (1.6.2.1)
+      mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     polyglot (0.3.5)
     rack (1.5.2)
@@ -137,6 +144,7 @@ DEPENDENCIES
   faker
   font-awesome-sass
   haml
+  impressionist
   jbuilder
   jquery-rails
   modernizr-rails

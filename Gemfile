@@ -6,6 +6,9 @@ gem 'rails', '~> 4.1.1'
 #authentication gem
 gem 'devise'
 
+#logging 
+gem 'impressionist'
+
 #use of Haml
 gem 'haml'
 
