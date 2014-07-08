@@ -3,7 +3,7 @@ class CreateEducations < ActiveRecord::Migration
     create_table :educations do |t|
       t.belongs_to :member
       
-      t.column :study, :integer
+      t.column :name_id, :integer
       t.date :start_date
       t.date :end_date
 

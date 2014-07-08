@@ -14,11 +14,21 @@ class Member < ActiveRecord::Base
   validates :join_date, presence: true
   #validates :comments
   
+  attr_accessor :tags_name_ids
+  
   has_many :educations, 
     :dependent => :destroy, 
     :autosave => true
   
   accepts_nested_attributes_for :educations, 
+    :reject_if => :all_blank,
+    :allow_destroy => true
+    
+  has_many :tags,
+    :dependent => :destroy,
+    :autosave => true
+    
+  accepts_nested_attributes_for :tags,
     :reject_if => :all_blank,
     :allow_destroy => true
 
@@ -27,7 +37,7 @@ class Member < ActiveRecord::Base
   end
   
   def studies
-    list = self.educations;
+    list = self.educations
   
     if(list.length == 0)
       return ''
@@ -37,7 +47,6 @@ class Member < ActiveRecord::Base
     
     self.educations.each do |i|
       string += i.name_id
-#       string += i.name(i)
       
       if(i != list.last)
         string += ', '

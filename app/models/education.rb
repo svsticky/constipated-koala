@@ -1,4 +1,5 @@
 class Education < ActiveRecord::Base
+  #DO NOT change this order without clearing the entire table
   enum name_id: [ :ICA, :IKU, :GT, :WISK, :COSC, :GMTE, :MBIM, :AINM ]
   
   validates :name_id, presence: true
@@ -31,13 +32,13 @@ class Education < ActiveRecord::Base
   
   def list
     [['--', ''],
-    ['Informatica', :ICA], 
-    ['Informatiekunde', :IKU], 
-    ['Gametechnologie', :GT], 
-    ['Wiskunde', :WISK], 
-    ['Game and media technology', :GMTE], 
-    ['Business informatics', :MBIM], 
-    ['Artificial intelligence', :AINM]]
+    ['INFORMATICA', :ICA], 
+    ['INFORMATIEKUNDE', :IKU], 
+    ['GAMETECHNOLOGIE', :GT], 
+    ['WISKUNDE', :WISK], 
+    ['GAME AND MEDIA TECHNOLOGY', :GMTE], 
+    ['BUSINESS INFORMATICS', :MBIM], 
+    ['ARTIFICIAL INTELLIGENCE', :AINM]]
   end
   
 end

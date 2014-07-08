@@ -5,4 +5,8 @@ class Admin < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   belongs_to :member 
+  
+  def gravatar
+    Digest::MD5.hexdigest(self.email)
+  end
 end

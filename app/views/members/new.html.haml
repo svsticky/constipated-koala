@@ -37,7 +37,7 @@
                   .col-md-6
                     %label{for: ''} Geslacht
                     .ui-select{style: ' width: 200px; '}
-                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]], @member.gender)
+                      = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
                   .col-md-6
                     %label{for: ''} Geboortedatum
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
@@ -63,6 +63,10 @@
               .form-group
                 %label{for: ''} E-mailadres
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
+              / TODO
+                .form-group
+                  %label{for: ''} Tags
+                  = f.select :tags, Tag.list, {:include_blank => true}, :multiple => true, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
@@ -80,7 +84,7 @@
             .panel-body
               .form-group
                 %label{for: ''} Studentnummer
-                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
+                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control', :placeholder => 'test'
               .form-group
                 %label{for: ''} 
                   Studie

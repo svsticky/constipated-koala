@@ -5,7 +5,7 @@ class MembersController < ApplicationController
     if params[:search]
       @members = Member.search(params[:search])
     else
-      @members = Member.all
+      @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
     end
   end
 
@@ -21,6 +21,23 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(member_post_params)   
     
+#     #door de tags heen loopen
+#     Tag.list.each_with_index do | tag, i |
+#     
+#       #als een van het lijstje is ingevuld, tag aanmaken als die niet bestaat
+#       if member_post_params[:tags_name_ids].include?("#{tag.last}")
+#         db = Tag.new(:member_id => @member.id, :name_id => i)
+#                 
+#         if db.valid?
+#           db.save
+#         else
+#           @member.errors.add(db.errors)
+#           render 'edit'
+#           return
+#         end
+#       end
+#     end
+    
     if @member.save
       redirect_to @member
     else
@@ -29,7 +46,7 @@ class MembersController < ApplicationController
   end
 
   def edit
-    @member = Member.find(params[:id])
+    @member = Member.includes(:educations).includes(:tags).find(params[:id])
     
      if @member.educations.length < 1
        @member.educations.build( :id => '-1' )
@@ -38,9 +55,42 @@ class MembersController < ApplicationController
   end
 
   def update
-    @member = Member.includes(:educations).find(params[:id])
+    @member = Member.find(params[:id])
 
     if @member.update(member_post_params)
+      
+      
+      #door de tags heen loopen
+      Tag.list.each_with_index do | tag, i |
+      
+        #als een van het lijstje is ingevuld, tag aanmaken als die niet bestaat
+        if member_post_params[:tags_name_ids].include?("#{tag.last}")
+          
+          if Tag.where(:member_id => @member.id, :name_id => i).blank?
+            db = Tag.new(:member_id => @member.id, :name_id => i)
+          #of touch om timestamps aan te passen
+          else
+            db = Tag.where(:member_id => @member.id, :name_id => i).first
+            db.touch
+          end
+                  
+          if db.valid?
+            db.save
+          else
+            @member.errors.add(db.errors)
+            render 'edit'
+            return
+          end
+        else
+          #anders verwijderen als er een bestaat
+          db = @member.tags.where(:name_id => i).first
+          
+          if !db.nil?
+            db.destroy
+          end
+        end
+      end
+    
       redirect_to @member
     else
       render 'edit'
@@ -63,8 +113,7 @@ class MembersController < ApplicationController
                                    :birth_date,
                                    :join_date,
                                    :comments,
+                                   :tags_name_ids => [],
                                    educations_attributes: [ :id, :name_id, :start_date, :end_date, :_destroy ])
-                                   
-#                                    :educations_attributes => { :id => NIL, :name_id => '', :start_date => Date.new, :end_date => '', :_destroy => false })
   end
 end

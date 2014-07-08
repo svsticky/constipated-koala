@@ -37,7 +37,7 @@
                   .col-md-6
                     %label{for: ''} Geslacht
                     .ui-select{style: ' width: 200px; '}
-                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]], @member.gender)
+                      = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
                   .col-md-6
                     %label{for: ''} Geboortedatum
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
@@ -65,6 +65,9 @@
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
               .callout.callout-info
                 %p Dit kan niet je studenten email zijn!
+              .form-group
+                %label{for: ''} Tags
+                = f.select :tags, options_for_select(Tag.list, @member.tags.collect {|tag| tag.name_id}), { :include_blank => true }, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
