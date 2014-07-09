@@ -13,7 +13,7 @@
           %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
             =image_tag "https://secure.gravatar.com/avatar/#{current_admin.gravatar}?d=mm", :class => 'img-circle img30_30'
             %span.hidden-xs
-              %span #{current_admin.member.first_name} #{current_admin.member.infix} #{current_admin.member.last_name}
+              %span #{current_admin.email }
           %ul.dropdown-menu.with-arrow.pull-right
             %li
               %a{href: '/admins/edit'}

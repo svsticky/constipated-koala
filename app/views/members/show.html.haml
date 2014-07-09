@@ -27,13 +27,6 @@
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
                   #{tag.name(tag)}
-          - if admin_signed_in? && current_admin.member.id == @member.id
-            .panel.panel-default
-              .panel-heading
-                %span.glyphicon.glyphicon-th
-                Admin gegevens 
-              .panel-body
-                %p= current_admin.member
         .col-md-5
           .panel.panel-default
             .panel-heading
