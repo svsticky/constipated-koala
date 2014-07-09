@@ -21,23 +21,6 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(member_post_params)   
     
-#     #door de tags heen loopen
-#     Tag.list.each_with_index do | tag, i |
-#     
-#       #als een van het lijstje is ingevuld, tag aanmaken als die niet bestaat
-#       if member_post_params[:tags_name_ids].include?("#{tag.last}")
-#         db = Tag.new(:member_id => @member.id, :name_id => i)
-#                 
-#         if db.valid?
-#           db.save
-#         else
-#           @member.errors.add(db.errors)
-#           render 'edit'
-#           return
-#         end
-#       end
-#     end
-    
     if @member.save
       redirect_to @member
     else

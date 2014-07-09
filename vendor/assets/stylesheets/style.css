@@ -7605,7 +7605,7 @@ span.block {
     position: absolute;
     top: 7px;
     left: -15px;
-    background: url("img/checkmark.png") no-repeat center center;
+    background: url("checkmark.png") no-repeat center center;
     background-size: 14px 14px;
     display: block;
 }
@@ -7619,7 +7619,7 @@ span.block {
 .ui-checkbox input[type="checkbox"]:disabled:checked + span:after {
     opacity: .65;
     cursor: no-drop;
-    background: url("img/checkmark.png") no-repeat center center;
+    background: url("checkmark.png") no-repeat center center;
 }
 
 .ui-editor .btn-toolbar {

@@ -84,7 +84,7 @@
             .panel-body
               .form-group
                 %label{for: ''} Studentnummer
-                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control', :placeholder => 'test'
+                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
               .form-group
                 %label{for: ''} 
                   Studie
@@ -92,8 +92,6 @@
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
                     .form-group.copyable
-                      - if education.id > 0
-                        = fs.hidden_field :id, :class => 'id' 
                       .row
                         .col-md-4
                           .ui-select

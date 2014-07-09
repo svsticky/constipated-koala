@@ -1,0 +1,139 @@
+!!!
+%html
+  %head
+    %title Constipated koala | Inschrijven
+    %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body#app
+    %section.col-md-6{ :style => 'height: 100%; overflow: hidden; padding-left: 0px; opacity: 0.8;'}
+      .image
+        = image_tag 'donatas.jpg', :style => 'heigth: auto; max-height: 100%;'
+      .image
+        = image_tag 'donatas.jpg', :style => 'heigth: auto; max-height: 100%;'  
+    %section.col-md-6{ :style => 'overflow-y: auto; position: absolute; bottom: 0px; top: 0px; right: 0px;' }
+      .page.page-form
+        .row
+          = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
+            - if flash[:notice]
+              .alert.alert-success
+                %button.click.close{ type: 'button' } ×
+                .notice= flash[:notice]
+            - if @member.errors.any?
+              .alert.alert-danger
+                %button.click.close{ type: 'button' } ×
+                %span Oh snap, niet alles is goed ingevuld;
+                %ul
+                - @member.errors.full_messages.each do |msg|
+                  %li= msg
+            .panel.panel-default
+              .panel-heading
+                %span.glyphicon.glyphicon-th
+                Algemene gegevens
+              .panel-body
+                .form-group
+                  = f.hidden_field :join_date, :value => Time.new
+                  .row
+                    .col-md-5
+                      %label{for: ''} Voornaam
+                      = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
+                    .col-md-2
+                      %label{for: ''} Tussenvoegsel
+                      = f.text_field :infix, :value => @member.infix, :class => 'form-control'
+                    .col-md-5
+                      %label{for: ''} Achternaam
+                      = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
+                .form-group
+                  .row
+                    .col-md-6
+                      %label{for: ''} Geslacht
+                      .ui-select{style: ' width: 200px; '}
+                        = f.select :gender, options_for_select([['MAN', 'm'], ['VROUW', 'f']], @member.gender)
+                    .col-md-6
+                      %label{for: ''} Geboortedatum
+                      = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+                .form-group
+                  .row
+                    .col-md-8
+                      %label{for: ''} Adres
+                      = f.text_field :address, :value => @member.address, :class => 'form-control'
+                    .col-md-4
+                      %label{for: ''} Huisnummer
+                      = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+                .form-group
+                  .row
+                    .col-md-6
+                      %label{for: ''} Postcode
+                      = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
+                    .col-md-6
+                      %label{for: ''} Woonplaats
+                      = f.text_field :city, :value => @member.city, :class => 'form-control'
+                .form-group
+                  %label{for: ''} Telefoonnummer
+                  = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+                .form-group
+                  %label{for: ''} E-mailadres
+                  = f.email_field :email, :value => @member.email, :class => 'form-control'
+            .panel.panel-default
+              .panel-heading
+                %span.glyphicon.glyphicon-th
+                Studie gegevens
+              .panel-body
+                .form-group
+                  %label{for: ''} Studentnummer
+                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
+                .form-group
+                  %label{for: ''} 
+                    Studie
+                    %a.close{ :type => 'button' } +
+                  - @member.educations.each do |education|
+                    = f.fields_for 'educations_attributes[]', education do |fs|
+                      .form-group.copyable 
+                        .row
+                          .col-md-8
+                            .ui-select
+                              = fs.select :name_id, options_for_select(education.list, education.name_id), { }, { :style => 'width: 100%;' }
+                          .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
+                            = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
+                          = fs.hidden_field :_destroy, :class => 'destroy'
+                          %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
+                            %span.fa.fa-trash-o
+            .panel.panel-default
+              .panel-body
+                .form-group
+                  %label{for: ''} 
+                    Activiteiten
+                    .form-group 
+                      .row
+                        .col-md-12
+                          %label.ui-checkbox
+                            %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
+                            %span 
+                              Lidmaatschap
+                              %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
+                          %label.ui-checkbox
+                            %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq'}
+                            %span 
+                              Barbeque
+                              %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
+                          %label.ui-checkbox
+                            %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen'}
+                            %span 
+                              Lasergamen
+                              %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 2,50)
+                .form-group 
+                  .row
+                    .col-md-6
+                      %label{for: ''} Betaalmethode
+                      .ui-select{style: ' width: 200px; '}
+                        = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
+                    .col-md-6.bank
+                      %label{for: ''} Bank
+                      .ui-select{style: ' width: 200px; '}
+                        = select_tag 'bank', options_for_select([['RABOBANK', 'RABONL2U'], ['ING BANK', 'INGBNL2A']])
+            .panel.panel-default
+              .panel-body
+                %button.btn.btn-success{type: 'submit'} Opslaan
+                = link_to 'Annuleren', public_path, { :class => 'button btn btn-default' }

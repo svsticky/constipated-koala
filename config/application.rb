@@ -25,7 +25,9 @@ module ConstipatedKoala
 	    Devise::RegistrationsController.layout false
 	    Devise::ConfirmationsController.layout false
 	    Devise::UnlocksController.layout false            
-	    Devise::PasswordsController.layout false        
+	    Devise::PasswordsController.layout false   
+	    
+	    PublicController.layout false     
 	end
   end
 end

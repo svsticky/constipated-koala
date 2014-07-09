@@ -42,7 +42,7 @@ $(document).ready(function(){
     
       if(destroy.val() == 'true'){
         $( row ).find('input').removeAttr('disabled');
-        $( row ).find('select').removeAttr('disabled').removeAttr('style');
+        $( row ).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
         
         $( destroy ).val("false")
         $( this ).html("<span class='fa fa-trash-o'></span>");

@@ -13,7 +13,7 @@ class CreateMembers < ActiveRecord::Migration
       t.string :gender, limit: 1
       t.integer :student_id
       t.date :birth_date
-      t.date :join_date
+      t.date :join_date, :default => Time.new
       t.text :comments
 
       t.timestamps
