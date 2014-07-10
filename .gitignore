@@ -17,7 +17,7 @@
 /vendor/cache
 
 # Ignore database file for passwords
-/config/database.yml
+database.yml
 
 # Ignore precompiles assets
 /public/assets
