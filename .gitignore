@@ -14,5 +14,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-vendor/cache
-config/database.yml
+/vendor/cache
+
+# Ignore database file for passwords
+/config/database.yml
+
+# Ignore precompiles assets
+/public/assets

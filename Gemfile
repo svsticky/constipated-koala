@@ -18,8 +18,11 @@ gem 'modernizr-rails'
 # Gem voor genereren van nepdata voor in de dev versie
 gem 'faker'
 
-# Use sqlite3 as the database for Active Record
+# Use SQLite for development
 gem 'sqlite3'
+
+# Use mysql as the production database
+gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -53,12 +56,3 @@ gem 'jbuilder'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
