@@ -9,28 +9,31 @@
             %i.fa.fa-user
           .box-info
             %p.size-h2 
-              = Member.count(:all)
+              = @members
             %p.text-muted Leden
       .col-lg-3.col-xsm-6
         %a.panel.mini-box.clickable{href: '/activities'}
           %span.box-icon.bg-info
             %i.fa.fa-ticket
           .box-info
-            %p.size-h2 25
+            %p.size-h2
+              = @activities
             %p.text-muted Activiteiten
       .col-lg-3.col-xsm-6
         %a.panel.mini-box.clickable{href: '/mongoose'}
           %span.box-icon.bg-warning
             %i.fa.fa-shopping-cart
           .box-info
-            %p.size-h2 12
+            %p.size-h2
+              = @sales
             %p.text-muted Mongoose verkopen
       .col-lg-3.col-xsm-6
         %a.panel.mini-box.clickable{href: '#'}
           %span.box-icon.bg-danger
             %i.fa.fa-eur
           .box-info
-            %p.size-h2 262,50
+            %p.size-h2 
+              = @unpayed
             %p.text-muted Openstaande rekeningen
     %section.panel.panel-default
       .panel-heading
