@@ -7,10 +7,10 @@
   .page
     .row
       %div
-        .col-md-7
+        .col-md-6
           .panel.panel-default
             .panel-heading
-              %span.glyphicon.glyphicon-th
+              %i.fa.fa-user
               Algemene gegevens
             .panel-body
               %p #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
@@ -26,21 +26,44 @@
               
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
-                  #{tag.name(tag)}
-        .col-md-5
+                  %i.fa.fa-tag
+                  = tag.name(tag)
           .panel.panel-default
             .panel-heading
-              %span.glyphicon.glyphicon-th
+              %i.fa.fa-ticket
+              Activiteiten
+            .panel-body
+              %table.table.table-striped.table-linked
+                %thead
+                  %tr
+                    %th Activiteit
+                    %th Prijs
+                    %th Datum
+                %tbody
+                  - @member.activities.each do |activity|
+                    %tr{ :class => ('red' unless activity.participants.where(:member => @member).first.paid) }
+                      %td= link_to "#{activity.name}", activity
+                      %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                      - if activity.end_date.nil?
+                        %td= link_to "#{activity.start_date}", activity
+                      -else
+                        %td= link_to "#{activity.start_date} - #{activity.end_date}", activity
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-graduation-cap
               Studie gegevens
             .panel-body
               %dl.dl-horizontal
                 %dt #
                 %dd= @member.student_id
-  
               %dl.dl-horizontal
                 - @member.educations.each do |study|
                   %dt= study.name(study)
-                  %dd #{study.start_date}  -  #{study.end_date}
+                  - if study.end_date.nil?
+                    %dd #{study.start_date}
+                  -else
+                    %dd #{study.start_date}  -  #{study.end_date}
           .panel.panel-default
             .panel-heading
               %span.glyphicon.glyphicon-th

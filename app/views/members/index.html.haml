@@ -7,11 +7,11 @@
   .page.page-table
     %section.panel.panel-default.table-dynamic
       .panel-heading
-        %span.glyphicon.glyphicon-th
+        %i.fa.fa-user
         Leden
         %a.close{ :type => 'button', :href => '/members/new' } +
       .table-responsive
-        %table.table.table-bordered.table-striped
+        %table.table.table-bordered.table-striped.table-linked
           %thead
             %tr
               %th
@@ -41,7 +41,6 @@
                   Studie
                   %span.glyphicon.glyphicon-chevron-up
                   %span.glyphicon.glyphicon-chevron-down
-          %tbody
           - @members.each do |member|
             %tr
               %td= link_to "#{member.first_name}", member

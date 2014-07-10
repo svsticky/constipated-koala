@@ -4,6 +4,10 @@ class MembersController < ApplicationController
   def index
     if params[:search]
       @members = Member.search(params[:search])
+      
+      if @members.size == 1
+        redirect_to @members.first
+      end
     else
       @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
     end

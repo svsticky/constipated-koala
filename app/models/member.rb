@@ -31,11 +31,15 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :tags,
     :reject_if => :all_blank,
     :allow_destroy => true
+    
+  has_many :participants
+  has_many :activities, 
+    :through => :participants
 
   def gravatar
     Digest::MD5.hexdigest(self.email)
   end
-  
+
   def studies
     list = self.educations
   
@@ -57,11 +61,7 @@ class Member < ActiveRecord::Base
   end
 
   def self.search(query)
-    #uber ugly, kijken of het beter kan
-    #find(:all, :conditions => ['first_name || \' \' || last_name || \' \' || student_id || \' \' || last_name || \' \' || first_name LIKE ?', "%#{query}%"])
-    
-    #find(:all, :conditions => [' first_name LIKE ?', "%#{query}%"])
-    where(:all, :conditions => ['first_name LIKE :query OR last_name LIKE :query', {:query => "%#{query}%"}])
+    Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
   end
 
 end

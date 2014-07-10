@@ -16,18 +16,21 @@
 @import "lato.css";
 @import "style.css";
 
-table.table > tbody > tr > td > a {
+table.table.table-linked > tbody > tr > td > a {
   display: block;
-  padding: 0px 10px;
-  height: 35px;
-  line-height: 40px;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
 }
 
-table.table > tbody > tr > td {
+table.table.table-linked > tbody > tr > td {
 	padding: 0px;
 }
 
-table.table > tbody > tr:hover > td > a {
+table.table.table-linked > tbody > tr:hover > td > a {
 	text-decoration: underline;
-	//background-color: white;
+}
+
+table.table > tbody > tr.red, table.table > tbody > tr.red a {
+  color: #e94b3b;
 }

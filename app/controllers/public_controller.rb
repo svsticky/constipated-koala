@@ -18,6 +18,8 @@ class PublicController < ApplicationController
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
       end
+      
+      
     
       render 'index'
     end
