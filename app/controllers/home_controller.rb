@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @members = Education.group('member_id').where('end_date IS NULL').length
     
     #TODO count activites table
-    @activities = Activity.count(:All)
+    @activities = Activity.count(:all)
     
     #TODO mongoose implementatie
     @sales = 0
