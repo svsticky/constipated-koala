@@ -10,7 +10,7 @@
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-user
+              %i.fa.fa-fw.fa-user
               Algemene gegevens
             .panel-body
               %p #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
@@ -26,11 +26,11 @@
               
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
-                  %i.fa.fa-tag
+                  %i.fa.fa-fw.fa-tag
                   = tag.name(tag)
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-ticket
+              %i.fa.fa-fw.fa-ticket
               Activiteiten
             .panel-body
               %table.table.table-striped.table-linked
@@ -38,20 +38,38 @@
                   %tr
                     %th Activiteit
                     %th Prijs
-                    %th Datum
+                    %th.hidden-xs Datum
+                    %th{ :style => 'text-align: center;' } Betaald
                 %tbody
                   - @member.activities.each do |activity|
-                    %tr{ :class => ('red' unless activity.participants.where(:member => @member).first.paid) }
+                    %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid) }
                       %td= link_to "#{activity.name}", activity
-                      %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                      
+                      - if !activity.currency(@member).nil?
+                        %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                      - else
+                        %td= link_to '-', activity, :style => 'text-decoration: none;'
+                        
                       - if activity.end_date.nil?
-                        %td= link_to "#{activity.start_date}", activity
-                      -else
-                        %td= link_to "#{activity.start_date} - #{activity.end_date}", activity
+                        %td.hidden-xs= link_to "#{activity.start_date}", activity
+                      - else
+                        %td.hidden-xs= link_to "#{activity.start_date} - #{activity.end_date}", activity
+                        
+                      %td
+                        .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
+                          - if !activity.participants.where(:member => @member).first.currency.nil?
+                            - if activity.participants.where(:member => @member).first.paid
+                              %button.btn.btn-primary
+                                %i.fa.fa-fw.fa-check
+                            - else
+                              %button.btn.btn-warning
+                                %i.fa.fa-fw.fa-times
+                          %button.btn.btn-default 
+                            %i.fa.fa-fw.fa-trash-o
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-graduation-cap
+              %i.fa.fa-fw.fa-graduation-cap
               Studie gegevens
             .panel-body
               %dl.dl-horizontal

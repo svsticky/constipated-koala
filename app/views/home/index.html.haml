@@ -28,12 +28,12 @@
               = @sales
             %p.text-muted Mongoose verkopen
       .col-lg-3.col-xsm-6
-        %a.panel.mini-box.clickable{href: '#'}
+        %a.panel.mini-box.clickable{href: '/activities'}
           %span.box-icon.bg-danger
             %i.fa.fa-eur
           .box-info
             %p.size-h2 
-              = @unpayed
+              = number_to_currency(@unpayed, :unit => '')
             %p.text-muted Openstaande betalingen
     %section.panel.panel-default
       .panel-heading
