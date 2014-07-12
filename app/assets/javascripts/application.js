@@ -15,3 +15,23 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+
+$(document).ready(function(){
+
+  $('#activities .paid').bind('click', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    alert('paid ' + id);
+  });
+  
+  $('#activities').find('button.unpaid').bind('click', function( e ){
+    var id = $(this).closest('tr').attr('data-id');
+    alert('unpaid ' + id);
+  });
+
+  $('#activities').find('button.destroy').bind('click', function( e ){
+    var id = $(this).closest('tr').attr('data-id');
+    alert('destroy ' + id);
+  });
+  
+});

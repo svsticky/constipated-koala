@@ -13,7 +13,9 @@
               %i.fa.fa-fw.fa-user
               Algemene gegevens
             .panel-body
-              %p #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
+              %p
+                %strong #{@member.first_name} #{@member.infix} #{@member.last_name} 
+                (#{@member.gender})
               %p 
                 #{@member.address} #{@member.house_number} 
                 %br
@@ -33,7 +35,7 @@
               %i.fa.fa-fw.fa-ticket
               Activiteiten
             .panel-body
-              %table.table.table-striped.table-linked
+              %table.table.table-striped.table-linked#activities
                 %thead
                   %tr
                     %th Activiteit
@@ -42,7 +44,7 @@
                     %th{ :style => 'text-align: center;' } Betaald
                 %tbody
                   - @member.activities.each do |activity|
-                    %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid) }
+                    %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
                       %td= link_to "#{activity.name}", activity
                       
                       - if !activity.currency(@member).nil?
@@ -59,12 +61,12 @@
                         .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
                           - if !activity.participants.where(:member => @member).first.currency.nil?
                             - if activity.participants.where(:member => @member).first.paid
-                              %button.btn.btn-primary
+                              %button.btn.btn-primary.unpaid
                                 %i.fa.fa-fw.fa-check
                             - else
-                              %button.btn.btn-warning
+                              %button.btn.btn-warning.paid
                                 %i.fa.fa-fw.fa-times
-                          %button.btn.btn-default 
+                          %button.btn.btn-default.destroy
                             %i.fa.fa-fw.fa-trash-o
         .col-md-6
           .panel.panel-default

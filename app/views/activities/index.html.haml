@@ -13,14 +13,14 @@
             Activiteiten
           .panel-body
             - @activities.each do |activity|
-              %table.table.table-striped.table-linked
+              %table.table.table-striped.table-linked#activities
                 %thead
                   %tr
                     %td= link_to "#{activity.name}", activity
                 %tbody
                   - activity.participants.where(:paid => false).each do |participant|
                     - if !participant.currency.nil?
-                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid) }
+                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
                         %td.col-md-8= link_to "#{participant.member.first_name} #{participant.member.infix} #{participant.member.last_name}", participant.member
                         
                         - if !participant.currency.nil?
@@ -33,7 +33,7 @@
                                 %button.btn.btn-primary
                                   %i.fa.fa-fw.fa-check
                               - else
-                                %button.btn.btn-warning
+                                %button.btn.btn-warning.paid
                                   %i.fa.fa-fw.fa-times
-                            %button.btn.btn-default 
+                            %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o

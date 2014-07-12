@@ -3,8 +3,6 @@
 
 $(document).ready(function(){
 
-  //$('.chosen').chosen();
-  
   $('label a.close').bind( "click", function() {
     var row = $('.copyable:last').clone().insertAfter($('.copyable:last'));
     
