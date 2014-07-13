@@ -1,5 +1,4 @@
 class MembersController < ApplicationController
-  #skip_before_action :authenticate_admin!, only: [:public_new, :create]
   
   def index
     if params[:search]

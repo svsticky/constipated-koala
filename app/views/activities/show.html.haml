@@ -1,9 +1,12 @@
-- content_for(:page, 'unknown')
+- content_for(:page, 'activities')
+- content_for(:title, "Constipated koala | leden | #{@activity.name}")
 
-%section#content{'data-ng-view' => ''}
+%section#content
+  = render 'layouts/search' 
+
   .page
     %section.panel.panel-default
       .panel-heading
         %strong Blank Page
       .panel-body
-        %p Content goes here
+        %p Content goes here 

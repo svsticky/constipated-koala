@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   end
   
   def show
-  
+    @activity = Activity.find(params[:id])
   end
   
   def new
@@ -17,6 +17,6 @@ class ActivitiesController < ApplicationController
   end
   
   def update
-  
+    @activity = Activity.find(params[:id])
   end
 end

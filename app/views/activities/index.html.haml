@@ -4,16 +4,16 @@
 %section#content
   = render 'layouts/search'
 
-  .page
+  .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-ticket
             Activiteiten
-          .panel-body
+          .panel-body#activities
             - @activities.each do |activity|
-              %table.table.table-striped.table-linked#activities
+              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }}
                 %thead
                   %tr
                     %td= link_to "#{activity.name}", activity
@@ -37,3 +37,13 @@
                                   %i.fa.fa-fw.fa-times
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
+                  %tr
+                    %td.col-md-8{ :style => 'position: relative;'}
+                      %input.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
+                      %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
+                    %td.col-md-2
+                      - if !activity.price.nil?
+                        %span{ :style => 'line-height: 39px;' }= number_to_currency(activity.price, :unit => '€')
+                      - else
+                        %span{ :style => 'line-height: 39px;' } -
+                    %td.col-md-2

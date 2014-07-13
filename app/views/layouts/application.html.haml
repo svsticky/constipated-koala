@@ -6,6 +6,8 @@
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = render 'layouts/alert.html.js'
+    = render 'activities/activity.html.js'
     = csrf_meta_tags
   %body#app
     %div
@@ -14,3 +16,5 @@
         = render 'layouts/nav'  
       .view-container
         = yield
+    #toast-container.toast-bottom-right  
+      

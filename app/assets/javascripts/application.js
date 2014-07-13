@@ -17,21 +17,127 @@
 //= require_tree .
 
 
+function activities(){
+  //reset all binds
+  $('#activities button').off('click');
+
+  // Activiteiten betalen met een async call
+  // [PATCH] participants
+  $('#activities').find('button.paid').on('click', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
+    
+    $.ajax({
+      url: '/participants',
+      type: 'PATCH',
+      data: {
+        id: id,
+        authenticity_token: token,
+        paid: true
+      }
+    }).done(function(){
+      alert('activiteit is betaald', 'success');
+    }).fail(function(){
+      alert('', 'error');
+    });
+  });
+  
+  // Activiteiten op niet betaald zetten
+  // [PATCH] participants  
+  $('#activities').find('button.unpaid').on('click', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    
+    $.ajax({
+      url: '/participants',
+      type: 'PATCH',
+      data: {
+        id: id,
+        authenticity_token: token,
+        paid: false
+      }
+    }).done(function(){
+      alert('activiteit moet nog betaald worden', 'warning');
+    }).fail(function(){
+      alert('', 'error');
+    });
+  });
+  
+  // Participant bedrag aanpassen
+  // [PATCH] participants
+  $('#activities').find('.price').on('click', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var price = 12;
+    
+    $.ajax({
+      url: '/participants',
+      type: 'PATCH',
+      data: {
+        id: id,
+        authenticity_token: token,
+        price: price,
+        paid: false
+      }
+    }).done(function(){
+      alert('het deelname bedrag is veranderd');
+    }).fail(function(){
+      alert('', 'error');
+    });
+  });
+
+  // Deelname aan activiteiten verwijderen
+  // [DELETE] participants
+  $('#activities button.destroy').on('click', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
+    
+    $.ajax({
+      url: '/participants',
+      type: 'DELETE',
+      data: {
+        id: id,
+        authenticity_token: token
+      }
+    }).done(function(){
+      alert('deelname verwijderd', 'success');
+      $(row).remove();
+    }).fail(function(){
+      alert('', 'error');
+    });
+  });
+
+}
+  
 $(document).ready(function(){
 
-  $('#activities .paid').bind('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    alert('paid ' + id);
-  });
+  activities();
   
-  $('#activities').find('button.unpaid').bind('click', function( e ){
-    var id = $(this).closest('tr').attr('data-id');
-    alert('unpaid ' + id);
-  });
-
-  $('#activities').find('button.destroy').bind('click', function( e ){
-    var id = $(this).closest('tr').attr('data-id');
-    alert('destroy ' + id);
-  });
+  // Alerts for on the frontend, default type is info
+  // script#alert is a template in de header file.
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
   
+  window.alert = function(message, type){
+    type = type || 'info';
+    
+    var template = $('script#alert').html();
+    var alert = template.format(message, type);
+    $('#toast-container').append(alert).find('.toast:not(.toast-error)').delay(3000).queue(function() {
+      $(this).remove();
+    });
+    
+    $('.toast-close-button').one('click', function(){
+      $(this).closest('.toast').remove();
+    })
+  }
 });
