@@ -151,4 +151,8 @@ $(document).on('ready page:load', function(){
       $(this).closest('.toast').remove();
     })
   }
+  
+  $('#app .alert .close').on('click', function(){
+    $(this).closest('.alert').remove();
+  })
 });

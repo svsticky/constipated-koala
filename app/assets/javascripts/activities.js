@@ -30,8 +30,8 @@ $(document).on('ready page:load', function(){
         }
       }).done(function( data ){          
         var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text(), 'red');
-        $(activity).insertBefore(row);
+        var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text());
+        $(activity).insertBefore(row).addClass('red');
         
         $('#activities input').val('');
         $('#activities ul.dropdown-menu').empty().css('display', 'none');
