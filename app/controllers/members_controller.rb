@@ -8,12 +8,12 @@ class MembersController < ApplicationController
         redirect_to @members.first
       end
     else
-      @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
+      @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name)
     end
   end
 
   def show
-    @member = Member.includes(:participants).find(params[:id])
+    @member = Member.find(params[:id])
     @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
   end
   
