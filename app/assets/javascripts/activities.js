@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).ready(function(){
+$(document).on('ready page:load', function(){
   
   // Add new participant using autocomplete on members
   // uses [GET] for autocomplete and [POST] for storing the record
@@ -29,8 +29,6 @@ $(document).ready(function(){
           activity: activity
         }
       }).done(function( data ){          
-        console.log(data);
-      
         var template = $('script#activity').html();
         var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text(), 'red');
         $(activity).insertBefore(row);
@@ -98,8 +96,8 @@ $(document).ready(function(){
             console.log(data);
           
             var template = $('script#activity').html();
-            var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text(), 'red');
-            $(activity).insertBefore(row);
+            var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text());
+            $(activity).insertBefore(row).addClass('red');
             
             $('#activities input').val('');
             $('#activities ul.dropdown-menu').empty().css('display', 'none');

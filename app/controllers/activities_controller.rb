@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
 
   def index
-    @activities = Activity.all    
+    @activities = Activity.all.order(start_date: :desc)
   end
   
   def show
@@ -13,6 +13,10 @@ class ActivitiesController < ApplicationController
   end
   
   def create
+  
+  end
+  
+  def edit
   
   end
   

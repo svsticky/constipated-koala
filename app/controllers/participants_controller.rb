@@ -20,7 +20,9 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
           
     if !params[:paid].nil?
-      @participant.update_attribute(:paid, params[:paid])
+      if !@participant.currency.nil?
+        @participant.update_attribute(:paid, params[:paid])
+      end
     elsif !params[:price].nil?
       @participant.update_attribute(:price, params[:price])
     end

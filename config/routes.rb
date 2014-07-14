@@ -1,8 +1,10 @@
 ConstipatedKoala::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
-  get "home/index"
-
+   
+  # Home controller
+  get 'home' => 'home#index'
+  
   # Devise routes
   devise_for :admins, controllers: {registrations: "admin_devise/registrations",
                                     unlocks: "admin_devise/unlocks",

@@ -38,6 +38,11 @@ function activities(){
       }
     }).done(function(){
       alert('activiteit is betaald', 'success');
+      
+      $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
+      $(row).removeClass('red');
+      
+      activities();
     }).fail(function(){
       alert('', 'error');
     });
@@ -48,6 +53,7 @@ function activities(){
   $('#activities').find('button.unpaid').on('click', function(){
     var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
     
     $.ajax({
       url: '/participants',
@@ -59,6 +65,11 @@ function activities(){
       }
     }).done(function(){
       alert('activiteit moet nog betaald worden', 'warning');
+      
+      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
+      $(row).addClass('red');
+      
+      activities();
     }).fail(function(){
       alert('', 'error');
     });
@@ -111,7 +122,7 @@ function activities(){
 
 }
   
-$(document).ready(function(){
+$(document).on('ready page:load', function(){
 
   activities();
   

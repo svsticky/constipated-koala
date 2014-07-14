@@ -30,6 +30,7 @@
                 .btn.btn-xs.btn-primary.disabled
                   %i.fa.fa-fw.fa-tag
                   = tag.name(tag)
+         
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-ticket
@@ -43,7 +44,7 @@
                     %th.hidden-xs Datum
                     %th{ :style => 'text-align: center;' } Betaald
                 %tbody
-                  - @member.activities.each do |activity|
+                  - @activities.each do |activity|
                     %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
                       %td= link_to "#{activity.name}", activity
                       
@@ -68,6 +69,7 @@
                                 %i.fa.fa-fw.fa-times
                           %button.btn.btn-default.destroy
                             %i.fa.fa-fw.fa-trash-o
+     
         .col-md-6
           .panel.panel-default
             .panel-heading
@@ -84,14 +86,25 @@
                     %dd #{study.start_date}
                   -else
                     %dd #{study.start_date}  -  #{study.end_date}
+          
           .panel.panel-default
             .panel-heading
-              %span.glyphicon.glyphicon-th
-              Sticky
+              %i.fa.fa-fw.fa-users
+              Commissies
             .panel-body
-              %p= @member.join_date
               commissies 
-              = @member.gravatar
+
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-dashboard
+              Stats
+            .panel-body
+              %dl.dl-horizontal
+                %dt Lid sinds
+                %dd= @member.join_date
+                %dt Activiteiten
+                %dd= @member.activities.length
+
           .panel.panel-default
             .panel-body
               = link_to 'Back', members_path, { :class => 'button btn btn-default' }

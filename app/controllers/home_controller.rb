@@ -9,6 +9,6 @@ class HomeController < ApplicationController
     @sales = 0
     
     #TODO unpayed activities (+ mongoose?)
-    @unpayed = Participant.where(:paid => false).sum(:price)# + Participant.where(:paid => false, :price => nil).select(:activity).sum(price)
+    @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
   end
 end

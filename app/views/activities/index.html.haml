@@ -13,10 +13,10 @@
             Activiteiten
           .panel-body#activities
             - @activities.each do |activity|
-              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }}
+              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
                 %thead
-                  %tr
-                    %td= link_to "#{activity.name}", activity
+                  %tr{ :style => 'font-size: 1.1em;' } 
+                    %td= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
                 %tbody
                   - activity.participants.where(:paid => false).each do |participant|
                     - if !participant.currency.nil?
@@ -30,20 +30,21 @@
                           .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
                             - if !participant.currency.nil?
                               - if participant.paid
-                                %button.btn.btn-primary
+                                %button.btn.btn-primary.unpaid
                                   %i.fa.fa-fw.fa-check
                               - else
                                 %button.btn.btn-warning.paid
                                   %i.fa.fa-fw.fa-times
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
-                  %tr
-                    %td.col-md-8{ :style => 'position: relative;'}
-                      %input.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
-                      %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
-                    %td.col-md-2
-                      - if !activity.price.nil?
-                        %span{ :style => 'line-height: 39px;' }= number_to_currency(activity.price, :unit => '€')
-                      - else
-                        %span{ :style => 'line-height: 39px;' } -
-                    %td.col-md-2
+                  - if !activity.start_date.past?
+                    %tr
+                      %td.col-md-8{ :style => 'position: relative;'}
+                        %input.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
+                        %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
+                      %td.col-md-2
+                        - if !activity.price.nil?
+                          %span{ :style => 'line-height: 39px;' }= number_to_currency(activity.price, :unit => '€')
+                        - else
+                          %span{ :style => 'line-height: 39px;' } -
+                      %td.col-md-2

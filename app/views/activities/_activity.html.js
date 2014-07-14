@@ -1,5 +1,5 @@
 <script type="text/template" id="activity">
-  <tr class="{4}" data-id="{0}">
+  <tr data-id="{0}">
     <td class="col-md-8"><a href="/members/{1}">{2}</a></td>
     <td class="col-md-2">
       <span style="line-height: 39px;">{3}</span>
