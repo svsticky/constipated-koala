@@ -6,9 +6,14 @@ ConstipatedKoala::Application.routes.draw do
   get 'home' => 'home#index'
   
   # Devise routes
-  devise_for :admins, controllers: {registrations: "admin_devise/registrations",
-                                    unlocks: "admin_devise/unlocks",
-                                    passwords: "admin_devise/passwords"}
+  devise_for :admins, controllers: 
+    {
+      registrations: "admin_devise/registrations",
+      unlocks: "admin_devise/unlocks",
+      passwords: "admin_devise/passwords"
+    }
+    
+    
   # Resource pages
   resources :members, :activities
    

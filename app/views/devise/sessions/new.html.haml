@@ -18,6 +18,13 @@
           .container{style: 'margin-top: 100px;'}
             .form-container
               = form_for(resource, as: resource_name, url: session_path(resource_name), :class => 'form-horizontal' ) do |f|
+              
+                - if flash[:alert]
+                  .alert.alert-danger
+                    %button.close{ type: "button" } ×
+                    %span
+                      = flash[:alert]
+                            
                 %fieldset
                   .form-group
                     .input-group.input-group-lg
