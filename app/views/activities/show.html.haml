@@ -1,5 +1,8 @@
 - content_for(:page, 'activities')
 - content_for(:title, "Constipated koala | leden | #{@activity.name}")
+- content_for(:template, 'activities/activity.show.html.js')
+
+= render 'activities/activity.show.html.js'
 
 %section#content
   = render 'layouts/search'
@@ -7,42 +10,81 @@
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-      
+        = form_for :activity, url: activity_path(@activity), method: :patch, :class => 'form-validation' do |f|
+          - if @activity.errors.any?
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span Oeps, niet alles is goed ingevuld;
+              %ul
+              - @activity.errors.full_messages.each do |msg|
+                %li= msg
+        
+        
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-ticket
+              Activiteit
+            .panel-body
+              .form-group
+                .row
+                  .col-md-9                
+                    %label{for: ''} Naam
+                    = f.text_field :name, :value => @activity.name, :class => 'form-control'
+                  .col-md-3
+                    %label{for: ''} Prijs
+                    = f.text_field :price, :value => number_to_currency(@activity.price, :unit => ''), :class => 'form-control'
+                
+              .form-group
+                .row
+                  .col-md-6
+                    %label{for: ''} Begin datum
+                    = f.date_field :start_date, :value => @activity.start_date, :class => 'form-control'
+                  .col-md-6
+                    %label{for: ''} Eind datum
+                    = f.date_field :end_date, :value => @activity.end_date, :class => 'form-control'
+
+              .callout.callout-info
+                %p Om wijzigingen door te voeren moet je op de opslaan knop drukken.
+                
+              %button.btn.btn-success{type: 'submit'} Opslaan
+              = link_to 'Back', :back, { :class => 'button btn btn-default' }
+              = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+          
+        = render 'layouts/mail', onderwerp: @activity.name, geadresseerden: 'test@test.com, test@testing.nl'
+    
       .col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-ticket
+            %i.fa.fa-fw.fa-user
             Deelnemers
           .panel-body#activities
-            %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
-              %tbody
-                - @activity.participants.each do |participant|
-                  %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
-                    %td.col-md-8= link_to "#{participant.member.first_name} #{participant.member.infix} #{participant.member.last_name}", participant.member                    
-
+            .table-responsive
+              %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+                %tbody
+                  - @activity.participants.each do |participant|
+                    %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
+                      %td.col-md-8= link_to "#{participant.member.first_name} #{participant.member.infix} #{participant.member.last_name}", participant.member                    
+  
+                      %td.col-md-2
+                        %input.price{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;', :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
+                      %td.col-md-2
+                        .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
+                          - if !participant.currency.nil?
+                            - if participant.paid
+                              %button.btn.btn-primary.unpaid
+                                %i.fa.fa-fw.fa-check
+                            - else
+                              %button.btn.btn-warning.paid
+                                %i.fa.fa-fw.fa-times
+                          %button.btn.btn-default.destroy
+                            %i.fa.fa-fw.fa-trash-o
+                  %tr
+                    %td.col-md-8{ :style => 'position: relative;'}
+                      %input.participant.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
+                      %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
                     %td.col-md-2
-                      - if !participant.currency.nil?
-                        %span{ :style => 'line-height: 39px;' }= number_to_currency(participant.currency, :unit => '€')
+                      - if !@activity.price.nil?
+                        %span{ :style => 'line-height: 39px; margin-left: 8px;' }= number_to_currency(@activity.price, :unit => '€')
                       - else
-                        %span{ :style => 'line-height: 39px;' } -
-                    %td.col-md-2
-                      .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
-                        - if !participant.currency.nil?
-                          - if participant.paid
-                            %button.btn.btn-primary.unpaid
-                              %i.fa.fa-fw.fa-check
-                          - else
-                            %button.btn.btn-warning.paid
-                              %i.fa.fa-fw.fa-times
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
-                %tr
-                  %td.col-md-8{ :style => 'position: relative;'}
-                    %input.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
-                    %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
-                  %td.col-md-2
-                    - if !@activity.price.nil?
-                      %span{ :style => 'line-height: 39px;' }= number_to_currency(@activity.price, :unit => '€')
-                    - else
-                      %span{ :style => 'line-height: 39px;' } -
-                  %td.col-md-2
+                        %span{ :style => 'line-height: 39px; margin-left: 8px;' } -
+                    %td.col-md-2      

@@ -1,0 +1,57 @@
+.panel.panel-default
+  .panel-body
+    %form.form-horizontal
+      .form-group
+        %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
+        .col-md-10.col-xs-12
+          %input#bbc.form-control{:type => 'text', :value => geadresseerden }
+      .form-group
+        %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Onderwerp
+        .col-md-10.col-xs-12
+          %input#onderwerp.form-control{:type => 'text', :value => onderwerp }
+          
+      .ui-editor.ta-root.focussed
+        .ta-toolbar.btn-toolbar.focussed
+        
+          .btn-group
+            %button.btn.btn-default{name: 'h1', tabindex: '-1', type: 'button', unselectable: 'on'} H1
+            %button.btn.btn-default{name: 'h2', tabindex: '-1', type: 'button', unselectable: 'on'} H2
+            %button.btn.btn-default{name: 'h3', tabindex: '-1', type: 'button', unselectable: 'on'} H3
+          
+          .btn-group
+            %button.btn.btn-default{name: 'p', tabindex: '-1', type: 'button', unselectable: 'on'} P
+              
+          .btn-group
+            %button.btn.btn-default{name: 'bold', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-bold
+            %button.btn.btn-default{name: 'italics', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-italic
+            %button.btn.btn-default{name: 'underline', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-underline
+          .btn-group
+            %button.btn.btn-default{name: 'ul', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-list-ul
+            %button.btn.btn-default{name: 'ol', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-list-ol
+              
+          .btn-group
+            %button.btn.btn-default.active{name: 'justifyLeft', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-align-left
+            %button.btn.btn-default{name: 'justifyCenter', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-align-center
+            %button.btn.btn-default{name: 'justifyRight', tabindex: '-1', type: 'button', unselectable: 'on'}
+              %i.fa.fa-align-right
+              
+          .btn-group
+            %button.btn.btn-default{name: 'toggleHtml', tabindex: '-1', type: 'button', unselectable: 'on'} HTML
+              
+    #taTextElement.form-control{ :contenteditable => 'true' }
+    %textarea#taHtmlElement.ta-html.ta-editor.form-control
+
+    .callout.callout-info
+      Je kunt het [mail] adres, [first_name], [infix], [last_name] gebruiken voor de geadresseerde.     
+    
+    .mail-actions
+      .btn.btn-primary Send
+      /.btn.btn-default Draft
+      .btn.btn-default Discard

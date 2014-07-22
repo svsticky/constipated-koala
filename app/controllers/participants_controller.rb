@@ -19,12 +19,22 @@ class ParticipantsController < ApplicationController
   def update
     @participant = Participant.find(params[:id])
           
+    logger.debug @participant.inspect
+          
     if !params[:paid].nil?
       if !@participant.currency.nil?
         @participant.update_attribute(:paid, params[:paid])
       end
     elsif !params[:price].nil?
-      @participant.update_attribute(:price, params[:price])
+      if !params[:price].numeric?
+        raise 'not a number'
+      end
+    
+      if BigDecimal.new(params[:price]) == @participant.activity.price
+        @participant.update_attribute(:price, NIL)
+      else
+        @participant.update_attribute(:price, params[:price])
+      end
     end
     
     if @participant.save
@@ -38,3 +48,10 @@ class ParticipantsController < ApplicationController
     respond_with Participant.destroy(params[:id])
   end
 end
+
+class String
+  def numeric?
+    return true if self =~ /^\d+$/
+    true if Float(self) rescue false
+  end
+end  

@@ -17,7 +17,7 @@
 //= require_tree .
 
 
-function activities(){
+function bind_activities(){
   //reset all binds
   $('#activities button').off('click');
 
@@ -42,7 +42,7 @@ function activities(){
       $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
       $(row).removeClass('red');
       
-      activities();
+      bind_activities();
     }).fail(function(){
       alert('', 'error');
     });
@@ -69,30 +69,7 @@ function activities(){
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
       $(row).addClass('red');
       
-      activities();
-    }).fail(function(){
-      alert('', 'error');
-    });
-  });
-  
-  // Participant bedrag aanpassen
-  // [PATCH] participants
-  $('#activities').find('.price').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var price = 12;
-    
-    $.ajax({
-      url: '/participants',
-      type: 'PATCH',
-      data: {
-        id: id,
-        authenticity_token: token,
-        price: price,
-        paid: false
-      }
-    }).done(function(){
-      alert('het deelname bedrag is veranderd');
+      bind_activities();
     }).fail(function(){
       alert('', 'error');
     });
@@ -124,7 +101,7 @@ function activities(){
   
 $(document).on('ready page:load', function(){
 
-  activities();
+  bind_activities();
   
   // Alerts for on the frontend, default type is info
   // script#alert is a template in de header file.
@@ -137,6 +114,15 @@ $(document).on('ready page:load', function(){
       ;
     });
   };
+  
+/*
+  window.confirm = function(){
+    alert(arguments[0]);
+    
+    event.preventDefault();
+    return false;
+  }
+*/
   
   window.alert = function(message, type){
     type = type || 'info';

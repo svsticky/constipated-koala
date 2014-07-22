@@ -127,3 +127,4 @@
             .panel-body
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
+              = link_to 'Verwijderen', member_path(@member.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete, :onclick => 'return confirm("test");' }

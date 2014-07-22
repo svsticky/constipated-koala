@@ -1,11 +1,35 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).on('ready page:load', function(){
+function bind_activity(){
+  $('#activities input.price').off('focusout');
+  $('#activities input.participant').off('focusin keyup');
+  
+  // Participant bedrag aanpassen
+  // [PATCH] participants
+  $('#activities').find('input.price').on('focusout', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var price = $(this).val();
+    
+    $.ajax({
+      url: '/participants',
+      type: 'PATCH',
+      data: {
+        id: id,
+        authenticity_token: token,
+        price: price
+      }
+    }).done(function(){
+      alert('het deelname bedrag is veranderd');
+    }).fail(function( data ){
+      alert('geen verbinding of geen nummer', 'error');
+    });
+  });
   
   // Add new participant using autocomplete on members
   // uses [GET] for autocomplete and [POST] for storing the record
-  $('#activities').find('input').on('focusin keyup', function( e ){
+  $('#activities').find('input.participant').on('focusin keyup', function( e ){
     var search = $(this).val();
     var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
     var selected = $(dropdown).find('li.active');
@@ -33,12 +57,15 @@ $(document).on('ready page:load', function(){
         var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text());
         $(activity).insertBefore(row).addClass('red');
         
-        $('#activities input').val('');
+        //TODO niet rood als het niks kost en ook de paid knop niet tonen
+        
+        $('#activities input.participant').val('');
         $('#activities ul.dropdown-menu').empty().css('display', 'none');
         
         $(row).find('input').focus();
         
-        activities();
+        bind_activities();
+        bind_activity();
       });
 
       
@@ -93,18 +120,19 @@ $(document).on('ready page:load', function(){
               activity: activity
             }
           }).done(function( data ){          
-            console.log(data);
-          
             var template = $('script#activity').html();
             var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text());
             $(activity).insertBefore(row).addClass('red');
             
-            $('#activities input').val('');
+            //TODO niet rood als het niks kost en ook de paid knop niet tonen
+            
+            $('#activities input.participant').val('');
             $('#activities ul.dropdown-menu').empty().css('display', 'none');
             
             $(row).find('input').focus();
             
-            activities();
+            bind_activities();
+            bind_activity();
           });
         })
       }).fail(function(){
@@ -112,5 +140,8 @@ $(document).on('ready page:load', function(){
       });
     }
   });
+}
 
+$(document).on('ready page:load', function(){
+  bind_activity();
 });
