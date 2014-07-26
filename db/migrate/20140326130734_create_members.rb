@@ -11,7 +11,7 @@ class CreateMembers < ActiveRecord::Migration
       t.string :phone_number
       t.string :email
       t.string :gender, limit: 1
-      t.integer :student_id
+      t.string :student_id
       t.date :birth_date
       t.date :join_date, :default => Time.new
       t.text :comments

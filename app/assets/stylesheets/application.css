@@ -34,3 +34,8 @@ table.table.table-linked > tbody > tr:hover > td > a {
 table.table > tbody > tr.red, table.table > tbody > tr.red a {
   color: #e94b3b;
 }
+
+.ui-select > select {
+ text-transform: capitalize;
+ width: 100%;
+}

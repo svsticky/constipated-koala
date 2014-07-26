@@ -20,7 +20,7 @@ function bind_activity(){
         authenticity_token: token,
         price: price
       }
-    }).done(function(){
+    }).done(function( data ){
       alert('het deelname bedrag is veranderd');
     }).fail(function( data ){
       alert('geen verbinding of geen nummer', 'error');

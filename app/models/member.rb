@@ -9,7 +9,7 @@ class Member < ActiveRecord::Base
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, format: { with: /\A[^@]+@[^@]+\.[^@]+\z/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
-  validates :student_id, presence: true, format: { with: /\A\d{6,7}\z/ }
+  validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ }
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
@@ -35,6 +35,15 @@ class Member < ActiveRecord::Base
   has_many :participants
   has_many :activities, 
     :through => :participants
+    
+  def phone_number=(phone_number)
+    #change landcode to 00 and remove al not numbers
+    write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
+  end
+  
+  def postal_code=(postal_code)
+    write_attribute(:postal_code, postal_code.sub(' ', ''))
+  end
 
   def gravatar
     Digest::MD5.hexdigest(self.email)

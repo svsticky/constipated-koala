@@ -35,11 +35,9 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "member_id"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
-  add_index "admins", ["member_id"], name: "index_admins_on_member_id"
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "educations", force: true do |t|
@@ -87,9 +85,9 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.string   "phone_number"
     t.string   "email"
     t.string   "gender",       limit: 1
-    t.integer  "student_id"
+    t.string   "student_id"
     t.date     "birth_date"
-    t.date     "join_date"
+    t.date     "join_date",              default: Time.new
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"

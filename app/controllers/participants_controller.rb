@@ -38,7 +38,7 @@ class ParticipantsController < ApplicationController
     end
     
     if @participant.save
-      respond_with @participant
+      render :status => :ok, :json => @participant
     else
       respond_with @participant.errors.full_messages
     end

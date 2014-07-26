@@ -28,6 +28,9 @@ class MembersController < ApplicationController
     if @member.save
       redirect_to @member
     else
+      if @member.educations.length < 1
+        @member.educations.build( :id => '-1' )
+      end
       render 'new'
     end
   end
