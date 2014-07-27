@@ -34,13 +34,12 @@
                             %span{ :style => 'line-height: 39px;' }= number_to_currency(participant.currency, :unit => '€')
                         %td.col-md-2
                           .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
-                            - if !participant.currency.nil?
-                              - if participant.paid
-                                %button.btn.btn-primary.unpaid{ :class => ('hidden' unless participant.currency > 0 )}
-                                  %i.fa.fa-fw.fa-check
-                              - else
-                                %button.btn.btn-warning.paid{ :class => ('hidden' unless participant.currency > 0 )}
-                                  %i.fa.fa-fw.fa-times
+                            - if participant.paid
+                              %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
+                                %i.fa.fa-fw.fa-check
+                            - else
+                              %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
+                                %i.fa.fa-fw.fa-times
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
                               

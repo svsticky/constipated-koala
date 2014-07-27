@@ -20,5 +20,7 @@ class CreateActivities < ActiveRecord::Migration
       
       t.timestamps
     end
+    
+    add_index :participants, [:member_id, :activity_id], :unique => true
   end
 end

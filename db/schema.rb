@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.string   "gender",       limit: 1
     t.string   "student_id"
     t.date     "birth_date"
-    t.date     "join_date",              default: Time.new
+    t.date     "join_date",              default: '2014-07-27'
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -102,11 +102,15 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.datetime "updated_at"
   end
 
+  add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
+
   create_table "tags", force: true do |t|
     t.integer  "member_id"
     t.integer  "name_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["member_id", "name_id"], name: "index_tags_on_member_id_and_name_id", unique: true
 
 end

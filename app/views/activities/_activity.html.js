@@ -2,7 +2,7 @@
   <tr data-id="{0}">
     <td class="col-md-8"><a href="/members/{1}">{2}</a></td>
     <td class="col-md-2">
-      <span style="line-height: 39px;">{3}</span>
+      <span style="line-height: 39px;">€{3}</span>
     </td>
     <td class="col-md-2">
       <div class="btn-group" style="margin-top: 3px; margin-right:3px; float: right;">

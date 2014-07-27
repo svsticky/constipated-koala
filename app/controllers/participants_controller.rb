@@ -20,12 +20,22 @@ class ParticipantsController < ApplicationController
   end
   
   def find
-    @members = Member.search(params[:search]).select(:id, :first_name, :infix, :last_name)
-    respond_with @members
+    @members = Member.search(params[:search])
+    
+#    if(!params[:activity].blank?)
+#      @members = @members.joins(:participants).where.not( 'participants.activity_id' => params[:activity] ).distinct
+#    end
+    
+    respond_with @members.select(:id, :first_name, :infix, :last_name)
   end
   
   def create
-    @participant = Participant.new( :member => Member.find(params[:member]), :activity => Activity.find(params[:activity]))
+    @activity = Activity.find(params[:activity])
+    @participant = Participant.new( :member => Member.find(params[:member]), :activity => @activity)
+    
+    if @activity.price == 0
+      @participant.update_attribute(:paid, true)
+    end
     
     if @participant.save
       respond_with @participant, :location => activities_url

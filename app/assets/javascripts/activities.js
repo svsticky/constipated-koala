@@ -10,16 +10,18 @@ function bind_activity(){
   
   // Participant bedrag aanpassen
   // [PATCH] participants
-  $('#activities').find('input.price').on('focusout', function(){
+  $('#activities').find('input.price').on('change', function(){
     var row = $(this).closest('tr')
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var price = $(this).val();
     
+    // If left blank asume 0
     if(!price){
       price = 0;
       $(this).val(0);
     }
     
+    // Make it a bit more pretty
     if(!isNaN(price))
       $(this).val(parseFloat(price).toFixed(2));
     
@@ -66,6 +68,7 @@ function bind_activity(){
       var activity = $(selected).closest('table').attr('data-id');
       var row = $(selected).closest('tr');
       var name = $(selected).find('a').text();
+      var price = $(row).find('td span').text().replace(/€/g, '').replace('-', '');
     
       $(selected).closest('#activities table ul').css('display', 'none');
       
@@ -78,11 +81,13 @@ function bind_activity(){
         }
       }).done(function( data ){          
         var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text());
-        $(activity).insertBefore(row).addClass('red');
+        var activity = template.format(data.id, data.member_id, name, price);
+        var added = $(activity).insertBefore(row);
         
-        //TODO niet rood als het niks kost en ook de paid knop niet tonen
-        
+        if(price > 0)    
+          $(added).addClass('red');
+        else
+          $(added).find('button.paid').addClass('hidden');      
         
         $('#activities input.participant').val('');
         $('#activities ul.dropdown-menu').empty().css('display', 'none');
@@ -91,8 +96,14 @@ function bind_activity(){
         
         bind_activities();
         bind_activity();
+      }).fail(function(){
+        $('#activities input.participant').val('');
+        $('#activities ul.dropdown-menu').empty().css('display', 'none');
+        
+        $(row).find('input').focus();
+                    
+        alert('Deze persoon is al toegevoegd', 'warning');
       });
-
       
       e.preventDefault();
     }else if(e.keyCode == 40){
@@ -118,7 +129,8 @@ function bind_activity(){
         url: '/participants',
         type: 'GET',
         data: {
-          search: search
+          search: search,
+          activity: $(dropdown).closest('table').attr('data-id')
         }
       }).done(function( data ){
         $(dropdown).empty();
@@ -134,6 +146,7 @@ function bind_activity(){
           var activity = $(this).closest('table').attr('data-id');
           var row = $(this).closest('tr');
           var name = $(this).text();
+          var price = $(row).find('td span').text().replace(/€/g, '').replace('-', '');
         
           $(this).closest('#activities table ul').css('display', 'none');
           
@@ -146,10 +159,13 @@ function bind_activity(){
             }
           }).done(function( data ){          
             var template = $('script#activity').html();
-            var activity = template.format(data.id, data.member_id, name, $(row).find('td span').text());
-            $(activity).insertBefore(row).addClass('red');
+            var activity = template.format(data.id, data.member_id, name, price);
+            var added = $(activity).insertBefore(row);
             
-            //TODO niet rood als het niks kost en ook de paid knop niet tonen
+            if(price > 0)    
+              $(added).addClass('red');
+            else
+              $(added).find('button.paid').addClass('hidden');  
             
             $('#activities input.participant').val('');
             $('#activities ul.dropdown-menu').empty().css('display', 'none');
@@ -158,6 +174,13 @@ function bind_activity(){
             
             bind_activities();
             bind_activity();
+          }).fail(function(){
+            $('#activities input.participant').val('');
+            $('#activities ul.dropdown-menu').empty().css('display', 'none');
+            
+            $(row).find('input').focus();
+                        
+            alert('Deze persoon is al toegevoegd', 'warning');
           });
         })
       }).fail(function(){

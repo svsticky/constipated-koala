@@ -18,11 +18,20 @@ class PublicController < ApplicationController
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
       end
-      
-      
     
-      render 'index'
+      render 'index', :anchor => 'form'
     end
+  end
+  
+  # Create a iDeal payment and redirect to the bank
+  def payment
+    #check if hash is correct
+  
+  end
+  
+  # Confirm the payment has been done, the redirect url 
+  def confirm
+    
   end
   
   private
