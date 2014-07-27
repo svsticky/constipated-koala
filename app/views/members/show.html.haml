@@ -62,10 +62,10 @@
                         .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
                           - if !activity.participants.where(:member => @member).first.currency.nil?
                             - if activity.participants.where(:member => @member).first.paid
-                              %button.btn.btn-primary.unpaid
+                              %button.btn.btn-primary.unpaid{ :class => ('hidden' unless activity.currency(@member) > 0 )}
                                 %i.fa.fa-fw.fa-check
                             - else
-                              %button.btn.btn-warning.paid
+                              %button.btn.btn-warning.paid{ :class => ('hidden' unless activity.currency(@member) > 0 )}
                                 %i.fa.fa-fw.fa-times
                           %button.btn.btn-default.destroy
                             %i.fa.fa-fw.fa-trash-o

@@ -37,7 +37,7 @@ class Member < ActiveRecord::Base
     :through => :participants
     
   def phone_number=(phone_number)
-    #change landcode to 00 and remove al not numbers
+    #change landcode to 00 and remove all not numbers
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
   end
   

@@ -38,6 +38,7 @@ function bind_activities(){
       }
     }).done(function(){
       alert('activiteit is betaald', 'success');
+      $('#mail #recipients select').val('edited');
       
       $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
       $(row).removeClass('red');
@@ -65,6 +66,7 @@ function bind_activities(){
       }
     }).done(function(){
       alert('activiteit moet nog betaald worden', 'warning');
+      $('#mail #recipients select').val('edited');
       
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
       $(row).addClass('red');
@@ -91,6 +93,7 @@ function bind_activities(){
       }
     }).done(function(){
       alert('deelname verwijderd', 'success');
+      $('#mail #recipients select').val('edited');
       $(row).remove();
     }).fail(function(){
       alert('', 'error');

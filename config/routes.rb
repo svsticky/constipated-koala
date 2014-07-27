@@ -22,6 +22,7 @@ ConstipatedKoala::Application.routes.draw do
   post 'public' => 'public#create'
   
   # Participants routes for JSON calls
+  get 'participants/list' => 'participants#list'
   get 'participants' => 'participants#find'
   post 'participants' => 'participants#create'
   patch 'participants' => 'participants#update'

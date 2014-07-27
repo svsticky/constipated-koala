@@ -50,7 +50,7 @@
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
           
-        = render 'layouts/mail', onderwerp: @activity.name, geadresseerden: 'test@test.com, test@testing.nl'
+        = render 'layouts/mail', onderwerp: @activity.name, geadresseerden: @recipients, id: @activity.id
     
       .col-md-6
         .panel.panel-default
@@ -71,10 +71,10 @@
                         .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
                           - if !participant.currency.nil?
                             - if participant.paid
-                              %button.btn.btn-primary.unpaid
+                              %button.btn.btn-primary.unpaid{ :class => ('hidden' unless participant.currency > 0 )}
                                 %i.fa.fa-fw.fa-check
                             - else
-                              %button.btn.btn-warning.paid
+                              %button.btn.btn-warning.paid{ :class => ('hidden' unless participant.currency > 0 )}
                                 %i.fa.fa-fw.fa-times
                           %button.btn.btn-default.destroy
                             %i.fa.fa-fw.fa-trash-o

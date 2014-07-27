@@ -1,10 +1,19 @@
 .panel.panel-default
   .panel-body
-    %form.form-horizontal
+    %form.form-horizontal#mail{ :data => { 'id' => id }}
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
         .col-md-10.col-xs-12
-          %input#bbc.form-control{:type => 'text', :value => geadresseerden }
+          .row#recipients
+            .col-md-8
+              %input#bbc.form-control{:type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.first_name} #{recipient.infix} #{recipient.last_name} <#{recipient.email}>"}.join(', ') }
+            .col-md-4
+              .ui-select
+                %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
+                  %option{ :value => 'all' } ALLE DEELNEMERS
+                  %option{ :value => 'debtors', :selected => 'selected' } NOG BETALERS
+                  %option{ :value => 'edited', :disabled => 'disabled' } AANGEPAST
+          
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Onderwerp
         .col-md-10.col-xs-12
@@ -49,7 +58,7 @@
     %textarea#taHtmlElement.ta-html.ta-editor.form-control
 
     .callout.callout-info
-      Je kunt het [mail] adres, [first_name], [infix], [last_name] gebruiken voor de geadresseerde.     
+      Je kunt het {email} adres, {first_name}, {infix}, {last_name}, en {price} gebruiken voor de geadresseerde.     
     
     .mail-actions
       .btn.btn-primary Send

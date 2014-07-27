@@ -14,7 +14,7 @@ Faker::Config.locale = :nl
                 house_number: Faker::Address.building_number,
                 postal_code:  Faker::Address.postcode,
                 city:         Faker::Address.city,
-                phone_number: "06 #{Faker::Number.number(8)}",
+                phone_number: Faker::PhoneNumber.phone_number,
                 email:        Faker::Internet.email,
                 gender:       ['m', 'f'].sample,
                 student_id:   Faker::Number.number(7),

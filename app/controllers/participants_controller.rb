@@ -1,6 +1,24 @@
 class ParticipantsController < ApplicationController  
   respond_to :json
   
+  def list
+    if params[:activity].blank?
+      raise 'no activity'
+    end
+
+    @participants = Participant.where( :activity => params[:activity])
+  
+    logger.debug(@participants)
+  
+    if params[:recipients] == 'all'
+      respond_with @participants.joins(:member).select(:id, :first_name, :infix, :last_name, :email)
+    elsif params[:recipients] == 'debtors'
+      respond_with @participants.where( :paid => false ).joins(:member).select(:id, :first_name, :infix, :last_name, :email)
+    else
+      raise ActiveRecord::RecordNotFound
+    end
+  end
+  
   def find
     @members = Member.search(params[:search]).select(:id, :first_name, :infix, :last_name)
     respond_with @members
@@ -29,11 +47,13 @@ class ParticipantsController < ApplicationController
       if !params[:price].numeric?
         raise 'not a number'
       end
-    
-      if BigDecimal.new(params[:price]) == @participant.activity.price
-        @participant.update_attribute(:price, NIL)
+      
+      if BigDecimal.new(params[:price]) == 0
+        @participant.update_attributes(:price => 0, :paid => true)
+      elsif BigDecimal.new(params[:price]) == @participant.activity.price
+        @participant.update_attributes(:price => NIL, :paid => false)
       else
-        @participant.update_attribute(:price, params[:price])
+        @participant.update_attributes(:price => params[:price], :paid => false)
       end
     end
     
