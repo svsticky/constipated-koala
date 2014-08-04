@@ -143,5 +143,6 @@ $(document).on('ready page:load', function(){
   
   $('#app .alert .close').on('click', function(){
     $(this).closest('.alert').remove();
-  })
+  });
+  
 });

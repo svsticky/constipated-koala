@@ -7,7 +7,7 @@ class ActivitiesController < ApplicationController
   
   def show
     @activity = Activity.find(params[:id])
-    @recipients =  Activity.joins(:members).where('participants.paid' => false).select(:id, :first_name, :infix, :last_name, :email)
+    @recipients =  Activity.joins(:members).where('participants.paid' => false, 'participants.activity_id' => params[:id]).select(:id, :first_name, :infix, :last_name, :email)
   end
   
   def create
@@ -31,11 +31,16 @@ class ActivitiesController < ApplicationController
     end
   end
   
+  def mail
+    ActionMailer::Base.mail(:bcc => params[:recipients], :subject => params[:subject], :body => params[:mail]).deliver
+  end
+  
   private
   def activity_post_params
     params.require(:activity).permit( :name,
                                       :start_date,
                                       :end_date,
+                                      :comments,
                                       :price)
   end
 end

@@ -7,7 +7,8 @@ class CreateActivities < ActiveRecord::Migration
       t.date :end_date
       
       t.decimal :price, :scale => 2, :precision => 4
-
+      
+      t.text :comments
       t.timestamps
     end
     

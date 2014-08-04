@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.date     "start_date"
     t.date     "end_date"
     t.decimal  "price",      precision: 4, scale: 2
+    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

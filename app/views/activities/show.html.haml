@@ -42,6 +42,9 @@
                   .col-md-6
                     %label{for: ''} Eind datum
                     = f.date_field :end_date, :value => @activity.end_date, :class => 'form-control'
+              .form-group
+                %label{for: ''} Comments
+                = f.text_area :comments, :value => @activity.comments, :class => 'form-control'
 
               .callout.callout-info
                 %p Om wijzigingen door te voeren moet je op de opslaan knop drukken.

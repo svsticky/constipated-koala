@@ -17,16 +17,18 @@
               %th
                 .th
                   Voornaam
-                  %span.glyphicon.glyphicon-chevron-up
-                  %span.glyphicon.glyphicon-chevron-down
+                  -#
+                    %span.glyphicon.glyphicon-chevron-up
+                    %span.glyphicon.glyphicon-chevron-down
               %th
                 .th
                   Tussenvoegsel
               %th
                 .th
                   Achternaam
-                  %span.glyphicon.glyphicon-chevron-up
-                  %span.glyphicon.glyphicon-chevron-down
+                  -#
+                    %span.glyphicon.glyphicon-chevron-up
+                    %span.glyphicon.glyphicon-chevron-down
               %th
                 .th
                   Telefoonnummer
@@ -39,8 +41,9 @@
               %th
                 .th
                   Studie
-                  %span.glyphicon.glyphicon-chevron-up
-                  %span.glyphicon.glyphicon-chevron-down
+                  -#
+                    %span.glyphicon.glyphicon-chevron-up
+                    %span.glyphicon.glyphicon-chevron-down
           - @members.each do |member|
             %tr
               %td= link_to "#{member.first_name}", member
