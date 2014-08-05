@@ -15,12 +15,6 @@ gem 'haml'
 #Gem voor html5 stubs met form features
 gem 'modernizr-rails'
 
-# Gem voor genereren van nepdata voor in de dev versie
-gem 'faker'
-
-# Use SQLite for development
-gem 'sqlite3'
-
 # Use mysql as the production database
 gem 'mysql2'
 
@@ -33,6 +27,9 @@ gem 'bootstrap-sass'
 # use font awesome
 gem 'font-awesome-sass'
 
+# Use for javascript
+gem 'execjs'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 
@@ -40,7 +37,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -51,8 +48,5 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
-# Blurrily in memory search gem
-# gem 'Blurrily'
-
 # Use ActiveModel has_secure_password
-# gem 'bcrypt'
+gem 'bcrypt'
