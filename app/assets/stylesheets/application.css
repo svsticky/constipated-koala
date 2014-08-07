@@ -11,10 +11,10 @@
  *= require_self
  *= require_tree .
  *= require font-awesome
+ *
+ *= require lato
+ *= require style
  */
- 
-@import "lato.css";
-@import "style.css";
 
 table.table.table-linked > tbody > tr > td > a {
   display: block;

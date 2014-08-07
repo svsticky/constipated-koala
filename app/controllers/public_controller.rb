@@ -2,6 +2,12 @@ class PublicController < ApplicationController
   skip_before_action :authenticate_admin!, only: [:index, :create]
   layout nil
   
+  @@intro = {
+    'lidmaatschap' => 1,
+    'lasergamen' => 2,
+    'bbq' => 3,
+  }
+  
   def index
     @member = Member.new
     @member.educations.build( :id => '-1' )
@@ -9,17 +15,41 @@ class PublicController < ApplicationController
 
   def create
     @member = Member.new(public_post_params)
-    logger.debug(params[:activities])
     
     if @member.save
-      flash[:notice] = 'Je hebt je ingeschreven!'   
+      flash[:notice] = 'Je hebt je ingeschreven!'
+      
+      @lidmaatschap = Participant.new( :member => @member, :activity => Activity.find(@@intro['lidmaatschap']))
+      if !@lidmaatschap.save
+        
+      end
+      
+      if params[:activities].include? 'bbq'
+        @bbq = Participant.new( :member => @member, :activity => Activity.find(@@intro['bbq']))
+        if !@bbq.save
+        
+        end
+      end
+            
+      if params[:activities].include? 'lasergamen'
+        @lasergamen = Participant.new( :member => @member, :activity => Activity.find(@@intro['lasergamen']))
+        if !@lasergamen.save
+        
+        end
+      end
+      
+      #betaingen aanmaken indien iDeal
+      if params[:method] == 'IDEAL'
+        logger.debug(params[:bank])
+      end
+      
       redirect_to public_path
     else
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
       end
     
-      render 'index', :anchor => 'form'
+      render 'index'
     end
   end
   

@@ -28,7 +28,6 @@ $(document).on('ready page:load', function(){
     });
     
     $(row).find('select').val('').attr("name", $(row).find('select').attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
-    
   });
   
   function destroy(){

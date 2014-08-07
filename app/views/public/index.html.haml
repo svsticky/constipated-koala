@@ -4,17 +4,76 @@
     %title Constipated koala | Inschrijven
     %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag params[:controller], media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag params[:controller], 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body#app
-    %section.col-md-6{ :style => 'height: 100%; overflow: hidden; padding-left: 0px; opacity: 0.8;'}
-      .image
-        = image_tag 'donatas.jpg', :style => 'heigth: auto; max-height: 100%;'
-      .image
-        = image_tag 'donatas.jpg', :style => 'heigth: auto; max-height: 100%;'  
-    %section.col-md-6{ :style => 'overflow-y: auto; position: absolute; bottom: 0px; top: 0px; right: 0px;' }
-      .page.page-form
+  %body
+    %a#menu-toggle.btn.btn-primary.btn-lg.visible-xs.toggle{href: "#"}
+      %i.fa.fa-bars
+    #sidebar-wrapper.visible-xs
+      %ul.sidebar-nav
+        %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
+          %i.fa.fa-times
+        %li.sidebar-brand
+          Sticky Intro
+        %li
+          %a{href: "#top"} Home
+        %li
+          %a{href: "#over"} Over Sticky
+        %li
+          %a{href: "#doenwat"} Wat doet Sticky?
+        %li
+          %a{href: "#inschrijven"} Inschrijven
+        %li
+          %a{href: "#contact"} Contact
+          
+    #top.header
+      .vert-text
+        %h1 Sticky Introductie
+        %a.btn.btn-default.btn-lg{href: "#over"} Over Sticky
+        %a.btn.btn-success.btn-lg{href: "#inschrijven"} Inschrijven
+        
+    #over.intro
+      .container
+        .row
+          .col-md-6.col-md-offset-3.text-center
+            %h2 Studievereniging Sticky
+            %p.lead Sticky is een jonge en enthousiaste studievereniging voor informatica, informatiekunde en gametechnologie. Wij bieden onze leden leuke en studie-inhoudelijke activiteiten.
+            
+    #doenwat.services
+      .container
+        .row
+          .col-md-4.col-md-offset-4.text-center
+            %h2 Wat doet Sticky?
+            %hr/
+        .row
+          .col-md-2.col-md-offset-2.text-center
+            .service-item
+              %i.service-icon.fa.fa-group
+              %h4 Gezelligheid
+              %p In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.
+          .col-md-2.text-center
+            .service-item
+              %i.service-icon.fa.fa-rocket
+              %h4 Activiteiten
+              %p Van paintball tot filmavonden en van LANs tot het bezoeken van een brouwerij: je hoeft je nooit meer te vervelen!
+          .col-md-2.text-center
+            .service-item
+              %i.service-icon.fa.fa-book
+              %h4 Arbeidsmarktoriëntatie
+              %p Lezingen, workshops, inhousedagen, en meer. Zo kun je ook alvast bedenken wat je na je studie wil gaan doen!
+          .col-md-2.text-center
+            .service-item
+              %i.service-icon.fa.fa-glass
+              %h4 Borrels
+              %p Met gratis wekelijkse borrels en regelmatige thema-borrels, is er genoeg ruimte om je medestudenten te leren kennen!
+              
+    .callout
+      .vert-text
+        %h1 "B'vo!"
+
+    #inschrijven.portfolio
+      .container
         .row
           = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
             - if flash[:notice]
@@ -28,63 +87,64 @@
                 %ul
                 - @member.errors.full_messages.each do |msg|
                   %li= msg
-            .panel.panel-default
-              .panel-heading
-                %span.glyphicon.glyphicon-th
-                Algemene gegevens
-              .panel-body
-                .form-group
-                  = f.hidden_field :join_date, :value => Time.new
-                  .row
-                    .col-md-5
-                      %label{for: ''} Voornaam
-                      = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
-                    .col-md-2
-                      %label{for: ''} Tussenvoegsel
-                      = f.text_field :infix, :value => @member.infix, :class => 'form-control'
-                    .col-md-5
-                      %label{for: ''} Achternaam
-                      = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
-                .form-group
-                  .row
-                    .col-md-6
-                      %label{for: ''} Geslacht
-                      .ui-select{style: ' width: 200px; '}
-                        = f.select :gender, options_for_select([['MAN', 'm'], ['VROUW', 'f']], @member.gender)
-                    .col-md-6
-                      %label{for: ''} Geboortedatum
-                      = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
-                .form-group
-                  .row
-                    .col-md-8
-                      %label{for: ''} Adres
-                      = f.text_field :address, :value => @member.address, :class => 'form-control'
-                    .col-md-4
-                      %label{for: ''} Huisnummer
-                      = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
-                .form-group
-                  .row
-                    .col-md-6
-                      %label{for: ''} Postcode
-                      = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-                    .col-md-6
-                      %label{for: ''} Woonplaats
-                      = f.text_field :city, :value => @member.city, :class => 'form-control'
-                .form-group
-                  %label{for: ''} Telefoonnummer
-                  = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
-                .form-group
-                  %label{for: ''} E-mailadres
-                  = f.email_field :email, :value => @member.email, :class => 'form-control'
-            .panel.panel-default
-              .panel-heading
-                %span.glyphicon.glyphicon-th
-                Studie gegevens
-              .panel-body
-                .form-group
+            %h4
+              %span.glyphicon.glyphicon-th
+              Algemene gegevens
+                  
+            .form-group
+              = f.hidden_field :join_date, :value => Time.new
+              .row
+                .col-md-5
+                  %label{for: ''} Voornaam
+                  = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
+                .col-md-2
+                  %label{for: ''} Tussenvoegsel
+                  = f.text_field :infix, :value => @member.infix, :class => 'form-control'
+                .col-md-5
+                  %label{for: ''} Achternaam
+                  = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
+            .form-group
+              .row
+                .col-md-6
+                  %label{for: ''} Geslacht
+                  .ui-select
+                    = f.select :gender, options_for_select([['MAN', 'm'], ['VROUW', 'f']], @member.gender)
+                .col-md-6
+                  %label{for: ''} Geboortedatum
+                  = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+            .form-group
+              .row
+                .col-md-8
+                  %label{for: ''} Adres
+                  = f.text_field :address, :value => @member.address, :class => 'form-control'
+                .col-md-4
+                  %label{for: ''} Huisnummer
+                  = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+            .form-group
+              .row
+                .col-md-6
+                  %label{for: ''} Postcode
+                  = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
+                .col-md-6
+                  %label{for: ''} Woonplaats
+                  = f.text_field :city, :value => @member.city, :class => 'form-control'
+            .form-group
+              %label{for: ''} Telefoonnummer
+              = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+            .form-group
+              %label{for: ''} E-mailadres
+              = f.email_field :email, :value => @member.email, :class => 'form-control'
+            
+            %h4
+              %span.glyphicon.glyphicon-th
+              Studie gegevens
+            
+            .form-group
+              .row
+                .col-md-6
                   %label{for: ''} Studentnummer
-                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-                .form-group
+                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control', :style => 'margin-top: 7px;'
+                .col-md-6    
                   %label{for: ''} 
                     Studie
                     %a.close{ :type => 'button' } +
@@ -92,48 +152,75 @@
                     = f.fields_for 'educations_attributes[]', education do |fs|
                       .form-group.copyable 
                         .row
-                          .col-md-8
+                          .col-md-6
                             .ui-select
                               = fs.select :name_id, options_for_select(education.list, education.name_id), { }, { :style => 'width: 100%;' }
-                          .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
+                          .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 232px;'}
                             = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
                           = fs.hidden_field :_destroy, :class => 'destroy'
                           %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
                             %span.fa.fa-trash-o
-            .panel.panel-default
-              .panel-body
-                .form-group
-                  %label{for: ''} 
-                    Activiteiten
-                    .form-group 
-                      .row
-                        .col-md-12
-                          %label.ui-checkbox
-                            %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
-                            %span 
-                              Lidmaatschap
-                              %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
-                          %label.ui-checkbox
-                            %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq'}
-                            %span 
-                              Barbeque
-                              %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
-                          %label.ui-checkbox
-                            %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen'}
-                            %span 
-                              Lasergamen
-                              %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 2,50)
-                .form-group 
-                  .row
-                    .col-md-6
-                      %label{for: ''} Betaalmethode
-                      .ui-select{style: ' width: 200px; '}
-                        = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
-                    .col-md-6.bank
-                      %label{for: ''} Bank
-                      .ui-select{style: ' width: 200px; '}
-                        = select_tag 'bank', options_for_select([['RABOBANK', 'RABONL2U'], ['ING BANK', 'INGBNL2A']])
-            .panel.panel-default
-              .panel-body
-                %button.btn.btn-success{type: 'submit'} Opslaan
-                = link_to 'Annuleren', public_path, { :class => 'button btn btn-default' }
+            
+            %h4
+              %span.glyphicon.glyphicon-th
+              Activiteiten 
+              
+            .form-group
+              .row
+                .col-md-6
+                  %label.ui-checkbox
+                    %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
+                    %span 
+                      Lidmaatschap
+                      %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
+                  %br
+                  %label.ui-checkbox
+                    %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq', checked: 'checked'}
+                    %span 
+                      Barbeque
+                      %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
+                  %br
+                  %label.ui-checkbox
+                    %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen', checked: 'checked'}
+                    %span 
+                      Lasergamen
+                      %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 2,50)
+                -#.col-md-3
+                  %label{for: ''} Betaalmethode
+                  .ui-select
+                    = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
+                  .ui-select{ :style => 'margin-top: 5px;' }
+                    = select_tag 'bank', options_for_select([['RABOBANK', 'RABONL2U'], ['ING BANK', 'INGBNL2A']])
+                .col-md-3
+                  %p Het is nu nog alleen mogelijk om contant te betalen. 
+                        
+            %button.btn.btn-success{type: 'submit'} Opslaan
+            = link_to 'Annuleren', public_path, { :class => 'button btn btn-default' }
+
+    .call-to-action
+      .container
+        .row
+          .col-md-6.col-md-offset-3.text-center
+            %h3 The buttons below are impossible to resist.
+            %a.btn.btn-lg.btn-default{href: "#"} Click Me!
+            %a.btn.btn-lg.btn-primary{href: "#"} Look at Me!
+            
+    %footer
+      .container
+        .row
+          .col-md-6.col-md-offset-3.text-center
+            %ul.list-inline
+              %li
+                %a{href: '//www.facebook.com/stickyutrecht' }
+                  %i.fa.fa-facebook.fa-3x
+              %li
+                %a{href: '//twitter.com/StickyUtrecht' }
+                  %i.fa.fa-twitter.fa-3x
+            .top-scroll
+              %a{href: "#top"}
+                %i.fa.fa-circle-arrow-up.scroll.fa-4x
+- if @member.errors.any?
+  :javascript
+    $('html,body').animate({
+      scrollTop: $('#inschrijven').offset().top
+    }, 0);
