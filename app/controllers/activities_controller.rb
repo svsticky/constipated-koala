@@ -31,9 +31,12 @@ class ActivitiesController < ApplicationController
     end
   end
   
-  def mail
-    ActionMailer::Base.mail(:bcc => params[:recipients], :subject => params[:subject], :body => params[:mail]).deliver
-  end
+	def destroy
+		@activity = Activity.find(params[:id])
+		@activity.destroy
+
+		redirect_to activities_path
+	end
   
   private
   def activity_post_params

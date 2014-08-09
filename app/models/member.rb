@@ -32,7 +32,8 @@ class Member < ActiveRecord::Base
     :reject_if => :all_blank,
     :allow_destroy => true
     
-  has_many :participants
+  has_many :participants,
+    :dependent => :destroy
   has_many :activities, 
     :through => :participants
     

@@ -118,6 +118,10 @@ $(document).on('ready page:load', function(){
     });
   };
   
+  $('.button.btn[data-method=delete]').on('click', function () {
+    return confirm('Weet u het zeker?');
+  });
+  
 /*
   window.confirm = function(){
     alert(arguments[0]);
