@@ -30,6 +30,7 @@
     #top.header
       .vert-text
         %h1 Sticky Introductie
+        %br
         %a.btn.btn-default.btn-lg{href: "#over"} Over Sticky
         %a.btn.btn-success.btn-lg{href: "#inschrijven"} Inschrijven
         
@@ -154,7 +155,7 @@
                         .row
                           .col-md-6
                             .ui-select
-                              = fs.select :name_id, options_for_select(education.list, education.name_id), { }, { :style => 'width: 100%;' }
+                              = fs.select :name_id, options_for_select(education.list, education.name_id), { :style => 'width: 100%;' }
                           .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 232px;'}
                             = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
                           = fs.hidden_field :_destroy, :class => 'destroy'
@@ -167,7 +168,7 @@
               
             .form-group
               .row
-                .col-md-6
+                .col-md-3
                   %label.ui-checkbox
                     %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
                     %span 
@@ -185,6 +186,8 @@
                     %span 
                       Lasergamen
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 2,50)
+                .col-md-3
+                  %i Tijdens de intro kun je mee doen met lasergamen en bbq'en. Mocht je toch niet kunnen of een ander goed excuus hebben dan kun je de vinkjes uitzetten.
                 -#.col-md-3
                   %label{for: ''} Betaalmethode
                   .ui-select
@@ -192,18 +195,10 @@
                   .ui-select{ :style => 'margin-top: 5px;' }
                     = select_tag 'bank', options_for_select([['RABOBANK', 'RABONL2U'], ['ING BANK', 'INGBNL2A']])
                 .col-md-3
-                  %p Het is nu nog alleen mogelijk om contant te betalen. 
+                  %p Het is nu nog alleen mogelijk om contant te betalen. Tijdens de intro kan dit bij de penningmeester. Heb je je al eerder ingeschreven, dan krijg je begin september een mailtje met instructies om te betalen.
                         
             %button.btn.btn-success{type: 'submit'} Opslaan
             = link_to 'Annuleren', public_path, { :class => 'button btn btn-default' }
-
-    .call-to-action
-      .container
-        .row
-          .col-md-6.col-md-offset-3.text-center
-            %h3 The buttons below are impossible to resist.
-            %a.btn.btn-lg.btn-default{href: "#"} Click Me!
-            %a.btn.btn-lg.btn-primary{href: "#"} Look at Me!
             
     %footer
       .container
@@ -211,11 +206,14 @@
           .col-md-6.col-md-offset-3.text-center
             %ul.list-inline
               %li
-                %a{href: '//www.facebook.com/stickyutrecht' }
+                %a{href: '//www.facebook.com/stickyutrecht', target: '_blank' }
                   %i.fa.fa-facebook.fa-3x
               %li
-                %a{href: '//twitter.com/StickyUtrecht' }
+                %a{href: '//twitter.com/StickyUtrecht', target: '_blank' }
                   %i.fa.fa-twitter.fa-3x
+              %li
+                %a{href: '//www.linkedin.com/company/1125476', target: '_blank' }
+                  %i.fa.fa-linkedin.fa-3x
             .top-scroll
               %a{href: "#top"}
                 %i.fa.fa-circle-arrow-up.scroll.fa-4x
