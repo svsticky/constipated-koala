@@ -144,23 +144,19 @@
               .row
                 .col-md-6
                   %label{for: ''} Studentnummer
-                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control', :style => 'margin-top: 7px;'
+                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
                 .col-md-6    
                   %label{for: ''} 
                     Studie
-                    %a.close{ :type => 'button' } +
                   - @member.educations.each do |education|
                     = f.fields_for 'educations_attributes[]', education do |fs|
-                      .form-group.copyable 
+                      .form-group 
                         .row
                           .col-md-6
                             .ui-select
                               = fs.select :name_id, options_for_select(education.list, education.name_id), { :style => 'width: 100%;' }
-                          .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 232px;'}
+                          .col-md-6
                             = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
-                          = fs.hidden_field :_destroy, :class => 'destroy'
-                          %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
-                            %span.fa.fa-trash-o
             
             %h4
               %span.glyphicon.glyphicon-th

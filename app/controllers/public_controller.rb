@@ -11,6 +11,7 @@ class PublicController < ApplicationController
   def index
     @member = Member.new
     @member.educations.build( :id => '-1' )
+    @member.educations.build( :id => '-2' )
   end
 
   def create
@@ -47,6 +48,10 @@ class PublicController < ApplicationController
     else
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
+      end
+      
+      if @member.educations.length < 2
+        @member.educations.build( :id => '-2' )
       end
     
       render 'index'
