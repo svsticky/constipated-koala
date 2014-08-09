@@ -8,7 +8,13 @@ class MembersController < ApplicationController
         redirect_to @members.first
       end
     else
-      @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name)
+      @limit = params[:limit] ? params[:limit].to_i : 50
+      @offset = params[:offset] ? params[:offset].to_i : 0
+    
+      @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
+      @pages = Member.count / @limit
+      logger.debug(Member.count)
+      logger.debug(@limit)
     end
   end
 
@@ -86,6 +92,13 @@ class MembersController < ApplicationController
       render 'edit'
     end
   end
+  
+	def destroy
+		@member = Member.find(params[:id])
+		@member.destroy
+
+		redirect_to members_path
+	end
 
   private
   def member_post_params
