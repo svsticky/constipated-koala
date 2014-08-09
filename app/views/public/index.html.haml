@@ -27,6 +27,12 @@
         %li
           %a{href: "#contact"} Contact
           
+    - if flash[:notice]
+      .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
+        .alert.alert-success.center-block{ :style => 'width: 500px;' }
+          %button.click.close{ type: 'button' } ×
+          .notice= flash[:notice]  
+          
     #top.header
       .vert-text
         %h1 Sticky Introductie
@@ -71,16 +77,12 @@
               
     .callout
       .vert-text
-        %h1 "B'vo!"
+        %h2 Welkom in je studententijd; de mooiste tijd van je leven!
 
     #inschrijven.portfolio
       .container
         .row
           = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
-            - if flash[:notice]
-              .alert.alert-success
-                %button.click.close{ type: 'button' } ×
-                .notice= flash[:notice]
             - if @member.errors.any?
               .alert.alert-danger
                 %button.click.close{ type: 'button' } ×
