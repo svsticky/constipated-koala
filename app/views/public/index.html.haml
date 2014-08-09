@@ -27,6 +27,12 @@
         %li
           %a{href: "#contact"} Contact
           
+    - if flash[:notice]
+      .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
+        .alert.alert-success.center-block{ :style => 'width: 500px;' }
+          %button.click.close{ type: 'button' } ×
+          .notice= flash[:notice]  
+          
     #top.header
       .vert-text
         %h1 Sticky Introductie
@@ -71,16 +77,12 @@
               
     .callout
       .vert-text
-        %h1 "B'vo!"
+        %h2 Welkom in je studententijd; de mooiste tijd van je leven!
 
     #inschrijven.portfolio
       .container
         .row
           = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
-            - if flash[:notice]
-              .alert.alert-success
-                %button.click.close{ type: 'button' } ×
-                .notice= flash[:notice]
             - if @member.errors.any?
               .alert.alert-danger
                 %button.click.close{ type: 'button' } ×
@@ -164,7 +166,7 @@
               
             .form-group
               .row
-                .col-md-3
+                .col-md-6
                   %label.ui-checkbox
                     %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
                     %span 
@@ -182,8 +184,6 @@
                     %span 
                       Lasergamen
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 2,50)
-                .col-md-3
-                  %i Tijdens de intro kun je mee doen met lasergamen en bbq'en. Mocht je toch niet kunnen of een ander goed excuus hebben dan kun je de vinkjes uitzetten.
                 -#.col-md-3
                   %label{for: ''} Betaalmethode
                   .ui-select
