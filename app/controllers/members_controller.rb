@@ -12,9 +12,12 @@ class MembersController < ApplicationController
       @offset = params[:offset] ? params[:offset].to_i : 0
     
       @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
+
       @pages = Member.count / @limit
-      logger.debug(Member.count)
-      logger.debug(@limit)
+      @page = @offset / @limit
+      @pagination = 5
+      
+      logger.debug(@pages)
     end
   end
 
