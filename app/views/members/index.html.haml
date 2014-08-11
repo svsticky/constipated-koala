@@ -44,6 +44,7 @@
                   -#
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
+                    
           - @members.each do |member|
             %tr
               %td= link_to "#{member.first_name}", member
@@ -53,4 +54,39 @@
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.studies}", member
-      /%footer.table-footer
+              
+      %footer.table-footer
+        .row
+          .col-md-6.page-num-info{ :data => { :limit => @limit, :pagination => @pagination } }
+            %span
+              Toon
+              = select_tag 'limit', options_for_select([20,50,100], @limit)
+              leden per pagina
+              
+          .col-md-6.text-right.pagination-container
+            %ul.pagination-sm.pagination
+              %li{ :class => ( 'disabled' if @offset == 0)}
+                %a{ :data => { :offset => @offset - @limit }} vorige
+                
+              %li.scroll{ :class => ( 'disabled' if @page / @pagination == 0)}
+                %a{ :data => { :offset => (@page / @pagination * @pagination -1) * @limit }} <<
+                
+              - (0 .. @pages).each do |i|
+                - if i == @page
+                  %li.active
+                    - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
+                      %a{ :data => { :offset => @limit * i }}= i+1
+                    -else 
+                      %a.hidden{ :data => { :offset => @limit * i }}= i+1
+                - else
+                  %li
+                    - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
+                      %a{ :data => { :offset => @limit * i }}= i+1    
+                    - else
+                      %a.hidden{ :data => { :offset => @limit * i }}= i+1    
+
+              %li.scroll{ :class => ( 'disabled' if @pages / @pagination * @pagination <= @page )}
+                %a{ :data => { :offset => (@page / @pagination +1) * @pagination * @limit }} >>
+                    
+              %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
+                %a{ :data => { :offset => @offset + @limit }} volgende

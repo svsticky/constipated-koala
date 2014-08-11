@@ -14,8 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require_tree .
-
 
 function bind_activities(){
   //reset all binds
@@ -117,6 +115,10 @@ $(document).on('ready page:load', function(){
       ;
     });
   };
+  
+  $('.button.btn[data-method=delete]').on('click', function () {
+    return confirm('Weet u het zeker?');
+  });
   
 /*
   window.confirm = function(){

@@ -3,7 +3,8 @@ class Activity < ActiveRecord::Base
   validates :start_date, presence: true
   #validates :end_date, presence: true
 
-  has_many :participants
+  has_many :participants,
+    :dependent => :destroy
   has_many :members, :through => :participants
   
   def currency(member)

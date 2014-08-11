@@ -56,7 +56,7 @@ $(document).on('ready page:load', function(){
     }
   });
   
-  $('.copyable .ui-select select').on('change', function(){
+  $('.studies .ui-select select').on('change', function(){
     var row = $(this).closest('.row');
     var date = $(row).find('input[type="date"]');
     
@@ -73,6 +73,4 @@ $(document).on('ready page:load', function(){
     }
     
   });
-  
-  destroy();
 });

@@ -5,7 +5,9 @@
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag params[:controller], media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag params[:controller], 'data-turbolinks-track' => true
     = render 'layouts/alert.html.js'
     = csrf_meta_tags
   %body#app
