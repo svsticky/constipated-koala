@@ -1,23 +1,22 @@
 class MembersController < ApplicationController
   
   def index
+    @limit = params[:limit] ? params[:limit].to_i : 50
+    @offset = params[:offset] ? params[:offset].to_i : 0
+  
+    @page = 1#@offset / @limit
+    @pagination = 5
+  
     if params[:search]
       @members = Member.search(params[:search])
-      
+      @pages = 0#Member.count / @limit
+            
       if @members.size == 1
         redirect_to @members.first
       end
-    else
-      @limit = params[:limit] ? params[:limit].to_i : 50
-      @offset = params[:offset] ? params[:offset].to_i : 0
-    
+    else    
       @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
-
       @pages = Member.count / @limit
-      @page = @offset / @limit
-      @pagination = 5
-      
-      logger.debug(@pages)
     end
   end
 
@@ -120,6 +119,6 @@ class MembersController < ApplicationController
                                    :join_date,
                                    :comments,
                                    :tags_name_ids => [],
-                                   educations_attributes: [ :id, :name_id, :start_date, :end_date, :_destroy ])
+                                   educations_attributes: [ :id, :study_id, :start_date, :end_date, :_destroy ])
   end
 end

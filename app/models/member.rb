@@ -15,14 +15,6 @@ class Member < ActiveRecord::Base
   #validates :comments
   
   attr_accessor :tags_name_ids
-  
-  has_many :educations, 
-    :dependent => :destroy, 
-    :autosave => true
-  
-  accepts_nested_attributes_for :educations, 
-    :reject_if => :all_blank,
-    :allow_destroy => true
     
   has_many :tags,
     :dependent => :destroy,
@@ -31,6 +23,15 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :tags,
     :reject_if => :all_blank,
     :allow_destroy => true
+    
+  has_many :educations, 
+    :dependent => :destroy
+  has_many :studies,
+    :through => :educations  
+    
+  accepts_nested_attributes_for :educations, 
+    :reject_if => :all_blank,
+    :allow_destroy => true    
     
   has_many :participants,
     :dependent => :destroy
@@ -48,26 +49,6 @@ class Member < ActiveRecord::Base
 
   def gravatar
     Digest::MD5.hexdigest(self.email)
-  end
-
-  def studies
-    list = self.educations
-  
-    if(list.length == 0)
-      return ''
-    end
-    
-    string = ''
-    
-    self.educations.each do |i|
-      string += i.name_id
-      
-      if(i != list.last)
-        string += ', '
-      end
-    end
-    
-    return string
   end
 
   def self.search(query)

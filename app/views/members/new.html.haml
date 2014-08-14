@@ -73,14 +73,6 @@
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-fw.fa-image
-              Profielfoto
-            .panel-body
-              .callout.callout-info
-                %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres. 
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
               %i.fa.fa-fw.fa-graduation-cap
               Studie gegevens
             .panel-body
@@ -97,7 +89,7 @@
                       .row
                         .col-md-4
                           .ui-select
-                            = fs.select :name_id, options_for_select(education.list, education.name_id) 
+                            = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
                         .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
                         .col-md-4{ :style => 'padding-right: 0px; width: 202px; '}                    

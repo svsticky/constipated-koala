@@ -84,6 +84,6 @@ class PublicController < ApplicationController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-                                   educations_attributes: [ :id, :name_id, :start_date, :end_date, :_destroy ])
+                                   educations_attributes: [ :id, :study_id, :start_date, :end_date, :_destroy ])
   end
 end
