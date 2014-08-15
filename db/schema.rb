@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140719124341) do
+ActiveRecord::Schema.define(version: 20140814143108) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -38,16 +38,16 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.datetime "updated_at"
   end
 
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "educations", force: true do |t|
     t.integer  "member_id"
-    t.integer  "name_id"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "study_id"
   end
 
   create_table "impressions", force: true do |t|
@@ -66,14 +66,14 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.datetime "updated_at"
   end
 
-  add_index "impressions", ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index", using: :btree
-  add_index "impressions", ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index", using: :btree
-  add_index "impressions", ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
-  add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", length: {"impressionable_type"=>nil, "message"=>255, "impressionable_id"=>nil}, using: :btree
-  add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
+  add_index "impressions", ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index"
+  add_index "impressions", ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index"
+  add_index "impressions", ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
+  add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
+  add_index "impressions", ["user_id"], name: "index_impressions_on_user_id"
 
   create_table "members", force: true do |t|
     t.string   "first_name"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.string   "gender",       limit: 1
     t.string   "student_id"
     t.date     "birth_date"
-    t.date     "join_date",              default: '2014-08-05'
+    t.date     "join_date",              default: '2014-07-27'
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -103,7 +103,14 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.datetime "updated_at"
   end
 
-  add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
+  add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
+
+  create_table "studies", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tags", force: true do |t|
     t.integer  "member_id"
@@ -112,6 +119,6 @@ ActiveRecord::Schema.define(version: 20140719124341) do
     t.datetime "updated_at"
   end
 
-  add_index "tags", ["member_id", "name_id"], name: "index_tags_on_member_id_and_name_id", unique: true, using: :btree
+  add_index "tags", ["member_id", "name_id"], name: "index_tags_on_member_id_and_name_id", unique: true
 
 end

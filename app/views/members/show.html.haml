@@ -73,18 +73,18 @@
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-graduation-cap
-              Studie gegevens
+              Studiegegevens
             .panel-body
               %dl.dl-horizontal
                 %dt #
                 %dd= @member.student_id
               %dl.dl-horizontal
-                - @member.educations.each do |study|
-                  %dt= study.name(study)
-                  - if study.end_date.nil?
-                    %dd #{study.start_date}
+                - @member.educations.each do |education|
+                  %dt= education.study.name
+                  - if education.end_date.nil?
+                    %dd #{education.start_date}
                   -else
-                    %dd #{study.start_date}  -  #{study.end_date}
+                    %dd #{education.start_date}  -  #{education.end_date}
           
           .panel.panel-default
             .panel-heading

@@ -1,13 +1,10 @@
 class Education < ActiveRecord::Base
-  #DO NOT change this order without clearing the entire table
-  enum name_id: [ :ICA, :IKU, :GT, :WISK, :COSC, :GMTE, :MBIM, :AINM ]
-  
-  validates :name_id, presence: true
+  belongs_to :study  
+  belongs_to :member
+
   validates :start_date, presence: true
   #validates :end_date
-  
-  belongs_to :member
-  
+ /   
   def name(study)
     if study.ICA?
       'Informatica'
@@ -40,5 +37,5 @@ class Education < ActiveRecord::Base
     ['BUSINESS INFORMATICS', :MBIM], 
     ['ARTIFICIAL INTELLIGENCE', :AINM]]
   end
-  
+  /
 end
