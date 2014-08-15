@@ -3,8 +3,6 @@ class CreateStudies < ActiveRecord::Migration
     create_table :studies do |t|
       t.string :name
       t.string :code
-
-      t.timestamps
     end
 
     change_table :educations do |t|
