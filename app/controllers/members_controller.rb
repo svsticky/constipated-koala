@@ -34,6 +34,8 @@ class MembersController < ApplicationController
     @member = Member.new(member_post_params)   
     
     if @member.save
+      @current_user = current_admin
+      impressionist(@member, 'nieuwe lid')
       redirect_to @member
     else
       if @member.educations.length < 1
@@ -88,6 +90,9 @@ class MembersController < ApplicationController
           end
         end
       end
+      
+      @current_user = current_admin
+      impressionist(@member, 'lid bewerkt')
     
       redirect_to @member
     else
@@ -97,8 +102,11 @@ class MembersController < ApplicationController
   
 	def destroy
 		@member = Member.find(params[:id])
+		
+    @current_user = current_admin
+    impressionist(@member, "#{@member.first_name} #{@member.infix} #{@member.last_name} verwijderd")
+    
 		@member.destroy
-
 		redirect_to members_path
 	end
 

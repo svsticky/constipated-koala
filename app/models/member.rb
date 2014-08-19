@@ -15,7 +15,9 @@ class Member < ActiveRecord::Base
   #validates :comments
   
   attr_accessor :tags_name_ids
-    
+  
+  is_impressionable
+  
   has_many :tags,
     :dependent => :destroy,
     :autosave => true

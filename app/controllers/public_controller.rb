@@ -44,6 +44,8 @@ class PublicController < ApplicationController
         logger.debug(params[:bank])
       end
       
+      impressionist(@member, 'nieuwe lid')
+      
       redirect_to public_path
     else
       if @member.educations.length < 1

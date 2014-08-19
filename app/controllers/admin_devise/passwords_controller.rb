@@ -4,7 +4,7 @@ class AdminDevise::PasswordsController < Devise::PasswordsController
 
   def after_resetting_password_path_for(resource)
     super
-#    impressionist(resource, message:"Wachtwoord veranderd")
+    impressionist(resource, message:"Wachtwoord veranderd")
   end
 
 end
