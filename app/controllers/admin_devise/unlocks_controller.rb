@@ -4,7 +4,7 @@ class AdminDevise::UnlocksController < Devise::UnlocksController
 
   def after_unlock_path_for(resource)
     super
-#    impressionist(resource)   
+    impressionist(resource)   
   end
 
 end
