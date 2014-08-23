@@ -84,6 +84,7 @@ class PublicController < ApplicationController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
+                                   :activities => [],
                                    educations_attributes: [ :id, :study_id, :start_date, :end_date, :_destroy ])
   end
 end
