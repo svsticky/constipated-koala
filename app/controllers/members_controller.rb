@@ -4,12 +4,12 @@ class MembersController < ApplicationController
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0
   
-    @page = 1#@offset / @limit
+    @page = @offset / @limit
     @pagination = 5
   
     if params[:search]
       @members = Member.search(params[:search])
-      @pages = 0#Member.count / @limit
+      @pages = Member.count / @limit
             
       if @members.size == 1
         redirect_to @members.first
