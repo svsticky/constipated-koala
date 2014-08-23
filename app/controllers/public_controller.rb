@@ -22,20 +22,22 @@ class PublicController < ApplicationController
       
       @lidmaatschap = Participant.new( :member => @member, :activity => Activity.find(@@intro['lidmaatschap']))
       if !@lidmaatschap.save
-        
+        logger.error "#{@member.first_name} #{@member.infix} #{@member.last_name} not added to #{@lidmaatschap.activity.name}"
       end
       
-      if params[:activities].include? 'bbq'
-        @bbq = Participant.new( :member => @member, :activity => Activity.find(@@intro['bbq']))
-        if !@bbq.save
-        
+      if !params[:activities].nil?      
+        if params[:activities].include? 'bbq'
+          @bbq = Participant.new( :member => @member, :activity => Activity.find(@@intro['bbq']))
+          if !@bbq.save
+            logger.error "#{@member.first_name} #{@member.infix} #{@member.last_name} not added to #{@lidmaatschap.activity.name}"        
+          end
         end
-      end
-            
-      if params[:activities].include? 'lasergamen'
-        @lasergamen = Participant.new( :member => @member, :activity => Activity.find(@@intro['lasergamen']))
-        if !@lasergamen.save
-        
+              
+        if params[:activities].include? 'lasergamen'
+          @lasergamen = Participant.new( :member => @member, :activity => Activity.find(@@intro['lasergamen']))
+          if !@lasergamen.save
+            logger.error "#{@member.first_name} #{@member.infix} #{@member.last_name} not added to #{@lidmaatschap.activity.name}"
+          end
         end
       end
       
