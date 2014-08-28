@@ -60,7 +60,7 @@ class PublicController < ApplicationController
       # pay with iDeal
       if params[:method] == 'IDEAL'
         @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'pending')
-        
+
         if @transaction.save
 #          redirect_to "https://betalingen.stickyutrecht.nl/?uuid=#{@transaction.uuid}&url=public%2Fconfirm%2F"
           redirect_to "http://betalingen.isaanhetwerk.nl/?uuid=#{@transaction.uuid}&url=public%2Fconfirm%2F"

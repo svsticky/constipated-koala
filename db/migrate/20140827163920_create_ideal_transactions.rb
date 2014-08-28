@@ -4,7 +4,7 @@ class CreateIdealTransactions < ActiveRecord::Migration
       t.string :uuid, :null => false, :unique => true, :limit => 36
       
       t.text :description
-      t.decimal :price, :scale => 2, :precision => 4
+      t.decimal :price, :scale => 2, :precision => 6
       
       t.belongs_to :member
       t.string :activities

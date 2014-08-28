@@ -6,7 +6,7 @@ class CreateActivities < ActiveRecord::Migration
       t.date :start_date
       t.date :end_date
       
-      t.decimal :price, :scale => 2, :precision => 4
+      t.decimal :price, :scale => 2, :precision => 6
       
       t.text :comments
       t.timestamps
@@ -16,7 +16,7 @@ class CreateActivities < ActiveRecord::Migration
       t.belongs_to :member
       t.belongs_to :activity
       
-      t.decimal :price, :scale => 2, :precision => 4
+      t.decimal :price, :scale => 2, :precision => 6
       t.boolean :paid, :default => false
       
       t.timestamps
