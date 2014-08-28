@@ -16,6 +16,13 @@
 //= require bootstrap
 
 $(document).on('ready page:load', function(){
+  var masters = ["5", "6" , "7", "8"];
+
+  if( $.inArray( $('.studies .ui-select select:first').val(), masters ) != -1 ){
+    $('.bachelor').hide();
+    $('.bachelor input').attr('disabled','disabled');
+  }
+
   $("#menu-close").click(function(e) {
       e.preventDefault();
       $("#sidebar-wrapper").toggleClass("active");
@@ -30,33 +37,40 @@ $(document).on('ready page:load', function(){
     $(this).closest('.alert').remove();
   });
   
-  $(function() {
-      $('a[href*=#]:not([href=#])').click(function() {
-          if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-  
-              var target = $(this.hash);
-              target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-              if (target.length) {
-                  $('html,body').animate({
-                      scrollTop: target.offset().top
-                  }, 1000);
-                  return false;
-              }
+  $('a[href*=#]:not([href=#])').click(function() {
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+          if (target.length) {
+              $('html,body').animate({
+                  scrollTop: target.offset().top
+              }, 1000);
+              return false;
           }
-      });
+      }
   });
   
   $('select#method').on("change", function(){
     var value = $(this).val();
     
-    if(value == 'CONTANT'){
+    if( value == 'CONTANT' ){
       $('select#bank').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');;
-    }else{
+    } else {
       $('select#bank').removeAttr('disabled').removeAttr('style');
     }
   });
   
   $('.studies .ui-select select').on('change', function(){
+    if( $.inArray( $(this).val(), masters ) != -1 ){
+      $('.bachelor').hide();
+      $('.bachelor input').attr('disabled','disabled');
+    } else {
+      $('.bachelor input[name!="activities\[lidmaatschap\]"]').removeAttr('disabled');
+      $('.bachelor').show();
+    }
+  
+    //vul automatisch de datum in
     var row = $(this).closest('.row');
     var date = $(row).find('input[type="date"]');
     

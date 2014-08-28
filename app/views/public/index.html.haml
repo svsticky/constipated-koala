@@ -188,17 +188,14 @@
                     %span 
                       Lasergamen
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
-                -#.col-md-3
+                .col-md-3
                   %label{for: ''} Betaalmethode
                   .ui-select
                     = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
                   .ui-select{ :style => 'margin-top: 5px;' }
                     = select_tag 'bank', options_for_select([['RABOBANK', 'RABONL2U'], ['ING BANK', 'INGBNL2A']])
-                .col-md-3
-                  %p Het is nu nog alleen mogelijk om contant te betalen. Tijdens de intro kan dit bij de penningmeester. Heb je je al eerder ingeschreven, dan krijg je begin september een mailtje met instructies om te betalen.
                         
             %button.btn.btn-success{type: 'submit'} Opslaan
-            = link_to 'Annuleren', public_path, { :class => 'button btn btn-default' }
             
     %footer
       .container
