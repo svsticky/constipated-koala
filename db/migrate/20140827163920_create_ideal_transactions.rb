@@ -1,7 +1,7 @@
 class CreateIdealTransactions < ActiveRecord::Migration
   def change
-    create_table :ideal_transactions, id: false do |t|  
-      t.string :uuid, :null => false, :unique => true, :limit => 36
+    create_table :ideal_transactions do |t|  
+      t.string :uuid, :unique => true, limit => 16
       
       t.text :description
       t.decimal :price, :scale => 2, :precision => 6
@@ -12,11 +12,10 @@ class CreateIdealTransactions < ActiveRecord::Migration
       t.string :issuer, :limit => 8
       t.string :status, :limit => 9
       
-#      t.string :iban, :limit => 34
+      t.string :iban, :limit => 34
+      t.string :url
     
       t.timestamps
     end
-    
-    add_index :ideal_transactions, :uuid, unique: true
   end
 end

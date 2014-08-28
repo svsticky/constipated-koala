@@ -1,5 +1,5 @@
 class PublicController < ApplicationController
-  skip_before_action :authenticate_admin!, only: [:index, :create]
+  skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
   layout nil
   
   @@intro = {
@@ -59,14 +59,14 @@ class PublicController < ApplicationController
       
       # pay with iDeal
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'pending')
+        @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'PENDING', :url => 'http://abc.isaanhetwerk.nl/confirm')
 
         if @transaction.save
 #          redirect_to "https://betalingen.stickyutrecht.nl/?uuid=#{@transaction.uuid}&url=public%2Fconfirm%2F"
-          redirect_to "http://betalingen.isaanhetwerk.nl/?uuid=#{@transaction.uuid}&url=public%2Fconfirm%2F"
+          redirect_to "http://betalingen.isaanhetwerk.nl/?id=#{@transaction.id}"
           return
         else
-          logger.error "[IDEAL] #{@transaction.uuid} niet gelukt #{@transaction.status}"
+          logger.error "[IDEAL] #{@transaction.id} niet gelukt #{@transaction.status}"
           flash[:notice] = 'Je betaling is niet gelukt!' 
         end
       end
@@ -87,9 +87,29 @@ class PublicController < ApplicationController
   end
   
   # Confirm the payment has been done, the redirect url 
-  def confirm_payment
+  def confirm
     # check if it is payed
-    flash[:notice] = 'Je betaling is ontvangen!'
+    @transaction = IdealTransaction.find(params[:id])
+
+    if @transaction.status == 'SUCCESS'
+      # set activities as payed
+      @transaction.activities.each do |activity|
+        @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
+        
+        if @participant.size != 1
+	  flash[:notice] = 'Er is iets fout gegaan.'
+	  redirect_to public_path
+	end
+
+	@participant.first.paid = true
+	@participant.first.save
+      end
+
+      flash[:notice] = 'Je betaling is ontvangen!'
+    else
+      flash[:notice] = 'Er is iets fout gegaan.'
+    end
+
     redirect_to public_path
   end
   

@@ -1,7 +1,4 @@
 class IdealTransaction < ActiveRecord::Base
-  before_validation { self.uuid = SecureRandom.uuid }
-  self.primary_key = :uuid
-    
   validates :description, presence: true
   validates :price, presence: true
   
