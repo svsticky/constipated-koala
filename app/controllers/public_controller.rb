@@ -23,7 +23,7 @@ class PublicController < ApplicationController
       impressionist(@member, 'nieuwe lid')
       flash[:notice] = 'Je hebt je ingeschreven!'
 
-      if @member.educations.first.study_id > 4
+      if !@member.educations.empty? && @member.educations.first.study_id > 4
         redirect_to public_path
         return
       end
@@ -64,11 +64,10 @@ class PublicController < ApplicationController
       
       # pay with iDeal
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'PENDING', :url => 'http://abc.isaanhetwerk.nl/confirm')
+        @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'PENDING', :url => 'https://intro.stickyutrecht.nl/confirm')
 
         if @transaction.save
-#          redirect_to "https://betalingen.stickyutrecht.nl/?uuid=#{@transaction.uuid}&url=public%2Fconfirm%2F"
-          redirect_to "http://betalingen.isaanhetwerk.nl/?id=#{@transaction.id}"
+          redirect_to "https://betalingen.stickyutrecht.nl/?id=#{@transaction.id}"
           return
         else
           logger.error "[IDEAL] #{@transaction.id} niet gelukt #{@transaction.status}"
