@@ -23,6 +23,11 @@ class PublicController < ApplicationController
       impressionist(@member, 'nieuwe lid')
       flash[:notice] = 'Je hebt je ingeschreven!'
 
+      if @member.educations.first.study_id > 4
+        redirect_to public_path
+        return
+      end
+
       # add to activitiess      
       @lidmaatschap = Participant.new( :member => @member, :activity => Activity.find(@@intro['lidmaatschap']))
 

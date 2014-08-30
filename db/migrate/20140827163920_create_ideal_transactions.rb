@@ -1,7 +1,7 @@
 class CreateIdealTransactions < ActiveRecord::Migration
   def change
     create_table :ideal_transactions do |t|  
-      t.string :uuid, :unique => true, limit => 16
+      t.string :uuid, :unique => true, :limit => 16
       
       t.text :description
       t.decimal :price, :scale => 2, :precision => 6
