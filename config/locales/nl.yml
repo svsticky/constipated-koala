@@ -1,4 +1,30 @@
 nl:
+  activerecord:
+    attributes:
+      member:
+       first_name: Voornaam
+       last_name: Achternaam
+       address: Straatnaam
+       house_number: Huisnummer
+       postal_code: Postcode
+       city: Woonplaats
+       phone_number: Telefoonnummer
+       email: Email-adres
+       student_id: Studentnummer
+       birth_date: Geboortedatum
+
+    errors:
+      models:
+        member:
+          blank: kan niet leeg zijn
+          attributes:
+            phone_number: 
+              invalid: bestaat uit 10 cijfers 
+            email:
+              invalid: is geen geldig e-mailadres, het kan geen uu@.nl mail zijn
+            student_id:
+              invalid: bestaat uit 7 cijfers
+
   public:
     index:
       sticky: Studievereniging Sticky
@@ -59,7 +85,8 @@ nl:
       form#submit: Inschrijven
       
       errors#incomplete: Oh snap, niet alles is goed ingevuld;
-      
+
+    create:      
       errors#error: Er is iets fout gegaan.
       errors#payment: Je betaling is niet gelukt!
       

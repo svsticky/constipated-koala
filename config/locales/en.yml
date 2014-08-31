@@ -1,4 +1,17 @@
 en:
+  activerecord:
+    errors:
+      models:
+        member:
+          blank: can't be blank
+          attributes:
+            phone_number:
+              invalid: has 10 digits
+            email:
+              invalid: isn't a valid e-mailaddress
+            student_id:
+              invalid: has 7 digits or starts with a 'F' followed by 6 digits
+
   public:
     index:
       sticky: Studievereniging Sticky
@@ -60,6 +73,8 @@ en:
       form#submit: Subscribe!
       
       errors#incomplete: Oh snap, you forgot some things;
+
+    create:
       errors#error: Something went wrong.
       errors#payment: Your payment is not received.
       
