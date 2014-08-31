@@ -16,7 +16,7 @@ class PublicController < ApplicationController
     @member.educations.build( :id => '-2' )
   end
 
-  def create
+  def create  
     @member = Member.new(public_post_params)
     @activities = []
     @total = 0
@@ -103,12 +103,12 @@ class PublicController < ApplicationController
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
         
         if @participant.size != 1
-	  flash[:notice] = t('.errors#error')
-	  redirect_to public_path
-	end
-
-	@participant.first.paid = true
-	@participant.first.save
+          flash[:notice] = t('.errors#error')
+      	  redirect_to public_path
+      	end
+      
+      	@participant.first.paid = true
+      	@participant.first.save
       end
 
       flash[:notice] = t('.notice#payment')
@@ -122,7 +122,8 @@ class PublicController < ApplicationController
   private
   
   def set_locale
-    I18n.locale = params[:l] || I18n.default_locale
+    session['locale'] = params[:l] || session['locale'] || I18n.default_locale
+    I18n.locale = session['locale']
   end
   
   
