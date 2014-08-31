@@ -1,5 +1,19 @@
 en:
   activerecord:
+    attributes:
+      member:
+       first_name: First name
+       last_name: Surname
+       address: Address
+       house_number: Number
+       postal_code: Postal code
+       city: City
+       phone_number: Phone number
+       email: Email-address
+       student_id: Student id
+       birth_date: Birth date
+
+
     errors:
       models:
         member:
@@ -79,4 +93,7 @@ en:
       errors#payment: Your payment is not received.
       
       notice#success: You're now a proud member!
+
+    confirm:
       notice#payment: Your payment is received!
+      errors#error: Something went wrong.

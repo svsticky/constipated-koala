@@ -88,7 +88,9 @@ nl:
 
     create:      
       errors#error: Er is iets fout gegaan.
-      errors#payment: Je betaling is niet gelukt!
-      
+      errors#payment: Je betaling is niet gelukt, je bent wel ingeschreven!
       notice#success: Je hebt je ingeschreven!
-      notice#payment: Je betaling is ontvangen!
+
+    confirm:
+      errors#error: Er is iets fout gegaan bij het betalen, neem contact op met penningmeester@stickyutrecht.nl
+      notice#payment: Je betaling is ontvangen en je hebt je ingeschreven!
