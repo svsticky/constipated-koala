@@ -15,17 +15,17 @@
         %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
           %i.fa.fa-times
         %li.sidebar-brand
-          Sticky Intro
+          = t '.title'
         %li
-          %a{href: "#top"} Home
+          %a{href: "#top"}= t('.home')
         %li
-          %a{href: "#over"} Over Sticky
+          %a{href: "#over"}= t('.about')
         %li
-          %a{href: "#doenwat"} Wat doet Sticky?
+          %a{href: "#doenwat"}= t('.activities')
         %li
-          %a{href: "#inschrijven"} Inschrijven
+          %a{href: "#inschrijven"}= t('.subscribe')
         %li
-          %a{href: "#contact"} Contact
+          %a{href: "#contact"}= t('.contact')
           
     - if flash[:notice]
       .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
@@ -33,51 +33,56 @@
           %button.click.close{ type: 'button' } ×
           .notice= flash[:notice]  
           
+          
+    .languages{ :style => 'position: absolute; z-index: 2'}
+      = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), '/', { :style => 'margin: 10px; float:left; '}
+      = link_to image_tag('gb.png', { :style => 'height: 15px; width: 25px;' }), '/?l=en', { :style => 'margin: 10px; margin-left: 0px; float:left;'}
+          
     #top.header
       .vert-text
-        %h1 Sticky Introductie
+        %h1= t('.title')
         %br
-        %a.btn.btn-default.btn-lg{href: "#over"} Over Sticky
-        %a.btn.btn-success.btn-lg{href: "#inschrijven"} Inschrijven
+        %a.btn.btn-default.btn-lg{href: "#over"}= t('.about')
+        %a.btn.btn-success.btn-lg{href: "#inschrijven"}= t('.subscribe')
         
     #over.intro
       .container
         .row
           .col-md-6.col-md-offset-3.text-center
-            %h2 Studievereniging Sticky
-            %p.lead Sticky is een jonge en enthousiaste studievereniging voor informatica, informatiekunde en gametechnologie. Wij bieden onze leden leuke en studie-inhoudelijke activiteiten.
+            %h2= t('.sticky')
+            %p.lead= t('.lead')
             
     #doenwat.services
       .container
         .row
           .col-md-4.col-md-offset-4.text-center
-            %h2 Wat doet Sticky?
-            %hr/
+            %h2= t('.activities')
+            %hr
         .row
           .col-md-2.col-md-offset-2.text-center
             .service-item
               %i.service-icon.fa.fa-group
-              %h4 Gezelligheid
-              %p In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.
+              %h4= t('.gezelligheid#title')
+              %p= t('.gezelligheid#text')
           .col-md-2.text-center
             .service-item
               %i.service-icon.fa.fa-rocket
-              %h4 Activiteiten
-              %p Van paintball tot filmavonden en van LANs tot het bezoeken van een brouwerij: je hoeft je nooit meer te vervelen!
+              %h4= t('.activities#title')
+              %p= t('.activities#text')
           .col-md-2.text-center
             .service-item
               %i.service-icon.fa.fa-book
-              %h4 Arbeidsmarktoriëntatie
-              %p Lezingen, workshops, inhousedagen, en meer. Zo kun je ook alvast bedenken wat je na je studie wil gaan doen!
+              %h4= t('.orientation#title')
+              %p= t('.orientation#text')
           .col-md-2.text-center
             .service-item
               %i.service-icon.fa.fa-glass
-              %h4 Borrels
-              %p Met gratis wekelijkse borrels en regelmatige thema-borrels, is er genoeg ruimte om je medestudenten te leren kennen!
+              %h4= t('.drinks#title')
+              %p= t('.drinks#text')
               
     .callout
       .vert-text
-        %h2 Welkom in je studententijd; de mooiste tijd van je leven!
+        %h2= t('.callout')
 
     #inschrijven.portfolio
       .container
@@ -86,74 +91,74 @@
             - if @member.errors.any?
               .alert.alert-danger
                 %button.click.close{ type: 'button' } ×
-                %span Oh snap, niet alles is goed ingevuld;
+                %span= t('.error#incomplete')
                 %ul
                 - @member.errors.full_messages.each do |msg|
                   %li= msg
             %h4
               %span.glyphicon.glyphicon-th
-              Algemene gegevens
+              = t('.form#general_data')
                   
             .form-group
               = f.hidden_field :join_date, :value => Time.new
               .row
                 .col-md-5
-                  %label{for: ''} Voornaam
+                  %label{for: ''}= t('.form#first_name')
                   = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
                 .col-md-2
-                  %label{for: ''} Tussenvoegsel
+                  %label{for: ''}= t('.form#infix')
                   = f.text_field :infix, :value => @member.infix, :class => 'form-control'
                 .col-md-5
-                  %label{for: ''} Achternaam
+                  %label{for: ''}= t('.form#last_name')
                   = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
             .form-group
               .row
                 .col-md-6
-                  %label{for: ''} Geslacht
+                  %label{for: ''}= t('.form#gender')
                   .ui-select
                     = f.select :gender, options_for_select([['MAN', 'm'], ['VROUW', 'f']], @member.gender)
                 .col-md-6
-                  %label{for: ''} Geboortedatum
+                  %label{for: ''}= t('.form#birth_date')
                   = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
             .form-group
               .row
                 .col-md-8
-                  %label{for: ''} Adres
+                  %label{for: ''}= t('.form#address')
                   = f.text_field :address, :value => @member.address, :class => 'form-control'
                 .col-md-4
-                  %label{for: ''} Huisnummer
+                  %label{for: ''}= t('.form#house_number')
                   = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
             .form-group
               .row
                 .col-md-6
-                  %label{for: ''} Postcode
+                  %label{for: ''}= t('.form#postal_code')
                   = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
                 .col-md-6
-                  %label{for: ''} Woonplaats
+                  %label{for: ''}= t('.form#city')
                   = f.text_field :city, :value => @member.city, :class => 'form-control'
             .form-group
-              %label{for: ''} Telefoonnummer
+              %label{for: ''}= t('.form#phone_number')
               = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
             .form-group
-              %label{for: ''} E-mailadres
+              %label{for: ''}= t('.form#email')
               = f.email_field :email, :value => @member.email, :class => 'form-control'
             
             %h4
               %span.glyphicon.glyphicon-th
-              Studie gegevens
+              = t('.form#study_info')
             
             .form-group.studies
               .row
                 .col-md-6
-                  %label{for: ''} Studentnummer
+                  %label{for: ''}= t('.form#student_id')
                   = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
                 .col-md-6 
                   .col-md-6{ :style => 'padding: 0px;'}
                     %label{for: ''} 
-                      Studie
+                      = t('.form#study')
                   .col-md-6
                     %label{for: ''}
-                      Begin datum
+                      = t('.form#start_date')
                   - @member.educations.each do |education|
                     = f.fields_for 'educations_attributes[]', education do |fs|
                       .form-group 
@@ -162,11 +167,11 @@
                             .ui-select
                               = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
                           .col-md-6
-                            = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
+                            = fs.date_field :start_date, :class => 'form-control', :placeholder => t('.form#start_date')
             
             %h4.bachelor
               %span.glyphicon.glyphicon-th
-              Activiteiten 
+              = t('.form#activities') 
               
             .form-group.bachelor
               .row
@@ -174,28 +179,28 @@
                   %label.ui-checkbox
                     %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
                     %span 
-                      Lidmaatschap
+                      = t('.form#membership')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
                   %br
                   %label.ui-checkbox
                     %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq', checked: 'checked'}
                     %span 
-                      Barbeque
+                      = t('.form#bbq')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
                   %br
                   %label.ui-checkbox
                     %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen', checked: 'checked'}
                     %span 
-                      Lasergamen
+                      = t('.form#lasergaming')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
                 .col-md-3
-                  %label{for: ''} Betaalmethode
+                  %label{for: ''}= t('.form#payment_method')
                   .ui-select
                     = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
                   .ui-select{ :style => 'margin-top: 5px;' }
                     = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
                         
-            %button.btn.btn-success{type: 'submit'} Opslaan
+            %button.btn.btn-success{type: 'submit'}= t('.form#submit')
             
     %footer
       .container

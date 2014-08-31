@@ -1,5 +1,7 @@
 class PublicController < ApplicationController
   skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
+  before_action :set_locale
+  
   layout nil
   
   @@intro = {
@@ -21,7 +23,7 @@ class PublicController < ApplicationController
     
     if @member.save
       impressionist(@member, 'nieuwe lid')
-      flash[:notice] = 'Je hebt je ingeschreven!'
+      flash[:notice] = t('.notice#success')
 
       if @member.educations.first.study_id > 4
         redirect_to public_path
@@ -72,7 +74,7 @@ class PublicController < ApplicationController
           return
         else
           logger.error "[IDEAL] #{@transaction.id} niet gelukt #{@transaction.status}"
-          flash[:notice] = 'Je betaling is niet gelukt!' 
+          flash[:notice] = t('.errors#payment')
         end
       end
       
@@ -102,7 +104,7 @@ class PublicController < ApplicationController
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
         
         if @participant.size != 1
-	  flash[:notice] = 'Er is iets fout gegaan.'
+	  flash[:notice] = t('.errors#error')
 	  redirect_to public_path
 	end
 
@@ -110,15 +112,21 @@ class PublicController < ApplicationController
 	@participant.first.save
       end
 
-      flash[:notice] = 'Je betaling is ontvangen!'
+      flash[:notice] = t('.notice#payment')
     else
-      flash[:notice] = 'Er is iets fout gegaan.'
+      flash[:notice] = t('.errors#error')
     end
 
     redirect_to public_path
   end
   
   private
+  
+  def set_locale
+    I18n.locale = params[:l] || I18n.default_locale
+  end
+  
+  
   def public_post_params
     params.require(:member).permit(:first_name,
                                    :infix,

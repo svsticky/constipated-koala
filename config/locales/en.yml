@@ -1,23 +1,67 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  public:
+    index:
+      sticky: Studievereniging Sticky
+      title: Sticky Introduction
+      
+      home: Home
+      about: About Sticky
+      activities: What does Sticky do?
+      subscribe: Sign up
+      contact: Contact
+      
+      lead: Sticky is a young and enthusiastic study association for information sciences, computing sciences and gametechnology students. We offer our members fun and study-related activities.
+      
+      gezelligheid#title: Gezelligheid
+      gezelligheid#text: In our room in the BBG you can always hop in to get some coffee, cookies and authentic gezelligheid! You can also visit us for a game of Mario Kart or to have a good conversation.
+
+      
+      activities#title: Activiteiten
+      activities#text: 'From paintball to movie nights, and from LANs to visiting breweries: you’ll never be bored again!'
+      
+      orientation#title: Job orientation
+      orientation#text: Readings, workshops, inhouse days, and more. This way you can already decide what you’d like to do after your studies!
+      
+      drinks#title: Drinks
+      drinks#text: With free weekly drinks and regular themed drinks, there’ll be enough opportunities to get to know your fellow students!
+      
+      callout: Welcome to Sticky; the greatest time of your life!
+      
+      form#general_data: General data
+      
+      form#first_name: First name
+      form#infix: Surname prefix
+      form#last_name: Surname
+      
+      form#gender: Gender
+      form#birth_date: Date of birth
+      
+      form#address: Address
+      form#house_number: Number
+      
+      form#postal_code: Postal code
+      form#city: City
+      
+      form#phone_number: Telephone
+      form#email: E-mail
+      
+      form#study_info: Study data
+      form#student_id: Student id
+      
+      form#study: Study
+      form#start_date: Start date
+      
+      form#activities: Activities (only for bachelors)
+      form#membership: Membership
+      form#bbq: Barbeque
+      form#lasergaming: Lasergaming
+      
+      form#payment_method: Payment method      
+      form#submit: Subscribe!
+      
+      errors#incomplete: Oh snap, you forgot some things;
+      errors#error: Something went wrong.
+      errors#payment: Your payment is not received.
+      
+      notice#success: You're now a proud member!
+      notice#payment: Your payment is received!
