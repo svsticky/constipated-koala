@@ -26,32 +26,33 @@
           %a{href: "#inschrijven"}= t('.subscribe')
         %li
           %a{href: "#contact"}= t('.contact')
-          
+
     - if flash[:notice]
       .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
         .alert.alert-success.center-block{ :style => 'width: 500px;' }
           %button.click.close{ type: 'button' } ×
-          .notice= flash[:notice]  
-          
-          
+          .notice= flash[:notice]
+
+
     .languages{ :style => 'position: absolute; z-index: 2'}
       = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), '/?l=nl', { :style => 'margin: 10px; float:left; '}
       = link_to image_tag('gb.png', { :style => 'height: 15px; width: 25px;' }), '/?l=en', { :style => 'margin: 10px; margin-left: 0px; float:left;'}
-          
+
+    .header-bg
     #top.header
       .vert-text
         %h1= t('.title')
         %br
         %a.btn.btn-default.btn-lg{href: "#over"}= t('.about')
         %a.btn.btn-success.btn-lg{href: "#inschrijven"}= t('.subscribe')
-        
+
     #over.intro
       .container
         .row
           .col-md-6.col-md-offset-3.text-center
             %h2= t('.sticky')
             %p.lead= t('.lead')
-            
+
     #doenwat.services
       .container
         .row
@@ -79,10 +80,17 @@
               %i.service-icon.fa.fa-glass
               %h4= t('.drinks#title')
               %p= t('.drinks#text')
-              
-    .callout
-      .vert-text
-        %h2= t('.callout')
+
+    #callout-overlay.vert-text
+      %h2= t('.callout')
+    #callout.carousel.slide{:data => {'data-ride' => 'carousel'}}
+      .carousel-inner
+        #item1.item.active
+        #item2.item
+        #item3.item
+        #item4.item
+
+
 
     #inschrijven.portfolio
       .container
@@ -98,7 +106,7 @@
             %h4
               %span.glyphicon.glyphicon-th
               = t('.form#general_data')
-                  
+
             .form-group
               = f.hidden_field :join_date, :value => Time.new
               .row
@@ -142,55 +150,55 @@
             .form-group
               %label{for: ''}= t('.form#email')
               = f.email_field :email, :value => @member.email, :class => 'form-control'
-            
+
             %h4
               %span.glyphicon.glyphicon-th
               = t('.form#study_info')
-            
+
             .form-group.studies
               .row
                 .col-md-6
                   %label{for: ''}= t('.form#student_id')
                   = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-                .col-md-6 
+                .col-md-6
                   .col-md-6{ :style => 'padding: 0px;'}
-                    %label{for: ''} 
+                    %label{for: ''}
                       = t('.form#study')
                   .col-md-6
                     %label{for: ''}
                       = t('.form#start_date')
                   - @member.educations.each do |education|
                     = f.fields_for 'educations_attributes[]', education do |fs|
-                      .form-group 
+                      .form-group
                         .row
                           .col-md-6
                             .ui-select
                               = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
                           .col-md-6
                             = fs.date_field :start_date, :class => 'form-control', :placeholder => t('.form#start_date')
-            
+
             %h4.bachelor
               %span.glyphicon.glyphicon-th
-              = t('.form#activities') 
-              
+              = t('.form#activities')
+
             .form-group.bachelor
               .row
                 .col-md-6
                   %label.ui-checkbox
                     %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
-                    %span 
+                    %span
                       = t('.form#membership')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
                   %br
                   %label.ui-checkbox
                     %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq', checked: 'checked'}
-                    %span 
+                    %span
                       = t('.form#bbq')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
                   %br
                   %label.ui-checkbox
                     %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen', checked: 'checked'}
-                    %span 
+                    %span
                       = t('.form#lasergaming')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
                 .col-md-3
@@ -199,9 +207,9 @@
                     = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
                   .ui-select{ :style => 'margin-top: 5px;' }
                     = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
-                        
+
             %button.btn.btn-success{type: 'submit'}= t('.form#submit')
-            
+
     %footer
       .container
         .row
