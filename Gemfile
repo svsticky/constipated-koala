@@ -6,7 +6,7 @@ gem 'rails', '~> 4.1.1'
 #authentication gem
 gem 'devise'
 
-#logging 
+#logging
 gem 'impressionist'
 
 #use of Haml
@@ -50,3 +50,5 @@ gem 'jbuilder'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+
+gem 'faker'
