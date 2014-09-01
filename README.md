@@ -4,22 +4,38 @@
 
 All you need to get started with this repository is to install two dependencies.
 
-### Dependencies
+### External dependencies
 
 Install before continuing:
 
  - Ruby v2.1.2 (via [`rvm`](http://rvm.io/) or [`rbenv`](https://github.com/sstephenson/rbenv))
  - MySQL; with an empty testing database
 
-### Installation
+### Running the Rails app
 
- - Clone and switch directories: `$ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git && cd ConstipatedKoala``
- - Install ruby dependencies: `$ bundle install`
- - Create `config/database.yml` with adapter `mysql2` and database credentials
- - Populate database: `$ bundle exec rake db:migrate && bundle exec rake db:seed`
- - Run the server: `$ bundle exec rails server`
- - Add the following to your `/etc/hosts` or equivalent: `127.0.0.1 admin.koala.dev public.koala.dev`
- - View at: [`http://admin.koala.dev/`](http://admin.koala.dev/)
+This is how you can get started with the development setup.
+
+```shell
+# Clone and switch directories:
+$ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git && cd ConstipatedKoala
+
+# Install ruby dependencies:
+$ bundle install
+
+# Create `config/database.yml` with adapter `mysql2` and database credentials
+$ mvim config/database.yml
+
+# Populate the database
+$ bundle exec rake db:migrate && bundle exec rake db:seed
+
+# Run the server
+$ bundle exec rails server
+
+# Add dev host to hosts file
+$ echo "127.0.0.1 admin.koala.dev public.koala.dev >> /etc/hosts
+```
+
+All done! Now view at: [`http://admin.koala.dev/`](http://admin.koala.dev/)
 
 ## License
 
