@@ -30,7 +30,9 @@
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
               %th
-                .th
+                .th.hidden-xs
+                  Telefoonnummer
+                .th.visible-xs
                   Telefoonnummer
               %th
                 .th
@@ -50,7 +52,8 @@
               %td= link_to "#{member.first_name}", member
               %td= link_to "#{member.infix}", member
               %td= link_to "#{member.last_name}", member
-              %td= link_to "#{member.phone_number}", member
+              %td.hidden-xs= link_to "#{member.phone_number}", member
+              %td.visible-xs= link_to "#{member.phone_number}", "tel:#{member.phone_number}", :style => 'color: darkblue;'
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member

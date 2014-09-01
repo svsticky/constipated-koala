@@ -14,8 +14,9 @@
               Algemene gegevens
             .panel-body
               %p
-                %strong #{@member.first_name} #{@member.infix} #{@member.last_name} 
-                (#{@member.gender})
+                %strong #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
+                %br
+                #{I18n.l @member.birth_date}
               %p 
                 #{@member.address} #{@member.house_number} 
                 %br
@@ -54,9 +55,9 @@
                         %td= link_to '-', activity, :style => 'text-decoration: none;'
                         
                       - if activity.end_date.nil?
-                        %td.hidden-xs= link_to "#{activity.start_date}", activity
+                        %td.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
                       - else
-                        %td.hidden-xs= link_to "#{activity.start_date} - #{activity.end_date}", activity
+                        %td.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
                         
                       %td
                         .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
@@ -82,9 +83,9 @@
                 - @member.educations.each do |education|
                   %dt= education.study.name
                   - if education.end_date.nil?
-                    %dd #{education.start_date}
+                    %dd #{I18n.l education.start_date, :format => :short}
                   -else
-                    %dd #{education.start_date}  -  #{education.end_date}
+                    %dd #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
           
           .panel.panel-default
             .panel-heading
@@ -100,7 +101,7 @@
             .panel-body
               %dl.dl-horizontal
                 %dt Lid sinds
-                %dd= @member.join_date
+                %dd= I18n.l @member.join_date
                 %dt Activiteiten
                 %dd= @member.activities.length
 

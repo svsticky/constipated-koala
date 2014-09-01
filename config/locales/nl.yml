@@ -1,4 +1,10 @@
 nl:
+  date: 
+    formats:
+      default: "%d-%m-%Y"
+      short: "%Y"
+  
+  
   activerecord:
     attributes:
       member:
