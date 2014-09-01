@@ -120,10 +120,8 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
 
   create_table "studies", force: true do |t|
-    t.string   "name"
-    t.string   "code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
+    t.string "code"
   end
 
   create_table "tags", force: true do |t|
