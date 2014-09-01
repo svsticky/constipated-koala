@@ -27,16 +27,16 @@ $(document).on('ready page:load', function(){
       e.preventDefault();
       $("#sidebar-wrapper").toggleClass("active");
   });
-  
+
   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#sidebar-wrapper").toggleClass("active");
   });
-  
+
   $('.alert .close').on('click', function(){
     $(this).closest('.alert').remove();
   });
-  
+
   $('a[href*=#]:not([href=#])').click(function() {
       if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
@@ -50,17 +50,17 @@ $(document).on('ready page:load', function(){
           }
       }
   });
-  
+
   $('select#method').on("change", function(){
     var value = $(this).val();
-    
+
     if( value == 'CONTANT' ){
       $('select#bank').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');;
     } else {
       $('select#bank').removeAttr('disabled').removeAttr('style');
     }
   });
-  
+
   $('.studies .ui-select select').on('change', function(){
     if( $.inArray( $(this).val(), masters ) != -1 ){
       $('.bachelor').hide();
@@ -69,22 +69,37 @@ $(document).on('ready page:load', function(){
       $('.bachelor input[name!="activities\[lidmaatschap\]"]').removeAttr('disabled');
       $('.bachelor').show();
     }
-  
+
     //vul automatisch de datum in
     var row = $(this).closest('.row');
     var date = $(row).find('input[type="date"]');
-    
+
     function pad(s) { return (s < 10) ? '0' + s : s; }
-    
+
     if(!$(this).val()){
       $(date).val('');
       return;
     }
-    
+
     if( !$(date).val() ){
       var d = new Date();
       $(date).val( [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('-') );
     }
-    
+
   });
+
+  var jumboHeight = $('.header').outerHeight();
+  function parallax(){
+        var scrolled = $(window).scrollTop();
+            $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
+            $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
+  }
+  $(window).scroll(function(e){
+        parallax();
+  });
+  var callout = $('#callout');
+  callout.carousel();
+  setInterval(function() {
+    callout.carousel('next');
+  }, 3000);
 });
