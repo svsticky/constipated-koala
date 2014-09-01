@@ -10,8 +10,8 @@ ConstipatedKoala::Application.routes.draw do
     # You can have the root of your site routed with "root"
     root 'home#index'
 
-    # Home controller
-    get 'home', to: 'home#index'
+    # No double controllers
+    get 'home', to: redirect('/')
 
     # Devise routes
     devise_for :admins, controllers:
