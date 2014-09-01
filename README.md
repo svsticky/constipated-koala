@@ -35,7 +35,7 @@ $ bundle exec rails server
 $ echo "127.0.0.1 admin.koala.dev public.koala.dev >> /etc/hosts
 ```
 
-All done! Now view at: [`http://admin.koala.dev/`](http://admin.koala.dev/)
+All done! Now view at: [`http://admin.koala.dev:3000`](http://admin.koala.dev:3000) or [`http://public.koala.dev:3000`](http://public.koala.dev:3000).
 
 ## License
 
