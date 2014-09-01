@@ -1,32 +1,32 @@
-Operation Constipated Koala
-===========================
+# Operation Constipated Koala
 
-Dit is een (leden)administratie en informatie systeem wordt voor het bijhouden van leden en activitetien voor Studievereniging Sticky.
-Op dit moment is het mogelijk om leden te bekijken/doorzoeken/aanpassen. In de komende tijd komen hier meerdere features bij.
+## Dev setup
 
-## Requirements
+All you need to get started with this repository is to install two dependencies.
 
-- Unix server
-- Ruby v2.1.2 (via RVM of rbenv)
-- Sqlite 3
+### Dependencies
 
-## Installatie
+Install before continuing:
 
-1. Zorg dat je de requirements hebt geinstalleerd.
-2. Clone de repo:```$ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git```
-3. Ga in de directory:```$ cd ConstipatedKoala```
-4. Installeer gems:```$ bundle install```
-5. Maak een dev database aan:```$ rake db:migrate```
-6. Vul de database met test data:```$ rake db:seed```
-7. Start de webserver:```$ rails server```
-8. Ga naar de webpagina: http://localhost:3000/
-9. Knutselen!
+ - Ruby v2.1.2 (via [`rvm`](http://rvm.io/) or [`rbenv`](https://github.com/sstephenson/rbenv))
+ - MySQL; with an empty testing database
 
-## Licentie
+### Installation
+
+ - Clone and switch directories: `$ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git && cd ConstipatedKoala``
+ - Install ruby dependencies: `$ bundle install`
+ - Create `config/database.yml` with adapter `mysql2` and database credentials
+ - Populate database: `$ bundle exec rake db:migrate && bundle exec rake db:seed`
+ - Run the server: `$ bundle exec rails server`
+ - Add the following to your `/etc/hosts` or equivalent: `127.0.0.1 admin.koala.dev public.koala.dev`
+ - View at: [`http://admin.koala.dev/`](http://admin.koala.dev/)
+
+## License
+
 ```
 ConstipatedKoala is licensed under the GPLv3 license.
 
-Copyright (C) 2014 Tako Marks, Martijn Casteel
+Copyright (C) 2014 Tako Marks, Martijn Casteel, Laurens Duijvesteijn
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

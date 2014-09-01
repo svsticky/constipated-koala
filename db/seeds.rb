@@ -29,11 +29,11 @@ Admin.create(
     comments:     (Random.rand(10) > 3 ? Faker::Company.catch_phrase : NIL)
   )
 end
-  
+
 110.times do
   Education.create(
     member:       Member.find(1+ Random.rand(Member.count)),
-    study_id:     Random.rand(7) +1, #there are now 1..8 educations
+    study_id:     Random.rand(8) +1, #there are now 1..8 educations
     start_date:   Faker::Business.credit_card_expiry_date,
     end_date:     (Random.rand(10) > 6 ? Faker::Business.credit_card_expiry_date : NIL)
   )
@@ -43,10 +43,50 @@ end
   Activity.create(
     name:         Faker::Commerce.department,
     price:        Faker::Commerce.price,
-    start_date:   Faker::Business.credit_card_expiry_date 
+    start_date:   Faker::Business.credit_card_expiry_date
   )
 end
 
+Study.create(
+  id:             1,
+  name:           "Informatica",
+  code:           "INCA"
+)
+Study.create(
+  id:             2,
+  name:           "Informatiekunde",
+  code:           "INCA"
+)
+Study.create(
+  id:             3,
+  name:           "Gametech",
+  code:           "GT"
+)
+Study.create(
+  id:             4,
+  name:           "Computing Science",
+  code:           "COSC"
+)
+Study.create(
+  id:             5,
+  name:           "Business Informatics",
+  code:           "MBI"
+)
+Study.create(
+  id:             6,
+  name:           "Wiskunde",
+  code:           "WISK"
+)
+Study.create(
+  id:             7,
+  name:           "Artificial Intelligence",
+  code:           "AI"
+)
+Study.create(
+  id:             8,
+  name:           "Game and Media Technology",
+  code:           "GMT"
+)
 # Suppress exception for the unique key [member, activity], daarom ook zo veel..
 suppress(Exception) do
   200.times do
