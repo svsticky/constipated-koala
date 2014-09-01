@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814143108) do
+ActiveRecord::Schema.define(version: 20140901135404) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "price",      precision: 4, scale: 2
+    t.decimal  "price",      precision: 6, scale: 2
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(version: 20140814143108) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "study_id"
+  end
+
+  create_table "ideal_transactions", force: true do |t|
+    t.string   "uuid",        limit: 16
+    t.text     "description"
+    t.decimal  "price",                  precision: 6, scale: 2
+    t.integer  "member_id"
+    t.string   "activities"
+    t.string   "issuer",      limit: 8
+    t.string   "status",      limit: 9
+    t.string   "iban",        limit: 34
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "impressions", force: true do |t|
@@ -88,7 +102,7 @@ ActiveRecord::Schema.define(version: 20140814143108) do
     t.string   "gender",       limit: 1
     t.string   "student_id"
     t.date     "birth_date"
-    t.date     "join_date",              default: '2014-08-05'
+    t.date     "join_date"
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -97,7 +111,7 @@ ActiveRecord::Schema.define(version: 20140814143108) do
   create_table "participants", force: true do |t|
     t.integer  "member_id"
     t.integer  "activity_id"
-    t.decimal  "price",       precision: 4, scale: 2
+    t.decimal  "price",       precision: 6, scale: 2
     t.boolean  "paid",                                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -106,8 +120,10 @@ ActiveRecord::Schema.define(version: 20140814143108) do
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
 
   create_table "studies", force: true do |t|
-    t.string "name"
-    t.string "code"
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tags", force: true do |t|
