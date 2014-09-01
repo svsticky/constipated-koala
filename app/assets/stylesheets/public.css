@@ -814,3 +814,9 @@ footer {
   background: url('/assets/callout4.jpg') fixed center center;
   background-size: auto;
 }
+#callout-overlay {
+  position: absolute;
+  z-index: 10;
+  color: #fff;
+  text-shadow: #000 0 3px 3px;
+}
