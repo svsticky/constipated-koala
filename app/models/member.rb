@@ -13,38 +13,40 @@ class Member < ActiveRecord::Base
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
-  
+
   attr_accessor :tags_name_ids
-  
+
   is_impressionable
-  
+
   has_many :tags,
     :dependent => :destroy,
     :autosave => true
-    
+
   accepts_nested_attributes_for :tags,
     :reject_if => :all_blank,
     :allow_destroy => true
-    
-  has_many :educations, 
+
+  has_many :educations,
     :dependent => :destroy
   has_many :studies,
-    :through => :educations  
-    
-  accepts_nested_attributes_for :educations, 
+    :through => :educations
+
+  accepts_nested_attributes_for :educations,
     :reject_if => :all_blank,
-    :allow_destroy => true    
-    
+    :allow_destroy => true
+
   has_many :participants,
     :dependent => :destroy
-  has_many :activities, 
+  has_many :activities,
     :through => :participants
-    
+
+  before_create :before_create
+
   def phone_number=(phone_number)
     #change landcode to 00 and remove all not numbers
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
   end
-  
+
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.sub(' ', ''))
   end
@@ -57,4 +59,7 @@ class Member < ActiveRecord::Base
     Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
   end
 
+  def before_create
+    self.join_date = Time.new
+  end
 end
