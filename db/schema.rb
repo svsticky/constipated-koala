@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20140901135404) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "price",      precision: 4, scale: 2
+    t.decimal  "price",      precision: 6, scale: 2
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   create_table "participants", force: true do |t|
     t.integer  "member_id"
     t.integer  "activity_id"
-    t.decimal  "price",       precision: 4, scale: 2
+    t.decimal  "price",       precision: 6, scale: 2
     t.boolean  "paid",                                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -120,8 +120,10 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
 
   create_table "studies", force: true do |t|
-    t.string "name"
-    t.string "code"
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tags", force: true do |t|

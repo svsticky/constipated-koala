@@ -1,7 +1,9 @@
 ConstipatedKoala::Application.routes.draw do
-  constraints :subdomain => 'public' do
+  constraints :subdomain => 'intro' do
     match '/', to: 'public#index', via: :get, as: 'public'
     match '/', to: 'public#create', via: :post
+
+    match 'confirm', to: 'public#confirm', via: :get
   end
 
   constraints :subdomain => 'admin' do
