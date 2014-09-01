@@ -1,9 +1,9 @@
 ConstipatedKoala::Application.routes.draw do
   constraints :subdomain => 'intro' do
-    match '/', to: 'public#index', via: :get, as: 'public'
-    match '/', to: 'public#create', via: :post
+    get  '/', to: 'public#index', as: 'public'
+    post '/', to: 'public#create'
 
-    match 'confirm', to: 'public#confirm', via: :get
+    get 'confirm', to: 'public#confirm'
   end
 
   constraints :subdomain => 'koala' do
@@ -11,7 +11,7 @@ ConstipatedKoala::Application.routes.draw do
     root 'home#index'
 
     # Home controller
-    get 'home' => 'home#index'
+    get 'home', to: 'home#index'
 
     # Devise routes
     devise_for :admins, controllers:
@@ -25,10 +25,12 @@ ConstipatedKoala::Application.routes.draw do
     resources :members, :activities
 
     # Participants routes for JSON calls
-    get 'participants/list' => 'participants#list'
-    get 'participants' => 'participants#find'
-    post 'participants' => 'participants#create'
-    patch 'participants' => 'participants#update'
-    delete 'participants' => 'participants#destroy'
+    get    'participants/list', to: 'participants#list'
+    get    'participants',      to: 'participants#find'
+    post   'participants',      to: 'participants#create'
+    patch  'participants',      to: 'participants#update'
+    delete 'participants',      to: 'participants#destroy'
   end
+
+  get '/', to: redirect('/404')
 end
