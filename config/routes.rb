@@ -6,7 +6,7 @@ ConstipatedKoala::Application.routes.draw do
     match 'confirm', to: 'public#confirm', via: :get
   end
 
-  constraints :subdomain => 'admin' do
+  constraints :subdomain => 'koala' do
     # You can have the root of your site routed with "root"
     root 'home#index'
 
