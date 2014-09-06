@@ -32,10 +32,10 @@ $ bundle exec rake db:migrate && bundle exec rake db:seed
 $ bundle exec rails server
 
 # Add dev host to hosts file
-$ echo "127.0.0.1 admin.koala.dev public.koala.dev >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.dev intro.rails.dev >> /etc/hosts
 ```
 
-All done! Now view at: [`http://admin.koala.dev:3000`](http://admin.koala.dev:3000) or [`http://public.koala.dev:3000`](http://public.koala.dev:3000).
+All done! Now view at: [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000) or [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000).
 
 ## License
 
