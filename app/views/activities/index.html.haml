@@ -19,9 +19,8 @@
             - @activities.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
                 %thead
-                  %tr{ :style => 'font-size: 1.1em;', :colspan => 2 } 
-                    %td= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
-                    /%span{ :style => 'font-size: 0.8em;  } "(#{activity.start_date})"
+                  %tr{ :style => 'font-size: 1.1em;' } 
+                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
                     
                 %tbody
                   - activity.participants.where(:paid => false).each do |participant|
@@ -54,6 +53,11 @@
                         - else
                           %span{ :style => 'line-height: 39px;' } -
                       %td.col-md-2
+                  - if activity.participants.count > 0 && activity.participants.where(:paid => false).count != 0
+                    %tr
+                      %td{ :colspan => 3 }
+                        = link_to "toon alle #{activity.participants.count} deelnemers", activity, :style => 'text-align: center; font-size: 0.8em;'
+                      
 
       = form_for :activity, url: activities_path, method: :post, :class => 'form-validation' do |f|   
         - if @activity.errors.any?
