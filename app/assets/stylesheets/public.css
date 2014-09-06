@@ -736,9 +736,6 @@ a.close {
  text-transform: capitalize;
 }
 
-@import url('http://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
-
-
 .vert-text {
     padding: 100px;
     text-align: left;
@@ -797,23 +794,23 @@ footer {
 }
 #item1 {
   background: url('/assets/callout1.jpg') fixed center center;
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
 #item2 {
   background: url('/assets/callout2.jpg') fixed center center;
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 #item3 {
   background: url('/assets/callout3.jpg') fixed center center;
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 #item4 {
   background: url('/assets/callout4.jpg') fixed center center;
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 #callout-overlay {

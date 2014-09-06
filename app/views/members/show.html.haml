@@ -16,7 +16,8 @@
               %p
                 %strong #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
                 %br
-                #{I18n.l @member.birth_date}
+                - if !@member.birth_date.nil?
+                  = I18n.l @member.birth_date
               %p 
                 #{@member.address} #{@member.house_number} 
                 %br
@@ -53,11 +54,12 @@
                         %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
                       - else
                         %td= link_to '-', activity, :style => 'text-decoration: none;'
-                        
-                      - if activity.end_date.nil?
-                        %td.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
-                      - else
-                        %td.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+                      
+                      - if !activity.start_date.nil?  
+                        - if activity.end_date.nil?
+                          %td.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
+                        - else
+                          %td.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
                         
                       %td
                         .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
