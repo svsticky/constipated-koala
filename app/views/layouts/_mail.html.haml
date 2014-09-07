@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-body
-    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => '', :method => :post }
+    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => mail_path, :method => :post }
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
         .col-md-10.col-xs-12
@@ -69,14 +69,13 @@
       
       %br
       .mail-actions
-        %button.btn.btn-primary{ type: 'submit' } Verstuur
+        %button.btn.btn-primary{ type: 'submit', :disabled => 'disabled' } Verstuur
         .btn.btn-default.disabled{ :disabled => 'disabled' } Draft
-        .btn.btn-default Annuleren
         
 :javascript
   $(document).on('ready page:load', function(){
     
-    $('form#mail').find('.ta-toolbar button').on('click', function(){
+    $('form#mail .ta-toolbar button').on('click', function(){
       var textarea = $('textarea#text');
     
       switch ( $(this).attr('name') ){
@@ -84,6 +83,23 @@
           alert('test');
           break;
       }
+    });
+    
+    $('form#mail .mail-actions .btn.btn-primary').on('click', function( e ){
+      e.preventDefault();  
+    
+      $.ajax({
+        url: '/mail',
+        type: 'POST',
+        data: {
+          test: 'test'
+          }
+      }).done(function( data ){
+        console.log(data)
+        alert('mail is verstuurd');
+      }).fail(function( data ){
+        alert('mail is niet verstuurd', 'error');
+      });
     });
   
   });

@@ -30,6 +30,9 @@ ConstipatedKoala::Application.routes.draw do
     post   'participants',      to: 'participants#create'
     patch  'participants',      to: 'participants#update'
     delete 'participants',      to: 'participants#destroy'
+    
+    #mail JSON calls
+    post   'mail',              to: 'mail#send'
   end
 
   get '/', to: redirect('/404')
