@@ -1,6 +1,6 @@
 - content_for(:page, 'members')
 - content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
-
+>>
 %section#content
   = render 'layouts/search' 
 
@@ -94,7 +94,6 @@
               %i.fa.fa-fw.fa-users
               Commissies
             .panel-body
-              commissies 
 
           .panel.panel-default
             .panel-heading
@@ -103,7 +102,8 @@
             .panel-body
               %dl.dl-horizontal
                 %dt Lid sinds
-                %dd= I18n.l @member.join_date
+                - if !@member.join_date.nil?
+                  %dd= I18n.l @member.join_date
                 %dt Activiteiten
                 %dd= @member.activities.length
 

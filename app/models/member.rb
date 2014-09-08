@@ -2,7 +2,7 @@ class Member < ActiveRecord::Base
   validates :first_name, presence: true
   #validates :infix
   validates :last_name, presence: true
-  validates :address, presence: true, format: { with: /\A\D*\Z/ }
+  validates :address, presence: true
   validates :house_number, presence: true
   validates :postal_code, presence: true
   validates :city, presence: true
