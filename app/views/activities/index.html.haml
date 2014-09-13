@@ -19,9 +19,8 @@
             - @activities.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
                 %thead
-                  %tr{ :style => 'font-size: 1.1em;', :colspan => 2 } 
-                    %td= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
-                    /%span{ :style => 'font-size: 0.8em;  } "(#{activity.start_date})"
+                  %tr{ :style => 'font-size: 1.1em;' } 
+                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
                     
                 %tbody
                   - activity.participants.where(:paid => false).each do |participant|
@@ -54,6 +53,11 @@
                         - else
                           %span{ :style => 'line-height: 39px;' } -
                       %td.col-md-2
+                  - if activity.participants.count > 0 && activity.participants.where(:paid => false).count != 0
+                    %tr
+                      %td{ :colspan => 3 }
+                        = link_to "toon alle #{activity.participants.count} deelnemers", activity, :style => 'text-align: center; font-size: 0.8em;'
+                      
 
       = form_for :activity, url: activities_path, method: :post, :class => 'form-validation' do |f|   
         - if @activity.errors.any?
@@ -75,20 +79,21 @@
               .form-group
                 .row
                   .col-md-9                
-                    %label{for: ''} Naam
+                    = label(:activity, :name)
                     = f.text_field :name, :value => @activity.name, :class => 'form-control'
                   .col-md-3
-                    %label{for: ''} Prijs
+                    = label(:activity, :price)
                     = f.text_field :price, :value => number_to_currency(@activity.price, :unit => ''), :class => 'form-control'
                 
               .form-group
                 .row
-                  .col-md-6
-                    %label{for: ''} Begin datum
+                  .col-md-4
+                    = label(:activity, :start_date)
                     = f.date_field :start_date, :value => @activity.start_date, :class => 'form-control'
-                  .col-md-6
-                    %label{for: ''} Eind datum
+                  .col-md-4
+                    = label(:activity, :end_date)
                     = f.date_field :end_date, :value => @activity.end_date, :class => 'form-control'
-                
+                  .col-md-4
+
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Annuleren', activities_path, { :class => 'button btn btn-default' }

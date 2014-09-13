@@ -4,7 +4,6 @@ nl:
       default: "%d-%m-%Y"
       short: "%Y"
   
-  
   activerecord:
     attributes:
       member:
@@ -18,6 +17,11 @@ nl:
        email: Email-adres
        student_id: Studentnummer
        birth_date: Geboortedatum
+      activity:
+        name: Naam
+        price: Prijs
+        start_date: Begin datum
+        end_date: Eind datum
 
     errors:
       models:
