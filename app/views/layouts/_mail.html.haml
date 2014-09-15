@@ -53,9 +53,9 @@
       -#text.form-control{ :contenteditable => 'true' }
       %textarea.form-control#text{ :name => 'mail', :rows => '12' }
         :preserve
-          Hoi %first_name%,
+          Hoi %recipient.first_name%,
           
-          Je bent onlangs meegeweest naar %name%. Deze activiteit kostte {price}. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. %first_name% %infix% %last_name% %name%?
+          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. %recipient.first_name% %recipient.infix% %recipient.last_name% %recipient.activity%?
           
           Met vriendelijke groet,
           
@@ -92,7 +92,10 @@
         url: '/mail',
         type: 'POST',
         data: {
-          test: 'test'
+          id: $('form#mail').attr('data-id'),
+          recipients: $('form#mail #recipients input#bbc').val(),
+          subject: $('form#mail input#onderwerp').val(),
+          text: $('form#mail textarea#text').val()
           }
       }).done(function( data ){
         console.log(data)
