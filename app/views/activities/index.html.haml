@@ -26,7 +26,7 @@
                   - activity.participants.where(:paid => false).each do |participant|
                     - if !participant.currency.nil?
                       %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
-                        %td.col-md-8= link_to "#{participant.member.first_name} #{participant.member.infix} #{participant.member.last_name}", participant.member
+                        %td.col-md-8= link_to "#{participant.member.name}", participant.member
                 
                         - if !participant.currency.nil?
                           %td.col-md-2

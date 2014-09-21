@@ -6,7 +6,7 @@
         .col-md-10.col-xs-12
           .row#recipients
             .col-md-8
-              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.first_name} #{recipient.infix} #{recipient.last_name} <#{recipient.email}>"}.join(', ') }
+              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.name} <#{recipient.email}>"}.join(', ') }
             .col-md-4
               .ui-select
                 %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
@@ -55,7 +55,7 @@
         :preserve
           Hoi %recipient.first_name%,
           
-          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. %recipient.first_name% %recipient.infix% %recipient.last_name% %recipient.activity%?
+          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. '%recipient.name% %recipient.activity%'?
           
           Met vriendelijke groet,
           
