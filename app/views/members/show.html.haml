@@ -14,7 +14,7 @@
               Algemene gegevens
             .panel-body
               %p
-                %strong #{@member.first_name} #{@member.infix} #{@member.last_name} (#{@member.gender})
+                %strong #{@member.name} (#{@member.gender})
                 %br
                 - if !@member.birth_date.nil?
                   = I18n.l @member.birth_date
