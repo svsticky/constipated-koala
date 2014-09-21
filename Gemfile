@@ -12,6 +12,9 @@ gem 'impressionist'
 #use of Haml
 gem 'haml'
 
+# RestClient for sending mail using mailgun
+gem 'rest-client'
+
 #Gem voor html5 stubs met form features
 gem 'modernizr-rails'
 

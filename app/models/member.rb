@@ -50,6 +50,14 @@ class Member < ActiveRecord::Base
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.sub(' ', ''))
   end
+  
+  def name
+    if infix.blank?
+      return "#{self.first_name} #{self.last_name}"
+    end
+    
+    return "#{self.first_name} #{self.infix} #{self.last_name}"
+  end
 
   def gravatar
     Digest::MD5.hexdigest(self.email)

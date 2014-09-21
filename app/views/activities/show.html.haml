@@ -64,9 +64,9 @@
             .table-responsive
               %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
                 %tbody
-                  - @activity.participants.each do |participant|
+                  - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
                     %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
-                      %td.col-md-8= link_to "#{participant.member.first_name} #{participant.member.infix} #{participant.member.last_name}", participant.member                    
+                      %td.col-md-8= link_to "#{participant.member.name}", participant.member                    
   
                       %td.col-md-2
                         %input.price{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;', :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}

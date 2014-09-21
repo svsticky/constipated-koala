@@ -1,12 +1,12 @@
 .panel.panel-default
   .panel-body
-    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => '', :method => :post }
+    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => mail_path, :method => :post }
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
         .col-md-10.col-xs-12
           .row#recipients
             .col-md-8
-              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.first_name} #{recipient.infix} #{recipient.last_name} <#{recipient.email}>"}.join(', ') }
+              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', ') }
             .col-md-4
               .ui-select
                 %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
@@ -53,14 +53,14 @@
       -#text.form-control{ :contenteditable => 'true' }
       %textarea.form-control#text{ :name => 'mail', :rows => '12' }
         :preserve
-          Hoi %first_name%,
+          Hoi %recipient.first_name%,
           
-          Je bent onlangs meegeweest naar %name%. Deze activiteit kostte {price}. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. %first_name% %infix% %last_name% %name%?
+          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. '%recipient.name% %recipient.activity%'?
           
           Met vriendelijke groet,
           
           Martijn Casteel
-          Penningmeester kandidaatsbestuur 2014
+          Penningmeester 2014-2015
           Studievereniging Sticky
           
           +316 12 18 34 80
@@ -71,19 +71,3 @@
       .mail-actions
         %button.btn.btn-primary{ type: 'submit' } Verstuur
         .btn.btn-default.disabled{ :disabled => 'disabled' } Draft
-        .btn.btn-default Annuleren
-        
-:javascript
-  $(document).on('ready page:load', function(){
-    
-    $('form#mail').find('.ta-toolbar button').on('click', function(){
-      var textarea = $('textarea#text');
-    
-      switch ( $(this).attr('name') ){
-        default :
-          alert('test');
-          break;
-      }
-    });
-  
-  });

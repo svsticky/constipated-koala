@@ -7,7 +7,7 @@ class ActivitiesController < ApplicationController
   
   def show
     @activity = Activity.find(params[:id])
-    @recipients =  Activity.joins(:members).where('participants.paid' => false, 'participants.activity_id' => params[:id]).select(:id, :first_name, :infix, :last_name, :email)
+    @recipients =  @activity.participants.order('members.first_name', 'members.last_name').joins(:member).where('participants.paid' => false).select(:id, :member_id, :first_name, :email)
   end
   
   def create

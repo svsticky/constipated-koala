@@ -227,4 +227,33 @@ function bind_activity(){
 
 $(document).on('ready page:load', function(){
   bind_activity();
+
+  $('form#mail .ta-toolbar button').on('click', function(){
+    var textarea = $('textarea#text');
+
+    switch ( $(this).attr('name') ){
+      default :
+        alert('test');
+        break;
+    }
+  });
+
+  $('form#mail .mail-actions .btn.btn-primary').on('click', function( e ){
+    e.preventDefault();
+    $.ajax({
+      url: '/mail',
+      type: 'POST',
+      data: {
+        id: $('form#mail').attr('data-id'),
+        recipients: $('form#mail #recipients input#bbc').val(),
+        subject: $('form#mail input#onderwerp').val(),
+        text: $('form#mail textarea#text').val()
+        }
+    }).done(function( data ){
+      console.log(data)
+      alert('mail is verstuurd');
+    }).fail(function( data ){
+      alert('mail is niet verstuurd', 'error');
+    });
+  });
 });
