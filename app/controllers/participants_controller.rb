@@ -11,7 +11,7 @@ class ParticipantsController < ApplicationController
     logger.debug(@participants)
   
     if params[:recipients] == 'all'
-      respond_with @participants.joins(:member).select(:id, :first_name, :infix, :last_name, :email)
+      respond_with @participants.joins(:member).order('members.first_name', 'members.last_name').select(:id, :first_name, :infix, :last_name, :email)
     elsif params[:recipients] == 'debtors'
       respond_with @participants.where( :paid => false ).joins(:member).order('members.first_name', 'members.last_name').select(:id, :first_name, :infix, :last_name, :email)
     else
