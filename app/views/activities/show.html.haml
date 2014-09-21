@@ -64,7 +64,7 @@
             .table-responsive
               %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
                 %tbody
-                  - @activity.participants.each do |participant|
+                  - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
                     %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
                       %td.col-md-8= link_to "#{participant.member.name}", participant.member                    
   
