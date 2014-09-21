@@ -6,7 +6,7 @@
         .col-md-10.col-xs-12
           .row#recipients
             .col-md-8
-              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.name} <#{recipient.email}>"}.join(', ') }
+              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', ') }
             .col-md-4
               .ui-select
                 %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
