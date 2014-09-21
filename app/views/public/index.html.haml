@@ -189,18 +189,19 @@
                     %span
                       = t('.form#membership')
                       %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
-                  %br
-                  %label.ui-checkbox
-                    %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq', checked: 'checked'}
-                    %span
-                      = t('.form#bbq')
-                      %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
-                  %br
-                  %label.ui-checkbox
-                    %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen', checked: 'checked'}
-                    %span
-                      = t('.form#lasergaming')
-                      %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
+                  -#
+                    %br
+                    %label.ui-checkbox
+                      %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq', checked: 'checked'}
+                      %span
+                        = t('.form#bbq')
+                        %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
+                    %br
+                    %label.ui-checkbox
+                      %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen', checked: 'checked'}
+                      %span
+                        = t('.form#lasergaming')
+                        %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
                 .col-md-3
                   %label{for: ''}= t('.form#payment_method')
                   .ui-select
