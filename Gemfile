@@ -30,6 +30,7 @@ gem 'bootstrap-sass'
 # use font awesome
 gem 'font-awesome-sass'
 
+# new search engine
 gem 'fuzzily'
 
 # Use for javascript
