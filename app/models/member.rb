@@ -15,7 +15,7 @@ class Member < ActiveRecord::Base
   #validates :comments
 
   attr_accessor :tags_name_ids
-
+  fuzzily_searchable :query
   is_impressionable
 
   has_many :tags,
@@ -42,15 +42,17 @@ class Member < ActiveRecord::Base
 
   before_create :before_create
 
+  # remove nonnumbers and change + to 00
   def phone_number=(phone_number)
-    #change landcode to 00 and remove all not numbers
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
   end
 
+  # remove spaces in postal_code
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.sub(' ', ''))
   end
   
+  # return full name
   def name
     if infix.blank?
       return "#{self.first_name} #{self.last_name}"
@@ -59,15 +61,27 @@ class Member < ActiveRecord::Base
     return "#{self.first_name} #{self.infix} #{self.last_name}"
   end
 
+  # create hash for gravatar
   def gravatar
     Digest::MD5.hexdigest(self.email)
   end
 
-  def self.search(query)
-    Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
-  end
-
+  # set joindate
   def before_create
     self.join_date = Time.new
+  end
+  
+  def self.search(query)
+    #Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
+    Member.find_by_fuzzy_query(query, :limit => 20)
+  end
+  
+  # guery for fuzzy search 
+  def query 
+    "#{self.first_name} #{self.infix} #{self.last_name} #{self.email} #{self.student_id}"
+  end
+  
+  def query_changed?
+    first_name_changed? || infix_changed? || last_name_changed? || email_changed? || student_id_changed?
   end
 end

@@ -56,8 +56,8 @@
               %td.visible-xs= link_to "#{member.phone_number}", "tel:#{member.phone_number}", :style => 'color: darkblue;'
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
-              %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member
-              
+              %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member      
+           
       %footer.table-footer
         .row
           .col-md-6.page-num-info{ :data => { :limit => @limit, :pagination => @pagination } }

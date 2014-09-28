@@ -3,19 +3,19 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.1'
 
-#authentication gem
+# authentication gem
 gem 'devise'
 
-#logging
+# logging
 gem 'impressionist'
 
-#use of Haml
+# use of Haml
 gem 'haml'
 
 # RestClient for sending mail using mailgun
 gem 'rest-client'
 
-#Gem voor html5 stubs met form features
+# Gem voor html5 stubs met form features
 gem 'modernizr-rails'
 
 # Use mysql as the production database
@@ -29,6 +29,8 @@ gem 'bootstrap-sass'
 
 # use font awesome
 gem 'font-awesome-sass'
+
+gem 'fuzzily'
 
 # Use for javascript
 gem 'execjs'
