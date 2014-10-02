@@ -78,7 +78,7 @@ class Member < ActiveRecord::Base
   
   # guery for fuzzy search 
   def query 
-    "#{self.first_name} #{self.infix} #{self.last_name} #{self.email} #{self.student_id}"
+    "#{self.first_name} #{self.last_name} #{self.student_id}"
   end
   
   def query_changed?
