@@ -20,13 +20,8 @@ class ParticipantsController < ApplicationController
   end
   
   def find
-    @members = Member.search(params[:search])
-    
-#    if(!params[:activity].blank?)
-#      @members = @members.joins(:participants).where.not( 'participants.activity_id' => params[:activity] ).distinct
-#    end
-    
-    respond_with @members.select(:id, :first_name, :infix, :last_name)
+    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
+    respond_with @members
   end
   
   def create
