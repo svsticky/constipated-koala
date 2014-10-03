@@ -1,8 +1,6 @@
 class MembersController < ApplicationController
   
   def index
-    #Member.bulk_update_fuzzy_query
-
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0
   
