@@ -2,7 +2,7 @@
 
 ## Dev setup
 
-All you need to get started with this repository is to install two dependencies.
+All you need to get started with this repository is to install two dependencies. For new features, create a new branch starting with `feature/` in this way the features will be grouped. After developing and testing the feature locally request a pull request and the feature will be merged with the master branch.
 
 ### External dependencies
 
