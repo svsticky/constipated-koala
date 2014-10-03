@@ -240,6 +240,10 @@ $(document).on('ready page:load', function(){
 
   $('form#mail .mail-actions .btn.btn-primary').on('click', function( e ){
     e.preventDefault();
+    
+    if(!confirm('Weet je het zeker?'))
+      return;
+    
     $.ajax({
       url: '/mail',
       type: 'POST',
