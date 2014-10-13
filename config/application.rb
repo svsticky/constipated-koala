@@ -28,6 +28,6 @@ module ConstipatedKoala
 	    Devise::PasswordsController.layout false   
 	    
 	    PublicController.layout false     
-	end
+	  end
   end
 end

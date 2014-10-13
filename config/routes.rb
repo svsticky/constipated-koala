@@ -31,8 +31,14 @@ ConstipatedKoala::Application.routes.draw do
     patch  'participants',      to: 'participants#update'
     delete 'participants',      to: 'participants#destroy'
     
-    #mail JSON calls
+    # mail JSON calls
     post   'mail',              to: 'mail#mail'
+    
+    # checkout urls
+    get    'checkout',          to: 'checkout#information_for_card'
+    post   'checkout',          to: 'checkout#subtract_funds'
+    patch  'checkout',          to: 'checkout#add_funds'
+    post   'checkout/card',     to: 'checkout#add_card_to_member'
   end
 
   get '/', to: redirect('/404')

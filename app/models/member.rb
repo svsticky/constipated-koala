@@ -39,6 +39,9 @@ class Member < ActiveRecord::Base
     :dependent => :destroy
   has_many :activities,
     :through => :participants
+    
+  has_one :checkout_balance
+  has_many :checkout_cards
 
   before_create :before_create
 

@@ -34,7 +34,9 @@ class MembersController < ApplicationController
     @member = Member.new(member_post_params)   
     
     if @member.save
+      #admin for logging
       @current_user = current_admin
+    
       impressionist(@member, 'nieuwe lid')
       redirect_to @member
     else
