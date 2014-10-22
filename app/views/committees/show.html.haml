@@ -1,0 +1,21 @@
+- content_for(:page, 'members')
+- content_for(:title, "Constipated koala | commissies | #{@committee.name}")
+
+%section#content
+  .page{ :data => { 'authenticity_token' => form_authenticity_token}}
+    .row
+      %div
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-user
+              Gegevens
+            .panel-body
+              %p
+                %strong #{@committee.name}
+              %p
+                #{@committee.comments}
+          .panel.panel-default
+            .panel-body
+              = link_to 'Back', :back, { :class => 'button btn btn-default' }
+              = link_to 'Edit', edit_committee_path(@committee.id), { :class => 'button btn btn-warning' }

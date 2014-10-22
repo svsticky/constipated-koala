@@ -1,0 +1,33 @@
+- content_for(:page, 'committees')
+- content_for(:title, "Contipated koala | commissies | #{@committee.name}")
+
+%section#content
+  .page.page-form
+    = form_for :committee, url: committee_path(@committee), method: :patch, :class => 'form-validation' do |f|
+    
+      - if @committee.errors.any?
+        .col-md-12
+          .alert.alert-danger
+            %button.close{ type: "button" } ×
+            %span Oh snap, niet alles is goed ingevuld;
+            %ul
+            - @committee.errors.full_messages.each do |msg|
+              %li= msg
+
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-users
+            Gegevens
+          .panel-body
+            .form-group
+              %label{for: ''} Naam
+              = f.text_field :name, :value => @committee.name, :class => 'form-control'
+            .form-group
+              %label{for: ''} Comments
+              = f.text_area :comments, :value => @committee.comments, :class => 'form-control'
+        .panel.panel-default
+          .panel-body
+            %button.btn.btn-success{type: 'submit'} Opslaan
+            = link_to 'Annuleren', committees_path, { :class => 'button btn btn-default' }
+            = link_to 'Verwijderen', committee_path(@committee.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }

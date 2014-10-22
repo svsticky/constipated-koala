@@ -22,7 +22,7 @@ ConstipatedKoala::Application.routes.draw do
     }
 
     # Resource pages
-    resources :members, :activities
+    resources :members, :activities, :committees
 
     # Participants routes for JSON calls
     get    'participants/list', to: 'participants#list'

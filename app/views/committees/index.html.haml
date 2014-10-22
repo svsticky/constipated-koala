@@ -1,0 +1,20 @@
+- content_for(:page, 'committees')
+- content_for(:title, 'Constipated koala | commissies') 
+
+%section#content
+  .page.page-table
+    %section.panel.panel-default.table-dynamic
+      .panel-heading
+        %i.fa.fa-fw.fa-fw.fa-users
+        Commissies
+        %a.close{ :type => 'button', :href => '/committees/new' } +
+      .table-responsive
+        %table.table.table-bordered.table-striped.table-linked
+          %thead
+            %tr
+              %th
+                .th
+                  Naam
+          - @committees.each do |committee|
+            %tr
+              %td= link_to "#{committee.name}", committee

@@ -39,6 +39,8 @@ class Member < ActiveRecord::Base
     :dependent => :destroy
   has_many :activities,
     :through => :participants
+  has_many :committee_members,
+    :dependent => :destroy
 
   before_create :before_create
 
