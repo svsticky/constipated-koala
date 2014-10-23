@@ -47,6 +47,13 @@ end
   )
 end
 
+12.times do
+  Committee.create(
+    name:        Faker::Commerce.department,
+    comments:    (Random.rand(10) > 2 ? Faker::Company.catch_phrase : NIL)
+  )
+end
+
 Study.create(
   id:             1,
   name:           "Informatica",
@@ -95,6 +102,16 @@ suppress(Exception) do
       activity:     Activity.find(1+ Random.rand(Activity.count)),
       price:        (Random.rand(10) > 6 ? Faker::Commerce.price : NIL),
       paid:        (Random.rand(10) > 8 ? true : false)
+    )
+  end
+
+end
+
+suppress(Exception) do
+  200.times do
+    CommitteeMember.create(
+      member:       Member.find(1+ Random.rand(Member.count)),
+      committee:    Committee.find(1+ Random.rand(Committee.count))     
     )
   end
 end

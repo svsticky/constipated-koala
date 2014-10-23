@@ -1,7 +1,7 @@
 class Committee < ActiveRecord::Base
-    validates :name, presence: true
+  validates :name, presence: true
 
-    has_many :committee_members,
-        :dependent => :destroy
-    has_many :members, :through => :participants
+  has_many :committeeMembers,
+    :dependent => :destroy
+  has_many :members, :through => :committeeMembers
 end
