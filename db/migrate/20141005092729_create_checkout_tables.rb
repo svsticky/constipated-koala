@@ -1,13 +1,5 @@
 class CreateCheckoutTables < ActiveRecord::Migration
   def change
-    create_table :checkout_transactions do |t|
-    
-      t.decimal :price, :scale => 2, :precision => 6, :null => false
-      t.belongs_to :checkout_card, :null => false
-      
-      t.timestamps
-    end
-    
     create_table :checkout_balances do |t|
       
       t.decimal :balance, :scale => 2, :precision => 6
@@ -25,6 +17,14 @@ class CreateCheckoutTables < ActiveRecord::Migration
       t.belongs_to :member, :null => false
       t.belongs_to :checkout_balance, :null => false
 
+      t.timestamps
+    end
+    
+    create_table :checkout_transactions do |t|
+    
+      t.decimal :price, :scale => 2, :precision => 6, :null => false
+      t.belongs_to :checkout_card, :null => false
+      
       t.timestamps
     end
   end

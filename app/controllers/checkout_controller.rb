@@ -4,35 +4,38 @@ class CheckoutController < ApplicationController
   respond_to :json
 
   def information_for_card
-    card = CheckoutCard.find(params[:id])
-    respond_with card.joins(:member, :checkout_balance).select(:id, :first_name, :uuid, :balance)
+    respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :uuid, :balance).find_by_uuid(params[:uuid])
   end
 
-  def add_funds      
-    card = CheckoutCard.find(params[:id])
+  def add_funds  
+    card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
     
-    transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => @card )
+    transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
     transaction.save
     
     respond_with transaction, :location => checkout_url
   end
   
   def subtract_funds
-    card = CheckoutCard.find(params[:id])
+    if params[:amount].to_f > 0
+      raise ActiveRecord::RecordNotSaved
+    end
+  
+    card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
     
     #in the constructor of transaction subtract from balance, check if it is a subtraction
-    transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => @card )
+    transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
     transaction.save
     
-    respond_with transaction
+    respond_with transaction, :location => checkout_url
   end
   
   def add_card_to_member
     #on new card create new of find balance of member
     card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find(params[:member]), :description => params[:description] )
     
-    if card.save 
-      render :status => :ok, :json => card.joins(:member, :checkout_balance).select(:id, :first_name, :uuid, :balance )
+    if card.save(:validate => false)
+      render :status => :ok, :json => card#.joins(:member, :checkout_balance).select(:id, :first_name, :uuid, :balance )
     else
       logger.error card.inspect
       respond_with card.errors.full_messages, :location => checkout_url
