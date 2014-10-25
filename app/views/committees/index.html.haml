@@ -13,8 +13,10 @@
           %thead
             %tr
               %th
-                .th
-                  Naam
+                .th Commissie
+              %th
+                .th Leden
           - @committees.each do |committee|
             %tr
               %td= link_to "#{committee.name}", committee
+              %td= link_to committee.committeeMembers.length, committee

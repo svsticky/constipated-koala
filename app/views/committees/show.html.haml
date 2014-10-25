@@ -16,6 +16,22 @@
               %p
                 #{@committee.comments}
           .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-users
+              Commissieleden
+            .panel_body
+              %table.table.table-striped.table-linked#members
+                %thead
+                  %tr
+                    %th Naam
+                    %th Functie
+                %tbody
+                  - @committee.committeeMembers.each do |committeeMember|
+                    %tr
+                      %td=link_to "#{committeeMember.member.name}", committeeMember.member
+                      %td
+
+          .panel.panel-default
             .panel-body
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_committee_path(@committee.id), { :class => 'button btn btn-warning' }
