@@ -111,7 +111,8 @@ suppress(Exception) do
   200.times do
     CommitteeMember.create(
       member:       Member.find(1+ Random.rand(Member.count)),
-      committee:    Committee.find(1+ Random.rand(Committee.count))     
+      committee:    Committee.find(1+ Random.rand(Committee.count)),     
+      function:     (Random.rand(10) > 5 ? Faker::Name.title : NIL)
     )
   end
 end

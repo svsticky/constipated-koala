@@ -9,6 +9,7 @@ class CreateCommittees < ActiveRecord::Migration
     create_table :committee_members do |t|
       t.belongs_to :member
       t.belongs_to :committee
+      t.text :function
       t.timestamps
     end
 

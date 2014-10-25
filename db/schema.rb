@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141022152646) do
   create_table "committee_members", force: true do |t|
     t.integer  "member_id"
     t.integer  "committee_id"
+    t.text     "function"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
