@@ -1,45 +1,41 @@
-- content_for(:page, 'members')
+- content_for(:page, 'committees')
 - content_for(:title, "Constipated koala | commissies | #{@committee.name}")
 
 %section#content
+  = render 'layouts/search'
+
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       %div
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-fw.fa-user
-              Gegevens
+              %i.fa.fa-fw.fa-users
+              Commissie
             .panel-body
               %p
                 %strong #{@committee.name}
               %p
                 #{@committee.comments}
+
+          .panel.panel-default
+            .panel-body
+              = link_to 'Back', :back, { :class => 'button btn btn-default' }
+              = link_to 'Edit', edit_committee_path(@committee.id), { :class => 'button btn btn-warning' }
+          
+        .col-md-6
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-users
               Commissieleden
-              %a.close{ :type => 'button', :href => '/'} +
             .panel_body
               %table.table.table-striped.table-linked#members
                 %thead
                   %tr
                     %th Naam
                     %th Functie
-                    %th
                 %tbody
                   - @committee.committeeMembers.each do |committeeMember|
                     %tr
                       %td= link_to "#{committeeMember.member.name}", committeeMember.member
                       %td= link_to "#{committeeMember.function}", committeeMember.member
-                      %td
-                        .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
-                          %button.btn.btn-warning
-                            %i.fa.fa-fw.fa-pencil
-                          %button.btn.btn-default
-                            %i.fa.fa-fw.fa-trash-o
-
-          .panel.panel-default
-            .panel-body
-              = link_to 'Back', :back, { :class => 'button btn btn-default' }
-              = link_to 'Edit', edit_committee_path(@committee.id), { :class => 'button btn btn-warning' }

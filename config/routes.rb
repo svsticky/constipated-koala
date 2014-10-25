@@ -30,6 +30,12 @@ ConstipatedKoala::Application.routes.draw do
     post   'participants',      to: 'participants#create'
     patch  'participants',      to: 'participants#update'
     delete 'participants',      to: 'participants#destroy'
+
+    # CommitteeMembers JSON calls
+    get    'committeeMembers', to: 'committee_members#find'
+    post   'committeeMembers', to: 'committee_members#create'
+    patch  'committeeMembers', to: 'committee_members#update'
+    delete 'committeeMembers', to: 'committee_members#destroy'
     
     #mail JSON calls
     post   'mail',              to: 'mail#mail'
