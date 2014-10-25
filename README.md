@@ -2,10 +2,8 @@
 
 ## Dev setup
 
-All you need to get started with this repository is to install two dependencies. For
-new features, create a new branch starting with `feature/` in this way the features
-will be grouped. After developing and testing the feature locally request a pull
-request and the feature will be merged with the master branch.
+You will need a working package manager, and a working ruby version manager and/or
+build tools.
 
 ### External dependencies
 
@@ -45,6 +43,12 @@ All done! Now you have the admin system and intro website running at:
 
  - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
  - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
+
+## Contributing
+
+For new features, create a new branch starting with `feature/` in this way the
+features will be grouped. After developing and testing the feature locally request a
+pull request and the feature will be merged with the master branch.
 
 ## License
 
