@@ -38,7 +38,7 @@ $ bundle exec rake db:migrate && bundle exec rake db:seed
 $ bundle exec rails server
 
 # Add dev host to hosts file
-$ echo "127.0.0.1 koala.rails.dev intro.rails.dev >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
 ```
 
 All done! Now you have the admin system and intro website running at:
