@@ -2,14 +2,18 @@
 
 ## Dev setup
 
-All you need to get started with this repository is to install two dependencies. For new features, create a new branch starting with `feature/` in this way the features will be grouped. After developing and testing the feature locally request a pull request and the feature will be merged with the master branch.
+You will need a working package manager, and a working ruby version manager and/or
+build tools.
 
 ### External dependencies
 
 Install before continuing:
 
- - Ruby v2.1.2 (via [`rvm`](http://rvm.io/) or [`rbenv`](https://github.com/sstephenson/rbenv))
- - MySQL; with an empty testing database
+ - `ruby-2.1.2` (install with [`rbenv install`][rbenv] or, if you must, [`rvm`][rvm]);
+ - MySQL with database created.
+
+  [rbenv]: https://github.com/sstephenson/rbenv
+  [rvm]: http://rvm.io/
 
 ### Running the Rails app
 
@@ -32,10 +36,19 @@ $ bundle exec rake db:migrate && bundle exec rake db:seed
 $ bundle exec rails server
 
 # Add dev host to hosts file
-$ echo "127.0.0.1 koala.rails.dev intro.rails.dev >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
 ```
 
-All done! Now view at: [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000) or [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000).
+All done! Now you have the admin system and intro website running at:
+
+ - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
+ - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
+
+## Contributing
+
+For new features, create a new branch starting with `feature/` in this way the
+features will be grouped. After developing and testing the feature locally request a
+pull request and the feature will be merged with the master branch.
 
 ## License
 
