@@ -20,8 +20,8 @@ class ParticipantsController < ApplicationController
   end
   
   def create
-    @activity = Activity.find(params[:activity])
-    @participant = Participant.new( :member => Member.find(params[:member]), :activity => @activity)
+    @activity = Activity.find(params[:id])
+    @participant = Participant.new( :member => Member.find(params[:searchId]), :activity => @activity)
     
     if @activity.price == 0
       @participant.update_attribute(:paid, true)

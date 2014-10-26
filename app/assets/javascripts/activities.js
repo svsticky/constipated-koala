@@ -3,7 +3,6 @@
 
 function bind_activity(){
   $('#activities input.price').off('focusout');
-  $('#activities input.participant').off('focusin keyup');
   $('#mail #recipients select').off('change');
   $('#mail #recipients input').off('change');
   
@@ -53,139 +52,33 @@ function bind_activity(){
     });
   });
   
-  // Add new participant using autocomplete on members
-  // uses [GET] for autocomplete and [POST] for storing the record
-  $('#activities').find('input.participant').on('focusin keyup', function( e ){
-    var search = $(this).val();
-    var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
-    var selected = $(dropdown).find('li.active');
-
-    if(e.keyCode == 13){
-      if( $(selected).length != 1)
-        return;
-      
-      var id = $(selected).find('a').attr('data-id');
-      var activity = $(selected).closest('table').attr('data-id');
+  setupSearch({
+    elem: "#activities",
+    searchUrl: "/members/find",
+    postUrl: "/participants",
+    failMsg: "Deze persoon is al toegevoegd",
+    submit: function(data, selected) {
+      var template = $('script#activity').html();
       var row = $(selected).closest('tr');
+
       var name = $(selected).find('a').text();
       var price = $(row).find('td span').text().replace(/€/g, '').replace('-', '');
-    
-      $(selected).closest('#activities table ul').css('display', 'none');
+      var newRow = template.format(data.id, data.member_id, name, price);
+  
+      var added = $(newRow).insertBefore(row);
       
-      $.ajax({
-        url: '/participants',
-        type: 'POST',
-        data: {
-          member: id,
-          activity: activity
-        }
-      }).done(function( data ){          
-        var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, price);
-        var added = $(activity).insertBefore(row);
-        
-        if(price > 0)    
-          $(added).addClass('red');
-        else
-          $(added).find('button.paid').addClass('hidden');      
-        
-        $('#activities input.participant').val('');
-        $('#activities ul.dropdown-menu').empty().css('display', 'none');
-        
-        $(row).find('input').focus();
-        
-        bind_activities();
-        bind_activity();
-      }).fail(function(){
-        $('#activities input.participant').val('');
-        $('#activities ul.dropdown-menu').empty().css('display', 'none');
-        
-        $(row).find('input').focus();
-                    
-        alert('Deze persoon is al toegevoegd', 'warning');
-      });
-      
-      e.preventDefault();
-    }else if(e.keyCode == 40){
-      $(selected).removeClass('active');
-      selected = $(selected).next();
-      
-      if( $(selected).length == 0 )
-        selected = $(dropdown).find('li:first');
-      $(selected).addClass('active');
-       
-      e.preventDefault();
-    }else if(e.keyCode == 38){
-      $(selected).removeClass('active')
-      selected = $(selected).prev();
-      
-      if( $(selected).length == 0 )
-        selected = $(dropdown).find('li:first');
-      $(selected).addClass('active');
-      
-      e.preventDefault();
-    }else if(search.length > 2){
-      $.ajax({
-        url: '/members/find',
-        type: 'GET',
-        data: {
-          search: search,
-          activity: $(dropdown).closest('table').attr('data-id')
-        }
-      }).done(function( data ){
-        $(dropdown).empty();
+      if(price > 0)    
+        $(added).addClass('red');
+      else
+        $(added).find('button.paid').addClass('hidden');      
 
-        for(var item in data){
-          var html = "<li><a data-id=" + data[item].id + ">" + data[item].first_name + " " + data[item].infix + " " + data[item].last_name + "</a></li>";
-          $(dropdown).append(html);
-          $(dropdown).css('display', 'block');
-        }
-        
-        $('#activities ul.dropdown-menu li a').on('click', function(){
-          var id = $(this).attr('data-id');
-          var activity = $(this).closest('table').attr('data-id');
-          var row = $(this).closest('tr');
-          var name = $(this).text();
-          var price = $(row).find('td span').text().replace(/€/g, '').replace('-', '');
-        
-          $(this).closest('#activities table ul').css('display', 'none');
-          
-          $.ajax({
-            url: '/participants',
-            type: 'POST',
-            data: {
-              member: id,
-              activity: activity
-            }
-          }).done(function( data ){          
-            var template = $('script#activity').html();
-            var activity = template.format(data.id, data.member_id, name, price);
-            var added = $(activity).insertBefore(row);
-            
-            if(price > 0)    
-              $(added).addClass('red');
-            else
-              $(added).find('button.paid').addClass('hidden');  
-            
-            $('#activities input.participant').val('');
-            $('#activities ul.dropdown-menu').empty().css('display', 'none');
-            
-            $(row).find('input').focus();
-            
-            bind_activities();
-            bind_activity();
-          }).fail(function(){
-            $('#activities input.participant').val('');
-            $('#activities ul.dropdown-menu').empty().css('display', 'none');
-            
-            $(row).find('input').focus();
-                        
-            alert('Deze persoon is al toegevoegd', 'warning');
-          });
-        })
-      }).fail(function(){
-        alert('', 'error');
-      });
+      bind_activities();
+      bind_activity();
+    },
+    format: function(item) {
+      return "<li><a data-id=" + item.id + ">"
+        + item.first_name + " " + item.infix + " " + item.last_name
+        + "</a></li>";
     }
   });
   

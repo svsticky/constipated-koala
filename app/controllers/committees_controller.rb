@@ -49,8 +49,8 @@ class CommitteesController < ApplicationController
 
 
   def createMember
-    @committee = Committee.find(params[:committee])
-    @committeeMember = CommitteeMember.new( :member => Member.find(params[:member]), :committee => @committee )
+    @committee = Committee.find(params[:id])
+    @committeeMember = CommitteeMember.new( :member => Member.find(params[:searchId]), :committee => @committee )
 
     if @committeeMember.save
       respond_with @committeeMember, :location => committees_url

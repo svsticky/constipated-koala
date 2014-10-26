@@ -27,127 +27,25 @@ function bind_committeeMember() {
     });
   });
 
-  // Add new committeeMember using autocomplete on members
-  // uses [GET] for autocomplete and [POST] for storing the record
-  $("#committeeMembers input.committeeMember")
-    .off('focusin keyup').on('focusin keyup', function(e) {
-    
-    var search = $(this).val();
-    var committee = $("#committeeMembers").attr('data-id');
-    var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
-    var selected = $(dropdown).find('li.active');
-
-    if(e.keyCode == 13){
-      if( $(selected).length != 1)
-        return;
-
-      var id = $(selected).find('a').attr('data-id');
-      var row = $(selected).closest('tr');
+  setupSearch({
+    elem: "#committeeMembers",
+    searchUrl: "/members/find",
+    postUrl: "/committeeMembers",
+    failMsg: "Deze persoon is al toegevoegd",
+    submit: function(data, selected) {
+      var template = $('script#committeeMember').html();
       var name = $(selected).find('a').text();
-    
-      $(selected).closest('#committeeMembers ul').css('display', 'none');
-      
-      $.ajax({
-        url: '/committeeMembers',
-        type: 'POST',
-        data: {
-          member: id,
-          committee: committee
-        }
-      }).done(function( data ){          
-        var template = $('script#committeeMember').html();
-        var committeeMember = template.format(data.id, data.member_id, name);
-        var added = $(committeeMember).insertBefore(row);
-       
-        $('#committeeMembers input.participant').val('');
-        $('#committeeMembers ul.dropdown-menu').empty().css('display', 'none');
-        
-        $(row).find('input').focus();
-        
-        bind_committeeMember();
-      }).fail(function(){
-        $('#committeeMembers input.participant').val('');
-        $('#committeeMembers ul.dropdown-menu').empty().css('display', 'none');
-        
-        $(row).find('input').focus();
-                    
-        alert('Deze persoon is al toegevoegd', 'warning');
-      });
-      
-      e.preventDefault();
-    }else if(e.keyCode == 40){
-      $(selected).removeClass('active');
-      selected = $(selected).next();
-      
-      if( $(selected).length == 0 )
-        selected = $(dropdown).find('li:first');
-      $(selected).addClass('active');
-       
-      e.preventDefault();
-    }else if(e.keyCode == 38){
-      $(selected).removeClass('active')
-      selected = $(selected).prev();
-      
-      if( $(selected).length == 0 )
-        selected = $(dropdown).find('li:first');
-      $(selected).addClass('active');
-      
-      e.preventDefault();
-    }else if(search.length > 2){
-      $.ajax({
-        url: '/members/find',
-        type: 'GET',
-        data: {
-          search: search,
-          committeeMember: $(dropdown).closest('table').attr('data-id')
-        }
-      }).done(function( data ){
-        $(dropdown).empty();
+      var newRow = template.format(data.id, data.member_id, name);
 
-        for(var item in data){
-          var html = "<li><a data-id=" + data[item].id + ">" + data[item].first_name + " " + data[item].infix + " " + data[item].last_name + "</a></li>";
-          $(dropdown).append(html);
-          $(dropdown).css('display', 'block');
-        }
-        
-        $('#committeeMembers ul.dropdown-menu li a').on('click', function(){
-          var id = $(this).attr('data-id');
-          var committee = $(this).closest('table').attr('data-id');
-          var row = $(this).closest('tr');
-          var name = $(this).text();
-        
-          $(this).closest('#committeeMembers table ul').css('display', 'none');
-          
-          $.ajax({
-            url: '/committeeMembers',
-            type: 'POST',
-            data: {
-              member: id,
-              committee: committee
-            }
-          }).done(function( data ){          
-            var template = $('script#committeeMember').html();
-            var committeeMember = template.format(data.id, data.member_id, name);
-            var added = $(committeeMember).insertBefore(row);
-            
-            $('#committeeMembers input.committeeMember').val('');
-            $('#committeeMembers ul.dropdown-menu').empty().css('display', 'none');
-            
-            $(row).find('input').focus();
-            
-            bind_committeeMember();
-          }).fail(function(){
-            $('#committeeMembers input.committeeMember').val('');
-            $('#committeeMembers ul.dropdown-menu').empty().css('display', 'none');
-            
-            $(row).find('input').focus();
-                        
-            alert('Deze persoon is al toegevoegd', 'warning');
-          });
-        })
-      }).fail(function(){
-        alert('', 'error');
-      });
+      var row = $(selected).closest('tr');
+      $(newRow).insertBefore(row);
+
+      bind_committeeMember();
+    },
+    format: function(item) {
+      return "<li><a data-id=" + item.id + ">"
+        + item.first_name + " " + item.infix + " " + item.last_name
+        + "</a></li>";
     }
   });
 
