@@ -52,6 +52,7 @@ function bind_activity(){
     });
   });
   
+  // Search for members on activity index page
   setupSearch({
     elem: "#activities",
     searchUrl: "/members/find",
@@ -76,12 +77,10 @@ function bind_activity(){
       bind_activity();
     },
     format: function(item) {
-      return "<li><a data-id=" + item.id + ">"
-        + item.first_name + " " + item.infix + " " + item.last_name
-        + "</a></li>";
+      return item.first_name + " " + item.infix + " " + item.last_name;
     }
   });
-  
+ 
   $('#mail #recipients').find('select').on('input change', function(){
     var activity = $(this).closest('form#mail').attr('data-id');    
     var input = $(this).closest('#recipients').find('input');
@@ -128,6 +127,35 @@ $(document).on('ready page:load', function(){
       default :
         alert('test');
         break;
+    }
+  });
+
+  // Search for committees (as activity organiser) on activity show page
+  setupSearch({
+    elem: "#organiser",
+    searchUrl: "/committees/find",
+    postUrl: "/activities/setOrganiser",
+    failMsg: "Er is iets misgegaan",
+    emptyBox: false,
+    submit: function(data, selected) {
+      $("#organiser input.searchBox").val(data.name);
+    },
+    format: function(item) {
+      return item.name;
+    }
+  });
+
+  $("#organiser input.searchBox").on('focusin keyup', function(e) {
+    var search = $(this).val();
+    if (search.length == 0) {
+      $.ajax({
+        url: "/activities/setOrganiser",
+        type: "post",
+        data: {
+          searchId: 'NIL',
+          id: $("#organiser").attr('data-id')
+        }
+      });
     }
   });
 

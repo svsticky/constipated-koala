@@ -58,6 +58,15 @@
       .col-md-6
         .panel.panel-default
           .panel-heading
+            %i.fa.fa-fw.fa-users
+            Organisator
+          .panel-body#organiser{ :data => { 'id' => @activity.id } }
+            .row
+              .col-md-11
+                %input.searchBox{ :value => (@activity.committee.nil? ? '' : @activity.committee.name), :class => 'form-control'}
+                %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 15px; top: 34px;'}
+        .panel.panel-default
+          .panel-heading
             %i.fa.fa-fw.fa-user
             Deelnemers
           .panel-body

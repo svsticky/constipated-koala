@@ -21,11 +21,11 @@ ConstipatedKoala::Application.routes.draw do
       passwords: "admin_devise/passwords"
     }
 
-    # Members routes for JSON calls
+    # Find routes for JSON calls
     get    'members/find',      to: 'members#find'
+    get    'committees/find',   to: 'committees#find'
 
-    # Resource pages
-    resources :members, :activities, :committees
+    post   'activities/setOrganiser', to: 'activities#setOrganiser'
 
     # Participants routes for JSON calls
     get    'participants/list', to: 'participants#list'
@@ -40,6 +40,9 @@ ConstipatedKoala::Application.routes.draw do
 
     #mail JSON calls
     post   'mail',              to: 'mail#mail'
+
+    # Resource pages
+    resources :members, :activities, :committees
   end
 
   get '/', to: redirect('/404')

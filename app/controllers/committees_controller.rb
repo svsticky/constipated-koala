@@ -47,6 +47,11 @@ class CommitteesController < ApplicationController
     redirect_to committees_path
   end
 
+  def find
+    @committees = Committee.select(:id, :name).search(params[:search])
+    respond_with @committees
+  end
+
 
   def createMember
     @committee = Committee.find(params[:id])

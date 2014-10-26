@@ -13,6 +13,10 @@ class CreateCommittees < ActiveRecord::Migration
       t.timestamps
     end
 
+    change_table :activities do |t|
+      t.belongs_to :committee
+    end
+
     add_index :committee_members, [:member_id, :committee_id], :unique => true
 
   end

@@ -40,17 +40,18 @@ end
 end
 
 12.times do
-  Activity.create(
-    name:         Faker::Commerce.department,
-    price:        Faker::Commerce.price,
-    start_date:   Faker::Business.credit_card_expiry_date
+  Committee.create(
+    name:        Faker::Commerce.department,
+    comments:    (Random.rand(10) > 2 ? Faker::Company.catch_phrase : NIL)
   )
 end
 
 12.times do
-  Committee.create(
-    name:        Faker::Commerce.department,
-    comments:    (Random.rand(10) > 2 ? Faker::Company.catch_phrase : NIL)
+  Activity.create(
+    name:         Faker::Commerce.department,
+    price:        Faker::Commerce.price,
+    start_date:   Faker::Business.credit_card_expiry_date,
+    committee_id: (Random.rand(10) > 5 ? (1+ Random.rand(Committee.count)) : NIL)
   )
 end
 

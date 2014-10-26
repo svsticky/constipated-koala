@@ -17,10 +17,11 @@ ActiveRecord::Schema.define(version: 20141022152646) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "price",      precision: 6, scale: 2
+    t.decimal  "price",        precision: 6, scale: 2
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id"
   end
 
   create_table "admins", force: true do |t|

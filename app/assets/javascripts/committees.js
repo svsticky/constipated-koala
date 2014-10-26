@@ -43,9 +43,7 @@ function bind_committeeMember() {
       bind_committeeMember();
     },
     format: function(item) {
-      return "<li><a data-id=" + item.id + ">"
-        + item.first_name + " " + item.infix + " " + item.last_name
-        + "</a></li>";
+      return item.first_name + " " + item.infix + " " + item.last_name;
     }
   });
 
