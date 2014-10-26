@@ -4581,7 +4581,6 @@ input[type="button"].btn-block {
     position: relative;
     min-height: 50px;
     margin-bottom: 20px;
-    border: 1px solid transparent;
 }
 
 .navbar:before, .navbar:after {
