@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140901135404) do
+ActiveRecord::Schema.define(version: 20140928120239) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -132,5 +132,16 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   end
 
   add_index "tags", ["member_id", "name_id"], name: "index_tags_on_member_id_and_name_id", unique: true, using: :btree
+
+  create_table "trigrams", force: true do |t|
+    t.string  "trigram",     limit: 3
+    t.integer "score",       limit: 2
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.string  "fuzzy_field"
+  end
+
+  add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match", using: :btree
+  add_index "trigrams", ["owner_id", "owner_type"], name: "index_by_owner", using: :btree
 
 end
