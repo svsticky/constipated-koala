@@ -63,7 +63,7 @@ Study.create(
 Study.create(
   id:             2,
   name:           "Informatiekunde",
-  code:           "INCA"
+  code:           "INKU"
 )
 Study.create(
   id:             3,
