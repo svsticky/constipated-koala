@@ -3,6 +3,9 @@ nl:
     formats:
       default: "%d-%m-%Y"
       short: "%Y"
+  time:
+    formats:
+      default: "%d-%m-%Y %H:%M"
   
   activerecord:
     attributes:

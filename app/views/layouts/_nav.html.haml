@@ -6,8 +6,6 @@
           %span Home
           %i.fa.fa-desktop
             %span.icon-bg.bg-danger
-        /%a{href: '#'}
-        /  %i.fa.fa-bars
       %li{ :class => ('active' if yield(:page) == 'members') }
         %a{href: '/members'}
           %span Leden
@@ -23,24 +21,11 @@
           %span Activiteiten
           %i.fa.fa-ticket
             %span.icon-bg.bg-success
-      %li{ :class => ('active' if yield(:page) == 'mongoose') }
-        %a{href: '#'}
-          %span Mongoose
+      %li{ :class => ('active' if yield(:page) == 'checkout') }
+        %a{href: '/checkout'}
+          %span Checkout
           %i.fa.fa-shopping-cart
             %span.icon-bg.bg-info
-        %ul.sub-nav{style: 'display: none;'}
-          %li
-            %a{href: '#'}
-              %i.fa.fa-caret-right
-              %span Voorraad
-          %li
-            %a{href: '#'}
-              %i.fa.fa-caret-right
-              %span Verkoop
-          %li
-            %a{href: '#'}
-              %i.fa.fa-caret-right
-              %span Tegoed
       %li{ :class => ('active' if yield(:page) == 'contacts') }
         %a{href: '#'}
           %span Contacten
@@ -56,6 +41,19 @@
           %span Instellingen
           %i.fa.fa-gears
             %span.icon-bg.bg-violet
+        %ul.sub-nav{style: 'display: none;'}
+          %li
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span Algemeen
+          %li
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span Studies
+          %li
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span something something
              
 :javascript
   $( document ).ready(function() {

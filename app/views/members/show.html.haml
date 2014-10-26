@@ -71,6 +71,29 @@
                               %i.fa.fa-fw.fa-times
                           %button.btn.btn-default.destroy
                             %i.fa.fa-fw.fa-trash-o
+
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-shopping-cart
+              Transacties
+            .panel-body
+              %table.table.table-striped.table-linked#transactions
+                %thead
+                  %tr
+                    %th Datum
+                    %th Prijs
+                    %th.hidden-xs Kaart
+                %tbody
+                  - @transactions.each do |transaction|
+                    %tr
+                      %td #{I18n.l transaction.created_at}
+                      %td= number_to_currency(transaction.price, :unit => '€')
+                      
+                      - if !transaction.checkout_card.nil?
+                        - if transaction.checkout_card.description.nil?  
+                          %td.hidden-xs= transaction.checkout_card.uuid
+                        - else
+                          %td.hidden-xs= transaction.checkout_card.description
      
         .col-md-6
           .panel.panel-default

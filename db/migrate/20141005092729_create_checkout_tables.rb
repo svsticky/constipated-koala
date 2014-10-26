@@ -23,9 +23,11 @@ class CreateCheckoutTables < ActiveRecord::Migration
     create_table :checkout_transactions do |t|
     
       t.decimal :price, :scale => 2, :precision => 6, :null => false
-      t.belongs_to :checkout_card, :null => false
+      t.belongs_to :checkout_card
       
       t.timestamps
     end
+    
+    add_index :checkout_cards, :uuid, unique: true
   end
 end
