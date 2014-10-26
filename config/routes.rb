@@ -21,22 +21,23 @@ ConstipatedKoala::Application.routes.draw do
       passwords: "admin_devise/passwords"
     }
 
+    # Members routes for JSON calls
+    get    'members/find',      to: 'members#find'
+
     # Resource pages
     resources :members, :activities, :committees
 
     # Participants routes for JSON calls
     get    'participants/list', to: 'participants#list'
-    get    'participants',      to: 'participants#find'
     post   'participants',      to: 'participants#create'
     patch  'participants',      to: 'participants#update'
     delete 'participants',      to: 'participants#destroy'
 
     # CommitteeMembers JSON calls
-    get    'committeeMembers', to: 'committee_members#find'
-    post   'committeeMembers', to: 'committee_members#create'
-    patch  'committeeMembers', to: 'committee_members#update'
-    delete 'committeeMembers', to: 'committee_members#destroy'
-    
+    post   'committeeMembers', to: 'committees#createMember'
+    patch  'committeeMembers', to: 'committees#updateMember'
+    delete 'committeeMembers', to: 'committees#destroyMember'
+
     #mail JSON calls
     post   'mail',              to: 'mail#mail'
   end

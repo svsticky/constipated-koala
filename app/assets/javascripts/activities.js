@@ -126,7 +126,7 @@ function bind_activity(){
       e.preventDefault();
     }else if(search.length > 2){
       $.ajax({
-        url: '/participants',
+        url: '/members/find',
         type: 'GET',
         data: {
           search: search,

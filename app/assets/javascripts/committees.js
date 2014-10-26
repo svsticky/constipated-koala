@@ -5,7 +5,7 @@ function bind_committeeMember() {
 
   // Edit committeeMember function name
   // [PATCH] committeeMembers
-  $("#committeeMembers input.function").on('change', function() {
+  $("#committeeMembers input.function").off('change').on('change', function() {
     var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var functionName = $(this).val();
@@ -29,7 +29,9 @@ function bind_committeeMember() {
 
   // Add new committeeMember using autocomplete on members
   // uses [GET] for autocomplete and [POST] for storing the record
-  $("#committeeMembers input.committeeMember").on('focusin keyup', function(e) {
+  $("#committeeMembers input.committeeMember")
+    .off('focusin keyup').on('focusin keyup', function(e) {
+    
     var search = $(this).val();
     var committee = $("#committeeMembers").attr('data-id');
     var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
@@ -93,7 +95,7 @@ function bind_committeeMember() {
       e.preventDefault();
     }else if(search.length > 2){
       $.ajax({
-        url: '/committeeMembers',
+        url: '/members/find',
         type: 'GET',
         data: {
           search: search,
@@ -113,7 +115,6 @@ function bind_committeeMember() {
           var committee = $(this).closest('table').attr('data-id');
           var row = $(this).closest('tr');
           var name = $(this).text();
-          var price = $(row).find('td span').text().replace(/€/g, '').replace('-', '');
         
           $(this).closest('#committeeMembers table ul').css('display', 'none');
           
@@ -126,13 +127,8 @@ function bind_committeeMember() {
             }
           }).done(function( data ){          
             var template = $('script#committeeMember').html();
-            var committeeMember = template.format(data.id, data.member_id, name, price);
+            var committeeMember = template.format(data.id, data.member_id, name);
             var added = $(committeeMember).insertBefore(row);
-            
-            if(price > 0)    
-              $(added).addClass('red');
-            else
-              $(added).find('button.paid').addClass('hidden');  
             
             $('#committeeMembers input.committeeMember').val('');
             $('#committeeMembers ul.dropdown-menu').empty().css('display', 'none');
@@ -157,7 +153,7 @@ function bind_committeeMember() {
 
   // Remove committeeMember
   // [DELETE] committeeMembers
-  $("#committeeMembers button.destroy").on('click', function() {
+  $("#committeeMembers button.destroy").off('click').on('click', function() {
     var row = $(this).closest('tr');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 

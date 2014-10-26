@@ -19,11 +19,6 @@ class ParticipantsController < ApplicationController
     end
   end
   
-  def find
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
-    respond_with @members
-  end
-  
   def create
     @activity = Activity.find(params[:activity])
     @participant = Participant.new( :member => Member.find(params[:member]), :activity => @activity)

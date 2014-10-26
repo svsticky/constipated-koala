@@ -1,4 +1,5 @@
 class CommitteesController < ApplicationController
+  respond_to :json
 
   def index
     @committees = Committee.all
@@ -45,6 +46,34 @@ class CommitteesController < ApplicationController
 
     redirect_to committees_path
   end
+
+
+  def createMember
+    @committee = Committee.find(params[:committee])
+    @committeeMember = CommitteeMember.new( :member => Member.find(params[:member]), :committee => @committee )
+
+    if @committeeMember.save
+      respond_with @committeeMember, :location => committees_url
+    else
+      respond_with @committeeMember.errors.full_messages
+    end      
+  end
+
+  def updateMember
+    @committeeMember = CommitteeMember.find(params[:id])
+
+    @committeeMember.update_attributes(:function => params[:functionName])
+    if @committeeMember.save
+      render :status => :ok, :json => @committeeMember
+    else
+      respond_with @committeeMember.errors.full_messages
+    end
+  end
+
+  def destroyMember
+    respond_with CommitteeMember.destroy(params[:id])
+  end
+
 
   private
   def committee_post_params
