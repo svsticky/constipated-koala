@@ -40,6 +40,11 @@ class Member < ActiveRecord::Base
   has_many :activities,
     :through => :participants
 
+  has_many :committeeMembers,
+    :dependent => :destroy
+  has_many :committees,
+    :through => :committeeMembers
+
   before_create :before_create
 
   # remove nonnumbers and change + to 00
