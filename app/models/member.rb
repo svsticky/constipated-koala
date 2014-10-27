@@ -56,13 +56,13 @@ class Member < ActiveRecord::Base
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.sub(' ', ''))
   end
-  
+
   # return full name
   def name
     if infix.blank?
       return "#{self.first_name} #{self.last_name}"
     end
-    
+
     return "#{self.first_name} #{self.infix} #{self.last_name}"
   end
 
@@ -75,18 +75,28 @@ class Member < ActiveRecord::Base
   def before_create
     self.join_date = Time.new
   end
-  
+
   def self.search(query)
     #Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
     Member.find_by_fuzzy_query(query, :limit => 20)
   end
-  
-  # guery for fuzzy search 
-  def query 
+
+  # guery for fuzzy search
+  def query
     "#{self.first_name} #{self.last_name} #{self.student_id}"
   end
-  
+
   def query_changed?
     first_name_changed? || infix_changed? || last_name_changed? || email_changed? || student_id_changed?
+  end
+
+  # update studies based on studystatus output
+  def update_studies(studystatus_output)
+    result_id, *studies = studystatus_output.split(/; /)
+    unless self.student_id != result_id do
+      for study in studies
+        # TODO: implement study update
+      end
+    end
   end
 end
