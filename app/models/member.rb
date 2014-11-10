@@ -93,10 +93,13 @@ class Member < ActiveRecord::Base
   # update studies based on studystatus output
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
-    unless self.student_id != result_id do
-      for study in studies
-        # TODO: implement study update
-      end
-    end
+    puts result_id
+    puts studies
+
+    # unless self.student_id != result_id do
+    #   for study in studies
+
+    #   end
+    # end
   end
 end
