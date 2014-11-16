@@ -1,6 +1,15 @@
 namespace :admin do
   require 'rest_client'
-
+  
+  desc "Update study progress using a stdin in the same format as given by studystatus"
+  task :process => :environment do 
+    STDIN.each do |line|
+      member = Member.find_by_student_id!(line.split(/; /).first)
+      member.update_studies(line)
+    end
+  end  
+  
+  
   desc "Finds study progress for all members and updates the DB"
   task :studystatus, [:username, :password] => :environment do |t, args|
     # TODO: handle empty username and password

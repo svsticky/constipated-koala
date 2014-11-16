@@ -93,13 +93,51 @@ class Member < ActiveRecord::Base
   # update studies based on studystatus output
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
+
+    if self.student_id != result_id
+      logger.error 'Student id received from studystatus is different'
+      return
+    end
+    
     puts result_id
-    puts studies
-
-    # unless self.student_id != result_id do
-    #   for study in studies
-
-    #   end
-    # end
+      
+    for study in studies do
+      code, start_date, status, end_date = study.split(/, /)
+      
+      if Study.find_by_code(code).nil?
+        logger.error "#{code} is not found as a study in the database"
+        break
+      end
+      
+      education = self.educations.find_by_start_date_and_study_code(start_date, code)
+      
+      if education.nil?
+        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9,1))
+        puts " + #{code} (#{status})"
+      else
+        puts " ± #{code} (#{status})"
+      end
+      
+      if !end_date.nil? && !end_date[5..-1].nil?
+        education.update_attribute('end_date', Date.parse(end_date[5..-1]))
+      end
+      
+      if status.eql?('gestopt')
+        education.update_attribute('status', 'stopped')
+      elsif status.eql?('afgestudeerd')
+        education.update_attribute('status', 'graduated')
+      else #actief
+        education.update_attribute('status', 'active')    
+      end  
+        
+      education.save!      
+    end
+        
+    for education in self.educations do
+      unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?("#{education.study.code} | #{education.start_date.year}")
+        puts " - #{education.study.code}"
+        education.destroy
+      end
+    end
   end
 end
