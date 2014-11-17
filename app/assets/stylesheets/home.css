@@ -1,3 +1,6 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+dl.dl-horizontal > dt {
+  width: 270px;
+}
+dl.dl-horizontal > dd {
+  margin-left: 290px;
+}
