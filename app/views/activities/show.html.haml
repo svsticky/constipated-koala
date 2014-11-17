@@ -60,6 +60,7 @@
           .panel-heading
             %i.fa.fa-fw.fa-user
             Deelnemers
+            %span.pull-right= "(#{@activity.participants.count} deelnemers)"
           .panel-body#activities
             .table-responsive
               %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
