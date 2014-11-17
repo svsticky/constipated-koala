@@ -4,11 +4,4 @@ class Education < ActiveRecord::Base
 
   validates :start_date, presence: true
   #validates :end_date
-  
-  enum status: [ :active, :stopped, :graduated ]
-  
-  def self.find_by_start_date_and_study_code(year, code)
-    study = Study.find_by_code(code)
-    return where('extract(year from start_date) = ? AND study_id = ?', year, study.id).first
-  end
 end

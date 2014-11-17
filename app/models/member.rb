@@ -56,13 +56,13 @@ class Member < ActiveRecord::Base
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.sub(' ', ''))
   end
-
+  
   # return full name
   def name
     if infix.blank?
       return "#{self.first_name} #{self.last_name}"
     end
-
+    
     return "#{self.first_name} #{self.infix} #{self.last_name}"
   end
 
@@ -75,69 +75,18 @@ class Member < ActiveRecord::Base
   def before_create
     self.join_date = Time.new
   end
-
+  
   def self.search(query)
     #Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
     Member.find_by_fuzzy_query(query, :limit => 20)
   end
-
-  # guery for fuzzy search
-  def query
+  
+  # guery for fuzzy search 
+  def query 
     "#{self.first_name} #{self.last_name} #{self.student_id}"
   end
-
+  
   def query_changed?
-    first_name_changed? || infix_changed? || last_name_changed? || student_id_changed?
-  end
-
-  # update studies based on studystatus output
-  def update_studies(studystatus_output)
-    result_id, *studies = studystatus_output.split(/; /)
-
-    if self.student_id != result_id
-      logger.error 'Student id received from studystatus is different'
-      return
-    end
-    
-    puts result_id
-      
-    for study in studies do
-      code, start_date, status, end_date = study.split(/, /)
-      
-      if Study.find_by_code(code).nil?
-        logger.error "#{code} is not found as a study in the database"
-        break
-      end
-      
-      education = self.educations.find_by_start_date_and_study_code(start_date, code)
-      
-      if education.nil?
-        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9,1))
-        puts " + #{code} (#{status})"
-      else
-        puts " ± #{code} (#{status})"
-      end
-      
-      if !end_date.nil? && !end_date[5..-1].nil?
-        education.update_attribute('end_date', Date.parse(end_date[5..-1]))
-      end
-      
-      if status.eql?('gestopt')
-        education.update_attribute('status', 'stopped')
-      elsif status.eql?('afgestudeerd')
-        education.update_attribute('status', 'graduated')
-      else #actief
-        education.update_attribute('status', 'active')    
-      end  
-        
-      education.save!      
-    end
-        
-    for education in self.educations do
-      unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?("#{education.study.code} | #{education.start_date.year}")
-        puts " - #{education.study.code}"
-        education.destroy
-      end
-    end
+    first_name_changed? || infix_changed? || last_name_changed? || email_changed? || student_id_changed?
   end
 end
