@@ -43,18 +43,10 @@ suppress(Exception) do
 end
 
 12.times do
-  Committee.create(
-    name:        Faker::Commerce.department,
-    comments:    (Random.rand(10) > 2 ? Faker::Company.catch_phrase : NIL)
-  )
-end
-
-12.times do
   Activity.create(
     name:         Faker::Commerce.department,
     price:        Faker::Commerce.price,
-    start_date:   Faker::Business.credit_card_expiry_date,
-    committee_id: (Random.rand(10) > 5 ? (1+ Random.rand(Committee.count)) : NIL)
+    start_date:   Faker::Business.credit_card_expiry_date
   )
 end
 
@@ -115,17 +107,6 @@ suppress(Exception) do
       activity:     Activity.find(1+ Random.rand(Activity.count)),
       price:        (Random.rand(10) > 6 ? Faker::Commerce.price : NIL),
       paid:        (Random.rand(10) > 8 ? true : false)
-    )
-  end
-
-end
-
-suppress(Exception) do
-  200.times do
-    CommitteeMember.create(
-      member:       Member.find(1+ Random.rand(Member.count)),
-      committee:    Committee.find(1+ Random.rand(Committee.count)),     
-      function:     (Random.rand(10) > 5 ? Faker::Name.title : NIL)
     )
   end
 end

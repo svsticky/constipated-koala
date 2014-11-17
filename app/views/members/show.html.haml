@@ -94,16 +94,6 @@
               %i.fa.fa-fw.fa-users
               Commissies
             .panel-body
-              %table.table.table-striped.table-linked
-                %thead
-                  %tr
-                    %th Commissie
-                    %th Functie
-                %tbody
-                  - @member.committeeMembers.each do |committeeMember|
-                    %tr
-                      %td= link_to "#{committeeMember.committee.name}", committeeMember.committee
-                      %td= link_to "#{committeeMember.function}", committeeMember.committee
 
           .panel.panel-default
             .panel-heading

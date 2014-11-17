@@ -7,8 +7,6 @@ class Activity < ActiveRecord::Base
     :dependent => :destroy
   has_many :members, :through => :participants
   
-  belongs_to :committee
-
   def currency(member)
     participants.where(:member => member).first.price ||= self.price
   end

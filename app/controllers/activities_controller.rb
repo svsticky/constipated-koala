@@ -37,22 +37,6 @@ class ActivitiesController < ApplicationController
 
 		redirect_to activities_path
 	end
-
-  def setOrganiser
-    @activity = Activity.find(params[:id])
-    @activityId = params[:searchId]
-    if @activityId == 'NIL'
-      @activity.update_attributes(:committee => NIL)
-    else
-      @activity.update_attributes(:committee => Committee.find(@activityId))
-    end
-
-    if @activity.save
-      render :status => :ok, :json => @activity.committee
-    else
-      respond_with @activity.errors.full_messages
-    end
-  end
   
   private
   def activity_post_params

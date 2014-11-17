@@ -1,5 +1,4 @@
 class MembersController < ApplicationController
-  respond_to :json
   
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -110,11 +109,6 @@ class MembersController < ApplicationController
 		@member.destroy
 		redirect_to members_path
 	end
-
-  def find
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
-    respond_with @members
-  end
 
   private
   def member_post_params
