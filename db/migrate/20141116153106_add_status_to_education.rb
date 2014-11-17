@@ -9,5 +9,7 @@ class AddStatusToEducation < ActiveRecord::Migration
     end
     
     change_column :educations, :study_id, :integer, :null => false
+    
+    add_index :educations, [:member_id, :study_id, :start_date], :unique => true
   end
 end

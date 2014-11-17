@@ -30,14 +30,16 @@ Admin.create(
   )
 end
 
-110.times do
-  Education.create(
-    member:       Member.find(1+ Random.rand(Member.count)),
-    study_id:     Random.rand(8) +1, #there are now 1..8 educations
-    start_date:   Faker::Business.credit_card_expiry_date,
-    end_date:     (Random.rand(10) > 6 ? Faker::Business.credit_card_expiry_date : NIL),
-    status:       Random.rand(3)
-  )
+suppress(Exception) do
+  140.times do
+    Education.create(
+      member:       Member.find(1+ Random.rand(Member.count)),
+      study_id:     Random.rand(8) +1, #there are now 1..8 educations
+      start_date:   Faker::Business.credit_card_expiry_date,
+      end_date:     (Random.rand(10) > 6 ? Faker::Business.credit_card_expiry_date : NIL),
+      status:       Random.rand(3)
+    )
+  end
 end
 
 12.times do

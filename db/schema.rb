@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20141116153106) do
     t.integer  "status"
   end
 
+  add_index "educations", ["member_id", "study_id", "start_date"], name: "index_educations_on_member_id_and_study_id_and_start_date", unique: true, using: :btree
+
   create_table "ideal_transactions", force: true do |t|
     t.string   "uuid",        limit: 16
     t.text     "description"

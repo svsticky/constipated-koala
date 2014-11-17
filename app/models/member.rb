@@ -87,7 +87,7 @@ class Member < ActiveRecord::Base
   end
 
   def query_changed?
-    first_name_changed? || infix_changed? || last_name_changed? || email_changed? || student_id_changed?
+    first_name_changed? || infix_changed? || last_name_changed? || student_id_changed?
   end
 
   # update studies based on studystatus output
