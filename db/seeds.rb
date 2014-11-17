@@ -30,13 +30,16 @@ Admin.create(
   )
 end
 
-110.times do
-  Education.create(
-    member:       Member.find(1+ Random.rand(Member.count)),
-    study_id:     Random.rand(8) +1, #there are now 1..8 educations
-    start_date:   Faker::Business.credit_card_expiry_date,
-    end_date:     (Random.rand(10) > 6 ? Faker::Business.credit_card_expiry_date : NIL)
-  )
+suppress(Exception) do
+  140.times do
+    Education.create(
+      member:       Member.find(1+ Random.rand(Member.count)),
+      study_id:     Random.rand(8) +1, #there are now 1..8 educations
+      start_date:   Faker::Business.credit_card_expiry_date,
+      end_date:     (Random.rand(10) > 6 ? Faker::Business.credit_card_expiry_date : NIL),
+      status:       Random.rand(3)
+    )
+  end
 end
 
 12.times do
@@ -58,43 +61,52 @@ end
 Study.create(
   id:             1,
   name:           "Informatica",
-  code:           "INCA"
+  code:           "INCA",
+  masters:        false
 )
 Study.create(
   id:             2,
   name:           "Informatiekunde",
-  code:           "INCA"
+  code:           "INKU",
+  masters:        false
 )
 Study.create(
   id:             3,
   name:           "Gametech",
+  masters:        false,
   code:           "GT"
 )
 Study.create(
   id:             4,
   name:           "Computing Science",
-  code:           "COSC"
+  code:           "COSC",
+  masters:        true
 )
 Study.create(
   id:             5,
   name:           "Business Informatics",
-  code:           "MBI"
+  code:           "MBI",
+  masters:        true
 )
 Study.create(
   id:             6,
   name:           "Wiskunde",
-  code:           "WISK"
+  code:           "WISK",
+  masters:        false
 )
 Study.create(
   id:             7,
   name:           "Artificial Intelligence",
-  code:           "AI"
+  code:           "AI",
+  masters:        true
 )
 Study.create(
   id:             8,
   name:           "Game and Media Technology",
-  code:           "GMT"
+  code:           "GMT",
+  masters:        true
 )
+
 # Suppress exception for the unique key [member, activity], daarom ook zo veel..
 suppress(Exception) do
   200.times do
