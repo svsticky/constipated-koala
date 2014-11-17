@@ -4,8 +4,13 @@ namespace :admin do
   desc "Update study progress using a stdin in the same format as given by studystatus"
   task :process => :environment do 
     STDIN.each do |line|
-      member = Member.find_by_student_id!(line.split(/; /).first)
-      member.update_studies(line)
+      member = Member.find_by_student_id(line.split(/; /).first)
+
+      if !member.nil?
+        member.update_studies(line)
+      else
+        puts "#{line.split(/; /).first} is not found in the database"
+      end
     end
   end  
   
