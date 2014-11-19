@@ -93,9 +93,9 @@ class Member < ActiveRecord::Base
       logger.error 'Student id received from studystatus is different'
       return
     end
-    
+
     puts result_id
-      
+    
     for study in studies do
       code, start_date, status, end_date = study.split(/, /)
       
