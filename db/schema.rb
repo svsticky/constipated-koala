@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140901135404) do
+ActiveRecord::Schema.define(version: 20141116153106) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "price",      precision: 6, scale: 2
+    t.decimal  "price",        precision: 6, scale: 2
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id"
   end
 
   create_table "admins", force: true do |t|
@@ -41,14 +42,60 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "checkout_balances", force: true do |t|
+    t.decimal  "balance",    precision: 6, scale: 2
+    t.integer  "member_id",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "checkout_cards", force: true do |t|
+    t.string   "uuid",                limit: 16, null: false
+    t.text     "description"
+    t.boolean  "active"
+    t.integer  "member_id",                      null: false
+    t.integer  "checkout_balance_id",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "checkout_cards", ["uuid"], name: "index_checkout_cards_on_uuid", unique: true, using: :btree
+
+  create_table "checkout_transactions", force: true do |t|
+    t.decimal  "price",            precision: 6, scale: 2, null: false
+    t.integer  "checkout_card_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "committee_members", force: true do |t|
+    t.integer  "member_id"
+    t.integer  "committee_id"
+    t.text     "function"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "committee_members", ["member_id", "committee_id"], name: "index_committee_members_on_member_id_and_committee_id", unique: true, using: :btree
+
+  create_table "committees", force: true do |t|
+    t.string   "name"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "educations", force: true do |t|
     t.integer  "member_id"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "study_id"
+    t.integer  "study_id",   null: false
+    t.integer  "status"
   end
+
+  add_index "educations", ["member_id", "study_id", "start_date"], name: "index_educations_on_member_id_and_study_id_and_start_date", unique: true, using: :btree
 
   create_table "ideal_transactions", force: true do |t|
     t.string   "uuid",        limit: 16
@@ -120,8 +167,9 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
 
   create_table "studies", force: true do |t|
-    t.string "name"
-    t.string "code"
+    t.string  "name"
+    t.string  "code"
+    t.boolean "masters"
   end
 
   create_table "tags", force: true do |t|
@@ -132,5 +180,16 @@ ActiveRecord::Schema.define(version: 20140901135404) do
   end
 
   add_index "tags", ["member_id", "name_id"], name: "index_tags_on_member_id_and_name_id", unique: true, using: :btree
+
+  create_table "trigrams", force: true do |t|
+    t.string  "trigram",     limit: 3
+    t.integer "score",       limit: 2
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.string  "fuzzy_field"
+  end
+
+  add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match", using: :btree
+  add_index "trigrams", ["owner_id", "owner_type"], name: "index_by_owner", using: :btree
 
 end

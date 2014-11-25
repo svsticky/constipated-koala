@@ -1,6 +1,8 @@
 class CheckoutController < ApplicationController
   protect_from_forgery except: [:information_for_card, :subtract_funds, :add_card_to_member]
   skip_before_action :authenticate_admin!, only: [:information_for_card, :subtract_funds, :add_card_to_member]
+  before_action
+  
   respond_to :json
   respond_to :html, only: :index
   
@@ -16,7 +18,7 @@ class CheckoutController < ApplicationController
   end
 
   def information_for_card
-    respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :uuid, :balance).find_by_uuid!(params[:uuid])
+    respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
   end
 
   def change_funds  
@@ -29,12 +31,12 @@ class CheckoutController < ApplicationController
   end
   
   def subtract_funds
-    if params[:amount].to_f > 0
-      render :status => :bad_request, :json => 'amount should be negative'
+    if !params[:amount].is_number? || params[:amount].to_f >= 0
+      render :status => :bad_request, :json => 'amount should be a negative numeric value'
       return
     end
     
-    card = CheckoutCard.find_by_uuid(params[:uuid])
+    card = CheckoutCard.find_by_uuid!(params[:uuid])
     
     if( !card.active )
       render :status => :unauthorized, :json => 'card not yet activated'
@@ -43,20 +45,33 @@ class CheckoutController < ApplicationController
     
     #in the constructor of transaction subtract from balance, check if it is a subtraction
     transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
-    transaction.save
-    
-    respond_with transaction, :location => checkout_url
+
+    logger.debug transaction.inspect
+
+    begin
+      transaction.save
+    rescue ActiveRecord::RecordNotSaved
+      render :status => :request_entity_too_large, :json => 'insufficient funds'
+      return
+    end
+  
+    render :status => :created, :json => CheckoutTransaction.joins(:checkout_card).select(:id, :uuid, :price, :created_at).find_by_id!(transaction.id)
   end
   
-  def add_card_to_member
-    #on new card create new of find balance of member
-    card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find(params[:member]), :description => params[:description] )
+  def add_card_to_member    
+    if !CheckoutCard.find_by_uuid(params[:uuid]).nil?
+      render :status => :conflict, :json => 'card already registered'
+      return
+    end
+    
+    card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!(params[:student]), :description => params[:description] )
     
     if card.save(:validate => false)
-      render :status => :ok, :json => card#.joins(:member, :checkout_balance).select(:id, :first_name, :uuid, :balance )
+      render :status => :created, :json => CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
+      return
     else
-      logger.error card.inspect
-      respond_with card.errors.full_messages, :location => checkout_url
+      render :status => :conflict, :json => card.errors.full_messages
+      return
     end
   end
 end
