@@ -12,17 +12,27 @@ button.activate {
   top: 22px;
 }
 
-.credit .panel input {
-  heigth: 30px; 
-  margin: 5px 0; 
-  padding: 1px;
+#credit form.form-inline > .form-group {
+  padding: 0px;
 }
 
-.credit .panel > ul.dropdown-menu {
+#credit form.form-inline > .form-group.amount {
+  margin: 0px 20px;
+}
+
+#credit form.form-inline > .form-group > input.form-control,
+#credit form.form-inline > .form-group > button.form-control {
+  width: 100%;
+  heigth: 30px; 
+  margin: 5px 0; 
+  padding: 1px 12px;
+}
+
+#credit .panel-body > ul.dropdown-menu {
   display: none; 
   position: absolute; 
-  left: 4px; 
-  top: 30px;
+  left: 0px; 
+  top: 50px;
 }
 
 .table span.fa-sort-asc {

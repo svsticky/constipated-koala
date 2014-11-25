@@ -71,35 +71,40 @@
                               %i.fa.fa-fw.fa-times
                           %button.btn.btn-default.destroy
                             %i.fa.fa-fw.fa-trash-o
-
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-shopping-cart
-              Transacties
-            .panel-body
-              %table.table.table-striped.table-linked#transactions
-                %thead
-                  %tr
-                    %th Datum
-                    %th Prijs
-                    %th.hidden-xs Kaart
-                %tbody
-                  - @transactions.each do |transaction|
+          
+          - if @member.checkout_cards.length > 0
+            .panel.panel-default
+              .panel-heading
+                %i.fa.fa-fw.fa-shopping-cart
+                Checkout
+              .panel-body                    
+                %table.table.table-striped.table-linked#transactions
+                  %thead
                     %tr
-                      %td #{I18n.l transaction.created_at}
-                      %td
-                        = number_to_currency(transaction.price, :unit => '€')
-                        - if transaction.price > 0
-                          %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
-                        - else
-                          %span.fa.fa-sort-desc.pull-right
-                      
-                      
-                      - if !transaction.checkout_card.nil?
-                        - if transaction.checkout_card.description.nil?  
-                          %td.hidden-xs= transaction.checkout_card.uuid
-                        - else
-                          %td.hidden-xs= transaction.checkout_card.description
+                      %th Datum
+                      %th Prijs
+                      %th.hidden-xs.col-md-4{ :style => 'padding: 0px; padding-bottom: 2px;'}  
+                        %span.ui-select
+                          %select.uuid
+                            %option{ :value => ''} kaarten
+                            = options_for_select(@member.checkout_cards.collect {|card| card.uuid }, params[:uuid])
+                  %tbody
+                    - @transactions.each do |transaction|
+                      %tr
+                        %td #{I18n.l transaction.created_at}
+                        %td
+                          = number_to_currency(transaction.price, :unit => '€')
+                          - if transaction.price > 0
+                            %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                          - else
+                            %span.fa.fa-sort-desc.pull-right
+                        
+                        
+                        - if !transaction.checkout_card.nil?
+                          - if transaction.checkout_card.description.nil?  
+                            %td.hidden-xs{ :style => 'text-align: right; padding-right: 50px;'}= transaction.checkout_card.uuid
+                          - else
+                            %td.hidden-xs{ :style => 'text-align: right; padding-right: 50px;'}= transaction.checkout_card.description
      
         .col-md-6
           .panel.panel-default
@@ -127,14 +132,21 @@
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-dashboard
-              Stats
+              Overig
             .panel-body
               %dl.dl-horizontal
                 %dt Lid sinds
                 - if !@member.join_date.nil?
                   %dd= I18n.l @member.join_date
+                
                 %dt Activiteiten
                 %dd= @member.activities.length
+                
+                %dt Tegoed
+                -if @member.checkout_cards.length > 0
+                  %dd= number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '€')
+                -else
+                  %dd -
 
           .panel.panel-default
             .panel-body

@@ -12,7 +12,7 @@ function bind_activity(){
   $('#activities').find('input.price').on('change', function(){
     var row = $(this).closest('tr')
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var price = $(this).val();
+    var price = $(this).val().replace(',', '.');
     
     // If left blank asume 0
     if(!price){

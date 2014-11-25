@@ -3,6 +3,13 @@
 
 $(document).on('ready page:load', function(){
 
+  $('table#transactions select.uuid').bind( 'change', function(){
+    var params = {}
+    if( $( this ).val() != '' )
+      params['uuid'] = $(this).val();
+    location.search = $.param(params);
+  });
+
   $('label a.close').bind( 'click', function() {
     var row = $('.copyable:last').clone().insertAfter($('.copyable:last'));
     

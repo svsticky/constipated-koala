@@ -6,7 +6,7 @@ class CheckoutController < ApplicationController
   respond_to :json
   respond_to :html, only: :index
   
-  def index
+  def index    
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0
   
@@ -24,12 +24,23 @@ class CheckoutController < ApplicationController
   end
 
   def change_funds  
-    card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
     
+    if params[:uuid]
+      card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
+    elsif params[:id]
+      #take a random card..
+      card = Member.find_by_id!(params[:id]).checkout_cards.first
+    end
+    
+    if card.nil?
+      render :status => :not_found, :json => 'card not found' 
+      return
+    end
+  
     transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
     transaction.save
     
-    respond_with transaction, :location => checkout_url
+    render :status => :created, :json => CheckoutTransaction.joins(:checkout_card).select(:id, :uuid, :price, :created_at).find_by_id!(transaction.id)
   end
   
   def subtract_funds

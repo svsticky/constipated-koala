@@ -73,10 +73,13 @@ class Member < ActiveRecord::Base
   def before_create
     self.join_date = Time.new
   end
-  
+
   def self.search(query)
-    #Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
-    Member.find_by_fuzzy_query(query, :limit => 20)
+    if query.is_number?
+      return Member.where("student_id like ?", "%#{query}%")
+    end
+    
+    return Member.find_by_fuzzy_query(query, :limit => 20)
   end
   
   # guery for fuzzy search 
@@ -85,6 +88,6 @@ class Member < ActiveRecord::Base
   end
   
   def query_changed?
-    first_name_changed? || infix_changed? || last_name_changed? || email_changed? || student_id_changed?
+    first_name_changed? || infix_changed? || last_name_changed? || student_id_changed?
   end
 end

@@ -38,7 +38,7 @@
                     - else
                       %span.fa.fa-sort-desc.pull-right
                       
-                  %td= link_to "#{transaction.checkout_card.member.name}", transaction.checkout_card.member  
+                  %td= link_to "#{transaction.checkout_card.member.name}", transaction.checkout_card.member
                   
                   - if !transaction.checkout_card.nil?
                     - if transaction.checkout_card.description.nil?  
@@ -82,16 +82,24 @@
                   %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
                     %a{ :data => { :offset => @offset + @limit }} volgende
                     
-      .col-lg-4.credit
+      .col-lg-4#credit
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-money
             Opwaarderen
-          .panel-body{ :style => 'position: relative;'}
-            %input.participant.col-md-12
-            %ul.dropdown-menu.col-md-12
-          
-      .col-lg-4.cards
+          .panel-body{ :style => 'position: relative;' }
+            %form.form-inline
+              .form-group.col-md-12.participant
+                %input.form-control.participant{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer' }
+                %ul.dropdown-menu.col-md-12
+              
+              .form-group.col-md-3.amount{ :style => 'display: none;' }
+                %input.form-control.amount{ :placeholder => 'hoeveel' }
+
+              .form-group.col-md-3{ :style => 'display: none;' }         
+                %button.form-control.btn.btn-line-primary opslaan
+            
+      .col-lg-4#cards
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-credit-card

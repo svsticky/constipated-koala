@@ -9,7 +9,7 @@ class MembersController < ApplicationController
  
     if params[:search]
       @members = Member.search(params[:search])
-      @pages = @members.size / @limit
+      @pages = @members.size / @limit      
             
       if @members.size == 1
         redirect_to @members.first
@@ -23,7 +23,12 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
-    @transactions = CheckoutTransaction.where( :checkout_card => @member.checkout_cards.select(:id)).order(created_at: :desc).limit(10)
+   
+    if params[:uuid] && params[:uuid] != 'all'
+      @transactions = CheckoutTransaction.where( :checkout_card => CheckoutCard.find_by_uuid!(params[:uuid])).order(created_at: :desc).limit(10)
+    else
+      @transactions = CheckoutTransaction.where( :checkout_card => @member.checkout_cards.select(:id)).order(created_at: :desc).limit(10)
+    end
   end
 
   def new
