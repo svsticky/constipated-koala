@@ -56,9 +56,9 @@ table.table > tbody > tr.red, table.table > tbody > tr.red a {
   padding: 1px;
 }
 
-#activites tr > td > ul.dropdown-menu {
+#activities tr > td > ul.dropdown-menu {
   display: none; 
   position: absolute; 
-  left: 0px; 
-  top: 20px;
+  left: 4px; 
+  top: 30px;
 }

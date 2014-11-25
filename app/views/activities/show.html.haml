@@ -83,7 +83,7 @@
                   %tr
                     %td.col-md-8{ :style => 'position: relative;'}
                       %input.participant.col-md-11
-                      %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
+                      %ul.dropdown-menu.col-md-11
                     %td.col-md-2
                       - if !@activity.price.nil?
                         %span{ :style => 'line-height: 39px; margin-left: 8px;' }= number_to_currency(@activity.price, :unit => '€')

@@ -7,11 +7,6 @@ function bind_activity(){
   $('#mail #recipients select').off('change');
   $('#mail #recipients input').off('change');
   
-  $('#activities').find('input.participant').on('focusout', function(){
-    var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
-    $( dropdown ).empty().css('display', 'none');
-  });
-  
   // Participant bedrag aanpassen
   // [PATCH] participants
   $('#activities').find('input.price').on('change', function(){
@@ -55,6 +50,11 @@ function bind_activity(){
     }).fail(function( data ){
       alert('geen verbinding of geen nummer', 'error');
     });
+  }); 
+    
+  $('#activities').find('input.participant').on('focusout', function(){
+    var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
+    $( dropdown ).empty().css('display', 'none');
   });
   
   // Add new participant using autocomplete on members

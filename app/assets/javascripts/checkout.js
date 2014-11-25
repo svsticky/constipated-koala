@@ -2,26 +2,9 @@
 // All this logic will automatically be available in application.js.
 
 $(document).on('ready page:load', function(){
-  $('footer.table-footer .pagination-container li a[data-offset]').bind( 'click', function(e) {
-    var params = {};
-    params['limit'] = $('footer.table-footer .page-num-info').attr('data-limit');
-    params['offset'] = $(this).attr('data-offset');
-        
-    e.preventDefault();
-    location.search = $.param(params);
-  });
-  
-  $('footer.table-footer .pagination-container li.scroll a').bind( 'click', function(e) {
-    
-  });
-
-  $('footer.table-footer .page-num-info select').bind( 'change', function() {
-    var params = {}, limit = $(this).val();
-    $('footer.table-footer .page-num-info').attr('data-limit', limit);
-    
-    params['limit'] = limit;
-    params['offset'] = $('footer.table-footer .pagination-container li.active a').attr('data-offset');
-    location.search = $.param(params);
+  $('#activities').find('input.participant').on('focusout', function(){
+    var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
+    $( dropdown ).empty().css('display', 'none');
   });
   
   $('div.cards ul.list-group button.activate').bind( 'click', function() {

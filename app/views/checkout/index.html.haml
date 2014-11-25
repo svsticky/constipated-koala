@@ -76,12 +76,14 @@
                   %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
                     %a{ :data => { :offset => @offset + @limit }} volgende
                     
-      .col-lg-4.cards
+      .col-lg-4.credit
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-money
             Opwaarderen checkout
-          .panel-body
+          .panel-body{ :style => 'position: relative;'}
+            %input.participant.col-md-11
+            %ul.dropdown-menu.col-md-11
           
       .col-lg-4.cards
         .panel.panel-default
