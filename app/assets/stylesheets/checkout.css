@@ -11,3 +11,27 @@ button.activate {
   right: 20px;
   top: 22px;
 }
+
+.credit .panel input {
+  heigth: 30px; 
+  margin: 5px 0; 
+  padding: 1px;
+}
+
+.credit .panel > ul.dropdown-menu {
+  display: none; 
+  position: absolute; 
+  left: 4px; 
+  top: 30px;
+}
+
+.table span.fa-sort-asc {
+  color: green;
+  
+  position: relative;
+  top: 6px;
+}
+
+.table span.fa-sort-desc {
+  color: red;
+}

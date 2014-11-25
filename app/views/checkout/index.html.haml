@@ -31,7 +31,13 @@
               - @transactions.each do |transaction|
                 %tr
                   %td #{I18n.l transaction.created_at}
-                  %td= number_to_currency(transaction.price, :unit => '€')
+                  %td
+                    = number_to_currency(transaction.price, :unit => '€')
+                    - if transaction.price > 0
+                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                    - else
+                      %span.fa.fa-sort-desc.pull-right
+                      
                   %td= link_to "#{transaction.checkout_card.member.name}", transaction.checkout_card.member  
                   
                   - if !transaction.checkout_card.nil?
@@ -80,10 +86,10 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-money
-            Opwaarderen checkout
+            Opwaarderen
           .panel-body{ :style => 'position: relative;'}
-            %input.participant.col-md-11
-            %ul.dropdown-menu.col-md-11
+            %input.participant.col-md-12
+            %ul.dropdown-menu.col-md-12
           
       .col-lg-4.cards
         .panel.panel-default
