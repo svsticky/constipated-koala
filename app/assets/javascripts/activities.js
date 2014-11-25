@@ -7,6 +7,10 @@ function bind_activity(){
   $('#mail #recipients select').off('change');
   $('#mail #recipients input').off('change');
   
+  $('#activities').find('input.participant').on('focusout', function(){
+    var dropdown = $(this).closest('tr').find('ul.dropdown-menu');
+    $( dropdown ).empty().css('display', 'none');
+  });
   
   // Participant bedrag aanpassen
   // [PATCH] participants

@@ -64,6 +64,7 @@ class ParticipantsController < ApplicationController
     
     if @participant.save
       render :status => :ok, :json => @participant
+      return
     else
       respond_with @participant.errors.full_messages
     end
@@ -73,10 +74,3 @@ class ParticipantsController < ApplicationController
     respond_with Participant.destroy(params[:id])
   end
 end
-
-class String
-  def numeric?
-    return true if self =~ /^\d+$/
-    true if Float(self) rescue false
-  end
-end  

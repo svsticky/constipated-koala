@@ -1,0 +1,13 @@
+p.uuid {
+  margin-bottom: 0px;
+}
+
+button.activate {
+  position: absolute;
+  height: 34px;
+  
+  line-height: 20px;
+  
+  right: 20px;
+  top: 22px;
+}

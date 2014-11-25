@@ -14,6 +14,8 @@ class CheckoutController < ApplicationController
     @pagination = 5
  
     @transactions = CheckoutTransaction.joins(:checkout_card).all.select(:id, :created_at, :price, :checkout_card_id, :uuid, :description).order(created_at: :desc).limit(@limit).offset(@offset)
+    @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
+    
     @pages = CheckoutTransaction.count / @limit
   end
 
@@ -71,6 +73,19 @@ class CheckoutController < ApplicationController
       return
     else
       render :status => :conflict, :json => card.errors.full_messages
+      return
+    end
+  end
+  
+  def activate_card
+    card = CheckoutCard.find_by_uuid!(params[:uuid])
+    card.update_attribute(:active, true);
+    
+    if card.save
+      render :status => :ok, :json => card.to_json
+      return
+    else 
+      render :status => :bad_request, :json => card.errors.full_messages
       return
     end
   end

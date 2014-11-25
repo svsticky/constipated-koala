@@ -17,13 +17,12 @@
 
 table.table.table-linked > tbody > tr > td > a {
   display: block;
-  padding: 10px;
   height: 100%;
   width: 100%;
 }
 
 table.table.table-linked > tbody > tr > td {
-	padding: 0px;
+	padding: 10px;
 }
 
 table.table.table-linked > tbody > tr:hover > td > a {
@@ -37,4 +36,29 @@ table.table > tbody > tr.red, table.table > tbody > tr.red a {
 .ui-select > select {
  text-transform: capitalize;
  width: 100%;
+}
+
+#activities tr > td {
+  padding: 0px;
+  padding-left: 8px;
+}
+
+#activities tr > td > a {
+  line-height: 36px;
+  
+  height: 36px;
+  width: 100%;
+}
+
+#activities tr > td > input {
+  heigth: 30px; 
+  margin: 5px 0; 
+  padding: 1px;
+}
+
+#activites tr > td > ul.dropdown-menu {
+  display: none; 
+  position: absolute; 
+  left: 0px; 
+  top: 20px;
 }

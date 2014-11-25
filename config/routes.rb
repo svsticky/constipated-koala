@@ -37,9 +37,12 @@ ConstipatedKoala::Application.routes.draw do
     # checkout urls
     get    'checkout',          to: 'checkout#index'
     get    'checkout/card',     to: 'checkout#information_for_card'
-    post   'checkout',          to: 'checkout#subtract_funds'
-    patch  'checkout',          to: 'checkout#change_funds'
     post   'checkout/card',     to: 'checkout#add_card_to_member'
+    patch  'checkout/card',     to: 'checkout#activate_card'
+        
+    post   'checkout/transaction',  to: 'checkout#subtract_funds'
+    patch  'checkout/transaction',  to: 'checkout#change_funds'
+
   end
 
   get '/', to: redirect('/404')
