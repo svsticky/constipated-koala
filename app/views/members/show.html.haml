@@ -83,11 +83,7 @@
                     %tr
                       %th Datum
                       %th Prijs
-                      %th.hidden-xs.col-md-4{ :style => 'padding: 0px; padding-bottom: 2px;'}  
-                        %span.ui-select
-                          %select.uuid
-                            %option{ :value => ''} kaarten
-                            = options_for_select(@member.checkout_cards.collect {|card| card.uuid }, params[:uuid])
+                      %th.hidden-xs Kaart
                   %tbody
                     - @transactions.each do |transaction|
                       %tr
@@ -99,12 +95,14 @@
                           - else
                             %span.fa.fa-sort-desc.pull-right
                         
-                        
-                        - if !transaction.checkout_card.nil?
-                          - if transaction.checkout_card.description.nil?  
-                            %td.hidden-xs{ :style => 'text-align: right; padding-right: 50px;'}= transaction.checkout_card.uuid
+                        %td.hidden-xs
+                          - if !transaction.checkout_card.nil?
+                            - if transaction.checkout_card.description.nil?  
+                              = transaction.checkout_card.uuid
+                            - else
+                              = transaction.checkout_card.description
                           - else
-                            %td.hidden-xs{ :style => 'text-align: right; padding-right: 50px;'}= transaction.checkout_card.description
+                            \-
      
         .col-md-6
           .panel.panel-default

@@ -24,6 +24,7 @@ class CreateCheckoutTables < ActiveRecord::Migration
     
       t.decimal :price, :scale => 2, :precision => 6, :null => false
       t.belongs_to :checkout_card
+      t.belongs_to :checkout_balance
       
       t.timestamps
     end

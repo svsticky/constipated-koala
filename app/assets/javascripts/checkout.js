@@ -114,7 +114,7 @@ $(document).on('ready page:load', function(){
       url: '/checkout/transaction',
       type: 'PATCH',
       data: {
-        id: $( '#credit .form-group.participant').attr('data-id'),
+        member_id: $( '#credit .form-group.participant').attr('data-id'),
         amount: $( '#credit .form-group.amount input').val().replace(',', '.'),
         authenticity_token: token
       }

@@ -38,13 +38,16 @@
                     - else
                       %span.fa.fa-sort-desc.pull-right
                       
-                  %td= link_to "#{transaction.checkout_card.member.name}", transaction.checkout_card.member
+                  %td= link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
                   
-                  - if !transaction.checkout_card.nil?
-                    - if transaction.checkout_card.description.nil?  
-                      %td.hidden-xs= transaction.checkout_card.uuid
+                  %td.hidden-xs
+                    - if !transaction.checkout_card.nil?
+                      - if transaction.checkout_card.description.nil?  
+                        = transaction.checkout_card.uuid
+                      - else
+                        = transaction.checkout_card.description
                     - else
-                      %td.hidden-xs= transaction.checkout_card.description
+                      \-
                
           %footer.table-footer
             .row

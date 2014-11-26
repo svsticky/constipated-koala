@@ -24,11 +24,7 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
     @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
    
-    if params[:uuid] && params[:uuid] != 'all'
-      @transactions = CheckoutTransaction.where( :checkout_card => CheckoutCard.find_by_uuid!(params[:uuid])).order(created_at: :desc).limit(10)
-    else
-      @transactions = CheckoutTransaction.where( :checkout_card => @member.checkout_cards.select(:id)).order(created_at: :desc).limit(10)
-    end
+    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id!(params[:id])).order(created_at: :desc).limit(10)
   end
 
   def new

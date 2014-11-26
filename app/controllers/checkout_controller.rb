@@ -13,7 +13,7 @@ class CheckoutController < ApplicationController
     @page = @offset / @limit
     @pagination = 5
  
-    @transactions = CheckoutTransaction.joins(:checkout_card).all.select(:id, :created_at, :price, :checkout_card_id, :uuid, :description).order(created_at: :desc).limit(@limit).offset(@offset)
+    @transactions = CheckoutTransaction.includes(:checkout_card).order(created_at: :desc).limit(@limit).offset(@offset)
     @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
     
     @pages = CheckoutTransaction.count / @limit
@@ -24,23 +24,26 @@ class CheckoutController < ApplicationController
   end
 
   def change_funds  
-    
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
-    elsif params[:id]
-      #take a random card..
-      card = Member.find_by_id!(params[:id]).checkout_cards.first
-    end
-    
-    if card.nil?
-      render :status => :not_found, :json => 'card not found' 
+      transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
+      
+    elsif params[:member_id]        
+      transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_balance => CheckoutBalance.find_by_member_id!(params[:member_id]) )
+
+    else
+      render :status => :bad_request, :json => 'no identifier given'
       return
     end
-  
-    transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
-    transaction.save
     
-    render :status => :created, :json => CheckoutTransaction.joins(:checkout_card).select(:id, :uuid, :price, :created_at).find_by_id!(transaction.id)
+    begin
+      transaction.save
+    rescue ActiveRecord::RecordNotSaved
+      render :status => :request_entity_too_large, :json => 'insufficient funds'
+      return
+    end
+    
+    render :status => :created, :json => CheckoutTransaction.select(:id, :price, :created_at).find_by_id!(1)
   end
   
   def subtract_funds
