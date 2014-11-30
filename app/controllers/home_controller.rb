@@ -11,9 +11,11 @@ class HomeController < ApplicationController
     
     #TODO unpayed activities (+ mongoose?)
     @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
+    @mongoose = 0
     
     @studies = Education.joins('study').group('study').count
     
     @birthdates = 0
+
   end
 end
