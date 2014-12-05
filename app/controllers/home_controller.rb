@@ -16,6 +16,5 @@ class HomeController < ApplicationController
     @studies = Education.where('status = 0').joins('study').group('study').count
     
     @birthdates = 0
-
   end
 end

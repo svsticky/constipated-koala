@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   protect_from_forgery except: [:information_for_card, :subtract_funds, :add_card_to_member]
   skip_before_action :authenticate_admin!, only: [:information_for_card, :subtract_funds, :add_card_to_member]
-  before_action
+  before_action :authenticate_checkout, only: [:information_for_card, :subtract_funds, :add_card_to_member]
   
   respond_to :json
   respond_to :html, only: :index
@@ -100,6 +100,14 @@ class CheckoutController < ApplicationController
       return
     else 
       render :status => :bad_request, :json => card.errors.full_messages
+      return
+    end
+  end
+  
+  private 
+  def authenticate_checkout
+    if params[:token] != ConstipatedKoala::Application.config.checkout
+      render :status => :forbidden, :json => 'not authenticated'
       return
     end
   end
