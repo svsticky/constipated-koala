@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
     @mongoose = 0
     
-    @studies = Education.joins('study').group('study').count
+    @studies = Education.where('status = 0').joins('study').group('study').count
     
     @birthdates = 0
 
