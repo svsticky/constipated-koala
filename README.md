@@ -29,8 +29,8 @@ $ bundle install
 # Create `config/database.yml` with adapter `mysql2` and database credentials
 $ mvim config/database.yml
 
-# Populate the database
-$ bundle exec rake db:migrate && bundle exec rake db:seed
+# Create and populate the database
+$ bundle exec rake db:create && bundle exec rake db:setup
 
 # Run the server
 $ bundle exec rails server
@@ -43,6 +43,24 @@ All done! Now you have the admin system and intro website running at:
 
  - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
  - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
+
+### A note on `rake db:migrate` tasks
+
+Do **NOT** run `rake db:migrate` *unless* you changed something to the schema. The
+schema is stored in `db/schema.rb`. `using rake db:migrate` will give this file a
+timestamp update, which is annoying.
+
+Here is a brief manual for running `rake` tasks in the `db` namespace:
+
+ - **Only run `bundle exec rake db:migrate` when you have created a migration. Do NOT
+   use this command when setting up your database.**
+ - Wanting to set up your dev-env? First create a database with `bundle exec rake
+   db:create`. Then use `bundle exec rake db:setup`. (This will run the subtasks
+   `db:schema:load` and `db:seed`.)
+ - Messed something up? Run the task `db:reset`. (Which is an alias for `db:drop`
+   followed by `db:setup`.)
+
+If you want to learn more, see issue #53.
 
 ## Contributing
 

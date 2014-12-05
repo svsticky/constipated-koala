@@ -1,17 +1,21 @@
 class HomeController < ApplicationController
   def index
-    #TODO optimize sql query to count
-    @members = Education.group('member_id').where('end_date IS NULL').length
-    @alumni = 0
+    @members = Education.group('member_id').where('status = 0').length
+    @alumnus = 0
     
     @activities = Activity.count(:all)
-    @participants = Participant.count(:all)
     
     #TODO mongoose implementatie
-    @transactions = CheckoutTransaction.count(:all)
-    @credit = CheckoutBalance.sum(:balance)
+    @sales = 0
+    @credit = 0
     
     #TODO unpayed activities (+ mongoose?)
     @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
+    @mongoose = 0
+    
+    @studies = Education.where('status = 0').joins('study').group('study').count
+    
+    @birthdates = 0
+
   end
 end
