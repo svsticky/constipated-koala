@@ -173,7 +173,7 @@ $(document).on('ready page:load', function(){
   if( document.cookie.search('nav-min') >= 0 )
       $('#app div').addClass('nav-min');
 
-  $('.toggle-min.hidden-xs').click(function(event){
+  $('.toggle-min').click(function(event){
     event.preventDefault();
     
     $('#app div').toggleClass('nav-min');

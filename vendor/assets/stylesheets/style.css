@@ -10600,18 +10600,20 @@ div.page.search > section.panel {
     position: absolute;
     top: 50px;
     bottom: 0;
-    left: -220px;
-    width: 220px;
+    left: 0;
+    width: 100%;
     padding: 0;
+    display: none;
     background-color: #fefefe;
     -webkit-overflow-scrolling: touch;
     -webkit-overflow-scrolling: -blackberry-touch;
 }
 
 @media (min-width: 768px) {
-    #nav-container {
-        left: 0;
-    }
+  #nav-container {
+    display: block;
+    width: 220px;
+  }
 }
 
 #nav-container ul {
@@ -10785,49 +10787,55 @@ div.page.search > section.panel {
 }
 
 .nav-min #nav-container {
-    width: 50px;
+  display: block;
 }
 
-.nav-min #content {
-    left: 50px;
-}
-
-.nav-min .slimScrollDiv {
-    overflow: visible !important;
-}
-
-.nav-min #nav {
-    overflow: visible !important;
-}
-
-.nav-min #nav > li {
-    width: 50px;
-}
-
-.nav-min #nav > li > a > i:before {
-    color: white;
-}
-
-.nav-min #nav > li > a > i > .icon-bg {
-    left: 0;
-}
-
-.nav-min #nav > li > a > span {
-    display: none;
-}
-
-.nav-min #nav > li .icon-has-ul {
-    display: none;
-}
-
-.nav-min #nav > li > ul {
-    position: absolute;
-    left: 100%;
-    top: 0;
-    width: 220px;
-    -webkit-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
-    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+@media (min-width: 768px) {
+  .nav-min #nav-container {
+      width: 50px;
+  }
+  
+  .nav-min #content {
+      left: 50px;
+  }
+  
+  .nav-min .slimScrollDiv {
+      overflow: visible !important;
+  }
+  
+  .nav-min #nav {
+      overflow: visible !important;
+  }
+  
+  .nav-min #nav > li {
+      width: 50px;
+  }
+  
+  .nav-min #nav > li > a > i:before {
+      color: white;
+  }
+  
+  .nav-min #nav > li > a > i > .icon-bg {
+      left: 0;
+  }
+  
+  .nav-min #nav > li > a > span {
+      display: none;
+  }
+  
+  .nav-min #nav > li .icon-has-ul {
+      display: none;
+  }
+  
+  .nav-min #nav > li > ul {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 220px;
+      -webkit-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+      box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .nav-min #nav > li:hover > ul, .nav-min #nav > li.open > ul {
