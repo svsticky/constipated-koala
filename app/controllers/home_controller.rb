@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     @activities = Activity.count(:all)
     
     #TODO mongoose implementatie
-    @sales = 0
+    @transactions = CheckoutTransaction.count(:all)
     @credit = 0
     
     #TODO unpayed activities (+ mongoose?)
