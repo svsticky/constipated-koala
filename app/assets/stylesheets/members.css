@@ -8,3 +8,8 @@
 .table span.fa-sort-desc {
   color: red;
 }
+
+dd span.label {
+  margin-left :5px;
+  padding: .2em .6em .3em;
+}

@@ -116,11 +116,19 @@
               %dl.dl-horizontal
                 - @member.educations.each do |education|
                   %dt= education.study.name
-                  - if education.end_date.nil?
-                    %dd #{I18n.l education.start_date, :format => :short}
-                  -else
-                    %dd #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
-          
+                  %dd
+                    - if education.end_date.nil?
+                      #{I18n.l education.start_date, :format => :short}
+                    - else
+                      #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
+                    
+                    - if education.graduated?
+                      %span.label.label-success geslaagd
+                    - elsif education.stopped?
+                      %span.label.label-warning gestopt
+                    - elsif education.active?
+                      %span.label.label-info studerend
+        
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-users

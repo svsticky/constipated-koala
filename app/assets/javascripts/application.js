@@ -169,4 +169,36 @@ $(document).on('ready page:load', function(){
     $(this).closest('.alert').remove();
   });
   
+  //menu navigation  
+  if( document.cookie.search('nav-min') >= 0 )
+      $('#app div').addClass('nav-min');
+
+  $('.toggle-min.hidden-xs').click(function(event){
+    event.preventDefault();
+    
+    $('#app div').toggleClass('nav-min');
+    
+    if( $('#app div').hasClass('nav-min') ){
+      document.cookie = 'nav-min=true; path=/;';
+    }else{
+      document.cookie = 'nav-min=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+    }
+    
+    $('#nav li').removeClass('open');
+    $('#nav li').children('.sub-nav').css('display', 'none');
+  }); 
+  
+  $('#nav li').has('.sub-nav').click(function(event){
+    event.preventDefault();
+    
+    $( this ).toggleClass('open');
+    
+    if( $( this ).children('.sub-nav').css('display') == 'block' ){
+      $( this ).children('.sub-nav').css('display', 'none');
+    }else{
+      $( this ).parent('ul#nav').find('.sub-nav').css('display', 'none');
+      $( this ).children('.sub-nav').css('display', 'block');
+    }
+    
+  });
 });
