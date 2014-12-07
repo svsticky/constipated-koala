@@ -24,8 +24,8 @@
                   %th
                     .th
                       Lid
-                  %th
-                    .th.hidden-xs
+                  %th.hidden-xs
+                    .th
                       Kaart
                         
               - @transactions.each do |transaction|
@@ -51,7 +51,7 @@
                
           %footer.table-footer
             .row
-              .col-md-6.page-num-info{ :data => { :limit => @limit, :pagination => @pagination } }
+              .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => @pagination } }
                 %span
                   Toon
                   = select_tag 'limit', options_for_select([20,50,100], @limit)
@@ -113,4 +113,8 @@
                 %p= link_to "#{card.member.name}", card.member
                 %p.uuid= card.uuid
                 %button.activate.btn.btn-w-md.btn-gap-v.btn-line-primary activeer
+            - if @cards.length == 0
+              %li.list-group-item
+                %p.text-center 
+                  %em geen kaarten
           

@@ -7,55 +7,30 @@
     .row 
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/members'}
-          .animate
-            %span.box-icon.bg-success
-              %i.fa.fa-user
-            .box-info
-              %p.size-h2 
-                = @members
-              %p.text-muted Leden
-          .alternative
-            %span.box-icon.bg-success
-              %i.fa.fa-graduation-cap
-            .box-info
-              %p.size-h2 
-                = @alumnus
-              %p.text-muted Alumni
+          %span.box-icon.bg-success
+            %i.fa.fa-user
+          .box-info
+            %p.size-h2 
+              = @members
+            %p.text-muted Leden
             
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/activities'}
-          .animate
-            %span.box-icon.bg-info
-              %i.fa.fa-ticket
-            .box-info
-              %p.size-h2
-                = @activities
-              %p.text-muted Activiteiten
-          .alternative
-            %span.box-icon.bg-info
-              %i.fa.fa-group
-            .box-info
-              %p.size-h2 
-                = @participants
-              %p.text-muted Unieke deelnemers
+          %span.box-icon.bg-info
+            %i.fa.fa-ticket
+          .box-info
+            %p.size-h2
+              = @activities
+            %p.text-muted Activiteiten
             
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/mongoose'}
-          .animate
-            %span.box-icon.bg-warning
-              %i.fa.fa-shopping-cart
-            .box-info
-              %p.size-h2
-                = @transactions
-              %p.text-muted Mongoose transacties
-          .alternative
-            %span.box-icon.bg-warning
-              %i.fa.fa-credit-card
-            .box-info
-              %p.size-h2 
-                = number_to_currency(@credit, :unit => '')
-              %p.text-muted Mongoose tegoed
-
+          %span.box-icon.bg-warning
+            %i.fa.fa-shopping-cart
+          .box-info
+            %p.size-h2
+              = @transactions
+            %p.text-muted Mongoose transacties
             
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/activities'}
