@@ -58,20 +58,11 @@
       .col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-users
-            Organisator
-          .panel-body#organiser{ :data => { 'id' => @activity.id } }
-            .row
-              .col-md-11
-                %input.searchBox{ :value => (@activity.committee.nil? ? '' : @activity.committee.name), :class => 'form-control'}
-                %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 15px; top: 34px;'}
-        .panel.panel-default
-          .panel-heading
             %i.fa.fa-fw.fa-user
             Deelnemers
-          .panel-body
+          .panel-body#activities
             .table-responsive
-              %table.table.table-striped.table-linked#activities{ :data => { 'id' => @activity.id }}
+              %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
                 %tbody
                   - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
                     %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
@@ -91,8 +82,8 @@
                             %i.fa.fa-fw.fa-trash-o
                   %tr
                     %td.col-md-8{ :style => 'position: relative;'}
-                      %input.searchBox.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
-                      %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
+                      %input.participant.col-md-11
+                      %ul.dropdown-menu.col-md-11
                     %td.col-md-2
                       - if !@activity.price.nil?
                         %span{ :style => 'line-height: 39px; margin-left: 8px;' }= number_to_currency(@activity.price, :unit => '€')

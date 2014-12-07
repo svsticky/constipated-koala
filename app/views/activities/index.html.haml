@@ -15,15 +15,12 @@
             %i.fa.fa-fw.fa-ticket
             Activiteiten
             
-          .panel-body
+          .panel-body#activities
             - @activities.each do |activity|
-              %table.table.table-striped.table-linked#activities{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
+              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
                 %thead
                   %tr{ :style => 'font-size: 1.1em;' } 
-                    %td{ :colspan => 3 }
-                      =link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
-                      - if !activity.committee.nil?
-                        =link_to "georganiseerd door #{activity.committee.name}", activity.committee, :style => 'left: -10px; float:right; font-size: 0.9em;'
+                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
                     
                 %tbody
                   - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
@@ -48,8 +45,8 @@
                   - if !activity.start_date.past?
                     %tr
                       %td.col-md-8{ :style => 'position: relative;'}
-                        %input.searchBox.col-md-11{ :style => 'heigth: 30px; margin: 5px 0; margin-left: 8px; padding: 1px;'}
-                        %ul.dropdown-menu.col-md-11{ :style => 'display: none; position: absolute; left: 8px; top: 30px;' }
+                        %input.participant.col-md-11
+                        %ul.dropdown-menu.col-md-11
                       %td.col-md-2
                         - if !activity.price.nil?
                           %span{ :style => 'line-height: 39px;' }= number_to_currency(activity.price, :unit => '€')

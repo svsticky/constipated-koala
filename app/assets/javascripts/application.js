@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require search
 
 function bind_activities(){
   //reset all binds
@@ -121,6 +120,28 @@ $(document).on('ready page:load', function(){
     return confirm('Weet u het zeker?');
   });
   
+  $('footer.table-footer .pagination-container li a[data-offset]').bind( 'click', function(e) {
+    var params = {};
+    params['limit'] = $('footer.table-footer .page-num-info').attr('data-limit');
+    params['offset'] = $(this).attr('data-offset');
+        
+    e.preventDefault();
+    location.search = $.param(params);
+  });
+  
+  $('footer.table-footer .pagination-container li.scroll a').bind( 'click', function(e) {
+    
+  });
+
+  $('footer.table-footer .page-num-info select').bind( 'change', function() {
+    var params = {}, limit = $(this).val();
+    $('footer.table-footer .page-num-info').attr('data-limit', limit);
+    
+    params['limit'] = limit;
+    params['offset'] = $('footer.table-footer .pagination-container li.active a').attr('data-offset');
+    location.search = $.param(params);
+  });
+  
 /*
   window.confirm = function(){
     alert(arguments[0]);
@@ -148,4 +169,36 @@ $(document).on('ready page:load', function(){
     $(this).closest('.alert').remove();
   });
   
+  //menu navigation  
+  if( document.cookie.search('nav-min') >= 0 )
+      $('#app div').addClass('nav-min');
+
+  $('.toggle-min').click(function(event){
+    event.preventDefault();
+    
+    $('#app div').toggleClass('nav-min');
+    
+    if( $('#app div').hasClass('nav-min') ){
+      document.cookie = 'nav-min=true; path=/;';
+    }else{
+      document.cookie = 'nav-min=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+    }
+    
+    $('#nav li').removeClass('open');
+    $('#nav li').children('.sub-nav').css('display', 'none');
+  }); 
+  
+  $('#nav li').has('.sub-nav').click(function(event){
+    event.preventDefault();
+    
+    $( this ).toggleClass('open');
+    
+    if( $( this ).children('.sub-nav').css('display') == 'block' ){
+      $( this ).children('.sub-nav').css('display', 'none');
+    }else{
+      $( this ).parent('ul#nav').find('.sub-nav').css('display', 'none');
+      $( this ).children('.sub-nav').css('display', 'block');
+    }
+    
+  });
 });

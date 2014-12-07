@@ -5888,11 +5888,6 @@ a.panel {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
-.panel.clickable:hover {
-	text-decoration: none;
-	border-color: #767676;
-}
-
 .panel-body {
     padding: 15px;
 }
@@ -10605,18 +10600,20 @@ div.page.search > section.panel {
     position: absolute;
     top: 50px;
     bottom: 0;
-    left: -220px;
-    width: 220px;
+    left: 0;
+    width: 100%;
     padding: 0;
+    display: none;
     background-color: #fefefe;
     -webkit-overflow-scrolling: touch;
     -webkit-overflow-scrolling: -blackberry-touch;
 }
 
 @media (min-width: 768px) {
-    #nav-container {
-        left: 0;
-    }
+  #nav-container {
+    display: block;
+    width: 220px;
+  }
 }
 
 #nav-container ul {
@@ -10779,72 +10776,72 @@ div.page.search > section.panel {
     left: 0;
 }
 
+
 .on-canvas .top-header .top-nav {
-    margin-left: 220px;
+    margin-left: 0;
 }
 
-@media (min-width: 768px) {
-    .on-canvas .top-header .top-nav {
-        margin-left: 0;
-    }
-}
 
 .on-canvas #content {
     left: 220px;
 }
 
-@media (min-width: 768px) {
-    .nav-min #nav-container {
-        width: 50px;
-    }
-
-    .nav-min #content {
-        left: 50px;
-    }
-
-    .nav-min .slimScrollDiv {
-        overflow: visible !important;
-    }
-
-    .nav-min #nav {
-        overflow: visible !important;
-    }
-
-    .nav-min #nav > li {
-        width: 50px;
-    }
-
-    .nav-min #nav > li > a > i:before {
-        color: white;
-    }
-
-    .nav-min #nav > li > a > i > .icon-bg {
-        left: 0;
-    }
-
-    .nav-min #nav > li > a > span {
-        display: none;
-    }
-
-    .nav-min #nav > li .icon-has-ul {
-        display: none;
-    }
-
-    .nav-min #nav > li > ul {
-        position: absolute;
-        left: 100%;
-        top: 0;
-        width: 220px;
-        -webkit-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
-        box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .nav-min #nav > li:hover > ul, .nav-min #nav > li.open > ul {
-        display: block !important;
-    }
+.nav-min #nav-container {
+  display: block;
 }
 
+@media (min-width: 768px) {
+  .nav-min #nav-container {
+      width: 50px;
+  }
+  
+  .nav-min #content {
+      left: 50px;
+  }
+  
+  .nav-min .slimScrollDiv {
+      overflow: visible !important;
+  }
+  
+  .nav-min #nav {
+      overflow: visible !important;
+  }
+  
+  .nav-min #nav > li {
+      width: 50px;
+  }
+  
+  .nav-min #nav > li > a > i:before {
+      color: white;
+  }
+  
+  .nav-min #nav > li > a > i > .icon-bg {
+      left: 0;
+  }
+  
+  .nav-min #nav > li > a > span {
+      display: none;
+  }
+  
+  .nav-min #nav > li .icon-has-ul {
+      display: none;
+  }
+  
+  .nav-min #nav > li > ul {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 220px;
+      -webkit-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+      box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.nav-min #nav > li:hover > ul, .nav-min #nav > li.open > ul {
+    display: block !important;
+}
+    
 .top-header {
     z-index: 10;
     position: absolute;
@@ -10858,11 +10855,9 @@ div.page.search > section.panel {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-@media (min-width: 768px) {
-    .top-header {
-        height: 50px;
-        background-color: #222533;
-    }
+.top-header {
+    height: 50px;
+    background-color: #222533;
 }
 
 .top-header a:hover {
@@ -10890,11 +10885,10 @@ div.page.search > section.panel {
     color: #ccc;
 }
 
-@media (min-width: 768px) {
-    .top-header .toggle-min {
-        display: block;
-    }
+.top-header .toggle-min {
+    display: block;
 }
+
 
 .top-header .logo {
     position: absolute;
@@ -10905,11 +10899,9 @@ div.page.search > section.panel {
     background-color: #222533;
 }
 
-@media (min-width: 768px) {
-    .top-header .logo {
-        display: inline-block;
-        width: 340px;
-    }
+.top-header .logo {
+    display: inline-block;
+    width: 340px;
 }
 
 .top-header .logo > a {
@@ -10983,10 +10975,8 @@ div.page.search > section.panel {
     padding: 60px 0 0;
 }
 
-@media (min-width: 768px) {
-    .top-header .top-nav {
-        padding: 10px 0 0 280px;
-    }
+.top-header .top-nav {
+    padding: 10px 0 0 280px;
 }
 
 .top-header .top-nav .nav-left,
@@ -11034,14 +11024,12 @@ div.page.search > section.panel {
     border-radius: 22px;
 }
 
-@media (min-width: 768px) {
-    .top-header .top-nav .nav-left > li > .btn-group > a,
-    .top-header .top-nav .nav-left > li > a,
-    .top-header .top-nav .nav-right > li > .btn-group > a,
-    .top-header .top-nav .nav-right > li > a {
-        background-color: transparent;
-        color: #fafafa;
-    }
+.top-header .top-nav .nav-left > li > .btn-group > a,
+.top-header .top-nav .nav-left > li > a,
+.top-header .top-nav .nav-right > li > .btn-group > a,
+.top-header .top-nav .nav-right > li > a {
+    background-color: transparent;
+    color: #fafafa;
 }
 
 .top-header .top-nav .nav-left > li > .btn-group > a .badge,
@@ -11099,7 +11087,7 @@ div.page.search > section.panel {
 
 #content {
     position: absolute;
-    top: 100px;
+    top: 50px;
     right: 0;
     bottom: 0;
     width: 100%;
@@ -11115,7 +11103,6 @@ div.page.search > section.panel {
 
 @media (min-width: 768px) {
     #content {
-        top: 50px;
         width: auto;
         left: 220px;
     }

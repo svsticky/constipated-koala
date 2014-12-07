@@ -5,41 +5,84 @@
   
   .page
     .row 
-      .col-lg-3.col-xsm-6
-        %a.panel.mini-box.clickable{href: '/members'}
-          %span.box-icon.bg-success
-            %i.fa.fa-user
-          .box-info
-            %p.size-h2 
-              = @members
-            %p.text-muted Leden
-      .col-lg-3.col-xsm-6
-        %a.panel.mini-box.clickable{href: '/activities'}
-          %span.box-icon.bg-info
-            %i.fa.fa-ticket
-          .box-info
-            %p.size-h2
-              = @activities
-            %p.text-muted Activiteiten
-      .col-lg-3.col-xsm-6
-        %a.panel.mini-box.clickable{href: '/mongoose'}
-          %span.box-icon.bg-warning
-            %i.fa.fa-shopping-cart
-          .box-info
-            %p.size-h2
-              = @sales
-            %p.text-muted Mongoose verkopen
-      .col-lg-3.col-xsm-6
-        %a.panel.mini-box.clickable{href: '/activities'}
+      .col-lg-3.col-xsm-6.clickable
+        %a.panel.mini-box{href: '/members'}
+          .animate
+            %span.box-icon.bg-success
+              %i.fa.fa-user
+            .box-info
+              %p.size-h2 
+                = @members
+              %p.text-muted Leden
+          .alternative
+            %span.box-icon.bg-success
+              %i.fa.fa-graduation-cap
+            .box-info
+              %p.size-h2 
+                = @alumnus
+              %p.text-muted Alumni
+            
+      .col-lg-3.col-xsm-6.clickable
+        %a.panel.mini-box{href: '/activities'}
+          .animate
+            %span.box-icon.bg-info
+              %i.fa.fa-ticket
+            .box-info
+              %p.size-h2
+                = @activities
+              %p.text-muted Activiteiten
+          .alternative
+            %span.box-icon.bg-info
+              %i.fa.fa-group
+            .box-info
+              %p.size-h2 
+                = @participants
+              %p.text-muted Unieke deelnemers
+            
+      .col-lg-3.col-xsm-6.clickable
+        %a.panel.mini-box{href: '/mongoose'}
+          .animate
+            %span.box-icon.bg-warning
+              %i.fa.fa-shopping-cart
+            .box-info
+              %p.size-h2
+                = @transactions
+              %p.text-muted Mongoose transacties
+          .alternative
+            %span.box-icon.bg-warning
+              %i.fa.fa-credit-card
+            .box-info
+              %p.size-h2 
+                = number_to_currency(@credit, :unit => '')
+              %p.text-muted Mongoose tegoed
+
+            
+      .col-lg-3.col-xsm-6.clickable
+        %a.panel.mini-box{href: '/activities'}
           %span.box-icon.bg-danger
             %i.fa.fa-eur
           .box-info
             %p.size-h2 
               = number_to_currency(@unpayed, :unit => '')
             %p.text-muted Openstaande betalingen
-    %section.panel.panel-default
-      .panel-heading
-        %span.glyphicon.glyphicon-th
-        Blank Page
-      .panel-body
-        %p Content goes here
+  .page
+    .row
+      %div.col-md-4
+        .panel.panel-default
+          .panel-heading
+            %span.glyphicon.glyphicon-th
+            Studies
+          .panel-body
+            %dl.dl-horizontal
+              - @studies.each do | study, count |
+                %dt= study.name
+                %dd= count
+                
+      -#
+        %div.col-md-3
+          .panel.panel-default
+            .panel-heading
+              %span.glyphicon.glyphicon-th
+              Verjaardagen
+            .panel-body
+              %dl.dl-horizontal          

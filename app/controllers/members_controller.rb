@@ -1,5 +1,4 @@
 class MembersController < ApplicationController
-  respond_to :json
   
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -10,7 +9,7 @@ class MembersController < ApplicationController
  
     if params[:search]
       @members = Member.search(params[:search])
-      @pages = @members.size / @limit
+      @pages = @members.size / @limit      
             
       if @members.size == 1
         redirect_to @members.first
@@ -24,6 +23,8 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
+   
+    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(10)
   end
 
   def new
@@ -35,7 +36,9 @@ class MembersController < ApplicationController
     @member = Member.new(member_post_params)   
     
     if @member.save
+      #admin for logging
       @current_user = current_admin
+    
       impressionist(@member, 'nieuwe lid')
       redirect_to @member
     else
@@ -110,11 +113,6 @@ class MembersController < ApplicationController
 		@member.destroy
 		redirect_to members_path
 	end
-
-  def find
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
-    respond_with @members
-  end
 
   private
   def member_post_params

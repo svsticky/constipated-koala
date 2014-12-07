@@ -1,3 +1,15 @@
-// Place all the styles related to the members controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.table span.fa-sort-asc {
+  color: green;
+  
+  position: relative;
+  top: 6px;
+}
+
+.table span.fa-sort-desc {
+  color: red;
+}
+
+dd span.label {
+  margin-left :5px;
+  padding: .2em .6em .3em;
+}

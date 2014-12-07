@@ -39,11 +39,9 @@ class Member < ActiveRecord::Base
     :dependent => :destroy
   has_many :activities,
     :through => :participants
-
-  has_many :committeeMembers,
-    :dependent => :destroy
-  has_many :committees,
-    :through => :committeeMembers
+    
+  has_one :checkout_balance
+  has_many :checkout_cards
 
   before_create :before_create
 
@@ -56,13 +54,13 @@ class Member < ActiveRecord::Base
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.sub(' ', ''))
   end
-
+  
   # return full name
   def name
     if infix.blank?
       return "#{self.first_name} #{self.last_name}"
     end
-
+    
     return "#{self.first_name} #{self.infix} #{self.last_name}"
   end
 
@@ -77,15 +75,18 @@ class Member < ActiveRecord::Base
   end
 
   def self.search(query)
-    #Member.where("first_name LIKE ? OR last_name like ? OR student_id like ?", "%#{query}%", "%#{query}%", "%#{query}%")
-    Member.find_by_fuzzy_query(query, :limit => 20)
+    if query.is_number?
+      return Member.where("student_id like ?", "%#{query}%")
+    end
+    
+    return Member.find_by_fuzzy_query(query, :limit => 20)
   end
-
-  # guery for fuzzy search
-  def query
+  
+  # guery for fuzzy search 
+  def query 
     "#{self.first_name} #{self.last_name} #{self.student_id}"
   end
-
+  
   def query_changed?
     first_name_changed? || infix_changed? || last_name_changed? || student_id_changed?
   end
@@ -98,9 +99,9 @@ class Member < ActiveRecord::Base
       logger.error 'Student id received from studystatus is different'
       return
     end
-    
+
     puts result_id
-      
+    
     for study in studies do
       code, start_date, status, end_date = study.split(/, /)
       

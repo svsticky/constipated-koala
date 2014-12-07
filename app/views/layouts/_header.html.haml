@@ -1,8 +1,6 @@
 %section#header.top-header
   %header.clearfix
-    %a.hidden-xs.toggle-min{href: "#"}
-      %i.fa.fa-bars
-    %a.visible-xs.toggle-min{href: "#", 'data-toggle-min-nav' => '', 'data-toggle' => 'collapse', 'data-target' => '#nav-wrapper'}
+    %a.toggle-min{href: "#"}
       %i.fa.fa-bars
     .logo
       %a{href: '/'}
@@ -23,23 +21,3 @@
               %a{href: '/admins/sign_out', 'data-method' => :delete}
                 %i.fa.fa-sign-out
                 %span Log uit
-    -#
-      %ul.nav-right.pull-right.list-unstyled
-        %li.dropdown
-          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            %span.badge.badge-info 2
-            %i.fa.fa-bell-o
-          .dropdown-menu.with-arrow.panel.panel-default
-            .panel-heading
-              Er zijn 2 notificaties.
-            %ul.list-group
-              %a{href: '/members'}
-                %li.list-group-item
-                  .media-body
-                    %span.block Er zijn 234 nieuwe inschrijvingen
-                    %span.text-muted.block 2min ago
-              %a{href: '#'}
-                %li.list-group-item
-                  .media-body
-                    %span.block Martijn Casteel heeft zijn tegoed opgewaardeerd
-                    %span.text-muted 3 hours ago

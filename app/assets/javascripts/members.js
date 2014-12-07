@@ -3,27 +3,10 @@
 
 $(document).on('ready page:load', function(){
 
-  
-
-  $('footer.table-footer .pagination-container li a[data-offset]').bind( 'click', function(e) {
-    var params = {};
-    params['limit'] = $('footer.table-footer .page-num-info').attr('data-limit');
-    params['offset'] = $(this).attr('data-offset');
-        
-    e.preventDefault();
-    location.search = $.param(params);
-  });
-  
-  $('footer.table-footer .pagination-container li.scroll a').bind( 'click', function(e) {
-    
-  });
-
-  $('footer.table-footer .page-num-info select').bind( 'change', function() {
-    var params = {}, limit = $(this).val();
-    $('footer.table-footer .page-num-info').attr('data-limit', limit);
-    
-    params['limit'] = limit;
-    params['offset'] = $('footer.table-footer .pagination-container li.active a').attr('data-offset');
+  $('table#transactions select.uuid').bind( 'change', function(){
+    var params = {}
+    if( $( this ).val() != '' )
+      params['uuid'] = $(this).val();
     location.search = $.param(params);
   });
 

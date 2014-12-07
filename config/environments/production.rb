@@ -77,4 +77,8 @@ ConstipatedKoala::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  
+  # Custom configuration
+  config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
+  config.checkout = '12'
 end

@@ -1,0 +1,116 @@
+- content_for(:page, 'checkout')
+- content_for(:title, 'Constipated koala | checkout') 
+
+%section#content
+  = render 'layouts/search' 
+
+  .page.page-table{ :data => { 'authenticity_token' => form_authenticity_token}}
+    .row
+      .col-lg-8
+        %section.panel.panel-default.table-dynamic
+          .panel-heading
+            %i.fa.fa-fw.fa-fw.fa-shopping-cart
+            Transacties
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      Datum
+                  %th
+                    .th
+                      Prijs
+                  %th
+                    .th
+                      Lid
+                  %th
+                    .th.hidden-xs
+                      Kaart
+                        
+              - @transactions.each do |transaction|
+                %tr
+                  %td #{I18n.l transaction.created_at}
+                  %td
+                    = number_to_currency(transaction.price, :unit => '€')
+                    - if transaction.price > 0
+                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                    - else
+                      %span.fa.fa-sort-desc.pull-right
+                      
+                  %td= link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                  
+                  %td.hidden-xs
+                    - if !transaction.checkout_card.nil?
+                      - if transaction.checkout_card.description.nil?  
+                        = transaction.checkout_card.uuid
+                      - else
+                        = transaction.checkout_card.description
+                    - else
+                      \-
+               
+          %footer.table-footer
+            .row
+              .col-md-6.page-num-info{ :data => { :limit => @limit, :pagination => @pagination } }
+                %span
+                  Toon
+                  = select_tag 'limit', options_for_select([20,50,100], @limit)
+                  transacties per pagina
+                  
+              .col-md-6.text-right.pagination-container
+                %ul.pagination-sm.pagination
+                  %li{ :class => ( 'disabled' if @offset == 0)}
+                    %a{ :data => { :offset => @offset - @limit }} vorige
+                    
+                  %li.scroll{ :class => ( 'disabled' if @page / @pagination == 0)}
+                    %a{ :data => { :offset => (@page / @pagination * @pagination -1) * @limit }} <<
+                    
+                  - (0 .. @pages).each do |i|
+                    - if i == @page
+                      %li.active
+                        - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
+                          %a{ :data => { :offset => @limit * i }}= i+1
+                        -else 
+                          %a.hidden{ :data => { :offset => @limit * i }}= i+1
+                    - else
+                      %li
+                        - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
+                          %a{ :data => { :offset => @limit * i }}= i+1    
+                        - else
+                          %a.hidden{ :data => { :offset => @limit * i }}= i+1    
+    
+                  %li.scroll{ :class => ( 'disabled' if @pages / @pagination * @pagination <= @page )}
+                    %a{ :data => { :offset => (@page / @pagination +1) * @pagination * @limit }} >>
+                        
+                  %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
+                    %a{ :data => { :offset => @offset + @limit }} volgende
+                    
+      .col-lg-4#credit
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-money
+            Opwaarderen
+          .panel-body{ :style => 'position: relative;' }
+            %form.form-inline
+              .form-group.col-md-12.participant
+                %input.form-control.participant{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer' }
+                %ul.dropdown-menu.col-md-12
+              
+              .form-group.col-md-3.amount{ :style => 'display: none;' }
+                %input.form-control.amount{ :placeholder => 'hoeveel' }
+
+              .form-group.col-md-3{ :style => 'display: none;' }         
+                %button.form-control.btn.btn-line-primary opslaan
+            
+      .col-lg-4#cards
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-credit-card
+            Niet geactiveerde kaarten
+          %ul.list-group
+            - @cards.each do |card|
+              %li.list-group-item{ :data => { 'uuid' => card.uuid }}
+                %p= link_to "#{card.member.name}", card.member
+                %p.uuid= card.uuid
+                %button.activate.btn.btn-w-md.btn-gap-v.btn-line-primary activeer
+          

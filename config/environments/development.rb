@@ -29,4 +29,8 @@ ConstipatedKoala::Application.configure do
   config.assets.debug = true
   
   config.action_controller.action_on_unpermitted_parameters = :raise
+  
+  # Custom configuration
+  config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
+  config.checkout = '12'
 end
