@@ -170,7 +170,8 @@ $(document).on('ready page:load', function(){
   });
   
   //menu navigation  
-  if( document.cookie.search('nav-min') >= 0 )
+  var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  if( width > 768 && document.cookie.search('nav-min') >= 0 )
       $('#app div').addClass('nav-min');
 
   $('.toggle-min').click(function(event){
