@@ -10838,7 +10838,7 @@ div.page.search > section.panel {
   }
 }
 
-.nav-min #nav > li:hover > ul, .nav-min #nav > li.open > ul {
+#nav > li:hover > ul, .nav-min #nav > li.open > ul {
     display: block !important;
 }
     
