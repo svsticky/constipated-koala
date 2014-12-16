@@ -187,19 +187,5 @@ $(document).on('ready page:load', function(){
     
     $('#nav li').removeClass('open');
     $('#nav li').children('.sub-nav').css('display', 'none');
-  }); 
-  
-  $('#nav li').has('.sub-nav').click(function(event){
-    event.preventDefault();
-    
-    $( this ).toggleClass('open');
-    
-    if( $( this ).children('.sub-nav').css('display') == 'block' ){
-      $( this ).children('.sub-nav').css('display', 'none');
-    }else{
-      $( this ).parent('ul#nav').find('.sub-nav').css('display', 'none');
-      $( this ).children('.sub-nav').css('display', 'block');
-    }
-    
-  });
+  });   
 });
