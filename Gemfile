@@ -21,6 +21,9 @@ gem 'modernizr-rails'
 # Use mysql as the production database
 gem 'mysql2'
 
+# Use sqlite3 as development databases
+gem 'sqlite3'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 

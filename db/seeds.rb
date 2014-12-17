@@ -11,6 +11,12 @@ Admin.create(
   password_confirmation:  'sticky123'
 )
 
+Admin.create(
+  email:                   't@es.t',
+  password:                'test',
+  password_confirmation:   'test'
+)
+
 100.times do
   Member.create(
     first_name:   Faker::Name.first_name,

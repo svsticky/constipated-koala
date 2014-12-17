@@ -21,3 +21,6 @@
 
 # Ignore precompiles assets
 /public/assets
+
+# Ignore SQLite database
+*.db
