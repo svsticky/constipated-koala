@@ -14,12 +14,7 @@ ConstipatedKoala::Application.routes.draw do
     get 'home', to: redirect('/')
 
     # Devise routes
-    devise_for :admins, controllers:
-    {
-      registrations: "admin_devise/registrations",
-      unlocks: "admin_devise/unlocks",
-      passwords: "admin_devise/passwords"
-    }
+    devise_for :users, :path => ''
 
     # Resource pages
     resources :members, :activities
@@ -32,16 +27,25 @@ ConstipatedKoala::Application.routes.draw do
     delete 'participants',      to: 'participants#destroy'
     
     # mail JSON calls
-    post   'mail',              to: 'mail#mail'
+    post   'mail',              to: 'mail#mail'  
     
     # checkout urls
     get    'checkout',              to: 'checkout#index'
     
+    patch  'checkout/card',         to: 'checkout#activate_card'
+    patch  'checkout/transaction',  to: 'checkout#change_funds'  
+
+
+
+
+    get 'members',        to: 'members#show'
+    get 'members/edit',   to: 'members#edit'
+    patch 'members',      to: 'members#update'
+    put 'members',        to: 'members#update'
+    
+    # api routes, own authentication
     get    'checkout/card',         to: 'checkout#information_for_card'
     post   'checkout/card',         to: 'checkout#add_card_to_member'
-    patch  'checkout/card',         to: 'checkout#activate_card'
-    
-    patch  'checkout/transaction',  to: 'checkout#change_funds'
     post   'checkout/transaction',  to: 'checkout#subtract_funds'
 
   end

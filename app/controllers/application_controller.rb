@@ -4,5 +4,5 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   # Moved the authentication requirement to the application controller
-  before_action :authenticate_admin!
+  before_action :authenticate_user!
 end

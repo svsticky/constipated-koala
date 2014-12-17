@@ -1,12 +1,22 @@
-class Admin < ActiveRecord::Base  
-  is_impressionable
+class Admin < ActiveRecord::Base
+  has_one :user, as: :credentials
   
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, #:registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  attr_accessor :email
+  attr_accessor :password
+  attr_accessor :password_confirmation
   
-  def gravatar
-    Digest::MD5.hexdigest(self.email)
+  after_save do
+    
+    credentials = User.new(
+      email:                  email,
+      password:               password,
+      password_confirmation:  password_confirmation,
+      
+      credentials_id:               self.id,
+      credentials_type:             'admin'
+    )
+    
+    puts credentials.save
+    puts credentials.errors.full_messages
   end
 end

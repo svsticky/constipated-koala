@@ -6,7 +6,7 @@ require "faker"
 Faker::Config.locale = :nl
 
 Admin.create(
-  email:                  'martijn.casteel@gmail.com',
+  email:                  'penningmeester@stickyutrecht.nl',
   password:               'sticky123',
   password_confirmation:  'sticky123'
 )
