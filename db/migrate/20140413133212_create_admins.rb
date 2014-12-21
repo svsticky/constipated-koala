@@ -30,7 +30,7 @@ class CreateAdmins < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.belongs_to :credentials, :polymorphic => true
+      t.belongs_to :credentials, :polymorphic => true, :null => false
 
       t.timestamps
     end
@@ -43,8 +43,12 @@ class CreateAdmins < ActiveRecord::Migration
     # add_index :users, :unlock_token,         :unique => true
     
     
-    
     create_table(:admins) do |t|
+      t.string :first_name
+      t.string :infix
+      t.string :last_name
+      
+      t.text  :signature
       t.timestamps
     end
   end

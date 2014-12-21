@@ -24,6 +24,12 @@
                     %button.close{ type: "button" } ×
                     %span
                       = flash[:alert]
+                      
+                - if flash[:notice]
+                  .alert.alert-info
+                    %button.close{ type: "button" } ×
+                    %span
+                      = flash[:notice]                      
                             
                 %fieldset
                   .form-group
@@ -40,7 +46,7 @@
                     = f.submit 'Log in', :class => 'btn btn-primary btn-lg btn-block'
               %section
                 %p.text-center
-                  %a{href: '/admins/password/new'} Forgot your password?
-                /%p.text-center.text-muted.text-small
-                /  Don't have an account yet?
-                /  %a{href: '/admins/signup'} Sign up
+                  = link_to 'Wachtwoord vergeten?', new_user_password_path
+                %p.text-center.text-muted.text-small
+                  Nog geen inloggegevens?
+                  = link_to 'Vraag ze aan', new_registration_path

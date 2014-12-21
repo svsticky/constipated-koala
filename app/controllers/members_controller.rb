@@ -1,4 +1,6 @@
 class MembersController < ApplicationController
+
+  skip_before_action :authenticate_admin!, only: [:show]
   
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -21,7 +23,12 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id])
+    if current_user.admin?
+      @member = Member.find(params[:id])
+    else
+      @member = Member.find(current_user.credentials_id)
+    end
+    
     @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
    
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(10)
@@ -36,9 +43,6 @@ class MembersController < ApplicationController
     @member = Member.new(member_post_params)   
     
     if @member.save
-      #admin for logging
-      @current_user = current_admin
-    
       impressionist(@member, 'nieuwe lid')
       redirect_to @member
     else
@@ -95,7 +99,6 @@ class MembersController < ApplicationController
         end
       end
       
-      @current_user = current_admin
       impressionist(@member, 'lid bewerkt')
     
       redirect_to @member
@@ -106,8 +109,6 @@ class MembersController < ApplicationController
   
 	def destroy
 		@member = Member.find(params[:id])
-		
-    @current_user = current_admin
     impressionist(@member, "#{@member.first_name} #{@member.infix} #{@member.last_name} verwijderd")
     
 		@member.destroy

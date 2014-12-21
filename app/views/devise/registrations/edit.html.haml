@@ -1,103 +1,86 @@
-- content_for(:page, 'members')
-- content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
+- content_for(:page, 'settings')
+- content_for(:title, 'Constipated koala | instellingen | profiel')
 
 %section#content
   .page.page-form
     .row
-      = form_for :member, url: member_path(@member), method: :patch, :class => 'form-validation' do |f|
+      = form_for :user, as: 'user', url: edit_registration_path, method: :patch, :class => 'form-validation' do |f|
       
-        - if @member.errors.any?
+        - if @user.errors.any?
           .col-md-12
             .alert.alert-danger
               %button.close{ type: "button" } ×
               %span Oh snap, niet alles is goed ingevuld;
               %ul
-              - @member.errors.full_messages.each do |msg|
+              - @user.errors.full_messages.each do |msg|
                 %li= msg
+                
+        - if flash[:notice]
+          .col-md-12
+            .alert.alert-info
+              %button.close{ type: "button" } ×
+              %span= flash[:notice]
       
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %span.glyphicon.glyphicon-th
-              Algemene gegevens
+              %i.fa.fa-fw.fa-lock
+              Inlog gegevens
             .panel-body
-              .form-group
-                .row
-                  .col-md-5
-                    %label{for: ''} Voornaam
-                    = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
-                  .col-md-2
-                    %label{for: ''} Tussenvoegsel
-                    = f.text_field :infix, :value => @member.infix, :class => 'form-control'
-                  .col-md-5
-                    %label{for: ''} Achternaam
-                    = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
-              .form-group
-                .row
-                  .col-md-6
-                    %label{for: ''} Geslacht
-                    .ui-select{style: ' width: 200px; '}
-                      = f.select :gender, options_for_select([["man", "m"], ["vrouw", "f"]])
-                  .col-md-6
-                    %label{for: ''} Geboortedatum
-                    = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
-              .form-group
-                .row
-                  .col-md-8
-                    %label{for: ''} Adres
-                    = f.text_field :address, :value => @member.address, :class => 'form-control'
-                  .col-md-4
-                    %label{for: ''} Huisnummer
-                    = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
-              .form-group
-                .row
-                  .col-md-6
-                    %label{for: ''} Postcode
-                    = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-                  .col-md-6
-                    %label{for: ''} Woonplaats
-                    = f.text_field :city, :value => @member.city, :class => 'form-control'
-              .form-group
-                %label{for: ''} Telefoonnummer
-                = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
               .form-group
                 %label{for: ''} E-mailadres
-                = f.email_field :email, :value => @member.email, :class => 'form-control'
-                %span.help-block Dit kan niet je studenten email zijn!
+                = f.email_field :email, :value => @user.email, :class => 'form-control'
+                
+                - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                  %span.help-block #{resource.unconfirmed_email} moet nog bevestigd worden.
+
               .form-group
-                %label{for: ''} Comments
-                = f.text_area :comments, :value => @member.comments, :class => 'form-control'
+                .row
+                  .col-md-6
+                    %label{for: ''} Nieuw wachtwoord
+                    = f.password_field :password, :class => 'form-control'
+                  .col-md-6
+                    %label{for: ''} Wachtwoord herhalen
+                    = f.password_field :password_confirmation, :class => 'form-control'
+      
+          - if @user.admin?  
+            = f.fields_for :credentials do |admin|
+              .panel.panel-default
+                .panel-heading
+                  %i.fa.fa-fw.fa-user
+                  Admin gegevens
+                .panel-body
+                  = admin.hidden_field :id, :value => @user.credentials_id, :class => 'id' 
+                  
+                  .form-group
+                    .row
+                      .col-md-5
+                        %label{for: ''} Voornaam
+                        = admin.text_field :first_name, :value => @user.credentials.first_name, :class => 'form-control'
+                      .col-md-2
+                        %label{for: ''} Tussenvoegsel
+                        = admin.text_field :infix, :value => @user.credentials.infix, :class => 'form-control'
+                      .col-md-5
+                        %label{for: ''} Achternaam
+                        = admin.text_field :last_name, :value => @user.credentials.last_name, :class => 'form-control'
+                  .form-group
+                    %label{for: ''} Ondertekening
+                    = admin.text_area :signature, :value => @user.credentials.signature, :class => 'form-control'
+              
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %span.glyphicon.glyphicon-th
+              %i.fa.fa-fw.fa-photo
               Profielfoto
             .panel-body
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %span.glyphicon.glyphicon-th
-              Studie gegevens
-            .panel-body
-              .form-group
-                %label{for: ''} Studentnummer
-                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-              .form-group
-                %label{for: ''} Studie
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %span.glyphicon.glyphicon-th
-              Sticky
-            .panel-body
-              .form-group
-                %label{for: ''} Lidmaatschap
-                = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
-              .form-group
-                %label{for: ''} Groepen
-                commissies
+
         .col-md-12
           .panel.panel-default
             .panel-body
-              %button.btn.btn-success{type: 'submit'} Opslaan
-              = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
+              .form-group{ :style => 'margin: 0px;'}
+                .row
+                  .col-md-3
+                    = f.password_field :current_password, :class => 'form-control', :placeholder => 'huidig wachtwoord'
+                  .col-md-3
+                    %button.btn.btn-success{type: 'submit'} Opslaan
+                    = link_to 'Annuleren', :back, { :class => 'button btn btn-default' }

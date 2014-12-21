@@ -249,7 +249,7 @@ $(document).on('ready page:load', function(){
       return;
     
     $.ajax({
-      url: '/mail',
+      url: '/participants/mail',
       type: 'POST',
       data: {
         id: $('form#mail').attr('data-id'),

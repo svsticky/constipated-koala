@@ -73,4 +73,9 @@ class ParticipantsController < ApplicationController
   def destroy
     respond_with Participant.destroy(params[:id])
   end
+  
+  def mail
+    @activity = Activity.find(params[:id])
+    render :json => Mailgun.participant_information(params[:recipients], @activity, current_user.credentials.sender, params[:subject], nil, params[:text]).deliver_later
+  end
 end

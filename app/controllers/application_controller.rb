@@ -5,4 +5,12 @@ class ApplicationController < ActionController::Base
   
   # Moved the authentication requirement to the application controller
   before_action :authenticate_user!
+  before_action :authenticate_admin!
+  
+  protected
+  def authenticate_admin!    
+    if !current_user.nil? && !current_user.admin?
+      redirect_to '/403'
+    end
+  end
 end

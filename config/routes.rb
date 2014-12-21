@@ -14,7 +14,23 @@ ConstipatedKoala::Application.routes.draw do
     get 'home', to: redirect('/')
 
     # Devise routes
-    devise_for :users, :path => ''
+    devise_for :users, :skip => [ :registrations ], :path => '', controllers:
+    {
+      registrations:  'users/registrations',
+      sessions:       'users/sessions'
+    }
+
+    # override route for user profile
+    devise_scope :user do
+      get   'registration/cancel',  to: 'users/registrations#cancel',   as: :cancel_registration
+      
+      get   'sign_up',              to: 'users/registrations#new',      as: :new_registration      
+      post  'sign_up',              to: 'users/registrations#create',   as: :registration
+
+      get   'settings/profile',     to: 'users/registrations#edit',     as: :edit_registration
+      put   'settings/profile',     to: 'users/registrations#update'
+      patch 'settings/profile',     to: 'users/registrations#update'
+    end
 
     # Resource pages
     resources :members, :activities
@@ -25,9 +41,7 @@ ConstipatedKoala::Application.routes.draw do
     post   'participants',      to: 'participants#create'
     patch  'participants',      to: 'participants#update'
     delete 'participants',      to: 'participants#destroy'
-    
-    # mail JSON calls
-    post   'mail',              to: 'mail#mail'  
+    post   'participants/mail', to: 'participants#mail'  
     
     # checkout urls
     get    'checkout',              to: 'checkout#index'

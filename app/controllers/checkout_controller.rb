@@ -1,6 +1,9 @@
 class CheckoutController < ApplicationController
   protect_from_forgery except: [:information_for_card, :subtract_funds, :add_card_to_member]
+  
+  skip_before_action :authenticate_user!, only: [:information_for_card, :subtract_funds, :add_card_to_member]
   skip_before_action :authenticate_admin!, only: [:information_for_card, :subtract_funds, :add_card_to_member]
+    
   before_action :authenticate_checkout, only: [:information_for_card, :subtract_funds, :add_card_to_member]
   
   respond_to :json

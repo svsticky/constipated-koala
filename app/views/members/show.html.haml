@@ -1,6 +1,6 @@
 - content_for(:page, 'members')
 - content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
->>
+
 %section#content
   = render 'layouts/search' 
 
@@ -26,7 +26,8 @@
                 #{@member.phone_number}
                 %br
                 #{@member.email}
-              %p= @member.comments
+              - if current_user.admin?
+                %p= @member.comments
               
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
@@ -62,7 +63,7 @@
                           %td.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
                         
                       %td
-                        .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;'}
+                        .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
                           - if activity.participants.where(:member => @member).first.paid
                             %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
                               %i.fa.fa-fw.fa-check
@@ -154,7 +155,8 @@
                 -else
                   %dd -
 
-          .panel.panel-default
-            .panel-body
-              = link_to 'Back', :back, { :class => 'button btn btn-default' }
-              = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+          - if current_user.admin?
+            .panel.panel-default
+              .panel-body
+                = link_to 'Back', :back, { :class => 'button btn btn-default' }
+                = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }

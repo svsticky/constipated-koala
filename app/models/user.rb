@@ -8,7 +8,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   
+  def admin?
+    return true if credentials_type.downcase == 'admin'
+    return false
+  end
+  
   def gravatar
-    Digest::MD5.hexdigest(self.email)
+    return Digest::MD5.hexdigest(self.email)
   end
 end

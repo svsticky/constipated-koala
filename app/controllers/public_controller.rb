@@ -1,4 +1,5 @@
 class PublicController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :create, :confirm]
   skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
   before_action :set_locale
 

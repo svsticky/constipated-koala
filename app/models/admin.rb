@@ -5,18 +5,31 @@ class Admin < ActiveRecord::Base
   attr_accessor :password
   attr_accessor :password_confirmation
   
-  after_save do
+  def name
+    if infix.blank?
+      return "#{self.first_name} #{self.last_name}"
+    end
     
+    return "#{self.first_name} #{self.infix} #{self.last_name}"
+  end
+  
+  def sender
+    if infix.blank?
+      return "#{self.first_name} #{self.last_name} <#{self.user.email}>"
+    end
+    
+    return "#{self.first_name} #{self.infix} #{self.last_name} <#{self.user.email}>"
+  end
+  
+  after_save do
     credentials = User.new(
       email:                  email,
       password:               password,
       password_confirmation:  password_confirmation,
       
-      credentials_id:               self.id,
-      credentials_type:             'admin'
+      credentials: self
     )
     
-    puts credentials.save
-    puts credentials.errors.full_messages
+    credentials.save
   end
 end

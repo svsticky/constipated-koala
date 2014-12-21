@@ -6,6 +6,11 @@ require "faker"
 Faker::Config.locale = :nl
 
 Admin.create(
+  first_name:             'Martijn',
+  last_name:              'Casteel',
+  
+  signature:              'Xoxo M',
+  
   email:                  'penningmeester@stickyutrecht.nl',
   password:               'sticky123',
   password_confirmation:  'sticky123'
@@ -30,6 +35,7 @@ Admin.create(
   )
 end
 
+#exception for duplicates
 suppress(Exception) do
   140.times do
     Education.create(
@@ -37,7 +43,7 @@ suppress(Exception) do
       study_id:     Random.rand(8) +1, #there are now 1..8 educations
       start_date:   Faker::Business.credit_card_expiry_date,
       end_date:     (Random.rand(10) > 6 ? Faker::Business.credit_card_expiry_date : NIL),
-      status:       Random.rand(3)
+      status:       Random.rand(3) -1
     )
   end
 end
@@ -99,7 +105,7 @@ Study.create(
   masters:        true
 )
 
-# Suppress exception for the unique key [member, activity], daarom ook zo veel..
+# Suppress exception for the unique key [member, activity]
 suppress(Exception) do
   200.times do
     Participant.create(
