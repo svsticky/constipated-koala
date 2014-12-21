@@ -1,6 +1,6 @@
-class CreateAdmins < ActiveRecord::Migration
+class AddUsersToAdmin < ActiveRecord::Migration
   def change
-    create_table(:admins) do |t|
+    create_table(:users) do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
@@ -20,23 +20,37 @@ class CreateAdmins < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
-      # t.string   :unconfirmed_email # Only if using reconfirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email
 
       ## Lockable
       # t.integer  :failed_attempts, :default => 0, :null => false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      t.belongs_to :credentials, :polymorphic => true, :null => false
 
       t.timestamps
     end
-
-    add_index :admins, :email,                :unique => true
-    add_index :admins, :reset_password_token, :unique => true
-    # add_index :admins, :confirmation_token,   :unique => true
-    # add_index :admins, :unlock_token,         :unique => true
+    
+    add_index :users, [:credentials_id, :credentials_type], :unique => true
+    
+    add_index :users, :email,                :unique => true
+    add_index :users, :reset_password_token, :unique => true
+    add_index :users, :confirmation_token,   :unique => true
+    # add_index :users, :unlock_token,         :unique => true
+    
+    drop_table :admins
+    
+    create_table(:admins) do |t|
+      t.string :first_name
+      t.string :infix
+      t.string :last_name
+      
+      t.text  :signature
+      t.timestamps
+    end
   end
 end
