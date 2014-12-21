@@ -14,6 +14,9 @@ class HomeController < ApplicationController
     
     @studies = Education.where('status = 0').joins('study').group('study').count
     
-    @birthdates = 0
+    @defaulters = Participant.where(:paid => false).group('member').sum(:price).merge(Participant.where(:paid => false, :price => nil).joins(:activity) \
+      .group('member').sum('activities.price')){ |k, sum_a, sum_b| sum_a + sum_b }.sort_by(&:last).reverse!.take(10)
+    
+    @birthdates = Hash[Member.find(1) => 12]
   end
 end

@@ -14,10 +14,3 @@ div.clickable > .panel:hover {
   border-color: #767676;
 }
 
-dl.dl-horizontal > dt {
-  width: 270px;
-}
-
-dl.dl-horizontal > dd {
-  margin-left: 290px;
-}

@@ -40,9 +40,10 @@
             %p.size-h2 
               = number_to_currency(@unpayed, :unit => '')
             %p.text-muted Openstaande betalingen
-  .page
+            
+  .page.hidden-xs
     .row
-      %div.col-md-4
+      %div.col-md-3
         .panel.panel-default
           .panel-heading
             %span.glyphicon.glyphicon-th
@@ -52,12 +53,26 @@
               - @studies.each do | study, count |
                 %dt= study.name
                 %dd= count
-                
-      -#
+      
+      -#          
         %div.col-md-3
           .panel.panel-default
             .panel-heading
               %span.glyphicon.glyphicon-th
               Verjaardagen
             .panel-body
-              %dl.dl-horizontal          
+              %dl.dl-horizontal  
+                - @birthdates.each do | member, age |
+                  %dt= link_to "#{member.name}", member
+                  %dd= age
+                
+      %div.col-md-3
+        .panel.panel-default
+          .panel-heading
+            %span.glyphicon.glyphicon-th
+            Wanbetalers
+          .panel-body
+            %dl.dl-horizontal          
+              - @defaulters.each do | member, amount |
+                %dt= link_to "#{member.name}", member
+                %dd= number_to_currency(amount, :unit => '€')
