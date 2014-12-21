@@ -49,7 +49,7 @@ class ParticipantsController < ApplicationController
         @participant.update_attribute(:paid, params[:paid])
       end
     elsif !params[:price].nil?
-      if !params[:price].numeric?
+      if !params[:price].is_number?
         raise 'not a number'
       end
       

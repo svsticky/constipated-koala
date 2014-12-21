@@ -1,0 +1,70 @@
+nl: 
+  public:
+    index:
+      sticky: Studievereniging Sticky
+      title: Sticky Introductie
+      
+      home: Home
+      about: Over Sticky
+      activities: Wat doet Sticky?
+      subscribe: Inschrijven
+      contact: Contact
+      
+      lead: Sticky is een jonge en enthousiaste studievereniging voor informatica, informatiekunde en gametechnologie. Wij bieden onze leden leuke en studie-inhoudelijke activiteiten.
+      
+      gezelligheid#title: Gezelligheid
+      gezelligheid#text: In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.
+      
+      activities#title: Activiteiten
+      activities#text: 'Van paintball tot filmavonden en van LANs tot het bezoeken van een brouwerij: je hoeft je nooit meer te vervelen!'
+      
+      orientation#title: Arbeidsmarktoriëntatie
+      orientation#text: Lezingen, workshops, inhousedagen, en meer. Zo kun je ook alvast bedenken wat je na je studie wil gaan doen!
+      
+      drinks#title: Borrels
+      drinks#text: Met gratis wekelijkse borrels en regelmatige thema-borrels, is er genoeg ruimte om je medestudenten te leren kennen!
+      
+      callout: Welkom in je studententijd; de mooiste tijd van je leven!
+      
+      form#general_data: Algemene gegevens
+      
+      form#first_name: Voornaam
+      form#infix: Tussenvoegsel
+      form#last_name: Achternaam
+      
+      form#gender: Geslacht
+      form#birth_date: Geboortedatum
+      
+      form#address: Adres
+      form#house_number: Huisnummer
+      
+      form#postal_code: Postcode
+      form#city: Woonplaats
+      
+      form#phone_number: Telefoonnummer
+      form#email: E-mailadres
+      
+      form#study_info: Studie gegevens
+      form#student_id: Studentnummer
+      
+      form#study: Studie
+      form#start_date: Begin datum
+      
+      form#activities: Activiteiten
+      form#membership: Lidmaatschap
+      form#bbq: Barbeque
+      form#lasergaming: Lasergamen
+      
+      form#payment_method: Betaalmethode
+      form#submit: Inschrijven
+      
+      errors#incomplete: Oh snap, niet alles is goed ingevuld;
+
+    create:      
+      errors#error: Er is iets fout gegaan.
+      errors#payment: Je betaling is niet gelukt, je bent wel ingeschreven!
+      notice#success: Je hebt je ingeschreven!
+
+    confirm:
+      errors#error: Er is iets fout gegaan bij het betalen, neem contact op met penningmeester@stickyutrecht.nl
+      notice#payment: Je betaling is ontvangen en je hebt je ingeschreven!

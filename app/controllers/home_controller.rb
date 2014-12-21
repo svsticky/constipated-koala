@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     @members = Education.group('member_id').where('status = 0').length
     @alumnus = Education.group('member_id').where('status = 2').length
     
-    @activities = Activity.count(:all)
+    @activities = Activity.where("start_date >= ?", Date.start_studyyear).count
     @participants = Participant.distinct.count(:member_id)
     
     @transactions = CheckoutTransaction.count(:all)
