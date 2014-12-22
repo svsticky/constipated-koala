@@ -1,17 +1,22 @@
 class ActivitiesController < ApplicationController
 
   def index
-    @activities = Activity.all.order(start_date: :desc)
+    
+    puts Date.start_studyyear
+    @activities = Activity.where("start_date >= ?", Date.start_studyyear).order(start_date: :desc)#.limit(20)
+    @detailed = (Activity.where('activities.price IS NOT NULL').joins(:participants).where(:participants => { :paid => false }).distinct \
+      + Activity.where('activities.price IS NULL').joins(:participants).where('participants.paid IS FALSE AND participants.price IS NOT NULL').distinct).sort_by(&:start_date).reverse!
+    
     @activity = Activity.new
   end
-  
+
   def show
     @activity = Activity.find(params[:id])
     @recipients =  @activity.participants.order('members.first_name', 'members.last_name').joins(:member).where('participants.paid' => false).select(:id, :member_id, :first_name, :email)
   end
-  
+
   def create
-    @activity = Activity.new(activity_post_params)   
+    @activity = Activity.new(activity_post_params)
 
     if @activity.save
       redirect_to @activity

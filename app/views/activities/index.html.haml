@@ -13,10 +13,10 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-ticket
-            Activiteiten
+            Niet betaalde activiteiten
             
           .panel-body#activities
-            - @activities.each do |activity|
+            - @detailed.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
                 %thead
                   %tr{ :style => 'font-size: 1.1em;' } 
@@ -41,22 +41,6 @@
                                 %i.fa.fa-fw.fa-times
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
-                              
-                  - if !activity.start_date.past?
-                    %tr
-                      %td.col-md-8{ :style => 'position: relative;'}
-                        %input.participant.col-md-11
-                        %ul.dropdown-menu.col-md-11
-                      %td.col-md-2
-                        - if !activity.price.nil?
-                          %span{ :style => 'line-height: 39px;' }= number_to_currency(activity.price, :unit => '€')
-                        - else
-                          %span{ :style => 'line-height: 39px;' } -
-                      %td.col-md-2
-                  - if activity.participants.count > 0 && activity.participants.where(:paid => false).count != 0
-                    %tr
-                      %td{ :colspan => 3 }
-                        = link_to "toon alle #{activity.participants.count} deelnemers", activity, :style => 'text-align: center; font-size: 0.8em;'
                       
 
       = form_for :activity, url: activities_path, method: :post, :class => 'form-validation' do |f|   
@@ -97,3 +81,17 @@
 
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Annuleren', activities_path, { :class => 'button btn btn-default' }
+                
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-ticket
+              Activiteiten dit jaar
+              
+            .panel-body
+              %table.table.table-striped.table-linked
+                %tbody
+                  - @activities.each do |activity|
+                    %tr
+                      %td= link_to "#{activity.name}", activity
+                      %td= link_to "#{I18n.l(activity.start_date, :format => :day_month)}", activity
+
