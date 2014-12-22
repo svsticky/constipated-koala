@@ -12,98 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//
+//= require mail
+//= require dropdown
+//
 //= require turbolinks
 //= require bootstrap
-
-function bind_activities(){
-  //reset all binds
-  $('#activities button').off('click');
-
-  // Activiteiten betalen met een async call
-  // [PATCH] participants
-  $('#activities').find('button.paid').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
-    
-    $.ajax({
-      url: '/participants',
-      type: 'PATCH',
-      data: {
-        id: id,
-        authenticity_token: token,
-        paid: true
-      }
-    }).done(function(){
-      alert('activiteit is betaald', 'success');
-      $('#mail #recipients select').val('edited');
-      
-      $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
-      $(row).removeClass('red');
-      
-      bind_activities();
-    }).fail(function(){
-      alert('', 'error');
-    });
-  });
   
-  // Activiteiten op niet betaald zetten
-  // [PATCH] participants  
-  $('#activities').find('button.unpaid').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
-    
-    $.ajax({
-      url: '/participants',
-      type: 'PATCH',
-      data: {
-        id: id,
-        authenticity_token: token,
-        paid: false
-      }
-    }).done(function(){
-      alert('activiteit moet nog betaald worden', 'warning');
-      $('#mail #recipients select').val('edited');
-      
-      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
-      $(row).addClass('red');
-      
-      bind_activities();
-    }).fail(function(){
-      alert('', 'error');
-    });
-  });
-
-  // Deelname aan activiteiten verwijderen
-  // [DELETE] participants
-  $('#activities button.destroy').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
-    
-    $.ajax({
-      url: '/participants',
-      type: 'DELETE',
-      data: {
-        id: id,
-        authenticity_token: token
-      }
-    }).done(function(){
-      alert('deelname verwijderd', 'success');
-      $('#mail #recipients select').val('edited');
-      $(row).remove();
-    }).fail(function(){
-      alert('', 'error');
-    });
-  });
-
-}
-  
-$(document).on('ready page:load', function(){
-
-  bind_activities();
-  
+$(document).on('ready page:load', function(){  
   // Alerts for on the frontend, default type is info
   // script#alert is a template in de header file.
   String.prototype.format = function() {

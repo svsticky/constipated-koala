@@ -43,16 +43,18 @@
             
   .page.hidden-xs
     .row
-      %div.col-md-3
+      %div.col-md-4
         .panel.panel-default
           .panel-heading
             %span.glyphicon.glyphicon-th
             Studies
-          .panel-body
-            %dl.dl-horizontal
+                        
+          %table.table.table-striped.table-linked
+            %tbody
               - @studies.each do | study, count |
-                %dt= study.name
-                %dd= count
+                %tr
+                  %td= link_to "#{study.name}", '#'
+                  %td= count
       
       -#          
         %div.col-md-3
@@ -71,8 +73,9 @@
           .panel-heading
             %span.glyphicon.glyphicon-th
             Wanbetalers
-          .panel-body
-            %dl.dl-horizontal          
+          %table.table.table-striped.table-linked
+            %tbody
               - @defaulters.each do | member, amount |
-                %dt= link_to "#{member.name}", member
-                %dd= number_to_currency(amount, :unit => '€')
+                %tr
+                  %td= link_to "#{member.name}", member
+                  %td= number_to_currency(amount, :unit => '€')

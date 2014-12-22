@@ -15,6 +15,17 @@
  *= require style
  */
 
+
+.panel > .table-striped > tbody > tr:nth-child(even) > td,
+.panel > .table-striped > tbody > tr:nth-child(even) > th {
+    background-color: #f9f9f9;
+}
+
+.panel > .table-striped > tbody > tr:nth-child(odd) > td,
+.panel > .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #fff;
+}
+
 table.table.table-linked > tbody > tr > td > a {
   display: block;
   height: 100%;
@@ -36,29 +47,4 @@ table.table > tbody > tr.red, table.table > tbody > tr.red a {
 .ui-select > select {
  text-transform: capitalize;
  width: 100%;
-}
-
-#activities tr > td {
-  padding: 0px;
-  padding-left: 8px;
-}
-
-#activities tr > td > a {
-  line-height: 36px;
-  
-  height: 36px;
-  width: 100%;
-}
-
-#activities tr > td > input {
-  heigth: 30px; 
-  margin: 5px 0; 
-  padding: 1px;
-}
-
-#activities tr > td > ul.dropdown-menu {
-  display: none; 
-  position: absolute; 
-  left: 4px; 
-  top: 30px;
 }

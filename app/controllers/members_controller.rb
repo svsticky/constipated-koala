@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
-
   skip_before_action :authenticate_admin!, only: [:show]
+  respond_to :json, only: [:find]
   
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -20,6 +20,11 @@ class MembersController < ApplicationController
       @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
       @pages = Member.count / @limit
     end
+  end
+  
+  def find 
+    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
+    respond_with @members
   end
 
   def show

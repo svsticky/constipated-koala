@@ -43,19 +43,14 @@ ConstipatedKoala::Application.routes.draw do
     delete 'participants',      to: 'participants#destroy'
     post   'participants/mail', to: 'participants#mail'  
     
+    # search for member using dropdown
+    get    'search',          to: 'members#find'
+
     # checkout urls
     get    'checkout',              to: 'checkout#index'
     
     patch  'checkout/card',         to: 'checkout#activate_card'
     patch  'checkout/transaction',  to: 'checkout#change_funds'  
-
-
-
-
-    get 'members',        to: 'members#show'
-    get 'members/edit',   to: 'members#edit'
-    patch 'members',      to: 'members#update'
-    put 'members',        to: 'members#update'
     
     # api routes, own authentication
     get    'checkout/card',         to: 'checkout#information_for_card'
