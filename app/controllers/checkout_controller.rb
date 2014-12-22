@@ -27,6 +27,11 @@ class CheckoutController < ApplicationController
   end
 
   def change_funds  
+    if !params[:amount].is_number?
+      render :status => :bad_request, :json => 'amount should be a numeric value'
+      return
+    end
+    
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
       transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
@@ -46,7 +51,7 @@ class CheckoutController < ApplicationController
       return
     end
     
-    render :status => :created, :json => CheckoutTransaction.select(:id, :price, :created_at).find_by_id!(1)
+    render :status => :created, :json => transaction
   end
   
   def subtract_funds

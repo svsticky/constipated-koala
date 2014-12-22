@@ -18,6 +18,10 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_post_params)
 
+    if(@activity.start_date == @activity.end_date)
+      @activity.end_date = nil
+    end
+
     if @activity.save
       redirect_to @activity
     else

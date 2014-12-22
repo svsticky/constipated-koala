@@ -26,17 +26,17 @@
           %span Checkout
           %i.fa.fa-shopping-cart
             %span.icon-bg.bg-info
-      %li{ :class => ('active' if yield(:page) == 'contacts') }
+      %li{ :class => ('active' if yield(:page).split('@',2).first == 'contacts') }
         %a{href: '#'}
           %span Contacten
           %i.fa.fa-envelope
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
-          %li
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'mailings') }
             %a{href: '#'}
               %i.fa.fa-caret-right
               %span Mailings
-          %li
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'associations') }
             %a{href: '#'}
               %i.fa.fa-caret-right
               %span Verenigingen
@@ -46,17 +46,17 @@
             %span Taken
             %i.fa.fa-tasks
               %span.icon-bg.bg-primary
-      %li{ :class => ('active' if yield(:page) == 'settings') }
+      %li{ :class => ('active' if yield(:page).split('@',2).first == 'settings') }
         %a{href: '#'}
           %span Instellingen
           %i.fa.fa-gears
             %span.icon-bg.bg-violet
         %ul.sub-nav{style: 'display: none;'}
-          %li{ :class => 'active' }
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'generic') }
             %a{href: '#'}
               %i.fa.fa-caret-right
               %span Algemeen
-          %li
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'profile') }
             %a{href: '/settings/profile'}
               %i.fa.fa-caret-right
               %span Profiel

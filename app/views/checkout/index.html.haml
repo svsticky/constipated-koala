@@ -11,7 +11,7 @@
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-shopping-cart
             Transacties
-          .table-responsive
+          .table-responsive#transactions
             %table.table.table-bordered.table-striped.table-linked
               %thead
                 %tr
@@ -92,12 +92,12 @@
             Opwaarderen
           .panel-body{ :style => 'position: relative;' }
             %form.form-inline
-              .form-group.col-md-12.participant
-                %input.form-control.participant{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer' }
+              .form-group.col-md-12#card
+                %input.form-control#card_holder{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer', :tabindex => '-1' }
                 %ul.dropdown-menu.col-md-12
               
               .form-group.col-md-3.amount{ :style => 'display: none;' }
-                %input.form-control.amount{ :placeholder => 'hoeveel' }
+                %input.form-control#amount{ :placeholder => 'hoeveel', :autocomplete => 'off' }
 
               .form-group.col-md-3{ :style => 'display: none;' }         
                 %button.form-control.btn.btn-line-primary opslaan

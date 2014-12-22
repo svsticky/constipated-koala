@@ -5,17 +5,6 @@ require "faker"
 
 Faker::Config.locale = :nl
 
-Admin.create(
-  first_name:             'Martijn',
-  last_name:              'Casteel',
-  
-  signature:              'Xoxo M',
-  
-  email:                  'penningmeester@stickyutrecht.nl',
-  password:               'sticky123',
-  password_confirmation:  'sticky123'
-)
-
 100.times do
   Member.create(
     first_name:   Faker::Name.first_name,

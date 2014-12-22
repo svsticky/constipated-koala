@@ -5,6 +5,7 @@ nl:
       day_month: "%d %B"
       short: "%Y"
       
+    day_names: [zondag, maandag, dinsdag, woensdag, donderdag, vrijdag, zaterdag]
     month_names: [~, januari, februari, maart, april, mei, juni, juli, augustus, september, oktober, november, december]
 
   time:
@@ -21,9 +22,15 @@ nl:
        postal_code: Postcode
        city: Woonplaats
        phone_number: Telefoonnummer
-       email: Email-adres
+       email: E-mailadres
        student_id: Studentnummer
        birth_date: Geboortedatum
+       
+      user:
+        email: E-mailadres
+        password: Wachtwoord
+        password_confirmation: Herhaald wachtwoord
+       
       activity:
         name: Naam
         price: Prijs
@@ -41,3 +48,16 @@ nl:
               invalid: is geen geldig e-mailadres, het kan geen uu@.nl mail zijn
             student_id:
               invalid: bestaat uit 7 cijfers
+              
+        user:
+          blank: kan niet leeg zijn
+          attributes:
+            email:
+              blank: is geen geldig e-mailadres
+              invalid: is geen geldig e-mailadres
+            password:
+              too_short: moet minstens 8 tekens hebben
+              invalid: moet minstens 8 tekens hebben
+            password_confirmation:
+              confirmation: is niet goed herhaald
+

@@ -20,6 +20,7 @@ class ParticipantsController < ApplicationController
   end
   
   def find
+    # do some extra filtering
     @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
     respond_with @members
   end
@@ -33,6 +34,8 @@ class ParticipantsController < ApplicationController
     end
     
     if @participant.save
+      # add price for front-end, do not save
+      @participant.assign_attributes({ :price => @activity.price })
       respond_with @participant, :location => activities_url
     else
       respond_with @participant.errors.full_messages

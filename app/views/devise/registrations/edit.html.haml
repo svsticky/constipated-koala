@@ -1,4 +1,4 @@
-- content_for(:page, 'settings')
+- content_for(:page, 'settings@profile')
 - content_for(:title, 'Constipated koala | instellingen | profiel')
 
 %section#content
@@ -14,12 +14,6 @@
               %ul
               - @user.errors.full_messages.each do |msg|
                 %li= msg
-                
-        - if flash[:notice]
-          .col-md-12
-            .alert.alert-info
-              %button.close{ type: "button" } ×
-              %span= flash[:notice]
       
         .col-md-6
           .panel.panel-default
@@ -42,7 +36,7 @@
                   .col-md-6
                     %label{for: ''} Wachtwoord herhalen
                     = f.password_field :password_confirmation, :class => 'form-control'
-      
+
           - if @user.admin?  
             = f.fields_for :credentials do |admin|
               .panel.panel-default
@@ -51,7 +45,7 @@
                   Admin gegevens
                 .panel-body
                   = admin.hidden_field :id, :value => @user.credentials_id, :class => 'id' 
-                  
+
                   .form-group
                     .row
                       .col-md-5
@@ -65,7 +59,7 @@
                         = admin.text_field :last_name, :value => @user.credentials.last_name, :class => 'form-control'
                   .form-group
                     %label{for: ''} Ondertekening
-                    = admin.text_area :signature, :value => @user.credentials.signature, :class => 'form-control'
+                    = admin.text_area :signature, :rows => 8, :value => @user.credentials.signature, :class => 'form-control'
               
         .col-md-6
           .panel.panel-default

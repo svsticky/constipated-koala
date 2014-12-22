@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       redirect_to new_user_session_path
     else
       clean_up_passwords resource
-      #set_minimum_password_length
+      set_minimum_password_length
       respond_with resource
     end
   end
@@ -53,10 +53,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     
     if resource_updated
-      if is_flashing_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
-        set_flash_message :notice, flash_key
-      end
+      flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ? :update_needs_confirmation : :updated
+      set_flash_message :notice, flash_key
       
       if resource.admin?
         Admin.find(credentials[:id]).update_attributes(credentials)
@@ -82,6 +80,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # allow admin attributes on update user
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit({:credentials => [:id, :type, :first_name, :infix, :last_name, :signature]}, :email, :password, :password_confirmation, :current_password) }
+  end
+  
+  # Sets minimum password length to show to user
+  def set_minimum_password_length
+    @validatable = devise_mapping.validatable?
+    if @validatable
+      @minimum_password_length = resource_class.password_length.min
+    end
   end
 
 end
