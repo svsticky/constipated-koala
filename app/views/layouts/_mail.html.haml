@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-body
-    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => mail_path, :method => :post }
+    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => participants_mail_path, :method => :post }
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
         .col-md-10.col-xs-12
@@ -25,7 +25,7 @@
             %button.btn.btn-default.dropdown-toggle{ 'data-toggle' => 'dropdown' }
               %i.fa.fa-text-height
               %span.caret
-            
+
             %ul.dropdown-menu
               %li{ :style => 'font-size: 0.8em;' }
                 %a{name: 'small', tabindex: '-1', type: 'button', unselectable: 'on'}
@@ -36,7 +36,7 @@
               %li{ :style => 'font-size: 1.2em;' }
                 %a{name: 'large', tabindex: '-1', type: 'button', unselectable: 'on'}
                   groot
-              
+
           .btn-group
             %button.btn.btn-default{name: 'bold', tabindex: '-1', type: 'button', unselectable: 'on'}
               %i.fa.fa-bold
@@ -57,16 +57,7 @@
           
           Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. '%recipient.name% %recipient.activity%'?
           
-          Met vriendelijke groet,
-          
-          Martijn Casteel
-          Penningmeester 2014-2015
-          Studievereniging Sticky
-          
-          +316 12 18 34 80
-          penningmeester@stickyutrecht.nl
-          http://www.stickyutrecht.nl
-      
+          #{current_user.credentials.signature}
       %br
       .mail-actions
         %button.btn.btn-primary{ type: 'submit' } Verstuur

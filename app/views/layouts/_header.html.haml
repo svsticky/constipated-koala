@@ -9,15 +9,15 @@
       %ul.nav-right.pull-right.list-unstyled
         %li.dropdown.text-normal.nav-profile
           %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            =image_tag "https://secure.gravatar.com/avatar/#{current_admin.gravatar}?d=mm", :class => 'img-circle img30_30'
+            =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm", :class => 'img-circle img30_30'
             %span.hidden-xs
-              %span #{current_admin.email }
+              %span #{current_user.email }
           %ul.dropdown-menu.with-arrow{ :style => 'right: 0;' }
             %li
-              %a{href: '/admins/edit'}
+              %a{href: '/settings/profile'}
                 %i.fa.fa-user
                 %span Profiel
             %li
-              %a{href: '/admins/sign_out', 'data-method' => :delete}
+              %a{href: '/sign_out', 'data-method' => :delete}
                 %i.fa.fa-sign-out
                 %span Log uit
