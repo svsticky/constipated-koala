@@ -9,9 +9,6 @@ gem 'devise'
 # logging
 gem 'impressionist'
 
-# dynamic rake tasks
-gem 'hoe-highline'
-
 # use of Haml
 gem 'haml'
 
