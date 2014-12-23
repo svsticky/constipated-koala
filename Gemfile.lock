@@ -55,7 +55,13 @@ GEM
       activerecord (>= 2.3.17)
     haml (4.0.5)
       tilt
+    highline (1.6.21)
     hike (1.2.3)
+    hoe (3.13.0)
+      rake (>= 0.8, < 11.0)
+    hoe-highline (0.2.1)
+      highline (~> 1.6)
+      hoe (~> 3.11)
     httpclient (2.4.0)
     i18n (0.6.9)
     impressionist (1.5.1)
@@ -153,6 +159,7 @@ DEPENDENCIES
   font-awesome-sass
   fuzzily
   haml
+  hoe-highline
   impressionist
   jbuilder
   jquery-rails

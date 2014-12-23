@@ -1,13 +1,17 @@
+require 'highline'
+
 namespace :admin do
-  
+   
   desc "Create a new admin user"
-  task :create, [:email, :password] => :environment do |t, args|
+  task :create => :environment do |t, args|
+    line = HighLine.new
+  
     Admin.create(
-      email:                  args[:email],
-      password:               args[:password],
-      password_confirmation:  args[:password]
+      email:                  line.ask('email address'),
+      password:               line.ask('password') { |q| q.echo = '*' },
+      password_confirmation:  line.ask('confirm password') { |q| q.echo = '*' }
     )
     
-    puts "#{args[:email]} created!"
+    puts 'Admin created!'
   end  
 end
