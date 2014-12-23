@@ -78,4 +78,4 @@
               - @defaulters.each do | member, amount |
                 %tr
                   %td= link_to "#{member.name}", member
-                  %td= number_to_currency(amount, :unit => '€')
+                  %td.text-right= number_to_currency(amount, :unit => '€')
