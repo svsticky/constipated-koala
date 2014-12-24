@@ -14,7 +14,7 @@
             
           .panel-body#activities
             - @detailed.each do |activity|
-              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
+              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
                 %thead
                   %tr{ :style => 'font-size: 1.1em;' } 
                     %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'

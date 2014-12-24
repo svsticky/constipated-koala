@@ -3,15 +3,15 @@
 
 function bind_activities(){
   //reset all binds
-  $('#activities button').off('click');
-  $('#activities input.price').off('focusout');
+  $( '#activities button' ).off( 'click' );
+  $( '#activities input.price' ).off( 'focusout' );
   
   // Activiteiten betalen met een async call
   // [PATCH] participants
-  $('#activities').find('button.paid').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
+  $( '#activities' ).find( 'button.paid' ).on( 'click', function(){
+    var id = $(this).closest( 'tr' ).attr( 'data-id' );
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+    var row = $(this).closest( 'tr' );
     
     $.ajax({
       url: '/participants',
@@ -22,26 +22,26 @@ function bind_activities(){
         paid: true
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' heeft betaald', 'success');
-      $('#mail #recipients select').val('edited');
+      alert($(row).find( 'a' ).html() + ' heeft betaald', 'success' );
+      $( '#mail #recipients select' ).val( 'edited' );
       
-      $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
-      $(row).removeClass('red');
+      $(row).find( 'button.paid' ).empty().removeClass( 'paid btn-warning' ).addClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-check"></i>' );
+      $(row).removeClass( 'red' );
       
-      $('#mail').trigger('recipients_removed', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+      $( '#mail' ).trigger( 'recipients_removed', [$(row).find( 'a' ).attr( 'data-id' ), $(row).find( 'a' ).html()]);
       
       bind_activities();
     }).fail(function(){
-      alert('', 'error');
+      alert( '', 'error' );
     });
   });
   
   // Activiteiten op niet betaald zetten
   // [PATCH] participants  
-  $('#activities').find('button.unpaid').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
+  $( '#activities' ).find( 'button.unpaid' ).on( 'click', function(){
+    var id = $(this).closest( 'tr' ).attr( 'data-id' );
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+    var row = $(this).closest( 'tr' );
     
     $.ajax({
       url: '/participants',
@@ -52,26 +52,26 @@ function bind_activities(){
         paid: false
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' heeft nog niet betaald', 'warning');
-      $('#mail #recipients select').val('edited');
+      alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
+      $( '#mail #recipients select' ).val( 'edited' );
       
-      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
-      $(row).addClass('red');
+      $(row).find( 'button.unpaid' ).empty().addClass( 'paid btn-warning' ).removeClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-times"></i>' );
+      $(row).addClass( 'red' );
       
-      $('#mail').trigger('recipients_added', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+      $( '#mail' ).trigger( 'recipients_added', [$(row).find( 'a' ).attr( 'data-id' ), $(row).find( 'a' ).html()]);
       
       bind_activities();
     }).fail(function(){
-      alert('', 'error');
+      alert( '', 'error' );
     });
   });
 
   // Deelname aan activiteiten verwijderen
   // [DELETE] participants
-  $('#activities button.destroy').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
+  $( '#activities button.destroy' ).on( 'click', function(){
+    var id = $(this).closest( 'tr' ).attr( 'data-id' );
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+    var row = $(this).closest( 'tr' );
     
     $.ajax({
       url: '/participants',
@@ -81,22 +81,22 @@ function bind_activities(){
         authenticity_token: token
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' verwijderd', 'warning');
-      $('#mail #recipients select').val('edited');
+      alert($(row).find( 'a' ).html() + ' verwijderd', 'warning' );
+      $( '#mail #recipients select' ).val( 'edited' );
       $(row).remove();
       
-      $('#mail').trigger('recipients_removed', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+      $( '#mail' ).trigger( 'recipients_removed', [$(row).find( 'a' ).attr( 'data-id' ), $(row).find( 'a' ).html()]);
     }).fail(function(){
-      alert('', 'error');
+      alert( '', 'error' );
     });
   });
 
   // Participant bedrag aanpassen
   // [PATCH] participants
-  $('#activities').find('input.price').on('change', function(){
-    var row = $(this).closest('tr')
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var price = $(this).val().replace(',', '.');
+  $( '#activities' ).find( 'input.price' ).on( 'change', function(){
+    var row = $(this).closest( 'tr' )
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+    var price = $(this).val().replace( ',', '.' );
     
     // If left blank asume 0
     if(!price){
@@ -112,7 +112,7 @@ function bind_activities(){
       url: '/participants',
       type: 'PATCH',
       data: {
-        id: row.attr('data-id'),
+        id: row.attr( 'data-id' ),
         authenticity_token: token,
         price: price
       }
@@ -120,65 +120,56 @@ function bind_activities(){
       console.log(data)
       
       //TODO improve
-      $('#mail #recipients select').val('edited');
-      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('hidden unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
-      $(row).find('button.paid').removeClass('hidden');
+      $( '#mail #recipients select' ).val( 'edited' );
+      $(row).find( 'button.unpaid' ).empty().addClass( 'paid btn-warning' ).removeClass( 'hidden unpaid btn-primary' ).append( '<i class="fa fa-fw fa-times"></i>' );
+      $(row).find( 'button.paid' ).removeClass( 'hidden' );
       
-      $(row).removeClass('red');
+      $(row).removeClass( 'red' );
       
       if(price > 0){
-        $(row).addClass('red');
+        $(row).addClass( 'red' );
         
-        $('#mail').trigger('recipients_added', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+        $( '#mail' ).trigger( 'recipients_added', [$(row).find( 'a' ).attr( 'data-id' ), $(row).find( 'a' ).html()]);
       }else{
-        $(row).find('button.paid').addClass('hidden');
+        $(row).find( 'button.paid' ).addClass( 'hidden' );
         
-        $('#mail').trigger('recipients_removed', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+        $( '#mail' ).trigger( 'recipients_removed', [$(row).find( 'a' ).attr( 'data-id' ), $(row).find( 'a' ).html()]);
       }
       
-      alert('het deelname bedrag is veranderd');
+      alert( 'het deelname bedrag is veranderd' );
     }).fail(function( data ){
-      alert('geen verbinding of geen nummer', 'error');
+      alert( 'geen verbinding of geen nummer', 'error' );
     });
   }); 
 }
     
-$(document).on('ready page:load', function(){
+$(document).on( 'ready page:load', function(){
   bind_activities();
   
-  $('#activities').find('input#participant').search({ 
-/*
-    source: '/participants', 
-    query: 
-    { 
-      activity: $('#activities table').attr('data-id') 
-    }
-*/
-  }).on('selected', function(event, id, name){
 
       $.ajax({
         url: '/participants',
         type: 'POST',
         data: {
           member: id,
-          activity: $('#activities table').attr('data-id') 
+          activity: $( '#activities table' ).attr( 'data-id' ) 
         }
       }).done(function( data ){                  
-        var template = $('script#activity').html();
+        var template = $( 'script#activity' ).html();
         var activity = template.format(data.id, data.member_id, name, data.price);
-        var added = $(activity).insertBefore('#activities table tr:last');
+        var added = $(activity).insertBefore( '#activities table tr:last' );
         
         if(data.price > 0)    
-          $(added).addClass('red');
+          $(added).addClass( 'red' );
         else
-          $(added).find('button.paid').addClass('hidden'); 
+          $(added).find( 'button.paid' ).addClass( 'hidden' ); 
         
         bind_activities();
         
-        $('#mail').trigger('recipients_added', [data.member_id, name])
+        $( '#mail' ).trigger( 'recipients_added', [data.member_id, name])
         $( '#activities .form-group input#participants' ).focus();
       }).fail(function(){                    
-        alert('Deze persoon is al toegevoegd', 'warning');
+        alert( 'Deze persoon is al toegevoegd', 'warning' );
       });
   });
 });
