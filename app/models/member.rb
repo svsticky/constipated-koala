@@ -134,6 +134,7 @@ class Member < ActiveRecord::Base
       education.save!      
     end
         
+    # remove studies no longer present
     for education in self.educations do
       unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?("#{education.study.code} | #{education.start_date.year}")
         puts " - #{education.study.code}"

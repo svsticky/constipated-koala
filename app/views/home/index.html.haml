@@ -46,7 +46,7 @@
       %div.col-md-3
         .panel.panel-default
           .panel-heading
-            %span.glyphicon.glyphicon-th
+            %i.fa.fa-fw.fa-graduation-cap
             Studies
                         
           %table.table.table-striped.table-linked
@@ -55,19 +55,16 @@
                 %tr
                   %td= link_to "#{study.name}", '#'
                   %td= count
-      
-      -#          
-        %div.col-md-3
-          .panel.panel-default
-            .panel-heading
-              %span.glyphicon.glyphicon-th
-              Verjaardagen
-            .panel-body
-              %dl.dl-horizontal  
-                - @birthdates.each do | member, age |
-                  %dt= link_to "#{member.name}", member
-                  %dd.text-right= age
-                
+                  
+      %div.col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-shopping-cart
+            Transacties
+          %table.table.table-striped.table-linked
+            %tbody
+
+
       %div.col-md-3
         .panel.panel-default
           .panel-heading
