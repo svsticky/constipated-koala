@@ -23,12 +23,11 @@ function bind_activities(){
       }
     }).done(function(){
       alert($(row).find('a').html() + ' heeft betaald', 'success');
-      $('#mail #recipients select').val('edited');
       
       $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
       $(row).removeClass('red');
       
-      $('#mail').trigger('recipients_removed', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+      $('#mail').trigger('recipient_payed', [ $(row).find('a').html(), $(row).attr('data-email') ]);
       
       bind_activities();
     }).fail(function(){
@@ -53,12 +52,11 @@ function bind_activities(){
       }
     }).done(function(){
       alert($(row).find('a').html() + ' heeft nog niet betaald', 'warning');
-      $('#mail #recipients select').val('edited');
       
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
       $(row).addClass('red');
       
-      $('#mail').trigger('recipients_added', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+      $('#mail').trigger('recipient_unpayed', [ $(row).find('a').html(), $(row).attr('data-email') ]);
       
       bind_activities();
     }).fail(function(){
@@ -82,10 +80,9 @@ function bind_activities(){
       }
     }).done(function(){
       alert($(row).find('a').html() + ' verwijderd', 'warning');
-      $('#mail #recipients select').val('edited');
       $(row).remove();
       
-      $('#mail').trigger('recipients_removed', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+      $('#mail').trigger('recipient_removed', [ $(row).find('a').html(), $(row).attr('data-email') ]);
     }).fail(function(){
       alert('', 'error');
     });
@@ -119,8 +116,6 @@ function bind_activities(){
     }).done(function( data ){
       console.log(data)
       
-      //TODO improve
-      $('#mail #recipients select').val('edited');
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('hidden unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
       $(row).find('button.paid').removeClass('hidden');
       
@@ -129,11 +124,11 @@ function bind_activities(){
       if(price > 0){
         $(row).addClass('red');
         
-        $('#mail').trigger('recipients_added', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+        $('#mail').trigger('recipient_unpayed', [ $(row).find('a').html(), $(row).attr('data-email') ]);
       }else{
         $(row).find('button.paid').addClass('hidden');
         
-        $('#mail').trigger('recipients_removed', [$(row).find('a').attr('data-id'), $(row).find('a').html()]);
+        $('#mail').trigger('recipient_payed', [ $(row).find('a').html(), $(row).attr('data-email') ]);
       }
       
       alert('het deelname bedrag is veranderd');
@@ -163,9 +158,9 @@ $(document).on('ready page:load', function(){
           member: id,
           activity: $('#activities table').attr('data-id') 
         }
-      }).done(function( data ){                  
+      }).done(function( data ){                          
         var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, data.price);
+        var activity = template.format(data.id, data.member_id, name, data.email, data.price);
         var added = $(activity).insertBefore('#activities table tr:last');
         
         if(data.price > 0)    
@@ -175,7 +170,9 @@ $(document).on('ready page:load', function(){
         
         bind_activities();
         
-        $('#mail').trigger('recipients_added', [data.member_id, name])
+        // trigger #mail client to add recipient
+        $('#mail').trigger('recipient_added', [ name, data.email ]);
+        
         $( '#activities .form-group input#participants' ).focus();
       }).fail(function(){                    
         alert('Deze persoon is al toegevoegd', 'warning');

@@ -8,8 +8,6 @@ class ParticipantsController < ApplicationController
 
     @participants = Participant.where( :activity => params[:activity])
   
-    logger.debug(@participants)
-  
     if params[:recipients] == 'all'
       respond_with @participants.joins(:member).order('members.first_name', 'members.last_name').select(:id, :first_name, :infix, :last_name, :email)
     elsif params[:recipients] == 'debtors'
@@ -34,9 +32,10 @@ class ParticipantsController < ApplicationController
     end
     
     if @participant.save
-      # add price for front-end, do not save
-      @participant.assign_attributes({ :price => @activity.price })
-      respond_with @participant, :location => activities_url
+      @response = @participant.attributes
+      @response[ 'price' ] = @activity.price
+      @response[ 'email' ] = @participant.member.email
+      respond_with @response, :location => activities_url
     else
       respond_with @participant.errors.full_messages
     end
@@ -44,8 +43,6 @@ class ParticipantsController < ApplicationController
   
   def update
     @participant = Participant.find(params[:id])
-          
-    logger.debug @participant.inspect
           
     if !params[:paid].nil?
       if !@participant.currency.nil?
