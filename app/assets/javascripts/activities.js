@@ -181,4 +181,6 @@ $(document).on('ready page:load', function(){
         alert('Deze persoon is al toegevoegd', 'warning');
       });
   });
+  
+  $('form#mail').editor();
 });

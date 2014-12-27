@@ -18,47 +18,24 @@
         .col-md-10.col-xs-12
           %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Sticky #{onderwerp}" }
           
-      .ui-editor.ta-root.focussed
-        .ta-toolbar.btn-toolbar.focussed
-        
-          .btn-group
-            %button.btn.btn-default.dropdown-toggle{ 'data-toggle' => 'dropdown' }
-              %i.fa.fa-text-height
-              %span.caret
-
-            %ul.dropdown-menu
-              %li{ :style => 'font-size: 0.8em;' }
-                %a{name: 'small', tabindex: '-1', type: 'button', unselectable: 'on'}
-                  klein
-              %li{ :style => 'font-size: 1em;' } 
-                %a{name: 'default', tabindex: '-1', type: 'button', unselectable: 'on'}
-                  standaard
-              %li{ :style => 'font-size: 1.2em;' }
-                %a{name: 'large', tabindex: '-1', type: 'button', unselectable: 'on'}
-                  groot
-
-          .btn-group
-            %button.btn.btn-default{name: 'bold', tabindex: '-1', type: 'button', unselectable: 'on'}
-              %i.fa.fa-bold
-            %button.btn.btn-default{name: 'italics', tabindex: '-1', type: 'button', unselectable: 'on'}
-              %i.fa.fa-italic
-            %button.btn.btn-default{name: 'underline', tabindex: '-1', type: 'button', unselectable: 'on'}
-              %i.fa.fa-underline
-          .btn-group
-            %button.btn.btn-default{name: 'ul', tabindex: '-1', type: 'button', unselectable: 'on'}
-              %i.fa.fa-list-ul
-            %button.btn.btn-default{name: 'ol', tabindex: '-1', type: 'button', unselectable: 'on'}
-              %i.fa.fa-list-ol
-              
-      -#text.form-control{ :contenteditable => 'true' }
-      %textarea.form-control#text{ :name => 'mail', :rows => '12' }
+      = render 'layouts/editor'
+      
+      #textarea.form-control{ :contenteditable => 'true' }
         :preserve
           Hoi %recipient.first_name%,
-          
-          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. '%recipient.name% %recipient.activity%'?
-          
+          <br><br>
+          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% %recipient.activity%'</i>?
+          <br><br>
           #{current_user.credentials.signature}
-      %br
+      
+      %textarea#html.form-control
+        :preserve
+          Hoi %recipient.first_name%,
+          <br><br>
+          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% %recipient.activity%'</i>?
+          <br><br>
+          #{current_user.credentials.signature}
+
       .mail-actions
         %button.btn.btn-primary{ type: 'submit' } Verstuur
         .btn.btn-default.disabled{ :disabled => 'disabled' } Draft

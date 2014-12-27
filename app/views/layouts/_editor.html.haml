@@ -1,0 +1,72 @@
+.ui-editor.ta-root.focussed
+  .ta-toolbar.btn-toolbar.focussed
+
+    .btn-group
+      %button.btn.btn-default{name: 'bold', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-bold
+      %button.btn.btn-default{name: 'italic', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-italic
+      %button.btn.btn-default{name: 'underline', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-underline
+      %button.btn.btn-default{name: 'strikethrough', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-strikethrough
+    
+    .btn-group
+      %button.btn.btn-default.dropdown-toggle{ 'data-toggle' => 'dropdown', tabindex: '-1', type: 'button', unselectable: 'on' }
+        %i.fa.fa-font
+        %span.caret
+
+      %ul.dropdown-menu
+        %li{ :style => 'font-family: arial;' }
+          %a.font-family{name: 'arial', tabindex: '-1', type: 'button', unselectable: 'on'}
+            Arial
+        %li{ :style => 'font-family: georgia;' } 
+          %a.font-family{name: 'georgia', tabindex: '-1', type: 'button', unselectable: 'on'}
+            Georgia
+        %li{ :style => 'font-family: verdana;' }
+          %a.font-family{name: 'verdana', tabindex: '-1', type: 'button', unselectable: 'on'}
+            Verdana
+        %li{ :style => 'font-family: tahoma;' }
+          %a.font-family{name: 'tahoma', tabindex: '-1', type: 'button', unselectable: 'on'}
+            Tahoma
+        %li{ :style => 'font-family: Comic sans ms;' }
+          %a.font-family{name: 'comic sans', tabindex: '-1', type: 'button', unselectable: 'on'}
+            Comic sans
+            
+    .btn-group
+      %button.btn.btn-default.dropdown-toggle{ 'data-toggle' => 'dropdown', tabindex: '-1', type: 'button', unselectable: 'on' }
+        %i.fa.fa-text-height
+        %span.caret
+
+      %ul.dropdown-menu
+        %li{ :style => 'font-size: 0.8em;' }
+          %a.font-size{name: 'small', tabindex: '-1', type: 'button', unselectable: 'on'}
+            klein
+        %li{ :style => 'font-size: 1em;' } 
+          %a.font-size{name: 'medium', tabindex: '-1', type: 'button', unselectable: 'on'}
+            standaard
+        %li{ :style => 'font-size: 1.2em;' }
+          %a.font-size{name: 'large', tabindex: '-1', type: 'button', unselectable: 'on'}
+            groot
+        
+    .btn-group
+      %button.btn.btn-default{name: 'ol', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-list-ol
+      %button.btn.btn-default{name: 'ul', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-list-ul
+        
+    .btn-group
+      %button.btn.btn-default{name: 'left', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-align-left
+      %button.btn.btn-default{name: 'center', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-align-center
+      %button.btn.btn-default{name: 'right', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-align-right
+        
+    .btn-group
+      %button.btn.btn-default{name: 'erase', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-eraser
+        
+    .btn-group.pull-right{ :style => 'margin-right: 0px; '}
+      %button.btn.btn-default{name: 'html', tabindex: '-1', type: 'button', unselectable: 'on'}
+        %i.fa.fa-code

@@ -13,8 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //
-//= require mail
 //= require dropdown
+//= require editor
+//= require mail
 //
 //= require turbolinks
 //= require bootstrap
