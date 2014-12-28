@@ -4,7 +4,7 @@
 %section#content
   .page.page-form
     .row
-      = form_for :user, as: 'user', url: edit_registration_path, method: :patch, :class => 'form-validation' do |f|
+      = form_for :user, as: 'user', url: edit_registration_path, method: :patch, :class => 'form-validation', :html => { :id => 'editor'} do |f|
       
         - if @user.errors.any?
           .col-md-12
@@ -57,9 +57,16 @@
                       .col-md-5
                         %label{for: ''} Achternaam
                         = admin.text_field :last_name, :value => @user.credentials.last_name, :class => 'form-control'
+                        
                   .form-group
                     %label{for: ''} Ondertekening
-                    = admin.text_area :signature, :rows => 8, :value => @user.credentials.signature, :class => 'form-control'
+                    = render 'layouts/editor'
+                    
+                    #textarea.form-control{ :contenteditable => 'true' }
+                      :preserve
+                        #{@user.credentials.signature}
+                        
+                    = admin.text_area :signature, :rows => 8, :value => @user.credentials.signature, :class => 'form-control', :id => 'html'
               
         .col-md-6
           .panel.panel-default

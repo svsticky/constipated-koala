@@ -12,7 +12,7 @@
             %i.fa.fa-fw.fa-ticket
             Niet betaalde activiteiten
             
-          .panel-body#activities
+          .panel-body#participants
             - @detailed.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
                 %thead
@@ -22,7 +22,7 @@
                 %tbody
                   - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
                     - if !participant.currency.nil?
-                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id }  }
+                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id, :email => participant.member.email }  }
                         %td.col-md-8= link_to "#{participant.member.name}", participant.member
                 
                         - if !participant.currency.nil?
