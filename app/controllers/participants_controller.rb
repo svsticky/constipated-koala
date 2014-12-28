@@ -75,7 +75,9 @@ class ParticipantsController < ApplicationController
   end
   
   def mail
+    puts params[:recipients]
+    
     @activity = Activity.find(params[:id])
-    render :json => Mailgun.participant_information(params[:recipients], @activity, current_user.credentials.sender, params[:subject], nil, params[:text]).deliver_later
+    render :json => Mailgun.participant_information(params[:recipients], @activity, current_user.credentials.sender, params[:subject], params[:html], nil).deliver_later
   end
 end
