@@ -23,7 +23,7 @@
         :preserve
           Hoi %recipient.first_name%,
           <br><br>
-          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% %recipient.activity%'</i>?
+          Je bent onlangs meegeweest naar #{ onderwerp.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ onderwerp.downcase }'</i>?
           <br><br>
           #{current_user.credentials.signature}
       
@@ -31,9 +31,9 @@
         :preserve
           Hoi %recipient.first_name%,
           <br><br>
-          Je bent onlangs meegeweest naar %recipient.activity%. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% %recipient.activity%'</i>?
+          Je bent onlangs meegeweest naar #{ onderwerp.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ onderwerp.downcase }'</i>?
           <br><br>
-          #{current_user.credentials.signature}
+          #{ current_user.credentials.signature }
 
       .mail-actions
         %button.btn.btn-primary{ type: 'submit' } Verstuur

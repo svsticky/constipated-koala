@@ -23,7 +23,7 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
     @participants = activity.participants.joins(:member).where( 'members.email' => recipients.map{ | id, item | item['email'] } )
     @recipients = recipients.map{ | id, item | "#{ item['name'] } <#{ item['email'] }>" }
     
-    @variables = @participants.map{ |participant| "\"#{participant.member.email}\" : { \"name\": \"#{participant.member.name}\", \"first_name\": \"#{participant.member.first_name}\", \"activity\": \"#{activity.name.downcase}\", \"price\": \"#{ActionController::Base.helpers.number_to_currency(participant.currency, :unit => '€')}\" }"}.join(', ')
+    @variables = @participants.map{ |participant| "\"#{participant.member.email}\" : { \"name\": \"#{participant.member.name}\", \"first_name\": \"#{participant.member.first_name}\", \"price\": \"#{ActionController::Base.helpers.number_to_currency(participant.currency, :unit => '€')}\" }"}.join(', ')
     
     return mail(@recipients, @variables, sender, activity.name, subject, html, text)
   end
