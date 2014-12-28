@@ -12,7 +12,7 @@
             %i.fa.fa-fw.fa-ticket
             Niet betaalde activiteiten
             
-          .panel-body#activities
+          .panel-body#participants
             - @detailed.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id }, :style => 'margin: 0px;' }
                 %thead

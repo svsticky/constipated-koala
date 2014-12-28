@@ -1,16 +1,16 @@
-#activities tr > td {
+#participants tr > td {
   padding: 0px;
   padding-left: 8px;
 }
 
-#activities tr > td > a {
+#participants tr > td > a {
   line-height: 36px;
   
   height: 36px;
   width: 100%;
 }
 
-#activities tr > td > input {
+#participants tr > td > input {
   height: 30px;
   line-height: 30px; 
   
@@ -20,7 +20,7 @@
   padding: 1px;
 }
 
-#activities tr > td > .btn-group {
+#participants tr > td > .btn-group {
   height: 30px;
   
   float: right;
@@ -30,14 +30,14 @@
   padding: 0;
 }
 
-#activities tr > td > .btn-group > button{
+#participants tr > td > .btn-group > button{
   height: 32px;
   line-height: 20px;
   
   padding: 5px 12px;
 }
 
-#activities tr > td > ul.dropdown-menu {
+#participants tr > td > ul.dropdown-menu {
   display: none; 
   position: absolute; 
   left: 4px; 
