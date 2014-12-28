@@ -23,15 +23,15 @@ function bind_activities(){
       }
     }).done(function(){
       alert($(row).find('a').html() + ' heeft betaald', 'success');
-      
-      $(row).find('button.paid').empty().removeClass('paid btn-warning').addClass('unpaid btn-primary').append('<i class="fa fa-fw fa-check"></i>');
-      $(row).removeClass('red');
+
+      $(row).find( 'button.paid' ).empty().removeClass( 'paid btn-warning' ).addClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-check"></i>' );
+      $(row).removeClass( 'red' );
       
       $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       
       bind_activities();
     }).fail(function(){
-      alert('', 'error');
+      alert( '', 'error' );
     });
   });
   
@@ -51,16 +51,16 @@ function bind_activities(){
         paid: false
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' heeft nog niet betaald', 'warning');
+      alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
       
-      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
-      $(row).addClass('red');
+      $(row).find( 'button.unpaid' ).empty().addClass( 'paid btn-warning' ).removeClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-times"></i>' );
+      $(row).addClass( 'red' );
       
       $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       
       bind_activities();
     }).fail(function(){
-      alert('', 'error');
+      alert( '', 'error' );
     });
   });
 
@@ -84,7 +84,7 @@ function bind_activities(){
       
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
     }).fail(function(){
-      alert('', 'error');
+      alert( '', 'error' );
     });
   });
 
@@ -109,34 +109,33 @@ function bind_activities(){
       url: '/participants',
       type: 'PATCH',
       data: {
-        id: row.attr('data-id'),
+        id: row.attr( 'data-id' ),
         authenticity_token: token,
         price: price
       }
     }).done(function( data ){
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('hidden unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
-      $(row).find('button.paid').removeClass('hidden');
-      
-      $(row).removeClass('red');
+      $(row).find('button.paid').removeClass('hidden');      
+      $(row).removeClass( 'red' );
       
       if(price > 0){
-        $(row).addClass('red');
+        $(row).addClass( 'red' );
         
         $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }else{
-        $(row).find('button.paid').addClass('hidden');
+        $(row).find( 'button.paid' ).addClass( 'hidden' );
         
         $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }
       
-      alert('het deelname bedrag is veranderd');
+      alert( 'het deelname bedrag is veranderd' );
     }).fail(function( data ){
-      alert('geen verbinding of geen nummer', 'error');
+      alert( 'geen verbinding of geen nummer', 'error' );
     });
   }); 
 }
     
-$(document).on('ready page:load', function(){
+$(document).on( 'ready page:load', function(){
   bind_activities();
   
   $('#participants').find('input#participant').search({ 
@@ -148,7 +147,6 @@ $(document).on('ready page:load', function(){
     }
 */
   }).on('selected', function(event, id, name){
-
       $.ajax({
         url: '/participants',
         type: 'POST',
@@ -162,9 +160,9 @@ $(document).on('ready page:load', function(){
         var added = $(activity).insertBefore('#participants table tr:last');
         
         if(data.price > 0)    
-          $(added).addClass('red');
+          $(added).addClass( 'red' );
         else
-          $(added).find('button.paid').addClass('hidden'); 
+          $(added).find( 'button.paid' ).addClass( 'hidden' ); 
         
         bind_activities();
         
@@ -173,7 +171,7 @@ $(document).on('ready page:load', function(){
         
         $( '#participants .form-group input#participants' ).focus();
       }).fail(function(){                    
-        alert('Deze persoon is al toegevoegd', 'warning');
+        alert( 'Deze persoon is al toegevoegd', 'warning' );
       });
   });
   
