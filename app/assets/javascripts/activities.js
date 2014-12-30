@@ -138,15 +138,7 @@ function bind_activities(){
 $(document).on( 'ready page:load', function(){
   bind_activities();
   
-  $('#participants').find('input#participant').search({ 
-/*
-    source: '/participants', 
-    query: 
-    { 
-      activity: $('#participants table').attr('data-id') 
-    }
-*/
-  }).on('selected', function(event, id, name){
+  $('#participants').find('input#participant').search().on('selected', function(event, id, name){
       $.ajax({
         url: '/participants',
         type: 'POST',
@@ -156,7 +148,7 @@ $(document).on( 'ready page:load', function(){
         }
       }).done(function( data ){                          
         var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, data.email, data.price);
+        var activity = template.format(data.id, data.member_id, name, data.email, data.price || '');
         var added = $(activity).insertBefore('#participants table tr:last');
         
         if(data.price > 0)    

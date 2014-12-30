@@ -10,7 +10,9 @@ class HomeController < ApplicationController
     
     
     @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
-    @defaulters = Participant.where(:paid => false).group('member').sum(:price).merge(Participant.where(:paid => false, :price => nil).joins(:activity) \
-      .group('member').sum('activities.price')){ |k, sum_a, sum_b| sum_a + sum_b }.sort_by(&:last).reverse!.take(10)
+    
+    @defaulters = Participant.where(:paid => false).joins(:activity).where('activities.start_date < NOW()').group('member').sum(:price).merge( \
+      Participant.where(:paid => false, :price => nil).joins(:activity).where('activities.start_date < NOW()') \
+      .group('member').sum('activities.price') ){ |k, sum_a, sum_b| sum_a + sum_b }.sort_by(&:last).reverse!.take(10)
   end
 end

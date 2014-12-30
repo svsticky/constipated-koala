@@ -44,6 +44,11 @@
   top: 30px;
 }
 
+#participants tr > td > ul.dropdown-menu > li:not(.active) > a:hover {
+  background-color: white;
+  color: #767676;
+}
+
 #mail > #textarea, #mail > textarea#html {
   font-family: arial;
   font-size: medium;
