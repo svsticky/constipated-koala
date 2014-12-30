@@ -38,7 +38,7 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
     @response = RestClient.post "https://api:#{ConstipatedKoala::Application.config.mailgun}@api.mailgun.net/v2/stickyutrecht.nl/messages",
       :from => sender,
       
-      :to => recipients,
+      :to => recipients.push( sender ),
       'recipient-variables' => "{#{variables.to_s}}",
       
       :subject => subject,

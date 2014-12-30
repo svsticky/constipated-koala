@@ -79,6 +79,7 @@ class Member < ActiveRecord::Base
       return Member.where("student_id like ?", "%#{query}%")
     end
     
+    # change zodat de scores benaderbaar zijn en nog kan filteren op study onder andere
     return Member.find_by_fuzzy_query(query, :limit => 20)
   end
   
