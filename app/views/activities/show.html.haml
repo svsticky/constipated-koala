@@ -45,9 +45,6 @@
               .form-group
                 = label(:activity, :comments)
                 = f.text_area :comments, :value => @activity.comments, :class => 'form-control'
-
-              .callout.callout-info
-                %p Om wijzigingen door te voeren moet je op de opslaan knop drukken.
                 
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Back', :back, { :class => 'button btn btn-default' }

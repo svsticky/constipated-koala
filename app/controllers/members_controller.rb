@@ -137,6 +137,6 @@ class MembersController < ApplicationController
                                    :join_date,
                                    :comments,
                                    :tags_name_ids => [],
-                                   educations_attributes: [ :id, :study_id, :start_date, :end_date, :_destroy ])
+                                   educations_attributes: [ :id, :study_id, :status, :start_date, :end_date, :_destroy ])
   end
 end

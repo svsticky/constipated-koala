@@ -13,3 +13,42 @@ dd span.label {
   margin-left :5px;
   padding: .2em .6em .3em;
 }
+
+#participants tr > td {
+  padding: 0px;
+  padding-left: 8px;
+}
+
+#participants tr > td > a {
+  line-height: 36px;
+  
+  height: 36px;
+  width: 100%;
+}
+
+#participants tr > td > input {
+  height: 30px;
+  line-height: 30px; 
+  
+  margin: 5px 0;
+  margin-left: 6px;
+  
+  padding: 1px;
+}
+
+#participants tr > td > .btn-group {
+  height: 30px;
+  
+  float: right;
+   
+  margin: 5px 0; 
+  margin-right: 5px;
+  padding: 0;
+}
+
+#participants tr > td > .btn-group > button{
+  height: 32px;
+  line-height: 20px;
+  
+  padding: 5px 12px;
+}

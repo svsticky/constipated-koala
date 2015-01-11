@@ -21,6 +21,7 @@
               %i.fa.fa-fw.fa-user
               Algemene gegevens
             .panel-body
+              
               .form-group
                 .row
                   .col-md-5
@@ -32,15 +33,17 @@
                   .col-md-5
                     %label{for: ''} Achternaam
                     = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
+              
               .form-group
                 .row
                   .col-md-6
                     %label{for: ''} Geslacht
-                    .ui-select{style: ' width: 200px; '}
+                    .ui-select
                       = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
                   .col-md-6
                     %label{for: ''} Geboortedatum
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+              
               .form-group
                 .row
                   .col-md-8
@@ -49,6 +52,7 @@
                   .col-md-4
                     %label{for: ''} Huisnummer
                     = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+              
               .form-group
                 .row
                   .col-md-6
@@ -57,20 +61,24 @@
                   .col-md-6
                     %label{for: ''} Woonplaats
                     = f.text_field :city, :value => @member.city, :class => 'form-control'
+              
               .form-group
                 %label{for: ''} Telefoonnummer
                 = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+              
               .form-group
                 %label{for: ''} E-mailadres
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-              .callout.callout-info
-                %p Dit kan niet een studenten email zijn!
+                .help-block Dit kan niet een uu email zijn!
+              
               .form-group
                 %label{for: ''} Tags
                 = f.select :tags, options_for_select(Tag.list, @member.tags.collect {|tag| tag.name_id}), { :include_blank => true }, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
+              
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
+                
         .col-md-6
           .panel.panel-default
             .panel-heading
@@ -79,15 +87,18 @@
             .panel-body
               .callout.callout-info
                 %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres. 
+                
         .col-md-6
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-graduation-cap
               Studiegegevens
             .panel-body
+            
               .form-group
                 %label{for: ''} Studentnummer
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
+                
               .form-group
                 %label{for: ''} 
                   Studie
@@ -98,30 +109,36 @@
                       - if !education.id.nil? && education.id > 0
                         = fs.hidden_field :id, :class => 'id' 
                       .row
-                        .col-md-4
+                      
+                        .col-md-6
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
-                        .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
+                        .col-md-6
+                          .ui-select
+                            = fs.select :status, options_for_select(Education.statusen, education.status)
+                          
+                      .row      
+                        .col-md-6
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
-                        .col-md-4{ :style => 'padding-right: 0px; width: 202px; '}                    
+                        .col-md-6
                           = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
                         = fs.hidden_field :_destroy, :class => 'destroy'
+                        
+                        
                         %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
                           %span.fa.fa-trash-o
-                .callout.callout-info
-                  %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
+
         .col-md-6
           .panel.panel-default
             .panel-heading
               %span.glyphicon.glyphicon-th
               Sticky
             .panel-body
+            
               .form-group
                 %label{for: ''} Lidmaatschap
                 = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
-              .form-group
-                %label{for: ''} Groepen
-                commissies
+                
         .col-md-12
           .panel.panel-default
             .panel-body
