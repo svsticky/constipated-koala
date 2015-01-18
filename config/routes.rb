@@ -10,17 +10,24 @@ ConstipatedKoala::Application.routes.draw do
   end
 
   constraints :subdomain => 'koala' do
-    # You can have the root of your site routed with "root"
+    
+    authenticated :user, ->(u) { !u.admin? } do
+      root to: 'users/home#index', as: :user_root
+    end
+    
     root 'admins/home#index'
 
     # No double controllers
     get 'admins/home', to: redirect('/')
+    get 'users/home',  to: redirect('/')
 
     # Devise routes
     devise_for :users, :skip => [ :registrations ], :path => '', controllers:
     {
       registrations:  'users/registrations',
-      sessions:       'users/sessions'
+      sessions:       'users/sessions',
+      passwords:      'users/passwords',
+      confirmations:  'users/confirmations'
     }
 
     # override route for user profile
@@ -48,7 +55,7 @@ ConstipatedKoala::Application.routes.draw do
       post   'participants/mail', to: 'participants#mail'  
       
       # search for member using dropdown
-      get    'search',          to: 'members#find'
+      get    'search',                to: 'members#find'
   
       # checkout urls
       get    'checkout',              to: 'checkout#index'
