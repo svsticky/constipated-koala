@@ -1,29 +1,139 @@
-!!! 5
-%html
-  %head
-    %title= content_for?(:title) ? yield(:title) : 'Constipated koala'
-    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
-    %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = stylesheet_link_tag params[:controller], media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = javascript_include_tag params[:controller], 'data-turbolinks-track' => true
-    = render 'layouts/alert.html.js'
-    = csrf_meta_tags
-  %body
-    %header.clearfix
-      .logo
-        %a{href: '/'}
-          %span Constipated koala
-      .top-nav      
-        =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm", :class => 'img-circle img30_30'
-        %span.hidden-xs
-          %span #{current_user.email }
+- content_for(:page, 'members')
+- content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
 
-        %a{href: '/sign_out', 'data-method' => :delete}
-          %i.fa.fa-sign-out
-          %span Log uit
-    %section.view-container
-      = yield
-    #toast-container.toast-bottom-right  
-      
+%section#content
+  .page{ :data => { 'authenticity_token' => form_authenticity_token}}
+    .row
+      %div
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-user
+              Algemene gegevens
+            .panel-body
+              %p
+                %strong #{@member.name} (#{@member.gender})
+                %br
+                - if !@member.birth_date.nil?
+                  = I18n.l @member.birth_date
+              %p 
+                #{@member.address} #{@member.house_number} 
+                %br
+                #{@member.postal_code} #{@member.city}
+              %p 
+                #{@member.phone_number}
+                %br
+                #{@member.email}
+         
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-ticket
+              Activiteiten
+            .panel-body
+              %table.table.table-striped.table-linked#participants
+                %thead
+                  %tr
+                    %th Activiteit
+                    %th Prijs
+                    %th.hidden-xs Datum
+                %tbody
+                  - @activities.each do |activity|
+                    %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
+                      %td= link_to "#{activity.name}", activity
+                      
+                      - if !activity.currency(@member).nil?
+                        %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                      - else
+                        %td= link_to '-', activity, :style => 'text-decoration: none;'
+                      
+                      - if !activity.start_date.nil?  
+                        - if activity.end_date.nil?
+                          %td.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
+                        - else
+                          %td.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+          
+          - if @member.checkout_cards.length > 0
+            .panel.panel-default
+              .panel-heading
+                %i.fa.fa-fw.fa-shopping-cart
+                Checkout
+              .panel-body                    
+                %table.table.table-striped.table-linked#transactions
+                  %thead
+                    %tr
+                      %th Datum
+                      %th Prijs
+                      %th.hidden-xs Kaart
+                  %tbody
+                    - @transactions.each do |transaction|
+                      %tr
+                        %td #{I18n.l transaction.created_at}
+                        %td
+                          = number_to_currency(transaction.price, :unit => '€')
+                          - if transaction.price > 0
+                            %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                          - else
+                            %span.fa.fa-sort-desc.pull-right
+                        
+                        %td.hidden-xs
+                          - if !transaction.checkout_card.nil?
+                            - if transaction.checkout_card.description.nil?  
+                              = transaction.checkout_card.uuid
+                            - else
+                              = transaction.checkout_card.description
+                          - else
+                            \-
+     
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-graduation-cap
+              Studiegegevens
+            .panel-body
+              %dl.dl-horizontal
+                %dt #
+                %dd= @member.student_id
+              %dl.dl-horizontal
+                - @member.educations.each do |education|
+                  %dt= education.study.name
+                  %dd
+                    - if education.end_date.nil?
+                      #{I18n.l education.start_date, :format => :short}
+                    - else
+                      #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
+                    
+                    - if education.graduated?
+                      %span.label.label-success geslaagd
+                    - elsif education.stopped?
+                      %span.label.label-warning gestopt
+                    - elsif education.active?
+                      %span.label.label-info studerend
+        
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-users
+              Commissies
+            .panel-body
+
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-dashboard
+              Overig
+            .panel-body
+              %dl.dl-horizontal
+                %dt Lid sinds
+                - if !@member.join_date.nil?
+                  %dd= I18n.l @member.join_date
+                
+                %dt Activiteiten
+                %dd= @member.activities.length
+                
+                %dt Tegoed
+                -if @member.checkout_cards.length > 0
+                  %dd= number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '€')
+                -else
+                  %dd -
+
+          .panel.panel-default
+            .panel-body
+              = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
