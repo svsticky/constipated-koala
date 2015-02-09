@@ -44,23 +44,28 @@ All done! Now you have the admin system and intro website running at:
  - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
  - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
 
-### A note on `rake db:migrate` tasks
+### A note on databases
 
-Do **NOT** run `rake db:migrate` *unless* you changed something to the schema. The
-schema is stored in `db/schema.rb`. `using rake db:migrate` will give this file a
-timestamp update, which is annoying.
+There used to be a section here telling you to be a bit fearful of running the
+`db:migrate` rake task. This was misinformed. For more information on this historical
+perspective you can check out issue 53.
 
-Here is a brief manual for running `rake` tasks in the `db` namespace:
+Here are the rake tasks that you will need to use in order to effectively contribute
+to this project:
 
- - **Only run `bundle exec rake db:migrate` when you have created a migration. Do NOT
-   use this command when setting up your database.**
- - Wanting to set up your dev-env? First create a database with `bundle exec rake
-   db:create`. Then use `bundle exec rake db:setup`. (This will run the subtasks
-   `db:schema:load` and `db:seed`.)
- - Messed something up? Run the task `db:reset`. (Which is an alias for `db:drop`
-   followed by `db:setup`.)
+ - When starting out, `rake db:create` will set you up with a nice development
+   database. It won't, however fill it with any tables.
+ - To create the relevant tables and seed them you can use `rake db:setup`.
+ - When there are pending migrations (database changes), `rake db:migrate` will do
+   the job nicely. Use this when you create migrations yourself or when the
+   `rake db:setup` task fails due to pending migrations (in this latter case notify
+   the maintainer and complain about bad code review).
+ - Messed something up? Run the task `db:reset`. This will drop the database, create
+   it and set it back up again.
 
-If you want to learn more, see issue #53.
+`schema.rb` is a file that describes the database schema of this application. Any
+changes to it are critical, therefore it is paramount that you check this file into
+version control.
 
 ## Contributing
 
