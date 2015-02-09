@@ -1,0 +1,6 @@
+development:
+  adapter: mysql2
+  database: koala
+  host: localhost
+  username: root
+  password:
