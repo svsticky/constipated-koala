@@ -1,6 +1,17 @@
 # Operation Constipated Koala
 
-## Dev setup
+This is the repository of the admin system of Study Association Sticky. It has been
+written in Ruby with the help of the Rails framework.
+
+Currently, it implements methods to track several things within the association:
+
+ - Members and membership
+ - Activities and payments
+ - The Operation Dead Mongoose (TM) and it's expenses
+
+There is more to be implemented :)
+
+## Development setup
 
 You will need a working package manager, and a working ruby version manager and/or
 build tools.
