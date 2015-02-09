@@ -1,0 +1,15 @@
+development:
+  adapter: mysql2
+  database: koala
+  host: localhost
+  username: root
+  password:
+  encoding: utf-8
+
+test:
+  adapter: mysql2
+  database: koala_test
+  host: localhost
+  username: root
+  password:
+  encoding: utf-8

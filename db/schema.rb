@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141116153106) do
+ActiveRecord::Schema.define(version: 20141221190631) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 20141116153106) do
   end
 
   create_table "admins", force: true do |t|
+    t.string   "first_name"
+    t.string   "infix"
+    t.string   "last_name"
+    t.text     "signature"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -177,13 +181,14 @@ ActiveRecord::Schema.define(version: 20141116153106) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "credentials_id"
-    t.string   "credentials_type"
+    t.integer  "credentials_id",                      null: false
+    t.string   "credentials_type",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["credentials_id", "credentials_type"], name: "index_users_on_credentials_id_and_credentials_type", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
