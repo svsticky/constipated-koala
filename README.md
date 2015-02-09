@@ -72,7 +72,11 @@ version control.
 
 ## Contributing
 
-## Branching strategy
+So you want to contribute? Awesome! You are most welcome to. We do however have our
+own pecularities, please try to follow them. It will be much obliged and will smoothen
+over the process greatly.
+
+### Branching strategy
 
 The history of this project includes a lot of unnecessary merge commits, which aren't
 that pretty. Currently we have a contributing procedure that needs to be followed.
@@ -86,6 +90,11 @@ This leaves us with the following workflow:
 1. Push the topic branch to GitHub when you want to show something.
 1. Open a pull request. Gather feedback. Improve the patch.
 1. Wait for the PR to be merged into `master`. Then update local history.
+
+Please make sure to write a descriptive commit message. [Here][commit-messages] you
+can find some tips for better commit messages.
+
+ [commit-messages]:http://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
 
 ### Example contributing flow
 
