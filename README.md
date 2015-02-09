@@ -91,6 +91,11 @@ This leaves us with the following workflow:
 1. Open a pull request. Gather feedback. Improve the patch.
 1. Wait for the PR to be merged into `master`. Then update local history.
 
+Please make sure to write a descriptive commit message. [Here][commit-messages] you
+can find some tips for better commit messages.
+
+ [commit-messages]:http://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
+
 ### Example contributing flow
 
 ```bash
