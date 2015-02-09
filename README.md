@@ -15,6 +15,9 @@ Install before continuing:
   [rbenv]: https://github.com/sstephenson/rbenv
   [rvm]: http://rvm.io/
 
+We use MySQL (or a compatible) both in development and production. This to minimalize
+development/production mismatches. No SQLite here.
+
 ### Running the Rails app
 
 This is how you can get started with the development setup.
