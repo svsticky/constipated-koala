@@ -1,11 +1,10 @@
 class Admins::ActivitiesController < ApplicationController
 
-  def index
-    
-    puts Date.start_studyyear
-    @activities = Activity.where("start_date >= ?", Date.start_studyyear).order(start_date: :desc)#.limit(20)
-    @detailed = (Activity.where('activities.price IS NOT NULL').joins(:participants).where(:participants => { :paid => false }).distinct \
-      + Activity.where('activities.price IS NULL').joins(:participants).where('participants.paid IS FALSE AND participants.price IS NOT NULL').distinct).sort_by(&:start_date).reverse!
+  def index    
+    @activities = Activity.where("start_date >= ?", Date.start_studyyear).order(start_date: :desc)
+
+    @detailed = (Activity.where("start_date <= ? AND activities.price IS NOT NULL", Date.today).joins(:participants).where(:participants => { :paid => false }).distinct \
+      + Activity.where("start_date <= ? AND activities.price IS NULL", Date.today).joins(:participants).where('participants.paid IS FALSE AND participants.price IS NOT NULL').distinct).sort_by(&:start_date).reverse!
     
     @activity = Activity.new
   end

@@ -34,8 +34,8 @@ ConstipatedKoala::Application.routes.draw do
     devise_scope :user do
       get   'registration/cancel',  to: 'users/registrations#cancel',   as: :cancel_registration
       
-      get   'sign_up',              to: 'users/registrations#new',      as: :new_registration      
-      post  'sign_up',              to: 'users/registrations#create',   as: :registration
+#      get   'sign_up',              to: 'users/registrations#new',      as: :new_registration      
+#      post  'sign_up',              to: 'users/registrations#create',   as: :registration
 
       get   'settings/profile',     to: 'users/registrations#edit',     as: :edit_registration
       put   'settings/profile',     to: 'users/registrations#update'

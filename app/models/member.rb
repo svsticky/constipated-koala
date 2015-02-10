@@ -101,8 +101,11 @@ class Member < ActiveRecord::Base
       return
     end
 
-    puts result_id
-    
+    if studies == 'NOT FOUND'
+      puts "#{student_id} not found"
+      return
+    end
+        
     for study in studies do
       code, start_date, status, end_date = study.split(/, /)
       
