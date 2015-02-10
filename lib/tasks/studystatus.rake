@@ -2,7 +2,7 @@ namespace :studystatus do
   require 'rest_client'
   
   desc "Update study progress using a stdin in the same format as given by studystatus"
-  task :update_from_file => :environment do 
+  task :update_from_stdin => :environment do 
     STDIN.each do |line|
       member = Member.find_by_student_id(line.split(/; /).first)
 
@@ -13,6 +13,22 @@ namespace :studystatus do
       end
     end
   end  
+
+  desc "Finds study progress for a member and updates the DB"
+  task :update, [:student_id] => :environment do |t, args|
+
+    Open3.popen3("/usr/local/bin/studystatus",
+                 "--username", args[:username],
+                 "--password", args[:password]) do |i, o, e, t|
+
+      member = Member.find_by_student_id(args[:student_id])
+
+      i.puts member.student_id
+      member.update_studies(o.gets)
+      i.close
+
+    end
+  end
   
   desc "Finds study progress for all members and updates the DB"
   task :update_all, [:username, :password] => :environment do |t, args|
@@ -20,12 +36,12 @@ namespace :studystatus do
     Open3.popen3("/usr/local/bin/studystatus",
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, e, t|
+
       Member.all.each do |member|
         i.puts member.student_id
-        output = o.gets
-        puts output
-        member.update_studies(output)
+        member.update_studies(o.gets)
       end
+
       i.close
     end
   end
