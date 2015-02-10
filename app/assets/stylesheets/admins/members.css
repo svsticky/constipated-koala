@@ -52,3 +52,27 @@ dd span.label {
   
   padding: 5px 12px;
 }
+
+div.form-group.copyable {
+  position: relative;
+}
+
+div.form-group.copyable > div.row > div.col-md-6 {
+  width: calc( 50% - 40px );
+  padding-right: 0px;
+  
+  float: left;
+}
+
+div.form-group.copyable > a.destroy {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  
+  border-color: rgb(203, 213, 221); 
+  
+  line-height: 54px;
+  
+  height: 68px;
+  width: 48px;
+}

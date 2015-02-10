@@ -56,16 +56,18 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            Deelnemers
+            %span.number= @activity.participants.count
+            deelnemers
+            
           %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
               - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
                 %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id, :email => participant.member.email }  }
-                  %td.col-md-8= link_to "#{participant.member.name}", participant.member                    
+                  %td= link_to "#{participant.member.name}", participant.member                    
 
-                  %td.col-md-2
+                  %td{ :style => 'padding: 0px; min-width: 60%; width: 25%;' }
                     %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
-                  %td.col-md-2
+                  %td.buttons
                     .btn-group
                       - if participant.paid
                         %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
@@ -75,13 +77,14 @@
                           %i.fa.fa-fw.fa-times
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o
+                        
               %tr
-                %td.col-md-8{ :style => 'position: relative;'}
+                %td{ :style => 'position: relative;'}
                   %input#participant.col-md-11{ :style => 'margin-left: -3px;', :tabindex => '-1' }
                   %ul.dropdown-menu.col-md-11
-                %td.col-md-2
+                %td{ :style => 'text-align: left;' }
                   - if !@activity.price.nil?
                     %span{ :style => 'line-height: 39px; margin-left: 8px;' }= number_to_currency(@activity.price, :unit => '€')
                   - else
-                    %span{ :style => 'line-height: 39px; margin-left: 8px;' } -
-                %td.col-md-2      
+                    %span{ :style => 'line-height: 39px; margin-left: 8px;' } -      
+                %td

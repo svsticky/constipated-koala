@@ -81,6 +81,7 @@ function bind_activities(){
     }).done(function(){
       alert($(row).find('a').html() + ' verwijderd', 'warning');
       $(row).remove();
+      $('.number').html( $('.number').html() -1 );
       
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
     }).fail(function(){
@@ -148,8 +149,10 @@ $(document).on( 'ready page:load', function(){
         }
       }).done(function( data ){                          
         var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, data.email, data.price || '');
+        var activity = template.format(data.id, data.member_id, name, data.email, parseFloat(data.price).toFixed(2) || '');
         var added = $(activity).insertBefore('#participants table tr:last');
+        
+        $('.number').html( +$('.number').html() +1 );
         
         if(data.price > 0)    
           $(added).addClass( 'red' );

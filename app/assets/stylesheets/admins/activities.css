@@ -11,13 +11,28 @@
 }
 
 #participants tr > td > input {
-  height: 30px;
-  line-height: 30px; 
+  height: 32px;
+  width: 100%;
+  
+  line-height: 32px; 
   
   margin: 5px 0;
-  margin-left: 6px;
-  
   padding: 1px;
+}
+
+#participants tr > td {
+  width: calc( 60% - 50px );
+}
+
+#participants tr > td:nth-child(2) {
+  width: calc( 40% - 50px );
+  
+  padding-right: 5%;
+  text-align: right;
+}
+
+#participants tr > td.buttons {
+  width: 100px;
 }
 
 #participants tr > td > .btn-group {

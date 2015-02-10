@@ -65,7 +65,6 @@ class Admins::MembersController < ApplicationController
 
     if @member.update(member_post_params)
       
-      
       #door de tags heen loopen
       Tag.list.each_with_index do | tag, i |
       

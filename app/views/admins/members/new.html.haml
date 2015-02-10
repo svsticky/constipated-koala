@@ -87,16 +87,25 @@
                   = f.fields_for 'educations_attributes[]', education do |fs|
                     .form-group.copyable
                       .row
-                        .col-md-4
+                      
+                        .col-md-6
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
-                        .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
+                        .col-md-6
+                          .ui-select
+                            = fs.select :status, options_for_select(Education.statusen, education.status)
+                          
+                      .row      
+                        .col-md-6
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
-                        .col-md-4{ :style => 'padding-right: 0px; width: 202px; '}                    
+                        .col-md-6
                           = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
                         = fs.hidden_field :_destroy, :class => 'destroy'
+                        
+                        
                         %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
                           %span.fa.fa-trash-o
+
                 .callout.callout-info
                   %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
         .col-md-6
