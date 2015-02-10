@@ -6,7 +6,7 @@
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
-      .col-md-6
+      .col-md-6.hidden-xs
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-ticket
@@ -23,12 +23,13 @@
                   - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
                     - if !participant.currency.nil?
                       %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id, :email => participant.member.email }  }
-                        %td.col-md-8= link_to "#{participant.member.name}", participant.member
+                        %td= link_to "#{participant.member.name}", participant.member
                 
                         - if !participant.currency.nil?
-                          %td.col-md-2
+                          %td
                             %span{ :style => 'line-height: 39px;' }= number_to_currency(participant.currency, :unit => '€')
-                        %td.col-md-2
+                            
+                        %td.buttons
                           .btn-group
                             - if participant.paid
                               %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}

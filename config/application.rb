@@ -27,7 +27,8 @@ module ConstipatedKoala
 	    Devise::UnlocksController.layout false            
 	    Devise::PasswordsController.layout false   
 	    
-	    PublicController.layout false     
+	    Users::PublicController.layout false
+	    Users::HomeController.layout 'layouts/application.members'
 	  end
   end
 end

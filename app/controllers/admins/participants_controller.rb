@@ -1,4 +1,4 @@
-class ParticipantsController < ApplicationController  
+class Admins::ParticipantsController < ApplicationController  
   respond_to :json
   
   def list

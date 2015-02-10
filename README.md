@@ -1,6 +1,17 @@
 # Operation Constipated Koala
 
-## Dev setup
+This is the repository of the admin system of Study Association Sticky. It has been
+written in Ruby with the help of the Rails framework.
+
+Currently, it implements methods to track several things within the association:
+
+ - Members and membership
+ - Activities and payments
+ - The Operation Dead Mongoose (TM) and it's expenses
+
+There is more to be implemented :)
+
+## Development setup
 
 You will need a working package manager, and a working ruby version manager and/or
 build tools.
@@ -14,6 +25,9 @@ Install before continuing:
 
   [rbenv]: https://github.com/sstephenson/rbenv
   [rvm]: http://rvm.io/
+
+We use MySQL (or a compatible) both in development and production. This to minimalize
+development/production mismatches. No SQLite here.
 
 ### Running the Rails app
 
@@ -44,29 +58,91 @@ All done! Now you have the admin system and intro website running at:
  - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
  - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
 
-### A note on `rake db:migrate` tasks
+### A note on databases
 
-Do **NOT** run `rake db:migrate` *unless* you changed something to the schema. The
-schema is stored in `db/schema.rb`. `using rake db:migrate` will give this file a
-timestamp update, which is annoying.
+There used to be a section here telling you to be a bit fearful of running the
+`db:migrate` rake task. This was misinformed. For more information on this historical
+perspective you can check out issue 53.
 
-Here is a brief manual for running `rake` tasks in the `db` namespace:
+Here are the rake tasks that you will need to use in order to effectively contribute
+to this project:
 
- - **Only run `bundle exec rake db:migrate` when you have created a migration. Do NOT
-   use this command when setting up your database.**
- - Wanting to set up your dev-env? First create a database with `bundle exec rake
-   db:create`. Then use `bundle exec rake db:setup`. (This will run the subtasks
-   `db:schema:load` and `db:seed`.)
- - Messed something up? Run the task `db:reset`. (Which is an alias for `db:drop`
-   followed by `db:setup`.)
+ - When starting out, `rake db:create` will set you up with a nice development
+   database. It won't, however fill it with any tables.
+ - To create the relevant tables and seed them you can use `rake db:setup`.
+ - When there are pending migrations (database changes), `rake db:migrate` will do
+   the job nicely. Use this when you create migrations yourself or when the
+   `rake db:setup` task fails due to pending migrations (in this latter case notify
+   the maintainer and complain about bad code review).
+ - Messed something up? Run the task `db:reset`. This will drop the database, create
+   it and set it back up again.
 
-If you want to learn more, see issue #53.
+`schema.rb` is a file that describes the database schema of this application. Any
+changes to it are critical, therefore it is paramount that you check this file into
+version control.
 
 ## Contributing
 
-For new features, create a new branch starting with `feature/` in this way the
-features will be grouped. After developing and testing the feature locally request a
-pull request and the feature will be merged with the master branch.
+So you want to contribute? Awesome! You are most welcome to. We do however have our
+own pecularities, please try to follow them. It will be much obliged and will smoothen
+over the process greatly.
+
+### Branching strategy
+
+The history of this project includes a lot of unnecessary merge commits, which aren't
+that pretty. Currently we have a contributing procedure that needs to be followed.
+
+Rest assured it is easy. It is based on one simple rule: **Only @martijncasteel is
+allowed to push to `master`.** And he should only do that in case of a merge conflict.
+
+This leaves us with the following workflow:
+
+1. Want to work on something? Create a topic branch.
+1. Push the topic branch to GitHub when you want to show something.
+1. Open a pull request. Gather feedback. Improve the patch.
+1. Wait for the PR to be merged into `master`. Then update local history.
+
+Please make sure to write a descriptive commit message. [Here][commit-messages] you
+can find some tips for better commit messages.
+
+ [commit-messages]:http://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
+
+### Example contributing flow
+
+```bash
+# Create and checkout a new branch for the contribution
+$ git checkout -b doc/contributing-guidelines
+# Make your changes
+$ vim README.md
+# Commit changes
+$ git add . && git commit -m "Draft contributing guidelines"
+# Push the branch to GitHub
+$ git push origin doc/contributing-guidelines
+```
+
+Now open a pull request and wait for feedback. If you need to make any more changes,
+simply create new commits and push these to GitHub.
+
+When the feature is merged by @martijncasteel, you can get the changes by pulling
+from GitHub.
+
+```bash
+# Make sure we're on master
+$ git checkout master
+# Get the changes from GitHub, this should NEVER, EVER introduce a merge conflict
+$ git pull origin master
+```
+
+### Branch naming
+
+Try to be descriptive. Use the following prefixes for the names depending on the type
+of work:
+
+ - `feature/` for new features.
+ - `bug/` for bugfixes.
+ - `doc/` for documentation.
+ - `test/` for testing.
+ - `debt/` for refactoring and enhancements.
 
 ## License
 

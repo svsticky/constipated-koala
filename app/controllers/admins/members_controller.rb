@@ -1,5 +1,4 @@
-class MembersController < ApplicationController
-  skip_before_action :authenticate_admin!, only: [:show]
+class Admins::MembersController < ApplicationController
   respond_to :json, only: [:find]
   
   def index
@@ -28,14 +27,8 @@ class MembersController < ApplicationController
   end
 
   def show
-    if current_user.admin?
-      @member = Member.find(params[:id])
-    else
-      @member = Member.find(current_user.credentials_id)
-    end
-    
+    @member = Member.find(params[:id])    
     @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
-   
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(10)
   end
 
@@ -71,7 +64,6 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     if @member.update(member_post_params)
-      
       
       #door de tags heen loopen
       Tag.list.each_with_index do | tag, i |
@@ -137,6 +129,6 @@ class MembersController < ApplicationController
                                    :join_date,
                                    :comments,
                                    :tags_name_ids => [],
-                                   educations_attributes: [ :id, :study_id, :start_date, :end_date, :_destroy ])
+                                   educations_attributes: [ :id, :study_id, :status, :start_date, :end_date, :_destroy ])
   end
 end

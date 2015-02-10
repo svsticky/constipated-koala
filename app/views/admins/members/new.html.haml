@@ -1,10 +1,10 @@
 - content_for(:page, 'members')
-- content_for(:title, "Constipated koala | leden | #{@member.name}")
+- content_for(:title, 'Constipated koala | leden')
 
 %section#content
   .page.page-form
     .row
-      = form_for :member, url: member_path(@member), method: :patch, :class => 'form-validation' do |f|
+      = form_for :member, url: members_path, method: :post, :class => 'form-validation' do |f|
       
         - if @member.errors.any?
           .col-md-12
@@ -63,22 +63,13 @@
               .form-group
                 %label{for: ''} E-mailadres
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-              .callout.callout-info
-                %p Dit kan niet een studenten email zijn!
-              .form-group
-                %label{for: ''} Tags
-                = f.select :tags, options_for_select(Tag.list, @member.tags.collect {|tag| tag.name_id}), { :include_blank => true }, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
+              /
+                .form-group
+                  %label{for: ''} Tags
+                  = f.select :tags, Tag.list, {:include_blank => true}, :multiple => true, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-image
-              Profielfoto
-            .panel-body
-              .callout.callout-info
-                %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres. 
         .col-md-6
           .panel.panel-default
             .panel-heading
@@ -95,19 +86,26 @@
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
                     .form-group.copyable
-                      - if !education.id.nil? && education.id > 0
-                        = fs.hidden_field :id, :class => 'id' 
                       .row
-                        .col-md-4
+                      
+                        .col-md-6
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
-                        .col-md-4{ :style => 'padding-left: 0px; padding-right: 0px; width: 202px;'}
+                        .col-md-6
+                          .ui-select
+                            = fs.select :status, options_for_select(Education.statusen, education.status)
+                          
+                      .row      
+                        .col-md-6
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
-                        .col-md-4{ :style => 'padding-right: 0px; width: 202px; '}                    
+                        .col-md-6
                           = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
                         = fs.hidden_field :_destroy, :class => 'destroy'
+                        
+                        
                         %a.btn.btn-default.destroy{ :type => 'button', :style => 'margin-left: 15px; border-color: rgb(203, 213, 221); height: 34px;width: 38px;'}
                           %span.fa.fa-trash-o
+
                 .callout.callout-info
                   %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
         .col-md-6
@@ -126,5 +124,4 @@
           .panel.panel-default
             .panel-body
               %button.btn.btn-success{type: 'submit'} Opslaan
-              = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
-              = link_to 'Verwijderen', member_path(@member.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+              = link_to 'Annuleren', members_path, { :class => 'button btn btn-default' }

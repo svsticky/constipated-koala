@@ -105,20 +105,15 @@ $(document).on('ready page:load', function(){
       id = +id - 1;
     else
       id = -1;
-      
-    //if removed set new one to be active
-    $( row ).find('input').removeAttr('disabled');
-    $( row ).find('select').removeAttr('disabled').removeAttr('style');
-    $( row ).find('input.destroy').val("false")
-    $( row ).find('a.btn.destroy').html("<span class='fa fa-trash-o'></span>");
-    destroy();
 
     //replace all inputs and select name and id?
     $(row).find('input').each(function() {
       $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
     });
     
-    $(row).find('select').val('').attr("name", $(row).find('select').attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
+    $(row).find('select').each(function() {
+      $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
+    });
   });
   
   function destroy(){

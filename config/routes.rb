@@ -1,23 +1,33 @@
 ConstipatedKoala::Application.routes.draw do
+  
   constraints :subdomain => 'intro' do
-    get  '/', to: 'public#index', as: 'public'
-    post '/', to: 'public#create'
-
-    get 'confirm', to: 'public#confirm'
+    scope module: 'users' do
+      get  '/', to: 'public#index', as: 'public'
+      post '/', to: 'public#create'
+  
+      get 'confirm', to: 'public#confirm'
+    end
   end
 
   constraints :subdomain => 'koala' do
-    # You can have the root of your site routed with "root"
-    root 'home#index'
+    
+    authenticated :user, ->(u) { !u.admin? } do
+      root to: 'users/home#index', as: :user_root
+    end
+    
+    root 'admins/home#index'
 
     # No double controllers
-    get 'home', to: redirect('/')
+    get 'admins/home', to: redirect('/')
+    get 'users/home',  to: redirect('/')
 
     # Devise routes
     devise_for :users, :skip => [ :registrations ], :path => '', controllers:
     {
       registrations:  'users/registrations',
-      sessions:       'users/sessions'
+      sessions:       'users/sessions',
+      passwords:      'users/passwords',
+      confirmations:  'users/confirmations'
     }
 
     # override route for user profile
@@ -32,31 +42,32 @@ ConstipatedKoala::Application.routes.draw do
       patch 'settings/profile',     to: 'users/registrations#update'
     end
 
-    # Resource pages
-    resources :members, :activities
-
-    # Participants routes for JSON calls
-    get    'participants/list', to: 'participants#list'
-    get    'participants',      to: 'participants#find'
-    post   'participants',      to: 'participants#create'
-    patch  'participants',      to: 'participants#update'
-    delete 'participants',      to: 'participants#destroy'
-    post   'participants/mail', to: 'participants#mail'  
-    
-    # search for member using dropdown
-    get    'search',          to: 'members#find'
-
-    # checkout urls
-    get    'checkout',              to: 'checkout#index'
-    
-    patch  'checkout/card',         to: 'checkout#activate_card'
-    patch  'checkout/transaction',  to: 'checkout#change_funds'  
-    
-    # api routes, own authentication
-    get    'checkout/card',         to: 'checkout#information_for_card'
-    post   'checkout/card',         to: 'checkout#add_card_to_member'
-    post   'checkout/transaction',  to: 'checkout#subtract_funds'
-
+    scope module: 'admins' do
+      # Resource pages
+      resources :members, :activities
+  
+      # Participants routes for JSON calls
+      get    'participants/list', to: 'participants#list'
+      get    'participants',      to: 'participants#find'
+      post   'participants',      to: 'participants#create'
+      patch  'participants',      to: 'participants#update'
+      delete 'participants',      to: 'participants#destroy'
+      post   'participants/mail', to: 'participants#mail'  
+      
+      # search for member using dropdown
+      get    'search',                to: 'members#find'
+  
+      # checkout urls
+      get    'checkout',              to: 'checkout#index'
+      
+      patch  'checkout/card',         to: 'checkout#activate_card'
+      patch  'checkout/transaction',  to: 'checkout#change_funds'  
+      
+      # api routes, own authentication
+      get    'checkout/card',         to: 'checkout#information_for_card'
+      post   'checkout/card',         to: 'checkout#add_card_to_member'
+      post   'checkout/transaction',  to: 'checkout#subtract_funds'
+    end
   end
 
   get '/', to: redirect('/404')

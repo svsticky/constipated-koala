@@ -25,6 +25,7 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
     
     @variables = @participants.map{ |participant| "\"#{participant.member.email}\" : { \"name\": \"#{participant.member.name}\", \"first_name\": \"#{participant.member.first_name}\", \"price\": \"#{ActionController::Base.helpers.number_to_currency(participant.currency, :unit => '€')}\" }"}.join(', ')
     
+    @recipients.push( sender )
     return mail(@recipients, @variables, sender, activity.name, subject, html, text)
   end
   
@@ -38,7 +39,7 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
     @response = RestClient.post "https://api:#{ConstipatedKoala::Application.config.mailgun}@api.mailgun.net/v2/stickyutrecht.nl/messages",
       :from => sender,
       
-      :to => recipients.push( sender ),
+      :to => recipients,
       'recipient-variables' => "{#{variables.to_s}}",
       
       :subject => subject,

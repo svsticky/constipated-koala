@@ -1,0 +1,78 @@
+.table span.fa-sort-asc {
+  color: green;
+  
+  position: relative;
+  top: 6px;
+}
+
+.table span.fa-sort-desc {
+  color: red;
+}
+
+dd span.label {
+  margin-left :5px;
+  padding: .2em .6em .3em;
+}
+
+#participants tr > td {
+  padding: 0px;
+  padding-left: 8px;
+}
+
+#participants tr > td > a {
+  line-height: 36px;
+  
+  height: 36px;
+  width: 100%;
+}
+
+#participants tr > td > input {
+  height: 30px;
+  line-height: 30px; 
+  
+  margin: 5px 0;
+  margin-left: 6px;
+  
+  padding: 1px;
+}
+
+#participants tr > td > .btn-group {
+  height: 30px;
+  
+  float: right;
+   
+  margin: 5px 0; 
+  margin-right: 5px;
+  padding: 0;
+}
+
+#participants tr > td > .btn-group > button{
+  height: 32px;
+  line-height: 20px;
+  
+  padding: 5px 12px;
+}
+
+div.form-group.copyable {
+  position: relative;
+}
+
+div.form-group.copyable > div.row > div.col-md-6 {
+  width: calc( 50% - 40px );
+  padding-right: 0px;
+  
+  float: left;
+}
+
+div.form-group.copyable > a.destroy {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  
+  border-color: rgb(203, 213, 221); 
+  
+  line-height: 54px;
+  
+  height: 68px;
+  width: 48px;
+}
