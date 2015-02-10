@@ -94,6 +94,12 @@ Study.create(
   masters:        true
 )
 
+Admin.create(
+  email:                 "admin@example.com",
+  password:              "adminadmin",
+  password_confirmation: "adminadmin"
+)
+
 # Suppress exception for the unique key [member, activity]
 suppress(Exception) do
   200.times do
