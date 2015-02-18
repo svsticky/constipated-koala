@@ -52,6 +52,7 @@ class Admins::ActivitiesController < ApplicationController
                                       :start_date,
                                       :end_date,
                                       :comments,
-                                      :price)
+                                      :price,
+                                      :poster)
   end
 end

@@ -64,6 +64,80 @@
   color: #767676;
 }
 
+@media (min-width: 768px) {
+  form .form-group {
+    width: calc(100% - 230px);
+    position: relative;
+    left: 230px;
+  }
+  
+  form .form-group:nth-child(1){
+    width: 100%;
+    left: 0px;
+  }
+  
+  .panel-body {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .drop-box {
+    position: absolute;
+    
+    top: 112px;
+    left: 15px;
+    
+    padding: 0px;
+    overflow: hidden;
+    
+    height: calc(100% - 176px);
+    width: 200px;
+  }
+  
+  .drop-box:hover {
+    border-color: #AAA;
+  }
+  
+  .drop-box label {
+    margin-top: 60px;
+  }
+  
+  .drop-box strong {
+    cursor: pointer;
+  }
+  
+  .drop-box p.remove {
+    display: none;
+    visibility: hidden;
+  }
+  
+  .drop-box:hover p.remove, .drop-box p.remove:hover {
+    position: absolute;
+    bottom: 20px;
+    
+    visibility: visible;
+    
+    width: 100%;
+    text-align: center;
+    
+    color: red;
+  }
+  
+  .drop-box p.remove:hover {
+    color: #bd0000;
+  }
+  
+  .drop-box input {
+    position: absolute;
+    visibility: hidden;
+  }
+  
+  .drop-box img {
+    width: 100%;
+  }
+}
+
+
 #mail > #textarea, #mail > textarea#html {
   font-family: arial;
   font-size: medium;

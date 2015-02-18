@@ -18,6 +18,10 @@ gem 'rest-client'
 # Gem voor html5 stubs met form features
 gem 'modernizr-rails'
 
+# Paperclip easy file upload to S3
+gem 'aws-sdk'
+gem 'paperclip'
+
 # Use mysql as the production database
 gem 'mysql2'
 

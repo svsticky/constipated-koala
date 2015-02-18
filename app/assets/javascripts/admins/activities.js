@@ -170,5 +170,45 @@ $(document).on( 'ready page:load', function(){
       });
   });
   
+  // Prevent opening file in browser
+  $(document).on('dragover drop', function(e) {
+    e.preventDefault();
+  });
+  
+  // Drop file into input field
+  $('form .drop-box').on('drop', function(e) {
+    $('form .drop-box input[type="file"]').prop('files', e.originalEvent.dataTransfer.files);
+    $('form .drop-box label, form .drop-box p').css('display', 'none');
+  });
+
+  $('form .drop-box strong').on('click', function() {  
+    alert('test');
+  });
+  
+  // Load image as preview
+  $('form .drop-box input').on('change', function(){
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      
+      reader.onload = function (e) {
+          $('form .drop-box img').attr('src', e.target.result);
+          $('form .drop-box p.remove').show();
+      }
+      
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+  
+  // Reset the drop file input
+  $('form .drop-box p.remove').on('click', function(){
+    $('form .drop-box label, form .drop-box p').css('display', 'block');
+    
+    // Two ugly fixes
+    $('form .drop-box input[type="file"]').replaceWith('<input id="activity_poster" name="activity[poster]" type="file">');
+    $('form .drop-box img').replaceWith('<img src="">');
+    
+    $('form .drop-box p.remove').hide();
+  });
+  
   $('form#mail').mail();
 });
