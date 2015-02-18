@@ -1,0 +1,11 @@
+-# This partial renders a nav_item. It allows for 4 variables:
+-#
+-#    name               - Name given to the partial.
+-#    url (optional)     - Optional URL. If absent, it uses the name.
+-#    icon               - Name of the FA icon used in the span.
+-#    color              - Name of the background color of the icon.
+%li{ class: ('active' if yield(:page) == name) }
+  %a{ :href => (defined? url) ? url : ('/' + name) }
+    %span= name.titleize
+    %i.fa{ class: 'fa-' + icon }
+      %span.icon-bg{ class: 'bg-' + color }
