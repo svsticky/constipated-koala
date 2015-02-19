@@ -1,0 +1,13 @@
+-# This partial renders a nav_item. It takes three arguments:
+-#
+-#    name               - Name of the page
+-#    icon               - Font Awesome icon used
+-#    color              - Background color of the icon
+%li{ class: ('active' if yield(:page) == name) }
+  = link_to '/' + name do
+    %span= name.titleize
+    %i.fa{ class: 'fa-' + icon }
+      %span.icon-bg{ class: 'bg-' + color }
+  - if defined? body
+    %ul.sub-nav{ class: ('active' if yield(:page) == name)}
+      = body

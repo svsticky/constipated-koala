@@ -1,0 +1,10 @@
+%aside#nav-container{role: 'navigation'}
+  #nav-wrapper.navbar.navbar-default
+    %ul#nav{'data-collapse-nav' => '',
+      'data-slim-scroll' => '', 'data-highlight-active' => '' }
+      = nav_item name: 'home', icon: 'desktop', color: 'danger'
+      = nav_item name: 'members', icon: 'user', color: 'orange'
+      = nav_item name: 'activities', icon: 'ticket', color: 'success'
+      = nav_item name: 'checkout', icon: 'shopping-cart', color: 'info'
+      -# This would be the way to do a subitem:
+        -#= nav_subitem name: 'test', url: 'testerdetest'

@@ -1,0 +1,8 @@
+-# This partial renders an item in the subnavigation menu. It takes two arguments:
+-#
+-#    name              - Name of the page
+-#    url               - URL to link to
+%li{ :class => ('active' if yield(:page).split('@',2).second == name) }
+  = link_to url do
+    %i.fa.fa-caret-right
+    %span= name.titleize
