@@ -39,7 +39,7 @@ ConstipatedKoala::Application.configure do
     :s3_credentials => {
       :bucket => 'sticky-posters'
     },
-    :path => '/:class/:id/:attachment/:style',
+    :path => '/:class/:id/:style',
     :s3_protocol => 'https',
     :url => ':s3_domain_url',
     :s3_permissions => {
