@@ -21,7 +21,7 @@ class Admins::ActivitiesController < ApplicationController
   end
 
   def create
-    @activity = Activity.new(activity_post_params)
+    @activity = Activity.new(activity_post_params.except(:_destroy))
 
     if(@activity.start_date == @activity.end_date)
       @activity.end_date = nil
