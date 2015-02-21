@@ -1,4 +1,10 @@
 class Admins::ActivitiesController < ApplicationController
+  protect_from_forgery except: [:list]
+  
+  skip_before_action :authenticate_user!, only: [:list]
+  skip_before_action :authenticate_admin!, only: [:list]
+  
+  respond_to :json, only: :list
 
   def index    
     @activities = Activity.where("start_date >= ?", Date.start_studyyear).order(start_date: :desc)
@@ -57,6 +63,11 @@ class Admins::ActivitiesController < ApplicationController
 
 		redirect_to activities_path
 	end
+	
+	def list
+    render :status => :ok, :json => Activity.where('start_date > ?', Date.today).select(:id, :name, :description, :start_date, :end_date, :poster_updated_at)\
+      .map{ |item| (item.attributes.merge({ :poster => Activity.find(item.id).poster.url(:medium) }) if !item.poster_updated_at.nil?)}.compact.to_json
+  end
   
   private
   def activity_post_params
