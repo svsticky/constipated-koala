@@ -82,4 +82,17 @@ ConstipatedKoala::Application.configure do
   # Custom configuration
   config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
   config.checkout = '12'
+  
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'sticky-posters'
+    },
+    :path => '/:class/:id/:attachment/:style',
+    :s3_protocol => 'https',
+    :url => ':s3_domain_url',
+    :s3_permissions => {
+      :original => :private
+    }
+  }
 end

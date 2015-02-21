@@ -149,7 +149,6 @@ ActiveRecord::Schema.define(version: 20150218182753) do
     t.string  "name"
     t.string  "code"
     t.boolean "masters"
-    t.boolean "active"
   end
 
   create_table "tags", force: true do |t|

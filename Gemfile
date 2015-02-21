@@ -19,8 +19,8 @@ gem 'rest-client'
 gem 'modernizr-rails'
 
 # Paperclip easy file upload to S3
-gem 'aws-sdk'
 gem 'paperclip'
+gem 'aws-sdk', '~> 1.5.7'
 
 # Use mysql as the production database
 gem 'mysql2'

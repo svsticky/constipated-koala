@@ -37,14 +37,6 @@ suppress(Exception) do
   end
 end
 
-12.times do
-  Activity.create(
-    name:         Faker::Commerce.department,
-    price:        Faker::Commerce.price,
-    start_date:   Faker::Business.credit_card_expiry_date
-  )
-end
-
 Study.create(
   id:             1,
   name:           "Informatica",
@@ -93,6 +85,14 @@ Study.create(
   code:           "GMT",
   masters:        true
 )
+
+12.times do
+  Activity.create(
+    name:         Faker::Commerce.department,
+    price:        Faker::Commerce.price,
+    start_date:   Faker::Business.credit_card_expiry_date
+  )
+end
 
 # Suppress exception for the unique key [member, activity]
 suppress(Exception) do

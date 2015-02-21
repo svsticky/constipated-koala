@@ -4,8 +4,8 @@ class Activity < ActiveRecord::Base
 #  validates :end_date
 #  validates :description
   
-  has_attached_file :poster, :styles => { :thumb => ['200', :jpg], :original => '100%' }, :storage => :s3, :s3_credentials => 'TODO'
-#  validates_attachment_content_type :poster, :content_type => 'application/pdf'
+  has_attached_file :poster, :styles => { :thumb => ['180', :png], :medium => ['x720', :png], :original => '100%' }
+  validates_attachment_content_type :poster, :content_type => 'application/pdf'
 #  validates_attachment_size
 
   has_many :participants, :dependent => :destroy

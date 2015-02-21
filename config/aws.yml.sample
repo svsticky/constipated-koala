@@ -1,0 +1,11 @@
+development:
+  access_key_id: THISISATEST
+  secret_access_key: ANDTHISISATESTKEY
+  
+staging:
+  access_key_id: THISISATEST
+  secret_access_key: ANDTHISISATESTKEY
+    
+production:
+  access_key_id: THISISATEST
+  secret_access_key: ANDTHISISATESTKEY

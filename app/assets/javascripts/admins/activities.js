@@ -1,5 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+//
+//= require bootstrap-file-input
 
 function bind_activities(){
   //reset all binds
@@ -169,45 +171,28 @@ $(document).on( 'ready page:load', function(){
         alert( 'Deze persoon is al toegevoegd', 'warning' );
       });
   });
-  
-  // Prevent opening file in browser
-  $(document).on('dragover drop', function(e) {
-    e.preventDefault();
-  });
-  
-  // Drop file into input field
-  $('form .drop-box').on('drop', function(e) {
-    $('form .drop-box input[type="file"]').prop('files', e.originalEvent.dataTransfer.files);
-    $('form .drop-box label, form .drop-box p').css('display', 'none');
-  });
 
-  $('form .drop-box strong').on('click', function() {  
-    alert('test');
-  });
-  
-  // Load image as preview
-  $('form .drop-box input').on('change', function(){
-    if (this.files && this.files[0]) {
-      var reader = new FileReader();
-      
-      reader.onload = function (e) {
-          $('form .drop-box img').attr('src', e.target.result);
-          $('form .drop-box p.remove').show();
-      }
-      
-      reader.readAsDataURL(this.files[0]);
+  $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
+    if( this.files && this.files[0] ){
+      $('form .input-group-btn .dropdown-toggle').removeClass('disabled');  
+      $('form input.remove_poster').val('false');
+      $('form .input-group output').val(this.files[0].name);
+
+      //TODO what todo with the preview, also what do as default
     }
   });
+
+  $('form .input-group-btn a.remove').on('click', function(){
+    $('form .input-group-btn .dropdown-toggle').addClass('disabled');  
+    $('form .input-group output').val('');
+    $('form input.remove_poster').val('true');
+    
+    $('form .file-input-wrapper input[type="file"]').val(null)
+    $('form .thumb img').remove();
+  });
   
-  // Reset the drop file input
-  $('form .drop-box p.remove').on('click', function(){
-    $('form .drop-box label, form .drop-box p').css('display', 'block');
-    
-    // Two ugly fixes
-    $('form .drop-box input[type="file"]').replaceWith('<input id="activity_poster" name="activity[poster]" type="file">');
-    $('form .drop-box img').replaceWith('<img src="">');
-    
-    $('form .drop-box p.remove').hide();
+  $('form').on('submit', function(){
+    $( this ).find('button[type="submit"].wait').addClass('disabled');
   });
   
   $('form#mail').mail();

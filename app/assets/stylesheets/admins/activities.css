@@ -65,75 +65,41 @@
 }
 
 @media (min-width: 768px) {
-  form .form-group {
-    width: calc(100% - 230px);
+  form .form-group.poster {
+    width: calc(100% - 210px);
     position: relative;
-    left: 230px;
+    left: 210px;
   }
   
-  form .form-group:nth-child(1){
-    width: 100%;
-    left: 0px;
-  }
-  
-  .panel-body {
+  form .panel-body {
     position: relative;
-    overflow: hidden;
   }
   
-  .drop-box {
+  form .droparea {
     position: absolute;
     
-    top: 112px;
-    left: 15px;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 55px;
     
-    padding: 0px;
-    overflow: hidden;
+    border: 2px dashed #767676;
     
-    height: calc(100% - 176px);
-    width: 200px;
-  }
-  
-  .drop-box:hover {
-    border-color: #AAA;
-  }
-  
-  .drop-box label {
-    margin-top: 60px;
-  }
-  
-  .drop-box strong {
-    cursor: pointer;
-  }
-  
-  .drop-box p.remove {
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.7);
+    
     display: none;
-    visibility: hidden;
   }
   
-  .drop-box:hover p.remove, .drop-box p.remove:hover {
+  form .thumb {
     position: absolute;
-    bottom: 20px;
+    top: 96px;
     
-    visibility: visible;
+    height: 255px;
+    width: 180px;
     
-    width: 100%;
-    text-align: center;
-    
-    color: red;
-  }
-  
-  .drop-box p.remove:hover {
-    color: #bd0000;
-  }
-  
-  .drop-box input {
-    position: absolute;
-    visibility: hidden;
-  }
-  
-  .drop-box img {
-    width: 100%;
+    border: solid 1px #cbd5dd;
+    overflow: hidden;
   }
 }
 
