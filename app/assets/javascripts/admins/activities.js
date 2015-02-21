@@ -1,5 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+//
+//= require bootstrap-file-input
 
 function bind_activities(){
   //reset all binds
@@ -168,6 +170,29 @@ $(document).on( 'ready page:load', function(){
       }).fail(function(){                    
         alert( 'Deze persoon is al toegevoegd', 'warning' );
       });
+  });
+
+  $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
+    if( this.files && this.files[0] ){
+      $('form .input-group-btn .dropdown-toggle').removeClass('disabled');  
+      $('form input.remove_poster').val('false');
+      $('form .input-group output').val(this.files[0].name);
+
+      //TODO what todo with the preview, also what do as default
+    }
+  });
+
+  $('form .input-group-btn a.remove').on('click', function(){
+    $('form .input-group-btn .dropdown-toggle').addClass('disabled');  
+    $('form .input-group output').val('');
+    $('form input.remove_poster').val('true');
+    
+    $('form .file-input-wrapper input[type="file"]').val(null)
+    $('form .thumb img').remove();
+  });
+  
+  $('form').on('submit', function(){
+    $( this ).find('button[type="submit"].wait').addClass('disabled');
   });
   
   $('form#mail').mail();
