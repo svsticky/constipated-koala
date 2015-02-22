@@ -21,3 +21,4 @@
 
 # Ignore precompiles assets
 /public/assets
+aws.yml
