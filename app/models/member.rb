@@ -74,12 +74,16 @@ class Member < ActiveRecord::Base
     self.join_date = Time.new
   end
 
-  def self.search(query)
+  def self.search(query, active = true)    
     if query.is_number?
       return Member.where("student_id like ?", "%#{query}%")
     end
     
-    # change zodat de scores benaderbaar zijn en nog kan filteren op study onder andere
+    active = active.to_b if active.is_a? String
+    
+    if active
+      return Member.where( :id => Education.select(:member_id).where('status = 0') ).find_by_fuzzy_query(query, :limit => 20)
+    end
     return Member.find_by_fuzzy_query(query, :limit => 20)
   end
   

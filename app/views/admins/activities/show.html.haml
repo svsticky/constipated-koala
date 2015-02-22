@@ -54,7 +54,7 @@
                   .col-md-12
                     = label(:activity, :poster)
                     .input-group
-                      %output.form-control
+                      %input#output.form-control{ :readonly => ''}
                         - if !@activity.poster_file_name.nil?
                           = @activity.poster.url(:medium)
   

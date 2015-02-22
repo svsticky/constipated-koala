@@ -1,2 +1,2 @@
-require 'extensions/string'
 require 'extensions/date'
+require 'extensions/string'

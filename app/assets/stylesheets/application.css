@@ -34,6 +34,9 @@ table.table.table-linked > tbody > tr > td > a {
 
 table.table.table-linked > tbody > tr > td {
 	padding: 10px;
+}
+
+table.table.table-linked > tbody > tr > td a {
 	overflow: hidden;
 }
 
