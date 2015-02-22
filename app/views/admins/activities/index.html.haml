@@ -26,8 +26,7 @@
                         %td= link_to "#{participant.member.name}", participant.member
                 
                         - if !participant.currency.nil?
-                          %td
-                            %span{ :style => 'line-height: 39px;' }= number_to_currency(participant.currency, :unit => '€')
+                          %td= link_to "#{number_to_currency(participant.currency, :unit => '€')}", participant.member
                             
                         %td.buttons
                           .btn-group
@@ -86,7 +85,7 @@
                   .col-md-12
                     = label(:activity, :poster)
                     .input-group
-                      %output.form-control
+                      %input#output.form-control{ :readonly => ''}
                         - if !@activity.poster_file_name.nil?
                           = @activity.poster.url(:medium)
   

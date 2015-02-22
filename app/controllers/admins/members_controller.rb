@@ -9,7 +9,7 @@ class Admins::MembersController < ApplicationController
     @pagination = 5
  
     if params[:search]
-      @members = Member.search(params[:search])
+      @members = Member.search(params[:search], params[:active] ||= true)
       @pages = @members.size / @limit      
             
       if @members.size == 1

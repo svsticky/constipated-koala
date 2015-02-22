@@ -19,7 +19,7 @@ class Admins::ParticipantsController < ApplicationController
   
   def find
     # do some extra filtering
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
+    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search], params[:active])
     respond_with @members
   end
   
