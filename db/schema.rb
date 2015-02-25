@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150218182753) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
@@ -60,6 +61,23 @@ ActiveRecord::Schema.define(version: 20150218182753) do
     t.decimal  "price",               precision: 6, scale: 2, null: false
     t.integer  "checkout_card_id"
     t.integer  "checkout_balance_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "committee_members", force: true do |t|
+    t.integer  "member_id"
+    t.integer  "committee_id"
+    t.text     "function"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "committee_members", ["member_id", "committee_id"], name: "index_committee_members_on_member_id_and_committee_id", unique: true, using: :btree
+
+  create_table "committees", force: true do |t|
+    t.string   "name"
+    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

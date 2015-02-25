@@ -86,8 +86,6 @@
                     = label(:activity, :poster)
                     .input-group
                       %input#output.form-control{ :readonly => ''}
-                        - if !@activity.poster_file_name.nil?
-                          = @activity.poster.url(:medium)
   
                       .input-group-btn
                         %button.btn.btn-primary.file-input-wrapper
