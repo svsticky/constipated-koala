@@ -4,7 +4,7 @@ development:
   host: localhost
   username: root
   password:
-  encoding: utf-8
+  encoding: utf8
 
 test:
   adapter: mysql2
@@ -12,4 +12,4 @@ test:
   host: localhost
   username: root
   password:
-  encoding: utf-8
+  encoding: utf8
