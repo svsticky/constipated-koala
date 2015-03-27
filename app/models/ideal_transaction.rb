@@ -9,6 +9,7 @@ class IdealTransaction < ActiveRecord::Base
   validates :type, presence: true
   
   #validates :uuid
+  #validates :status
   
   belongs_to :member
   validates :member, presence: true
@@ -17,21 +18,23 @@ class IdealTransaction < ActiveRecord::Base
   serialize :transaction_id, Array
   
   after_validation do
-    json = Net::HTTP.post_form( 
-      URI('betalingen.isaanhetwerk.nl'), 
+    response = Net::HTTP.post_form( 
+      URI('http://kebetalingen.isaanhetwerk.nl'), 
       {
-        'description' => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", 
-        'amount' => @total, 
-        'issuer' => params[:bank], 
-        'type' => 'INTRO' 
+        'description' => self.description, 
+        'amount' => self.amount, 
+        'issuer' => self.issuer, 
+        'type' => self.type 
       }
     )
+
+    if response.code != '200'
+      return false
+    end
+
+    object = JSON.parse( response.body )
     
-    response = JSON.parse( json )
-    
-    self.uuid = response['uuid']
-    self.url = response['url']
-    
-    # TODO if something is wrong rollback
+    self.uuid = object['uuid']
+    self.url = object['url']
   end
 end

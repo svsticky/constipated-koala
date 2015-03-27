@@ -6,9 +6,9 @@ class Users::PublicController < ApplicationController
   layout nil
 
   @@intro = {
-    'lidmaatschap' => 1,
-    'lasergamen' => 2,
-    'bbq' => 3,
+    'lidmaatschap' => 10,
+    'lasergamen' => 12,
+    'bbq' => 6
   }
 
   def index
@@ -103,7 +103,7 @@ class Users::PublicController < ApplicationController
   # Confirm the payment has been done, the redirect url
   def confirm
     # check if it is payed
-    @transaction = IdealTransaction.find(params[:id])
+    @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
     if @transaction.status == 'SUCCESS'
       # set activities as payed
