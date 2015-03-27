@@ -67,13 +67,20 @@ class Users::PublicController < ApplicationController
 
       # pay with iDeal
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'PENDING', :url => 'https://intro.stickyutrecht.nl/confirm')
+        @transaction = IdealTransaction.new( 
+          :description => "Introductie #{@member.name}",
+          :amount => @total,
+          :issuer => params[:bank],
+          :type => 'INTRO',
+          :member => @member, 
+          :transaction_id => @activities.to_a, 
+          :transaction_type => 'Activities' )
 
         if @transaction.save
-          redirect_to "https://betalingen.stickyutrecht.nl/?id=#{@transaction.id}"
+          redirect_to @transaction.url
           return
         else
-          logger.error "[IDEAL] #{@transaction.id} niet gelukt #{@transaction.status}"
+          logger.error '[IDEAL] transactie niet gelukt'
           flash[:notice] = t('.errors#payment')
         end
       end

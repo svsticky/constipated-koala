@@ -11,23 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218182753) do
+ActiveRecord::Schema.define(version: 20150327210544) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.date     "start_date"
-    t.date     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.decimal  "price",               precision: 6, scale: 2
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "committee_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
     t.text     "description"
+    t.string   "google_id"
+    t.string   "location"
   end
+
+  add_index "activities", ["google_id"], name: "index_activities_on_google_id", unique: true, using: :btree
 
   create_table "admins", force: true do |t|
     t.string   "first_name"
@@ -65,23 +68,6 @@ ActiveRecord::Schema.define(version: 20150218182753) do
     t.datetime "updated_at"
   end
 
-  create_table "committee_members", force: true do |t|
-    t.integer  "member_id"
-    t.integer  "committee_id"
-    t.text     "function"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "committee_members", ["member_id", "committee_id"], name: "index_committee_members_on_member_id_and_committee_id", unique: true, using: :btree
-
-  create_table "committees", force: true do |t|
-    t.string   "name"
-    t.text     "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "educations", force: true do |t|
     t.integer  "member_id"
     t.date     "start_date"
@@ -94,16 +80,11 @@ ActiveRecord::Schema.define(version: 20150218182753) do
 
   add_index "educations", ["member_id", "study_id", "start_date"], name: "index_educations_on_member_id_and_study_id_and_start_date", unique: true, using: :btree
 
-  create_table "ideal_transactions", force: true do |t|
-    t.string   "uuid",        limit: 16
-    t.text     "description"
-    t.decimal  "price",                  precision: 6, scale: 2
+  create_table "ideal_transactions", id: false, force: true do |t|
+    t.string   "uuid",             limit: 16
     t.integer  "member_id"
-    t.string   "activities"
-    t.string   "issuer",      limit: 8
-    t.string   "status",      limit: 9
-    t.string   "iban",        limit: 34
-    t.string   "url"
+    t.string   "transaction_type"
+    t.string   "transaction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
