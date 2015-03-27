@@ -105,9 +105,11 @@ class Users::PublicController < ApplicationController
     # check if it is payed
     @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
+    logger.debug @transaction.inspect
+
     if @transaction.status == 'SUCCESS'
       # set activities as payed
-      @transaction.activities.each do |activity|
+      @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
 
         if @participant.size != 1

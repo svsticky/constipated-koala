@@ -2,14 +2,13 @@ class IdealTransaction < ActiveRecord::Base
   require 'net/http'
   require 'uri'
  
-  attr_accessor :description, :amount, :issuer, :type, :url
+  attr_accessor :description, :amount, :issuer, :type, :url, :status
   validates :description, presence: true
   validates :amount, presence: true
   validates :issuer, presence: true
   validates :type, presence: true
   
   #validates :uuid
-  #validates :status
   
   belongs_to :member
   validates :member, presence: true
@@ -19,7 +18,7 @@ class IdealTransaction < ActiveRecord::Base
   
   after_validation do
     response = Net::HTTP.post_form( 
-      URI('http://kebetalingen.isaanhetwerk.nl'), 
+      URI('http://betalingen.isaanhetwerk.nl'), 
       {
         'description' => self.description, 
         'amount' => self.amount, 
@@ -36,5 +35,21 @@ class IdealTransaction < ActiveRecord::Base
     
     self.uuid = object['uuid']
     self.url = object['url']
+  end
+  
+  after_find do |transaction|
+    response = Net::HTTP.get_response(URI("http://betalingen.isaanhetwerk.nl?uuid=#{self.uuid}"))
+
+    if response.code != '200'
+      return false
+    end
+    
+    object = JSON.parse( response.body )
+
+    self.description = object['description']
+    self.amount = object['amount']
+    self.issuer = object['issuer']    
+    self.status = object['status']
+    self.type = object['type']
   end
 end
