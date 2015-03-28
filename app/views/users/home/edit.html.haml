@@ -79,47 +79,7 @@
             .panel-body
               .callout.callout-info
                 %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres. 
-                
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-graduation-cap
-              Studiegegevens
-            .panel-body
-            
-              .form-group
-                %label{for: ''} Studentnummer
-                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-                
-              .form-group
-                %label{for: ''} 
-                  Studie
-                  %a.close{ :type => 'button' } +
-                - @member.educations.each do |education|
-                  = f.fields_for 'educations_attributes[]', education do |fs|
-                    .form-group.copyable
-                      - if !education.id.nil? && education.id > 0
-                        = fs.hidden_field :id, :class => 'id' 
-                      .row
-                      
-                        .col-md-6
-                          .ui-select
-                            = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
-                        .col-md-6
-                          .ui-select
-                            = fs.select :status, options_for_select(Education.statusen, education.status)
-                          
-                      .row      
-                        .col-md-6
-                          = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
-                        .col-md-6
-                          = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
-                        = fs.hidden_field :_destroy, :class => 'destroy'
-                        
-                        
-                      %a.btn.btn-default.destroy{ :type => 'button' }
-                        %span.fa.fa-trash-o
-                
+                                
         .col-md-12
           .panel.panel-default
             .panel-body

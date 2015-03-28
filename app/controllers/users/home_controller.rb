@@ -39,9 +39,7 @@ class Users::HomeController < ApplicationController
                                    :phone_number,
                                    :email,
                                    :gender,
-                                   :student_id,
-                                   :birth_date,
-                                   educations_attributes: [ :id, :study_id, :status, :start_date, :end_date, :_destroy ])
+                                   :birth_date)
   end
   
   def set_locale
