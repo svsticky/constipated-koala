@@ -114,8 +114,8 @@ class Member < ActiveRecord::Base
       code, start_date, status, end_date = study.split(/, /)
       
       if Study.find_by_code(code).nil?
-        logger.error "#{code} is not found as a study in the database"
-        break
+        puts "#{code} is not found as a study in the database"
+        next
       end
       
       education = self.educations.find_by_start_date_and_study_code(start_date, code)
