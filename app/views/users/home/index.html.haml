@@ -1,5 +1,5 @@
 - content_for(:page, 'members')
-- content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
+- content_for(:title, "Constipated koala | leden | #{@member.name}")
 
 %section#content
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
@@ -108,12 +108,6 @@
                       %span.label.label-warning gestopt
                     - elsif education.active?
                       %span.label.label-info studerend
-        
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-users
-              Commissies
-            .panel-body
 
           .panel.panel-default
             .panel-heading
@@ -136,4 +130,4 @@
 
           .panel.panel-default
             .panel-body
-              = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+              = link_to 'Edit', users_edit_path, { :class => 'button btn btn-warning' }

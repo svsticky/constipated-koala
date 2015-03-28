@@ -10,14 +10,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
        
-    resource.credentials = Member.find_by_email(sign_up_params[:email]) 
+    resource.credentials = Member.find_by_email(sign_up_params[:email])
     
     if resource.credentials.nil?
       set_flash_message :error, :'Ongeldige e-mailadres.'
       
       clean_up_passwords resource
       set_minimum_password_length
-      respond_with resource
+      render 'new'
     end
     
     resource_saved = resource.save
@@ -28,10 +28,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
       expire_data_after_sign_in!
       redirect_to new_user_session_path
-    else
+    else    
       clean_up_passwords resource
       set_minimum_password_length
-      respond_with resource
+      render 'new'
     end
   end
 

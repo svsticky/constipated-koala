@@ -105,8 +105,6 @@ class Users::PublicController < ApplicationController
     # check if it is payed
     @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
-    logger.debug @transaction.inspect
-
     if @transaction.status == 'SUCCESS'
       # set activities as payed
       @transaction.transaction_id.each do |activity|

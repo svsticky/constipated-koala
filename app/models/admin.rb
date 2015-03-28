@@ -21,7 +21,7 @@ class Admin < ActiveRecord::Base
     return "#{self.first_name} #{self.infix} #{self.last_name} <#{self.user.email}>"
   end
   
-  after_save do
+  before_save do
     credentials = User.new(
       email:                  email,
       password:               password,
@@ -29,7 +29,5 @@ class Admin < ActiveRecord::Base
       
       credentials: self
     )
-    
-    credentials.save
   end
 end

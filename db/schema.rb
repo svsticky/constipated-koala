@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20150327210544) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
     t.decimal  "price",               precision: 6, scale: 2
     t.text     "comments"
     t.datetime "created_at"
@@ -26,11 +26,7 @@ ActiveRecord::Schema.define(version: 20150327210544) do
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
     t.text     "description"
-    t.string   "google_id"
-    t.string   "location"
   end
-
-  add_index "activities", ["google_id"], name: "index_activities_on_google_id", unique: true, using: :btree
 
   create_table "admins", force: true do |t|
     t.string   "first_name"
@@ -132,6 +128,8 @@ ActiveRecord::Schema.define(version: 20150327210544) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "members", ["email"], name: "index_members_on_email", unique: true, using: :btree
 
   create_table "participants", force: true do |t|
     t.integer  "member_id"
