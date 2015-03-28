@@ -18,7 +18,7 @@ class IdealTransaction < ActiveRecord::Base
   
   after_validation do
     response = Net::HTTP.post_form( 
-      URI('http://betalingen.isaanhetwerk.nl'), 
+      URI('http://ideal.local'), 
       {
         'description' => self.description, 
         'amount' => self.amount, 
@@ -38,7 +38,7 @@ class IdealTransaction < ActiveRecord::Base
   end
   
   after_find do |transaction|
-    response = Net::HTTP.get_response(URI("http://betalingen.isaanhetwerk.nl?uuid=#{self.uuid}"))
+    response = Net::HTTP.get_response(URI("http://ideal.local?uuid=#{self.uuid}"))
 
     if response.code != '200'
       return false
