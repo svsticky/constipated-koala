@@ -12,7 +12,10 @@ ConstipatedKoala::Application.routes.draw do
   constraints :subdomain => 'koala' do
     
     authenticated :user, ->(u) { !u.admin? } do
-      root to: 'users/home#index', as: :user_root
+      root to: 'users/home#index', as: :users_root
+      
+      get    'edit',   to: 'users/home#edit',   as: :users_edit
+      patch  'edit',   to: 'users/home#update'
     end
     
     root 'admins/home#index'
@@ -34,8 +37,8 @@ ConstipatedKoala::Application.routes.draw do
     devise_scope :user do
       get   'registration/cancel',  to: 'users/registrations#cancel',   as: :cancel_registration
       
-#      get   'sign_up',              to: 'users/registrations#new',      as: :new_registration      
-#      post  'sign_up',              to: 'users/registrations#create',   as: :registration
+      get   'sign_up',              to: 'users/registrations#new',      as: :new_registration      
+      post  'sign_up',              to: 'users/registrations#create',   as: :registration
 
       get   'settings/profile',     to: 'users/registrations#edit',     as: :edit_registration
       put   'settings/profile',     to: 'users/registrations#update'
@@ -64,7 +67,7 @@ ConstipatedKoala::Application.routes.draw do
       patch  'checkout/transaction',  to: 'checkout#change_funds'  
       
       # api routes, without authentication
-      get    'api/activities',       to: 'activities#list'
+      get    'api/activities',       to: 'api#list'
       
       # api routes, own authentication
       get    'checkout/card',         to: 'checkout#information_for_card'

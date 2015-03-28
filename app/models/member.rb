@@ -43,8 +43,6 @@ class Member < ActiveRecord::Base
   has_one :checkout_balance
   has_many :checkout_cards
 
-  before_create :before_create
-
   # remove nonnumbers and change + to 00
   def phone_number=(phone_number)
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
@@ -66,12 +64,25 @@ class Member < ActiveRecord::Base
 
   # create hash for gravatar
   def gravatar
-    Digest::MD5.hexdigest(self.email)
+    return Digest::MD5.hexdigest(self.email)
   end
 
-  # set joindate
-  def before_create
+  # TODO maybe on database level
+  before_create do
     self.join_date = Time.new
+  end
+  
+  before_update do
+    if email_changed?
+      credentials = User.find_by_email( Member.find(self.id).email )
+
+      puts 'email has changed!'
+
+      if !credentials.nil?
+        credentials.update_attribute('email', self.email)
+        credentials.save
+      end
+    end
   end
 
   def self.search(query, active = true)    

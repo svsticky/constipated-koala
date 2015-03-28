@@ -55,6 +55,7 @@ nl:
             email:
               blank: is geen geldig e-mailadres
               invalid: is geen geldig e-mailadres
+              taken: is geen geldig e-mailadres
             password:
               too_short: moet minstens 8 tekens hebben
               invalid: moet minstens 8 tekens hebben

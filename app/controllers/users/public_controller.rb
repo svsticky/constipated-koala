@@ -6,9 +6,9 @@ class Users::PublicController < ApplicationController
   layout nil
 
   @@intro = {
-    'lidmaatschap' => 1,
-    'lasergamen' => 2,
-    'bbq' => 3,
+    'lidmaatschap' => 10,
+    'lasergamen' => 12,
+    'bbq' => 6
   }
 
   def index
@@ -67,13 +67,20 @@ class Users::PublicController < ApplicationController
 
       # pay with iDeal
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( :activities => @activities.to_a, :member => @member, :description => "Introductie #{@member.first_name} #{@member.infix} #{@member.last_name}", :price => @total, :issuer => params[:bank], :status => 'PENDING', :url => 'https://intro.stickyutrecht.nl/confirm')
+        @transaction = IdealTransaction.new( 
+          :description => "Introductie #{@member.name}",
+          :amount => @total,
+          :issuer => params[:bank],
+          :type => 'INTRO',
+          :member => @member, 
+          :transaction_id => @activities.to_a, 
+          :transaction_type => 'Activities' )
 
         if @transaction.save
-          redirect_to "https://betalingen.stickyutrecht.nl/?id=#{@transaction.id}"
+          redirect_to @transaction.url
           return
         else
-          logger.error "[IDEAL] #{@transaction.id} niet gelukt #{@transaction.status}"
+          logger.error '[IDEAL] transactie niet gelukt'
           flash[:notice] = t('.errors#payment')
         end
       end
@@ -96,11 +103,11 @@ class Users::PublicController < ApplicationController
   # Confirm the payment has been done, the redirect url
   def confirm
     # check if it is payed
-    @transaction = IdealTransaction.find(params[:id])
+    @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
     if @transaction.status == 'SUCCESS'
       # set activities as payed
-      @transaction.activities.each do |activity|
+      @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
 
         if @participant.size != 1
