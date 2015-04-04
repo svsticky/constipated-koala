@@ -12,7 +12,7 @@
           %i.fa.fa-user
             %span.icon-bg.bg-orange
       %li{ :class => ('active' if yield(:page) == 'committees') }
-        %a{href: '#'}
+        %a{href: '/committees'}
           %span Commissies
           %i.fa.fa-users
             %span.icon-bg.bg-warning
@@ -21,31 +21,46 @@
           %span Activiteiten
           %i.fa.fa-ticket
             %span.icon-bg.bg-success
-      %li{ :class => ('active' if yield(:page) == 'checkout') }
-        %a{href: '/checkout'}
-          %span Checkout
+      %li{ :class => ('active' if yield(:page) == 'mongoose') }
+        %a{href: '/mongoose'}
+          %span Mongoose
           %i.fa.fa-shopping-cart
             %span.icon-bg.bg-info
-      %li{ :class => ('active' if yield(:page).split('@',2).first == 'contacts') }
+                  
+      %li{ :class => ('active' if yield(:page) == 'apps') }
         %a{href: '#'}
-          %span Contacten
-          %i.fa.fa-envelope
+          %span Apps
+          %i.fa.fa-terminal
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'mailings') }
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'checkout') }
             %a{href: '#'}
               %i.fa.fa-caret-right
-              %span Mailings
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'associations') }
+              %span Checkout
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'ideal') }
             %a{href: '#'}
               %i.fa.fa-caret-right
-              %span Verenigingen
-      -#
-        %li{ :class => ('active' if yield(:page) == 'tasks') }
+              %span iDeal
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'radio') }
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span R.A.D.I.O.
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'studystatus') }
+            %a{href: '#'}
+              %i.fa.fa-caret-right
+              %span Studystatus
+              
+        -# %li{ :class => ('active' if yield(:page).split('@',2).first == 'contacts') }
           %a{href: '#'}
-            %span Taken
-            %i.fa.fa-tasks
+            %span Contacten
+            %i.fa.fa-envelope
               %span.icon-bg.bg-primary
+          %ul.sub-nav{style: 'display: none;'}
+            %li{ :class => ('active' if yield(:page).split('@',2).second == 'associations') }
+              %a{href: '#'}
+                %i.fa.fa-caret-right
+                %span Verenigingen
+                
       %li{ :class => ('active' if yield(:page).split('@',2).first == 'settings') }
         %a{href: '#'}
           %span Instellingen
@@ -60,11 +75,7 @@
             %a{href: '/settings/profile'}
               %i.fa.fa-caret-right
               %span Profiel
-          %li
-            %a{href: '#'}
+          %li{ :class => ('active' if yield(:page).split('@',2).second == 'emails') }
+            %a{href: '/settings/profile'}
               %i.fa.fa-caret-right
-              %span Studies
-          %li
-            %a{href: '#'}
-              %i.fa.fa-caret-right
-              %span something something
+              %span Mailings

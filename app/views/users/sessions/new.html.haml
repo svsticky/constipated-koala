@@ -1,56 +1,49 @@
-!!!
-%html
-  %head
-    %title= 'Constipated koala'
-    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  %body#app
-    .view-container
-      .page-signin
-        .signin-header
-          .container.text-center
-            %section.logo
-              %a.ng-binding{href: '/'} Constipated koala
-        .signin-body
-          .container{style: 'margin-top: 100px;'}
-            .form-container
-              = form_for(resource, as: resource_name, url: session_path(resource_name), :class => 'form-horizontal' ) do |f|
-                            
-                - if !resource.errors.full_messages.blank?
-                  - resource.errors.full_messages.each do |message|
-                    .alert.alert-danger
-                      %button.close{ type: "button" } ×
-                      %span
-                        = message
-              
-              
-                - if flash[:alert]
-                  .alert.alert-danger
-                    %button.close{ type: "button" } ×
-                    %span
-                      = flash[:alert]
-                      
-                - if flash[:notice]
-                  .alert.alert-info
-                    %button.close{ type: "button" } ×
-                    %span
-                      = flash[:notice]                      
-                            
-                %fieldset
-                  .form-group
-                    .input-group.input-group-lg
-                      %span.input-group-addon
-                        %span.glyphicon.glyphicon-envelope
-                      = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
-                  .form-group
-                    .input-group.input-group-lg
-                      %span.input-group-addon
-                        %span.glyphicon.glyphicon-lock
-                      = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
-                  .form-group
-                    = f.submit 'Log in', :class => 'btn btn-primary btn-lg btn-block'
-              %section
-                %p.text-center
-                  = link_to 'Wachtwoord vergeten?', new_user_password_path
+.row
+  .col-md-3
+    = image_tag('constipated-koala.png')
+    
+    %p.hidden-xs
+      Constipated koala is de ledenadministratie voor
+      = link_to 'Studievereniging Sticky', 'https://stickyutrecht.nl'
+      \. Vraag
+      = link_to 'hier', new_registration_path
+      je inloggegevens op.
+    
+  .col-md-3
+    = form_for(resource, as: resource_name, url: session_path(resource_name), :class => 'form-horizontal' ) do |f|
+                        
+      - if !resource.errors.full_messages.blank?
+        - resource.errors.full_messages.each do |message|
+          .alert.alert-danger
+            %button.close{ type: "button" } ×
+            %span
+              = message
+    
+      - if flash[:alert]
+        .alert.alert-danger
+          %button.close{ type: "button" } ×
+          %span
+            = flash[:alert]
+            
+      - if flash[:notice]
+        .alert.alert-info
+          %button.close{ type: "button" } ×
+          %span
+            = flash[:notice]                      
+                  
+      %fieldset
+        .form-group
+          .input-group.input-group-lg
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-envelope
+            = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+        .form-group
+          .input-group.input-group-lg
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-lock
+            = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
+        .form-group
+          = f.submit 'Log in', :class => 'btn btn-primary btn-lg btn-block'
+  
+    .text-center
+      = link_to 'Wachtwoord vergeten?', new_user_password_path

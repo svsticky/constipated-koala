@@ -9,7 +9,7 @@
       %ul.nav-right.pull-right.list-unstyled
         %li.dropdown.text-normal.nav-profile
           %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-            =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm", :class => 'img-circle img30_30'
+            =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=30", :class => 'img-circle'
             %span.hidden-xs
               %span #{current_user.email }
           %ul.dropdown-menu.with-arrow{ :style => 'right: 0;' }

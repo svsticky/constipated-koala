@@ -12,7 +12,8 @@
  *= require font-awesome
  *
  *= require lato
- *= require style
+ *= require bootstrap
+ *= require flatify
  */
  
 .panel > .table-striped > tbody > tr:nth-child(even) > td,

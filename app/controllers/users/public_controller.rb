@@ -3,8 +3,6 @@ class Users::PublicController < ApplicationController
   skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
   before_action :set_locale
 
-  layout nil
-
   @@intro = {
     'lidmaatschap' => 10,
     'lasergamen' => 12,

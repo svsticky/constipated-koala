@@ -61,7 +61,7 @@ ConstipatedKoala::Application.routes.draw do
       get    'search',                to: 'members#find'
   
       # checkout urls
-      get    'checkout',              to: 'checkout#index'
+      get    'mongoose',              to: 'checkout#index'
       
       patch  'checkout/card',         to: 'checkout#activate_card'
       patch  'checkout/transaction',  to: 'checkout#change_funds'  

@@ -1,16 +1,26 @@
-- content_for(:page, 'members')
 - content_for(:title, "Constipated koala | leden | #{@member.name}")
 
+%section#header
+  %header.clearfix
+    .logo.hidden-xs
+      %a{ href: '/' }
+        %span Constipated koala
+    .top-nav      
+      =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=30", :class => 'img-circle'
+      %span #{current_user.email }
+
+      %a{ href: '#' }
+        %i.fa.fa-bars
+
 %section#content
-  .page{ :data => { 'authenticity_token' => form_authenticity_token}}
+  .page
     .row
       %div
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-user
-              Algemene gegevens
+        .col-sm-12
+          .panel.panel-default.text-center
             .panel-body
+              =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=250", :class => 'img-circle'
+            
               %p
                 %strong #{@member.name} (#{@member.gender})
                 %br
@@ -24,6 +34,10 @@
                 #{@member.phone_number}
                 %br
                 #{@member.email}
+         
+          = link_to 'Persoonsgegevens wijzigen', users_edit_path, { :class => 'button btn btn-primary' }
+          = link_to 'Mongoose opwaarderen', users_edit_path, { :class => 'button btn btn-primary' }
+          = link_to 'Uitloggen', '/sign_out', { :class => 'button btn btn-warning', 'data-method' => :delete }
          
           .panel.panel-default
             .panel-heading
@@ -77,57 +91,6 @@
                         
                         %td.hidden-xs
                           - if !transaction.checkout_card.nil?
-                            - if transaction.checkout_card.description.nil?  
-                              = transaction.checkout_card.uuid
-                            - else
-                              = transaction.checkout_card.description
+                            = transaction.checkout_card.uuid
                           - else
                             \-
-     
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-graduation-cap
-              Studiegegevens
-            .panel-body
-              %dl.dl-horizontal
-                %dt #
-                %dd= @member.student_id
-              %dl.dl-horizontal
-                - @member.educations.each do |education|
-                  %dt= education.study.name
-                  %dd
-                    - if education.end_date.nil?
-                      #{I18n.l education.start_date, :format => :short}
-                    - else
-                      #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
-                    
-                    - if education.graduated?
-                      %span.label.label-success geslaagd
-                    - elsif education.stopped?
-                      %span.label.label-warning gestopt
-                    - elsif education.active?
-                      %span.label.label-info studerend
-
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-dashboard
-              Overig
-            .panel-body
-              %dl.dl-horizontal
-                %dt Lid sinds
-                - if !@member.join_date.nil?
-                  %dd= I18n.l @member.join_date
-                
-                %dt Activiteiten
-                %dd= @member.activities.length
-                
-                %dt Tegoed
-                -if @member.checkout_cards.length > 0
-                  %dd= number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '€')
-                -else
-                  %dd -
-
-          .panel.panel-default
-            .panel-body
-              = link_to 'Edit', users_edit_path, { :class => 'button btn btn-warning' }

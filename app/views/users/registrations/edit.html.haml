@@ -4,7 +4,7 @@
 %section#content
   .page.page-form
     .row
-      = form_for :user, as: 'user', url: edit_registration_path, method: :patch, :class => 'form-validation', :html => { :id => 'editor'} do |f|
+      = form_for :user, as: 'user', url: edit_registration_path, method: :patch, :class => 'form-validation', :html => { :id => 'editor', :autocomplete => 'off' } do |f|
       
         - if @user.errors.any?
           .col-md-12
