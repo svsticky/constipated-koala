@@ -109,7 +109,9 @@
               %li.list-group-item{ :data => { 'uuid' => card.uuid }}
                 %p= link_to "#{card.member.name}", card.member
                 %p.uuid= card.uuid
-                %button.activate.btn.btn-w-md.btn-gap-v.btn-line-primary activeer
+                .btn-group
+                  %button.btn.btn-primary activeer
+                  %button.btn.btn-line-primary verwijder
             - if @cards.length == 0
               %li.list-group-item
                 %p.text-center 

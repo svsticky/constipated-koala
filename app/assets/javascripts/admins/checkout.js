@@ -4,7 +4,7 @@
 $(document).on( 'ready page:load', function(){  
   
   // activate card
-  $( 'div#cards ul.list-group button.activate' ).bind( 'click', function() {
+  $( 'div#cards ul.list-group .btn-group button:first' ).bind( 'click', function() {
     var button = $( this );
     var row = $( this ).closest( '.list-group-item' );
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
@@ -18,8 +18,32 @@ $(document).on( 'ready page:load', function(){
         uuid: $( row ).attr( 'data-uuid' ),
         authenticity_token: token
       }
-    }).done(function(){          
+    }).done(function( data, status ){   
       alert( 'kaart geactiveerd', 'success' );
+      $( row ).remove();
+    }).fail(function(){                  
+      alert( 'kaart is niet geactiveerd', 'error' );
+      $( button ).removeAttr( 'disabled' );
+    });
+  });
+  
+  $( 'div#cards ul.list-group .btn-group button:nth-child(2)' ).bind( 'click', function() {
+    var button = $( this );
+    var row = $( this ).closest( '.list-group-item' );
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+
+    $( button ).attr( 'disabled', 'disabled' );
+    
+    $.ajax({
+      url: '/checkout/card',
+      type: 'PATCH',
+      data: {
+        uuid: $( row ).attr( 'data-uuid' ),
+        authenticity_token: token,
+        _destroy: true
+      }
+    }).done(function( data, status ){   
+      alert( 'kaart verwijderd', 'warning' );
       $( row ).remove();
     }).fail(function(){                  
       alert( 'kaart is niet geactiveerd', 'error' );

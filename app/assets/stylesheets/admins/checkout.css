@@ -2,7 +2,7 @@ p.uuid {
   margin-bottom: 0px;
 }
 
-button.activate {
+.btn-group {
   position: absolute;
   height: 34px;
   

@@ -101,6 +101,16 @@ class Admins::CheckoutController < ApplicationController
   
   def activate_card
     card = CheckoutCard.find_by_uuid!(params[:uuid])
+    
+    if params[:_destroy]
+      card.destroy
+      
+      # balance weghalen als er geen transacties zijn?
+      
+      render :status => :no_content, :json => ''
+      return
+    end
+    
     card.update_attribute(:active, true);
     
     if card.save
