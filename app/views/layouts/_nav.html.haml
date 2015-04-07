@@ -34,19 +34,19 @@
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:page).split('@',2).second == 'checkout') }
-            %a{href: '#'}
+            %a{href: '/apps/checkout'}
               %i.fa.fa-caret-right
               %span Checkout
           %li{ :class => ('active' if yield(:page).split('@',2).second == 'ideal') }
-            %a{href: '#'}
+            %a{href: '/apps/ideal'}
               %i.fa.fa-caret-right
               %span iDeal
           %li{ :class => ('active' if yield(:page).split('@',2).second == 'radio') }
-            %a{href: '#'}
+            %a{href: '/apps/radio'}
               %i.fa.fa-caret-right
               %span R.A.D.I.O.
           %li{ :class => ('active' if yield(:page).split('@',2).second == 'studystatus') }
-            %a{href: '#'}
+            %a{href: '/apps/studystatus'}
               %i.fa.fa-caret-right
               %span Studystatus
               
