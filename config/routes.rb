@@ -55,7 +55,10 @@ ConstipatedKoala::Application.routes.draw do
       post   'participants',      to: 'participants#create'
       patch  'participants',      to: 'participants#update'
       delete 'participants',      to: 'participants#destroy'
-      post   'participants/mail', to: 'participants#mail'  
+      post   'participants/mail', to: 'participants#mail'
+      
+      get    'apps/radio',        to: 'apps#radio'
+      post   'apps/radio',        to: 'apps#advertisement'
       
       # search for member using dropdown
       get    'search',                to: 'members#find'
@@ -67,7 +70,7 @@ ConstipatedKoala::Application.routes.draw do
       patch  'checkout/transaction',  to: 'checkout#change_funds'  
       
       # api routes, without authentication
-      get    'api/activities',       to: 'api#list'
+      get    'api/activities',       to: 'api#radio'
       
       # api routes, own authentication
       get    'checkout/card',         to: 'checkout#information_for_card'

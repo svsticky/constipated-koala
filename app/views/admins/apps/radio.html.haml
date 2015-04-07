@@ -1,0 +1,57 @@
+- content_for(:page, 'apps@radio')
+- content_for(:title, 'Constipated koala | R.A.D.I.O.') 
+
+%section#content
+  = render 'layouts/search'
+
+  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
+    .row
+      - if @member.errors.any?
+        .col-md-6
+          .alert.alert-danger
+            %button.close{ type: "button" } ×
+            %span Oh snap, niet alles is goed ingevuld;
+            %ul
+            - @member.errors.full_messages.each do |msg|
+              %li= msg
+
+      .col-md-6
+        .panel.panel-default#advertisements
+          .panel-heading
+            %i.fa.fa-fw.fa-fw.fa-desktop
+            Advertenties
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+
+              - @advertisements.each do |advertisement|
+                %tr
+                  %td
+                    = advertisement.name
+                    %a{ :href => advertisement.poster.url(:medium), :download => '' }= advertisement.poster.url(:medium)
+                  %td.buttons
+                    .btn-group
+                      - if advertisement.visible
+                        %button.btn.btn-primary
+                          %i.fa.fa-fw.fa-check
+                      - else
+                        %button.btn.btn-warning
+                          %i.fa.fa-fw.fa-times
+                      %button.btn.btn-default.destroy
+                        %i.fa.fa-fw.fa-trash-o
+  
+          = form_for :advertisement, url: apps_radio_path, method: :post, :class => 'form-validation' do |f|                          
+            .form-group
+            = f.text_field :name, { :style => 'form-control' }
+
+            .input-group
+              .input-group-btn
+                %button.btn.btn-primary.file-input-wrapper
+                  %span uploaden
+                  = f.file_field :poster, { 'data-ui-file-upload' => '' }    
+                %button.btn.btn-success.wait{type: 'submit'} Opslaan
+
+    -#
+      .col-md-6.hidden-xs
+        .panel.panel-default
+          .panel-body
+            %object{ :data => 'https://radio.stickyutrecht.nl', :style => 'width: 100%;' }
