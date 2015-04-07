@@ -1,9 +1,9 @@
 class Admins::ApiController < ApplicationController
-  protect_from_forgery except: [:list]
-  before_filter :enable_cors, only: [:list]
+  protect_from_forgery except: [:radio]
+  before_filter :enable_cors, only: [:radio]
   
-  skip_before_action :authenticate_user!, only: [:list]
-  skip_before_action :authenticate_admin!, only: [:list]
+  skip_before_action :authenticate_user!, only: [:radio]
+  skip_before_action :authenticate_admin!, only: [:radio]
 
   respond_to :json, only: :radio
   
