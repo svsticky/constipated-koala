@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327210544) do
+ActiveRecord::Schema.define(version: 20150405131158) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20150327210544) do
     t.string   "infix"
     t.string   "last_name"
     t.text     "signature"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "advertisements", force: true do |t|
+    t.string   "name"
+    t.boolean  "visible"
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

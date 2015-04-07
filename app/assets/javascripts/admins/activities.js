@@ -73,6 +73,9 @@ function bind_activities(){
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
     
+    if( !confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?') )
+      return
+    
     $.ajax({
       url: '/participants',
       type: 'DELETE',
