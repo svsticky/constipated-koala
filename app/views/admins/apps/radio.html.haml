@@ -6,6 +6,15 @@
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
+      - if @advert.errors.any?
+        .col-md-12
+          .alert.alert-danger
+            %button.close{ type: "button" } ×
+            %span Oh snap, niet alles is goed ingevuld;
+            %ul
+            - @advert.errors.full_messages.each do |msg|
+              %li= msg
+    .row
       .col-md-6
         .panel.panel-default#advertisements
           .panel-heading

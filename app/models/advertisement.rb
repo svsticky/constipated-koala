@@ -11,6 +11,9 @@ class Advertisement < ActiveRecord::Base
   validates_attachment_content_type :poster, 
 	:content_type => ['application/pdf', 'image/jpeg', 'image/png']
  
+  before_validation do
+    self.visible = true
+  end
  
   def self.list 
     list = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today ).select(:id, :name, :start_date, :end_date, :poster_updated_at)\

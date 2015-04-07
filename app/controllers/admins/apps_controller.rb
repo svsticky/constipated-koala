@@ -19,7 +19,8 @@ class Admins::AppsController < ApplicationController
     if @advert.save
       redirect_to 'apps_radio_path'
     else
-      render 'advertisement'
+      @advertisements = Advertisement.all
+      render 'radio'
     end
   end
   
