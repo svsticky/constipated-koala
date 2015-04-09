@@ -38,4 +38,21 @@
       }
     }
   }
+  
+  .form-group {
+    margin: 5px 0;
+    
+    .input-group {
+      .input-group-btn {
+        right: 4px;
+      }
+      
+      input.form-control {
+        left: 5px;
+        width: calc( 100% - 15px);
+        height: 33px;
+        line-height: 33px;
+      }
+    }
+  }
 }

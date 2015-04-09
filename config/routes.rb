@@ -59,12 +59,15 @@ ConstipatedKoala::Application.routes.draw do
       
       get    'apps/radio',        to: 'apps#radio'
       post   'apps/radio',        to: 'apps#advertisement'
+      delete 'apps/radio',        to: 'apps#destroy'
+      
+      get    'apps/ideal',        to: 'apps#ideal'
       
       # search for member using dropdown
       get    'search',                to: 'members#find'
   
       # checkout urls
-      get    'mongoose',              to: 'checkout#index'
+      get    'checkout',              to: 'checkout#index'
       
       patch  'checkout/card',         to: 'checkout#activate_card'
       patch  'checkout/transaction',  to: 'checkout#change_funds'  

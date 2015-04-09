@@ -21,11 +21,20 @@
           %span Activiteiten
           %i.fa.fa-ticket
             %span.icon-bg.bg-success
-      %li{ :class => ('active' if yield(:page) == 'mongoose') }
-        %a{href: '/mongoose'}
-          %span Mongoose
+      %li{ :class => ('active' if yield(:page) == 'checkout') }
+        %a{href: '/checkout'}
+          %span Checkout
           %i.fa.fa-shopping-cart
             %span.icon-bg.bg-info
+        %ul.sub-nav{style: 'display: none;'}
+          %li{ :class => ('active' if yield(:subpage) == 'transacties') }
+            %a{href: '/checkout'}
+              %i.fa.fa-caret-right
+              %span Transacties
+          %li{ :class => ('active' if yield(:subpage) == 'products') }
+            %a{href: '/checkout/products'}
+              %i.fa.fa-caret-right
+              %span Producten
                   
       %li{ :class => ('active' if yield(:page) == 'apps') }
         %a{href: '#'}
@@ -33,49 +42,45 @@
           %i.fa.fa-terminal
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'checkout') }
-            %a{href: '/apps/checkout'}
-              %i.fa.fa-caret-right
-              %span Checkout
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'ideal') }
+          %li{ :class => ('active' if yield(:subpage) == 'ideal') }
             %a{href: '/apps/ideal'}
               %i.fa.fa-caret-right
               %span iDeal
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'radio') }
+          %li{ :class => ('active' if yield(:subpage) == 'radio') }
             %a{href: '/apps/radio'}
               %i.fa.fa-caret-right
               %span R.A.D.I.O.
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'studystatus') }
-            %a{href: '/apps/studystatus'}
+          %li{ :class => ('active' if yield(:subpage) == 'studystatus') }
+            %a{href: '#'}
               %i.fa.fa-caret-right
               %span Studystatus
               
-        -# %li{ :class => ('active' if yield(:page).split('@',2).first == 'contacts') }
+        -# %li{ :class => ('active' if yield(:page) == 'contacts') }
           %a{href: '#'}
             %span Contacten
             %i.fa.fa-envelope
               %span.icon-bg.bg-primary
           %ul.sub-nav{style: 'display: none;'}
-            %li{ :class => ('active' if yield(:page).split('@',2).second == 'associations') }
+            %li{ :class => ('active' if yield(:subpage) == 'associations') }
               %a{href: '#'}
                 %i.fa.fa-caret-right
                 %span Verenigingen
                 
-      %li{ :class => ('active' if yield(:page).split('@',2).first == 'settings') }
+      %li{ :class => ('active' if yield(:subpage) == 'settings') }
         %a{href: '#'}
           %span Instellingen
           %i.fa.fa-gears
             %span.icon-bg.bg-violet
         %ul.sub-nav{style: 'display: none;'}
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'generic') }
+          %li{ :class => ('active' if yield(:subpage) == 'generic') }
             %a{href: '#'}
               %i.fa.fa-caret-right
               %span Algemeen
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'profile') }
+          %li{ :class => ('active' if yield(:subpage) == 'profile') }
             %a{href: '/settings/profile'}
               %i.fa.fa-caret-right
               %span Profiel
-          %li{ :class => ('active' if yield(:page).split('@',2).second == 'emails') }
-            %a{href: '/settings/profile'}
+          %li{ :class => ('active' if yield(:subpage) == 'emails') }
+            %a{href: '#'}
               %i.fa.fa-caret-right
               %span Mailings

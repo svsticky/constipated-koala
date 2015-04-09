@@ -1,13 +1,13 @@
 class Admins::AppsController < ApplicationController
 
-  def checkout
+  def ideal
+    @transactions = IdealTransaction.all
+  end
+  
+  def studystatus
     
   end
   
-  def ideal
-    
-  end
-
   def radio 
     @advert = Advertisement.new
     @advertisements = Advertisement.all
@@ -24,8 +24,15 @@ class Admins::AppsController < ApplicationController
     end
   end
   
-  def studystatus
+  def destroy     
+    if params[:id].blank?
+      render :status => :bad_request, :json => 'no id given'
+    end
+      
+    advert = Advertisement.find(params[:id])
+    advert.destroy
     
+    render :status => :no_content, :json => ''
   end
   
   private
