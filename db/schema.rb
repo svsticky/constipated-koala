@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405131158) do
+ActiveRecord::Schema.define(version: 20150411144717) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20150405131158) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "committee_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
@@ -40,7 +39,6 @@ ActiveRecord::Schema.define(version: 20150405131158) do
 
   create_table "advertisements", force: true do |t|
     t.string   "name"
-    t.boolean  "visible"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
@@ -68,29 +66,26 @@ ActiveRecord::Schema.define(version: 20150405131158) do
 
   add_index "checkout_cards", ["uuid"], name: "index_checkout_cards_on_uuid", unique: true, using: :btree
 
+  create_table "checkout_products", force: true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.boolean  "active",                                     default: true
+    t.decimal  "price",              precision: 6, scale: 2
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "checkout_transactions", force: true do |t|
     t.decimal  "price",               precision: 6, scale: 2, null: false
     t.integer  "checkout_card_id"
     t.integer  "checkout_balance_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "committee_members", force: true do |t|
-    t.integer  "member_id"
-    t.integer  "committee_id"
-    t.text     "function"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "committee_members", ["member_id", "committee_id"], name: "index_committee_members_on_member_id_and_committee_id", unique: true, using: :btree
-
-  create_table "committees", force: true do |t|
-    t.string   "name"
-    t.text     "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "items"
   end
 
   create_table "educations", force: true do |t|

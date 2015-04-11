@@ -68,17 +68,22 @@ ConstipatedKoala::Application.routes.draw do
   
       # checkout urls
       get    'checkout',              to: 'checkout#index'
-      
       patch  'checkout/card',         to: 'checkout#activate_card'
-      patch  'checkout/transaction',  to: 'checkout#change_funds'  
+      patch  'checkout/transaction',  to: 'checkout#change_funds' 
+      
+      get    'checkout/products',     to: 'checkout#products'
+      post   'checkout/products',     to: 'checkout#create_product'
+      delete 'checkout/products',     to: 'checkout#delete_product' 
       
       # api routes, without authentication
-      get    'api/activities',       to: 'api#radio'
+      get    'api/activities',            to: 'api#radio'
       
       # api routes, own authentication
-      get    'checkout/card',         to: 'checkout#information_for_card'
-      post   'checkout/card',         to: 'checkout#add_card_to_member'
-      post   'checkout/transaction',  to: 'checkout#subtract_funds'
+      get    'api/checkout/card',         to: 'checkout#information_for_card'
+      get    'api/checkout/products',     to: 'checkout#products_list'
+      
+      post   'api/checkout/card',         to: 'checkout#add_card_to_member'
+      post   'api/checkout/transaction',  to: 'checkout#subtract_funds'
     end
   end
 

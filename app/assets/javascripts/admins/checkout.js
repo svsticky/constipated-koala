@@ -1,7 +1,15 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+//
+//= require bootstrap-file-input
 
 $(document).on( 'ready page:load', function(){  
+  
+  $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
+    if( this.files && this.files[0] ){
+      $('form .input-group input#output').val(this.files[0].name);
+    }
+  });
   
   // activate card
   $( 'div#cards ul.list-group .btn-group button:first' ).bind( 'click', function() {
