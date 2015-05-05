@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 ConstipatedKoala::Application.initialize!
 
 # Paperclip settings
-Paperclip.options[:command_path] = '/usr/bin'
+Paperclip.options[:command_path] = '/usr/local/bin/'
 
 # Remove error wrappers
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|

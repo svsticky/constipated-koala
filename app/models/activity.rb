@@ -11,7 +11,7 @@ class Activity < ActiveRecord::Base
 	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8'}
 
   validates_attachment_content_type :poster, 
-	:content_type => ['application/pdf', 'image/jpeg', 'image/png']
+	:content_type => 'application/pdf'
 
 #  validates_attachment_size :less_than => 10.megabytes 
 
