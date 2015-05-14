@@ -39,8 +39,14 @@ $(document).on('ready page:load', function(){
   
   $('footer.table-footer .pagination-container li a[data-offset]').bind( 'click', function(e) {
     var params = {};
+    
+    if( $('footer.table-footer .page-num-info').attr('data-search') ) {
+      params['search'] = $('footer.table-footer .page-num-info').attr('data-search');
+      params['all'] = $('footer.table-footer .page-num-info').attr('data-all');
+    } 
+    
     params['limit'] = $('footer.table-footer .page-num-info').attr('data-limit');
-    params['offset'] = $(this).attr('data-offset');
+    params['offset'] = $(this).attr('data-offset');   
         
     e.preventDefault();
     location.search = $.param(params);
@@ -53,6 +59,11 @@ $(document).on('ready page:load', function(){
   $('footer.table-footer .page-num-info select').bind( 'change', function() {
     var params = {}, limit = $(this).val();
     $('footer.table-footer .page-num-info').attr('data-limit', limit);
+    
+    if( $('footer.table-footer .page-num-info').attr('data-search') ) {
+      params['search'] = $('footer.table-footer .page-num-info').attr('data-search');
+      params['all'] = $('footer.table-footer .page-num-info').attr('data-all');
+    } 
     
     params['limit'] = limit;
     params['offset'] = $('footer.table-footer .pagination-container li.active a').attr('data-offset');

@@ -6,23 +6,29 @@ class Admins::MembersController < ApplicationController
     @offset = params[:offset] ? params[:offset].to_i : 0
   
     @page = @offset / @limit
-    @pagination = 5
+    @pagination = 4
  
     if params[:search]
-      @members = Member.search(params[:search], params[:active] ||= true)
-      @pages = @members.size / @limit      
+      @members = Member.search(params[:search], params[:all] ||= false)
+      @pages = (@members.size / @limit.to_f).ceil
+      
+      @members = @members[@offset,@limit]
+      
+      @search = params[:search]
+      @all = params[:all] || false
             
-      if @members.size == 1
+      if @members.size == 1 && @offset == 0 && @limit > 1
         redirect_to @members.first
       end
+      
     else    
       @members = Member.includes(:educations).all.select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
-      @pages = Member.count / @limit
+      @pages = (Member.count / @limit.to_f).ceil
     end
   end
   
   def find 
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
+    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search], params[:all] ||= false)
     respond_with @members
   end
 

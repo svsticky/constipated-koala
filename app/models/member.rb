@@ -85,17 +85,19 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def self.search(query, active = true)    
+  def self.search(query, all = false)    
     if query.is_number?
       return Member.where("student_id like ?", "%#{query}%")
     end
     
-    active = active.to_b if active.is_a? String
+    all = true if all == 'on'
+    all = all.to_b if all.is_a? String
     
-    if active
-      return Member.where( :id => Education.select(:member_id).where('status = 0') ).find_by_fuzzy_query(query, :limit => 20)
+    if all
+      return Member.find_by_fuzzy_query(query)
     end
-    return Member.find_by_fuzzy_query(query, :limit => 20)
+    
+    return Member.currently_active.find_by_fuzzy_query(query)
   end
   
   # guery for fuzzy search 
@@ -131,8 +133,10 @@ class Member < ActiveRecord::Base
       
       education = self.educations.find_by_start_date_and_study_code(start_date, code)
       
+      # if gametech also allow
+      
       if education.nil?
-        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9,1))
+        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9, 1))
         puts " + #{code} (#{status})"
       else
         puts " ± #{code} (#{status})"
@@ -160,5 +164,10 @@ class Member < ActiveRecord::Base
         education.destroy
       end
     end
+  end
+  
+  private 
+  def self.currently_active
+    return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name_id => Tag.active_by_tag ) ).map{ | i | i.member_id } )
   end
 end

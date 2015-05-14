@@ -26,4 +26,8 @@ class Tag < ActiveRecord::Base
     ['lid van verdienste', :MERIT],
     ['erelid', :HONORARY]]
   end
+  
+  def self.active_by_tag
+    [ 1, 2, 3 ]
+  end
 end

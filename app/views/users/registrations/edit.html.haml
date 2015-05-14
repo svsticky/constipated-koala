@@ -25,7 +25,7 @@
             .panel-body
               .form-group
                 %label{for: ''} E-mailadres
-                = f.email_field :email, :value => @user.email, :class => 'form-control'
+                = f.email_field :email, :value => @user.email, :class => 'form-control', :html => { :autocomplete => 'off' }
                 
                 - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                   %span.help-block #{resource.unconfirmed_email} moet nog bevestigd worden.
@@ -34,10 +34,10 @@
                 .row
                   .col-md-6
                     %label{for: ''} Nieuw wachtwoord
-                    = f.password_field :password, :class => 'form-control'
+                    = f.password_field :password, :class => 'form-control', :html => { :autocomplete => 'off' }
                   .col-md-6
                     %label{for: ''} Wachtwoord herhalen
-                    = f.password_field :password_confirmation, :class => 'form-control'
+                    = f.password_field :password_confirmation, :class => 'form-control', :html => { :autocomplete => 'off' }
 
           - if @user.admin?  
             = f.fields_for :credentials do |admin|

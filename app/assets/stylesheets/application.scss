@@ -55,6 +55,23 @@ table.table > tbody > tr.red, table.table > tbody > tr.red a {
  width: 100%;
 }
 
+label.ui-checkbox.btn {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  
+  width: 34px;
+  height: 34px;
+  
+  input {
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    
+    display: block;
+  }
+}
+
 aside a[href='#'] {
   cursor: default;
 }
