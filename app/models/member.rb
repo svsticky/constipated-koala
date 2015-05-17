@@ -9,14 +9,15 @@ class Member < ActiveRecord::Base
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, format: { with: /\A[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z]+\.[A-Za-z.]+\z)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
-  validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ }
+  validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ } #TODO id checken using algorithm
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
 
-  attr_accessor :tags_name_ids
+  attr_accessor :tags_names
   fuzzily_searchable :query
   is_impressionable
+
 
   has_many :tags,
     :dependent => :destroy,
@@ -25,6 +26,7 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :tags,
     :reject_if => :all_blank,
     :allow_destroy => true
+
 
   has_many :educations,
     :dependent => :destroy
@@ -35,13 +37,25 @@ class Member < ActiveRecord::Base
     :reject_if => :all_blank,
     :allow_destroy => true
 
+
   has_many :participants,
     :dependent => :destroy
   has_many :activities,
     :through => :participants
     
+    
   has_one :checkout_balance
   has_many :checkout_cards
+
+
+  # fix caps
+  def first_name=(first_name)
+    write_attribute(:first_name, first_name.capitalize)
+  end
+  
+  def last_name=(last_name)
+    write_attribute(:last_name, last_name.capitalize)
+  end
 
   # remove nonnumbers and change + to 00
   def phone_number=(phone_number)
@@ -50,9 +64,21 @@ class Member < ActiveRecord::Base
 
   # remove spaces in postal_code
   def postal_code=(postal_code)
-    write_attribute(:postal_code, postal_code.sub(' ', ''))
+    write_attribute(:postal_code, postal_code.upcase.sub(' ', ''))
   end
-  
+
+  def tags_names=(tags)
+    Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
+    
+    tags.each do |tag|
+      if tag.empty?
+        next
+      end
+      
+      puts Tag.where( :member_id => id, :name => Tag.names[tag] ).first_or_create!
+    end
+  end
+
   # return full name
   def name
     if infix.blank?
@@ -67,7 +93,6 @@ class Member < ActiveRecord::Base
     return Digest::MD5.hexdigest(self.email)
   end
 
-  # TODO maybe on database level
   before_create do
     self.join_date = Time.new
   end
@@ -84,7 +109,7 @@ class Member < ActiveRecord::Base
       end
     end
   end
-
+  
   def self.search(query, all = false)    
     if query.is_number?
       return Member.where("student_id like ?", "%#{query}%")
@@ -168,6 +193,6 @@ class Member < ActiveRecord::Base
   
   private 
   def self.currently_active
-    return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name_id => Tag.active_by_tag ) ).map{ | i | i.member_id } )
+    return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
   end
 end

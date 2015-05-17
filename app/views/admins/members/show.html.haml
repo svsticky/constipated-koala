@@ -32,7 +32,7 @@
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
                   %i.fa.fa-fw.fa-tag
-                  = tag.name(tag)
+                  = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )  
          
           .panel.panel-default
             .panel-heading
