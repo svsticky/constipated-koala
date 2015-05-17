@@ -9,7 +9,10 @@ class Member < ActiveRecord::Base
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, format: { with: /\A[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z]+\.[A-Za-z.]+\z)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
-  validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ } #TODO id checken using algorithm
+  
+  validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ }
+  validate :valid_student_id #TODO id checken using algorithm
+  
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
@@ -194,5 +197,21 @@ class Member < ActiveRecord::Base
   private 
   def self.currently_active
     return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
+  end
+  
+  def valid_student_id
+    numbers = student_id.split("").map(&:to_i).reverse
+
+    sum = 0
+    numbers.each_with_index do |digit, i|
+      # The first digit is * -1, the rest
+      # counts from 2 up.
+      i = i+1
+      sum += digit * i
+    end
+
+    if sum % 11 != 0
+      errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid')
+    end
   end
 end
