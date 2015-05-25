@@ -79,13 +79,19 @@ $(document).on( 'ready page:load', function(){
     event.preventDefault();
     if( !$( '#credit .form-group input#amount' ).val() )
       return
+      
+    var price = $( '#credit .form-group input#amount' ).val();
+      
+    // Make it a bit more pretty
+    if(!isNaN(price))
+      $(this).val(parseFloat(price).toFixed(2));
     
     $.ajax({
       url: '/checkout/transaction',
       type: 'PATCH',
       data: {
         member_id: $( '#credit .form-group#card' ).attr( 'data-id' ),
-        amount: $( '#credit .form-group input#amount' ).val().replace( ',', '.' ),
+        amount: price,
         authenticity_token: token
       }
     }).done(function( data ){          

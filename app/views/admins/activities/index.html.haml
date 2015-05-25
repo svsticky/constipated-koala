@@ -4,7 +4,7 @@
 %section#content
   = render 'layouts/search'
 
-  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
+  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
       .col-md-6.hidden-xs
         .panel.panel-default
@@ -12,7 +12,7 @@
             %i.fa.fa-fw.fa-ticket
             Niet betaalde activiteiten
             
-          .panel-body#participants
+          .panel-body#participants.filtered-search
             - @detailed.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
                 %thead
@@ -22,7 +22,7 @@
                 %tbody
                   - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
                     - if !participant.currency.nil?
-                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id, :email => participant.member.email }  }
+                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id, :email => participant.member.email, :name => participant.member.name } }
                         %td= link_to "#{participant.member.name}", participant.member
                 
                         - if !participant.currency.nil?
