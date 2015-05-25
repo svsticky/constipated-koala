@@ -211,7 +211,7 @@ class Member < ActiveRecord::Base
     end
 
     if sum % 11 != 0
-      errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid')
+      errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.elfproef')
     end
   end
 end

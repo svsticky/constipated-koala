@@ -57,7 +57,7 @@
                   .col-md-4
                     = label(:checkout_product, :category)
                     .ui-select
-                      = f.select :category, options_for_select(CheckoutProduct.categories, @product.category)
+                      = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
                   .col-md-8
                     = label(:checkout_product, :image)
                     .input-group

@@ -21,4 +21,8 @@ class Activity < ActiveRecord::Base
   def currency(member)
     participants.where(:member => member).first.price ||= self.price
   end
+  
+  def price=(price)
+    write_attribute(:price, price.to_s.gsub(',', '.').to_f)
+  end
 end

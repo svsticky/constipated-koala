@@ -127,12 +127,12 @@ class Admins::CheckoutController < ApplicationController
   end  
   
   def products_list
-    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :price)
+    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price)
   end
   
   def create_product
     @product = CheckoutProduct.new(product_post_params)
-
+  
     if @product.save
       redirect_to checkout_products_path
     else
@@ -156,8 +156,8 @@ class Admins::CheckoutController < ApplicationController
   
   def product_post_params
     params.require(:checkout_product).permit( :name,
-                                      :price,
-                                      :category,
-                                      :image)
+                                              :price,
+                                              :category,
+                                              :image)
   end
 end

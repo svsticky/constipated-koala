@@ -1,5 +1,13 @@
-p.uuid {
-  margin-bottom: 0px;
+table.table-linked tr {
+  position: relative;
+  
+  td.buttons {
+    padding: 0px;
+    
+    div.btn-group {
+      margin-top: 3px;
+    }
+  }
 }
 
 .btn-group {
@@ -44,4 +52,8 @@ p.uuid {
 
 .table span.fa-sort-desc {
   color: red;
+}
+
+p.uuid {
+  margin-bottom: 0px;
 }

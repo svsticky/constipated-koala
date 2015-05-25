@@ -63,10 +63,7 @@
               .form-group
                 %label{for: ''} E-mailadres
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-              /
-                .form-group
-                  %label{for: ''} Tags
-                  = f.select :tags, Tag.list, {:include_blank => true}, :multiple => true, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
+
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
@@ -93,7 +90,7 @@
                             = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
                         .col-md-6
                           .ui-select
-                            = fs.select :status, options_for_select(Education.statusen, education.status)
+                            = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), id]}, education.status)
                           
                       .row      
                         .col-md-6
