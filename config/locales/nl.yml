@@ -36,6 +36,12 @@ nl:
         price: Prijs
         start_date: Begin datum
         end_date: Eind datum
+        
+      tag:
+        names:
+          pardon: gratie
+          merit: lid van verdienste
+          honorary: erelid
 
     errors:
       models:

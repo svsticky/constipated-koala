@@ -31,6 +31,8 @@ function bind_activities(){
       
       $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       
+      $( 'input#search' ).select();
+      
       bind_activities();
     }).fail(function(){
       alert( '', 'error' );
@@ -59,6 +61,8 @@ function bind_activities(){
       $(row).addClass( 'red' );
       
       $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
+            
+      $( 'input#search' ).select();
       
       bind_activities();
     }).fail(function(){
@@ -89,6 +93,8 @@ function bind_activities(){
       $('.number').html( $('.number').html() -1 );
       
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
+            
+      $( 'input#search' ).select();
     }).fail(function(){
       alert( '', 'error' );
     });
@@ -197,4 +203,26 @@ $(document).on( 'ready page:load', function(){
   });
   
   $('form#mail').mail();
+  
+  if( $('.filtered-search') ){
+    $('input#search').on('keyup', function(){
+      
+      var query = new RegExp( $( this ).val(), 'i');
+      
+      $( '.filtered-search table' ).each( function( index, table ){
+        $( table ).find( 'tbody tr' ).each( function( index, row ){
+          
+          if( query.test( $( row ).attr( 'data-name' )))
+            $( row ).removeClass('hidden');
+          else
+            $( row ).addClass('hidden');
+        });
+        
+        if( $( table ).find( 'tbody tr' ).not( '.hidden' ).length > 0 )
+          $( table ).removeClass('hidden');
+        else
+          $( table ).addClass('hidden');
+      });
+    });
+  }
 });

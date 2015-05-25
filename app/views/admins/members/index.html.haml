@@ -60,7 +60,7 @@
            
       %footer.table-footer
         .row
-          .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => @pagination } }
+          .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => @pagination, :search => @search, :all => @all } }
             %span
               Toon
               = select_tag 'limit', options_for_select([20,50,100], @limit)
@@ -74,7 +74,7 @@
               %li.scroll{ :class => ( 'disabled' if @page / @pagination == 0)}
                 %a{ :data => { :offset => (@page / @pagination * @pagination -1) * @limit }} <<
                 
-              - (0 .. @pages).each do |i|
+              - (0 .. @pages -1).each do |i|
                 - if i == @page
                   %li.active
                     - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
@@ -88,7 +88,7 @@
                     - else
                       %a.hidden{ :data => { :offset => @limit * i }}= i+1    
 
-              %li.scroll{ :class => ( 'disabled' if @pages / @pagination * @pagination <= @page )}
+              %li.scroll{ :class => ( 'disabled' if @pages / @pagination.to_f <= 1 || @page +1 > (@pages -1) / @pagination * @pagination)}
                 %a{ :data => { :offset => (@page / @pagination +1) * @pagination * @limit }} >>
                     
               %li{ :class => ( 'disabled' if @offset == @limit * @pages )}

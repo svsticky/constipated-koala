@@ -73,7 +73,7 @@
               
               .form-group
                 %label{for: ''} Tags
-                = f.select :tags, options_for_select(Tag.list, @member.tags.collect {|tag| tag.name_id}), { :include_blank => true }, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
+                = f.select :tags, options_for_select( Tag.names.map{ |tag, id| [I18n.t( tag, scope: 'activerecord.attributes.tag.names' ), tag] }, @member.tags.collect{ |tag| tag.name }), { :include_blank => true }, :multiple => true, :name => 'member[tags_names][]', :class => 'form-control'
               
               .form-group
                 %label{for: ''} Comments

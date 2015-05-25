@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.1.1'
+gem 'rails', '~> 4.2.1'
 
 # authentication gem
 gem 'devise'
@@ -29,10 +29,10 @@ gem 'mysql2'
 gem 'sass-rails'
 
 # Use bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.1.1.1'
 
 # use font awesome
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.1.0'
 
 # new search engine
 gem 'fuzzily'

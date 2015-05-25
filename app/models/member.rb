@@ -9,14 +9,18 @@ class Member < ActiveRecord::Base
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, format: { with: /\A[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z]+\.[A-Za-z.]+\z)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
+  
   validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ }
+  validate :valid_student_id #TODO id checken using algorithm
+  
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
 
-  attr_accessor :tags_name_ids
+  attr_accessor :tags_names
   fuzzily_searchable :query
   is_impressionable
+
 
   has_many :tags,
     :dependent => :destroy,
@@ -25,6 +29,7 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :tags,
     :reject_if => :all_blank,
     :allow_destroy => true
+
 
   has_many :educations,
     :dependent => :destroy
@@ -35,13 +40,25 @@ class Member < ActiveRecord::Base
     :reject_if => :all_blank,
     :allow_destroy => true
 
+
   has_many :participants,
     :dependent => :destroy
   has_many :activities,
     :through => :participants
     
+    
   has_one :checkout_balance
   has_many :checkout_cards
+
+
+  # fix caps
+  def first_name=(first_name)
+    write_attribute(:first_name, first_name.capitalize)
+  end
+  
+  def last_name=(last_name)
+    write_attribute(:last_name, last_name.capitalize)
+  end
 
   # remove nonnumbers and change + to 00
   def phone_number=(phone_number)
@@ -50,9 +67,21 @@ class Member < ActiveRecord::Base
 
   # remove spaces in postal_code
   def postal_code=(postal_code)
-    write_attribute(:postal_code, postal_code.sub(' ', ''))
+    write_attribute(:postal_code, postal_code.upcase.sub(' ', ''))
   end
-  
+
+  def tags_names=(tags)
+    Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
+    
+    tags.each do |tag|
+      if tag.empty?
+        next
+      end
+      
+      puts Tag.where( :member_id => id, :name => Tag.names[tag] ).first_or_create!
+    end
+  end
+
   # return full name
   def name
     if infix.blank?
@@ -67,7 +96,6 @@ class Member < ActiveRecord::Base
     return Digest::MD5.hexdigest(self.email)
   end
 
-  # TODO maybe on database level
   before_create do
     self.join_date = Time.new
   end
@@ -84,18 +112,20 @@ class Member < ActiveRecord::Base
       end
     end
   end
-
-  def self.search(query, active = true)    
+  
+  def self.search(query, all = false)    
     if query.is_number?
       return Member.where("student_id like ?", "%#{query}%")
     end
     
-    active = active.to_b if active.is_a? String
+    all = true if all == 'on'
+    all = all.to_b if all.is_a? String
     
-    if active
-      return Member.where( :id => Education.select(:member_id).where('status = 0') ).find_by_fuzzy_query(query, :limit => 20)
+    if all
+      return Member.find_by_fuzzy_query(query)
     end
-    return Member.find_by_fuzzy_query(query, :limit => 20)
+    
+    return Member.currently_active.find_by_fuzzy_query(query)
   end
   
   # guery for fuzzy search 
@@ -131,8 +161,10 @@ class Member < ActiveRecord::Base
       
       education = self.educations.find_by_start_date_and_study_code(start_date, code)
       
+      # if gametech also allow
+      
       if education.nil?
-        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9,1))
+        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9, 1))
         puts " + #{code} (#{status})"
       else
         puts " ± #{code} (#{status})"
@@ -159,6 +191,27 @@ class Member < ActiveRecord::Base
         puts " - #{education.study.code}"
         education.destroy
       end
+    end
+  end
+  
+  private 
+  def self.currently_active
+    return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
+  end
+  
+  def valid_student_id
+    numbers = student_id.split("").map(&:to_i).reverse
+
+    sum = 0
+    numbers.each_with_index do |digit, i|
+      # The first digit is * -1, the rest
+      # counts from 2 up.
+      i = i+1
+      sum += digit * i
+    end
+
+    if sum % 11 != 0
+      errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid')
     end
   end
 end
