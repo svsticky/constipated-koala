@@ -14,10 +14,13 @@ class CheckoutProduct < ActiveRecord::Base
 
   has_attached_file :image, 
   	:styles => { :original => ['128x128', :png] }, 
-  	:processors => :thumbnail, 
+  	:processors => [ :thumbnail ], 
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 center' },
-  	:path => '/:class/:id'
+  	:path => '/:class/:id',
+  	:s3_permissions => {
+      :original => :public
+    }
 
   validates_attachment_content_type :image, 
 	  :content_type => ['image/jpeg', 'image/png']
