@@ -2,7 +2,7 @@ class AddProductsToCheckoutTransactions < ActiveRecord::Migration
   def change
     create_table :checkout_products do |t|
       t.string :name
-      t.string :category
+      t.integer :category
       t.boolean :active, :default => true
       
       t.decimal :price, :scale => 2, :precision => 6

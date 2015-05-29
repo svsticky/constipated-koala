@@ -26,12 +26,7 @@ class Admins::CheckoutController < ApplicationController
     respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
   end
 
-  def change_funds  
-    if !params[:amount].is_number?
-      render :status => :bad_request, :json => 'amount should be a numeric value'
-      return
-    end
-    
+  def change_funds      
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
       transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
@@ -46,8 +41,11 @@ class Admins::CheckoutController < ApplicationController
     
     begin
       transaction.save
-    rescue ActiveRecord::RecordNotSaved
-      render :status => :request_entity_too_large, :json => 'insufficient funds'
+    rescue ActiveRecord::RecordNotSaved => exception
+      render :status => :request_entity_too_large, :json => exception.message
+      return
+    rescue ActiveRecord::RecordInvalid => exception
+      render :status => :bad_request, :json => exception.message
       return
     end
     
@@ -63,20 +61,16 @@ class Admins::CheckoutController < ApplicationController
     end
     
     transaction = CheckoutTransaction.new( :items => params[:items].to_a, :checkout_card => card )
-
-    logger.debug transaction.inspect
-
+    
     begin
       transaction.save
-    rescue ActiveRecord::RecordNotSaved
-      render :status => :request_entity_too_large, :json => 'insufficient funds'
+    rescue ActiveRecord::RecordInvalid => error
+      render :status => :bad_request, :json => error.message
       return
-    rescue ArgumentError
-      render :status => :bad_request, :json => 'no items supplied'
+    rescue ActiveRecord::RecordNotSaved => error
+      render :status => :request_entity_too_large, :json => error.message
       return
     end
-  
-    logger.debug transaction.inspect
   
     render :status => :created, :json => transaction.created_at
   end
@@ -110,7 +104,7 @@ class Admins::CheckoutController < ApplicationController
       return
     end
     
-    card.update_attribute(:active, true);
+    card.update_attribute(:active, true)
     
     if card.save
       render :status => :ok, :json => card.to_json
@@ -123,7 +117,9 @@ class Admins::CheckoutController < ApplicationController
   
   def products
     @product = CheckoutProduct.new
-    @products = CheckoutProduct.all
+    @products = CheckoutProduct.where(:active =>  true)
+    
+    logger.debug @products
   end  
   
   def products_list
@@ -142,8 +138,16 @@ class Admins::CheckoutController < ApplicationController
   end
   
   def delete_product
-    @product = CheckoutProduct.find(params[:id])
-    @product.update_attribute(:active, false)
+    product = CheckoutProduct.find(params[:id])
+    product.update_attribute(:active, 'false')
+    
+    if product.save
+      render :status => :no_content, :json => ''
+      return
+    else 
+      render :status => :bad_request, :json => product.errors.full_messages
+      return
+    end
   end
   
   private 

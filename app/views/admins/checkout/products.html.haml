@@ -14,11 +14,12 @@
             %i.fa.fa-fw.fa-ticket
             Producten
             
-          %table.table.table-striped.table-linked
+          %table.table.table-striped.table-linked#products
             %tbody
               - @products.each do |product|
                 %tr{ :data => { 'id' => product.id }}
                   %td= link_to product.name, product.image.url(:original)
+                  %td= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
                   %td= number_to_currency( product.price, :unit => '€' )
                   %td.buttons
                     .btn-group

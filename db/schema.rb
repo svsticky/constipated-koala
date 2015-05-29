@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150516184235) do
 
   create_table "checkout_products", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.string   "category",           limit: 255
+    t.integer  "category",           limit: 4
     t.boolean  "active",             limit: 1,                           default: true
     t.decimal  "price",                          precision: 6, scale: 2
     t.string   "image_file_name",    limit: 255

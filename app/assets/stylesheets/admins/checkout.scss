@@ -1,23 +1,20 @@
-table.table-linked tr {
+table.table.table-linked > tbody > tr {
   position: relative;
   
-  td.buttons {
+  > td.buttons {
     padding: 0px;
+    width: 45px;
     
     div.btn-group {
       margin-top: 3px;
+      
+      height: 34px;
+      line-height: 20px;
+      
+      position: absolute;
+      right: 20px;
     }
   }
-}
-
-.btn-group {
-  position: absolute;
-  height: 34px;
-  
-  line-height: 20px;
-  
-  right: 20px;
-  top: 22px;
 }
 
 #credit form.form-inline > .form-group {

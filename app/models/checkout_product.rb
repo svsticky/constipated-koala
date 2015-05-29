@@ -1,12 +1,12 @@
 class CheckoutProduct < ActiveRecord::Base
   validates :name, presence: true
-#  validates :category, presence: true
+  validates :category, presence: true
   validates :active, presence: true
   
   validates :price, presence: true
-#  validates :image, presence: true
+  validates :image, presence: true
   
-  enum category: [ :beverage, :chocolate, :savory, :additional ]
+  enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4 }
   
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f)

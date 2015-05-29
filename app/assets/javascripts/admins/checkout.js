@@ -106,7 +106,7 @@ $(document).on( 'ready page:load', function(){
       alert( 'checkout opgewaardeerd', 'success' );
       
       //toevoegen aan de lijst
-      $( '#transactions' ).trigger( 'transaction_added' );
+      $( '#transactions' ).trigger( 'transaction_added' ); //TODO
       
       //formulier terugveranderen
       $( '#credit' ).find( 'input#amount' ).trigger( 'keyup', [27]);
@@ -122,4 +122,30 @@ $(document).on( 'ready page:load', function(){
         alert( 'het bedrag moet numeriek zijn', 'error' );
     });
   });
+  
+  
+  // [DELETE] checkout_product
+  $('#products button.destroy').on('click', function(){
+    var id = $(this).closest('tr').attr('data-id');
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
+    
+    if( !confirm($(row).find('a').html() + ' verwijderen?') )
+      return
+    
+    $.ajax({
+      url: '/checkout/products',
+      type: 'DELETE',
+      data: {
+        id: id,
+        authenticity_token: token
+      }
+    }).done(function(){
+      alert($(row).find('a').html() + ' verwijderd', 'info');
+      $(row).remove();
+    }).fail(function(){
+      alert( '', 'error' );
+    });
+  });
+  
 });

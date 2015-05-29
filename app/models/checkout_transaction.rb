@@ -6,28 +6,33 @@ class CheckoutTransaction < ActiveRecord::Base
   serialize :items, Array
 
   before_validation do
-    self.price = 0
     
-    self.items.each do |item|
-      self.price -= CheckoutProduct.find(item).price
+    # add items for a price
+    if !self.items.blank?      
+      self.price = 0
+      
+      self.items.each do |item|
+        self.price -= CheckoutProduct.find(item).price
+      end
     end
     
-    # TODO als er ook geen kaart is een nieuw balans aanmaken
+    if self.price.nil? || self.price == 0
+      raise ActiveRecord::RecordInvalid #.new('no items supplied')
+    end
+    
     if self.checkout_balance.nil?    
       self.checkout_balance = self.checkout_card.checkout_balance
     end
     
     if self.checkout_balance.balance + self.price < 0 
-      logger.error 'insufficient funds'
-      raise ActiveRecord::RecordNotSaved
-    end
-    
-    if self.price == 0
-      logger.error 'no items supplied'
-      raise ArgumentError
+      raise ActiveRecord::RecordNotSaved #.new('insufficient funds')
     end
 
     self.checkout_balance.update_attribute(:balance, self.checkout_balance.balance + self.price)
     self.checkout_balance.save!
+  end
+  
+  def price=(price)
+    write_attribute(:price, price.to_s.gsub(',', '.').to_f)
   end
 end
