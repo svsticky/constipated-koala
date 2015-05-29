@@ -3,7 +3,7 @@ class Advertisement < ActiveRecord::Base
   validates :visible, presence: true
 
   has_attached_file :poster, 
-  	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] }, 
+  	:styles => { :medium => ['x720', :png] }, 
   	:processors => [ :ghostscript, :thumbnail ], 
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' }

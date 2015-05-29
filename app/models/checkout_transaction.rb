@@ -17,7 +17,7 @@ class CheckoutTransaction < ActiveRecord::Base
     end
     
     if self.price.nil? || self.price == 0
-      raise ActiveRecord::RecordInvalid #.new('no items supplied')
+      raise ActiveRecord::RecordInvalid.new('no items supplied')
     end
     
     if self.checkout_balance.nil?    
@@ -25,7 +25,7 @@ class CheckoutTransaction < ActiveRecord::Base
     end
     
     if self.checkout_balance.balance + self.price < 0 
-      raise ActiveRecord::RecordNotSaved #.new('insufficient funds')
+      raise ActiveRecord::RecordNotSaved.new('insufficient funds')
     end
 
     self.checkout_balance.update_attribute(:balance, self.checkout_balance.balance + self.price)

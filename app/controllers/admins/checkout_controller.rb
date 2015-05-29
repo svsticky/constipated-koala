@@ -44,7 +44,7 @@ class Admins::CheckoutController < ApplicationController
     rescue ActiveRecord::RecordNotSaved => exception
       render :status => :request_entity_too_large, :json => exception.message
       return
-    rescue ActiveRecord::RecordInvalid => exception
+    rescue ActiveRecord::RecordInvalid
       render :status => :bad_request, :json => exception.message
       return
     end
