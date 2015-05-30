@@ -89,13 +89,11 @@
         #item2.item
         #item3.item
         #item4.item
-
-
-
+        
     #inschrijven.portfolio
       .container
-        .row
-          = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
+        = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
+          .row
             - if @member.errors.any?
               .alert.alert-danger
                 %button.click.close{ type: 'button' } ×
@@ -150,66 +148,62 @@
             .form-group
               %label{for: ''}= t('.form#email')
               = f.email_field :email, :value => @member.email, :class => 'form-control'
+              .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
+                    
+          .row
+            .col-md-5
+              %h4
+                %span.glyphicon.glyphicon-th
+                = t('.form#study_info')
+              
+              .form-group
+                %label{for: ''}= t('.form#student_id')
+                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
+              
+              .form-group.studies
+                %label{for: ''}
+                  = t('.form#study')
+                    
+                - @member.educations.each do |education|
+                  = f.fields_for 'educations_attributes[]', education do |fs|
+                    .form-group
+                      .row
+                        .col-md-12
+                          .ui-select
+                            = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
+            
+            .col-md-5.pull-right                 
+              %h4
+                %span.glyphicon.glyphicon-th
+                = t('.form#activities')
+              .col-md-6
+                .form-group.activities
 
-            %h4
-              %span.glyphicon.glyphicon-th
-              = t('.form#study_info')
+                  - @membership.each do |membership|
+                    = f.fields_for 'participant_attributes[]', membership do |fa|
+                      %label.ui-checkbox
+                        = fa.hidden_field :id, :value => membership.id
+                        = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled'
+                        %span
+                          = membership.name
+                          %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(membership.price, :unit => '€')})
+    
+                  - @activities.each do |activity|
+                    = f.fields_for 'participant_attributes[]', activity do |fa|
+                      %label.ui-checkbox
+                        = fa.hidden_field :id, :value => activity.id
+                        = fa.check_box :participate, :checked => 'checked'
+                        %span
+                          = activity.name
+                          %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(activity.price, :unit => '€')})
 
-            .form-group.studies
-              .row
-                .col-md-6
-                  %label{for: ''}= t('.form#student_id')
-                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-                .col-md-6
-                  .col-md-6{ :style => 'padding: 0px;'}
-                    %label{for: ''}
-                      = t('.form#study')
-                  .col-md-6
-                    %label{for: ''}
-                      = t('.form#start_date')
-                  - @member.educations.each do |education|
-                    = f.fields_for 'educations_attributes[]', education do |fs|
-                      .form-group
-                        .row
-                          .col-md-6
-                            .ui-select
-                              = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
-                          .col-md-6
-                            = fs.date_field :start_date, :class => 'form-control', :placeholder => t('.form#start_date')
-
-            %h4.bachelor
-              %span.glyphicon.glyphicon-th
-              = t('.form#activities')
-
-            .form-group.bachelor
-              .row
-                .col-md-6
-                  %label.ui-checkbox
-                    %input{name: 'activities[lidmaatschap]', type: 'checkbox', value: 'lidmaatschap', checked: 'checked', disabled: 'disabled' }
-                    %span
-                      = t('.form#membership')
-                      %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
-                  -#
-                    %br
-                    %label.ui-checkbox
-                      %input{name: 'activities[bbq]', type: 'checkbox', value: 'bbq', checked: 'checked'}
-                      %span
-                        = t('.form#bbq')
-                        %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 5,00)
-                    %br
-                    %label.ui-checkbox
-                      %input{name: 'activities[lasergamen]', type: 'checkbox', value: 'lasergamen', checked: 'checked'}
-                      %span
-                        = t('.form#lasergaming')
-                        %span{ :style => 'color: grey; font-size: 0.8em;' } (€ 7,50)
-                .col-md-3
-                  %label{for: ''}= t('.form#payment_method')
-                  .ui-select
-                    = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
-                  .ui-select{ :style => 'margin-top: 5px;' }
-                    = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
-
-            %button.btn.btn-success{type: 'submit'}= t('.form#submit')
+              .col-md-6  
+                .ui-select
+                  = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
+                .ui-select{ :style => 'margin-top: 5px;' }
+                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
+  
+          %button.btn.btn-success{type: 'submit'}= t('.form#submit')
 
     %footer
       .container
@@ -228,6 +222,7 @@
             .top-scroll
               %a{href: "#top"}
                 %i.fa.fa-circle-arrow-up.scroll.fa-4x
+                
 - if @member.errors.any?
   :javascript
     $('html,body').animate({

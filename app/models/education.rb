@@ -7,6 +7,12 @@ class Education < ActiveRecord::Base
   
   enum status: [ :active, :stopped, :graduated ]
   
+  before_validation do
+    if self.start_date.nil?
+      self.start_date = Time.new
+    end
+  end
+  
   def self.statusen
     return [[ "studerend", :active ], [ "gestopt", :stopped ], [ "geslaagd", :graduated ]]
   end

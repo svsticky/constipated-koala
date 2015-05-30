@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516184235) do
+ActiveRecord::Schema.define(version: 20150530120521) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20150516184235) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "name",                limit: 255
-    t.boolean  "visible",             limit: 1
     t.string   "poster_file_name",    limit: 255
     t.string   "poster_content_type", limit: 255
     t.integer  "poster_file_size",    limit: 4
@@ -67,12 +66,26 @@ ActiveRecord::Schema.define(version: 20150516184235) do
 
   add_index "checkout_cards", ["uuid"], name: "index_checkout_cards_on_uuid", unique: true, using: :btree
 
+  create_table "checkout_products", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.integer  "category",           limit: 4
+    t.boolean  "active",             limit: 1,                           default: true
+    t.decimal  "price",                          precision: 6, scale: 2
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "checkout_transactions", force: :cascade do |t|
-    t.decimal  "price",                         precision: 6, scale: 2, null: false
+    t.decimal  "price",                           precision: 6, scale: 2, null: false
     t.integer  "checkout_card_id",    limit: 4
     t.integer  "checkout_balance_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "items",               limit: 255
   end
 
   create_table "educations", force: :cascade do |t|
@@ -178,6 +191,15 @@ ActiveRecord::Schema.define(version: 20150516184235) do
 
   add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match", using: :btree
   add_index "trigrams", ["owner_id", "owner_type"], name: "index_by_owner", using: :btree
+
+  create_table "user_configurations", id: false, force: :cascade do |t|
+    t.string  "abbreviation", limit: 255
+    t.string  "name",         limit: 255
+    t.string  "description",  limit: 255
+    t.string  "value",        limit: 255
+    t.integer "config_type",  limit: 4
+    t.string  "options",      limit: 255
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

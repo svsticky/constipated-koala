@@ -1,7 +1,7 @@
-- content_for(:page, 'apps')
-- content_for(:subpage, 'radio')
+- content_for(:page, 'settings')
+- content_for(:subpage, 'generic')
 
-- content_for(:title, 'Constipated koala | R.A.D.I.O.') 
+- content_for(:title, 'Constipated koala | settings') 
 
 %section#content
   = render 'layouts/search'
@@ -34,7 +34,7 @@
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o
   
-          = form_for :advertisement, url: apps_radio_path, method: :post, :class => 'form-validation' do |f|                          
+          = form_for :advertisement, url: settings_radio_path, method: :post, :class => 'form-validation' do |f|                          
             .form-group
               .input-group
                 = f.text_field :name, { :class => 'form-control' }

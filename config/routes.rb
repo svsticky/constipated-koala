@@ -57,9 +57,10 @@ ConstipatedKoala::Application.routes.draw do
       delete 'participants',      to: 'participants#destroy'
       post   'participants/mail', to: 'participants#mail'
       
-      get    'apps/radio',        to: 'apps#radio'
-      post   'apps/radio',        to: 'apps#advertisement'
-      delete 'apps/radio',        to: 'apps#destroy'
+      # setting pages
+      get    'settings',          to: 'settings#index'
+      post   'settings/radio',    to: 'settings#advertisement'
+      delete 'settings/radio',    to: 'settings#destroy_advertisement'
       
       get    'apps/ideal',        to: 'apps#ideal'
       

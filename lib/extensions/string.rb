@@ -13,4 +13,8 @@ class String
 
     raise ArgumentError.new "invalid value: #{self}"
   end
+  
+  def to_a
+    return self.tr('[]', '').split(',')
+  end
 end

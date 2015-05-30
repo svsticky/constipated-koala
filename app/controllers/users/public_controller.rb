@@ -13,57 +13,30 @@ class Users::PublicController < ApplicationController
     @member = Member.new
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
+    
+    @membership = Activity.find( settings.intro_membership )
+    @activities = Activity.find( settings.intro_activities )
   end
 
   def create
-    @member = Member.new(public_post_params)
-    @activities = []
-    @total = 0
+    @member = Member.new( public_post_params.except :participant_attributes )
+    activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
+    total = 0
 
     if @member.save
       impressionist(@member, 'nieuwe lid')
       flash[:notice] = t('.notice#success')
 
-      if !@member.educations.empty? && @member.educations.first.study_id > 4
+      if !@member.educations.empty? && @member.educations.any? { |education| Study.find( education.study_id ).masters }
         redirect_to public_path
         return
       end
-
-      # add to activitiess
-      @lidmaatschap = Participant.new( :member => @member, :activity => Activity.find(@@intro['lidmaatschap']))
-
-      if @lidmaatschap.save
-        @activities.to_a.push @lidmaatschap.activity.id
-        @total += @lidmaatschap.currency
-      else
-        logger.error "[ACTIVITY] #{@member.first_name} #{@member.infix} #{@member.last_name} not added to #{@lidmaatschap.activity.name}"
+      
+      activities.each do |activity|
+        participant = Participant.create( :member => @member, :activity => activity)
+        total += participant.currency
       end
 
-      if !params[:activities].nil?
-        if params[:activities].include? 'bbq'
-          @bbq = Participant.new( :member => @member, :activity => Activity.find(@@intro['bbq']))
-
-          if @bbq.save
-            @activities.to_a.push @bbq.activity.id
-            @total += @bbq.currency
-          else
-            logger.error "[ACTIVITY] #{@member.first_name} #{@member.infix} #{@member.last_name} not added to #{@lidmaatschap.activity.name}"
-          end
-        end
-
-        if params[:activities].include? 'lasergamen'
-          @lasergamen = Participant.new( :member => @member, :activity => Activity.find(@@intro['lasergamen']))
-
-          if @lasergamen.save
-            @activities.to_a.push @lasergamen.activity.id
-            @total += @lasergamen.currency
-          else
-            logger.error "[ACTIVITY] #{@member.first_name} #{@member.infix} #{@member.last_name} not added to #{@lidmaatschap.activity.name}"
-          end
-        end
-      end
-
-      # pay with iDeal
       if params[:method] == 'IDEAL'
         @transaction = IdealTransaction.new( 
           :description => "Introductie #{@member.name}",
@@ -93,23 +66,24 @@ class Users::PublicController < ApplicationController
       if @member.educations.length < 2
         @member.educations.build( :id => '-2' )
       end
+ 
+      @membership = Activity.find( settings.intro_membership )
+      @activities = Activity.find( settings.intro_activities )
 
       render 'index'
     end
   end
 
-  # Confirm the payment has been done, the redirect url
   def confirm
-    # check if it is payed
     @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
     if @transaction.status == 'SUCCESS'
-      # set activities as payed
+
       @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
 
         if @participant.size != 1
-          flash[:notice] = t('.errors#error')
+          flash[:notice] = t('.errors#error') #ow god what have you done?!
       	  redirect_to public_path
       	end
 
@@ -117,9 +91,9 @@ class Users::PublicController < ApplicationController
       	@participant.first.save
       end
 
-      flash[:notice] = t('.notice#payment')
+      flash[:notice] = t('.notice#payment') #ingeschreven en betaald!
     else
-      flash[:notice] = t('.errors#error')
+      flash[:notice] = t('.errors#error') #ingeschreven maar niet betaald
     end
 
     redirect_to public_path
@@ -151,7 +125,7 @@ class Users::PublicController < ApplicationController
                                    :method,
                                    :bank,
 
-                                   :activities => [],
-                                   educations_attributes: [ :id, :study_id, :start_date, :end_date, :_destroy ])
+                                   participant_attributes: [ :id, :participate ],
+                                   educations_attributes: [ :id, :study_id ])
   end
 end
