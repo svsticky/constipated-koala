@@ -1,5 +1,6 @@
 class Users::HomeController < ApplicationController
-  skip_before_action :authenticate_admin!, only: [ :index, :edit, :update ]
+  skip_before_action :authenticate_user!, only: [ :confirm_add_funds ]
+  skip_before_action :authenticate_admin!, only: [ :index, :edit, :update, :add_funds, :confirm_add_funds ]
   before_action :set_locale
   
 
@@ -25,6 +26,52 @@ class Users::HomeController < ApplicationController
     
       redirect_to users_root_path
     end    
+  end
+  
+  def add_funds
+    member = Member.find(current_user.credentials_id)
+    
+    balance = CheckoutBalance.find_by_member_id!(member.id)
+    
+    if balance.nil?
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+      redirect_to users_root_url
+    end
+    
+    ideal = IdealTransaction.new( 
+      :description => "Checkout #{member.name}",
+      :amount => params[:amount],
+      :issuer => params[:bank],
+      :type => 'MONGOOSE',
+      :member => @member, 
+      :transaction_id => balance.id, 
+      :transaction_type => 'CheckoutBalance' )
+
+    if ideal.save
+      redirect_to ideal.url
+      return
+    else
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+      redirect_to users_root_url
+    end
+  end
+  
+  def confirm_add_funds    
+    ideal = IdealTransaction.find_by_uuid(params[:uuid])
+
+    if ideal.status == 'SUCCESS'
+      transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_balance => ideal.transaction_id )
+      transaction.save
+
+      ideal.update_attribute(:transaction_id, ideal.id)
+      ideal.save
+
+      flash[:notice] = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')
+    else
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+    end
+
+    redirect_to users_root_url
   end
   
   private

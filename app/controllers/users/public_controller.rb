@@ -72,7 +72,7 @@ class Users::PublicController < ApplicationController
           :type => 'INTRO',
           :member => @member, 
           :transaction_id => @activities.to_a, 
-          :transaction_type => 'Activities' )
+          :transaction_type => 'Activity' )
 
         if @transaction.save
           redirect_to @transaction.url

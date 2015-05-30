@@ -13,6 +13,9 @@ nl:
       default: "%d-%m-%Y %H:%M"
   
   activerecord:
+    models: 
+      ideal_transaction: Ideal transactie
+  
     attributes:
       member:
        first_name: Voornaam
@@ -68,3 +71,10 @@ nl:
             password_confirmation:
               confirmation: is niet goed herhaald
 
+        ideal_transaction:
+          blank: ken niet leeg zijn
+          failed: Transactie mislukt
+          success: Transactie is gelukt
+          attributes:
+            ammount: Bedrag
+            issuer: Bank
