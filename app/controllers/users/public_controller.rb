@@ -25,9 +25,10 @@ class Users::PublicController < ApplicationController
 
     if @member.save
       impressionist(@member, 'nieuwe lid')
-      flash[:notice] = t('.notice#success')
+      flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
 
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find( education.study_id ).masters }
+        flash[:notice] = I18n.t(:succes_without_payment, scope: 'activerecord.errors.subscribe')
         redirect_to public_path
         return
       end
@@ -51,7 +52,7 @@ class Users::PublicController < ApplicationController
           redirect_to @transaction.url
           return
         else
-          flash[:notice] = t('.errors#payment')
+          flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
         end
       end
 
@@ -82,7 +83,7 @@ class Users::PublicController < ApplicationController
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
 
         if @participant.size != 1
-          flash[:notice] = t('.errors#error') #ow god what have you done?!
+          flash[:notice] = I18n.t(:default, scope: 'activerecord.errors')
       	  redirect_to public_path
       	end
 
@@ -90,9 +91,9 @@ class Users::PublicController < ApplicationController
       	@participant.first.save
       end
 
-      flash[:notice] = t('.notice#payment') #ingeschreven en betaald!
+      flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
     else
-      flash[:notice] = t('.errors#error') #ingeschreven maar niet betaald
+      flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
     end
 
     redirect_to public_path

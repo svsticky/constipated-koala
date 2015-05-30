@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title= "Studievereniging Sticky | #{t('.subscribe')}"
+    %title= "Studievereniging Sticky | #{I18n.t(:subscribe, scope: 'headers')}"
     %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}
     = stylesheet_link_tag params[:controller], media: 'all', 'data-turbolinks-track' => true
@@ -17,15 +17,15 @@
         %li.sidebar-brand
           = t '.title'
         %li
-          %a{href: "#top"}= t('.home')
+          %a{href: "#top"}= I18n.t(:home, scope: 'headers')
         %li
-          %a{href: "#over"}= t('.about')
+          %a{href: "#over"}= I18n.t(:about, scope: 'headers')
         %li
-          %a{href: "#doenwat"}= t('.activities')
+          %a{href: "#doenwat"}= I18n.t(:activities, scope: 'headers')
         %li
-          %a{href: "#inschrijven"}= t('.subscribe')
+          %a{href: "#inschrijven"}= I18n.t(:subscribe, scope: 'headers')
         %li
-          %a{href: "#contact"}= t('.contact')
+          %a{href: "#contact"}= I18n.t(:contact, scope: 'headers')
 
     - if flash[:notice]
       .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
@@ -41,48 +41,48 @@
     .header-bg
     #top.header
       .vert-text
-        %h1= t('.title')
+        %h1= I18n.t('.title')
         %br
-        %a.btn.btn-default.btn-lg{href: "#over"}= t('.about')
-        %a.btn.btn-success.btn-lg{href: "#inschrijven"}= t('.subscribe')
+        %a.btn.btn-default.btn-lg{href: "#over"}= I18n.t(:about, scope: 'headers')
+        %a.btn.btn-success.btn-lg{href: "#inschrijven"}= I18n.t(:subscribe, scope: 'headers')
 
     #over.intro
       .container
         .row
           .col-md-6.col-md-offset-3.text-center
-            %h2= t('.sticky')
-            %p.lead= t('.lead')
+            %h2= I18n.t(:sticky, scope: 'headers')
+            %p.lead= I18n.t(:lead)
 
     #doenwat.services
       .container
         .row
           .col-md-4.col-md-offset-4.text-center
-            %h2= t('.activities')
+            %h2= I18n.t(:activities, scope: 'headers')
             %hr
         .row
           .col-md-2.col-md-offset-2.text-center
             .service-item
               %i.service-icon.fa.fa-group
-              %h4= t('.gezelligheid#title')
-              %p= t('.gezelligheid#text')
+              %h4= I18n.t(:title, scope: 'gezelligheid')
+              %p= I18n.t(:text, scope: 'gezelligheid')
           .col-md-2.text-center
             .service-item
               %i.service-icon.fa.fa-rocket
-              %h4= t('.activities#title')
-              %p= t('.activities#text')
+              %h4= I18n.t(:title, scope: 'activities')
+              %p= I18n.t(:text, scope: 'activities')
           .col-md-2.text-center
             .service-item
               %i.service-icon.fa.fa-book
-              %h4= t('.orientation#title')
-              %p= t('.orientation#text')
+              %h4= I18n.t(:title, scope: 'orientation')
+              %p= I18n.t(:text, scope: 'orientation')
           .col-md-2.text-center
             .service-item
               %i.service-icon.fa.fa-glass
-              %h4= t('.drinks#title')
-              %p= t('.drinks#text')
+              %h4= I18n.t(:title, scope: 'drinks')
+              %p= I18n.t(:text, scope: 'drinks')
 
     #callout-overlay.vert-text
-      %h2= t('.callout')
+      %h2= I18n.t('.callout')
     #callout.carousel.slide{:data => {'data-ride' => 'carousel'}}
       .carousel-inner
         #item1.item.active
@@ -97,56 +97,56 @@
             - if @member.errors.any?
               .alert.alert-danger
                 %button.click.close{ type: 'button' } ×
-                %span= t('.errors#incomplete')
+                %span= I18n.t(:incomplete, scope: 'activerecord.errors')
                 %ul
                 - @member.errors.full_messages.each do |msg|
                   %li= msg
             %h4
               %i.fa.fa-user
-              = t('.form#general_data')
+              = I18n.t(:general, scope: 'headers')
 
             .form-group
               = f.hidden_field :join_date, :value => Time.new
               .row
                 .col-md-5
-                  %label{for: ''}= t('.form#first_name')
+                  %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
                   = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
                 .col-md-2
-                  %label{for: ''}= t('.form#infix')
+                  %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
                   = f.text_field :infix, :value => @member.infix, :class => 'form-control'
                 .col-md-5
-                  %label{for: ''}= t('.form#last_name')
+                  %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
                   = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
             .form-group
               .row
                 .col-md-6
-                  %label{for: ''}= t('.form#gender')
+                  %label{for: ''}= I18n.t(:gender, scope: 'activerecord.attributes.member')
                   .ui-select
                     = f.select :gender, options_for_select([['MAN', 'm'], ['VROUW', 'f']], @member.gender)
                 .col-md-6
-                  %label{for: ''}= t('.form#birth_date')
+                  %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
                   = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
             .form-group
               .row
                 .col-md-8
-                  %label{for: ''}= t('.form#address')
+                  %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
                   = f.text_field :address, :value => @member.address, :class => 'form-control'
                 .col-md-4
-                  %label{for: ''}= t('.form#house_number')
+                  %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
                   = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
             .form-group
               .row
                 .col-md-6
-                  %label{for: ''}= t('.form#postal_code')
+                  %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
                   = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
                 .col-md-6
-                  %label{for: ''}= t('.form#city')
+                  %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
                   = f.text_field :city, :value => @member.city, :class => 'form-control'
             .form-group
-              %label{for: ''}= t('.form#phone_number')
+              %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
               = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
             .form-group
-              %label{for: ''}= t('.form#email')
+              %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
               = f.email_field :email, :value => @member.email, :class => 'form-control'
               .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
                     
@@ -154,15 +154,15 @@
             .col-md-5
               %h4
                 %i.fa.fa-graduation-cap
-                = t('.form#study_info')
+                = I18n.t(:study, scope: 'headers')
               
               .form-group
-                %label{for: ''}= t('.form#student_id')
+                %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
               
               .form-group.studies
                 %label{for: ''}
-                  = t('.form#study')
+                  = I18n.t(:study, scope: 'activerecord.models')
                     
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
@@ -170,12 +170,12 @@
                       .row
                         .col-md-12
                           .ui-select
-                            = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
+                            = fs.select :study_id, options_for_select(Study.all.map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
             
             .col-md-5.activities                 
               %h4
                 %i.fa.fa-ticket
-                = t('.form#activities')
+                = I18n.t(:activities, scope: 'activerecord.models')
               .col-md-6
                 .form-group
 
@@ -203,7 +203,7 @@
                 .ui-select{ :style => 'margin-top: 5px;' }
                   = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
   
-          %button.btn.btn-success{type: 'submit'}= t('.form#submit')
+          %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 
     %footer
       .container

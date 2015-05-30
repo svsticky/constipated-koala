@@ -11,23 +11,35 @@ nl:
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
+      
+  headers:
+    sticky: Studievereniging Sticky
+    general: Algemene gegevens
+    study: Studie gegevens
   
   activerecord:
     models: 
       ideal_transaction: Ideal transactie
+      activities: Activiteiten
+      study: Studie
   
     attributes:
       member:
        first_name: Voornaam
+       infix: Tussenvoegsel
        last_name: Achternaam
+       
+       birth_date: Geboortedatum
+       gender: Geslacht
+       
        address: Straatnaam
        house_number: Huisnummer
        postal_code: Postcode
        city: Woonplaats
        phone_number: Telefoonnummer
+       
        email: E-mailadres
        student_id: Studentnummer
-       birth_date: Geboortedatum
        
       user:
         email: E-mailadres
@@ -58,6 +70,18 @@ nl:
           merit: Lid van verdienste
           honorary: Erelid
           
+      study:
+        names:
+          inca: Informatica
+          inku: Informatiekunde
+          gt: Gametechnologie
+          wisk: Wiskunde
+          
+          cosc: Computer science
+          mbi: Business informatics
+          gmt: Game and media technology
+          ai: Artificial intelligence
+      
       education:
         status:
           active: Studerend
@@ -69,6 +93,14 @@ nl:
         email: E-mailadres kan geen UU email zijn
       
     errors:
+      default: Er is iets fout gegaan
+      incomplete: Oh snap, niet alles is goed ingevuld;
+
+      subscribe:          
+        success: Je betaling is ontvangen en je hebt je ingeschreven!
+        failed: Je betaling is niet gelukt, je bent wel ingeschreven!
+        success_without_payment: Je hebt je ingeschreven!
+      
       models:
         member:
           blank: kan niet leeg zijn
