@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20150530120521) do
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true, using: :btree
+  add_index "members", ["student_id"], name: "index_members_on_student_id", unique: true, using: :btree
 
   create_table "participants", force: :cascade do |t|
     t.integer  "member_id",   limit: 4

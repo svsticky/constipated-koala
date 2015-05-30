@@ -10,5 +10,7 @@ class CreateConfigurations < ActiveRecord::Migration
       t.integer :config_type
       t.string :options
     end
+    
+    add_index :members, :student_id, unique: true
   end
 end

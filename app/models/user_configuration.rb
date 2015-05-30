@@ -7,7 +7,7 @@ class UserConfiguration < ActiveRecord::Base
   validates :value, presence: true
 
   validates :config_type, presence: true
-  enum config_type: { boolean: 1, array: 2 }
+  enum config_type: { boolean: 1, array: 2, integer: 3 }
   
 #  validates :options
 
