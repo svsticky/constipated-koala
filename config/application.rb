@@ -30,5 +30,10 @@ module ConstipatedKoala
 	    Users::PublicController.layout false
 	    Users::HomeController.layout 'layouts/default'
 	  end
+	  
+    config.action_dispatch.rescue_responses = {
+      'ActiveRecord::RecordInvalid'                 => :bad_request,
+      'ActiveRecord::RecordNotSaved'                => :request_entity_too_large
+    }
   end
 end
