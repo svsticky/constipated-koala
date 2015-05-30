@@ -21,7 +21,6 @@ class Member < ActiveRecord::Base
   fuzzily_searchable :query
   is_impressionable
 
-
   has_many :tags,
     :dependent => :destroy,
     :autosave => true
@@ -30,6 +29,10 @@ class Member < ActiveRecord::Base
     :reject_if => :all_blank,
     :allow_destroy => true
 
+  has_many :checkout_cards,
+    :dependent => :destroy
+  has_one :checkout_balance,
+    :dependent => :destroy
 
   has_many :educations,
     :dependent => :destroy
@@ -40,16 +43,10 @@ class Member < ActiveRecord::Base
     :reject_if => :all_blank,
     :allow_destroy => true
 
-
   has_many :participants,
     :dependent => :destroy
   has_many :activities,
     :through => :participants
-    
-    
-  has_one :checkout_balance
-  has_many :checkout_cards
-
 
   # fix caps
   def first_name=(first_name)

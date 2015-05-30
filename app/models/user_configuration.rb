@@ -19,6 +19,8 @@ class UserConfiguration < ActiveRecord::Base
         return instance.value.to_a
       elsif instance.config_type == 'boolean'
         return instance.value.to_b
+      elsif instance.config_type == 'integer'
+        return instance.value.to_i
       end
       
       return instance.value

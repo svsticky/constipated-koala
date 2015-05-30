@@ -1,5 +1,4 @@
 /*
- * This is the public controller file
  *
  *= require font-awesome
  *= require bootstrap
@@ -16,12 +15,18 @@ form > .row > .col-md-5, .col-md-5 .col-md-6 {
   padding: 0px;
 }
 
+.activities {
+  float: right;
+}
+
 button.btn.btn-success {
   height: 50px;
   width: 250px;
   
   display: block;
   margin: 20px auto 0;
+  
+  font-size: 20px;
 }
 
 .vert-text {

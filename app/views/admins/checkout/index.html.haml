@@ -39,11 +39,15 @@
                       %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
                     - else
                       %span.fa.fa-sort-desc.pull-right
-                      
-                  %td= link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                  
+                  %td
+                    - unless transaction.checkout_balance.member.nil?
+                      = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                    - else
+                      \-
                   
                   %td.hidden-xs
-                    - if !transaction.checkout_card.nil?
+                    - unless transaction.checkout_card.nil?
                       = transaction.checkout_card.uuid
                     - else
                       \-

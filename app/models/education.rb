@@ -11,4 +11,10 @@ class Education < ActiveRecord::Base
     study = Study.find_by_code(code)
     return where('extract(year from start_date) = ? AND study_id = ?', year, study.id).first
   end
+  
+  before_validation do
+    if self.start_date.nil?
+      self.start_date = Time.new
+    end
+  end
 end

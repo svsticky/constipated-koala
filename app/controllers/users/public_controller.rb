@@ -20,7 +20,7 @@ class Users::PublicController < ApplicationController
 
   def create
     @member = Member.new( public_post_params.except :participant_attributes )
-    activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
+    activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0
 
     if @member.save
@@ -51,7 +51,6 @@ class Users::PublicController < ApplicationController
           redirect_to @transaction.url
           return
         else
-          logger.error '[IDEAL] transactie niet gelukt'
           flash[:notice] = t('.errors#payment')
         end
       end
@@ -126,6 +125,6 @@ class Users::PublicController < ApplicationController
                                    :bank,
 
                                    participant_attributes: [ :id, :participate ],
-                                   educations_attributes: [ :id, :study_id ])
+                                   educations_attributes: [ :id, :study_id, :_destroy ])
   end
 end
