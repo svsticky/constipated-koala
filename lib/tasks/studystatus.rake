@@ -15,7 +15,7 @@ namespace :studystatus do
   end  
 
   desc "Finds study progress for a member and updates the DB"
-  task :update, [:student_id] => :environment do |t, args|
+  task :update, [:username, :password, :student_id] => :environment do |t, args|
 
     Open3.popen3("/usr/local/bin/studystatus",
                  "--username", args[:username],

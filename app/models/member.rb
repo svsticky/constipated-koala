@@ -7,11 +7,11 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
-  validates :email, presence: true, format: { with: /\A[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z]+\.[A-Za-z.]+\z)/ }
+  validates :email, presence: true, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
   
   validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ }
-  validate :valid_student_id #TODO id checken using algorithm
+  validate :valid_student_id
   
   validates :birth_date, presence: true
   validates :join_date, presence: true
@@ -161,7 +161,10 @@ class Member < ActiveRecord::Base
       
       education = self.educations.find_by_start_date_and_study_code(start_date, code)
       
-      # if gametech also allow
+#       # if gametech also allow
+#       if education.nil? && code == 'INCA'
+#         education = self.educations.find_by_start_date_and_study_code(start_date, 'GT')
+#       end
       
       if education.nil?
         education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9, 1))
@@ -204,8 +207,6 @@ class Member < ActiveRecord::Base
 
     sum = 0
     numbers.each_with_index do |digit, i|
-      # The first digit is * -1, the rest
-      # counts from 2 up.
       i = i+1
       sum += digit * i
     end

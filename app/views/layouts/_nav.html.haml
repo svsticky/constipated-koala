@@ -46,10 +46,6 @@
             %a{href: '/apps/ideal'}
               %i.fa.fa-caret-right
               %span iDeal
-          %li{ :class => ('active' if yield(:subpage) == 'radio') }
-            %a{href: '/apps/radio'}
-              %i.fa.fa-caret-right
-              %span R.A.D.I.O.
           %li{ :class => ('active' if yield(:subpage) == 'studystatus') }
             %a{href: '#'}
               %i.fa.fa-caret-right
@@ -73,7 +69,7 @@
             %span.icon-bg.bg-violet
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:subpage) == 'generic') }
-            %a{href: '#'}
+            %a{href: '/settings'}
               %i.fa.fa-caret-right
               %span Algemeen
           %li{ :class => ('active' if yield(:subpage) == 'profile') }

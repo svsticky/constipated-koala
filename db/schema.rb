@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516184235) do
+ActiveRecord::Schema.define(version: 20150530120521) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20150516184235) do
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true, using: :btree
+  add_index "members", ["student_id"], name: "index_members_on_student_id", unique: true, using: :btree
 
   create_table "participants", force: :cascade do |t|
     t.integer  "member_id",   limit: 4
@@ -191,6 +192,15 @@ ActiveRecord::Schema.define(version: 20150516184235) do
 
   add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match", using: :btree
   add_index "trigrams", ["owner_id", "owner_type"], name: "index_by_owner", using: :btree
+
+  create_table "user_configurations", id: false, force: :cascade do |t|
+    t.string  "abbreviation", limit: 255
+    t.string  "name",         limit: 255
+    t.string  "description",  limit: 255
+    t.string  "value",        limit: 255
+    t.integer "config_type",  limit: 4
+    t.string  "options",      limit: 255
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

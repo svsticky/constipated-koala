@@ -12,6 +12,18 @@ body {
   height: 100%;
 }
 
+form > .row > .col-md-5, .col-md-5 .col-md-6 {
+  padding: 0px;
+}
+
+button.btn.btn-success {
+  height: 50px;
+  width: 250px;
+  
+  display: block;
+  margin: 20px auto 0;
+}
+
 .vert-text {
   display: table-cell;
   vertical-align: middle;

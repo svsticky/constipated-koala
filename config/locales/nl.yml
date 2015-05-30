@@ -13,6 +13,9 @@ nl:
       default: "%d-%m-%Y %H:%M"
   
   activerecord:
+    models: 
+      ideal_transaction: Ideal transactie
+  
     attributes:
       member:
        first_name: Voornaam
@@ -61,6 +64,10 @@ nl:
           stopped: Gestopt
           graduated: Afgestudeerd
 
+    annotations:
+      member:
+        email: E-mailadres kan geen UU email zijn
+      
     errors:
       models:
         member:
@@ -69,7 +76,7 @@ nl:
             phone_number: 
               invalid: bestaat uit 10 cijfers 
             email:
-              invalid: is geen geldig e-mailadres, het kan geen uu@.nl mail zijn
+              invalid: is geen geldig e-mailadres, het kan geen UU email zijn
             student_id:
               invalid: bestaat uit 7 cijfers
               elfproef: is niet geldig
@@ -90,3 +97,5 @@ nl:
         checkout_product:
           blank: kan niet leeg zijn
 
+        ideal_transaction:
+          blank: ken niet leeg zijn
