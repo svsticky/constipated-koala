@@ -124,3 +124,13 @@
 #mail:not(.html) > #textarea {
   display: block;
 }
+
+.ui-select.year {
+  width: 110px;
+  margin-left: 5px;
+}
+
+.ui-select.year select {
+  font-size: 14px;
+  line-height: 14px;
+}

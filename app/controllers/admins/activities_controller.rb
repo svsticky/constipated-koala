@@ -1,7 +1,8 @@
 class Admins::ActivitiesController < ApplicationController
 
   def index    
-    @activities = Activity.where("start_date >= ?", Date.start_studyyear).order(start_date: :desc)
+    @activities = Activity.study_year(params['year'].to_i || Date.current().year ).order(start_date: :desc)
+    @years = (Activity.take(1).first.start_date.year .. Date.current().year).map{ |year| ["#{year -1}-#{year}", year] }.reverse
 
     @detailed = (Activity.where("start_date <= ? AND activities.price IS NOT NULL", Date.today).joins(:participants).where(:participants => { :paid => false }).distinct \
       + Activity.where("start_date <= ? AND activities.price IS NULL", Date.today).joins(:participants).where('participants.paid IS FALSE AND participants.price IS NOT NULL').distinct).sort_by(&:start_date).reverse!

@@ -17,12 +17,16 @@ class Activity < ActiveRecord::Base
 
   has_many :participants, :dependent => :destroy
   has_many :members, :through => :participants
+  
+  def self.study_year( year )
+    where("start_date >= ? AND start_date < ?", Date.start_studyyear( year ), Date.start_studyyear( year +1 ))
+  end
 
-  def currency(member)
+  def currency( member )
     participants.where(:member => member).first.price ||= self.price
   end
   
-  def price=(price)
+  def price=( price )
     write_attribute(:price, price.to_s.gsub(',', '.').to_f)
   end
 end

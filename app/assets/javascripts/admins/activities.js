@@ -150,6 +150,13 @@ function bind_activities(){
 $(document).on( 'ready page:load', function(){
   bind_activities();
   
+  $('.ui-select.year select').on('change', function(){
+    var params = {};
+    
+    params['year'] = $(this).val();
+    location.search = $.param(params);
+  });
+  
   $('#participants').find('input#participant').search().on('selected', function(event, id, name){
       $.ajax({
         url: '/participants',
