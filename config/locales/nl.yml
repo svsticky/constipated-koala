@@ -92,8 +92,8 @@ nl:
       incomplete: Oh snap, niet alles is goed ingevuld;
 
       subscribe:          
-        success: Je betaling is ontvangen en je hebt je ingeschreven!
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
+        success: Je betaling is ontvangen en je hebt je ingeschreven!
         success_without_payment: Je hebt je ingeschreven!
       
       models:
@@ -103,8 +103,10 @@ nl:
             phone_number: 
               invalid: bestaat uit 10 cijfers 
             email:
+              taken: is geen geldig e-mailadres
               invalid: is geen geldig e-mailadres, het kan geen UU email zijn
             student_id:
+              taken: is geen geldig studentnummer
               invalid: bestaat uit 7 cijfers
               elfproef: is niet geldig
               

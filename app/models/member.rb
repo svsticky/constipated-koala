@@ -7,10 +7,10 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
-  validates :email, presence: true, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
+  validates :email, presence: true, uniqueness: true, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
   
-  validates :student_id, presence: true, format: { with: /\F?\d{6,7}/ }
+  validates :student_id, presence: true, uniqueness: true, format: { with: /\F?\d{6,7}/ }
   validate :valid_student_id
   
   validates :birth_date, presence: true

@@ -28,7 +28,7 @@ class Users::PublicController < ApplicationController
       flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
 
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find( education.study_id ).masters }
-        flash[:notice] = I18n.t(:succes_without_payment, scope: 'activerecord.errors.subscribe')
+        flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
         redirect_to public_path
         return
       end
