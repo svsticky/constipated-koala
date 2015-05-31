@@ -1,3 +1,14 @@
+li.list-group-item {
+  height: 60px;
+  padding: 10px 0;
+  
+  input {
+    width: 100%;
+    line-height: 25px;
+    margin-top: 3px;
+  }
+}
+
 #advertisements {
   tr {
     height: 48px;

@@ -53,7 +53,7 @@
             %tbody
               - @studies.each do | study, count |
                 %tr
-                  %td= link_to "#{study.name}", '#'
+                  %td= link_to study, '#'
                   %td= count
                   
       %div.col-md-6

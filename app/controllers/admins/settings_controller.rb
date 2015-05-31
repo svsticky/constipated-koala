@@ -2,6 +2,8 @@ class Admins::SettingsController < ApplicationController
   respond_to :json, only: [:destroy]
 
   def index 
+    @settings = UserConfiguration.all
+    
     @advert = Advertisement.new
     @advertisements = Advertisement.all
   end
