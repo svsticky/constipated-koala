@@ -41,11 +41,11 @@ class Users::PublicController < ApplicationController
       if params[:method] == 'IDEAL'
         @transaction = IdealTransaction.new( 
           :description => "Introductie #{@member.name}",
-          :amount => @total,
+          :amount => total,
           :issuer => params[:bank],
           :type => 'INTRO',
           :member => @member, 
-          :transaction_id => @activities.to_a, 
+          :transaction_id => activities.map{ |activity| activity.id }, 
           :transaction_type => 'Activity' )
 
         if @transaction.save
@@ -81,12 +81,6 @@ class Users::PublicController < ApplicationController
 
       @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
-
-        if @participant.size != 1
-          flash[:notice] = I18n.t(:default, scope: 'activerecord.errors')
-      	  redirect_to public_path
-      	end
-
       	@participant.first.paid = true
       	@participant.first.save
       end
