@@ -99,7 +99,7 @@
                 %button.click.close{ type: 'button' } ×
                 %span= I18n.t(:incomplete, scope: 'activerecord.errors')
                 %ul
-                - @member.errors.full_messages.each do |msg|
+                - @member.errors.full_messages.uniq.each do |msg|
                   %li= msg
             %h4
               %i.fa.fa-user

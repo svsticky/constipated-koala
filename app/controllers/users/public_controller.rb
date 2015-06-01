@@ -20,6 +20,7 @@ class Users::PublicController < ApplicationController
 
   def create
     @member = Member.new( public_post_params.except :participant_attributes )
+    @member.require_student_id = true
     activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0
 
@@ -27,6 +28,7 @@ class Users::PublicController < ApplicationController
       impressionist(@member, 'nieuwe lid')
       flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
 
+      # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find( education.study_id ).masters }
         flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
         redirect_to public_path
@@ -59,6 +61,7 @@ class Users::PublicController < ApplicationController
       redirect_to public_path
       return
     else
+      # create empty study field if not present
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
       end

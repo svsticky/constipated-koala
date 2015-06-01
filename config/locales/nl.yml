@@ -104,7 +104,7 @@ nl:
               invalid: bestaat uit 10 cijfers 
             email:
               taken: is geen geldig e-mailadres
-              invalid: is geen geldig e-mailadres, het kan geen UU email zijn
+              invalid: is geen geldig e-mailadres
             student_id:
               taken: is geen geldig studentnummer
               invalid: bestaat uit 7 cijfers

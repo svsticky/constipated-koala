@@ -10,7 +10,8 @@ class Member < ActiveRecord::Base
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
   
-  validates :student_id, presence: true, uniqueness: true, format: { with: /\F?\d{6,7}/ }
+  attr_accessor :require_student_id
+  validates :student_id, presence: false, uniqueness: true, :allow_blank => true, format: { with: /\F?\d{6,7}/ }
   validate :valid_student_id
   
   validates :birth_date, presence: true
@@ -71,9 +72,7 @@ class Member < ActiveRecord::Base
     Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
     
     tags.each do |tag|
-      if tag.empty?
-        next
-      end
+      next if tag.empty?
       
       puts Tag.where( :member_id => id, :name => Tag.names[tag] ).first_or_create!
     end
@@ -81,10 +80,7 @@ class Member < ActiveRecord::Base
 
   # return full name
   def name
-    if infix.blank?
-      return "#{self.first_name} #{self.last_name}"
-    end
-    
+    return "#{self.first_name} #{self.last_name}" if infix.blank?
     return "#{self.first_name} #{self.infix} #{self.last_name}"
   end
 
@@ -111,17 +107,12 @@ class Member < ActiveRecord::Base
   end
   
   def self.search(query, all = false)    
-    if query.is_number?
-      return Member.where("student_id like ?", "%#{query}%")
-    end
+    return Member.where("student_id like ?", "%#{query}%") if query.is_number?
     
     all = true if all == 'on'
     all = all.to_b if all.is_a? String
     
-    if all
-      return Member.find_by_fuzzy_query(query)
-    end
-    
+    return Member.find_by_fuzzy_query(query) if all
     return Member.currently_active.find_by_fuzzy_query(query)
   end
   
@@ -200,6 +191,12 @@ class Member < ActiveRecord::Base
   end
   
   def valid_student_id
+    # on the intro website student_id is required
+    errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
+        
+    # do not do the elfproef if a foreign student
+    return if ( student_id =~ /\F\d{6}/)
+    
     numbers = student_id.split("").map(&:to_i).reverse
 
     sum = 0
@@ -208,8 +205,6 @@ class Member < ActiveRecord::Base
       sum += digit * i
     end
 
-    if sum % 11 != 0
-      errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.elfproef')
-    end
+    errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.elfproef') if sum % 11 != 0
   end
 end
