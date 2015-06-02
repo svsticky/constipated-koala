@@ -77,9 +77,14 @@ ConstipatedKoala::Application.routes.draw do
       delete 'checkout/products',     to: 'checkout#delete_product' 
       
       # api routes, without authentication
-      get    'api/activities',            to: 'api#radio'
+      get    'api/activities',        to: 'api#radio'
+
+      # v1
+      get    'checkout/card',         to: 'checkout#information_for_card'
+      post   'checkout/card',         to: 'checkout#add_card_to_member'
+      post   'checkout/transaction',  to: 'checkout#subtract_funds'
       
-      # api routes, own authentication
+      # v2 api routes, own authentication
       get    'api/checkout/card',         to: 'checkout#information_for_card'
       get    'api/checkout/products',     to: 'checkout#products_list'
       
