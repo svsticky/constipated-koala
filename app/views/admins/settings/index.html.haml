@@ -7,7 +7,30 @@
   = render 'layouts/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
-    .row
+    .row    
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-fw.fa-wrench
+            Instellingen
+          %ul.list-group
+            = form_for 'settings[]', url: settings_path, method: :patch, :class => 'form-validation' do |f|
+              - @settings.each do |setting|
+                %li.list-group-item
+                  = f.hidden_field :id, :value => setting.id
+                  
+                  .col-md-6
+                    %b= setting.name
+                    %p= setting.description
+                  
+                  .col-md-6
+                    - if setting.config_type == 'array'
+                      = f.text_field 'value', :value => setting.value
+                    - if setting.config_type == 'boolean'
+                      = f.text_field 'value', :value => setting.value
+                    - if setting.config_type == 'integer'
+                      = f.text_field 'value', :value => setting.value
+      
       .col-md-6
         - if @advert.errors.any?
           .alert.alert-danger

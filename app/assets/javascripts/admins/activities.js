@@ -150,6 +150,13 @@ function bind_activities(){
 $(document).on( 'ready page:load', function(){
   bind_activities();
   
+  $('.ui-select.year select').on('change', function(){
+    var params = {};
+    
+    params['year'] = $(this).val();
+    location.search = $.param(params);
+  });
+  
   $('#participants').find('input#participant').search().on('selected', function(event, id, name){
       $.ajax({
         url: '/participants',
@@ -186,8 +193,6 @@ $(document).on( 'ready page:load', function(){
       $('form .input-group-btn .dropdown-toggle').removeClass('disabled');  
       $('form input.remove_poster').val('false');
       $('form .input-group input#output').val(this.files[0].name);
-
-      //TODO what todo with the preview, also what do as default
     }
   });
 

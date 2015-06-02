@@ -9,41 +9,36 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require font-awesome
  *
- *= require lato
  *= require bootstrap
+ *= require font-awesome
+ *= require lato
  *= require flatify
  */
- 
-.panel > .table-striped > tbody > tr {
-  &:nth-child(even) > td,   
-  &:nth-child(even) > th {
-    background-color: #f9f9f9;    
-  }
-  
-  &:nth-child(even) > td,   
-  &:nth-child(even) > th {
-    background-color: #fff;    
-  }  
+
+.panel > .table-striped > tbody > tr:nth-child(even) > td,
+.panel > .table-striped > tbody > tr:nth-child(even) > th {
+  background-color: #f9f9f9;
 }
 
-table.table.table-linked > tbody > tr{
-  &:hover > td > a {
-    text-decoration: underline;  
-  }
-  
-  > td {
-    padding: 10px;
-  
-    > a {
-      display: block;
-      height: 100%;
-      width: 100%;
-      
-      overflow: hidden;
-    }
-  }
+.panel > .table-striped > tbody > tr:nth-child(even) > td,
+.panel > .table-striped > tbody > tr:nth-child(even) > th {
+  background-color: #fff;
+}
+
+table.table.table-linked > tbody > tr:hover > td > a {
+  text-decoration: underline;
+}
+
+table.table.table-linked > tbody > tr > td {
+  padding: 10px;
+}
+
+table.table.table-linked > tbody > tr > td > a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 table.table > tbody > tr.red, table.table > tbody > tr.red a {
@@ -51,25 +46,23 @@ table.table > tbody > tr.red, table.table > tbody > tr.red a {
 }
 
 .ui-select > select {
- text-transform: capitalize;
- width: 100%;
+  text-transform: capitalize;
+  width: 100%;
 }
 
 label.ui-checkbox.btn {
   margin: 0px;
   padding: 0px;
   overflow: hidden;
-  
   width: 34px;
   height: 34px;
-  
-  input {
-    position: absolute;
-    top: 6px;
-    left: 10px;
-    
-    display: block;
-  }
+}
+
+label.ui-checkbox.btn input {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  display: block;
 }
 
 aside a[href='#'] {

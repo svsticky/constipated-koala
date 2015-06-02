@@ -4,7 +4,8 @@ class CheckoutCard < ActiveRecord::Base
   validates :checkout_balance, presence: true
   validates :active, presence: true
   
-  has_many :checkout_transactions
+  has_many :checkout_transactions,
+    :dependent => :destroy
   
   belongs_to :member
   belongs_to :checkout_balance

@@ -109,7 +109,9 @@
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-ticket
-              Activiteiten dit jaar
+              Activiteiten
+              .ui-select.year
+                = select_tag :year, options_for_select( @years, params['year'] )
               
             %table.table.table-striped.table-linked
               %tbody

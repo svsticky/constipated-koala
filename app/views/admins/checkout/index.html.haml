@@ -1,7 +1,7 @@
 - content_for(:page, 'checkout')
 - content_for(:subpage, 'transacties')
 
-- content_for(:title, 'Constipated koala | checkout') 
+- content_for(:title, 'Constipated koala | checkout | transacties') 
 
 %section#content
   = render 'layouts/search' 
@@ -39,11 +39,15 @@
                       %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
                     - else
                       %span.fa.fa-sort-desc.pull-right
-                      
-                  %td= link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                  
+                  %td
+                    - unless transaction.checkout_balance.member.nil?
+                      = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                    - else
+                      \-
                   
                   %td.hidden-xs
-                    - if !transaction.checkout_card.nil?
+                    - unless transaction.checkout_card.nil?
                       = transaction.checkout_card.uuid
                     - else
                       \-

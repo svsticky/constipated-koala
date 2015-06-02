@@ -1,15 +1,20 @@
-p.uuid {
-  margin-bottom: 0px;
-}
-
-.btn-group {
-  position: absolute;
-  height: 34px;
+table.table.table-linked > tbody > tr {
+  position: relative;
   
-  line-height: 20px;
-  
-  right: 20px;
-  top: 22px;
+  > td.buttons {
+    padding: 0px;
+    width: 45px;
+    
+    div.btn-group {
+      margin-top: 3px;
+      
+      height: 34px;
+      line-height: 20px;
+      
+      position: absolute;
+      right: 20px;
+    }
+  }
 }
 
 #credit form.form-inline > .form-group {
@@ -44,4 +49,8 @@ p.uuid {
 
 .table span.fa-sort-desc {
   color: red;
+}
+
+p.uuid {
+  margin-bottom: 0px;
 }

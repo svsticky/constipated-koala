@@ -33,3 +33,26 @@
     }
   }
 }
+
+form#editor #textarea, form#editor textarea#html {
+  font-family: arial;
+  font-size: medium;
+  
+  color: #222;
+  
+  width: 100%;
+  min-height: 200px;
+ 
+  margin-bottom: 10px;
+  overflow-y: scroll;
+  
+  display: none;
+}
+
+form#editor.html textarea#html {
+  display: block;
+}
+
+form#editor:not(.html) #textarea {
+  display: block;
+}

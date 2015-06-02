@@ -28,7 +28,8 @@ class IdealTransaction < ActiveRecord::Base
     )
 
     if response.code != '200'
-      return false
+      logger.debug response.code
+      raise ArgumentError
     end
 
     object = JSON.parse( response.body )
@@ -41,7 +42,8 @@ class IdealTransaction < ActiveRecord::Base
     response = Net::HTTP.get_response(URI("http://ideal.local?uuid=#{self.uuid}"))
 
     if response.code != '200'
-      return false
+      logger.debug response.code
+      raise ArgumentError
     end
     
     object = JSON.parse( response.body )

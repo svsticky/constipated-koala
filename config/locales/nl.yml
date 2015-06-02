@@ -5,7 +5,7 @@ nl:
       day_month: "%d %B"
       short: "%Y"
       
-    day_names: [zondag, maandag, dinsdag, woensdag, donderdag, vrijdag, zaterdag]
+    day_names: [~, maandag, dinsdag, woensdag, donderdag, vrijdag, zaterdag, zondag]
     month_names: [~, januari, februari, maart, april, mei, juni, juli, augustus, september, oktober, november, december]
 
   time:
@@ -15,24 +15,31 @@ nl:
   activerecord:
     models: 
       ideal_transaction: Ideal transactie
+      activities: Activiteiten
+      study: Studie
   
     attributes:
       member:
        first_name: Voornaam
+       infix: Tussenvoegsel
        last_name: Achternaam
+       
+       birth_date: Geboortedatum
+       gender: Geslacht
+       
        address: Straatnaam
        house_number: Huisnummer
        postal_code: Postcode
        city: Woonplaats
        phone_number: Telefoonnummer
+       
        email: E-mailadres
        student_id: Studentnummer
-       birth_date: Geboortedatum
        
       user:
         email: E-mailadres
         password: Wachtwoord
-        password_confirmation: Herhaald wachtwoord
+        password_confirmation: Herhaal wachtwoord
        
       activity:
         name: Naam
@@ -40,17 +47,55 @@ nl:
         start_date: Begin datum
         end_date: Eind datum
         
+      checkout_product:
+        name: Naam
+        price: Prijs
+        image: Afbeelding
+        category: Categorie
+        
+        categories: 
+          beverage: Drinken
+          chocolate: Chocolade
+          savory: Hartig
+          additional: Overig
+          
       tag:
         names:
-          pardon: gratie
-          merit: lid van verdienste
-          honorary: erelid
+          pardon: Gratie
+          merit: Lid van verdienste
+          honorary: Erelid
+          
+      study:
+        names:
+          inca: Informatica
+          inku: Informatiekunde
+          gt: Gametechnologie
+          wisk: Wiskunde
+          
+          cosc: Computer science
+          mbi: Business informatics
+          gmt: Game and media technology
+          ai: Artificial intelligence
+      
+      education:
+        status:
+          active: Studerend
+          stopped: Gestopt
+          graduated: Afgestudeerd
 
     annotations:
       member:
         email: E-mailadres kan geen UU email zijn
       
     errors:
+      default: Er is iets fout gegaan
+      incomplete: Oh snap, niet alles is goed ingevuld;
+
+      subscribe:          
+        failed: Je betaling is niet gelukt, je bent wel ingeschreven!
+        success: Je betaling is ontvangen en je hebt je ingeschreven!
+        success_without_payment: Je hebt je ingeschreven!
+      
       models:
         member:
           blank: kan niet leeg zijn
@@ -58,9 +103,12 @@ nl:
             phone_number: 
               invalid: bestaat uit 10 cijfers 
             email:
-              invalid: is geen geldig e-mailadres, het kan geen UU email zijn
+              taken: is geen geldig e-mailadres
+              invalid: is geen geldig e-mailadres
             student_id:
+              taken: is geen geldig studentnummer
               invalid: bestaat uit 7 cijfers
+              elfproef: is niet geldig
               
         user:
           blank: kan niet leeg zijn
@@ -74,6 +122,9 @@ nl:
               invalid: moet minstens 8 tekens hebben
             password_confirmation:
               confirmation: is niet goed herhaald
+        
+        checkout_product:
+          blank: kan niet leeg zijn
 
         ideal_transaction:
           blank: ken niet leeg zijn
