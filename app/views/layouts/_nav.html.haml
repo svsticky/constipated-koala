@@ -11,9 +11,9 @@
           %span Leden
           %i.fa.fa-user
             %span.icon-bg.bg-orange
-      %li{ :class => ('active' if yield(:page) == 'committees') }
-        %a{href: '/committees'}
-          %span Commissies
+      %li{ :class => ('active' if yield(:page) == 'groups') }
+        %a{href: '/groups'}
+          %span Groepen
           %i.fa.fa-users
             %span.icon-bg.bg-warning
       %li{ :class => ('active' if yield(:page) == 'activities') }
