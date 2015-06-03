@@ -4,5 +4,6 @@ class DefineEnum < ActiveRecord::Migration
     remove_column :tags, :id, :integer
     
     #execute("ALTER TABLE `tags` CHANGE `name` `name` enum('pardon','merit','honorary') DEFAULT 'pardon'")
+    change_column :tags, :name, :enum, :limit => ['pardon','merit','honorary']
   end
 end
