@@ -29,4 +29,10 @@ class Admins::SettingsController < ApplicationController
     
     render :status => :no_content, :json => ''
   end
+  
+  private
+  def advertisement_post_params
+    params.require(:advertisement).permit(  :name,
+                                            :poster)
+  end
 end

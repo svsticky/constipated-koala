@@ -58,11 +58,11 @@ ConstipatedKoala::Application.routes.draw do
       post   'participants/mail', to: 'participants#mail'
       
       # setting pages
-      get    'settings',          to: 'settings#index'
-      post   'settings/radio',    to: 'settings#advertisement'
-      delete 'settings/radio',    to: 'settings#destroy_advertisement'
+      get    'settings',                  to: 'settings#index'
+      post   'settings/advertisement',    to: 'settings#advertisement'
+      delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
       
-      get    'apps/ideal',        to: 'apps#ideal'
+      get    'apps/ideal',                to: 'apps#ideal'
       
       # search for member using dropdown
       get    'search',                to: 'members#find'
