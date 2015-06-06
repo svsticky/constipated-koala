@@ -12,14 +12,16 @@ class Admins::SettingsController < ApplicationController
     @advert = Advertisement.new(advertisement_post_params)   
     
     if @advert.save
-      redirect_to apps_radio_path
+      redirect_to settings_path
     else
+      @settings = UserConfiguration.all
+
       @advertisements = Advertisement.all
-      render 'radio'
+      render 'index'
     end
   end
   
-  def destroy     
+  def destroy_advertisement
     if params[:id].blank?
       render :status => :bad_request, :json => 'no id given'
     end
