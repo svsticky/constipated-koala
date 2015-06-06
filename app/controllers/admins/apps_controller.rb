@@ -7,10 +7,4 @@ class Admins::AppsController < ApplicationController
   def studystatus
     
   end
-  
-  private
-  def advertisement_post_params
-    params.require(:advertisement).permit(  :name,
-                                            :poster)
-  end
 end
