@@ -2,12 +2,15 @@ class Users::HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :confirm_add_funds ]
   skip_before_action :authenticate_admin!, only: [ :index, :edit, :update, :add_funds, :confirm_add_funds ]
   before_action :set_locale
-  
 
   def index
     @member = Member.find(current_user.credentials_id)
-    @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
-    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
+#    @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
+#    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
+
+    @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today )
+                  
+    logger.debug @activities              
   end
 
   def edit
