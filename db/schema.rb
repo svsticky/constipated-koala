@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150530120521) do
     t.text     "comments",            limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id",        limit: 4
     t.string   "poster_file_name",    limit: 255
     t.string   "poster_content_type", limit: 255
     t.integer  "poster_file_size",    limit: 4

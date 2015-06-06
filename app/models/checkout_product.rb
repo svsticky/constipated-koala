@@ -15,10 +15,10 @@ class CheckoutProduct < ActiveRecord::Base
   has_attached_file :image, 
   	:styles => { :original => ['128x128', :png] }, 
   	:validate_media_type => false,
-  	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 center' },
+  	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
   	:path => '/:class/:id',
   	:s3_permissions => {
-      :original => :public
+      :original => :public_read
     }
 
   validates_attachment_content_type :image, 

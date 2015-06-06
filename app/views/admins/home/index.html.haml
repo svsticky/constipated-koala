@@ -72,7 +72,3 @@
             Wanbetalers
           %table.table.table-striped.table-linked
             %tbody
-              - @defaulters.each do | member, amount |
-                %tr
-                  %td= link_to "#{member.name}", member
-                  %td.text-right= number_to_currency(amount, :unit => '€')

@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.1'
-gem 'sprockets', '2.11.0'
-gem 'sprockets-rails', '2.1.3'
+gem 'rails', '~> 4.1.1'
 
 # authentication gem
 gem 'devise'
@@ -30,6 +28,12 @@ gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
+# Use bootstrap
+gem 'bootstrap-sass'
+
+# use font awesome
+gem 'font-awesome-sass'
+
 # new search engine
 gem 'fuzzily'
 
@@ -38,6 +42,9 @@ gem 'execjs'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
+
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
