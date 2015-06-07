@@ -35,15 +35,6 @@ ConstipatedKoala::Application.configure do
   config.checkout = '12'
   
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => 'sticky-posters'
-    },
-    :path => '/:class/:id/:style',
-    :s3_protocol => 'https',
-    :url => ':s3_domain_url',
-    :s3_permissions => {
-      :original => :private
-    }
+    :path => '/:class/:id/:style'
   }
 end
