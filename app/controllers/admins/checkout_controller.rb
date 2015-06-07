@@ -127,9 +127,7 @@ class Admins::CheckoutController < ApplicationController
   
   def products
     @product = CheckoutProduct.new
-    @products = CheckoutProduct.where(:active =>  true)
-    
-    logger.debug @products
+    @products = CheckoutProduct.where(:active =>  true).order(:category, :name)
   end  
   
   def products_list
