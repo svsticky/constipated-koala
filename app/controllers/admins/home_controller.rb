@@ -12,11 +12,5 @@ class Admins::HomeController < ApplicationController
     @defaulters = Participant.where( :paid => false ).joins( :activity, :member ).where('activities.start_date < NOW()').group( :member_id ).sum( :price ).merge( \
       Participant.where( :paid => false ).joins( :activity, :member ).where('activities.start_date < NOW()').group( :member_id ).sum( 'activities.price ')
     ) { |k, sum_a, sum_b| sum_a + sum_b }.sort_by{ |_, sum| -sum }.map{ |k,v| [ Member.where( :id => k).select( :id, :first_name, :infix, :last_name ).first ,v]}.take(15)
-
-    logger.debug @defaulters
-
-    #@defaulters = Participant.where(:paid => false).joins(:activity).where('activities.start_date < NOW()').group('member_id').sum(:price).merge( \
-    #  Participant.where(:paid => false, :price => nil).joins(:activity).where('activities.start_date < NOW()') \
-    #  .group('member').sum('activities.price') ){ |k, sum_a, sum_b| sum_a + sum_b }.sort_by(&:last).reverse!.take(10)
   end
 end
