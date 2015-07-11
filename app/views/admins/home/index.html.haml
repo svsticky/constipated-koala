@@ -2,18 +2,18 @@
 
 %section#content
   = render 'layouts/search'
-  
+
   .page
-    .row 
+    .row
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/members'}
           %span.box-icon.bg-success
             %i.fa.fa-user
           .box-info
-            %p.size-h2 
+            %p.size-h2
               = @members
             %p.text-muted Leden
-            
+
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/activities'}
           %span.box-icon.bg-info
@@ -22,7 +22,7 @@
             %p.size-h2
               = @activities
             %p.text-muted Activiteiten
-            
+
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/checkout'}
           %span.box-icon.bg-warning
@@ -31,16 +31,16 @@
             %p.size-h2
               = @transactions
             %p.text-muted Checkout transacties
-            
+
       .col-lg-3.col-xsm-6.clickable
         %a.panel.mini-box{href: '/activities'}
           %span.box-icon.bg-danger
             %i.fa.fa-eur
           .box-info
-            %p.size-h2 
+            %p.size-h2
               = number_to_currency(@unpayed, :unit => '')
             %p.text-muted Openstaande betalingen
-            
+
   .page.hidden-xs
     .row
       %div.col-md-3
@@ -48,14 +48,14 @@
           .panel-heading
             %i.fa.fa-fw.fa-graduation-cap
             Studies
-                        
+
           %table.table.table-striped.table-linked
             %tbody
               - @studies.each do | study, count |
                 %tr
                   %td= link_to study, '#'
                   %td= count
-                  
+
       %div.col-md-6
         .panel.panel-default
           .panel-heading
@@ -72,3 +72,7 @@
             Wanbetalers
           %table.table.table-striped.table-linked
             %tbody
+            - @defaulters.each do | member, amount |
+              %tr
+                %td= link_to member.name, member
+                %td= number_to_currency( amount, :unit => '€' )
