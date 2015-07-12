@@ -20,7 +20,7 @@ class Users::PublicController < ApplicationController
 
     if @member.save
       impressionist(@member, 'nieuwe lid')
-      flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
+      flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find( education.study_id ).masters }
