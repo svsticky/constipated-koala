@@ -28,7 +28,7 @@ class IdealTransaction < ActiveRecord::Base
     )
 
     if response.code != '200'
-      logger.debug response.code
+      logger.error response.inspect
       raise ArgumentError
     end
 

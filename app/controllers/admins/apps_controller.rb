@@ -11,12 +11,12 @@ class Admins::AppsController < ApplicationController
   def studystatus_run
     require 'open3'
     
-    Open3.popen3("/Users/martijn/Projecten/studystatus/studystatus",
+    Open3.popen3("/usr/local/bin/studystatus",
              "--username", params[:username],
              "--password", params[:password]) do |i, o, e, t|
 
       unless params[:student].nil?
-        member = Member.find_by_id params[:student]
+        member = Member.find_by_student_id params[:student]
         i.puts params[:student]
         member.update_studies(o.gets)
 
