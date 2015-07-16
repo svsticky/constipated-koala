@@ -81,8 +81,8 @@ ConstipatedKoala::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Custom configuration
-  config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
-  config.checkout = '12'
+  config.mailgun = ENV['MAILGUN_TOKEN']
+  config.checkout = ENV['CHECKOUT_TOKEN']
 
   config.paperclip_defaults = {
     :path => '/:class/:id/:style/:filename'
