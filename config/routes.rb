@@ -63,6 +63,8 @@ ConstipatedKoala::Application.routes.draw do
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
       
       get    'apps/ideal',                to: 'apps#ideal'
+      get    'apps/studystatus',          to: 'apps#studystatus'
+      post   'apps/studystatus',          to: 'apps#studystatus_run'
       
       # search for member using dropdown
       get    'search',                to: 'members#find'

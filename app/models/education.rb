@@ -13,8 +13,7 @@ class Education < ActiveRecord::Base
   end
   
   before_validation do
-    if self.start_date.nil?
-      self.start_date = Time.new
-    end
+    self.start_date = Time.new if self.start_date.nil?
+    self.status = :active if self.status.nil?
   end
 end

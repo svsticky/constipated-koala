@@ -33,7 +33,7 @@ ConstipatedKoala::Application.configure do
 #  config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-#  config.assets.version = '1.1'
+#  config.assets.version = '1.0'
   config.assets.debug = true
  
  # Specifies the header that your server uses for sending files.
