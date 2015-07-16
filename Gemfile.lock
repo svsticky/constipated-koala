@@ -34,8 +34,6 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt (3.1.7)
-    bootstrap-sass (3.1.1.1)
-      sass (~> 3.2)
     builder (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -58,8 +56,6 @@ GEM
     execjs (2.2.0)
     faker (1.4.3)
       i18n (~> 0.5)
-    font-awesome-sass (4.1.0)
-      sass (~> 3.2)
     fuzzily (0.3.2)
       activerecord (>= 2.3.17)
     haml (4.0.5)
@@ -171,12 +167,10 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 1.5.7)
   bcrypt
-  bootstrap-sass
   coffee-rails
   devise
   execjs
   faker
-  font-awesome-sass
   fuzzily
   haml
   impressionist
@@ -192,3 +186,6 @@ DEPENDENCIES
   turbolinks
   uglifier
   unicorn
+
+BUNDLED WITH
+   1.10.5

@@ -29,12 +29,6 @@ gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
-# Use bootstrap
-gem 'bootstrap-sass'
-
-# use font awesome
-gem 'font-awesome-sass'
-
 # new search engine
 gem 'fuzzily'
 
@@ -62,4 +56,6 @@ gem 'jbuilder'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
-gem 'faker'
+group :development, :staging do
+  gem 'faker'
+end
