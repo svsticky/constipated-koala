@@ -131,7 +131,7 @@ class Admins::CheckoutController < ApplicationController
   end  
   
   def products_list
-    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price)
+    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price).map{ |item| item.attributes.merge({ :image => CheckoutProduct.find(item.id).image.url(:original) })}
   end
   
   def create_product
