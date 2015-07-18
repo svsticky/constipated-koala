@@ -20,7 +20,16 @@ class Admins::CheckoutController < ApplicationController
     @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
     
     @pages = CheckoutTransaction.count / @limit
+    
+    @product = CheckoutProduct.new
+    render 'admins/apps/checkout'
   end
+  
+  def products
+    @product = CheckoutProduct.new
+    @products = CheckoutProduct.where(:active => true).order(:category, :name)
+    render 'admins/apps/products'
+  end  
 
   def information_for_card
     respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
@@ -125,11 +134,6 @@ class Admins::CheckoutController < ApplicationController
     end
   end
   
-  def products
-    @product = CheckoutProduct.new
-    @products = CheckoutProduct.where(:active =>  true).order(:category, :name)
-  end  
-  
   def products_list
     render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price)
   end
@@ -141,7 +145,7 @@ class Admins::CheckoutController < ApplicationController
       redirect_to checkout_products_path
     else
       @products = CheckoutProduct.all
-      render 'products'
+      render 'admins/apps/products'
     end
   end
   

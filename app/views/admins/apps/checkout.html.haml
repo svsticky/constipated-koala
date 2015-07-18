@@ -1,7 +1,7 @@
-- content_for(:page, 'checkout')
+- content_for(:page, 'apps')
 - content_for(:subpage, 'transacties')
 
-- content_for(:title, 'Constipated koala | checkout | transacties') 
+- content_for(:title, 'Constipated koala | apps | checkout') 
 
 %section#content
   = render 'layouts/search' 
@@ -122,4 +122,41 @@
               %li.list-group-item
                 %p.text-center 
                   %em geen kaarten
+          
+      = form_for :checkout_product, url: checkout_products_path, method: :post, :class => 'form-validation' do |f|           
+        .col-md-4
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-ticket
+              Nieuw product
+            .panel-body
+            
+              .form-group
+                .row
+                  .col-md-8              
+                    = label(:checkout_product, :name)
+                    = f.text_field :name, :value => @product.name, :class => 'form-control'
+                  .col-md-4
+                    = label(:checkout_product, :price)
+                    = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control'
+                
+              .form-group
+                .row
+                  .col-md-4
+                    = label(:checkout_product, :category)
+                    .ui-select
+                      = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
+                  .col-md-8
+                    = label(:checkout_product, :image)
+                    .input-group
+                      %input#output.form-control{ :readonly => ''}
+  
+                      .input-group-btn
+                        %button.btn.btn-primary.file-input-wrapper
+                          %span uploaden
+                          = f.file_field :image, { 'data-ui-file-upload' => '' }    
+
+              %button.btn.btn-success.wait{type: 'submit'} Opslaan
+              = link_to 'Annuleren', apps_checkout_path, { :class => 'button btn btn-default' } 
+              = link_to 'Alle producten', apps_products_path, { :class => 'button btn btn-primary pull-right' }          
           

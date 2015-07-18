@@ -49,6 +49,9 @@ ConstipatedKoala::Application.routes.draw do
       # Resource pages
       resources :members, :activities
   
+      # search for member using dropdown
+      get    'search',                to: 'members#find'
+  
       # Participants routes for JSON calls
       get    'participants/list', to: 'participants#list'
       get    'participants',      to: 'participants#find'
@@ -62,29 +65,25 @@ ConstipatedKoala::Application.routes.draw do
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
       
-      get    'apps/ideal',                to: 'apps#ideal'
-      get    'apps/studystatus',          to: 'apps#studystatus'
-      post   'apps/studystatus',          to: 'apps#studystatus_run'
-      
-      # search for member using dropdown
-      get    'search',                to: 'members#find'
+      get    'apps/books',                 to: 'apps#books'
+      get    'apps/checkout',              to: 'checkout#index'
+      get    'apps/products',              to: 'checkout#products'
+      get    'apps/ideal',                 to: 'apps#ideal'
   
-      # checkout urls
-      get    'checkout',              to: 'checkout#index'
+      # json checkout urls
       patch  'checkout/card',         to: 'checkout#activate_card'
       patch  'checkout/transaction',  to: 'checkout#change_funds' 
       
-      get    'checkout/products',     to: 'checkout#products'
       post   'checkout/products',     to: 'checkout#create_product'
       delete 'checkout/products',     to: 'checkout#delete_product' 
       
       # api routes, without authentication
       get    'api/activities',        to: 'api#radio'
 
-      # v1
-      get    'checkout/card',         to: 'checkout#information_for_card'
-      post   'checkout/card',         to: 'checkout#add_card_to_member'
-      post   'checkout/transaction',  to: 'checkout#subtract_funds'
+#       # v1
+#       get    'checkout/card',         to: 'checkout#information_for_card'
+#       post   'checkout/card',         to: 'checkout#add_card_to_member'
+#       post   'checkout/transaction',  to: 'checkout#subtract_funds'
       
       # v2 api routes, own authentication
       get    'api/checkout/card',         to: 'checkout#information_for_card'
