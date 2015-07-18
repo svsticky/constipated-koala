@@ -22,7 +22,7 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-body, h1, h2, h3, h4, h5, p, span, div {
+html, body, h1, h2, h3, h4, h5, p, span, div {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -41,101 +41,12 @@ body, h1, h2, h3, h4, h5, p, span, div {
   padding: 0px !important; 
 }
 
-header {
-  display: block;
-  min-height: 20px;
-  background-color: #1565c0;
-}
-
-section {  
-  &.dark .panel {
-    background-color: #1565c0;    
-    color: white;
-  }
-  
-  &.light .panel {
-    background-color: #64b5f6;
-    color: white;
-  }
-  
-  .panel {
-    @include shadow;
-    
-    margin-bottom: 5px;
-    padding: 10px 0;
-    
-    border: 0px;
-    border-radius: 0px;
-  }
-  
-  z-index: 1;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-}
-
 .img-circle {
   @include shadow;
 }
 
 .input-group span.input-group-addon i.fa.fa-lock {
   width: 18px;
-}
-
-.button.btn {
-  @include shadow;
-  
-  height: 40px;
-  width: 100%;
-  
-  line-height: 28px;
-  
-  border: 0px;
-  border-radius: 0px;
-  
-  margin: 1px 0px 5px 0px;
-  
-  &.btn-primary{
-    background-color: #64b5f6;
-    
-    &:hover {
-      background-color: #90caf9;
-    }
-  }
-  
-  &.btn-info {
-    background-color: white;
-    color: #757575;
-    border: solid 1px #e0e0e0;
-    
-    &:hover {
-      background-color: #e3f2fd;
-    }
-  }
-  
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  -webkit-tap-highlight-color: transparent;
-  vertical-align: middle;
-  z-index: 1;
-
-  will-change: opacity, transform;
-  -webkit-transition: all .3s ease-out;
-  -moz-transition: all .3s ease-out;
-  -o-transition: all .3s ease-out;
-  -ms-transition: all .3s ease-out;
-  transition: all .3s ease-out;
-  
-  &:hover {
-    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-  }
 }
 
 .col-center {

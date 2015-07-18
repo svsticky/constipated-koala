@@ -1,54 +1,34 @@
-!!!
-%html
-  %head
-    %title= 'Constipated koala'
-    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  %body#app
-    .view-container
-      .page-signin
-        .signin-header
-          .container.text-center
-            %section.logo
-              %a.ng-binding{href: '/'} Constipated koala
-        .signin-body
-          .container{style: 'margin-top: 100px;'}
-            .form-container
-              = form_for(resource, as: resource_name, url: password_path(resource_name), :class => 'form-horizontal', :method => 'put' ) do |f|
-                = f.hidden_field :reset_password_token
-                .form-group.lead Vul hier je nieuwe wachtwoord in!
-              
-                - if !resource.errors.full_messages.blank?
-                  - resource.errors.full_messages.each do |message|
-                    .alert.alert-danger
-                      %button.close{ type: "button" } ×
-                      %span
-                        = message
-              
-                - if flash[:alert]
-                  .alert.alert-danger
-                    %button.close{ type: "button" } ×
-                    %span
-                      = flash[:alert]
+.row
+  .col-md-10.col-center
+    = form_for(resource, as: resource_name, url: password_path(resource_name), :class => 'form-horizontal', :method => 'put' ) do |f|
+      = f.hidden_field :reset_password_token
+      .form-group.lead Vul hier je nieuwe wachtwoord in!
+    
+      - if !resource.errors.full_messages.blank?
+        - resource.errors.full_messages.each do |message|
+          .alert.alert-danger
+            %button.close{ type: "button" } ×
+            %span
+              = message
+    
+      - if flash[:alert]
+        .alert.alert-danger
+          %button.close{ type: "button" } ×
+          %span
+            = flash[:alert]
 
-                %fieldset                  
-                  .form-group
-                    .input-group.input-group-lg
-                      %span.input-group-addon
-                        %span.glyphicon.glyphicon-lock
-                      = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
+      %fieldset                  
+        .form-group
+          .input-group.input-group-lg
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-lock
+            = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
 
-                  .form-group
-                    .input-group.input-group-lg
-                      %span.input-group-addon
-                        %span.glyphicon.glyphicon-lock
-                      = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
-                      
-                  .form-group
-                    = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-lg btn-block'
-              %section
-                %p.text-center.text-muted.text-small
-                  Nog geen inloggegevens?
-                  = link_to 'Vraag ze aan', new_registration_path
+        .form-group
+          .input-group.input-group-lg
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-lock
+            = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
+            
+        .form-group
+          = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-lg btn-block'

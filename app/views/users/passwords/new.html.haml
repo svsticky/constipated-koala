@@ -1,12 +1,5 @@
 .row
-  .col-md-3
-    = image_tag('constipated-koala.png')
-    
-    %p.hidden-xs
-      Constipated koala is de ledenadministratie voor
-      = link_to 'Studievereniging Sticky', 'https://stickyutrecht.nl'
-      \. Stel je wachtwoord opnieuw in.
-  .col-md-3
+  .col-md-10.col-center
     = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
       
       - if !resource.errors.full_messages.blank?
@@ -20,7 +13,7 @@
         .form-group
           .input-group.input-group-lg
             %span.input-group-addon
-              %span.glyphicon.glyphicon-envelope
+              %i.fa.fa-envelope-o
             = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
   
         .form-group
