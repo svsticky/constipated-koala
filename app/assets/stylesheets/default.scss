@@ -10,8 +10,8 @@
  *
  *= require_self
  *
- *= require bootstrap
  *= require font-awesome
+ *= require bootstrap
  */
  
 @import url(https://fonts.googleapis.com/css?family=Roboto);
@@ -80,6 +80,10 @@ h1 {
   @include shadow;
 }
 
+.input-group span.input-group-addon i.fa.fa-lock {
+  width: 18px;
+}
+
 .button.btn {
   @include shadow;
   
@@ -132,4 +136,12 @@ h1 {
     -moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   }
+}
+
+.col-center {
+  display: block;
+  float: none !important;
+  
+  margin-left: auto;
+  margin-right: auto;
 }

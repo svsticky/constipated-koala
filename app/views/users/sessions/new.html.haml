@@ -1,15 +1,5 @@
-.row
-  .col-md-3
-    = image_tag('constipated-koala.png')
-    
-    %p.hidden-xs
-      Constipated koala is de ledenadministratie voor
-      = link_to 'Studievereniging Sticky', 'https://stickyutrecht.nl'
-      \. Vraag
-      = link_to 'hier', new_registration_path
-      je inloggegevens op.
-    
-  .col-md-3
+.row    
+  .col-md-10.col-center  
     = form_for(resource, as: resource_name, url: session_path(resource_name), :class => 'form-horizontal' ) do |f|
                         
       - if !resource.errors.full_messages.blank?
@@ -35,15 +25,17 @@
         .form-group
           .input-group.input-group-lg
             %span.input-group-addon
-              %span.glyphicon.glyphicon-envelope
+              %i.fa.fa-envelope-o
             = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
         .form-group
           .input-group.input-group-lg
             %span.input-group-addon
-              %span.glyphicon.glyphicon-lock
+              %i.fa.fa-lock
             = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
         .form-group
           = f.submit 'Log in', :class => 'btn btn-primary btn-lg btn-block'
   
     .text-center
-      = link_to 'Wachtwoord vergeten?', new_user_password_path
+      = link_to 'wachtwoord vergeten', new_user_password_path
+      |
+      = link_to 'wachtwoord opvragen', new_registration_path

@@ -4,28 +4,3 @@
   width: 250px;
   margin: 0 auto;
 }
-
-ul.posters {
-  overflow: hidden;
-  margin: 1px 0;
-  
-  li, img, a {
-    position: relative;
-    width: 100%;
-    
-    overflow: hidden;
-    float: left;
-    width: 100%;
-  }
-  
-  i {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    color: white;
-  }
-  
-  a:hover i, a:active i {
-    color: black;
-  }
-}

@@ -20,12 +20,3 @@
 / form plaatsen
 
 = link_to 'Uitloggen', '/sign_out', { :class => 'button btn btn-info', 'data-method' => :delete }
-
-/ 
-  %section
-  %ul.posters.col-sm-12
-    - @activities.each do |activity|
-      %li
-        = link_to activity do
-          =image_tag 'https://sticky-posters.s3.amazonaws.com/activities/89/medium/Pikken_paupers_borrel.png?1433613679', :alt => activity.name
-          %i.fa.fa-external-link
