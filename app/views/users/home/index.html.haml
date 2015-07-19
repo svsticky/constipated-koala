@@ -3,20 +3,22 @@
 %header
 
 
-%section.light
-  .col-sm-12
-    .panel.text-center
+%section
+  .row.header
+    .image
       =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=250", :class => 'img-circle'
-    
-      %h1
-        #{@member.name}
-      %p 
-        #{@member.phone_number}
-        %br
-        #{@member.email}
- 
-= link_to 'Persoonsgegevens wijzigen', users_edit_path, { :class => 'button btn btn-primary' }
-= link_to 'Mongoose opwaarderen', users_edit_path, { :class => 'button btn btn-info' }
-/ form plaatsen
+  .row
+    %h1 #{@member.name}
 
-= link_to 'Uitloggen', '/sign_out', { :class => 'button btn btn-info', 'data-method' => :delete }
+    .item 
+      %i.fa.fa-envelope-o
+      = link_to @member.email, "mailto:#{@member.email}"
+      
+    .item 
+      %i.fa.fa-phone
+      = link_to @member.phone_number, "tel:#{@member.phone_number}"
+      
+%nav      
+  = link_to 'Gegevens bewerken', users_edit_path, :class => 'button btn btn-default'
+  .button.btn.btn-default Mongoose opwaarderen
+  = link_to 'Uitloggen', '/sign_out', { :class => 'button btn btn-primary', 'data-method' => :delete }

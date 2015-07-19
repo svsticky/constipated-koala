@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 //
 //= require turbolinks
 //= require bootstrap
@@ -28,15 +29,9 @@ $(document).on('ready page:load', function(){
     });
   };
   
-  $('.button.btn[data-method=delete]').on('click', function () {
-    return confirm('Weet u het zeker?');
-  });
-  
-  window.alert = function(message, type){
-    type = type || 'info';
-    
+  window.alert = function(message, type){    
     var template = $('script#alert').html();
-    var alert = template.format(message, type);
+    var alert = template.format(message, type || 'info');
     $('#toast-container').append(alert).find('.toast:not(.toast-error)').delay(3000).queue(function() {
       $(this).remove();
     });

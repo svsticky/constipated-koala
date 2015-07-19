@@ -84,8 +84,8 @@ ConstipatedKoala::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   
   # Custom configuration
-  config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
-  config.checkout = 'q4Idsg4485B5nMNNFetOQ1dQ08ZzCV04'
+  config.mailgun = ENV['MAILGUN_TOKEN']
+  config.checkout = ENV['CHECKOUT_TOKEN']
 
   config.paperclip_defaults = {
     :storage => :s3,

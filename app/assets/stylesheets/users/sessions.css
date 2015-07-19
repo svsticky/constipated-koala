@@ -6,7 +6,7 @@ body {
   background-color: white;
   background: linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 50%), linear-gradient(0deg, rgba(200,0,0,.5) 50%, transparent 50%);
   
-  background-size:50px 50px;
+  background-size: 50px 50px;
 }
 
 div.view-container {

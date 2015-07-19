@@ -80,10 +80,8 @@ $(document).on('ready page:load', function(){
 */
   
   window.alert = function(message, type){
-    type = type || 'info';
-    
     var template = $('script#alert').html();
-    var alert = template.format(message, type);
+    var alert = template.format(message, type || 'info');
     $('#toast-container').append(alert).find('.toast:not(.toast-error)').delay(3000).queue(function() {
       $(this).remove();
     });
