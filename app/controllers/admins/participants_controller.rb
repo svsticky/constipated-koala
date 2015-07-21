@@ -27,10 +27,6 @@ class Admins::ParticipantsController < ApplicationController
     @activity = Activity.find(params[:activity])
     @participant = Participant.new( :member => Member.find(params[:member]), :activity => @activity)
     
-    if @activity.price == 0
-      @participant.update_attribute(:paid, true)
-    end
-    
     if @participant.save
       @response = @participant.attributes
       @response[ 'price' ] = @activity.price
@@ -45,21 +41,14 @@ class Admins::ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
           
     if !params[:paid].nil?
-      if !@participant.currency.nil?
-        @participant.update_attribute(:paid, params[:paid])
-      end
+      @participant.update_attribute(:paid, params[:paid]) if !@participant.currency.nil?
     elsif !params[:price].nil?
+    
       if !params[:price].is_number?
         raise 'not a number'
       end
       
-      if BigDecimal.new(params[:price]) == 0
-        @participant.update_attributes(:price => 0, :paid => true)
-      elsif BigDecimal.new(params[:price]) == @participant.activity.price
-        @participant.update_attributes(:price => NIL, :paid => false)
-      else
-        @participant.update_attributes(:price => params[:price], :paid => false)
-      end
+      @participant.update_attributes(:price => params[:price])
     end
     
     if @participant.save
