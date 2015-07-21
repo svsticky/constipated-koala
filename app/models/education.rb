@@ -3,6 +3,7 @@ class Education < ActiveRecord::Base
   belongs_to :member
 
   validates :start_date, presence: true
+  validates :status, presence: true
   #validates :end_date
   
   enum status: [ :active, :stopped, :graduated ]
