@@ -1,0 +1,33 @@
+.panel-heading {
+  height: 39px;
+  padding-top: 0;
+  line-height: 39px;
+}
+
+table.table.table-linked > tbody > tr:hover > td > a {
+  text-decoration: none;
+}
+
+table.table.table-linked > tbody > tr > td > a:hover {
+  text-decoration: underline;
+}
+
+.date-input {
+  display: inline-block;
+}
+
+.date-input input {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+  
+  margin-left: 5px;
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+  
+  border: solid 1px rgb(118, 118, 118);
+  border-radius: 5px;
+  outline: none;
+  background: transparent;
+}
