@@ -9,9 +9,6 @@
     = javascript_include_tag 'default', 'data-turbolinks-track' => true
     = javascript_include_tag params[:controller], 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body                
-    .view-container
+  %body
+    .container-fluid
       = yield
-      
-    #toast-container.toast-bottom-right  
-      

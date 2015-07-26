@@ -1,38 +1,39 @@
-.row    
-  .col-md-10.col-center  
-    = form_for(resource, as: resource_name, url: session_path(resource_name), :class => 'form-horizontal' ) do |f|
-                        
-      - if !resource.errors.full_messages.blank?
-        - resource.errors.full_messages.each do |message|
+.row#app
+  .col-sm-12.col-md-3.col-shadow.col-md-offset-7
+    .vertical-align
+      = form_for(resource, as: resource_name, url: session_path(resource_name), :class => 'form-horizontal' ) do |f|
+                          
+        - if !resource.errors.full_messages.blank?
+          - resource.errors.full_messages.each do |message|
+            .alert.alert-danger
+              %span
+                = message
+      
+        - if flash[:alert]
           .alert.alert-danger
             %span
-              = message
+              = flash[:alert]
+              
+        - if flash[:notice]
+          .alert.alert-info
+            %span
+              = flash[:notice]                      
+                    
+        %fieldset
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-envelope-o
+              = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-lock
+              = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
+          .form-group
+            = f.submit 'Log in', :class => 'btn btn-primary btn-lg btn-block'
     
-      - if flash[:alert]
-        .alert.alert-danger
-          %span
-            = flash[:alert]
-            
-      - if flash[:notice]
-        .alert.alert-info
-          %span
-            = flash[:notice]                      
-                  
-      %fieldset
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %i.fa.fa-envelope-o
-            = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %i.fa.fa-lock
-            = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
-        .form-group
-          = f.submit 'Log in', :class => 'btn btn-primary btn-lg btn-block'
-  
-    .text-center
-      = link_to 'wachtwoord vergeten', new_user_password_path
-      |
-      = link_to 'wachtwoord aanmaken', new_registration_path
+      .text-center
+        = link_to 'wachtwoord vergeten', new_user_password_path
+        |
+        = link_to 'wachtwoord aanmaken', new_registration_path

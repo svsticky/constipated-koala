@@ -5,12 +5,14 @@ class Users::HomeController < ApplicationController
 
   def index
     @member = Member.find(current_user.credentials_id)
-#    @activities = (@member.activities.joins(:participants).where(:participants => { :paid => false, :member => @member } ).distinct + @member.activities.order(start_date: :desc).limit(10)).uniq.sort_by(&:start_date).reverse
-#    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
+
+    @balance = CheckoutBalance.find_by_member_id( @member.id )
+    @default = Participant.where( :paid => false, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( :price ) + Participant.where( :paid => false, :price => nil, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( 'activities.price ')
+    
+    @participants = @member.activities.study_year( Date.start_studyyear( Date.current().year+1 ).year ).distinct.joins(:participants).where(:participants => { :member => @member })
+    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
 
     @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today )
-                  
-    logger.debug @activities              
   end
 
   def edit

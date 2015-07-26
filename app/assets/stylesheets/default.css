@@ -1,0 +1,58 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *
+ *= require font-awesome
+ *= require bootstrap
+ */
+ 
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body {
+  background-color: white;
+  background: linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 50%), linear-gradient(0deg, rgba(200,0,0,.5) 50%, transparent 50%);
+  background-size: 50px 50px;
+}
+
+#app {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  
+  margin: 0px;
+  padding: 0px;
+}
+
+#app > div {
+  height: 100%;
+}
+
+#app div.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#app div.col-shadow {
+  background-color: white;
+  box-shadow: -4px 0 15px 0 gray, 4px 0 15px 0 gray;
+  background-color: white;
+}
+
+#app .col-sm-12.col-md-3 {
+  min-width: 400px;
+}
+
+#app span.input-group-addon i {
+  width: 18px;
+}
