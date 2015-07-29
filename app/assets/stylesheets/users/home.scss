@@ -68,6 +68,7 @@
 
 .row {
   background-color: white;
+  padding: 10px 0px;
   
   &.header {
     position: relative;
@@ -96,9 +97,7 @@
   }
   
   &.title {
-    min-height: 200px;
-    overflow: hidden;
-    margin-top: 60px;
+    min-height: 140px;
     
     @media(min-width: 768px){
       margin-top: 0px;
@@ -110,6 +109,24 @@
     
     p {
       margin: 0px;
+    }
+    
+    .dropdown {
+      position: relative;
+      
+      a.dropdown-toggle {
+        position: relative;
+        top: -6px;
+        
+        font-size: 20px;
+        color: black;
+      }
+      
+      ul.dropdown-menu {
+        position: absolute;
+        left: -160px;
+        width: 180px;
+      }
     }
     
     .col-sm-4 {      
@@ -151,6 +168,47 @@
       
       .bg-error {
         background-color: #e94b3b;
+      }
+    }
+  }
+  
+  h3 {
+    border-bottom: solid 1px;
+    padding-bottom: 5px;  
+  }
+  
+  .pull-left {
+    clear: left;
+  }
+  
+  .table {
+    margin-bottom: 40px;
+    
+    span.fa.fa-sort-asc {
+      position: relative;
+      top: 7px;
+      
+      color: green;
+    }
+    
+    span.fa.fa-sort-desc {
+      color: red;
+    }
+    
+    .form td {
+      padding: 1px;
+      
+      input {
+        line-height: 18px;
+        padding: 4px;
+        width: 100%;
+        margin: 5px 0;
+      }
+            
+      button {
+        width: 100%;
+        margin-top: 5px;
+        border-radius: 0px;
       }
     }
   }

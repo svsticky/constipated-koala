@@ -13,19 +13,27 @@
           %li
             = link_to 'Gegevens bewerken', users_edit_path
           %li
-            %a
-              Mongoose opwaarderen
-          %li
             = link_to 'Uitloggen', '/sign_out', { 'data-method' => :delete }
             
-.row.header.hidden-xs
-  .col-sm-4.col-md-3
+.row.header.hidden-xs    
+  .col-sm-4.col-md-3              
     .image
       =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=240", :class => 'img-circle'
     
 .row.title
   .col-md-3.col-md-offset-3.col-sm-offset-4.col-sm-8
-    %h1= @member.name
+    %h1
+      = @member.name
+      
+      %span.dropdown
+        %a.dropdown-toggle{ :data => { 'toggle' => 'dropdown' }, :href => '#' }    
+          %i.fa.fa-sort-desc
+        
+        %ul.dropdown-menu
+          %li
+            = link_to 'Gegevens bewerken', users_edit_path
+          %li
+            = link_to 'Uitloggen', '/sign_out', { 'data-method' => :delete }
 
     %p 
       %i.fa.fa-envelope-o
@@ -48,63 +56,74 @@
     %p openstaande betalingen
     
 .row
-  .col-sm-6.col-xs-12.pull-right
-    posters
-
-  .col-sm-6.col-xs-12
-    %table.table.table-striped.table-linked
-      %thead
-        %tr
-          %th Activiteit
-          %th Prijs
-          %th.hidden-xs Datum
-          %th{ :style => 'text-align: center;' } Betaald
-      %tbody
-        - @participants.each do |activity|
-          %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid)}
-            %td= link_to "#{activity.name}", activity
-            
-            - if !activity.currency(@member).nil?
-              %td= number_to_currency(activity.currency(@member), :unit => '€')
-            - else
-              %td
-            
-            - if !activity.start_date.nil?  
-              - if activity.end_date.nil?
-                %td.hidden-xs= I18n.l activity.start_date
-              - else
-                %td.hidden-xs "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}"
+  .container
+    .col-sm-6.col-xs-12.pull-right
+  
+  
+    .col-sm-6.col-xs-12.pull-left
+      %h3 
+        %i.fa.fa-ticket
+        Activiteiten
+    
+      %table.table.table-striped.table-linked
+        %tbody
+          - @participants.each do |activity|
+            %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid)}
+              %td= link_to "#{activity.name}", activity
               
-            %td
-              .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
+              - if !activity.start_date.nil?  
+                %td.hidden-xs
+                  - if activity.end_date.nil?
+                    = I18n.l activity.start_date
+                  - else
+                    "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}"
+                
+              - if !activity.currency(@member).nil?
+                %td= number_to_currency(activity.currency(@member), :unit => '€')
+              - else
+                %td
+                
+              %td.text-center
                 - if activity.participants.where(:member => @member).first.paid
-                  betaald
-  
-  .col-sm-6.col-xs-12
-    %table.table.table-striped.table-linked
-      %thead
-        %tr
-          %th Datum
-          %th Prijs
-          %th.hidden-xs Kaart
-      %tbody
-        - @transactions.each do |transaction|
-          %tr
-            %td #{I18n.l transaction.created_at}
-            %td
-              = number_to_currency(transaction.price, :unit => '€')
-              - if transaction.price > 0
-                %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
-              - else
-                %span.fa.fa-sort-desc.pull-right
-            
-            %td.hidden-xs
-              - if !transaction.checkout_card.nil?
-                - if transaction.checkout_card.description.nil?  
-                  = transaction.checkout_card.uuid
+                  %span.label.label-success betaald
                 - else
-                  = transaction.checkout_card.description
-              - else
-                \-
+                  %span.label.label-warning niet betaald
   
-                 
+    .col-sm-6.col-xs-12.pull-left
+      %h3 
+        %i.fa.fa-shopping-cart
+        Mongoose transacties
+    
+      %table.table.table-striped.table-linked
+        %tbody
+          - @transactions.each do |transaction|
+            %tr
+              %td #{I18n.l transaction.created_at}
+              %td
+                = number_to_currency(transaction.price, :unit => '€')
+                - if transaction.price > 0
+                  %span.fa.fa-sort-asc.pull-right
+                - else
+                  %span.fa.fa-sort-desc.pull-right
+              
+              %td
+                - if !transaction.checkout_card.nil?
+                  - if transaction.checkout_card.description.nil?  
+                    = transaction.checkout_card.uuid
+                  - else
+                    = transaction.checkout_card.description
+                - else
+                  \-
+          
+        -#  
+          %tr.form
+            %td
+              %input{ :placeholder => 'tegoed', :type => 'number', :min => 10, :pattern => '^\d+(\.|\,)\d{2}$' }
+            %td
+              .ui-select{ :style => 'margin-top: 5px;' }
+                = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
+            %td 
+              %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen
+                
+    
+                   

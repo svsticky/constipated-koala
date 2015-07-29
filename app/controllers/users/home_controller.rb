@@ -30,7 +30,9 @@ class Users::HomeController < ApplicationController
       impressionist(@member, 'lid bewerkt')
     
       redirect_to users_root_path
-    end    
+    end
+    
+    render 'edit'
   end
   
   def add_funds
