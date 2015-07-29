@@ -42,7 +42,7 @@ class IdealTransaction < ActiveRecord::Base
     response = Net::HTTP.get_response(URI("#{ENV['IDEAL_PLATFORM']}?uuid=#{self.uuid}"))
 
     if response.code != '200'
-      logger.debug response.code
+      logger.fatal response.inspect
       raise ArgumentError
     end
     
