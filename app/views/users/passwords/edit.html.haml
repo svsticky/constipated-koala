@@ -1,34 +1,35 @@
-.row
-  .col-md-10.col-center
-    = form_for(resource, as: resource_name, url: password_path(resource_name), :class => 'form-horizontal', :method => 'put' ) do |f|
-      = f.hidden_field :reset_password_token
-      .form-group.lead Vul hier je nieuwe wachtwoord in!
-    
-      - if !resource.errors.full_messages.blank?
-        - resource.errors.full_messages.each do |message|
+.row#app
+  .col-sm-12.col-md-3.col-shadow.col-md-offset-7
+    .vertical-align
+      = form_for(resource, as: resource_name, url: password_path(resource_name), :class => 'form-horizontal', :method => 'put' ) do |f|
+        = f.hidden_field :reset_password_token
+        .form-group.lead Vul hier je nieuwe wachtwoord in!
+      
+        - if !resource.errors.full_messages.blank?
+          - resource.errors.full_messages.each do |message|
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span
+                = message
+      
+        - if flash[:alert]
           .alert.alert-danger
             %button.close{ type: "button" } ×
             %span
-              = message
-    
-      - if flash[:alert]
-        .alert.alert-danger
-          %button.close{ type: "button" } ×
-          %span
-            = flash[:alert]
-
-      %fieldset                  
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-lock
-            = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
-
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-lock
-            = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
-            
-        .form-group
-          = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-lg btn-block'
+              = flash[:alert]
+  
+        %fieldset                  
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-lock
+              = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
+  
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-lock
+              = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
+              
+          .form-group
+            = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-lg btn-block'

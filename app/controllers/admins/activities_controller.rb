@@ -3,6 +3,7 @@ class Admins::ActivitiesController < ApplicationController
   def index    
     @activities = Activity.study_year( params['year'].blank? ? (Date.start_studyyear( Date.current().year+1 ).year ) : params['year'].to_i).order(start_date: :desc)
     logger.debug (Date.start_studyyear( Date.current().year+1 ).year )
+    
     @years = (Activity.take(1).first.start_date.year .. Date.start_studyyear( Date.current().year+1 ).year ).map{ |year| ["#{year -1}-#{year}", year] }.reverse
 
     @detailed = (Activity.where("start_date <= ? AND activities.price IS NOT NULL", Date.today).joins(:participants).where(:participants => { :paid => false }).distinct \

@@ -1,19 +1,20 @@
-.row
-  .col-md-10.col-center
-    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|                                    
-      - if !resource.errors.full_messages.blank?
-        - resource.errors.full_messages.each do |message|
-          .alert.alert-danger
-            %button.close{ type: "button" } ×
-            %span
-              = message
-      
-      %fieldset
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %i.fa.fa-envelope-o
-            = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
-  
-        .form-group
-          = f.submit 'Opnieuw sturen', :class => 'btn btn-primary btn-lg btn-block'
+.row#app
+  .col-sm-12.col-md-3.col-shadow.col-md-offset-7
+    .vertical-align
+      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|                                    
+        - if !resource.errors.full_messages.blank?
+          - resource.errors.full_messages.each do |message|
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span
+                = message
+        
+        %fieldset
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-envelope-o
+              = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+    
+          .form-group
+            = f.submit 'Opnieuw sturen', :class => 'btn btn-primary btn-lg btn-block'
