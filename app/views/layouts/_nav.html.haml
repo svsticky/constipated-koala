@@ -28,10 +28,6 @@
           %i.fa.fa-terminal
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
-          %li{ :class => ('active' if yield(:subpage) == 'books') }
-            %a{href: '/apps/books'}
-              %i.fa.fa-caret-right
-              %span Boekenverkoop
           %li{ :class => ('active' if yield(:subpage) == 'transacties') }
             %a{href: '/apps/checkout'}
               %i.fa.fa-caret-right
