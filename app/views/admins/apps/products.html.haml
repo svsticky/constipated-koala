@@ -1,5 +1,5 @@
 - content_for(:page, 'apps')
-- content_for(:subpage, 'products')
+- content_for(:subpage, 'checkout')
 
 - content_for(:title, 'Constipated koala | apps | producten') 
 
@@ -18,56 +18,140 @@
             %tbody
               - @products.each do |product|
                 %tr{ :data => { 'id' => product.id }}
-                  %td= link_to product.name, product.image.url(:original)
+                  %td= link_to product.name, apps_product_path(product.id)
                   %td= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
                   %td= number_to_currency( product.price, :unit => '€' )
-                  %td.buttons
+                  
+                -#  %td.buttons
                     .btn-group
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o
                     
-
-      = form_for :checkout_product, url: checkout_products_path, method: :post, :class => 'form-validation' do |f|   
-        - if @product.errors.any?
+      - unless @product.nil?
+        = form_for :checkout_product, url: apps_product_path(@product), method: :patch, :class => 'form-validation' do |f|   
+          - if @product.errors.any?
+            .col-md-6
+              .alert.alert-danger
+                %button.close{ type: "button" } ×
+                %span Oeps, niet alles is goed ingevuld;
+                %ul
+                - @product.errors.full_messages.each do |msg|
+                  %li= msg
+          
           .col-md-6
-            .alert.alert-danger
-              %button.close{ type: "button" } ×
-              %span Oeps, niet alles is goed ingevuld;
-              %ul
-              - @product.errors.full_messages.each do |msg|
-                %li= msg
-        
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-ticket
-              Nieuw product
-            .panel-body
-            
-              .form-group
-                .row
-                  .col-md-8              
-                    = label(:checkout_product, :name)
-                    = f.text_field :name, :value => @product.name, :class => 'form-control'
-                  .col-md-4
-                    = label(:checkout_product, :price)
-                    = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control'
+            .panel.panel-default
+              .panel-heading
+                %i.fa.fa-fw.fa-ticket
+                Bewerk product
+              .panel-body
+              
+                .form-group.poster
+                  .row
+                    .col-md-8              
+                      = label(:checkout_product, :name)
+                      = f.text_field :name, :value => @product.name, :class => 'form-control', :disabled => @product.has_children?
+                    .col-md-4
+                      = label(:checkout_product, :price)
+                      = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control', :disabled => @product.has_children?
+                  
+                .form-group.poster
+                  .row
+                    .col-md-4
+                      = label(:checkout_product, :category)
+                      .ui-select
+                        = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
+                    .col-md-8
+                      = label(:checkout_product, :image)
+                      .input-group
+                        %input#output.form-control{ :readonly => ''}
+    
+                        .input-group-btn
+                          %button.btn.btn-primary.file-input-wrapper{ disabled: @product.has_children?}
+                            %span uploaden
+                            = f.file_field :image, { 'data-ui-file-upload' => '' }    
                 
-              .form-group
-                .row
-                  .col-md-4
-                    = label(:checkout_product, :category)
-                    .ui-select
-                      = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
-                  .col-md-8
-                    = label(:checkout_product, :image)
-                    .input-group
-                      %input#output.form-control{ :readonly => ''}
+                %span.thumb.hidden-xs   
+                  - if !@product.url.nil?
+                    =image_tag @product.url
   
-                      .input-group-btn
-                        %button.btn.btn-primary.file-input-wrapper
-                          %span uploaden
-                          = f.file_field :image, { 'data-ui-file-upload' => '' }    
-
-              %button.btn.btn-success.wait{type: 'submit'} Opslaan
-              = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
+                %button.btn.btn-success.wait{ type: 'submit', disabled: @product.has_children? } Opslaan
+                = link_to 'Annuleren', apps_products_path, { :class => 'button btn btn-default' }
+              
+              
+              %table.table.table-striped.table-linked#products
+                %tbody
+              
+                - @product.parents.take(5).each do |parent|
+                  %tr
+                    %td= I18n.l parent.created_at
+                    %td= parent.name
+                    %td= I18n.t( parent.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
+                    %td= number_to_currency( parent.price, :unit => '€' )
+        
+      - unless @new.nil?          
+        = form_for :checkout_product, url: apps_products_path, method: :post, :class => 'form-validation' do |f|   
+          - if @new.errors.any?
+            .col-md-6.pull-right
+              .alert.alert-danger
+                %button.close{ type: "button" } ×
+                %span Oeps, niet alles is goed ingevuld;
+                %ul
+                - @new.errors.full_messages.each do |msg|
+                  %li= msg
+          
+          .col-md-6.pull-right
+            .panel.panel-default
+              .panel-heading
+                %i.fa.fa-fw.fa-ticket
+                Nieuw product
+              .panel-body
+              
+                .form-group
+                  .row
+                    .col-md-8              
+                      = label(:checkout_product, :name)
+                      = f.text_field :name, :value => @new.name, :class => 'form-control'
+                    .col-md-4
+                      = label(:checkout_product, :price)
+                      = f.text_field :price, :value => number_to_currency(@new.price, :unit => ''), :class => 'form-control'
+                  
+                .form-group
+                  .row
+                    .col-md-4
+                      = label(:checkout_product, :category)
+                      .ui-select
+                        = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @new.category )
+                    .col-md-8
+                      = label(:checkout_product, :image)
+                      .input-group
+                        %input#output.form-control{ :readonly => ''}
+    
+                        .input-group-btn
+                          %button.btn.btn-primary.file-input-wrapper
+                            %span uploaden
+                            = f.file_field :image, { 'data-ui-file-upload' => '' }    
+  
+                %button.btn.btn-success.wait{type: 'submit'} Opslaan
+                = link_to 'Annuleren', apps_products_path, { :class => 'button btn btn-default' }
+                
+                
+    - unless @product.nil? 
+      .col-md-6.pull-right
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-ticket
+            Verkopen
+          %table.table.table-striped.table-linked#products
+            %tbody
+          
+            - @product.sales.each do |sale|
+              %tr
+                %td= sale.first[0].name
+                %td= I18n.l sale.first[0].created_at
+                - if !sale.first[1].nil?
+                  %td.text-right= number_to_currency( sale.first[0].price * sale.first[1], :unit => '€' )
+                - else
+                  %td.text-right -
+            %tr.total
+              %td{ :colspan => 2} Totaal
+              %td.text-right= number_to_currency( @product.sales.map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+), :unit => '€' )

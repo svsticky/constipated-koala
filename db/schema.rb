@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803111319) do
+ActiveRecord::Schema.define(version: 20150803115158) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150803111319) do
   create_table "checkout_products", force: true do |t|
     t.string   "name"
     t.integer  "category"
+    t.integer  "parent"
     t.boolean  "active",                                     default: true
     t.decimal  "price",              precision: 6, scale: 2
     t.string   "image_file_name"
