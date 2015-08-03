@@ -30,7 +30,8 @@
                       = f.text_field 'value', :value => setting.value
                     - if setting.config_type == 'integer'
                       = f.text_field 'value', :value => setting.value
-      
+                
+                
       .col-md-6
         - if @advert.errors.any?
           .alert.alert-danger
@@ -66,3 +67,14 @@
                     %span Uploaden
                     = f.file_field :poster, { 'data-ui-file-upload' => '' }    
                   %button.btn.btn-success.wait{type: 'submit'} Opslaan
+      
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-graduation-cap
+            Actieve studies
+          %ul.list-group
+            - @studies.each do |study|
+              %li.list-group-item
+                %p= study.name
+                %input{ :type => 'checkbox', :checked => study.active, :disabled => true }
