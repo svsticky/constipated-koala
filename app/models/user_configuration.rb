@@ -9,23 +9,7 @@ class UserConfiguration < ActiveRecord::Base
   validates :config_type, presence: true
   enum config_type: { boolean: 1, array: 2, integer: 3 }
   
-#  validates :options
-
-  def method_missing( method, *args, &block )
-    instance = UserConfiguration.find_by_abbreviation( method.to_s )
-    
-    unless instance.nil?
-      if instance.config_type == 'array' 
-        return instance.value.to_a
-      elsif instance.config_type == 'boolean'
-        return instance.value.to_b
-      elsif instance.config_type == 'integer'
-        return instance.value.to_i
-      end
-      
-      return instance.value
-    end
-    
-    super
-  end  
+  after_update do
+    ENV["#{self.abbreviation}"] = "#{self.value}"
+  end
 end

@@ -154,4 +154,7 @@
                   %td.text-right -
             %tr.total
               %td{ :colspan => 2} Totaal
-              %td.text-right= number_to_currency( @product.sales.map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+), :unit => '€' )
+              %td.text-right= number_to_currency( @total, :unit => '€' )
+            %tr
+              %td{ :colspan => 2} Inkoopprijs
+              %td.text-right= number_to_currency( @total / (ENV['MONGOOSE_OVERHEAD_PERCENTAGE'].to_f/100+1), :unit => '€' )

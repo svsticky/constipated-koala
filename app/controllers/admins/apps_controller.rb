@@ -19,6 +19,7 @@ class Admins::AppsController < ApplicationController
     @products = CheckoutProduct.where(:active => true).order(:category, :name)
 
     @product = CheckoutProduct.find( params[:id] ) unless params[:id].nil?    
+    @total = @product.sales.map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+) unless params[:id].nil?
     @new = CheckoutProduct.new if params[:id].nil?
   end  
   
