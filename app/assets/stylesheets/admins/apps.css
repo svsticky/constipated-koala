@@ -63,3 +63,60 @@ tr.total {
   font-weight: bold;
   border-top: 2px solid #dddddd;
 }
+
+table.table.table-linked > tbody > tr {
+  position: relative;
+  
+  > td.buttons {
+    padding: 0px;
+    width: 45px;
+    
+    div.btn-group {
+      margin-top: 3px;
+      
+      height: 34px;
+      line-height: 20px;
+      
+      position: absolute;
+      right: 20px;
+    }
+  }
+}
+
+#credit form.form-inline > .form-group {
+  padding: 0px;
+}
+
+#credit form.form-inline > .form-group.amount {
+  margin: 0px 20px;
+}
+
+#credit form.form-inline > .form-group > input.form-control,
+#credit form.form-inline > .form-group > button.form-control {
+  width: 100%;
+  heigth: 30px; 
+  margin: 5px 0; 
+  padding: 1px 12px;
+}
+
+#credit .panel-body > ul.dropdown-menu {
+  display: none; 
+  position: absolute; 
+  left: 0px; 
+  top: 50px;
+}
+
+.table span.fa-sort-asc {
+  color: green;
+  
+  position: relative;
+  top: 6px;
+}
+
+.table span.fa-sort-desc {
+  color: red;
+}
+
+p.uuid {
+  margin-bottom: 0px;
+}

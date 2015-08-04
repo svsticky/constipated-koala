@@ -140,14 +140,14 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-ticket
-            Verkopen
+            Verkopen 2015-2016 #TODO
           %table.table.table-striped.table-linked#products
             %tbody
           
             - @product.sales.each do |sale|
               %tr
-                %td= sale.first[0].name
                 %td= I18n.l sale.first[0].created_at
+                %td=link_to sale.first[0].name, apps_product_path(sale.first[0].id)
                 - if !sale.first[1].nil?
                   %td.text-right= number_to_currency( sale.first[0].price * sale.first[1], :unit => '€' )
                 - else
