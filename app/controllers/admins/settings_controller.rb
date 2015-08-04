@@ -4,6 +4,8 @@ class Admins::SettingsController < ApplicationController
   def index 
     @settings = UserConfiguration.all
     
+    @studies = Study.all
+    
     @advert = Advertisement.new
     @advertisements = Advertisement.all
   end

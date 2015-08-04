@@ -65,17 +65,16 @@ ConstipatedKoala::Application.routes.draw do
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
       
-      get    'apps/books',                 to: 'apps#books'
-      get    'apps/checkout',              to: 'checkout#index'
-      get    'apps/products',              to: 'checkout#products'
       get    'apps/ideal',                 to: 'apps#ideal'
+      get    'apps/checkout',              to: 'apps#checkout'
+      get    'apps/products',              to: 'apps#products'
+      get    'apps/products/:id',          to: 'apps#products',             as: :apps_product
+      patch  'apps/products/:id',          to: 'apps#update_product'
+      post   'apps/products',              to: 'apps#create_product'
   
       # json checkout urls
       patch  'checkout/card',         to: 'checkout#activate_card'
       patch  'checkout/transaction',  to: 'checkout#change_funds' 
-      
-      post   'checkout/products',     to: 'checkout#create_product'
-      delete 'checkout/products',     to: 'checkout#delete_product' 
       
       # api routes, without authentication
       get    'api/activities',        to: 'api#radio'

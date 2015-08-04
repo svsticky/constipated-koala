@@ -170,7 +170,7 @@
                       .row
                         .col-md-12
                           .ui-select
-                            = fs.select :study_id, options_for_select(Study.all.map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
+                            = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
             
             .col-md-5.activities                 
               %h4

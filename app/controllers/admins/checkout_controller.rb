@@ -7,29 +7,6 @@ class Admins::CheckoutController < ApplicationController
   before_action :authenticate_checkout, only: [:information_for_card, :subtract_funds, :add_card_to_member, :products_list]
   
   respond_to :json
-  respond_to :html, only: [:index, :products]
-  
-  def index    
-    @limit = params[:limit] ? params[:limit].to_i : 50
-    @offset = params[:offset] ? params[:offset].to_i : 0
-  
-    @page = @offset / @limit
-    @pagination = 5
- 
-    @transactions = CheckoutTransaction.includes(:checkout_card).order(created_at: :desc).limit(@limit).offset(@offset)
-    @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
-    
-    @pages = CheckoutTransaction.count / @limit
-    
-    @product = CheckoutProduct.new
-    render 'admins/apps/checkout'
-  end
-  
-  def products
-    @product = CheckoutProduct.new
-    @products = CheckoutProduct.where(:active => true).order(:category, :name)
-    render 'admins/apps/products'
-  end  
 
   def information_for_card
     respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
@@ -135,31 +112,7 @@ class Admins::CheckoutController < ApplicationController
   end
   
   def products_list
-    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price).map{ |item| item.attributes.merge({ :image => CheckoutProduct.find(item.id).image.url(:original) })}
-  end
-  
-  def create_product
-    @product = CheckoutProduct.new(product_post_params)
-  
-    if @product.save
-      redirect_to checkout_products_path
-    else
-      @products = CheckoutProduct.all
-      render 'admins/apps/products'
-    end
-  end
-  
-  def delete_product
-    product = CheckoutProduct.find(params[:id])
-    product.update_attribute(:active, 'false')
-    
-    if product.save
-      render :status => :no_content, :json => ''
-      return
-    else 
-      render :status => :bad_request, :json => product.errors.full_messages
-      return
-    end
+    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price).map{ |item| item.attributes.merge({ :image => item.url})}
   end
   
   private 
@@ -168,12 +121,5 @@ class Admins::CheckoutController < ApplicationController
       render :status => :forbidden, :json => 'not authenticated'
       return
     end
-  end
-  
-  def product_post_params
-    params.require(:checkout_product).permit( :name,
-                                              :price,
-                                              :category,
-                                              :image)
   end
 end

@@ -8,8 +8,8 @@ class Users::PublicController < ApplicationController
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
     
-    @membership = Activity.find( settings.intro_membership )
-    @activities = Activity.find( settings.intro_activities )
+    @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
+    @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
   end
 
   def create
@@ -63,9 +63,9 @@ class Users::PublicController < ApplicationController
       if @member.educations.length < 2
         @member.educations.build( :id => '-2' )
       end
- 
-      @membership = Activity.find( settings.intro_membership )
-      @activities = Activity.find( settings.intro_activities )
+     
+      @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
+      @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
 
       render 'index'
     end
