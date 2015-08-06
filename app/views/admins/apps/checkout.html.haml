@@ -126,14 +126,9 @@
       .col-md-4
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-credit-card
-            Verkopen vandaag
+            %i.fa.fa-fw.fa-shopping-cart
+            Producten
           %ul.list-group
-            - @today.each do |item|
-              %li.list-group-item
-                %p= link_to "#{item.first[0].name}", apps_product_path( item.first[0].id )
-                %p= item.first[1]
-
             %li.list-group-item
               %p.text-center 
                 = link_to 'Alle producten', apps_products_path

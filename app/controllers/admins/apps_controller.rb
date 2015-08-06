@@ -11,12 +11,11 @@ class Admins::AppsController < ApplicationController
     @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
     
     @pages = CheckoutTransaction.count / @limit
-    
-    @today = CheckoutProduct.sales_per_day
   end
   
   def products
     @products = CheckoutProduct.where(:active => true).order(:category, :name)
+    @years = (2015 .. Date.start_studyyear( Date.current().year ).year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
     @product = CheckoutProduct.find( params[:id] ) unless params[:id].nil?    
     @total = @product.sales.map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+) unless params[:id].nil?

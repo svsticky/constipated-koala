@@ -6,7 +6,7 @@ class CheckoutProduct < ActiveRecord::Base
   validates :price, presence: true
   validate :valid_image
   
-  enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4 }
+  enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4, alcohol }
   
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f)
@@ -38,7 +38,7 @@ class CheckoutProduct < ActiveRecord::Base
   end
   
   def url 
-    return self.image.url(:original) unless self.image_updated_at.nil?
+    return self.image.url(:original) if self.image.exists?
     return nil if self.parent.nil?    
     return CheckoutProduct.find_by_id( self.parent ).url
   end
@@ -80,6 +80,6 @@ class CheckoutProduct < ActiveRecord::Base
   
   private
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') if image_updated_at.nil? && parent.nil?
+    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') if !image.exists? && parent.nil?
   end
 end

@@ -8,7 +8,7 @@
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
-      .col-md-6.hidden-xs
+      .col-md-6.hidden-xs.pull-left
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-ticket
@@ -133,25 +133,27 @@
   
                 %button.btn.btn-success.wait{type: 'submit'} Opslaan
                 = link_to 'Annuleren', apps_products_path, { :class => 'button btn btn-default' }
-                
-        - unless @product.nil? 
-      	  .col-md-6.pull-right
-            .panel.panel-default
-              .panel-heading
-                %i.fa.fa-fw.fa-ticket
-                Verkopen 2015-2016 #TODO
-              %table.table.table-striped.table-linked#products
-                %tbody
+
+      - unless @product.nil? 
+        .col-md-6.pull-right
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-ticket
+              Verkopen
+              .ui-select.year
+                = select_tag :year, options_for_select( @years, params['year'] )
+            %table.table.table-striped.table-linked#products
+              %tbody
           
-                - @product.sales.each do |sale|
-                  %tr
-                    %td=link_to sale.first[0].name, apps_product_path(sale.first[0].id)
-		                %td= number_to_currency( sale.first[0].price, :unit => '€')
-                    %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
-                
-                %tr.total
-                  %td{ :colspan => 2} Totaal
-                  %td.text-right= number_to_currency( @total.to_f, :unit => '€' )
+              - @product.sales.each do |sale|
                 %tr
-                  %td{ :colspan => 2} Inkoopprijs
-                  %td.text-right= number_to_currency( @total.to_f / (ENV['MONGOOSE_OVERHEAD_PERCENTAGE'].to_f/100+1), :unit => '€' )
+                  %td=link_to sale.first[0].name, apps_product_path(sale.first[0].id)
+                  %td= number_to_currency( sale.first[0].price, :unit => '€')
+                  %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
+                
+              %tr.total
+                %td{ :colspan => 2} Totaal
+                %td.text-right= number_to_currency( @total.to_f, :unit => '€' )
+              %tr
+                %td{ :colspan => 2} Inkoopprijs
+                %td.text-right= number_to_currency( @total.to_f / (ENV['MONGOOSE_OVERHEAD_PERCENTAGE'].to_f/100+1), :unit => '€' )
