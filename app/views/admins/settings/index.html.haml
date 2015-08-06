@@ -61,7 +61,7 @@
           = form_for :advertisement, url: settings_advertisement_path, method: :post, :class => 'form-validation' do |f|                          
             .form-group
               .input-group
-                = f.text_field :name, { :class => 'form-control' }
+                = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
                 .input-group-btn
                   %button.btn.btn-primary.file-input-wrapper
                     %span Uploaden

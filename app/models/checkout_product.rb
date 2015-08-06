@@ -61,7 +61,7 @@ class CheckoutProduct < ActiveRecord::Base
     return [{ self => count}] + CheckoutProduct.find_by_id( self.parent ).sales( year ) unless self.parent.nil?
   end
 	 
-	def self.sales_per_day( date = Date.today )
+  def self.sales_per_day( date = Date.today )
     today = CheckoutTransaction.where( "DATE(`created_at`) = '#{date}'" ).group( :items ).count.map{ |k,v| { YAML.load(k) => v} }
     
     products = Hash.new

@@ -117,7 +117,7 @@ class Admins::CheckoutController < ApplicationController
   
   private 
   def authenticate_checkout
-    if params[:token] != ConstipatedKoala::Application.config.checkout
+    if params[:token] != ENV['CHECKOUT_TOKEN']
       render :status => :forbidden, :json => 'not authenticated'
       return
     end
