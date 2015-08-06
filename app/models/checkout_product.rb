@@ -6,7 +6,7 @@ class CheckoutProduct < ActiveRecord::Base
   validates :price, presence: true
   validate :valid_image
   
-  enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4, alcohol }
+  enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4 }
   
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f)
