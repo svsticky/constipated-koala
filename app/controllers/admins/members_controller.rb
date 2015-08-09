@@ -38,7 +38,7 @@ class Admins::MembersController < ApplicationController
     @years = (@member.join_date.year .. Date.start_studyyear( Date.current().year ).year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
     #pagination for mongoose transactions
-    @limit = params[:limit] ? params[:limit].to_i : 20
+    @limit = params[:limit] ? params[:limit].to_i : 10
     @offset = params[:offset] ? params[:offset].to_i : 0
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(@limit).offset(@offset)
 

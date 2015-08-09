@@ -7,7 +7,7 @@ class Users::PublicController < ApplicationController
     @member = Member.new
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
-    
+
     @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
     @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
   end
@@ -28,20 +28,20 @@ class Users::PublicController < ApplicationController
         redirect_to public_path
         return
       end
-      
+
       activities.each do |activity|
         participant = Participant.create( :member => @member, :activity => activity)
         total += participant.currency
       end
 
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( 
+        @transaction = IdealTransaction.new(
           :description => "Introductie #{@member.name}",
           :amount => total,
           :issuer => params[:bank],
           :type => 'INTRO',
-          :member => @member, 
-          :transaction_id => activities.map{ |activity| activity.id }, 
+          :member => @member,
+          :transaction_id => activities.map{ |activity| activity.id },
           :transaction_type => 'Activity' )
 
         if @transaction.save
@@ -63,7 +63,7 @@ class Users::PublicController < ApplicationController
       if @member.educations.length < 2
         @member.educations.build( :id => '-2' )
       end
-     
+
       @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
       @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
 
@@ -74,7 +74,7 @@ class Users::PublicController < ApplicationController
   def confirm
     @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
-    if @transaction.status == 'SUCCESS'
+    if @transaction.status == 'SUCCESS' && @transaction.type == 'INTRO'
 
       @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
