@@ -1,13 +1,13 @@
 - content_for(:page, 'settings')
 - content_for(:subpage, 'generic')
 
-- content_for(:title, 'Constipated koala | settings') 
+- content_for(:title, 'Constipated koala | settings')
 
 %section#content
   = render 'layouts/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
-    .row    
+    .row
       .col-md-6
         .panel.panel-default
           .panel-heading
@@ -18,20 +18,20 @@
               - @settings.each do |setting|
                 %li.list-group-item
                   = f.hidden_field :id, :value => setting.id
-                  
+
                   .col-md-6
                     %b= setting.name
                     %p= setting.description
-                  
+
                   .col-md-6
                     - if setting.config_type == 'array'
-                      = f.text_field 'value', :value => setting.value
+                      = f.text_field 'value', :value => setting.value, :readonly => true
                     - if setting.config_type == 'boolean'
-                      = f.text_field 'value', :value => setting.value
+                      = f.text_field 'value', :value => setting.value, :readonly => true
                     - if setting.config_type == 'integer'
-                      = f.text_field 'value', :value => setting.value
-                
-                
+                      = f.text_field 'value', :value => setting.value, :readonly => true
+
+
       .col-md-6
         - if @advert.errors.any?
           .alert.alert-danger
@@ -40,7 +40,7 @@
             %ul
             - @advert.errors.full_messages.each do |msg|
               %li= msg
-      
+
         .panel.panel-default#advertisements
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-desktop
@@ -57,24 +57,25 @@
                     .btn-group
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o
-  
-          = form_for :advertisement, url: settings_advertisement_path, method: :post, :class => 'form-validation' do |f|                          
+
+          = form_for :advertisement, url: settings_advertisement_path, method: :post, :class => 'form-validation' do |f|
             .form-group
               .input-group
                 = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
                 .input-group-btn
                   %button.btn.btn-primary.file-input-wrapper
                     %span Uploaden
-                    = f.file_field :poster, { 'data-ui-file-upload' => '' }    
+                    = f.file_field :poster, { 'data-ui-file-upload' => '' }
                   %button.btn.btn-success.wait{type: 'submit'} Opslaan
-      
+
       .col-md-6
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-graduation-cap
             Actieve studies
-          %ul.list-group
+          %table.table.table-striped.table-linked
             - @studies.each do |study|
-              %li.list-group-item
-                %p= study.name
-                %input{ :type => 'checkbox', :checked => study.active, :disabled => true }
+              %tr
+                %td= study.name
+                %td
+                  %input{ :type => 'checkbox', :checked => study.active, :disabled => true }

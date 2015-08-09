@@ -68,3 +68,31 @@ label.ui-checkbox.btn input {
 aside a[href='#'] {
   cursor: default;
 }
+
+.table-footer {
+  margin: 0 !important;
+  padding: 5px;
+  border-top: 2px solid #dddddd;
+
+  ul.pagination-sm.pagination {
+    margin: 0;
+  }
+
+  .page-num-info {
+    top: 5px;
+  }
+}
+
+.panel-heading.year {
+  padding: 3px 15px 2px;
+
+  .ui-select {
+    width: 110px;
+    margin-left: 5px;
+
+    select {
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+}
