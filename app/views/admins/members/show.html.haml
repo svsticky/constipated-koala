@@ -48,7 +48,7 @@
 
               %dl.dl-horizontal
                 - @member.educations.each do |education|
-                  %dt= education.study.name
+                  %dt= I18n.t education.study.code.downcase, scope: 'activerecord.attributes.study.names'
                   %dd
                     - if education.end_date.nil?
                       #{I18n.l education.start_date, :format => :short}
