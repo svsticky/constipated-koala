@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803115158) do
+ActiveRecord::Schema.define(version: 20150809190455) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150803115158) do
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
     t.text     "description"
+    t.integer  "organized_by"
   end
 
   create_table "admins", force: true do |t|
@@ -100,6 +101,25 @@ ActiveRecord::Schema.define(version: 20150803115158) do
   end
 
   add_index "educations", ["member_id", "study_id", "start_date"], name: "index_educations_on_member_id_and_study_id_and_start_date", unique: true, using: :btree
+
+  create_table "group_members", force: true do |t|
+    t.integer  "member_id"
+    t.integer  "group_id"
+    t.integer  "year"
+    t.string   "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_members", ["member_id", "group_id", "year"], name: "index_group_members_on_member_id_and_group_id_and_year", unique: true, using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.integer  "type"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "ideal_transactions", id: false, force: true do |t|
     t.string   "uuid",             limit: 16

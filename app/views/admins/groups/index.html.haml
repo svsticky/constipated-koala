@@ -1,5 +1,5 @@
 - content_for(:page, 'groups')
-- content_for(:title, 'Constipated koala | groepen') 
+- content_for(:title, 'Constipated koala | groepen')
 
 %section#content
   = render 'layouts/search'
@@ -11,16 +11,12 @@
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-users
             Groepen
-            
-          .table-responsive
-            %table.table.table-bordered.table-striped.table-linked
-              %thead
-                %tr
-                  %th
-                    .th Groep
-                  %th
-                    .th Leden
-              - @group.each do |group|
+
+          %table.table.table-striped.table-linked
+            %tbody
+              - @groups.each do |group|
                 %tr
                   %td= link_to "#{group.name}", group
-                  %td= link_to group.group_members.length, group
+                  %td= group.group_members.map{ |member| member.member.name }.join(', ')
+                %tr
+                  %td{ :colspan => 2 }= group.comments

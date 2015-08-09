@@ -68,6 +68,11 @@
               Groepen
             %table.table.table-striped.table-linked
               %tbody
+              - @member.group_members.each do |member|
+                %tr
+                  %td= link_to member.group.name, member.group
+                  %td #{member.year} - #{member.year + 1}
+                  %td= member.position
 
           .panel.panel-default
             .panel-body

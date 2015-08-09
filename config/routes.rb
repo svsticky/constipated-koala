@@ -50,7 +50,7 @@ ConstipatedKoala::Application.routes.draw do
 
     scope module: 'admins' do
       # Resource pages
-      resources :members, :activities
+      resources :members, :activities, :groups
 
       # search for member using dropdown
       get    'search',                to: 'members#find'
