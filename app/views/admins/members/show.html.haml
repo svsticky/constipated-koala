@@ -35,6 +35,47 @@
                   = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )
 
           .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-graduation-cap
+              Studiegegevens
+            .panel-body
+              %dl.dl-horizontal
+                %dt Studentnummer
+                %dd= @member.student_id
+                %dt Lid sinds
+                - if !@member.join_date.nil?
+                  %dd= I18n.l @member.join_date
+
+              %dl.dl-horizontal
+                - @member.educations.each do |education|
+                  %dt= education.study.name
+                  %dd
+                    - if education.end_date.nil?
+                      #{I18n.l education.start_date, :format => :short}
+                    - else
+                      #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
+
+                    - if education.graduated?
+                      %span.label.label-success geslaagd
+                    - elsif education.stopped?
+                      %span.label.label-warning gestopt
+                    - elsif education.active?
+                      %span.label.label-info studerend
+
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-users
+              Groepen
+            %table.table.table-striped.table-linked
+              %tbody
+
+          .panel.panel-default
+            .panel-body
+              = link_to 'Back', :back, { :class => 'button btn btn-default' }
+              = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+
+        .col-md-6
+          .panel.panel-default
             .panel-heading.year
               %i.fa.fa-fw.fa-ticket
               Activiteiten
@@ -77,15 +118,21 @@
 
           - if @member.checkout_cards.length > 0
             .panel.panel-default
-              .panel-heading
+              .panel-heading.input
                 %i.fa.fa-fw.fa-shopping-cart
                 Checkout
-              %table.table.table-striped.table-linked#transactions
+                .input-group#credit{ :data => { 'member_id' => @member.id }}
+                  %span.input-group-addon €
+                  %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '') }
+                  %span.input-group-btn
+                    %button.btn.btn-warning opwaarderen
+
+              %table.table.table-striped#transactions
                 %thead
                   %tr
                     %th Datum
                     %th Prijs
-                    %th.hidden-xs Kaart
+                    %th.hidden-xs Producten
                 %tbody
                   - @transactions.each do |transaction|
                     %tr
@@ -98,13 +145,7 @@
                           %span.fa.fa-sort-desc.pull-right
 
                       %td.hidden-xs
-                        - if !transaction.checkout_card.nil?
-                          - if transaction.checkout_card.description.nil?
-                            = transaction.checkout_card.uuid
-                          - else
-                            = transaction.checkout_card.description
-                        - else
-                          \-
+                        = transaction.products
               %footer.table-footer
                 .row
                   .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4 } }
@@ -140,60 +181,3 @@
 
                       %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
                         %a{ :data => { :offset => @offset + @limit }} volgende
-
-
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-graduation-cap
-              Studiegegevens
-            .panel-body
-              %dl.dl-horizontal
-                %dt #
-                %dd= @member.student_id
-              %dl.dl-horizontal
-                - @member.educations.each do |education|
-                  %dt= education.study.name
-                  %dd
-                    - if education.end_date.nil?
-                      #{I18n.l education.start_date, :format => :short}
-                    - else
-                      #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
-
-                    - if education.graduated?
-                      %span.label.label-success geslaagd
-                    - elsif education.stopped?
-                      %span.label.label-warning gestopt
-                    - elsif education.active?
-                      %span.label.label-info studerend
-
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-users
-              Commissies
-            .panel-body
-
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-dashboard
-              Overig
-            .panel-body
-              %dl.dl-horizontal
-                %dt Lid sinds
-                - if !@member.join_date.nil?
-                  %dd= I18n.l @member.join_date
-
-                %dt Activiteiten
-                %dd= @member.activities.length
-
-                %dt Tegoed
-                -if @member.checkout_cards.length > 0
-                  %dd= number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '€')
-                -else
-                  %dd -
-
-          - if current_user.admin?
-            .panel.panel-default
-              .panel-body
-                = link_to 'Back', :back, { :class => 'button btn btn-default' }
-                = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }

@@ -83,6 +83,39 @@ aside a[href='#'] {
   }
 }
 
+.panel-heading.input {
+  padding: 3px 15px 2px;
+  height: 40px;
+  line-height: 40px;
+
+  .input-group {
+    float: right;
+    height: 30px;
+    width: 150px;
+    top: -3px;
+    right: -10px;
+
+    span.input-group-addon {
+      display: initial;
+      top: -1px;
+      position: relative;
+      height: 36px;
+    }
+
+    input {
+      height: 32px;
+      line-height: 23px;
+      width: 120px;
+    }
+
+    button {
+      height: 32px;
+      line-height: 18px;
+    }
+
+  }
+}
+
 .panel-heading.year {
   padding: 3px 15px 2px;
 
