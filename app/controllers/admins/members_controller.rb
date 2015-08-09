@@ -7,6 +7,7 @@ class Admins::MembersController < ApplicationController
 
     @page = @offset / @limit
 
+    # If a search query is send, change the limit and offset accordingly. The param all is whether the query should also look into alumni
     if params[:search]
       @members = Member.search(params[:search], params[:all] ||= false)
       @pages = (@members.size / @limit.to_f).ceil
@@ -26,6 +27,7 @@ class Admins::MembersController < ApplicationController
     end
   end
 
+  # As defined above this is an json call only
   def find
     @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search], params[:all] ||= false)
     respond_with @members
@@ -34,20 +36,24 @@ class Admins::MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
 
+    # Show all activities from the given year. And make a list of years starting from the member's join_date until the last activity
     @activities = @member.activities.study_year( params['year'] ).order( start_date: :desc ).joins( :participants ).distinct
-    @years = (@member.join_date.year .. Date.start_studyyear( Date.current().year ).year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
+    @years = ( @member.join_date.study_year .. @member.activities.order( start_date: :desc ).first.start_date.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
-    #pagination for mongoose transactions
+    # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
     @limit = params[:limit] ? params[:limit].to_i : 10
     @offset = params[:offset] ? params[:offset].to_i : 0
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(@limit).offset(@offset)
 
+    # Pager at the bottom has number of pages and which page it is currently on
     @page = @offset / @limit
     @pages = (CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).count / @limit.to_f).ceil
   end
 
   def new
     @member = Member.new
+
+    # Construct a education so that there is always one visible to fill in
     @member.educations.build( :id => '-1' )
   end
 
@@ -55,9 +61,13 @@ class Admins::MembersController < ApplicationController
     @member = Member.new(member_post_params)
 
     if @member.save
+
+      # impressionist is the logging system
       impressionist(@member, 'nieuwe lid')
       redirect_to @member
     else
+
+      # If the member hasn't filled in a study, again show an empty field
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
       end
