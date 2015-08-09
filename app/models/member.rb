@@ -1,3 +1,4 @@
+# Default a class begins with a number of validations. student_id is special because in the intro website it cannot be empty. However an admin can make it empty
 class Member < ActiveRecord::Base
   validates :first_name, presence: true
   #validates :infix
@@ -9,11 +10,12 @@ class Member < ActiveRecord::Base
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
   validates :gender, presence: true, inclusion: { in: %w(m f)}
-  
+
+  # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
   validates :student_id, presence: false, uniqueness: true, :allow_blank => true, format: { with: /\F?\d{6,7}/ }
   validate :valid_student_id
-  
+
   validates :birth_date, presence: true
   validates :join_date, presence: true
   #validates :comments
@@ -22,6 +24,7 @@ class Member < ActiveRecord::Base
   fuzzily_searchable :query
   is_impressionable
 
+  # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
   has_many :tags,
     :dependent => :destroy,
     :autosave => true
@@ -49,11 +52,11 @@ class Member < ActiveRecord::Base
   has_many :activities,
     :through => :participants
 
-  # fix caps
+  # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
     write_attribute(:first_name, first_name.capitalize)
   end
-  
+
   def last_name=(last_name)
     write_attribute(:last_name, last_name.capitalize)
   end
@@ -70,15 +73,15 @@ class Member < ActiveRecord::Base
 
   def tags_names=(tags)
     Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
-    
+
     tags.each do |tag|
       next if tag.empty?
-      
+
       puts Tag.where( :member_id => id, :name => Tag.names[tag] ).first_or_create!
     end
   end
 
-  # return full name
+  # Some other function can improve your life a lot, for example the name function
   def name
     return "#{self.first_name} #{self.last_name}" if infix.blank?
     return "#{self.first_name} #{self.infix} #{self.last_name}"
@@ -89,10 +92,12 @@ class Member < ActiveRecord::Base
     return Digest::MD5.hexdigest(self.email)
   end
 
+  # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member
   before_create do
     self.join_date = Time.new
   end
-  
+
+  # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
   before_update do
     if email_changed?
       credentials = User.find_by_email( Member.find(self.id).email )
@@ -105,27 +110,28 @@ class Member < ActiveRecord::Base
       end
     end
   end
-  
-  def self.search(query, all = false)    
+
+  # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
+  def self.search(query, all = false)
     return Member.where("student_id like ?", "%#{query}%") if query.is_number?
-    
+
     all = true if all == 'on'
     all = all.to_b if all.is_a? String
-    
+
     return Member.find_by_fuzzy_query(query) if all
     return Member.currently_active.find_by_fuzzy_query(query)
   end
-  
-  # guery for fuzzy search 
-  def query 
+
+  # Query for fuzzy search, this string is used for building indexes for searching
+  def query
     "#{self.first_name} #{self.last_name} #{self.student_id}"
   end
-  
+
   def query_changed?
     first_name_changed? || infix_changed? || last_name_changed? || student_id_changed?
   end
 
-  # update studies based on studystatus output
+  # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
 
@@ -138,44 +144,44 @@ class Member < ActiveRecord::Base
       puts "#{student_id} not found"
       return
     end
-        
+
     for study in studies do
       code, start_date, status, end_date = study.split(/, /)
-      
+
       if Study.find_by_code(code).nil?
         puts "#{code} is not found as a study in the database"
         next
       end
-      
+
       education = self.educations.find_by_start_date_and_study_code(start_date, code)
-      
-#       # if gametech also allow
-#       if education.nil? && code == 'INCA'
-#         education = self.educations.find_by_start_date_and_study_code(start_date, 'GT')
-#       end
-      
+
+      # If not found as informatica, we can try for gametech. This only works if the student filled in GT from the subscribtion
+      if education.nil? && code == 'INCA'
+        education = self.educations.find_by_start_date_and_study_code(start_date, 'GT')
+      end
+
       if education.nil?
         education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9, 1))
         puts " + #{code} (#{status})"
       else
         puts " ± #{code} (#{status})"
       end
-      
+
       if !end_date.nil? && !end_date[5..-1].nil?
         education.update_attribute('end_date', Date.parse(end_date[5..-1]))
       end
-      
+
       if status.eql?('gestopt')
         education.update_attribute('status', 'stopped')
       elsif status.eql?('afgestudeerd')
         education.update_attribute('status', 'graduated')
       else #actief
-        education.update_attribute('status', 'active')    
-      end  
-        
-      education.save!      
+        education.update_attribute('status', 'active')
+      end
+
+      education.save!
     end
-        
+
     # remove studies no longer present
     for education in self.educations do
       unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?("#{education.study.code} | #{education.start_date.year}")
@@ -184,19 +190,22 @@ class Member < ActiveRecord::Base
       end
     end
   end
-  
-  private 
+
+  # Private function cannot be called from outside this class
+  private
+  # An student is active if he is currently studying or has a tag which makes him active like a pardon
   def self.currently_active
     return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
   end
-  
+
+  # Perform an elfproef to verify the student_id
   def valid_student_id
     # on the intro website student_id is required
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
-        
+
     # do not do the elfproef if a foreign student
     return if ( student_id =~ /\F\d{6}/)
-    
+
     numbers = student_id.split("").map(&:to_i).reverse
 
     sum = 0
@@ -205,6 +214,7 @@ class Member < ActiveRecord::Base
       sum += digit * i
     end
 
+    # Errors are added direclty to the model, so it easy to show in the views. We are using I18n for translating purposes, a lot is still hardcoded dutch, but not the intro website and studies
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.elfproef') if sum % 11 != 0
   end
 end
