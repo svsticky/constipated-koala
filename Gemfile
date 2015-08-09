@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.1'
+gem 'rails', '~> 4.1.1'
+gem 'unicorn'
 
 # authentication gem
 gem 'devise'
@@ -27,12 +28,6 @@ gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
-
-# Use bootstrap
-gem 'bootstrap-sass', '~> 3.1.1.1'
-
-# use font awesome
-gem 'font-awesome-sass', '~> 4.1.0'
 
 # new search engine
 gem 'fuzzily'
@@ -61,4 +56,6 @@ gem 'jbuilder'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
-gem 'faker'
+group :development, :staging do
+  gem 'faker'
+end

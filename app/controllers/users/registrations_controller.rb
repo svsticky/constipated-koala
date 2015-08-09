@@ -1,8 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::UrlHelpers
   
-#  layout 'default'
-#  layout 'application', only: [:edit, :update]
   before_action :configure_permitted_parameters
 
   # add member to user credentials

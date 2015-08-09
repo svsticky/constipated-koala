@@ -5,7 +5,7 @@
 
 #participants tr > td > a {
   line-height: 36px;
-  
+
   height: 36px;
   width: 100%;
 }
@@ -13,9 +13,9 @@
 #participants tr > td > input {
   height: 32px;
   width: 100%;
-  
-  line-height: 32px; 
-  
+
+  line-height: 32px;
+
   margin: 5px 0;
   padding: 1px;
 }
@@ -26,7 +26,7 @@
 
 #participants tr > td:nth-child(2) {
   width: calc( 40% - 50px );
-  
+
   padding-right: 5%;
   text-align: right;
 }
@@ -38,22 +38,22 @@
 #participants tr > td > .btn-group {
   height: 30px;
   float: right;
-   
-  margin: 2px 0 4px 0; 
+
+  margin: 2px 0 4px 0;
   padding: 0;
 }
 
 #participants tr > td > .btn-group > button{
   height: 32px;
   line-height: 20px;
-  
+
   padding: 5px 12px;
 }
 
 #participants tr > td > ul.dropdown-menu {
-  display: none; 
-  position: absolute; 
-  left: 4px; 
+  display: none;
+  position: absolute;
+  left: 4px;
   top: 30px;
 }
 
@@ -68,34 +68,34 @@
     position: relative;
     left: 210px;
   }
-  
+
   form .panel-body {
     position: relative;
   }
-  
+
   form .droparea {
     position: absolute;
-    
+
     top: 5px;
     left: 5px;
     right: 5px;
     bottom: 55px;
-    
+
     border: 2px dashed #767676;
-    
+
     z-index: 10;
     background: rgba(255, 255, 255, 0.7);
-    
+
     display: none;
   }
-  
+
   form .thumb {
     position: absolute;
     top: 96px;
-    
+
     height: 255px;
     width: 180px;
-    
+
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }
@@ -105,15 +105,15 @@
 #mail > #textarea, #mail > textarea#html {
   font-family: arial;
   font-size: medium;
-  
+
   color: #222;
-  
+
   width: 100%;
   min-height: 200px;
- 
+
   margin-bottom: 10px;
   overflow-y: scroll;
-  
+
   display: none;
 }
 

@@ -5,7 +5,7 @@
   .page.page-form
     .row
       = form_for :member, url: members_path, method: :post, :class => 'form-validation' do |f|
-      
+
         - if @member.errors.any?
           .col-md-12
             .alert.alert-danger
@@ -14,7 +14,7 @@
               %ul
               - @member.errors.full_messages.each do |msg|
                 %li= msg
-      
+
         .col-md-6
           .panel.panel-default
             .panel-heading
@@ -63,10 +63,7 @@
               .form-group
                 %label{for: ''} E-mailadres
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-              /
-                .form-group
-                  %label{for: ''} Tags
-                  = f.select :tags, Tag.list, {:include_blank => true}, :multiple => true, :multiple => true, :name => 'member[tags_name_ids][]', :class => 'form-control'
+
               .form-group
                 %label{for: ''} Comments
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
@@ -79,47 +76,41 @@
               .form-group
                 %label{for: ''} Studentnummer
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
+
               .form-group
-                %label{for: ''} 
+                %label{for: ''} Lidmaatschap
+                = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
+
+              .form-group
+                %label{for: ''}
                   Studie
                   %a.close{ :type => 'button' } +
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
                     .form-group.copyable
                       .row
-                      
+
                         .col-md-6
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.all.map{|s| [s.name, s.id]}, education.study_id), :include_blank => "--"
                         .col-md-6
                           .ui-select
-                            = fs.select :status, options_for_select(Education.statusen, education.status)
-                          
-                      .row      
+                            = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
+
+                      .row
                         .col-md-6
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
                         .col-md-6
                           = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
                         = fs.hidden_field :_destroy, :class => 'destroy'
-                        
-                        
+
+
                         %a.btn.btn-default.destroy{ :type => 'button' }
                           %span.fa.fa-trash-o
 
                 .callout.callout-info
                   %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %span.glyphicon.glyphicon-th
-              Sticky
-            .panel-body
-              .form-group
-                %label{for: ''} Lidmaatschap
-                = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
-              .form-group
-                %label{for: ''} Groepen
-                commissies
+
         .col-md-12
           .panel.panel-default
             .panel-body

@@ -31,19 +31,10 @@ ConstipatedKoala::Application.configure do
   config.action_controller.action_on_unpermitted_parameters = :raise
   
   # Custom configuration
-  config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
-  config.checkout = '12'
+  config.mailgun = ENV['MAILGUN_TOKEN']
+  config.checkout = ENV['CHECKOUT_TOKEN']
   
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => 'sticky-posters'
-    },
-    :path => '/:class/:id/:style',
-    :s3_protocol => 'https',
-    :url => ':s3_domain_url',
-    :s3_permissions => {
-      :original => :private
-    }
+    :path => '/:class/:id/:style'
   }
 end

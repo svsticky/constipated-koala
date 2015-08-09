@@ -20,27 +20,28 @@ ConstipatedKoala::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+#  config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
-  config.assets.css_compressor = :sass
+#  config.assets.js_compressor = :uglifier
+#  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
-  config.assets.precompile =  ['*.css', '*.css.erb', '*.js'] 
+#  config.assets.compile = true
+#  config.assets.precompile =  ['*.css', '*.js'] 
   # Generate digests for assets URLs.
-  config.assets.digest = true
+#  config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
-
-  # Specifies the header that your server uses for sending files.
+#  config.assets.version = '1.0'
+  config.assets.debug = true
+ 
+ # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :error
@@ -83,8 +84,8 @@ ConstipatedKoala::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   
   # Custom configuration
-  config.mailgun = 'key-4bljpoyufuohbwptsdpgndhqmz1xxjq0'
-  config.checkout = 'q4Idsg4485B5nMNNFetOQ1dQ08ZzCV04'
+  config.mailgun = ENV['MAILGUN_TOKEN']
+  config.checkout = ENV['CHECKOUT_TOKEN']
 
   config.paperclip_defaults = {
     :storage => :s3,

@@ -21,14 +21,14 @@ module ConstipatedKoala
     config.i18n.default_locale = :nl
     
     config.to_prepare do
-	    Devise::SessionsController.layout 'layouts/default'
-	    Devise::RegistrationsController.layout 'layouts/default'
-	    Devise::ConfirmationsController.layout 'layouts/default'
-	    Devise::UnlocksController.layout 'layouts/default'            
-	    Devise::PasswordsController.layout 'layouts/default'  
+	    Devise::SessionsController.layout 'default'
+	    Devise::RegistrationsController.layout 'default'
+	    Devise::ConfirmationsController.layout 'default'
+	    Devise::UnlocksController.layout 'default'            
+	    Devise::PasswordsController.layout 'default'  
 	    
 	    Users::PublicController.layout false
-	    Users::HomeController.layout 'layouts/default'
+	    Users::HomeController.layout 'default'
 	  end
 	  
     config.action_dispatch.rescue_responses = {

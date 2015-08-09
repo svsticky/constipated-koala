@@ -12,7 +12,7 @@ $(document).on( 'ready page:load', function(){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
     
     $.ajax({
-      url: '/apps/radio',
+      url: '/settings/advertisement',
       type: 'DELETE',
       data: {
         id: $( row ).attr( 'data-id' ),

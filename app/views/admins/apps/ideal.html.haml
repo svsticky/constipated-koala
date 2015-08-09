@@ -1,22 +1,101 @@
 - content_for(:page, 'apps')
 - content_for(:subpage, 'ideal')
 
-- content_for(:title, 'Constipated koala | iDeal') 
+- content_for(:title, 'Constipated koala | iDeal')
 
 %section#content
   = render 'layouts/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
-      .col-md-12
+      .col-md-8
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-fw.fa-credit-card
+            %i.fa.fa-fw.fa-credit-card
             iDeal transacties
+
+            .date-input
+              %input{ :type => 'date', :value => params['date'] || Date.yesterday }
+
           .table-responsive
             %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      Datum
+                  %th
+                    .th
+                      Lid
+                  %th
+                    .th
+                      Omschrijving
+                  %th
+                    .th
+                      Prijs
+                  %th
+                    .th
+                      Status
 
               - @transactions.each do |transaction|
                 %tr
                   %td
-                    = transaction.member
+                    = transaction['created_at']
+
+                  %td
+                    = link_to transaction['member'].name, transaction['member'] unless transaction['member'].nil?
+
+                  %td
+                    - if !transaction['checkout'].nil?
+                      = I18n.t 'checkout', scope: 'activerecord.errors.models.ideal_transaction.attributes'
+
+                    - elsif transaction['activities'].nil?
+                      = transaction['description']
+
+                    - else
+                      = transaction['activities'].map{ |activity| activity.name }.join(', ')
+
+                  %td
+                    = number_to_currency(transaction['amount'], :unit => '€')
+
+                  %td
+                    - if transaction['status'] == 'SUCCESS'
+                      %span.label.label-success= transaction['status']
+
+                    - elsif transaction['status'] == 'OPEN'
+                      %span.label.label-warning= transaction['status']
+
+                    - else
+                      %span.label.label-danger= transaction['status']
+
+      .col-md-4
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-credit-card
+            iDeal samenvatting
+
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      Omschrijving
+                  %th
+                    .th
+                      Totaal
+
+              - @summary.each do |activity, amount|
+                %tr
+                  %td
+                    - if activity.is_a? String
+                      - if activity == 'checkout' || activity == 'fees'
+                        = I18n.t activity, scope: 'activerecord.errors.models.ideal_transaction.attributes'
+                      - else
+                        = activity.capitalize
+
+                    - else
+                      = link_to activity.name, activity
+
+                  %td
+                    = number_to_currency( amount, :unit => '€')

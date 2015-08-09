@@ -3,62 +3,59 @@ class Users::PublicController < ApplicationController
   skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
   before_action :set_locale
 
-  @@intro = {
-    'lidmaatschap' => 10,
-    'lasergamen' => 12,
-    'bbq' => 6
-  }
-
   def index
     @member = Member.new
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
-    
-    @membership = Activity.find( settings.intro_membership )
-    @activities = Activity.find( settings.intro_activities )
+
+    @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
+    @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
   end
 
   def create
     @member = Member.new( public_post_params.except :participant_attributes )
-    activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
+    @member.require_student_id = true
+    activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0
 
     if @member.save
       impressionist(@member, 'nieuwe lid')
-      flash[:notice] = t('.notice#success')
+      flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
+      # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find( education.study_id ).masters }
+        flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
         redirect_to public_path
         return
       end
-      
+
       activities.each do |activity|
         participant = Participant.create( :member => @member, :activity => activity)
         total += participant.currency
       end
 
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( 
+        @transaction = IdealTransaction.new(
           :description => "Introductie #{@member.name}",
-          :amount => @total,
+          :amount => total,
           :issuer => params[:bank],
           :type => 'INTRO',
-          :member => @member, 
-          :transaction_id => @activities.to_a, 
+          :member => @member,
+          :transaction_id => activities.map{ |activity| activity.id },
           :transaction_type => 'Activity' )
 
         if @transaction.save
           redirect_to @transaction.url
           return
         else
-          logger.error '[IDEAL] transactie niet gelukt'
-          flash[:notice] = t('.errors#payment')
+          flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
         end
       end
 
       redirect_to public_path
       return
     else
+      # create empty study field if not present
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
       end
@@ -66,9 +63,9 @@ class Users::PublicController < ApplicationController
       if @member.educations.length < 2
         @member.educations.build( :id => '-2' )
       end
- 
-      @membership = Activity.find( settings.intro_membership )
-      @activities = Activity.find( settings.intro_activities )
+
+      @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
+      @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
 
       render 'index'
     end
@@ -77,23 +74,17 @@ class Users::PublicController < ApplicationController
   def confirm
     @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
-    if @transaction.status == 'SUCCESS'
+    if @transaction.status == 'SUCCESS' && @transaction.type == 'INTRO'
 
       @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
-
-        if @participant.size != 1
-          flash[:notice] = t('.errors#error') #ow god what have you done?!
-      	  redirect_to public_path
-      	end
-
       	@participant.first.paid = true
       	@participant.first.save
       end
 
-      flash[:notice] = t('.notice#payment') #ingeschreven en betaald!
+      flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
     else
-      flash[:notice] = t('.errors#error') #ingeschreven maar niet betaald
+      flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
     end
 
     redirect_to public_path
@@ -126,6 +117,6 @@ class Users::PublicController < ApplicationController
                                    :bank,
 
                                    participant_attributes: [ :id, :participate ],
-                                   educations_attributes: [ :id, :study_id ])
+                                   educations_attributes: [ :id, :study_id, :_destroy ])
   end
 end

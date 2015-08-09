@@ -1,52 +1,45 @@
-.row
-  .col-md-3
-    = image_tag('constipated-koala.png')
-    
-    %p.hidden-xs
-      Constipated koala is de ledenadministratie voor
-      = link_to 'Studievereniging Sticky', 'https://stickyutrecht.nl'
-      \. Vul hier je gegevens in om je account aan te vragen.
-    
-  .col-md-3
-    = form_for(resource, as: resource_name, url: new_registration_path(resource_name), :class => 'form-horizontal' ) do |f|   
-                   
-      - if !resource.errors.full_messages.blank?
-        - resource.errors.full_messages.each do |message|
+.row#app
+  .col-sm-12.col-md-3.col-shadow.col-md-offset-7
+    .vertical-align
+      = form_for(resource, as: resource_name, url: new_registration_path(resource_name), :class => 'form-horizontal' ) do |f|   
+                     
+        - if !resource.errors.full_messages.blank?
+          - resource.errors.full_messages.each do |message|
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span
+                = message
+      
+        - if flash[:alert]
           .alert.alert-danger
             %button.close{ type: "button" } ×
             %span
-              = message
-    
-      - if flash[:alert]
-        .alert.alert-danger
-          %button.close{ type: "button" } ×
-          %span
-            = flash[:alert]
-            
-      - if flash[:notice]
-        .alert.alert-info
-          %button.close{ type: "button" } ×
-          %span
-            = flash[:notice]                      
-                  
-      %fieldset
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-envelope
-            = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
-
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-lock
-            = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
-
-        .form-group
-          .input-group.input-group-lg
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-lock
-            = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
-
-        .form-group
-          = f.submit 'Vraag ze aan!', :class => 'btn btn-primary btn-lg btn-block'
+              = flash[:alert]
+              
+        - if flash[:notice]
+          .alert.alert-info
+            %button.close{ type: "button" } ×
+            %span
+              = flash[:notice]                      
+                    
+        %fieldset
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-envelope-o
+              = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+  
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-lock
+              = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
+  
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-lock
+              = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
+  
+          .form-group
+            = f.submit 'Vraag ze aan!', :class => 'btn btn-primary btn-lg btn-block'

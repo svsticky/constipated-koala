@@ -1,10 +1,10 @@
-- content_for(:page, 'checkout')
+- content_for(:page, 'apps')
 - content_for(:subpage, 'transacties')
 
-- content_for(:title, 'Constipated koala | checkout') 
+- content_for(:title, 'Constipated koala | apps | checkout')
 
 %section#content
-  = render 'layouts/search' 
+  = render 'layouts/search'
 
   .page.page-table{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
@@ -26,10 +26,10 @@
                   %th
                     .th
                       Lid
-                  %th.hidden-xs
+                  %th.hidden-sm
                     .th
-                      Kaart
-                        
+                      Producten
+
               - @transactions.each do |transaction|
                 %tr
                   %td #{I18n.l transaction.created_at}
@@ -39,15 +39,16 @@
                       %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
                     - else
                       %span.fa.fa-sort-desc.pull-right
-                      
-                  %td= link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
-                  
-                  %td.hidden-xs
-                    - if !transaction.checkout_card.nil?
-                      = transaction.checkout_card.uuid
+
+                  %td
+                    - unless transaction.checkout_balance.member.nil?
+                      = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
                     - else
                       \-
-               
+
+                  %td.hidden-sm
+                    = transaction.products
+
           %footer.table-footer
             .row
               .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => @pagination } }
@@ -55,35 +56,35 @@
                   Toon
                   = select_tag 'limit', options_for_select([20,50,100], @limit)
                   transacties per pagina
-                  
+
               .col-md-6.text-right.pagination-container
                 %ul.pagination-sm.pagination
                   %li{ :class => ( 'disabled' if @offset == 0)}
                     %a{ :data => { :offset => @offset - @limit }} vorige
-                    
+
                   %li.scroll{ :class => ( 'disabled' if @page / @pagination == 0)}
                     %a{ :data => { :offset => (@page / @pagination * @pagination -1) * @limit }} <<
-                    
+
                   - (0 .. @pages).each do |i|
                     - if i == @page
                       %li.active
                         - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
                           %a{ :data => { :offset => @limit * i }}= i+1
-                        -else 
+                        -else
                           %a.hidden{ :data => { :offset => @limit * i }}= i+1
                     - else
                       %li
                         - if i.between?(@pagination * (@page / @pagination), @pagination * (@page / @pagination) + @pagination -1 )
-                          %a{ :data => { :offset => @limit * i }}= i+1    
+                          %a{ :data => { :offset => @limit * i }}= i+1
                         - else
-                          %a.hidden{ :data => { :offset => @limit * i }}= i+1    
-    
+                          %a.hidden{ :data => { :offset => @limit * i }}= i+1
+
                   %li.scroll{ :class => ( 'disabled' if @pages / @pagination * @pagination <= @page )}
                     %a{ :data => { :offset => (@page / @pagination +1) * @pagination * @limit }} >>
-                        
+
                   %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
                     %a{ :data => { :offset => @offset + @limit }} volgende
-                    
+
       .col-lg-4#credit
         .panel.panel-default
           .panel-heading
@@ -94,13 +95,13 @@
               .form-group.col-md-12#card
                 %input.form-control#card_holder{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer', :tabindex => '-1' }
                 %ul.dropdown-menu.col-md-12
-              
+
               .form-group.col-md-3.amount{ :style => 'display: none;' }
                 %input.form-control#amount{ :placeholder => 'hoeveel', :autocomplete => 'off' }
 
-              .form-group.col-md-3{ :style => 'display: none;' }         
+              .form-group.col-md-3{ :style => 'display: none;' }
                 %button.form-control.btn.btn-line-primary opslaan
-            
+
       .col-lg-4#cards
         .panel.panel-default
           .panel-heading
@@ -116,6 +117,25 @@
                   %button.btn.btn-line-primary verwijder
             - if @cards.length == 0
               %li.list-group-item
-                %p.text-center 
+                %p.text-center
                   %em geen kaarten
-          
+
+      .col-md-4
+        .panel.panel-box.info-box
+          .panel-left.panel-item.bg-reverse
+            %p.size-h1.no-margin
+              = number_to_currency @credit, :unit => '€'
+            %p.text-muted.no-margin
+              Mongoose tegoed
+          .panel-right.panel-item.bg-warning
+            %i.fa.fa-credit-card.text-large.stat-icon
+
+      = link_to apps_products_path, { :class => 'col-md-4' } do
+        .panel.panel-box.info-box
+          .panel-left.panel-item.bg-primary-light
+            %i.fa.fa-shopping-cart.text-large.stat-icon
+          .panel-right.panel-item.bg-reverse
+            %p.size-h1.no-margin
+              = @products
+            %p.text-muted.no-margin
+              Producten

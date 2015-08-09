@@ -1,0 +1,35 @@
+# Development
+# Running on local machine using sqlite
+development:
+  adapter: mysql2
+  database: koala
+  hostname: localhost
+  user: <%= ENV['DATABASE_USER'] %>
+  pass: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /tmp/mysql.sock
+  pool: 5
+  timeout: 5000
+
+# Staging
+# Version before release running on isaanhetwerk.nl
+staging:
+  adapter: mysql2
+  database: koala
+  hostname: localhost
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/run/mysqld/mysqld.sock
+  pool: 5
+  timeout: 5000
+
+# Production
+# Version for public use running on stickyutrecht.nl
+production:
+  adapter: mysql2
+  database: koala
+  hostname: localhost
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/run/mysqld/mysqld.sock
+  pool: 5
+  timeout: 5000

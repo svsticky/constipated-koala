@@ -1,38 +1,20 @@
-!!!
-%html
-  %head
-    %title= 'Constipated koala'
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = javascript_include_tag :defaults
-    = csrf_meta_tags
-  %body#app
-    .view-container
-      .page-signin
-        .signin-header
-          .container.text-center
-            %section.logo
-              %a.ng-binding{href: '/'} Constipated koala
-        .signin-body
-          .container{style: 'margin-top: 100px;'}
-            .form-container
-              = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-                .form-group.lead Vul je e-mailadres in om een bevestiging e-mail te ontvangen!
-                                              
-                - if !resource.errors.full_messages.blank?
-                  - resource.errors.full_messages.each do |message|
-                    .alert.alert-danger
-                      %button.close{ type: "button" } ×
-                      %span
-                        = message
-              
-                
-                %fieldset
-                  .form-group
-                    .input-group.input-group-lg
-                      %span.input-group-addon
-                        %span.glyphicon.glyphicon-envelope
-                      = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
-            
-                  .form-group
-                    = f.submit 'Opnieuw sturen', :class => 'btn btn-primary btn-lg btn-block'
+.row#app
+  .col-sm-12.col-md-3.col-shadow.col-md-offset-7
+    .vertical-align
+      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|                                    
+        - if !resource.errors.full_messages.blank?
+          - resource.errors.full_messages.each do |message|
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span
+                = message
+        
+        %fieldset
+          .form-group
+            .input-group.input-group-lg
+              %span.input-group-addon
+                %i.fa.fa-envelope-o
+              = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+    
+          .form-group
+            = f.submit 'Opnieuw sturen', :class => 'btn btn-primary btn-lg btn-block'
