@@ -68,7 +68,7 @@ class Member < ActiveRecord::Base
 
   # remove spaces in postal_code
   def postal_code=(postal_code)
-    write_attribute(:postal_code, postal_code.upcase.sub(' ', ''))
+    write_attribute(:postal_code, postal_code.upcase.gsub(' ', ''))
   end
 
   def tags_names=(tags)
@@ -113,13 +113,20 @@ class Member < ActiveRecord::Base
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query, all = false)
-    return Member.where("student_id like ?", "%#{query}%") if query.is_number?
+    return self.where("student_id like ?", "%#{query}%") if query.is_number?
 
     all = true if all == 'on'
     all = all.to_b if all.is_a? String
 
-    return Member.find_by_fuzzy_query(query) if all
-    return Member.currently_active.find_by_fuzzy_query(query)
+    # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
+    return Member.all if query.blank? && all
+    return Member.currently_active if query.blank?
+
+    records = self.currently_active.filter( query ) unless all
+    records = self.filter( query ) if all
+
+    return records if query.blank?
+    return records.find_by_fuzzy_query( query )
   end
 
   # Query for fuzzy search, this string is used for building indexes for searching
@@ -196,6 +203,46 @@ class Member < ActiveRecord::Base
   # An student is active if he is currently studying or has a tag which makes him active like a pardon
   def self.currently_active
     return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
+  end
+
+  def self.filter( query )
+    records = self
+    study = query.match /(studie|study):([A-Za-z-]+)/
+
+    unless study.nil?
+      query.gsub! /(studie|study):([A-Za-z-]+)/, ''
+
+      code = Study.find_by_code( study[2] )
+
+      # Lookup using full names
+      if code.nil?
+        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names').downcase => study.code.downcase} }.find{ |hash| hash.keys[0] == study[2].downcase.gsub( '-', ' ' ) }
+        code = Study.find_by_code( study_name.values[0] ) unless study_name.nil?
+      end
+
+      records = Member.none if code.nil?
+      records = records.where( :id => Education.select( :member_id ).where( 'study_id = ?', code.id )) unless code.nil?
+    end
+
+    tag = query.match /tag:([A-Za-z-]+)/
+
+    unless tag.nil?
+      query.gsub! /tag:([A-Za-z-]+)/, ''
+
+      tag_name = Tag.names.map{ |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1]} }.find{ |hash| hash.keys[0] == tag[1].downcase.gsub( '-', ' ' ) }
+
+      records = Member.none if tag_name.nil?
+      records = records.where( :id => Tag.select( :member_id ).where( 'name = ?', tag_name.values[0] )) unless tag_name.nil?
+    end
+
+    year = query.match /(year|jaargang):(\d+)/
+
+    unless year.nil?
+      query.gsub! /(year|jaargang):(\d+)/, ''
+      records = records.where("join_date >= ? AND join_date < ?", Date.study_year( year[2].to_i ), Date.study_year( 1+ year[2].to_i ))
+    end
+
+    return records
   end
 
   # Perform an elfproef to verify the student_id

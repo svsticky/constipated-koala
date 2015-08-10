@@ -53,7 +53,7 @@
             %tbody
               - @studies.each do | code, count |
                 %tr
-                  %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), '#'
+                  %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
       %div.col-md-6
