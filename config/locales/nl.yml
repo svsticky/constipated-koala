@@ -73,9 +73,13 @@ nl:
           wisk: Wiskunde
 
           cosc: Computing science
-          mbi: Business informatics
-          gmt: Game and media technology
-          ai: Artificial intelligence
+          mbim: Business informatics
+          gmte: Game and media technology
+          ainm: Artificial intelligence
+
+          atec: Technical Artificial Intelligence
+          acsc: ASCS
+          ckem: CKEM
 
       education:
         status:
@@ -127,7 +131,7 @@ nl:
           blank: kan niet leeg zijn
 
         ideal_transaction:
-          blank: ken niet leeg zijn
+          blank: kan niet leeg zijn
           processed: is al verwerkt
           attributes:
             checkout: Mongoose tegoed

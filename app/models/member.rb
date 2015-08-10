@@ -165,6 +165,7 @@ class Member < ActiveRecord::Base
       # If not found as informatica, we can try for gametech. This only works if the student filled in GT from the subscribtion
       if education.nil? && code == 'INCA'
         education = self.educations.find_by_start_date_and_study_code(start_date, 'GT')
+        code = 'GT'
       end
 
       if education.nil?
@@ -191,7 +192,10 @@ class Member < ActiveRecord::Base
 
     # remove studies no longer present
     for education in self.educations do
-      unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?("#{education.study.code} | #{education.start_date.year}")
+      check = "#{education.study.code} | #{education.start_date.year}"
+      check = "INCA | #{education.start_date.year}" if education.study.code == 'GT' #dirty fix for gametechers
+
+      unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?( check )
         puts " - #{education.study.code}"
         education.destroy
       end
@@ -202,7 +206,7 @@ class Member < ActiveRecord::Base
   private
   # An student is active if he is currently studying or has a tag which makes him active like a pardon
   def self.currently_active
-    return Member.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
+    return self.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
   end
 
   def self.filter( query )
