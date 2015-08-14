@@ -29,10 +29,12 @@ class Users::HomeController < ApplicationController
     if @member.update(member_post_params)
       impressionist(@member, 'lid bewerkt')
 
-      redirect_to users_root_path
+      redirect_to users_home_path
+      return
     end
 
     render 'edit'
+    return
   end
 
   def add_funds
@@ -41,13 +43,13 @@ class Users::HomeController < ApplicationController
 
     if ideal_transaction_params[:amount].to_f < 10.0
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_root_url
+      redirect_to users_home_url
       return
     end
 
     if balance.nil?
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_root_url
+      redirect_to users_home_path
       return
     end
 
@@ -65,7 +67,8 @@ class Users::HomeController < ApplicationController
       return
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_root_url
+      redirect_to users_home_path
+      return
     end
   end
 
@@ -88,7 +91,7 @@ class Users::HomeController < ApplicationController
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
     end
 
-    redirect_to users_root_url
+    redirect_to users_home_url
   end
 
   private
