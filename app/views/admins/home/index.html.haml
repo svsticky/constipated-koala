@@ -51,9 +51,9 @@
 
           %table.table.table-striped.table-linked
             %tbody
-              - @studies.each do | study, count |
+              - @studies.each do | code, count |
                 %tr
-                  %td= link_to study, '#'
+                  %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
       %div.col-md-6

@@ -115,7 +115,11 @@ ActiveRecord::Schema.define(version: 20150809190455) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
+<<<<<<< HEAD
     t.integer  "type"
+=======
+    t.integer  "category"
+>>>>>>> development
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -189,7 +193,6 @@ ActiveRecord::Schema.define(version: 20150809190455) do
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
 
   create_table "studies", force: true do |t|
-    t.string  "name"
     t.string  "code"
     t.boolean "masters"
     t.boolean "active",  default: true, null: false

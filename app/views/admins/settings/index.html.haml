@@ -76,6 +76,6 @@
           %table.table.table-striped.table-linked
             - @studies.each do |study|
               %tr
-                %td= study.name
+                %td= I18n.t study.code.downcase, scope: 'activerecord.attributes.study.names'
                 %td
                   %input{ :type => 'checkbox', :checked => study.active, :disabled => true }

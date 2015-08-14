@@ -1,9 +1,9 @@
 class Admins::HomeController < ApplicationController
   def index
     @members = Education.group('member_id').where('status = 0').length
-    @studies = Education.where('status = 0').joins(:study).group('studies.name').order('studies.masters, studies.id').count
+    @studies = Education.where('status = 0').joins(:study).group('studies.code').order('studies.masters, studies.id').count
 
-    @activities = Activity.where("start_date >= ?", Date.start_studyyear( Date.current().year )).count
+    @activities = Activity.where("start_date >= ?", Date.today.study_year).count
 
     @transactions = CheckoutTransaction.count(:all)
 

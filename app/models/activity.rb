@@ -19,8 +19,8 @@ class Activity < ActiveRecord::Base
   has_many :members, :through => :participants
 
   def self.study_year( year )
-    year = year.blank? ? (Date.start_studyyear( Date.current().year ).year ) : year.to_i
-    where("start_date >= ? AND start_date < ?", Date.start_studyyear( year ), Date.start_studyyear( year +1 ))
+    year = year.blank? ? Date.today.study_year : year.to_i
+    where("start_date >= ? AND start_date < ?", Date.study_year( year ), Date.study_year( year +1 ))
   end
 
   def currency( member )

@@ -4,7 +4,7 @@
 //= require bootstrap
 
 $(document).on('ready page:load', function(){
-  
+
   if( $('.studies .ui-select select:first').find('option:selected').data('masters') ){
     $('.activities').hide();
   }
@@ -13,7 +13,7 @@ $(document).on('ready page:load', function(){
       e.preventDefault();
       $("#sidebar-wrapper").toggleClass("active");
   });
-  
+
   $('.alert .close').on('click', function(){
     $(this).closest('.alert').remove();
   });
@@ -40,26 +40,26 @@ $(document).on('ready page:load', function(){
     }
   });
 
-  $('.studies .ui-select select').on('change', function(){        
+  $('.studies .ui-select select').on('change', function(){
     if( $(this).find('option:selected').data('masters') ){
       $('.activities').hide();
     } else {
       $('.activities').show();
     }
   });
-  
+
   setTimeout(function() {
     $('.alert.alert-success').hide();
   }, 3000);
 
   var jumboHeight = $('.header').outerHeight();
-  
+
   $(window).scroll(function(e){
     var scrolled = $(window).scrollTop();
     $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
     $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
   });
-  
+
   var callout = $('#callout');
   callout.carousel();
 
