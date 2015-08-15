@@ -55,10 +55,10 @@
                           %span.caret
                         %ul.dropdown-menu
                           %li
-                            %a{ :href => @activity.poster.url(:medium), :download => '' } download
+                            = link_to 'download', @activity.poster.url(:medium), :download => ''
                           %li.divider
                           %li
-                            %a.remove verwijder
+                            = link_to 'verwijder', '#', :class => 'remove'
 
                     = f.hidden_field :_destroy, :class => 'remove_poster'
 

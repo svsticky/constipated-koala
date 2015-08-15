@@ -52,7 +52,7 @@
                 %tr{ :data => { 'id' => advertisement.id }}
                   %td
                     = advertisement.name
-                    %a{ :href => advertisement.poster.url(:medium), :download => '' }= advertisement.poster.url(:medium)
+                    = link_to "#{advertisement.poster.url(:medium)}", advertisement.poster.url(:medium), :download => ''
                   %td.buttons
                     .btn-group
                       %button.btn.btn-default.destroy

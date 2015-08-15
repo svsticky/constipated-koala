@@ -89,7 +89,7 @@
         #item2.item
         #item3.item
         #item4.item
-        
+
     #inschrijven.portfolio
       .container
         = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
@@ -149,21 +149,21 @@
               %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
               = f.email_field :email, :value => @member.email, :class => 'form-control'
               .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
-                    
+
           .row
             .col-md-5
               %h4
                 %i.fa.fa-graduation-cap
                 = I18n.t(:study, scope: 'headers')
-              
+
               .form-group
                 %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-              
+
               .form-group.studies
                 %label{for: ''}
                   = I18n.t(:study, scope: 'activerecord.models')
-                    
+
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|
                     .form-group
@@ -171,8 +171,8 @@
                         .col-md-12
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
-            
-            .col-md-5.activities                 
+
+            .col-md-5.activities
               %h4
                 %i.fa.fa-ticket
                 = I18n.t(:activities, scope: 'activerecord.models')
@@ -187,7 +187,7 @@
                         %span
                           = membership.name
                           %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(membership.price, :unit => '€')})
-    
+
                   - @activities.each do |activity|
                     = f.fields_for 'participant_attributes[]', activity do |fa|
                       %label.ui-checkbox
@@ -197,12 +197,12 @@
                           = activity.name
                           %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(activity.price, :unit => '€')})
 
-              .col-md-6  
+              .col-md-6
                 .ui-select
                   = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
                 .ui-select{ :style => 'margin-top: 5px;' }
                   = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
-  
+
           %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 
     %footer
@@ -211,18 +211,15 @@
           .col-md-6.col-md-offset-3.text-center
             %ul.list-inline
               %li
-                %a{href: '//www.facebook.com/stickyutrecht', target: '_blank' }
+                = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
                   %i.fa.fa-facebook.fa-3x
               %li
-                %a{href: '//twitter.com/StickyUtrecht', target: '_blank' }
+                = link_to '//twitter.com/StickyUtrecht', :target => '_blank' do
                   %i.fa.fa-twitter.fa-3x
               %li
-                %a{href: '//www.linkedin.com/company/1125476', target: '_blank' }
+                =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
                   %i.fa.fa-linkedin.fa-3x
-            .top-scroll
-              %a{href: "#top"}
-                %i.fa.fa-circle-arrow-up.scroll.fa-4x
-                
+
 - if @member.errors.any?
   :javascript
     $('html,body').animate({

@@ -6,7 +6,7 @@
   .page
     .row
       .col-lg-3.col-xsm-6.clickable
-        %a.panel.mini-box{href: '/members'}
+        = link_to :members, :class => 'panel mini-box' do
           %span.box-icon.bg-success
             %i.fa.fa-user
           .box-info
@@ -15,7 +15,7 @@
             %p.text-muted Leden
 
       .col-lg-3.col-xsm-6.clickable
-        %a.panel.mini-box{href: '/activities'}
+        = link_to :activities, :class => 'panel mini-box' do
           %span.box-icon.bg-info
             %i.fa.fa-ticket
           .box-info
@@ -24,7 +24,7 @@
             %p.text-muted Activiteiten
 
       .col-lg-3.col-xsm-6.clickable
-        %a.panel.mini-box{href: '/apps/checkout'}
+        = link_to :apps_checkout, :class => 'panel mini-box' do
           %span.box-icon.bg-warning
             %i.fa.fa-shopping-cart
           .box-info
@@ -33,7 +33,7 @@
             %p.text-muted Checkout transacties
 
       .col-lg-3.col-xsm-6.clickable
-        %a.panel.mini-box{href: '/activities'}
+        = link_to :activities, :class => 'panel mini-box' do
           %span.box-icon.bg-danger
             %i.fa.fa-eur
           .box-info

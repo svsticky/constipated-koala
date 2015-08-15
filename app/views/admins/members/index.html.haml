@@ -9,7 +9,7 @@
       .panel-heading
         %i.fa.fa-fw.fa-fw.fa-user
         Leden
-        %a.close{ :type => 'button', :href => '/members/new' } +
+        = link_to '+', :new_member, { :class => 'close', :type => 'button' }
       .table-responsive
         %table.table.table-bordered.table-striped.table-linked
           %thead

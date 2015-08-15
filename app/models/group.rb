@@ -14,6 +14,7 @@ class Group < ActiveRecord::Base
     :through => :group_members
 
   def years
+    #TODO remove years without members
     ( self.created_at.study_year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
   end
 
@@ -40,7 +41,7 @@ class Group < ActiveRecord::Base
       end
     end
   end
-  
+
   def self.has_members
     self.joins( :group_members ).select( '`groups`.*, COUNT( `groups`.`id` ) as members' ).group( '`groups`.`id`' ).having( 'members > 0' )
   end
