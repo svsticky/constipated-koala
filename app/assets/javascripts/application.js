@@ -46,7 +46,7 @@ $(document).on('ready page:load', function(){
     $( '.page.search .input-group input[name=search]' ).val( $( '.page.search .input-group input[name=search]' ).val().replace( query, query.split(':')[0] + ':' + $( this ).attr('data-name') + ' ' ) )
 
     $( 'ul.dropdown-menu' ).removeAttr('data-query').delay(10).hide(1);
-    $( '.page.search .input-group input[name=search]' ).focus();
+    $( '.page.search .input-group input[name=search]' ).select();
   });
 
   $( '.page.search .input-group' ).find( 'input[name=search]' ).on( 'click focus keydown keyup', function( event ){
@@ -93,6 +93,7 @@ $(document).on('ready page:load', function(){
           $( this ).val( $( this ).val().replace( tag[0], tag[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
 
         $( 'ul.dropdown-menu' ).removeAttr('data-query').delay(10).hide(1);
+        $( '.page.search .input-group input[name=search]' ).select();
 
      }else if( event.keyCode == 40 && event.type != 'keyup' ){
 

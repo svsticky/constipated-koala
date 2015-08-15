@@ -15,12 +15,18 @@ class Activity < ActiveRecord::Base
 
 #  validates_attachment_size :less_than => 10.megabytes
 
+  has_one :group, :as => :organized_by
+
   has_many :participants, :dependent => :destroy
   has_many :members, :through => :participants
 
   def self.study_year( year )
     year = year.blank? ? Date.today.study_year : year.to_i
     where("start_date >= ? AND start_date < ?", Date.study_year( year ), Date.study_year( year +1 ))
+  end
+
+  def group
+    Group.find_by_id( self.organized_by )
   end
 
   def currency( member )

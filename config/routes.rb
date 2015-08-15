@@ -53,7 +53,16 @@ ConstipatedKoala::Application.routes.draw do
       resources :members, :activities
 
       # search for member using dropdown
-      get    'search',                to: 'members#find'
+      get    'search',            to: 'members#find'
+
+      get    'groups',            to: 'groups#index'
+      post   'groups',            to: 'groups#create'
+      get    'groups/:id',        to: 'groups#index',       as: :group
+      patch  'groups/:id',        to: 'groups#update'
+
+      post   'groups/:id/members',    to: 'groups#create_member'
+      patch  'groups/:id/member',     to: 'groups#update_member'
+      delete 'groups/:id/member',     to: 'groups#destroy_member'
 
       # Participants routes for JSON calls
       get    'participants/list', to: 'participants#list'

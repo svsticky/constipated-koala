@@ -52,6 +52,11 @@ class Member < ActiveRecord::Base
   has_many :activities,
     :through => :participants
 
+  has_many :group_members,
+    :dependent => :destroy
+  has_many :groups,
+    :through => :group_members
+
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
     write_attribute(:first_name, first_name.capitalize)

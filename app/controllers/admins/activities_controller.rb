@@ -68,6 +68,7 @@ class Admins::ActivitiesController < ApplicationController
                                       :comments,
                                       :price,
                                       :poster,
+                                      :organized_by,
                                       :_destroy)
   end
 end
