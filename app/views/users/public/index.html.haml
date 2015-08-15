@@ -8,25 +8,6 @@
     = javascript_include_tag params[:controller], 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %a#menu-toggle.btn.btn-primary.btn-lg.visible-xs.toggle{href: "#"}
-      %i.fa.fa-bars
-    #sidebar-wrapper.visible-xs
-      %ul.sidebar-nav
-        %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
-          %i.fa.fa-times
-        %li.sidebar-brand
-          = t '.title'
-        %li
-          %a{href: "#top"}= I18n.t(:home, scope: 'headers')
-        %li
-          %a{href: "#over"}= I18n.t(:about, scope: 'headers')
-        %li
-          %a{href: "#doenwat"}= I18n.t(:activities, scope: 'headers')
-        %li
-          %a{href: "#inschrijven"}= I18n.t(:subscribe, scope: 'headers')
-        %li
-          %a{href: "#contact"}= I18n.t(:contact, scope: 'headers')
-
     - if flash[:notice]
       .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
         .alert.alert-success.center-block{ :style => 'width: 500px;' }
@@ -42,8 +23,6 @@
     #top.header
       .vert-text
         %h1= I18n.t('.title')
-        %br
-        %a.btn.btn-default.btn-lg{href: "#over"}= I18n.t(:about, scope: 'headers')
         %a.btn.btn-success.btn-lg{href: "#inschrijven"}= I18n.t(:subscribe, scope: 'headers')
 
     #over.intro
@@ -80,15 +59,6 @@
               %i.service-icon.fa.fa-glass
               %h4= I18n.t(:title, scope: 'drinks')
               %p= I18n.t(:text, scope: 'drinks')
-
-    #callout-overlay.vert-text
-      %h2= I18n.t('.callout')
-    #callout.carousel.slide{:data => {'data-ride' => 'carousel'}}
-      .carousel-inner
-        #item1.item.active
-        #item2.item
-        #item3.item
-        #item4.item
 
     #inschrijven.portfolio
       .container

@@ -59,11 +59,4 @@ $(document).on('ready page:load', function(){
     $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
     $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
   });
-
-  var callout = $('#callout');
-  callout.carousel();
-
-  setInterval(function() {
-    callout.carousel('next');
-  }, 3000);
 });

@@ -21,12 +21,12 @@ ActiveRecord::Schema.define(version: 20150809190455) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
     t.text     "description"
-    t.integer  "organized_by"
   end
 
   create_table "admins", force: true do |t|
@@ -115,11 +115,7 @@ ActiveRecord::Schema.define(version: 20150809190455) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
-<<<<<<< HEAD
-    t.integer  "type"
-=======
     t.integer  "category"
->>>>>>> development
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"

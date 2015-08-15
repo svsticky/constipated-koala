@@ -118,7 +118,7 @@ $(document).on('ready page:load', function(){
 
        event.preventDefault();
 
-     }else if( study != null && event.type != 'keyup' ){
+     }else if( study != null && event.type != 'keyup' && event.keyCode != 8 ){
        var items = $.unique( $( '.page.search .input-group ul.dropdown-menu[name=studies] li a[data-name!=' + study[2] + '][data-name^=' + study[2] + '], .page.search .input-group ul.dropdown-menu[name=studies] li a[data-code!=' + study[2] + '][data-code^=' + study[2] + ']' ));
 
        if( $(items).length != 1 )
@@ -126,7 +126,7 @@ $(document).on('ready page:load', function(){
 
        $( '.page.search .input-group ul.dropdown-menu[name=studies] li').removeClass( 'active' )
        $( items ).parent('li').addClass( 'active' );
-     }else if( tag != null && event.type != 'keyup'  ){
+     }else if( tag != null && event.type != 'keyup' && event.keyCode != 8 ){
       var items = $( '.page.search .input-group ul.dropdown-menu[name=tags] li a[data-name!=' + tag[2] + '][data-name^=' + tag[2] + ']' );
 
       if( $(items).length != 1 )

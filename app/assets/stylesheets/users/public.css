@@ -11,6 +11,10 @@ body {
   height: 100%;
 }
 
+div.header {
+  overflow-x: hidden;
+}
+
 form > .row > .col-md-5, .col-md-5 .col-md-6 {
   padding: 0px;
 }
@@ -33,6 +37,13 @@ button.btn.btn-success {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  padding: 20px;
+}
+
+@media (min-width: 768px){
+  .vert-text {
+    padding: 200px;
+  }
 }
 
 .vert-text h1 {
@@ -135,6 +146,7 @@ button.btn.btn-success {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow-x: hidden;
 }
 
 h4 {
@@ -747,7 +759,6 @@ a.close {
 }
 
 .vert-text {
-    padding: 100px;
     text-align: left;
 }
 .header {
@@ -801,27 +812,6 @@ footer {
 .carousel-inner .item {
   height: 350px;
   overflow: hidden;
-}
-#item1 {
-  background: url('/assets/callout1.jpg') fixed center center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-
-#item2 {
-  background: url('/assets/callout2.jpg') fixed center center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-#item3 {
-  background: url('/assets/callout3.jpg') fixed center center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-#item4 {
-  background: url('/assets/callout4.jpg') fixed center center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
 }
 #callout-overlay {
   position: absolute;
