@@ -3,7 +3,7 @@
 .navbar.navbar-default.navbar-fixed-top
   %ul.nav-right.list-unstyled
     %li.dropdown
-      %a.dropdown-toggle{ :data => { 'toggle' => 'dropdown' }, :href => '#' }
+      = link_to '#', { :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' }
         .image
           =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=40", :class => 'img-circle'
         %h1= @member.name

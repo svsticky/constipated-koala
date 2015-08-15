@@ -23,7 +23,7 @@
     #top.header
       .vert-text
         %h1= I18n.t('.title')
-        %a.btn.btn-success.btn-lg{href: "#inschrijven"}= I18n.t(:subscribe, scope: 'headers')
+        = link_to I18n.t(:subscribe, scope: 'headers'), '#inschrijven', { :class => 'btn btn-success btn-lg' }
 
     #over.intro
       .container

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809190455) do
+ActiveRecord::Schema.define(version: 20150809194425) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150809190455) do
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
     t.text     "description"
+    t.integer  "organized_by"
   end
 
   create_table "admins", force: true do |t|
