@@ -14,7 +14,7 @@ nl:
 
   activerecord:
     models:
-      ideal_transaction: Ideal transactie
+      ideal_transaction: iDEAL-transactie
       activities: Activiteiten
       study: Studie
 
@@ -35,6 +35,8 @@ nl:
 
        email: E-mailadres
        student_id: Studentnummer
+       
+       comments: Commentaar
 
       user:
         email: E-mailadres
@@ -44,8 +46,10 @@ nl:
       activity:
         name: Naam
         price: Prijs
-        start_date: Begin datum
-        end_date: Eind datum
+        description: Beschrijving
+        start_date: Begindatum
+        end_date: Einddatum
+        comments: Commentaar
 
       checkout_product:
         name: Naam
@@ -62,7 +66,7 @@ nl:
       tag:
         names:
           pardon: Gratie
-          merit: Lid van verdienste
+          merit: Lid van Verdienste
           honorary: Erelid
 
       study:
@@ -72,10 +76,10 @@ nl:
           gt: Gametechnologie
           wisk: Wiskunde
 
-          cosc: Computing science
-          mbim: Business informatics
-          gmte: Game and media technology
-          ainm: Artificial intelligence
+          cosc: Computing Science
+          mbim: Business Informatics
+          gmte: Game and Media Technology
+          ainm: Artificial Intelligence
 
           atec: Technical Artificial Intelligence
           acsc: Advanced Computing Science
@@ -89,7 +93,7 @@ nl:
 
     annotations:
       member:
-        email: E-mailadres kan geen UU email zijn
+        email: E-mailadres kan geen adres van de UU zijn
 
     errors:
       default: Er is iets fout gegaan
@@ -134,5 +138,5 @@ nl:
           blank: kan niet leeg zijn
           processed: is al verwerkt
           attributes:
-            checkout: Mongoose tegoed
-            fees: Ideal kosten
+            checkout: Mongoose-tegoed
+            fees: iDEAL-kosten
