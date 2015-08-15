@@ -63,63 +63,9 @@
                       %span.label.label-info studerend
 
           .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-users
-              Groepen
-            %table.table.table-striped.table-linked
-              %tbody
-              - @member.group_members.each do |member|
-                %tr
-                  %td= link_to member.group.name, member.group
-                  %td #{member.year} - #{member.year + 1}
-                  %td= member.position
-
-          .panel.panel-default
             .panel-body
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
-
-        .col-md-6
-          .panel.panel-default
-            .panel-heading.year
-              %i.fa.fa-fw.fa-ticket
-              Activiteiten
-              .ui-select
-                = select_tag :year, options_for_select( @years, params['year'] )
-
-            %table.table.table-striped.table-linked#participants
-              %thead
-                %tr
-                  %th Activiteit
-                  %th Prijs
-                  %th.hidden-sm Datum
-                  %th{ :style => 'text-align: center;' } Betaald
-              %tbody
-                - @activities.each do |activity|
-                  %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
-                    %td= link_to "#{activity.name}", activity
-
-                    - if !activity.currency(@member).nil?
-                      %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
-                    - else
-                      %td= link_to '-', activity, :style => 'text-decoration: none;'
-
-                    - if !activity.start_date.nil?
-                      - if activity.end_date.nil?
-                        %td.hidden-sm= link_to "#{I18n.l activity.start_date}", activity
-                      - else
-                        %td.hidden-sm= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
-
-                    %td
-                      .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
-                        - if activity.participants.where(:member => @member).first.paid
-                          %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                            %i.fa.fa-fw.fa-check
-                        - else
-                          %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                            %i.fa.fa-fw.fa-times
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
 
           - if @member.checkout_cards.length > 0
             .panel.panel-default
@@ -186,3 +132,61 @@
 
                       %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
                         %a{ :data => { :offset => @offset + @limit }} volgende
+
+
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-users
+              Groepen
+            %table.table.table-striped.table-linked
+              %tbody
+              - @member.group_members.order( year: :desc ).each do |member|
+                %tr
+                  - if member.year == Date.today.study_year
+                    %td= link_to member.group.name, group_path(member.group)
+                  - else
+                    %td= link_to member.group.name, group_path(member.group, year: member.year)
+                  %td #{member.year} - #{member.year + 1}
+                  %td= member.position
+
+          .panel.panel-default
+            .panel-heading.year
+              %i.fa.fa-fw.fa-ticket
+              Activiteiten
+              .ui-select
+                = select_tag :year, options_for_select( @years, params['year'] )
+
+            %table.table.table-striped.table-linked#participants
+              %thead
+                %tr
+                  %th Activiteit
+                  %th Prijs
+                  %th.hidden-sm Datum
+                  %th{ :style => 'text-align: center;' } Betaald
+              %tbody
+                - @activities.each do |activity|
+                  %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
+                    %td= link_to "#{activity.name}", activity
+
+                    - if !activity.currency(@member).nil?
+                      %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                    - else
+                      %td= link_to '-', activity, :style => 'text-decoration: none;'
+
+                    - if !activity.start_date.nil?
+                      - if activity.end_date.nil?
+                        %td.hidden-sm= link_to "#{I18n.l activity.start_date}", activity
+                      - else
+                        %td.hidden-sm= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+
+                    %td
+                      .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
+                        - if activity.participants.where(:member => @member).first.paid
+                          %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                            %i.fa.fa-fw.fa-check
+                        - else
+                          %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                            %i.fa.fa-fw.fa-times
+                        %button.btn.btn-default.destroy
+                          %i.fa.fa-fw.fa-trash-o

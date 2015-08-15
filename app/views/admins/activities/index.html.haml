@@ -72,12 +72,16 @@
 
               .form-group
                 .row
-                  .col-md-6
+                  .col-md-4
                     = label(:activity, :start_date)
                     = f.date_field :start_date, :value => @activity.start_date, :class => 'form-control'
-                  .col-md-6
+                  .col-md-4
                     = label(:activity, :end_date)
                     = f.date_field :end_date, :value => @activity.end_date, :class => 'form-control'
+                  .col-md-4
+                    = label(:activity, :organized_by)
+                    .ui-select
+                      = f.select :organized_by, options_for_select(Group.has_members.map{ |group| [group.name, group.id] }, @activity.organized_by), :include_blank => '-'
 
 
               .form-group
@@ -118,6 +122,13 @@
                 - @activities.each do |activity|
                   %tr
                     %td= link_to "#{activity.name}", activity
+
+                    - if !activity.group.nil?
+                      %td.hidden-sm
+                        %span.label.label-info= activity.group.name.upcase
+                    - else
+                      %td.hidden-sm
+
                     - if activity.participants.count > 0
                       %td.hidden-xs= link_to "#{activity.participants.count} deelnemers", activity
                     - else

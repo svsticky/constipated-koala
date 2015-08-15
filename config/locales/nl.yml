@@ -35,7 +35,7 @@ nl:
 
        email: E-mailadres
        student_id: Studentnummer
-       
+
        comments: Commentaar
 
       user:
@@ -49,7 +49,31 @@ nl:
         description: Beschrijving
         start_date: Begindatum
         end_date: Einddatum
-        comments: Commentaar
+        comments: Opmerkingen
+        organized_by: Organisator
+
+      group:
+        name: Naam
+        category: Categorie
+        comments: Opmerkingen
+
+        categories:
+          board: bestuur
+          committee: commissie
+          other: overig
+
+        positions:
+          chairman: Voorzitter
+          secretary: Secretaris
+          treasurer: Penningmeester
+          internal: Commissaris intern
+          external: Commissaris extern
+          education: Commissaris onderwijs
+
+        members:
+          board: Bestuursleden
+          committee: Commissieleden
+          other: Leden
 
       checkout_product:
         name: Naam

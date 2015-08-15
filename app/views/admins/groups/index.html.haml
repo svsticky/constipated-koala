@@ -1,6 +1,8 @@
 - content_for(:page, 'groups')
 - content_for(:title, 'Constipated koala | groepen')
 
+= render 'admins/groups/group.html.js'
+
 %section#content
   = render 'layouts/search'
 
@@ -17,6 +19,98 @@
               - @groups.each do |group|
                 %tr
                   %td= link_to "#{group.name}", group
-                  %td= group.group_members.map{ |member| member.member.name }.join(', ')
+                  %td= group.members.map{ |member| member.name }.join(', ')
+
+      - unless @group.nil?
+        = form_for :group, url: group_path(@group), method: :patch, :class => 'form-validation' do |f|
+          - if @group.errors.any?
+            .col-md-6
+              .alert.alert-danger
+                %button.close{ type: "button" } ×
+                %span Oeps, niet alles is goed ingevuld;
+                %ul
+                - @product.errors.full_messages.each do |msg|
+                  %li= msg
+
+          .col-md-6
+            .panel.panel-default
+              .panel-heading
+                %i.fa.fa-fw.fa-users
+                Bewerk
+                = I18n.t(@group.category, scope: 'activerecord.attributes.group.categories')
+              .panel-body
+
+                .form-group
+                  .row
+                    .col-md-8
+                      = label(:group, :name)
+                      = f.text_field :name, :value => @group.name, :class => 'form-control'
+                    .col-md-4
+                      = label(:group, :category)
+                      .ui-select
+                        = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, @group.category )
+
+                .form-group
+                  = label(:group, :comments)
+                  = f.text_area :comments, :value => @group.comments, :class => 'form-control', :rows => 5
+
+                %button.btn.btn-success.wait{ type: 'submit' } Opslaan
+                = link_to 'Annuleren', groups_path, { :class => 'button btn btn-default' }
+
+            .panel.panel-default
+              .panel-heading.year
+                %i.fa.fa-fw.fa-user
+                = I18n.t(@group.category, scope: 'activerecord.attributes.group.members')
+                .ui-select
+                  = select_tag :year, options_for_select( @group.years, params['year'] )
+              %table.table.table-striped.table-linked#members{ :data => { :id => @group.id, :year => params['year'] || Date.today.study_year }}
+
+                - @group.members( params['year'] ).each do |member|
+                  %tr{ :data => { :id => member.id }}
+                    %td= link_to member.name, member.member
+                    %td
+                      .ui-select
+                        = select_tag :position, options_for_select( @group.positions.map{ |position| [I18n.t(position, scope: 'activerecord.attributes.group.positions'), position]}, member.position ), :include_blank => '-', :class => 'position'
+                    %td.buttons
+                      %button.btn.btn-default.destroy.pull-right
+                        %i.fa.fa-fw.fa-trash-o
+
                 %tr
-                  %td{ :colspan => 2 }= group.comments
+                  %td{ :colspan => 3, :style => 'position: relative;'}
+                    %input#member{ :tabindex => '-1', :autocomplete => 'off' }
+                    %ul.dropdown-menu
+
+      - unless @new.nil?
+        = form_for :group, url: groups_path, method: :post, :class => 'form-validation' do |f|
+          - if @new.errors.any?
+            .col-md-6.pull-right
+              .alert.alert-danger
+                %button.close{ type: "button" } ×
+                %span Oeps, niet alles is goed ingevuld;
+                %ul
+                - @new.errors.full_messages.each do |msg|
+                  %li= msg
+
+          .col-md-6
+            .panel.panel-default
+              .panel-heading
+                %i.fa.fa-fw.fa-users
+                Nieuwe groep
+              .panel-body
+
+                .form-group
+                  .row
+                    .col-md-8
+                      = label(:group, :name)
+                      = f.text_field :name, :value => @new.name, :class => 'form-control'
+                    .col-md-4
+                      = label(:group, :category)
+                      .ui-select
+                        = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: @new.category, disabled: ['board'] )
+
+                .form-group
+                  = label(:group, :comments)
+                  = f.text_area :comments, :value => @new.comments, :class => 'form-control', :rows => 5
+
+                %button.btn.btn-success.wait{type: 'submit'} Opslaan
+                = link_to 'Annuleren', groups_path, { :class => 'button btn btn-default' }

@@ -15,3 +15,13 @@ class Date
     end
   end
 end
+
+class Time
+  def study_year
+    if self.month < 8
+      return self.year.to_i-1
+    else
+      return self.year
+    end
+  end
+end

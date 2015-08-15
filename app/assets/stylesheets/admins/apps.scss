@@ -20,12 +20,12 @@ table.table.table-linked > tbody > tr > td > a:hover {
   font-weight: bold;
   font-size: 14px;
   line-height: 14px;
-  
+
   margin-left: 5px;
   display: inline-block;
   position: relative;
   padding: 5px;
-  
+
   border: solid 1px rgb(118, 118, 118);
   border-radius: 5px;
   outline: none;
@@ -38,22 +38,22 @@ table.table.table-linked > tbody > tr > td > a:hover {
     position: relative;
     left: 158px;
   }
-  
+
   form .panel-body {
     position: relative;
   }
-  
+
   form .thumb {
     position: absolute;
     top: 18px;
-    
+
     height: 128px;
     width: 128px;
-    
+
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }
-  
+
   table.table.table-linked > tbody > tr > td.text-right {
     padding-right: 30px;
   }
@@ -62,25 +62,6 @@ table.table.table-linked > tbody > tr > td > a:hover {
 tr.total {
   font-weight: bold;
   border-top: 2px solid #dddddd;
-}
-
-table.table.table-linked > tbody > tr {
-  position: relative;
-  
-  > td.buttons {
-    padding: 0px;
-    width: 45px;
-    
-    div.btn-group {
-      margin-top: 3px;
-      
-      height: 34px;
-      line-height: 20px;
-      
-      position: absolute;
-      right: 20px;
-    }
-  }
 }
 
 #credit form.form-inline > .form-group {
@@ -94,21 +75,21 @@ table.table.table-linked > tbody > tr {
 #credit form.form-inline > .form-group > input.form-control,
 #credit form.form-inline > .form-group > button.form-control {
   width: 100%;
-  heigth: 30px; 
-  margin: 5px 0; 
+  height: 30px;
+  margin: 5px 0;
   padding: 1px 12px;
 }
 
 #credit .panel-body > ul.dropdown-menu {
-  display: none; 
-  position: absolute; 
-  left: 0px; 
+  display: none;
+  position: absolute;
+  left: 0px;
   top: 50px;
 }
 
 .table span.fa-sort-asc {
   color: green;
-  
+
   position: relative;
   top: 6px;
 }
@@ -130,4 +111,3 @@ p.uuid {
   font-size: 14px;
   line-height: 14px;
 }
-
