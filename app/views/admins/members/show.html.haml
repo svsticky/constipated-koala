@@ -149,7 +149,8 @@
                     %td.hidden-xs
                       - group[ :positions ].each do | position |
                         - position.each do | position, year |
-                          = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
+                          - unless position.nil?
+                            = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
 
 
           .panel.panel-default
