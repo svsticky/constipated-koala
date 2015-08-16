@@ -3,23 +3,23 @@
 .navbar.navbar-default.navbar-fixed-top
   %ul.nav-right.list-unstyled
     %li.dropdown
-      = link_to '#', { :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' }
+      = link_to '#', { :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' } do
         .image
           =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=40", :class => 'img-circle'
         %h1= @member.name
         %i.fa.fa-bars.pull-right
-        
+
         %ul.dropdown-menu
           %li
             = link_to 'Gegevens bewerken', users_edit_path
           %li
-            = link_to 'Uitloggen', '/sign_out', { 'data-method' => :delete }
-            
-            
+            = link_to 'Uitloggen', :destroy_user_session, { 'data-method' => :delete }
+
+
 
 = form_for :member, method: :patch, :class => 'form-validation' do |f|
   .row{ :style => 'margin-top: 60px;'}
-    .container  
+    .container
       - if @member.errors.any?
         .col-md-12
           .alert.alert-danger
@@ -28,7 +28,7 @@
             %ul
             - @member.errors.full_messages.each do |msg|
               %li= msg
-      
+
       .col-md-12
         .form-group
           .row
@@ -41,7 +41,7 @@
             .col-md-5
               %label{for: ''} Achternaam
               = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
-        
+
         .form-group
           .row
             .col-md-6
@@ -51,7 +51,7 @@
             .col-md-6
               %label{for: ''} Geboortedatum
               = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
-        
+
         .form-group
           .row
             .col-md-8
@@ -60,7 +60,7 @@
             .col-md-4
               %label{for: ''} Huisnummer
               = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
-        
+
         .form-group
           .row
             .col-md-6
@@ -69,16 +69,16 @@
             .col-md-6
               %label{for: ''} Woonplaats
               = f.text_field :city, :value => @member.city, :class => 'form-control'
-        
+
         .form-group
           %label{for: ''} Telefoonnummer
           = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
-        
+
         .form-group
           %label{for: ''} E-mailadres
           = f.email_field :email, :value => @member.email, :class => 'form-control'
           .help-block Dit kan niet een uu email zijn!
-                              
+
   .row
     .container
       .col-md-12
