@@ -9,7 +9,7 @@ class Admins::MembersController < ApplicationController
 
     # If a search query is send, change the limit and offset accordingly. The param all is whether the query should also look into alumni
     if params[:search]
-      @members = Member.search(params[:search].clone, params[:all] ||= false)
+      @members = Member.search( params[:search].clone )
 
       @pages = (@members.size / @limit.to_f).ceil
       @members = @members[@offset,@limit]

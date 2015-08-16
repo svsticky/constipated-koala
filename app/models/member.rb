@@ -133,19 +133,16 @@ class Member < ActiveRecord::Base
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
-  def self.search(query, all = false)
+  def self.search(query)
     return self.where("student_id like ?", "%#{query}%") if query.is_number?
 
     all = true if all == 'on'
     all = all.to_b if all.is_a? String
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
-    return Member.all if query.blank? && all
     return Member.currently_active if query.blank?
 
-    records = self.currently_active.filter( query ) unless all
-    records = self.filter( query ) if all
-
+    records = self.filter( query )
     return records if query.blank?
     return records.find_by_fuzzy_query( query )
   end
@@ -265,6 +262,17 @@ class Member < ActiveRecord::Base
     unless year.nil?
       query.gsub! /(year|jaargang):(\d+)/, ''
       records = records.where("join_date >= ? AND join_date < ?", Date.study_year( year[2].to_i ), Date.study_year( 1+ year[2].to_i ))
+    end
+
+    status = query.match /(status|state):(\[A-Za-z-]+)/
+
+    if status.nil? || status[2].downcase == 'actief'
+      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+    else
+      query.gsub! /(status|state):(\[A-Za-z]+)/, ''
+      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' )) if status[2].downcase == 'alumni'
+
+      records = Member.none unless status[2].downcase == 'alles' || status[2].downcase == 'alumni'
     end
 
     return records
