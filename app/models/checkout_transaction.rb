@@ -38,6 +38,21 @@ class CheckoutTransaction < ActiveRecord::Base
 
   def products
     return '-' if items.empty?
-    return CheckoutProduct.where( :id => items ).map{ |product| product.name }.join(', ')
+
+    counts = Hash.new
+    CheckoutProduct.where( :id => items ).each do |product|
+      counts[ product.name ] = 0 unless counts.has_key?( product.name )
+      counts[ product.name ] += 1
+    end
+
+    strings = counts.map do |item, count|
+      if count > 1
+        "#{count}x #{item}"
+      else
+        "#{item}"
+      end
+    end
+
+    return strings.join(', ')
   end
 end

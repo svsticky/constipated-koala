@@ -41,6 +41,18 @@ table.table.table-linked > tbody > tr > td > a {
   overflow: hidden;
 }
 
+table.table > tbody > tr > td > a.inline {
+  display: inline;
+
+  &::after {
+    content: ', '
+  }
+
+  &:last-child::after {
+    content: ''
+  }
+}
+
 table.table > tbody > tr.red, table.table > tbody > tr.red a {
   color: #e94b3b;
 }

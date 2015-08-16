@@ -7,6 +7,7 @@
           <option value=""></option>
           <option value="chairman">Voorzitter</option>
           <option value="treasurer">Penningmeester</option>
+          <option value="board">Bestuurslid</option>
         </select>
       </div>
     </td>
