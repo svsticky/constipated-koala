@@ -1,0 +1,15 @@
+- content_for(:page, 'settings')
+- content_for(:subpage, 'emails')
+
+- content_for(:title, 'Constipated koala | settings')
+
+%section#content
+  = render 'layouts/search'
+
+  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
+    .row
+      .col-md-6
+
+        = render 'layouts/mail', subject: 'Sticky openstaande betalingen', recipients: @recipients, dropdown: false, id: [1,2,3], action: :settings_mailings, content: "Je hebt %recipient.price% aan openstaande betalingen. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name%'</i> en de activiteiten?<br><br> <table><tbody><tr><td>activiteit</td><td>12,00</td></tr></tbody></table>"
+
+      .col-md-6

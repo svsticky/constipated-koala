@@ -1,40 +1,45 @@
 .panel.panel-default
   .panel-body
-    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => participants_mail_path, :method => :post }
+    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => action, :method => :post }
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
         .col-md-10.col-xs-12
           .row#recipients
-            .col-md-8
-              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', '), :readonly => true }
-            .col-md-4
-              .ui-select
-                %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
-                  %option{ :value => 'all' } ALLE DEELNEMERS
-                  %option{ :value => 'debtors', :selected => 'selected' } NOG BETALERS
+
+            - if (defined? dropdown).nil? || dropdown
+              .col-md-8
+                %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => recipients.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', '), :readonly => true }
+              .col-md-4
+                .ui-select
+                  %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
+                    %option{ :value => 'all' } ALLE DEELNEMERS
+                    %option{ :value => 'debtors', :selected => 'selected' } NOG BETALERS
+            - else
+              .col-md-12
+                %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => recipients.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', '), :readonly => true }
+
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Onderwerp
         .col-md-10.col-xs-12
-          %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Sticky #{onderwerp}" }
-          
+          %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Sticky #{subject}" }
+
       = render 'layouts/editor'
-      
+
       #textarea.form-control{ :contenteditable => 'true' }
         :preserve
           Hoi %recipient.first_name%,
           <br><br>
-          Je bent onlangs meegeweest naar #{ onderwerp.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ onderwerp.downcase }'</i>?
+          #{ content }
           <br><br>
-          #{current_user.credentials.signature}
-      
+          #{ current_user.credentials.signature }
+
       %textarea#html.form-control
         :preserve
           Hoi %recipient.first_name%,
           <br><br>
-          Je bent onlangs meegeweest naar #{ onderwerp.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ onderwerp.downcase }'</i>?
+          #{ content }
           <br><br>
           #{ current_user.credentials.signature }
 
       .mail-actions
         %button.btn.btn-primary{ type: 'submit' } Verstuur
-        .btn.btn-default.disabled{ :disabled => 'disabled' } Draft

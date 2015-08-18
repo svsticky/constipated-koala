@@ -88,7 +88,7 @@
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
 
-        = render 'layouts/mail', onderwerp: @activity.name, geadresseerden: @recipients, id: @activity.id
+        = render 'layouts/mail', subject: @activity.name, recipients: @recipients, id: @activity.id, action: :participants_mail, content: "Je bent meegeweest naar #{ @activity.name.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ @activity.name.downcase }'</i>?"
 
       .col-md-6#participants
         .panel.panel-default
