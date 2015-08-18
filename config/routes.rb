@@ -76,6 +76,8 @@ ConstipatedKoala::Application.routes.draw do
       get    'settings',                  to: 'settings#index'
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
+      get    'settings/mailings',         to: 'settings#mailings'
+      post   'settings/mailings',         to: 'settings#mail'
 
       get    'apps/ideal',                 to: 'apps#ideal'
       get    'apps/checkout',              to: 'apps#checkout'
