@@ -34,6 +34,7 @@ gem 'fuzzily'
 
 # Use for javascript
 gem 'execjs'
+gem 'nokogiri'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'

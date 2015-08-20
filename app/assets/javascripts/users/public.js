@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require jquery.validate
 
 $(document).on('ready page:load', function(){
 
@@ -30,6 +31,42 @@ $(document).on('ready page:load', function(){
               return false;
           }
       }
+  });
+
+  jQuery.validator.addMethod("valid_student_id", function(value, element) {
+
+    var numbers = value.split("").reverse();
+
+    var sum = 0
+    for (index = 0; index < numbers.length; ++index) {
+      sum += numbers[index] * (index +1)
+    }
+
+    return sum % 11 == 0
+  }, "Studentnummer is niet geldig");
+
+  $('forasdm').validate({
+    rules: {
+      'member[first_name]': 'required',
+      'member[last_name]': 'required',
+      'member[birth_date]': 'required',
+      'member[address]': 'required',
+      'member[house_number]': 'required',
+      'member[postal_code]': 'required',
+      'member[city]': 'required',
+      'member[phone_number]': 'required',
+      'member[email]': {
+        required: true,
+        email: true
+      },
+      'member[student_id]': {
+        required: true,
+        valid_student_id: true
+      },
+      'member[educations_attributes][-1][study_id]': 'required'
+    },
+    errorClass: 'invalid',
+    errorPlacement: function(error, element) {}
   });
 
   $('select#method').on("change", function(){

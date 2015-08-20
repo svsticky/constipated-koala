@@ -13,7 +13,7 @@
  *= require font-awesome
  *= require bootstrap
  */
- 
+
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
 body {
@@ -28,7 +28,7 @@ body {
   left: 0px;
   right: 0px;
   bottom: 0px;
-  
+
   margin: 0px;
   padding: 0px;
 }

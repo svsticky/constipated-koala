@@ -11,6 +11,10 @@ body {
   height: 100%;
 }
 
+input.invalid, select.invalid, textarea.invalid {
+  border: solid red 1px;
+}
+
 div.header {
   overflow-x: hidden;
 }
@@ -26,10 +30,10 @@ form > .row > .col-md-5, .col-md-5 .col-md-6 {
 button.btn.btn-success {
   height: 50px;
   width: 250px;
-  
+
   display: block;
   margin: 20px auto 0;
-  
+
   font-size: 20px;
 }
 
