@@ -26,6 +26,10 @@
   background-color: #fff;
 }
 
+input.invalid, select.invalid, textarea.invalid {
+  border: solid red 1px;
+}
+
 table.table.table-linked > tbody > tr:hover > td > a {
   text-decoration: underline;
 }

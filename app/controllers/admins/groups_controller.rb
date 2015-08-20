@@ -8,10 +8,10 @@ class Admins::GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
+    @new = Group.new(group_params)
 
-    if @group.save
-      redirect_to @group
+    if @new.save
+      redirect_to @new
     else
       @groups = Group.all.order( :category, :name )
       render 'index'

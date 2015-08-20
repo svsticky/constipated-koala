@@ -43,7 +43,7 @@
                 .form-group
                   .row
                     .col-md-8
-                      = label(:group, :name)
+                      = f.label :name
                       = f.text_field :name, :value => @group.name, :class => 'form-control'
                     .col-md-4
                       = label(:group, :category)
@@ -101,7 +101,7 @@
                 .form-group
                   .row
                     .col-md-8
-                      = label(:group, :name)
+                      = f.label :name
                       = f.text_field :name, :value => @new.name, :class => 'form-control'
                     .col-md-4
                       = label(:group, :category)

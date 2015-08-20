@@ -26,13 +26,16 @@ class Admins::AppsController < ApplicationController
   end
 
   def create_product
-    @product = CheckoutProduct.new(product_post_params)
+    @new = CheckoutProduct.new(product_post_params)
 
-    if @product.save
-      redirect_to apps_product_path(@product)
+    if @new.save
+      redirect_to apps_product_path(@new)
     else
-      @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
       @products = CheckoutProduct.where(:active => true).order(:category, :name)
+      @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
+
+      @total = @product.sales( params['year']).map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+) unless params[:id].nil?
+
       render 'admins/apps/products'
     end
   end
