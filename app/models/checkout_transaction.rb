@@ -39,10 +39,13 @@ class CheckoutTransaction < ActiveRecord::Base
   def products
     return '-' if items.empty?
 
+    logger.fatal items 
+    logger.fatal CheckoutProduct.where( :id => items ).inspect
+
     counts = Hash.new
-    CheckoutProduct.where( :id => items ).each do |product|
-      counts[ product.name ] = 0 unless counts.has_key?( product.name )
-      counts[ product.name ] += 1
+    items.each do |item|
+      counts[ CheckoutProduct.find_by_id(item).name ] = 0 unless counts.has_key?( CheckoutProduct.find_by_id(item).name )
+      counts[ CheckoutProduct.find_by_id(item).name ] += 1
     end
 
     strings = counts.map do |item, count|

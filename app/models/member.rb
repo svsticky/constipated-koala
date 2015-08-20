@@ -44,7 +44,7 @@ class Member < ActiveRecord::Base
     :through => :educations
 
   accepts_nested_attributes_for :educations,
-    :reject_if => :all_blank,
+    :reject_if => proc { |attributes| attributes['study_id'].blank? },
     :allow_destroy => true
 
   has_many :participants,
