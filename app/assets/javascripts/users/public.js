@@ -45,7 +45,7 @@ $(document).on('ready page:load', function(){
     return sum % 11 == 0
   }, "Studentnummer is niet geldig");
 
-  $('forasdm').validate({
+  $('form').validate({
     rules: {
       'member[first_name]': 'required',
       'member[last_name]': 'required',

@@ -26,6 +26,7 @@ class Admins::ActivitiesController < ApplicationController
       redirect_to @activity
     else
       @activities = Activity.all.order(start_date: :desc)
+      @years = (Activity.take(1).first.start_date.year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
       @detailed = (Activity.where("start_date <= ? AND activities.price IS NOT NULL", Date.today).joins(:participants).where(:participants => { :paid => false }).distinct \
         + Activity.where("start_date <= ? AND activities.price IS NULL", Date.today).joins(:participants).where('participants.paid IS FALSE AND participants.price IS NOT NULL').distinct).sort_by(&:start_date).reverse!
