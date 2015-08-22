@@ -34,6 +34,9 @@ $(document).on('ready page:load', function(){
   });
 
   jQuery.validator.addMethod("valid_student_id", function(value, element) {
+    if( /\F\d{6}/.test( value )){
+      return true
+    }
 
     var numbers = value.split("").reverse();
 
@@ -62,8 +65,7 @@ $(document).on('ready page:load', function(){
       'member[student_id]': {
         required: true,
         valid_student_id: true
-      },
-      'member[educations_attributes][-1][study_id]': 'required'
+      }
     },
     errorClass: 'invalid',
     errorPlacement: function(error, element) {}
