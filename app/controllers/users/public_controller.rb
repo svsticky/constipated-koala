@@ -9,12 +9,15 @@ class Users::PublicController < ApplicationController
     @member.educations.build( :id => '-2' )
 
     @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
+
     @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
+    @participate = @activities.map{ |activity| activity.id }
   end
 
   def create
     @member = Member.new( public_post_params.except :participant_attributes )
     @member.require_student_id = true
+
     activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0
 
@@ -55,6 +58,11 @@ class Users::PublicController < ApplicationController
       redirect_to public_path
       return
     else
+      #@participants = public_post_params[ :participant_attributes ]
+
+      #number the already filled in educations to bypass an 500 error
+      @member.educations.each_with_index{ |education, index| education.id = ((index+1)*-1) }
+
       # create empty study field if not present
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
@@ -65,7 +73,12 @@ class Users::PublicController < ApplicationController
       end
 
       @membership = Activity.find( ENV['INTRO_MEMBERSHIP'].to_a )
+
       @activities = Activity.find( ENV['INTRO_ACTIVITIES'].to_a )
+      @participate = public_post_params[ :participant_attributes ].map{ |key, value| key.to_i if value['participate'] == '1' }.compact
+
+      @method = params[:method]
+      @bank = params[:bank]
 
       render 'index'
     end
