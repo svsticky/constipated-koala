@@ -39,9 +39,6 @@ class CheckoutTransaction < ActiveRecord::Base
   def products
     return '-' if items.empty?
 
-    logger.fatal items 
-    logger.fatal CheckoutProduct.where( :id => items ).inspect
-
     counts = Hash.new
     items.each do |item|
       counts[ CheckoutProduct.find_by_id(item).name ] = 0 unless counts.has_key?( CheckoutProduct.find_by_id(item).name )
