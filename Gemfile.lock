@@ -178,6 +178,7 @@ DEPENDENCIES
   jquery-rails
   modernizr-rails
   mysql2
+  nokogiri
   paperclip
   rails (~> 4.1.1)
   rest-client

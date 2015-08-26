@@ -46,12 +46,13 @@ $(document).on('ready page:load', function(){
     $( '.page.search .input-group input[name=search]' ).val( $( '.page.search .input-group input[name=search]' ).val().replace( query, query.split(':')[0] + ':' + $( this ).attr('data-name') + ' ' ) )
 
     $( 'ul.dropdown-menu' ).removeAttr('data-query').delay(10).hide(1);
-    $( '.page.search .input-group input[name=search]' ).select();
+    $( '.page.search .input-group input[name=search]' ).focus();
   });
 
   $( '.page.search .input-group' ).find( 'input[name=search]' ).on( 'click focus keydown keyup', function( event ){
     var study = /(studie|study):([A-Za-z-]*)/g.exec( $( this ).val() );
     var tag = /(tag):([A-Za-z-]*)/g.exec( $( this ).val() );
+    var state = /(status|state):([A-Za-z]*)/g.exec( $( this ).val() );
 
     var dropdown, selected;
 
@@ -73,12 +74,23 @@ $(document).on('ready page:load', function(){
       $( 'ul.dropdown-menu[name=tags]' ).delay(10).hide(1);
     }
 
+    if ( state != null && this.selectionStart >= state.index && this.selectionStart <= state.index + state[0].length ) {
+      dropdown = $( '.page.search .input-group' ).find( 'ul.dropdown-menu[name=states]');
+      selected = $( '.page.search .input-group ul.dropdown-menu[name=states]').find( 'li.active' );
+      $( dropdown ).show();
+    }else{
+      tag == null;
+      $( 'ul.dropdown-menu[name=states]' ).delay(10).hide(1);
+    }
+
     //$( dropdown ).css('left', study.index * 6 + 'px');
 
     if( study != null )
       $( dropdown).attr( 'data-query', study[0] )
     if( tag != null )
       $( dropdown).attr( 'data-query', tag[0] )
+    if( state != null )
+      $( dropdown).attr( 'data-query', state[0] )
 
     if( event.keyCode == 13 || event.keyCode == 9){
       if( $( 'ul.dropdown-menu:visible').length > 0 )
@@ -91,9 +103,11 @@ $(document).on('ready page:load', function(){
           $( this ).val( $( this ).val().replace( study[0], study[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
         if( tag != null )
           $( this ).val( $( this ).val().replace( tag[0], tag[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
+        if( state != null )
+          $( this ).val( $( this ).val().replace( state[0], state[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
 
         $( 'ul.dropdown-menu' ).removeAttr('data-query').delay(10).hide(1);
-        $( '.page.search .input-group input[name=search]' ).select();
+        $( '.page.search .input-group input[name=search]' ).focus();
 
      }else if( event.keyCode == 40 && event.type != 'keyup' ){
 
@@ -134,6 +148,14 @@ $(document).on('ready page:load', function(){
 
       $( '.page.search .input-group ul.dropdown-menu[name=tags] li').removeClass( 'active' )
       $( items ).parent('li').addClass( 'active' );
+    }else if( state != null && event.type != 'keyup' && event.keyCode != 8 ){
+      var items = $( '.page.search .input-group ul.dropdown-menu[name=states] li a[data-name!=' + state[2] + '][data-name^=' + state[2] + ']' );
+
+      if( $(items).length != 1 )
+        return
+
+      $( '.page.search .input-group ul.dropdown-menu[name=states] li').removeClass( 'active' )
+      $( items ).parent('li').addClass( 'active' );
      }
   }).on( 'focusout', function(){
     $( '.page.search .input-group' ).find( 'ul.dropdown-menu' ).hide(1);
@@ -144,7 +166,6 @@ $(document).on('ready page:load', function(){
 
     if( $('footer.table-footer .page-num-info').attr('data-search') ) {
       params['search'] = $('footer.table-footer .page-num-info').attr('data-search');
-      params['all'] = $('footer.table-footer .page-num-info').attr('data-all');
     }
 
     params['limit'] = $('footer.table-footer .page-num-info').attr('data-limit');
@@ -164,7 +185,6 @@ $(document).on('ready page:load', function(){
 
     if( $('footer.table-footer .page-num-info').attr('data-search') ) {
       params['search'] = $('footer.table-footer .page-num-info').attr('data-search');
-      params['all'] = $('footer.table-footer .page-num-info').attr('data-all');
     }
 
     params['limit'] = limit;

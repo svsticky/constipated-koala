@@ -20,7 +20,7 @@ class Group < ActiveRecord::Base
 
   def positions
     return [ 'chairman', 'secretary', 'treasurer', 'internal', 'external', 'education' ] if self.board?
-    return [ 'chairman', 'treasurer' ] if self.committee?
+    return ([ 'chairman', 'treasurer', 'board' ] + ENV['ADDITIONAL_COMMITTEE_POSITIONS'].to_a + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.committee?
     return [ 'chairman', 'treasurer' ]
   end
 

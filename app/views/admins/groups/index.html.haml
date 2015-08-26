@@ -8,7 +8,7 @@
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
-      .col-md-6
+      .col-md-6{ :class => ('hidden-xs' unless @group.nil?) }
         .panel.panel-default.table-dynamic
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-users
@@ -19,7 +19,7 @@
               - @groups.each do |group|
                 %tr
                   %td= link_to "#{group.name}", group
-                  %td= group.members.map{ |member| member.name }.join(', ')
+                  %td.hidden-sm= group.members.map{ |member| member.name }.join(', ')
 
       - unless @group.nil?
         = form_for :group, url: group_path(@group), method: :patch, :class => 'form-validation' do |f|
@@ -43,7 +43,7 @@
                 .form-group
                   .row
                     .col-md-8
-                      = label(:group, :name)
+                      = f.label :name
                       = f.text_field :name, :value => @group.name, :class => 'form-control'
                     .col-md-4
                       = label(:group, :category)
@@ -70,7 +70,7 @@
                     %td= link_to member.name, member.member
                     %td
                       .ui-select
-                        = select_tag :position, options_for_select( @group.positions.map{ |position| [I18n.t(position, scope: 'activerecord.attributes.group.positions'), position]}, member.position ), :include_blank => '-', :class => 'position'
+                        = select_tag :position, options_for_select( @group.positions.map{ |position| [I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize), position]}, member.position ), :include_blank => '-', :class => 'position'
                     %td.buttons
                       %button.btn.btn-default.destroy.pull-right
                         %i.fa.fa-fw.fa-trash-o
@@ -101,7 +101,7 @@
                 .form-group
                   .row
                     .col-md-8
-                      = label(:group, :name)
+                      = f.label :name
                       = f.text_field :name, :value => @new.name, :class => 'form-control'
                     .col-md-4
                       = label(:group, :category)

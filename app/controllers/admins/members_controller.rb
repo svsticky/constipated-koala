@@ -9,13 +9,12 @@ class Admins::MembersController < ApplicationController
 
     # If a search query is send, change the limit and offset accordingly. The param all is whether the query should also look into alumni
     if params[:search]
-      @members = Member.search(params[:search].clone, params[:all] ||= false)
+      @results = Member.search( params[:search].clone )
 
-      @pages = (@members.size / @limit.to_f).ceil
-      @members = @members[@offset,@limit]
+      @pages = (@results.size / @limit.to_f).ceil
+      @members = @results[@offset,@limit]
 
       @search = params[:search]
-      @all = params[:all] || false
 
       if @members.size == 1 && @offset == 0 && @limit > 1
         redirect_to @members.first
@@ -29,7 +28,7 @@ class Admins::MembersController < ApplicationController
 
   # As defined above this is an json call only
   def find
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search], params[:all] ||= false)
+    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
     respond_with @members
   end
 

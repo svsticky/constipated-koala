@@ -69,6 +69,7 @@ nl:
           internal: Commissaris intern
           external: Commissaris extern
           education: Commissaris onderwijs
+          board: Bestuurslid
 
         members:
           board: Bestuursleden

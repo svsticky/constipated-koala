@@ -44,7 +44,7 @@ class Member < ActiveRecord::Base
     :through => :educations
 
   accepts_nested_attributes_for :educations,
-    :reject_if => :all_blank,
+    :reject_if => proc { |attributes| attributes['study_id'].blank? },
     :allow_destroy => true
 
   has_many :participants,
@@ -97,6 +97,22 @@ class Member < ActiveRecord::Base
     return Digest::MD5.hexdigest(self.email)
   end
 
+  def groups
+    groups = Hash.new
+
+    group_members.order( year: :desc ).each do |group_member|
+      if groups.has_key?( group_member.group.id )
+        groups[ group_member.group.id ][ :years ].push( group_member.year )
+
+        groups[ group_member.group.id ][ :positions ].push( group_member.position => group_member.year ) unless group_member.position.blank? || group_member.group.board?
+      end
+
+      groups.merge!( group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [ group_member.year ], :positions => [ group_member.position => group_member.year ]} ) unless groups.has_key?( group_member.group.id )
+    end
+
+    return groups.values
+  end
+
   # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member
   before_create do
     self.join_date = Time.new
@@ -117,21 +133,15 @@ class Member < ActiveRecord::Base
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
-  def self.search(query, all = false)
+  def self.search(query)
     return self.where("student_id like ?", "%#{query}%") if query.is_number?
 
-    all = true if all == 'on'
-    all = all.to_b if all.is_a? String
-
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
-    return Member.all if query.blank? && all
-    return Member.currently_active if query.blank?
+    return self.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } )) if query.blank?
 
-    records = self.currently_active.filter( query ) unless all
-    records = self.filter( query ) if all
-
-    return records if query.blank?
-    return records.find_by_fuzzy_query( query )
+    records = self.filter( query )
+    return records.find_by_fuzzy_query( query ) unless query.blank?
+    return records
   end
 
   # Query for fuzzy search, this string is used for building indexes for searching
@@ -188,7 +198,7 @@ class Member < ActiveRecord::Base
         education.update_attribute('status', 'stopped')
       elsif status.eql?('afgestudeerd')
         education.update_attribute('status', 'graduated')
-      else #actief
+      else
         education.update_attribute('status', 'active')
       end
 
@@ -209,11 +219,6 @@ class Member < ActiveRecord::Base
 
   # Private function cannot be called from outside this class
   private
-  # An student is active if he is currently studying or has a tag which makes him active like a pardon
-  def self.currently_active
-    return self.where( :id => ( Education.select( :member_id ).where( 'status = 0' ) + Tag.select( :member_id ).where( :name => Tag.active_by_tag ) ).map{ | i | i.member_id } )
-  end
-
   def self.filter( query )
     records = self
     study = query.match /(studie|study):([A-Za-z-]+)/
@@ -225,7 +230,7 @@ class Member < ActiveRecord::Base
 
       # Lookup using full names
       if code.nil?
-        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names').downcase => study.code.downcase} }.find{ |hash| hash.keys[0] == study[2].downcase.gsub( '-', ' ' ) }
+        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names' ).downcase => study.code.downcase }}.find{ |hash| hash.keys[0] == study[2].downcase.gsub( '-', ' ' ) }
         code = Study.find_by_code( study_name.values[0] ) unless study_name.nil?
       end
 
@@ -249,6 +254,18 @@ class Member < ActiveRecord::Base
     unless year.nil?
       query.gsub! /(year|jaargang):(\d+)/, ''
       records = records.where("join_date >= ? AND join_date < ?", Date.study_year( year[2].to_i ), Date.study_year( 1+ year[2].to_i ))
+    end
+
+    status = query.match /(status|state):([A-Za-z-]+)/
+    query.gsub! /(status|state):([A-Za-z]+)/, ''
+
+    if status.nil? || status[2].downcase == 'actief'
+      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+    else
+      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
+      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'
+
+      records = Member.none unless status[2].downcase == 'studerend' || status[2].downcase == 'alumni'
     end
 
     return records

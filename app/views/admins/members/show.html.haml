@@ -139,16 +139,19 @@
             .panel-heading
               %i.fa.fa-fw.fa-users
               Groepen
-            %table.table.table-striped.table-linked
+            %table.table.table-striped
               %tbody
-              - @member.group_members.order( year: :desc ).each do |member|
-                %tr
-                  - if member.year == Date.today.study_year
-                    %td= link_to member.group.name, group_path(member.group)
-                  - else
-                    %td= link_to member.group.name, group_path(member.group, year: member.year)
-                  %td #{member.year} - #{member.year + 1}
-                  %td= member.position
+                - @member.groups.each do |group|
+                  %tr
+                    %td= link_to group[ :name ], group_path( group[ :id ] )
+                    %td= Date.years( group[ :years ].sort )
+
+                    %td.hidden-xs
+                      - group[ :positions ].each do | position |
+                        - position.each do | position, year |
+                          - unless position.nil?
+                            = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
+
 
           .panel.panel-default
             .panel-heading.year

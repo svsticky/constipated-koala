@@ -26,6 +26,10 @@
   background-color: #fff;
 }
 
+input.invalid, select.invalid, textarea.invalid {
+  border: solid red 1px;
+}
+
 table.table.table-linked > tbody > tr:hover > td > a {
   text-decoration: underline;
 }
@@ -39,6 +43,18 @@ table.table.table-linked > tbody > tr > td > a {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+table.table > tbody > tr > td > a.inline {
+  display: inline;
+
+  &::after {
+    content: ', '
+  }
+
+  &:last-child::after {
+    content: ''
+  }
 }
 
 table.table > tbody > tr.red, table.table > tbody > tr.red a {

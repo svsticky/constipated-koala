@@ -125,7 +125,12 @@
 
                     - if !activity.group.nil?
                       %td.hidden-sm
-                        %span.label.label-info= activity.group.name.upcase
+                        - if activity.group.board?
+                          %span.label.label-primary= activity.group.name.upcase
+                        - elsif activity.group.committee?
+                          %span.label.label-success= activity.group.name.upcase
+                        - else
+                          %span.label.label-warning= activity.group.name.upcase
                     - else
                       %td.hidden-sm
 

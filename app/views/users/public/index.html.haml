@@ -162,16 +162,16 @@
                     = f.fields_for 'participant_attributes[]', activity do |fa|
                       %label.ui-checkbox
                         = fa.hidden_field :id, :value => activity.id
-                        = fa.check_box :participate, :checked => 'checked'
+                        = fa.check_box :participate, :checked => ('checked' if @participate.include? activity.id )
                         %span
                           = activity.name
                           %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(activity.price, :unit => '€')})
 
               .col-md-6
                 .ui-select
-                  = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'])
+                  = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'], @method)
                 .ui-select{ :style => 'margin-top: 5px;' }
-                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
+                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']], @bank)
 
           %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 
