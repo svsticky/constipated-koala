@@ -71,6 +71,11 @@ class Member < ActiveRecord::Base
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
   end
 
+  # lowercase on email
+  def email=(email)
+    write_attribute(:email, email.downcase)
+  end
+
   # remove spaces in postal_code
   def postal_code=(postal_code)
     write_attribute(:postal_code, postal_code.upcase.gsub(' ', ''))
@@ -115,7 +120,7 @@ class Member < ActiveRecord::Base
 
   # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member
   before_create do
-    self.join_date = Time.new
+    self.join_date = Time.new if self.join_date.blank?
   end
 
   # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login

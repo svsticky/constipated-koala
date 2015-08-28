@@ -127,6 +127,7 @@ nl:
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
         success: Je betaling is ontvangen en je hebt je ingeschreven!
+        no_bank_provided: 'Bank kan niet leeg zijn als je met iDeal betaald'
         success_without_payment: Je hebt je ingeschreven!
 
       models:
