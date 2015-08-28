@@ -122,12 +122,12 @@ nl:
 
     errors:
       default: Er is iets fout gegaan
-      incomplete: Oh snap, niet alles is goed ingevuld;
+      incomplete: Oh snap, niet alles is goed ingevuld
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
         success: Je betaling is ontvangen en je hebt je ingeschreven!
-        no_bank_provided: 'Bank kan niet leeg zijn als je met iDeal betaald'
+        no_bank_provided: Bank kan niet leeg zijn als je met iDEAL betaalt
         success_without_payment: Je hebt je ingeschreven!
 
       models:
