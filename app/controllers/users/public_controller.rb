@@ -21,7 +21,12 @@ class Users::PublicController < ApplicationController
     activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0
 
-    if @member.save
+    # if bank is empty report and test model for additional errors
+    flash[:error] = NIL
+    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL'
+    @member.valid? unless flash[:error].nil?
+
+    if flash[:error].nil? && @member.save
       impressionist(@member, 'nieuwe lid')
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 

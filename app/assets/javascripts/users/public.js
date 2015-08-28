@@ -65,6 +65,11 @@ $(document).on('ready page:load', function(){
       'member[student_id]': {
         required: true,
         valid_student_id: true
+      },
+      'bank': {
+        required: function(){
+          return $('.ui-select select#method').val() == 'IDEAL'
+        }
       }
     },
     errorClass: 'invalid',

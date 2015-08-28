@@ -64,13 +64,16 @@
       .container
         = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
           .row
-            - if @member.errors.any?
+            - if @member.errors.any? || !flash[:error].nil?
               .alert.alert-danger
                 %button.click.close{ type: 'button' } ×
                 %span= I18n.t(:incomplete, scope: 'activerecord.errors')
                 %ul
                 - @member.errors.full_messages.uniq.each do |msg|
                   %li= msg
+                - if flash[:error]
+                  %li= flash[:error]
+
             %h4
               %i.fa.fa-user
               = I18n.t(:general, scope: 'headers')
@@ -140,7 +143,7 @@
                       .row
                         .col-md-12
                           .ui-select
-                            = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => "--"
+                            = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
 
             .col-md-5.activities
               %h4
@@ -171,7 +174,7 @@
                 .ui-select
                   = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'], @method)
                 .ui-select{ :style => 'margin-top: 5px;' }
-                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']], @bank)
+                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']], @bank), :include_blank => ''
 
           %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 
@@ -190,7 +193,7 @@
                 =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
                   %i.fa.fa-linkedin.fa-3x
 
-- if @member.errors.any?
+- if @member.errors.any? || !flash[:error].nil?
   :javascript
     $('html,body').animate({
       scrollTop: $('#inschrijven').offset().top
