@@ -48,16 +48,6 @@ class Admins::CheckoutController < ApplicationController
     
     transaction = CheckoutTransaction.new( :items => params[:items].to_a, :checkout_card => card )
 
-    # TODO deze if weghalen
-    if params[:items].nil?          
-      if !params[:amount].is_number? || params[:amount].to_f >= 0
-        render :status => :bad_request, :json => 'amount should be a negative numeric value'
-        return
-      end
-      
-      transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
-    end
-    
     begin
       transaction.save
     rescue ActiveRecord::RecordInvalid => error

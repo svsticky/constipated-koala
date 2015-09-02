@@ -18,6 +18,8 @@ class Admins::SettingsController < ApplicationController
     else
       @settings = UserConfiguration.all
 
+      @studies = Study.all
+
       @advertisements = Advertisement.all
       render 'index'
     end

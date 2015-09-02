@@ -2,7 +2,7 @@ class CheckoutCard < ActiveRecord::Base
   validates :uuid, presence: true
   validates :member, presence: true
   validates :checkout_balance, presence: true
-  validates :active, presence: true
+#  validates :active
   
   has_many :checkout_transactions,
     :dependent => :destroy

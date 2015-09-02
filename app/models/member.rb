@@ -81,6 +81,11 @@ class Member < ActiveRecord::Base
     write_attribute(:postal_code, postal_code.upcase.gsub(' ', ''))
   end
 
+  def student_id=(student_id)
+    write_attribute(:student_id, student_id.upcase)
+    write_attribute(:student_id, NIL) if student_id.blank?
+  end
+
   def tags_names=(tags)
     Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
 
@@ -99,7 +104,7 @@ class Member < ActiveRecord::Base
 
   # create hash for gravatar
   def gravatar
-    return Digest::MD5.hexdigest(self.email)
+    return Digest::MD5.hexencode(self.email)
   end
 
   def groups
@@ -283,6 +288,7 @@ class Member < ActiveRecord::Base
 
     # do not do the elfproef if a foreign student
     return if ( student_id =~ /\F\d{6}/)
+    return if student_id.blank?
 
     numbers = student_id.split("").map(&:to_i).reverse
 
