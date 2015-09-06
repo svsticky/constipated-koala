@@ -17,15 +17,10 @@
           %table.table.table-striped.table-linked#products
             %tbody
               - @products.each do |product|
-                %tr{ :data => { 'id' => product.id }}
+                %tr{ :data => { 'id' => product.id }, :class => ( 'inactive' unless product.active )}
                   %td= link_to product.name, apps_product_path(product.id)
                   %td= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
                   %td= number_to_currency( product.price, :unit => '€' )
-
-                -#  %td.buttons
-                    .btn-group
-                      %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash-o
 
       - unless @product.nil?
         = form_for :checkout_product, url: apps_product_path(@product), method: :patch, :class => 'form-validation' do |f|
@@ -77,6 +72,9 @@
                 %button.btn.btn-success.wait{ type: 'submit', disabled: @product.has_children? } Opslaan
                 = link_to 'Annuleren', apps_products_path, { :class => 'button btn btn-default' }
 
+                .pull-right
+                  = label(:checkout_product, :active)
+                  = f.check_box :active, :checked => @product.active, :disabled => @product.has_children?
 
               %table.table.table-striped.table-linked#products
                 %tbody

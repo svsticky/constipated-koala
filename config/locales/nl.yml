@@ -81,6 +81,7 @@ nl:
         price: Prijs
         image: Afbeelding
         category: Categorie
+        active: Is actief
 
         categories:
           beverage: Drinken

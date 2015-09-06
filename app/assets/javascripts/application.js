@@ -218,21 +218,11 @@ $(document).on('ready page:load', function(){
   });
 
   //menu navigation
-  var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  if( width > 768 && document.cookie.search('nav-min') >= 0 )
-      $('#app div').addClass('nav-min');
 
   $('.toggle-min').click(function(event){
     event.preventDefault();
 
     $('#app div').toggleClass('nav-min');
-
-    if( $('#app div').hasClass('nav-min') ){
-      document.cookie = 'nav-min=true; path=/;';
-    }else{
-      document.cookie = 'nav-min=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
-    }
-
     $('#nav li').removeClass('open');
     $('#nav li').children('.sub-nav').css('display', 'none');
   });

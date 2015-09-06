@@ -165,8 +165,8 @@
                 %tr
                   %th Activiteit
                   %th Prijs
-                  %th.hidden-sm Datum
-                  %th{ :style => 'text-align: center;' } Betaald
+                  %th.hidden-sm.hidden-xs Datum
+                  %th.hidden-xs{ :style => 'text-align: center;' } Betaald
               %tbody
                 - @activities.each do |activity|
                   %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
@@ -179,11 +179,11 @@
 
                     - if !activity.start_date.nil?
                       - if activity.end_date.nil?
-                        %td.hidden-sm= link_to "#{I18n.l activity.start_date}", activity
+                        %td.hidden-sm.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
                       - else
-                        %td.hidden-sm= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+                        %td.hidden-sm.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
 
-                    %td
+                    %td.hidden-xs.buttons
                       .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
                         - if activity.participants.where(:member => @member).first.paid
                           %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
