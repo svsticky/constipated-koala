@@ -1,4 +1,5 @@
 class Admins::MembersController < ApplicationController
+  impressionist :actions => [ :create, :update ]
   respond_to :json, only: [:find]
 
   def index
@@ -14,6 +15,7 @@ class Admins::MembersController < ApplicationController
       @pages = (@results.size / @limit.to_f).ceil
       @members = @results[@offset,@limit]
 
+      @members = Member.none if @members.nil?
       @search = params[:search]
 
       if @members.size == 1 && @offset == 0 && @limit > 1
@@ -87,7 +89,6 @@ class Admins::MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     if @member.update(member_post_params)
-      impressionist(@member, 'lid bewerkt')
       redirect_to @member
     else
       render 'edit'
@@ -95,10 +96,10 @@ class Admins::MembersController < ApplicationController
   end
 
 	def destroy
-		@member = Member.find(params[:id])
-    impressionist(@member, "#{@member.first_name} #{@member.infix} #{@member.last_name} verwijderd")
+		member = Member.find(params[:id])
+    impressionist(member, member.name)
 
-		@member.destroy
+    member.destroy
 		redirect_to members_path
 	end
 

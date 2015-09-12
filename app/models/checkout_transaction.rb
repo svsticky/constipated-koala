@@ -4,6 +4,7 @@ class CheckoutTransaction < ActiveRecord::Base
   belongs_to :checkout_balance
 
   serialize :items, Array
+#  is_impressionable
 
   before_validation do
 

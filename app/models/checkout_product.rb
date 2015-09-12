@@ -4,7 +4,7 @@ class CheckoutProduct < ActiveRecord::Base
   validates :category, presence: true
   # validates :active
   validates :price, presence: true
-  validate :valid_image
+  # validate :valid_image
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4 }
 

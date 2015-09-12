@@ -6,7 +6,7 @@
 function bind_activities(){
   //reset all binds
   $('#participants button').off('click');
-  $('#participants input.price').off('focusout');
+  $('#participants input.price').off('change');
 
   // Activiteiten betalen met een async call
   // [PATCH] participants
@@ -160,7 +160,7 @@ $(document).on( 'ready page:load', function(){
         }
       }).done(function( data ){
         var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, data.email, parseFloat(data.price).toFixed(2) || '');
+        var activity = template.format(data.id, data.member_id, name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
         var added = $(activity).insertBefore('#participants table tr:last');
 
         $('.number').html( +$('.number').html() +1 );

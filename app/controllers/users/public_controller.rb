@@ -27,7 +27,7 @@ class Users::PublicController < ApplicationController
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save
-      impressionist(@member, 'nieuwe lid')
+      impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # if a masters student no payment required, also no access to activities for bachelors
