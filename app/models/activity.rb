@@ -36,5 +36,6 @@ class Activity < ActiveRecord::Base
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f
     write_attribute(:price, price)
+    write_attribute(:price, NIL) if price == 0
   end
 end
