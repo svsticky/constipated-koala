@@ -12,6 +12,8 @@ class Group < ActiveRecord::Base
     :dependent => :destroy
   has_many :members,
     :through => :group_members
+    
+  is_impressionable
 
   def years
     #TODO remove years without members

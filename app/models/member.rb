@@ -22,7 +22,7 @@ class Member < ActiveRecord::Base
 
   attr_accessor :tags_names
   fuzzily_searchable :query
-  is_impressionable
+  is_impressionable :dependent => :ignore
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
   has_many :tags,
@@ -144,7 +144,11 @@ class Member < ActiveRecord::Base
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
-    return self.where("student_id like ?", "%#{query}%") if query.is_number?
+    student_id = query.match /^\F?\d{6,7}$/i
+    return self.where("student_id like ?", "%#{student_id}%") unless student_id.nil?
+
+    phone_number = query.match /^(?:\+\d{2}|00\d{2}|0)(\d{9})$/
+    return self.where("phone_number like ?", "%#{phone_number[1]}") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
     return self.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } )) if query.blank?
@@ -156,11 +160,11 @@ class Member < ActiveRecord::Base
 
   # Query for fuzzy search, this string is used for building indexes for searching
   def query
-    "#{self.first_name} #{self.last_name} #{self.student_id}"
+    "#{self.name} #{self.email}"
   end
 
   def query_changed?
-    first_name_changed? || infix_changed? || last_name_changed? || student_id_changed?
+    first_name_changed? || infix_changed? || last_name_changed? || email_changed?
   end
 
   # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less

@@ -5,9 +5,11 @@ class GroupMember < ActiveRecord::Base
   validates :year, presence: true
 #  validates :position
 
+  is_impressionable
+
   def position=(position)
     write_attribute( :position, position )
-    write_attribute( :position, NIL) if position.blank? || position == '-'
+    write_attribute( :position, NIL ) if position.blank? || position == '-'
   end
 
   def name

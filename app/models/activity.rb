@@ -4,6 +4,8 @@ class Activity < ActiveRecord::Base
 #  validates :end_date
 #  validates :description
 
+  is_impressionable
+
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] },
 	:processors => [:ghostscript, :thumbnail],

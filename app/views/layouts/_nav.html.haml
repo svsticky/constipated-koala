@@ -52,7 +52,7 @@
               %i.fa.fa-caret-right
               %span Profiel
           %li{ :class => ('active' if yield(:subpage) == 'logs') }
-            = link_to '#' do
+            = link_to :settings_logs do
               %i.fa.fa-caret-right
               %span Logs
           %li{ :class => ('active' if yield(:subpage) == 'emails') }

@@ -1,6 +1,8 @@
 class Participant < ActiveRecord::Base
   belongs_to :member
   belongs_to :activity
+  
+  is_impressionable
 
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f) unless price.blank?
