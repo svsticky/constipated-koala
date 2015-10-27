@@ -51,11 +51,10 @@ class Admins::CheckoutController < ApplicationController
 
     begin
       transaction.save
-    rescue ActiveRecord::RecordInvalid => error
-      render :status => :bad_request, :json => error.message
-      return
     rescue ActiveRecord::RecordNotSaved => error
-      render :status => :request_entity_too_large, :json => error.message
+      render :status => :not_acceptable, :json => error.message if error.message == 'not_allowed'
+      render :status => :bad_request, :json => error.message if error.message == 'empty_items'
+      render :status => :request_entity_too_large, :json => error.message if error.message == 'insufficient_funds'
       return
     end
 
