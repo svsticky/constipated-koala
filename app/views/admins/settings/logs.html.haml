@@ -38,12 +38,12 @@
               %td= I18n.l impression.created_at
               %td
                 - if !impression.user_id.nil?
-                  = User.find( impression.user_id ).credentials.name
+                  = User.find( impression.user_id ).email
               %td
                 - if ['Member', 'Group', 'Activity'].include? impression.impressionable_type
                   - if impression.impressionable.nil? && !impression.message.nil?
                     = impression.message
-                  - else
+                  - elsif !impression.impressionable.nil?
                     = link_to impression.impressionable.name, impression.impressionable
 
                 - elsif 'Participant' == impression.impressionable_type
@@ -84,7 +84,7 @@
             %span
               Toon
               = select_tag 'limit', options_for_select([20,50,100], @limit)
-              leden per pagina
+              regels per pagina
 
           .col-md-6.text-right.pagination-container
             %ul.pagination-sm.pagination
@@ -111,5 +111,5 @@
               %li.scroll{ :class => ( 'disabled' if @pages / 4.to_f <= 1 || @page +1 > (@pages -1) / 4 * 4)}
                 %a{ :data => { :offset => (@page / 4 +1) * 4 * @limit }} >>
 
-              %li{ :class => ( 'disabled' if @offset < @limit * @pages )}
+              %li{ :class => ( 'disabled' if @offset >= @limit * @pages )}
                 %a{ :data => { :offset => @offset + @limit }} volgende

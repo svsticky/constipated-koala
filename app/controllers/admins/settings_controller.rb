@@ -11,13 +11,13 @@ class Admins::SettingsController < ApplicationController
   end
 
   def logs
-    @impressions = Impression.where( 'DATE(`created_at`) = ?', params[:date] || Date.today)
-
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0
 
+    @impressions = Impression.all.order( created_at: :desc ).limit(@limit).offset(@offset)
+
     @page = @offset / @limit
-    @pages = (@impressions.size / @limit.to_f).ceil
+    @pages = (Impression.count / @limit.to_i).ceil
   end
 
   def advertisement

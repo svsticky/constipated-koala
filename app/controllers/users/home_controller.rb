@@ -41,7 +41,7 @@ class Users::HomeController < ApplicationController
     member = Member.find(current_user.credentials_id)
     balance = CheckoutBalance.find_by_member_id!(member.id)
 
-    if ideal_transaction_params[:amount].to_f < 10.0
+    if ideal_transaction_params[:amount].to_f < 1.0 #minimaal 1 euro omdat er 45 cent transactiekosten afgaat
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
       redirect_to users_home_url
       return
@@ -78,7 +78,7 @@ class Users::HomeController < ApplicationController
     if ideal.status == 'SUCCESS' && ideal.type == 'MONGOOSE'
 
       if ideal.transaction_id.empty?
-        transaction = CheckoutTransaction.new( :price => ideal.amount, :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
+        transaction = CheckoutTransaction.new( :price => (ideal.amount - ENV['MONGOOSE_IDEAL_COSTS'].to_f), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
         transaction.save
 
         IdealTransaction.where(:uuid => params[:uuid]).update_all( :transaction_id => [ transaction.id ] )

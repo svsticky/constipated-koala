@@ -37,7 +37,7 @@
               %i.fa.fa-caret-right
               %span iDeal
 
-      %li{ :class => ('active' if yield(:subpage) == 'settings') }
+      %li{ :class => ('active' if yield(:page) == 'settings') }
         = link_to '#' do
           %span Instellingen
           %i.fa.fa-gears

@@ -42,12 +42,13 @@
     %p
       %i.fa.fa-phone
       = link_to @member.phone_number, "tel:#{@member.phone_number}"
-
-  .col-md-3.col-sm-4{ :class => ( 'hidden' if @balance.nil? )}
-    .bg-warning
-      %i.fa.fa-2x.fa-shopping-cart
-    %h2= number_to_currency( @balance.balance, :unit => '' )
-    %p mongoose tegoed
+  
+  - if !@balance.nil?
+    .col-md-3.col-sm-4
+      .bg-warning
+        %i.fa.fa-2x.fa-shopping-cart
+      %h2= number_to_currency( @balance.balance, :unit => '' )
+      %p mongoose tegoed
 
   .col-md-3.col-sm-4{ :class => ( 'hidden' if @default == 0 )}
     .bg-error
@@ -119,7 +120,7 @@
 
             %tr.form
               %td
-                = f.number_field :amount, :placeholder => 'tegoed', :min => 10, :pattern => '^\d+(\.|\,)\d{2}$'
+                = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht' 
               %td
                 .ui-select{ :style => 'margin-top: 5px;' }
                   = f.select :bank, options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
