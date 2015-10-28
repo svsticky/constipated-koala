@@ -145,3 +145,27 @@ aside a[href='#'] {
     }
   }
 }
+
+
+#mail > #textarea, #mail > textarea#html {
+  font-family: arial;
+  font-size: medium;
+
+  color: #222;
+
+  width: 100%;
+  min-height: 200px;
+
+  margin-bottom: 10px;
+  overflow-y: scroll;
+
+  display: none;
+}
+
+#mail.html > textarea#html {
+  display: block;
+}
+
+#mail:not(.html) > #textarea {
+  display: block;
+}
