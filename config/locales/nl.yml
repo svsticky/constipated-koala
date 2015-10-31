@@ -60,6 +60,7 @@ nl:
         categories:
           board: bestuur
           committee: commissie
+          moot: dispuut
           other: overig
 
         positions:

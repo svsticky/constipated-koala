@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
 
 #  validates :comments
 
-  enum category: { board: 1, committee: 3, other: 4 }
+  enum category: { board: 1, committee: 2, moot: 3, other: 4 }
 
   has_many :activities, :foreign_key => :organized_by
 
