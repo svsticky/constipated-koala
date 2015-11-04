@@ -1,4 +1,4 @@
-class Admins::MembersController < ApplicationController
+class Admin::MembersController < ApplicationController
   impressionist :actions => [ :create, :update ]
   respond_to :json, only: [:find]
 

@@ -195,3 +195,5 @@ nl:
           attributes:
             checkout: Mongoose-tegoed
             fees: iDEAL-kosten
+
+        unpermitted: is niet geldig

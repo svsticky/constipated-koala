@@ -6,6 +6,7 @@ gem 'unicorn'
 
 # authentication gem
 gem 'devise'
+gem 'doorkeeper'
 
 # logging
 gem 'impressionist'

@@ -1,4 +1,4 @@
-class Admins::ActivitiesController < ApplicationController
+class Admin::ActivitiesController < ApplicationController
   impressionist :actions => [ :create, :update, :destroy ]
 
   def index

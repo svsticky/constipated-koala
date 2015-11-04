@@ -1,4 +1,4 @@
-class Admins::CheckoutController < ApplicationController
+class Admin::CheckoutController < ApplicationController
   #impressionist :actions => [ :add_card_to_member, :activate_card, :change_funds, :subtract_funds ]
   protect_from_forgery except: [:information_for_card, :subtract_funds, :add_card_to_member, :products_list]
 

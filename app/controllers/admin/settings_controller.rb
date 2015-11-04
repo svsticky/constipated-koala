@@ -1,4 +1,4 @@
-class Admins::SettingsController < ApplicationController
+class Admin::SettingsController < ApplicationController
   respond_to :json, only: [:destroy]
 
   def index
