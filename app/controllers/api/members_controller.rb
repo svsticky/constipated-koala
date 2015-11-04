@@ -1,4 +1,7 @@
 class Api::MembersController < ApiController
+  before_action -> { doorkeeper_authorize! 'member-read' }, only: [:index, :show]
+  before_action -> { doorkeeper_authorize! 'member-write' }, only: :update
+
   def index
     members = Member.search( params[:search] ) unless params[:search].nil?
     members = Member.all.order(:last_name, :first_name).limit(params[:limit] ||= 50).offset(params[:offset] ||= 0) if params[:search].nil?
@@ -13,7 +16,7 @@ class Api::MembersController < ApiController
 
   def update
     # TODO rechten systeem?
-    render :status => :unauthorized, :json => '' and return if params[:id] != doorkeeper_token.resource_owner_id
+    render :status => :unauthorized, :json => '' and return if params[:id].to_i != current_user.credentials.id
 
     member = Member.find_by_id(params[:id])
     render :status => :not_found, :json => '' and return if member.nil?

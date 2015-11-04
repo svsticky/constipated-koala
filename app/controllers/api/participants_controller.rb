@@ -1,5 +1,6 @@
 class Api::ParticipantsController < ApiController
-  skip_before_action :authorize_write, only: [:create, :destroy]
+  before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
+  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy]
 
   def index
     respond_with Participant.where( :member => current_user.credentials ).includes(:activity).order('activities.end_date', 'activities.start_date').limit(params[:limit] ||= 10).offset(params[:offset] ||= 0), { :include => :activity }

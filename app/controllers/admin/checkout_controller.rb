@@ -1,17 +1,7 @@
 class Admin::CheckoutController < ApplicationController
-  #impressionist :actions => [ :add_card_to_member, :activate_card, :change_funds, :subtract_funds ]
-  protect_from_forgery except: [:information_for_card, :subtract_funds, :add_card_to_member, :products_list]
-
-  skip_before_action :authenticate_user!, only: [:information_for_card, :subtract_funds, :add_card_to_member, :products_list]
-  skip_before_action :authenticate_admin!, only: [:information_for_card, :subtract_funds, :add_card_to_member, :products_list]
-
-  before_action :authenticate_checkout, only: [:information_for_card, :subtract_funds, :add_card_to_member, :products_list]
+  impressionist :actions => [ :activate_card, :change_funds ]
 
   respond_to :json
-
-  def information_for_card
-    respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
-  end
 
   def change_funds
     if params[:uuid]
@@ -39,45 +29,6 @@ class Admin::CheckoutController < ApplicationController
     render :status => :created, :json => transaction
   end
 
-  def subtract_funds
-    card = CheckoutCard.find_by_uuid!(params[:uuid])
-
-    if( !card.active )
-      render :status => :unauthorized, :json => 'card not yet activated'
-      return
-    end
-
-    transaction = CheckoutTransaction.new( :items => params[:items].to_a, :checkout_card => card )
-
-    begin
-      transaction.save
-    rescue ActiveRecord::RecordNotSaved => error
-      render :status => :not_acceptable, :json => error.message if error.message == 'not_allowed'
-      render :status => :bad_request, :json => error.message if error.message == 'empty_items'
-      render :status => :request_entity_too_large, :json => error.message if error.message == 'insufficient_funds'
-      return
-    end
-
-    render :status => :created, :json => transaction.created_at
-  end
-
-  def add_card_to_member
-    if !CheckoutCard.find_by_uuid(params[:uuid]).nil?
-      render :status => :conflict, :json => 'card already registered'
-      return
-    end
-
-    card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!(params[:student]), :description => params[:description] )
-
-    if card.save(:validate => false)
-      render :status => :created, :json => CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
-      return
-    else
-      render :status => :conflict, :json => card.errors.full_messages
-      return
-    end
-  end
-
   def activate_card
     card = CheckoutCard.find_by_uuid!(params[:uuid])
 
@@ -97,18 +48,6 @@ class Admin::CheckoutController < ApplicationController
       return
     else
       render :status => :bad_request, :json => card.errors.full_messages
-      return
-    end
-  end
-
-  def products_list
-    render :status => :ok, :json => CheckoutProduct.where(:active => true).select(:id, :name, :category, :price).map{ |item| item.attributes.merge({ :image => CheckoutProduct.find_by_id( item.id ).url }) }
-  end
-
-  private
-  def authenticate_checkout
-    if params[:token] != ENV['CHECKOUT_TOKEN']
-      render :status => :forbidden, :json => 'not authenticated'
       return
     end
   end
