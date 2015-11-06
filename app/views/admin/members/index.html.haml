@@ -64,6 +64,11 @@
             %span
               Toon
               = select_tag 'limit', options_for_select([20,50,100], @limit)
+              van de
+              - if @results.blank?
+                = Member.count
+              - else
+                = @results.size
               leden per pagina
 
           .col-md-6.text-right.pagination-container

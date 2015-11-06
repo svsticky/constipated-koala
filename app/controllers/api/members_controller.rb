@@ -5,24 +5,21 @@ class Api::MembersController < ApiController
   def index
     members = Member.search( params[:search] ) unless params[:search].nil?
     members = Member.all.order(:last_name, :first_name).limit(params[:limit] ||= 50).offset(params[:offset] ||= 0) if params[:search].nil?
-
-    members = Member.none if members.nil?
-    respond_with members[params[:offset] ||= 0, params[:limit] ||= 50]
+    @members =  members[params[:offset] ||= 0, params[:limit] ||= 50]
   end
 
   def show
-    respond_with Member.find_by_id!(params[:id]), { :include => :educations }
+    @member = Member.find_by_id!(params[:id])
   end
 
   def update
-    # TODO rechten systeem?
-    render :status => :unauthorized, :json => '' and return if params[:id].to_i != current_user.credentials.id
+    member = Member.find_by_id params[:id].to_i
 
-    member = Member.find_by_id(params[:id])
+    render :status => :unauthorized, :json => '' and return unless member == Authorization._member
     render :status => :not_found, :json => '' and return if member.nil?
 
     begin
-      member.update(member_post_params)
+      member.update member_post_params
     rescue ActionController::UnpermittedParameters => e
       messages = Hash[e.params.map{ |param| [param,[I18n.t(:unpermitted, scope: 'activerecord.errors.models')]] }]
 

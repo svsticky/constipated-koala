@@ -235,6 +235,18 @@ class Member < ActiveRecord::Base
   private
   def self.filter( query )
     records = self
+    status = query.match /(status|state):([A-Za-z-]+)/
+    query.gsub! /(status|state):([A-Za-z]+)/, ''
+
+    if status.nil? || status[2].downcase == 'actief'
+      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+    else
+      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
+      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'
+
+      records = Member.none unless status[2].downcase == 'studerend' || status[2].downcase == 'alumni'
+    end
+
     study = query.match /(studie|study):([A-Za-z-]+)/
 
     unless study.nil?
@@ -248,7 +260,7 @@ class Member < ActiveRecord::Base
         code = Study.find_by_code( study_name.values[0] ) unless study_name.nil?
       end
 
-      records = Member.none if code.nil?
+      records = Member.none if code.nil? #TODO add active to the selector if status is not in the query
       records = records.where( :id => Education.select( :member_id ).where( 'study_id = ?', code.id )) unless code.nil?
     end
 
@@ -268,18 +280,6 @@ class Member < ActiveRecord::Base
     unless year.nil?
       query.gsub! /(year|jaargang):(\d+)/, ''
       records = records.where("join_date >= ? AND join_date < ?", Date.study_year( year[2].to_i ), Date.study_year( 1+ year[2].to_i ))
-    end
-
-    status = query.match /(status|state):([A-Za-z-]+)/
-    query.gsub! /(status|state):([A-Za-z]+)/, ''
-
-    if status.nil? || status[2].downcase == 'actief'
-      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
-    else
-      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
-      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'
-
-      records = Member.none unless status[2].downcase == 'studerend' || status[2].downcase == 'alumni'
     end
 
     return records

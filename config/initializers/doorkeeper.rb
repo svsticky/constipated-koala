@@ -17,6 +17,24 @@ Doorkeeper::OAuth::TokenResponse.class_eval do
   end
 end
 
+# Custom authorization
+require 'authorization/authorization'
+ApiController.include Authorization
+
+require 'rabl'
+Rabl.configure do |config|
+  config.include_json_root = false
+  config.include_msgpack_root = false
+  config.include_bson_root = false
+  config.include_xml_root  = false
+  config.include_child_root = false
+  config.xml_options = { :dasherize  => true, :skip_types => true }
+
+  config.replace_empty_string_values_with_nil_values = true
+  config.exclude_nil_values = true
+  config.exclude_empty_values_in_collections = true
+end
+
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
   orm :active_record

@@ -92,12 +92,13 @@ ConstipatedKoala::Application.routes.draw do
         resources :activities, only: [:index, :show]
         resources :participants, only: [:index, :create, :destroy]
 
-        resources :groups, only: [:index, :show, :update]
+        resources :groups, only: [:index, :show]
 
         get    'checkout/transactions', to: 'checkout#index'
         post   'checkout/transactions', to: 'checkout#transaction'
 
         get    'checkout/products',     to: 'checkout#products'
+        post   'checkout/ideal',        to: 'checkout#ideal'
 
         get    'checkout/info',         to: 'checkout#info'
         get    'checkout/card/:uuid',   to: 'checkout#show'

@@ -19,9 +19,11 @@ class User < ActiveRecord::Base
 
   def hash
     {
-      'member_id'       => self.credentials.id,
-      'member_name'     => self.credentials.name,
-      'member_email'    => self.email,
+      "#{credentials_type.downcase}" => {
+        'id'       => self.credentials.id,
+        'name'     => self.credentials.name,
+        'email'    => self.email,
+      }
     }
   end
 end

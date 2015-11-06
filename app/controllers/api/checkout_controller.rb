@@ -1,15 +1,15 @@
-class Api::CheckoutController < ApplicationController
+class Api::CheckoutController < ApiController
   before_action -> { doorkeeper_authorize! 'checkout-read' }, only: [:index, :info]
   before_action -> { doorkeeper_authorize! 'checkout-write' }, only: [:update, :destroy]
 
   before_action :authenticate_checkout, only: [:show, :create, :transaction, :products]
 
   def index
-    respond_with CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member(current_user.credentials)).order(created_at: :desc).limit(params[:limit] ||= 50).offset(params[:offset] ||= 0)
+    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member( current_user.credentials ) ).order( created_at: :desc ).limit( params[:limit] ||= 50 ).offset( params[:offset] ||= 0 )
   end
 
   def transaction
-    card = CheckoutCard.find_by_uuid!(params[:uuid])
+    card = CheckoutCard.find_by_uuid!( params[:uuid] )
 
     render :status => :unauthorized, :json => 'card not yet activated' and return unless card.active
     transaction = CheckoutTransaction.new( :items => params[:items].to_a, :checkout_card => card )
@@ -26,37 +26,41 @@ class Api::CheckoutController < ApplicationController
     respond_with transaction
   end
 
+  def ideal
+    #TODO implement
+  end
+
   def products
-    respond_with CheckoutProduct.where(:active => true).select(:id, :name, :category, :price).map{ |item| item.attributes.merge({ :image => item.url }) }
+    @products = CheckoutProduct.where( :active => true ).select( :id, :name, :category, :price )
   end
 
   def info
-    respond_with CheckoutBalance.where( :member => current_user.credentials ), { :include => :checkout_cards }
+    @balance = CheckoutBalance.where( :member => current_user.credentials )
   end
 
   def create
-    render :status => :conflict, :json => 'card already registered' and return unless CheckoutCard.find_by_uuid(params[:uuid]).nil?
+    render :status => :conflict, :json => 'card already registered' and return unless CheckoutCard.find_by_uuid( params[:uuid] ).nil?
 
-    card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!(params[:student]), :description => params[:description] )
+    card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!( params[:student] ), :description => params[:description] )
 
     card.save
     respond_with card
   end
 
   def show #TODO add boolean for older than 18, birth_date is not necessary
-    respond_with CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
+    respond_with CheckoutCard.joins( :member, :checkout_balance ).select( :id, :uuid, :first_name, :balance ).find_by_uuid!( params[:uuid] )
   end
 
   def update
-    card = CheckoutCard.find_by_uuid!(params[:uuid])
-    card.update_attribute(:active, true)
+    card = CheckoutCard.find_by_uuid!( params[:uuid] )
+    card.update_attribute( :active, true )
 
     card.save
     respond_with card
   end
 
   def destroy
-    card = CheckoutCard.find_by_uuid!(params[:uuid])
+    card = CheckoutCard.find_by_uuid!( params[:uuid] )
     respond_with card.destroy
   end
 

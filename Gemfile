@@ -11,8 +11,9 @@ gem 'doorkeeper'
 # logging
 gem 'impressionist'
 
-# use of Haml
+# use of Haml and rabl
 gem 'haml'
+gem 'rabl'
 
 # RestClient for sending mail using mailgun
 gem 'rest-client'
