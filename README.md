@@ -7,9 +7,11 @@ Currently, it implements methods to track several things within the association:
 
  - Members and membership
  - Activities and payments
+ - Committees and other groups
  - The Operation Dead Mongoose (TM) and it's expenses
+ - [OAuth][oauth-readme] authentication and authorization endpoint
 
-There is more to be implemented :)
+[oauth-readme]:http://github.com/StickyUtrecht/constipated-koala/tree/feature/oauth/app/views/api
 
 ## Development setup
 
