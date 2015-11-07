@@ -10,12 +10,12 @@ This folder is where the complex reponse format are depicted. Currently the foll
 ## OAuth basics
 Before working with oauth2 we need to set some basic groundrules. Koala allows Authorization Code Grant Flow and the Client Credentials Grant Flow. You are more likely to implement the first one than the latter one. Below the two grants are described.
 
-> All traffic must be encrypted using SSL and the `client_secret` and `access_token` must never be on the users computer. Hence use sessions to store the access_token in your app. If you let others have access to this token or secret they can easily get access to your users data. 
+> All traffic must be encrypted using SSL and the `client_secret` and `access_token` must never be on the users computer. Hence use sessions to store the access_token in your app. If you let others have access to this token or secret they can easily get access to your users data.
 
 ### Authorization Code
-When a user in your app wants information or if you app need a authenticated user we use this variant. Your app sends the user to a login form of koala, there the user can login (if not already) and grant rights to your application(client). Koala will redirect the user back to your app with a one time code. 
+When a user in your app wants information or if you app need a authenticated user we use this variant. Your app sends the user to a login form of koala, there the user can login (if not already) and grant rights to your application(client). Koala will redirect the user back to your app with a one time code.
 ```
-GET /api/oauth/authorize?client_id=d132e6e69dab381e39d3a14d6679b53444a83ddde4461db66013342e379c5110&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code
+GET /api/oauth/authorize?client_id=d132e6e69dab381e39d3a14d6679b53444a83ddde4461db66013342e379c5110&redirect_uri=https://awesome.app/sign_in&response_type=code
 ```
 ```
 {
@@ -101,11 +101,11 @@ Ah well scopes, how do you create rights that are easily added or denied by the 
   - member-read
   - activity-read
   - group-read'
-- optional 
+- optional
   - member-write
   - participant-read
   - participant-write
   - checkout-read
   - checkout-write
-  
+
 As said before your app can have limitations for example a book supplier has no interest in your activities or groups.
