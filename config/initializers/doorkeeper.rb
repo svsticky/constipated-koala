@@ -41,10 +41,8 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    current_user || begin #TODO && !current_user.admin?
-      #if admin set alert because redirected to home
-
-      Rails.logger.debug 'request credentials'
+    current_user || begin #TODO change scope if current_user is admin and allow to login again as admin or as member
+      session[:user_return_to] = request.fullpath
       redirect_to new_user_session_url
     end
   end

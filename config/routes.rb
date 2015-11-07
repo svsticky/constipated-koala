@@ -112,5 +112,6 @@ ConstipatedKoala::Application.routes.draw do
     end
   end
 
+  # TODO redirect is ugly, if you refresh you stay at /404
   get '/', to: redirect('/404')
 end

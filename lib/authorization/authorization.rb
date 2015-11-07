@@ -6,15 +6,27 @@ module Authorization
   end
 
   # Controller-independent method for setting the current user.
-  def self._user=(user)
+  def self._user=( user )
     Thread.current["authenticated_user"] = user
   end
 
+  def self._client
+    app = Thread.current["authenticated_client"]
+    return app.scopes if app.present? && Authorization._user.nil?
+    []
+  end
+
+  def self._client=( app )
+    Thread.current["authenticated_client"] = app
+  end
+
   def self._member
-    Authorization._user.credentials unless Authorization._user.admin?
+    return Authorization._user.credentials unless Authorization._user.nil? || Authorization._user.admin?
+    false
   end
 
   def self._clear!
     Thread.current["authenticated_user"] = nil
+    Thread.current["authenticated_client"] = nil
   end
 end
