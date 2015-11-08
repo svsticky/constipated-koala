@@ -1,6 +1,6 @@
 module Authorization
   # Controller-independent method for retrieving the current user.
-  # Needed for model security where the current controller is not available.
+  # Needed for model/view security where the current controller is not available.
   def self._user
     Thread.current["authenticated_user"]
   end
@@ -13,6 +13,7 @@ module Authorization
   def self._client
     app = Thread.current["authenticated_client"]
     return app.scopes if app.present? && Authorization._user.nil?
+    
     []
   end
 
@@ -21,7 +22,9 @@ module Authorization
   end
 
   def self._member
-    return Authorization._user.credentials unless Authorization._user.nil? || Authorization._user.admin?
+    user = Authorization._user
+    return user.credentials unless user.nil? || user.admin?
+
     false
   end
 

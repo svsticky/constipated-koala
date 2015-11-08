@@ -10,6 +10,15 @@ ConstipatedKoala::Application.routes.draw do
   end
 
   constraints :subdomain => 'koala' do
+    authenticated :user, ->(u) { !u.admin? } do
+      root to: 'users/home#index', as: :users_root
+
+      get    'edit',   to: 'users/home#edit',   as: :users_edit
+      patch  'edit',   to: 'users/home#update'
+
+      post   'mongoose',        to: 'users/home#add_funds'
+      get    'mongoose',        to: 'users/home#confirm_add_funds'
+    end
 
     root 'admin/home#index'
 
@@ -65,6 +74,11 @@ ConstipatedKoala::Application.routes.draw do
       # setting pages
       get    'settings',                  to: 'settings#index'
       get    'settings/logs',             to: 'settings#logs'
+
+      patch  'settings/setting',          to: 'settings#setting'
+      patch  'settings/study',            to: 'settings#study'
+      patch  'settings/client',           to: 'settings#client'
+
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
 
@@ -83,7 +97,7 @@ ConstipatedKoala::Application.routes.draw do
 
     scope 'api' do
       use_doorkeeper do
-        #skip_controllers :token_info, :applications, :authorized_applications
+        skip_controllers :token_info, :applications, :authorized_applications
       end
 
       scope module: 'api' do
@@ -113,5 +127,5 @@ ConstipatedKoala::Application.routes.draw do
   end
 
   # TODO redirect is ugly, if you refresh you stay at /404
-  get '/', to: redirect('/404')
+  # get '/', to: redirect('/404')
 end

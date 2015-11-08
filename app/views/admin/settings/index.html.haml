@@ -13,23 +13,18 @@
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-wrench
             Instellingen
-          %ul.list-group
-            = form_for 'settings[]', url: settings_path, method: :patch, :class => 'form-validation' do |f|
-              - @settings.each do |setting|
-                %li.list-group-item
-                  = f.hidden_field :id, :value => setting.id
+          %ul.list-group#settings
+            %p.text-muted.text-center{ :style => 'padding-top: 8px; font-style: italic;'}
+              Na een wijziging moet de server deze opnieuw inladen! Vraag dit aan iemand die toegang heeft tot de server.
 
-                  .col-md-6
-                    %b= setting.name
-                    %p= setting.description
+            - @settings.each do |setting|
+              %li.list-group-item
+                .col-md-6
+                  %b= setting.name
+                  %p= setting.description
 
-                  .col-md-6
-                    - if setting.config_type == 'array'
-                      = f.text_field 'value', :value => setting.value, :readonly => true
-                    - if setting.config_type == 'boolean'
-                      = f.text_field 'value', :value => setting.value, :readonly => true
-                    - if setting.config_type == 'integer'
-                      = f.text_field 'value', :value => setting.value, :readonly => true
+                .col-md-6
+                  %input{ :name => setting.abbreviation.downcase, :value => setting.value }
 
 
       .col-md-6

@@ -28,6 +28,7 @@ module ConstipatedKoala
 	    Devise::PasswordsController.layout 'default'
 
 	    Users::PublicController.layout false
+      Users::HomeController.layout 'default'
 	  end
   end
 end
