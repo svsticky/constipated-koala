@@ -115,3 +115,7 @@ p.uuid {
   font-size: 14px;
   line-height: 14px;
 }
+
+a.col-md-4, a.col-md-4:hover {
+  text-decoration: none;
+}
