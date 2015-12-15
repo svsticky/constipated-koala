@@ -9,10 +9,12 @@ class Users::HomeController < ApplicationController
     @balance = CheckoutBalance.find_by_member_id( @member.id )
     @default = Participant.where( :paid => false, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( :price ) + Participant.where( :paid => false, :price => nil, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( 'activities.price ')
 
-    @participants = @member.activities.study_year( params['year'] ).distinct.joins(:participants).where(:participants => { :member => @member })
+    @participants = (@member.activities.study_year( params['year'] ).distinct.joins(:participants).where(:participants => { :member => @member }) \
+      + @member.activities.joins(:participants).where(:participants => {:paid => false}) ).uniq
+
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
 
-    @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today )
+    #@activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today )
   end
 
   def edit
