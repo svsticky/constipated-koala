@@ -23,11 +23,11 @@ class Users::PublicController < ApplicationController
 
     # if bank is empty report and test model for additional errors
     flash[:error] = NIL
-    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL'
+    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL' && @member.educations.none? { |education| Study.find( education.study_id ).masters }
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save
-      impressionist(@member, 'nieuwe lid')
+      impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # if a masters student no payment required, also no access to activities for bachelors

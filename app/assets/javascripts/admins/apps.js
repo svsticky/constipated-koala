@@ -10,7 +10,7 @@ $(document).on( 'ready page:load', function(){
   });
 
   // activate card
-  $( 'div#cards ul.list-group .btn-group button:first' ).bind( 'click', function() {
+  $( 'div#cards ul.list-group .btn-group button:nth-child(1)' ).bind( 'click', function() {
     var button = $( this );
     var row = $( this ).closest( '.list-group-item' );
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));

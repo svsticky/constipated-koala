@@ -4,6 +4,8 @@ class Activity < ActiveRecord::Base
 #  validates :end_date
 #  validates :description
 
+  is_impressionable
+
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] },
 	:processors => [:ghostscript, :thumbnail],
@@ -36,5 +38,6 @@ class Activity < ActiveRecord::Base
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f
     write_attribute(:price, price)
+    write_attribute(:price, NIL) if price == 0
   end
 end

@@ -15,6 +15,12 @@ dd span.label {
   padding: .2em .6em .3em;
 }
 
+@media (max-width: 768px) {
+  dd span.label {
+    left: 120px;
+  }
+}
+
 #participants tr > td {
   padding: 0px;
   padding-left: 8px;
@@ -76,4 +82,35 @@ div.form-group.copyable > a.destroy {
 
   height: 68px;
   width: 48px;
+}
+
+#participants tr > td {
+  width: calc( 60% - 50px );
+}
+
+#participants tr > td:nth-child(2) {
+  width: calc( 40% - 50px );
+}
+
+#participants tr > td.buttons {
+  width: 100px;
+}
+
+#credit {
+  width: 264px;
+}
+
+#credit .input-group-addon {
+  padding-bottom: 7px;
+}
+
+#credit #amount {
+  position: relative;
+  left: -2px;
+  z-index: 2;
+}
+
+#credit .input-group-btn {
+  position: relative;
+  left: -2px;
 }

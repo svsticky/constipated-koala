@@ -37,7 +37,7 @@
               %i.fa.fa-caret-right
               %span iDeal
 
-      %li{ :class => ('active' if yield(:subpage) == 'settings') }
+      %li{ :class => ('active' if yield(:page) == 'settings') }
         = link_to '#' do
           %span Instellingen
           %i.fa.fa-gears
@@ -51,6 +51,10 @@
             = link_to :edit_registration do
               %i.fa.fa-caret-right
               %span Profiel
+          %li{ :class => ('active' if yield(:subpage) == 'logs') }
+            = link_to :settings_logs do
+              %i.fa.fa-caret-right
+              %span Logs
           %li{ :class => ('active' if yield(:subpage) == 'emails') }
             = link_to '#' do
               %i.fa.fa-caret-right

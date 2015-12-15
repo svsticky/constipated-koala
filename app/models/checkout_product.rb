@@ -2,11 +2,11 @@ class CheckoutProduct < ActiveRecord::Base
 
   validates :name, presence: true
   validates :category, presence: true
-  validates :active, presence: true
+  # validates :active
   validates :price, presence: true
-  validate :valid_image
+  # validate :valid_image
 
-  enum category: { beverage: 1, chocolate: 2, savory: 3, additional:4 }
+  enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f)
@@ -25,16 +25,18 @@ class CheckoutProduct < ActiveRecord::Base
 	  :content_type => ['image/jpeg', 'image/png']
 
   before_update do
-    record = CheckoutProduct.new
-    record.name = self.name
-    record.category = self.category
-    record.price = self.price
-    record.parent = self.id
+    if name_changed? || category_changed? || price_changed?
+      record = CheckoutProduct.new
+      record.name = self.name
+      record.category = self.category
+      record.price = self.price
+      record.parent = self.id
 
-    self.reload
-    self.update_columns( :active => false )
+      self.reload
+      self.update_columns( :active => false )
 
-    record.save
+      record.save
+    end
   end
 
   def url
@@ -61,6 +63,10 @@ class CheckoutProduct < ActiveRecord::Base
 
     return [{ self => count}] if self.parent.nil?
     return [{ self => count}] + CheckoutProduct.find_by_id( self.parent ).sales( year )
+  end
+
+  def self.last_version
+    self.select{ |product| !product.has_children? }
   end
 
   private

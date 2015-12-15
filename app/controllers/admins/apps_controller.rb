@@ -17,7 +17,7 @@ class Admins::AppsController < ApplicationController
   end
 
   def products
-    @products = CheckoutProduct.where(:active => true).order(:category, :name)
+    @products = CheckoutProduct.order(:category, :name).last_version
     @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
     @product = CheckoutProduct.find( params[:id] ) unless params[:id].nil?
@@ -31,10 +31,8 @@ class Admins::AppsController < ApplicationController
     if @new.save
       redirect_to apps_product_path(@new)
     else
-      @products = CheckoutProduct.where(:active => true).order(:category, :name)
+      @products = CheckoutProduct.order(:category, :name).last_version
       @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
-
-      @total = @product.sales( params['year']).map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+) unless params[:id].nil?
 
       render 'admins/apps/products'
     end
@@ -44,10 +42,14 @@ class Admins::AppsController < ApplicationController
     @product = CheckoutProduct.find(params[:id])
 
     if @product.update(product_post_params)
-      redirect_to apps_product_path( CheckoutProduct.find_by_parent(@product.id) )
+      # if a new product is created redirect to it
+      product = CheckoutProduct.find_by_parent(@product.id)
+
+      redirect_to apps_product_path( product || @product.id )
     else
       @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
-      @products = CheckoutProduct.where(:active => true).order(:category, :name)
+      @products = CheckoutProduct.order(:category, :name).last_version
+
       render 'admins/apps/products'
     end
   end
@@ -62,6 +64,7 @@ class Admins::AppsController < ApplicationController
     params.require(:checkout_product).permit( :name,
                                               :price,
                                               :category,
+                                              :active,
                                               :image)
   end
 end

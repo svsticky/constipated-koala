@@ -47,6 +47,10 @@ end
 
 class Time
 
+  def before( time )
+    return Time.parse( time ).to_i > Time.now.to_i
+  end
+
   # Return the first year of a study year using time, hence 2014 means the year 2014-2015
   def study_year
     if self.month < 8

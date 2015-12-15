@@ -1,0 +1,115 @@
+- content_for(:page, 'settings')
+- content_for(:subpage, 'logs')
+- content_for(:title, 'Constipated koala | logs')
+
+%section#content
+  = render 'layouts/search'
+
+  .page.page-table
+    %section.panel.panel-default.table-dynamic
+      .table-responsive
+        %table.table.table-bordered.table-striped
+          %thead
+            %tr
+              %th
+                .th
+                  Datum
+                  -#
+                    %span.glyphicon.glyphicon-chevron-up
+                    %span.glyphicon.glyphicon-chevron-down
+              %th
+                .th
+                  Gebruiker
+              %th
+                .th
+                  Object
+                  -#
+                    %span.glyphicon.glyphicon-chevron-up
+                    %span.glyphicon.glyphicon-chevron-down
+              %th
+                .th
+                  Actie
+              %th
+                .th
+                  IP-adres
+
+          - @impressions.each do |impression|
+            %tr
+              %td= I18n.l impression.created_at
+              %td
+                - if !impression.user_id.nil?
+                  = User.find( impression.user_id ).email
+              %td
+                - if ['Member', 'Group', 'Activity'].include? impression.impressionable_type
+                  - if impression.impressionable.nil? && !impression.message.nil?
+                    = impression.message
+                  - elsif !impression.impressionable.nil?
+                    = link_to impression.impressionable.name, impression.impressionable
+
+                - elsif 'Participant' == impression.impressionable_type
+                  = link_to impression.impressionable.activity.name, impression.impressionable.activity
+                  ,
+                  = link_to impression.impressionable.member.name, impression.impressionable.member
+
+                - elsif 'GroupMember' == impression.impressionable_type
+                  = link_to impression.impressionable.group.name, impression.impressionable.group
+                  ,
+                  = link_to impression.impressionable.member.name, impression.impressionable.member
+                - else
+                  = impression.controller_name
+
+              %td
+                - if !impression.message.nil?
+                  - if impression.impressionable_type == 'Participant' && impression.action_name == 'update'
+                    = I18n.t impression.message, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase, impression.action_name]
+
+                  - else
+                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], message: impression.message
+
+                - else
+                  - if impression.impressionable_type == 'Group'
+                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], category: "#{I18n.t impression.impressionable.category, scope: [ :activerecord, :attributes, :group, :categories]}"
+
+                  - elsif impression.impressionable_type == 'GroupMember'
+                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], name: "#{I18n.t impression.impressionable.group.category, scope: [ :activerecord, :attributes, :group, :members]}".downcase, position: "#{I18n.t impression.impressionable.position, scope: [ :activerecord, :attributes, :group, :positions]}".downcase
+                  - else
+                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase]
+
+              %td= impression.ip_address
+
+
+      %footer.table-footer
+        .row
+          .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
+            %span
+              Toon
+              = select_tag 'limit', options_for_select([20,50,100], @limit)
+              regels per pagina
+
+          .col-md-6.text-right.pagination-container
+            %ul.pagination-sm.pagination
+              %li{ :class => ( 'disabled' if @offset == 0)}
+                %a{ :data => { :offset => @offset - @limit }} vorige
+
+              %li.scroll{ :class => ( 'disabled' if @page / 4 == 0)}
+                %a{ :data => { :offset => (@page / 4 * 4 -1) * @limit }} <<
+
+              - (0 .. @pages -1).each do |i|
+                - if i == @page
+                  %li.active
+                    - if i.between?(4 * (@page / 4), 4 * (@page / 4) + 4 -1 )
+                      %a{ :data => { :offset => @limit * i }}= i+1
+                    -else
+                      %a.hidden{ :data => { :offset => @limit * i }}= i+1
+                - else
+                  %li
+                    - if i.between?(4 * (@page / 4), 4 * (@page / 4) + 4 -1 )
+                      %a{ :data => { :offset => @limit * i }}= i+1
+                    - else
+                      %a.hidden{ :data => { :offset => @limit * i }}= i+1
+
+              %li.scroll{ :class => ( 'disabled' if @pages / 4.to_f <= 1 || @page +1 > (@pages -1) / 4 * 4)}
+                %a{ :data => { :offset => (@page / 4 +1) * 4 * @limit }} >>
+
+              %li{ :class => ( 'disabled' if @offset >= @limit * @pages )}
+                %a{ :data => { :offset => @offset + @limit }} volgende

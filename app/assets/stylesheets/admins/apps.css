@@ -98,6 +98,10 @@ tr.total {
   color: red;
 }
 
+tr.inactive {
+  text-decoration: line-through;
+}
+
 p.uuid {
   margin-bottom: 0px;
 }
