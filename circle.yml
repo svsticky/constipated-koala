@@ -2,18 +2,18 @@ general:
   branches:
     ignore:
       - /doc\/.*/
-      
+
 machine:
   timezone:
     Europe/Amsterdam
 
   environment:
-    RAILS_ENV: staging
+    RAILS_ENV: test
 
 dependencies:
   bundler:
-    without: [production, development]
-    
+    without: [production, staging, development]
+
 dependencies:
   cache_directories:
-    - "vendor/bundle" 
+    - "vendor/bundle"
