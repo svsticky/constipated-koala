@@ -10,14 +10,16 @@ development:
   pool: 5
   timeout: 5000
 
-  # test
-  # Version before release on circle
-  test:
-    adapter: mysql2
-    database: koala
-    hostname: localhost
-    pool: 5
-    timeout: 5000
+# test
+ Version before release on circle
+test:
+  adapter: mysql2
+  database: koala
+  hostname: localhost
+  username:
+  password:
+  pool: 5
+  timeout: 5000
 
 # Staging
 # Version before release running on isaanhetwerk.nl
