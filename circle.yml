@@ -1,0 +1,30 @@
+general:
+  branches:
+    ignore:
+      - /doc\/.*/
+      
+machine:
+  timezone:
+    Europe/Amsterdam
+
+  environment:
+    RAILS_ENV: staging
+    RAILS_SECRET: 123123123123123123
+    DEVISE_SECRET: 123123123123123123
+
+    MAILGUN_TOKEN: '123asd'
+    CHECKOUT_TOKEN: 13
+
+    AWS_ACCESS: test
+    AWS_SECRET: test
+
+# Other
+IDEAL_PLATFORM=
+
+dependencies:
+  bundler:
+    without: [production, development]
+    
+dependencies:
+  cache_directories:
+    - "vendor/bundle" 
