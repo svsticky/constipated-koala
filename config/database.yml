@@ -11,7 +11,7 @@ development:
   timeout: 5000
 
 # test
- Version before release on circle
+# Version before release on circle
 test:
   adapter: mysql2
   database: koala
