@@ -1,0 +1,22 @@
+general:
+  branches:
+    ignore:
+      - /doc\/.*/
+
+machine:
+  timezone:
+    Europe/Amsterdam
+
+  environment:
+    RAILS_ENV: test
+  
+dependencies:
+  bundler:
+    without: [production, staging, development]
+
+  cache_directories:
+    - "vendor/bundle"
+
+database:
+  override:
+    - bundle exec rake db:create db:setup --trace

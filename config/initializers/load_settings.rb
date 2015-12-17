@@ -1,3 +1,5 @@
+return unless ActiveRecord::Base.connection.table_exists? 'user_configurations'
+
 # Set environment variables from database
 UserConfiguration.all.each do |setting|
   next unless ENV["#{setting.abbreviation.upcase}"].nil?
