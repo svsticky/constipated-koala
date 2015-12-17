@@ -1,4 +1,5 @@
 class Admins::GroupsController < ApplicationController
+  impressionist :actions => [ :create, :update ]
   respond_to :json, only: [ :create_member, :update_member, :destroy_member, :find_position ]
 
   def index
@@ -33,6 +34,7 @@ class Admins::GroupsController < ApplicationController
     @member = GroupMember.new( :member => Member.find(params[:member]), :group => Group.find(params[:id]), :year => params[:year] )
 
     if @member.save
+      impressionist @member
       respond_with @member, :location => groups_url
     else
       respond_with @member.errors.full_messages
@@ -43,6 +45,7 @@ class Admins::GroupsController < ApplicationController
     @member = GroupMember.find(params[:member])
 
     if @member.update( :position => params[:position] )
+      impressionist @member
       respond_with @member, :location => groups_url
     else
       respond_with @member.errors.full_messages

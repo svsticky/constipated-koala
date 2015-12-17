@@ -23,7 +23,7 @@
             %span.icon-bg.bg-success
 
       %li{ :class => ('active' if yield(:page) == 'apps') }
-        = link_to '#' do
+        = link_to '' do
           %span Apps
           %i.fa.fa-terminal
             %span.icon-bg.bg-primary-light
@@ -37,8 +37,8 @@
               %i.fa.fa-caret-right
               %span iDeal
 
-      %li{ :class => ('active' if yield(:subpage) == 'settings') }
-        = link_to '#' do
+      %li{ :class => ('active' if yield(:page) == 'settings') }
+        = link_to '' do
           %span Instellingen
           %i.fa.fa-gears
             %span.icon-bg.bg-violet
@@ -51,6 +51,10 @@
             = link_to :edit_registration do
               %i.fa.fa-caret-right
               %span Profiel
+          %li{ :class => ('active' if yield(:subpage) == 'logs') }
+            = link_to :settings_logs do
+              %i.fa.fa-caret-right
+              %span Logs
           %li{ :class => ('active' if yield(:subpage) == 'emails') }
             = link_to '#' do
               %i.fa.fa-caret-right

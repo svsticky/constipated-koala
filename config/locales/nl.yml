@@ -60,6 +60,7 @@ nl:
         categories:
           board: bestuur
           committee: commissie
+          moot: dispuut
           other: overig
 
         positions:
@@ -81,12 +82,14 @@ nl:
         price: Prijs
         image: Afbeelding
         category: Categorie
+        active: Is actief
 
         categories:
           beverage: Drinken
           chocolate: Chocolade
           savory: Hartig
           additional: Overig
+          liquor: Alcohol
 
       tag:
         names:
@@ -115,6 +118,32 @@ nl:
           active: Studerend
           stopped: Gestopt
           graduated: Afgestudeerd
+
+      impression:
+        member:
+          create: lid aangemaakt
+          update: gegevens bewerkt
+          destroy: lid verwijderd
+
+        group:
+          create: '%{category} aangemaakt'
+          update: '%{category} bewerkt'
+
+        groupmember:
+          create_member: '%{name} toegevoegd'
+          update_member: '%{name} bewerkt'
+
+        activity:
+          create: activiteit aangemaakt
+          update: activiteit bewerkt
+
+        participant:
+          create: deelnemer toegevoegd
+          update:
+            paid: deelnemer heeft betaald
+            unpaid: deelnemer heeft niet betaald
+            price: prijs is veranderd voor deelnemer
+
 
     annotations:
       member:

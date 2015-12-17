@@ -74,6 +74,7 @@ ConstipatedKoala::Application.routes.draw do
 
       # setting pages
       get    'settings',                  to: 'settings#index'
+      get    'settings/logs',             to: 'settings#logs'
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
 

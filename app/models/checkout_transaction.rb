@@ -4,6 +4,7 @@ class CheckoutTransaction < ActiveRecord::Base
   belongs_to :checkout_balance
 
   serialize :items, Array
+#  is_impressionable
 
   before_validation do
 
@@ -17,7 +18,7 @@ class CheckoutTransaction < ActiveRecord::Base
     end
 
     if self.price.nil? || self.price == 0
-      raise ActiveRecord::RecordInvalid.new('no items supplied')
+      raise ActiveRecord::RecordNotSaved.new('empty_items')
     end
 
     if self.checkout_balance.nil?
@@ -25,7 +26,12 @@ class CheckoutTransaction < ActiveRecord::Base
     end
 
     if self.checkout_balance.balance + self.price < 0
-      raise ActiveRecord::RecordNotSaved.new('insufficient funds')
+      raise ActiveRecord::RecordNotSaved.new('insufficient_funds')
+    end
+
+    if items.any? { |item| CheckoutProduct.find( item ).liquor? }
+      raise ActiveRecord::RecordNotSaved.new('not_allowed') if Time.now.before( ENV['LIQUOR_TIME'] )
+      raise ActiveRecord::RecordNotSaved.new('not_allowed') if (self.checkout_balance.member.birth_date + 18.years) > Date.today
     end
 
     self.checkout_balance.update_attribute(:balance, self.checkout_balance.balance + self.price)
