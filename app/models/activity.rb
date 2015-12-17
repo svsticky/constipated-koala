@@ -24,7 +24,11 @@ class Activity < ActiveRecord::Base
 
   def self.study_year( year )
     year = year.blank? ? Date.today.study_year : year.to_i
-    where("start_date >= ? AND start_date < ?", Date.study_year( year ), Date.study_year( year +1 ))
+    where('start_date >= ? AND start_date < ?', Date.study_year( year ), Date.study_year( year +1 ))
+  end
+
+  def self.debtors
+    joins(:participants).where('activities.start_date <= ? AND ((activities.price IS NOT NULL AND participants.paid IS FALSE) OR (activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))', Date.today).distinct
   end
 
   def group
@@ -33,6 +37,10 @@ class Activity < ActiveRecord::Base
 
   def currency( member )
     participants.where(:member => member).first.price ||= self.price
+  end
+
+  def price
+    0 if read_attribute(:price).nil?
   end
 
   def price=( price )

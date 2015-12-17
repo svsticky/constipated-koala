@@ -1,128 +1,117 @@
 - content_for(:title, "Constipated koala | #{@member.name}")
 
-.navbar.navbar-default.navbar-fixed-top.visible-xs
-  %ul.nav-right.list-unstyled
-    %li.dropdown
-      = link_to '#', { 'data-toggle' => 'dropdown', :class => 'dropdown-toggle' } do
-        .image
-          =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=40", :class => 'img-circle'
-        %h1= @member.name
-        %i.fa.fa-bars.pull-right
+%section
+  .page
+    .row
+      .col-md-6
+        .row
+          .col-md-6
+            .panel.widget
+              .widget-header.bg-primary
 
-        %ul.dropdown-menu
-          %li
-            = link_to 'Gegevens bewerken', :users_edit
-          %li
-            = link_to 'Uitloggen', :destroy_user_session, { 'data-method' => :delete }
+              .widget-body.text-center
+                = link_to "https://secure.gravatar.com/profile/#{current_user.gravatar}", { :class => 'profile' } do
+                  = image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=100"
+                  .overlay
+                    %i.fa.fa-2x.fa-plus
 
-.row.header.hidden-xs
-  .col-sm-4.col-md-3
-    .image
-      =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=240", :class => 'img-circle'
+                %h4= @member.name
+                %p.text-muted= @member.email
 
-.row.title
-  .col-md-3.col-md-offset-3.col-sm-offset-4.col-sm-8
-    %h1
-      = @member.name
+              .list-group
+                = link_to users_root_path, { :class => 'list-group-item active' } do
+                  %i.fa.fa-home
+                  Home
+                = link_to users_edit_path, { :class => 'list-group-item' } do
+                  %i.fa.fa-user
+                  Gegevens bewerken
+                = link_to destroy_user_session_path, { 'data-method' => :delete, :class => 'list-group-item visible-xs' } do
+                  %i.fa.fa-sign-out
+                  Uitloggen
 
-      %span.dropdown
-        = link_to '#', { 'data-toggle' => 'dropdown', :class => 'dropdown-toggle' } do
-          %i.fa.fa-sort-desc
+          .col-md-6
+            - if @balance.blank?
+              .panel.panel-box.info-box
+                .panel-left.panel-item.bg-info
+                  %i.fa.fa-ticket.text-large.stat-icon
+                .panel-right.panel-item.bg-reverse
+                  %p.size-h2
+                    = @member.activities.uniq.count
+                  %p.text-muted.text-center Activiteiten meegedaan
+            - else
+              .panel.panel-box.info-box
+                .panel-left.panel-item.bg-success
+                  %i.fa.fa-shopping-cart.text-large.stat-icon
+                .panel-right.panel-item.bg-reverse
+                  %p.size-h2
+                    = number_to_currency( @balance.balance, :unit => '' )
+                  %p.text-muted.text-center Mongoose tegoed
 
-        %ul.dropdown-menu
-          %li
-            = link_to 'Gegevens bewerken', users_edit_path
-          %li
-            = link_to 'Uitloggen', '/sign_out', { 'data-method' => :delete }
+            .panel.panel-box.info-box
+              .panel-left.panel-item.bg-reverse
+                %p.size-h2
+                  = number_to_currency( @default, :unit => '' )
+                %p.text-muted.text-center Openstaande betalingen
+              .panel-right.panel-item.bg-warning
+                %i.fa.fa-ticket.text-large.stat-icon
 
-    %p
-      %i.fa.fa-envelope-o
-      = link_to @member.email, "mailto:#{@member.email}"
+      .col-md-6
+        .panel.panel-default.table-dynamic
+          .panel-heading
+            %i.fa.fa-fw.fa-fw.fa-ticket
+            Activiteiten
 
-    %p
-      %i.fa.fa-phone
-      = link_to @member.phone_number, "tel:#{@member.phone_number}"
-  
-  - if !@balance.nil?
-    .col-md-3.col-sm-4
-      .bg-warning
-        %i.fa.fa-2x.fa-shopping-cart
-      %h2= number_to_currency( @balance.balance, :unit => '' )
-      %p mongoose tegoed
+          %table.table.table-striped.table-linked
+            %tbody
+              - @participants.each do |activity|
+                %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid)}
+                  %td= activity.name
 
-  .col-md-3.col-sm-4{ :class => ( 'hidden' if @default == 0 )}
-    .bg-error
-      %i.fa.fa-2x.fa-ticket
-    %h2= number_to_currency( @default, :unit => '' )
-    %p openstaande betalingen
+                  - if !activity.start_date.nil?
+                    %td.hidden-xs
+                      - if activity.end_date.nil?
+                        = I18n.l activity.start_date
+                      - else
+                        #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
 
-.row
-  .container
-    .col-sm-6.col-xs-12.pull-right
-
-
-    .col-sm-6.col-xs-12.pull-left
-      %h3
-        %i.fa.fa-ticket
-        Activiteiten
-
-      %table.table.table-striped.table-linked
-        %tbody
-          - @participants.each do |activity|
-            %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid)}
-              %td= link_to "#{activity.name}", activity
-
-              - if !activity.start_date.nil?
-                %td.hidden-xs
-                  - if activity.end_date.nil?
-                    = I18n.l activity.start_date
+                  - if !activity.currency(@member).nil?
+                    %td= number_to_currency(activity.currency(@member), :unit => '€')
                   - else
-                    "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}"
+                    %td
 
-              - if !activity.currency(@member).nil?
-                %td= number_to_currency(activity.currency(@member), :unit => '€')
-              - else
-                %td
-
-              %td.text-center
-                - if activity.participants.where(:member => @member).first.paid
-                  %span.label.label-success betaald
-                - else
-                  %span.label.label-warning niet betaald
-
-    .col-sm-6.col-xs-12.pull-left
-      = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
-        %h3
-          %i.fa.fa-shopping-cart
-          Mongoose transacties
-
-        %table.table.table-striped.table-linked
-          %tbody
-            - @transactions.each do |transaction|
-              %tr
-                %td #{I18n.l transaction.created_at}
-                %td
-                  = number_to_currency(transaction.price, :unit => '€')
-                  - if transaction.price > 0
-                    %span.fa.fa-sort-asc.pull-right
-                  - else
-                    %span.fa.fa-sort-desc.pull-right
-
-                %td
-                  - if !transaction.checkout_card.nil?
-                    - if transaction.checkout_card.description.nil?
-                      = transaction.checkout_card.uuid
+                  %td.text-center.hidden-xs
+                    - if activity.participants.where(:member => @member).first.paid
+                      %span.label.label-success betaald
                     - else
-                      = transaction.checkout_card.description
-                  - else
-                    \-
+                      %span.label.label-warning niet betaald
 
+      .col-md-6
+        = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
+          .panel.panel-default.table-dynamic
+            .panel-heading
+              %i.fa.fa-fw.fa-fw.fa-shopping-cart
+              Mongoose transacties
 
-            %tr.form
-              %td
-                = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht' 
-              %td
-                .ui-select{ :style => 'margin-top: 5px;' }
-                  = f.select :bank, options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
-              %td
-                %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen
+            %table.table.table-striped.table-linked
+              %tbody
+                - @transactions.each do |transaction|
+                  %tr
+                    %td.visible-xs{ :colspan => 2 } #{I18n.l transaction.created_at}
+                    %td.hidden-xs #{I18n.l transaction.created_at}
+
+                    %td.hidden-xs= transaction.products
+                    %td
+                      = number_to_currency(transaction.price, :unit => '€')
+                      - if transaction.price > 0
+                        %span.fa.fa-sort-asc.pull-right
+                      - else
+                        %span.fa.fa-sort-desc.pull-right
+
+                %tr.form
+                  %td
+                    = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht'
+                  %td
+                    .ui-select{ :style => 'margin-top: 5px;' }
+                      = f.select :bank, options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
+                  %td
+                    %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen
