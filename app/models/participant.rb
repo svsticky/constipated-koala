@@ -1,7 +1,7 @@
 class Participant < ActiveRecord::Base
   belongs_to :member
   belongs_to :activity
-  
+
   is_impressionable
 
   def price=(price)
@@ -9,7 +9,8 @@ class Participant < ActiveRecord::Base
   end
 
   def currency
-    self.price ||= activity.price
+    activity.price if read_attribute(:price).nil?
+    self.price ||= 0
   end
 
   before_validation do
