@@ -3,6 +3,10 @@ general:
     ignore:
       - /doc\/.*/
 
+dependencies:
+  pre:
+    - sudo locale-gen en_US.utf8
+
 machine:
   timezone:
     Europe/Amsterdam
