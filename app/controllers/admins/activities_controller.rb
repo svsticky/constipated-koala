@@ -5,9 +5,7 @@ class Admins::ActivitiesController < ApplicationController
     @activities = Activity.study_year( params['year'] ).order(start_date: :desc)
     @years = (Activity.take(1).first.start_date.year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
-    @detailed = (Activity.where("start_date <= ? AND activities.price IS NOT NULL", Date.today).joins(:participants).where('participants.paid IS FALSE').distinct \
-      + Activity.where("start_date <= ? AND activities.price IS NULL", Date.today).joins(:participants).where('participants.paid IS FALSE AND participants.price IS NOT NULL').distinct).sort_by(&:start_date).reverse!
-
+    @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @activity = Activity.new
   end
 

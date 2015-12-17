@@ -72,7 +72,7 @@
                       - if activity.end_date.nil?
                         = I18n.l activity.start_date
                       - else
-                        "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}"
+                        #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
 
                   - if !activity.currency(@member).nil?
                     %td= number_to_currency(activity.currency(@member), :unit => '€')
