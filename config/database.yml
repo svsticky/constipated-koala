@@ -9,6 +9,7 @@ development:
   socket: /tmp/mysql.sock
   pool: 5
   timeout: 5000
+  encoding: utf8
 
 # test
 # Version before release on circle
@@ -20,6 +21,7 @@ test:
   password:
   pool: 5
   timeout: 5000
+  encoding: utf8
 
 # Staging
 # Version before release running on isaanhetwerk.nl
@@ -32,6 +34,7 @@ staging:
   socket: /var/run/mysqld/mysqld.sock
   pool: 5
   timeout: 5000
+  encoding: utf8
 
 # Production
 # Version for public use running on stickyutrecht.nl
@@ -44,3 +47,4 @@ production:
   socket: /var/run/mysqld/mysqld.sock
   pool: 5
   timeout: 5000
+  encoding: utf8
