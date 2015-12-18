@@ -3,7 +3,7 @@
 %section
   .page.page-form
     .row
-      = form_for :member, url: member_path(@member), method: :patch, :class => 'form-validation' do |f|
+      = form_for :member, method: :patch, :class => 'form-validation' do |f|
 
         - if @member.errors.any?
           .col-md-6.col-md-offset-3
