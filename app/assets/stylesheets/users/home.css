@@ -126,3 +126,12 @@ section > .page > .row {
   border-radius: 0px;
   height: 34px;
 }
+
+.panel-left.panel-item, .panel-right.panel-item {
+  position: relative;
+  padding: 30px 0;
+}
+
+.panel-left.panel-item p.text-center, .panel-right.panel-item p.text-center {
+  width: 100%;
+}
