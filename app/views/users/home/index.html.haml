@@ -55,7 +55,7 @@
               .panel-right.panel-item.bg-warning
                 %i.fa.fa-ticket.text-large.stat-icon
 
-      .col-md-6
+      .col-md-6.col-xs-12.pull-right
         .panel.panel-default.table-dynamic
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-ticket
@@ -86,7 +86,7 @@
                       - else
                         %span.label.label-warning niet betaald
 
-      .col-md-6.pull-right
+      .col-md-6.clear-left
         = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
           .panel.panel-default.table-dynamic
             .panel-heading
