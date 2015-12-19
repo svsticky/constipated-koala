@@ -89,9 +89,10 @@ section > .page > .row {
   }
 }
 
+/*
 .col-md-6.clear-left {
   clear: left;
-}
+}*/
 
 @media (max-width: 992px){
   .col-md-6.clear-left {
