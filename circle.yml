@@ -5,7 +5,7 @@ general:
 
 dependencies:
   pre:
-    - sudo locale-gen en_US.utf8
+    - sudo locale-gen en_US.utf8g
 
 machine:
   timezone:
