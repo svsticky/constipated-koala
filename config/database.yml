@@ -22,7 +22,6 @@ test:
   pool: 5
   timeout: 5000
   encoding: utf8
-  collation: en_US.UTF-8
 
 # Staging
 # Version before release running on isaanhetwerk.nl
