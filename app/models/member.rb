@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Default a class begins with a number of validations. student_id is special because in the intro website it cannot be empty. However an admin can make it empty
 class Member < ActiveRecord::Base
   validates :first_name, presence: true
