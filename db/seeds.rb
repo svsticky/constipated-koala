@@ -1,7 +1,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 # encoding: UTF-8
-# ruby encoding: utf-8
 
 require 'faker'
 
@@ -91,7 +90,9 @@ Group.create(
   created_at: Faker::Date.between(3.years.ago, 2.years.ago)
 )
 
-exit if Rails.env == 'production'
+exit if Rails.env == 'production' 
+# Seeds not working on CI
+exit if Rails.env == 'test'
 
 # Load the user_settings just set
 puts '-- Load user configuration for environment variables'
