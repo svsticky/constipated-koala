@@ -3,12 +3,10 @@ general:
     ignore:
       - /doc\/.*/
 
-dependencies:
-  pre:
-    - export LANG=en_US.UTF-8
-    - export LC_ALL=en_US.UTF-8
-
 machine:
+  environment:
+    - LANG: en_US.UTF-8
+    - LC_ALL: en_US.UTF-8
   timezone:
     Europe/Amsterdam
 
