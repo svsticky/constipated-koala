@@ -3,10 +3,6 @@ general:
     ignore:
       - /doc\/.*/
 
-dependencies:
-  pre:
-    - sudo locale-gen en_US.utf8
-
 machine:
   timezone:
     Europe/Amsterdam
@@ -23,5 +19,6 @@ dependencies:
     - "vendor/bundle"
 
 database:
-  override:
-    - bundle exec rake db:create db:setup --trace
+  override: 
+    - bundle exec rake db:create --trace
+    - bundle exec rake db:setup --trace
