@@ -9,14 +9,18 @@ class Date
     end
   end
 
-  # Create a comparer date for a specific year
-  def self.study_year( year )
-    if Date.today.month < 8
-      return Date.new( year -1, 8, 1)
-    else
-      return Date.new( year, 8, 1 )
-    end
+  def self.to_date( year )
+    return Date.new( year, 8, 1)
   end
+
+  # Create a comparer date for a specific year [DEPRECATED]
+#  def self.study_year( year )
+#    if Date.today.month < 8
+#      return Date.new( year -1, 8, 1)
+#    else
+#      return Date.new( year, 8, 1 )
+#    end
+#  end
 
   # Make s list of consecutive years without interuptions
   def self.years( list )

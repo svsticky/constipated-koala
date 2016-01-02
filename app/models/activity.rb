@@ -24,7 +24,7 @@ class Activity < ActiveRecord::Base
 
   def self.study_year( year )
     year = year.blank? ? Date.today.study_year : year.to_i
-    where('start_date >= ? AND start_date < ?', Date.study_year( year ), Date.study_year( year +1 ))
+    where('start_date >= ? AND start_date < ?', Date.to_date( year ), Date.to_date( year +1 ))
   end
 
   def self.debtors
