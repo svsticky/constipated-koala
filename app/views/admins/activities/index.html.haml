@@ -134,8 +134,4 @@
                     - else
                       %td.hidden-sm
 
-                    - if activity.participants.count > 0
-                      %td.hidden-xs= link_to "#{activity.participants.count} deelnemers", activity
-                    - else
-                      %td.hidden-xs -
                     %td.hidden-xs= link_to "#{I18n.l(activity.start_date, :format => :day_month)}", activity
