@@ -62,6 +62,10 @@ case $1 in
     sig USR1 && echo rotated logs OK && exit 0
     echo >&2 "Couldn't rotate logs" && exit 1
     ;;
+  status)
+    sig 0 && echo >&2 "$APP_NAME is running." && exit 0
+    echo >&2 "$APP_NAME is not running."
+    ;;
   *)
     echo >&2 $USAGE
     exit 1
