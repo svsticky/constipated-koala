@@ -42,7 +42,7 @@ $ bundle exec rake db:create db:setup
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
 ###development
-In development we are using Webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](routes.rb), so we need two subdomains to acquire that constraint. Adding it the your hostfile works on localhost on any linux system. So now you can reach the application [http://koala.rails.dev:3000].
+In development we are using Webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to acquire that constraint. Adding it the your hostfile works on localhost on any linux system. So now you can reach the application [http://koala.rails.dev:3000].
 
 ```shell
 # Add hosts for different subdomains on localhost

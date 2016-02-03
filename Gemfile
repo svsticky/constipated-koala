@@ -58,6 +58,6 @@ gem 'jbuilder'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
-group :development, :staging do
+group :development, :test do
   gem 'faker'
 end
