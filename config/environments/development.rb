@@ -27,14 +27,17 @@ ConstipatedKoala::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
-  
+
   config.action_controller.action_on_unpermitted_parameters = :raise
-  
+
   # Custom configuration
   config.mailgun = ENV['MAILGUN_TOKEN']
   config.checkout = ENV['CHECKOUT_TOKEN']
-  
+
+  # store in public folder for testing purposes
   config.paperclip_defaults = {
-    :path => '/:class/:id/:style'
+    :storage => :filesystem,
+    :path => ':rails_root/images/public/:class/:id/:style.:extension',
+    :url => '/images/:class/:id/:style/:filename'
   }
 end

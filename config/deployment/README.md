@@ -14,7 +14,7 @@ Congratulations, you are using a superior operating system.
 rbenv!
 
 ##Deployment
-Deploying koala or any Ruby on Rails application for that matter is just using some commands. It isn't that hard. First we have to clone the repository to a suitable location, usually that would be `/var/www` on any linux server. Then we have to install rbenv-vars, which set environment variables. It sets variables accessible on the entire system, these variables are usually secret so they are not put on Github. To list all environment variables just type `ENV` and press <kbd>enter</kbd>.
+Deploying koala or any Ruby on Rails application for that matter is just using some commands. It isn't that hard. First we have to clone the repository to a suitable location, usually that would be `/var/www` on any linux server. Then we have to install rbenv-vars, which set environment variables. It sets variables accessible on the entire system, these variables are usually secret so they are not put on Github. To list all environment variables just type `env` and press <kbd>enter</kbd>.
 
 ```shell
 # Clone and switch directories:
