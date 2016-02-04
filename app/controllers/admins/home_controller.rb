@@ -3,7 +3,7 @@ class Admins::HomeController < ApplicationController
     @members = Education.group('member_id').where('status = 0').length
     @studies = Education.where('status = 0').joins(:study).group('studies.code').order('studies.masters, studies.id').count
 
-    @activities = Activity.where("start_date >= ?", Date.study_year( Date.today.study_year )).count
+    @activities = Activity.where("start_date >= ?", Date.to_date( Date.today.study_year )).count
 
     @transactions = CheckoutTransaction.count(:all)
     @recent = CheckoutTransaction.where("created_at >= ?", Time.zone.now.beginning_of_day).order(created_at: :desc).take(10)

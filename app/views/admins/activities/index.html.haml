@@ -20,8 +20,8 @@
                     %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
 
                 %tbody
-                  - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).where.not(:price => NIL).each do |participant|
-                    - if !participant.currency.nil?
+                  - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
+                    - if !participant.currency.nil? && participant.currency > 0
                       %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :id => participant.id, :email => participant.member.email, :name => participant.member.name } }
                         %td= link_to "#{participant.member.name}", participant.member
 
@@ -134,8 +134,4 @@
                     - else
                       %td.hidden-sm
 
-                    - if activity.participants.count > 0
-                      %td.hidden-xs= link_to "#{activity.participants.count} deelnemers", activity
-                    - else
-                      %td.hidden-xs -
                     %td.hidden-xs= link_to "#{I18n.l(activity.start_date, :format => :day_month)}", activity

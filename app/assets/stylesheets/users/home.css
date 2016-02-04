@@ -80,13 +80,23 @@ section > .page > .row {
 }
 
 @media (max-width: 768px) {
-
   #header {
     display: none;
   }
 
   .view-container {
     margin-top: -50px;
+  }
+}
+
+/*
+.col-md-6.clear-left {
+  clear: left;
+}*/
+
+@media (max-width: 992px){
+  .col-md-6.clear-left {
+    clear: both;
   }
 }
 
