@@ -42,9 +42,6 @@ $ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git && cd ConstipatedK
 # Install ruby dependencies:
 $ bundle install
 
-# Create `config/database.yml` with adapter `mysql2` and database credentials
-$ mvim config/database.yml
-
 # Create and populate the database
 $ bundle exec rake db:create && bundle exec rake db:setup
 

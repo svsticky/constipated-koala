@@ -111,6 +111,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.1)
       sprockets-rails (~> 2.0)
+    rails-settings-cached (0.4.1)
+      rails (>= 4.0.0)
     railties (4.1.1)
       actionpack (= 4.1.1)
       activesupport (= 4.1.1)
@@ -166,7 +168,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 1.5.7)
-  bcrypt
   coffee-rails
   devise
   execjs
@@ -181,6 +182,7 @@ DEPENDENCIES
   nokogiri
   paperclip
   rails (~> 4.1.1)
+  rails-settings-cached
   rest-client
   sass-rails
   therubyracer

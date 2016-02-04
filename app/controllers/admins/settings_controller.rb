@@ -2,7 +2,7 @@ class Admins::SettingsController < ApplicationController
   respond_to :json, only: [:destroy]
 
   def index
-    @settings = UserConfiguration.all
+    @settings = Settings.unscoped
 
     @studies = Study.all
 

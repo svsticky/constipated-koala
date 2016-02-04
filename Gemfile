@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.1'
-gem 'unicorn'
 
 # authentication gem
 gem 'devise'
@@ -22,7 +21,6 @@ gem 'modernizr-rails'
 
 # Paperclip easy file upload to S3
 gem 'paperclip'
-gem 'aws-sdk', '~> 1.5.7'
 
 # Use mysql as the production database
 gem 'mysql2'
@@ -36,9 +34,6 @@ gem 'fuzzily'
 # Use for javascript
 gem 'execjs'
 gem 'nokogiri'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
@@ -55,8 +50,16 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
-# Use ActiveModel has_secure_password
-gem 'bcrypt'
+# settings cached in rails environment
+gem 'rails-settings-cached'
+
+group :production do
+  gem 'unicorn'
+  gem 'aws-sdk', '~> 1.5.7'
+
+  # Use Uglifier as compressor for JavaScript assets
+  gem 'uglifier'
+end
 
 group :development, :test do
   gem 'faker'

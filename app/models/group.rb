@@ -12,7 +12,7 @@ class Group < ActiveRecord::Base
     :dependent => :destroy
   has_many :members,
     :through => :group_members
-    
+
   is_impressionable
 
   def years
@@ -22,7 +22,7 @@ class Group < ActiveRecord::Base
 
   def positions
     return [ 'chairman', 'secretary', 'treasurer', 'internal', 'external', 'education' ] if self.board?
-    return ([ 'chairman', 'treasurer', 'board' ] + ENV['ADDITIONAL_COMMITTEE_POSITIONS'].to_a + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.committee?
+    return ([ 'chairman', 'treasurer', 'board' ] + Settings.additional_committee_positions + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.committee?
     return [ 'chairman', 'treasurer' ]
   end
 

@@ -120,7 +120,6 @@
                 %p.text-center
                   %em geen kaarten
 
-      .col-md-4
         .panel.panel-box.info-box
           .panel-left.panel-item.bg-reverse
             %p.size-h1.no-margin
@@ -130,8 +129,7 @@
           .panel-right.panel-item.bg-warning
             %i.fa.fa-credit-card.text-large.stat-icon
 
-      = link_to apps_products_path, { :class => 'col-md-4' } do
-        .panel.panel-box.info-box
+        = link_to apps_products_path, { :class => 'panel panel-box info-box' } do
           .panel-left.panel-item.bg-primary-light
             %i.fa.fa-shopping-cart.text-large.stat-icon
           .panel-right.panel-item.bg-reverse

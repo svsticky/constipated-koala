@@ -30,7 +30,7 @@ class CheckoutTransaction < ActiveRecord::Base
     end
 
     if items.any? { |item| CheckoutProduct.find( item ).liquor? }
-      raise ActiveRecord::RecordNotSaved.new('not_allowed') if Time.now.before( ENV['LIQUOR_TIME'] )
+      raise ActiveRecord::RecordNotSaved.new('not_allowed') if Time.current.before( Settings.liquor_time )
       raise ActiveRecord::RecordNotSaved.new('not_allowed') if (self.checkout_balance.member.birth_date + 18.years) > Date.today
     end
 

@@ -11,6 +11,7 @@ nl:
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
+      short: "%H:%M"
 
   activerecord:
     models:

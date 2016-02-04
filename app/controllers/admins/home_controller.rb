@@ -6,6 +6,7 @@ class Admins::HomeController < ApplicationController
     @activities = Activity.where("start_date >= ?", Date.study_year( Date.today.study_year )).count
 
     @transactions = CheckoutTransaction.count(:all)
+    @recent = CheckoutTransaction.where("created_at >= ?", Time.zone.now.beginning_of_day).order(created_at: :desc).take(10)
 
     @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
 

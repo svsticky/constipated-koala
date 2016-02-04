@@ -90,7 +90,8 @@ Group.create(
   created_at: Faker::Date.between(3.years.ago, 2.years.ago)
 )
 
-exit if Rails.env == 'production' 
+exit if Rails.env == 'production'
+
 # Seeds not working on CI
 exit if Rails.env == 'test'
 

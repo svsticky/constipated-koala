@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809194425) do
+ActiveRecord::Schema.define(version: 20160203191821) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20150809194425) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "committee_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
@@ -189,6 +188,17 @@ ActiveRecord::Schema.define(version: 20150809194425) do
 
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
 
+  create_table "settings", force: true do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
+
   create_table "studies", force: true do |t|
     t.string  "code"
     t.boolean "masters"
@@ -214,15 +224,6 @@ ActiveRecord::Schema.define(version: 20150809194425) do
 
   add_index "trigrams", ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match", using: :btree
   add_index "trigrams", ["owner_id", "owner_type"], name: "index_by_owner", using: :btree
-
-  create_table "user_configurations", id: false, force: true do |t|
-    t.string  "abbreviation"
-    t.string  "name"
-    t.string  "description"
-    t.string  "value"
-    t.integer "config_type"
-    t.string  "options"
-  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

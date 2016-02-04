@@ -63,6 +63,24 @@
             Transacties
           %table.table.table-striped.table-linked
             %tbody
+              - @recent.each do |transaction|
+                %tr
+                  %td= I18n.l transaction.created_at, :format => :short
+                  %td
+                    = number_to_currency(transaction.price, :unit => '€')
+                    - if transaction.price > 0
+                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                    - else
+                      %span.fa.fa-sort-desc.pull-right
+
+                  %td
+                    - unless transaction.checkout_balance.member.nil?
+                      = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                    - else
+                      \-
+
+                  %td.hidden-sm
+                    = transaction.products
 
 
       %div.col-md-3

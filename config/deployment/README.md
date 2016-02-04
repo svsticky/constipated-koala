@@ -36,7 +36,7 @@ In the `.rbenv-vars` is a fixed set of variables required for going any further,
 $ bundle install
 
 # Create and populate the database
-$ bundle exec rake db:create db:setup
+$ bundle exec rake db:create db:migrate
 
 ```
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
@@ -48,12 +48,15 @@ In development we are using Webrick, it is a very basic single threaded server a
 # Add hosts for different subdomains on localhost
 $ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
 
+# For ease run seed to fill the database with data
+$ bundle exec rake db:seed
+
 # Run the server using webrick
 $ bundle exec rails server
 ```
 
 ###production
-Well almost there, before running this app on production it would be smart to secure the connection with an ssl certficate. This can be done by letsencrypt where the webroot should be `/var/www/koala.svsticky.nl/public`.
+Well almost there, before running this app on production it would be smart to secure the connection with an ssl certificate. This can be done by letsencrypt where the webroot should be `/var/www/koala.svsticky.nl/public`.
 
 Secondly there are some files in this folder that should be moved to the appropriate location; `koala.svsticky.nl` is the nginx config that works with the production environment settings and probably should be moved to `/etc/nginx/sites-available/`. Now we can add the init.d script which starts unicorn on every start and gives you commands like `service unicorn reload` to restart unicorn.
 
@@ -72,4 +75,6 @@ $ sudo chmod 755 /etc/init.d/unicorn
 $ sudo update-rc.d /etc/init.d/unicorn defaults
 ```
 
-Now run `sudo service unicorn start`, congratulations! :)
+Now run `sudo service unicorn start`, congratulations you are running a rails application! :)
+
+One final action should be performed, adding at least one admin. This can be done by a rake task; `bundle exec rake admin:create['martijn@stickyutrecht.nl','sticky123']` and goto the url displayed or mailed if you set mailgun correctly!
