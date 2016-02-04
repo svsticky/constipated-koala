@@ -39,9 +39,10 @@ class Activity < ActiveRecord::Base
     participants.where(:member => member).first.price ||= self.price
   end
 
-#  def price
-#    0 if read_attribute(:price).nil?
-#  end
+ def price
+   return 0 if read_attribute(:price).nil?
+   return read_attribute(:price)
+ end
 
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f

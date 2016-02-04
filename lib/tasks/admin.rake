@@ -64,24 +64,18 @@ namespace :admin do
 
   desc 'Start a new year, create a new membership activity if given and set in config'
   task :start_year, [:membership, :price] => :environment do |t, args|
-    #TODO intro activities
-
-    exit if ENV['BEGIN_STUDY_YEAR'].nil? || Date.parse( ENV['BEGIN_STUDY_YEAR'] ) != Date.today
-
-    #TODO dump all impressions
-
+    exit if Settings.begin_study_year < Date.today
     exit if args[:membership].nil?
 
     #create new activity
     activity = Activity.create(
       name:                 args[:membership],
-      price:                args[:price],
-      start_date:           ENV['BEGIN_STUDY_YEAR']
+      price:                args[:price] ||= 0,
+      start_date:           Settings.begin_study_year,
+      description:          'automatisch gegenereerde activiteit'
     )
 
-    #change configuration
-    membership = UserConfiguration.where( :abbreviation => 'intro_membership' )
-    membership.update_attributes :value => activity.id
-    membeship.save
+    Settings.begin_study_year = Date.today + 1.year
+    Settings.intro_membership = [activity.id]
   end
 end
