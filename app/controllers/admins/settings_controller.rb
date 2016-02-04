@@ -1,13 +1,28 @@
 class Admins::SettingsController < ApplicationController
-  respond_to :json, only: [:destroy]
+  respond_to :json, only: [:create, :destroy]
 
   def index
-    @settings = Settings.unscoped
-
     @studies = Study.all
 
     @advert = Advertisement.new
     @advertisements = Advertisement.all
+  end
+
+  def create
+    if ['additional_moot_positions', 'additional_committee_positions'].include? params[:setting]
+      Settings[params[:setting]] = params[:value].split(',')
+    elsif ['intro_membership','intro_activities'].include? params[:setting]
+      Settings[params[:setting]] = params[:value].split(',').map(&:to_i)
+    elsif ['mongoose_ideal_costs'].include? params[:setting]
+      Settings[params[:setting]] = params[:value].to_f
+    elsif ['begin_study_year'].include? params[:setting]
+      Settings[params[:setting]] = Date.parse(params[:value])
+    else
+      Settings[params[:setting]] = params[:value]
+    end
+
+    render :status => :ok, :json => nil
+    return
   end
 
   def logs

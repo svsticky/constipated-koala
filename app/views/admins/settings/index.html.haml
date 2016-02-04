@@ -13,23 +13,68 @@
           .panel-heading
             %i.fa.fa-fw.fa-fw.fa-wrench
             Instellingen
-          %ul.list-group
-            = form_for 'settings[]', url: settings_path, method: :patch, :class => 'form-validation' do |f|
-              - @settings.each do |setting|
-                %li.list-group-item
-                  = f.hidden_field :id, :value => setting.id
+          %ul.list-group#settings
+            = form_tag settings_url do
 
-                  .col-md-6
-                    %b= setting.name
-                    %p= setting.description
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'mongoose_ideal_costs.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'mongoose_ideal_costs.description', scope: 'activerecord.attributes.settings'
 
-                  .col-md-6
-                    - if setting.config_type == 'array'
-                      = f.text_field 'value', :value => setting.value, :readonly => true
-                    - if setting.config_type == 'boolean'
-                      = f.text_field 'value', :value => setting.value, :readonly => true
-                    - if setting.config_type == 'integer'
-                      = f.text_field 'value', :value => setting.value, :readonly => true
+                .col-md-6
+                  %input.form-control{ :id => 'options_mongoose_ideal_costs', :name => 'mongoose_ideal_costs', :value => Settings.mongoose_ideal_costs }
+
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'liquor_time.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'liquor_time.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'options_liquor_time', :name => 'liquor_time', :value => Settings.liquor_time }
+
+
+
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'begin_study_year.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'begin_study_year.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'options_begin_study_year', :name => 'begin_study_year', :value => Settings.begin_study_year }
+
+
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'intro_membership.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'intro_membership.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'options_intro_membership', :name => 'intro_membership', :value => Settings.intro_membership.join(',') }
+
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'intro_activities.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'intro_activities.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'options_intro_activities', :name => 'intro_activities', :value => Settings.intro_activities.join(','), :placeholder => 'gescheiden met komma\'s' }
+
+
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'additional_committee_positions.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'additional_committee_positions.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'options_additional_committee_positions', :name => 'additional_committee_positions', :value => Settings.additional_committee_positions.join(','), :placeholder => 'gescheiden met komma\'s' }
+
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'additional_moot_positions.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'additional_moot_positions.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_moot_positions', :value => Settings.additional_moot_positions.join(','), :placeholder => 'gescheiden met komma\'s' }
 
 
       .col-md-6

@@ -49,40 +49,6 @@ Study.create(
   masters:        true
 )
 
-
-# Default configuration
-UserConfiguration.create(
-  abbreviation:   'allowed_email_pattern',
-  name:           'Toegestaande e-mailadressen',
-  description:    'Defineer de toegestaande e-mailadressen met reguliere expressie',
-  value:          '/[A-Za-z0-9.+-_]+@(?![A-Za-z0-9.+-_]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/',
-  config_type:    UserConfiguration.config_types[:string]
-) and puts '   -> ENV[\'ALLOWED_EMAIL_PATTERN\']'
-
-UserConfiguration.create(
-  abbreviation:   'student_id_required',
-  name:           'Studentnummer verplicht',
-  description:    'Maak het studentnummer verplicht in /\F?\d{6,7}/ formaat',
-  value:          'true',
-  config_type:    UserConfiguration.config_types[:boolean]
-) and puts '   -> ENV[\'STUDENT_ID_REQUIRED\']'
-
-UserConfiguration.create(
-  abbreviation:   'student_id_elfproef',
-  name:           'Elfproef studentnummer',
-  description:    'Controleer het studentnummer met de elfproef als het geen /\F\d{6}/ is.',
-  value:          'false',
-  config_type:    UserConfiguration.config_types[:boolean]
-) and puts '   -> ENV[\'STUDENT_ID_ELFPROEF\']'
-
-UserConfiguration.create(
-  abbreviation:   'additional_committee_positions',
-  name:           'Extra commissierollen',
-  description:    'Rollen die naast voorzitter, penningmeester, en bestuurslid worden toegevoegd aan alle commissies.',
-  value:          '["fotograaf"]',
-  config_type:    UserConfiguration.config_types[:array]
-) and puts '   -> ENV[\'ADDITIONAL_COMMITTEE_POSITIONS\']'
-
 # Create one board which by default is not selectable in the app
 Group.create(
   name:       'Bestuur',
@@ -90,10 +56,9 @@ Group.create(
   created_at: Faker::Date.between(3.years.ago, 2.years.ago)
 )
 
-exit if Rails.env == 'production'
-
 # Seeds not working on CI
 exit if Rails.env == 'test'
+exit if Rails.env == 'production'
 
 # Load the user_settings just set
 puts '-- Load user configuration for environment variables'
@@ -141,11 +106,11 @@ puts '-- Populate the database using Faker'
 end
 
 
-# Create groups with on board.
+# Create groups
 6.times do
   group = Group.create(
     name:       Faker::Team.name,
-    category:   3,
+    category:   2,
     created_at: Faker::Date.between(3.years.ago, Date.today)
   )
 

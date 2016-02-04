@@ -37,11 +37,20 @@ $ bundle install
 
 # Create and populate the database
 $ bundle exec rake db:create db:migrate
-
 ```
+
+###Cron jobs
+```shell
+# Reindex the search table, which can be partial because of the load on introduction day!
+$ 0 0 10 9 * cd /var/www/koala.svsticy.nl && /usr/local/bin/rake RAILS_ENV=production admin:reindex_members
+
+# Start a cronjob daily (at 2:09AM) to create new membership activity and **hide passed intro_activities**
+$ 9 2 * * * cd /var/www/koala.svsticky.nl && /usr/local/bin/rake RAILS_ENV=production admin:start_year['Lidmaatschap',7.5]
+```
+
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
-###development
+###Development locally
 In development we are using Webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to acquire that constraint. Adding it the your hostfile works on localhost on any linux system. So now you can reach the application [http://koala.rails.dev:3000].
 
 ```shell
@@ -55,7 +64,7 @@ $ bundle exec rake db:seed
 $ bundle exec rails server
 ```
 
-###production
+###Production on a server
 Well almost there, before running this app on production it would be smart to secure the connection with an ssl certificate. This can be done by letsencrypt where the webroot should be `/var/www/koala.svsticky.nl/public`.
 
 Secondly there are some files in this folder that should be moved to the appropriate location; `koala.svsticky.nl` is the nginx config that works with the production environment settings and probably should be moved to `/etc/nginx/sites-available/`. Now we can add the init.d script which starts unicorn on every start and gives you commands like `service unicorn reload` to restart unicorn.
