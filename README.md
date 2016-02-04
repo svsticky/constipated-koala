@@ -13,72 +13,10 @@ Currently, it implements methods to track several things within the association:
 
 There is more to be implemented :)
 
-## Development setup
+## Installing koala
+**An extensive tutorial on how to install koala on your laptop or on a production server is [here](config/deployment)**. There are a few *strange* things happening in koala. For one, it is integrated with an [ideal platform](https://github.com/StickyUtrecht/ideal.local). Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will nog work. Secondly it uses amazon for storing posters and images of mongoose products. In development this should also work on the local machine without amazon's S3 servers. And one regretful thing, posters are uploaded as pdf's, they will be resized and stored in two formats. However the parsing of a pdf file is not working very well and I had to hack in ghostscript a little bit.
 
-You will need a working package manager, and a working ruby version manager and/or
-build tools.
-
-### External dependencies
-
-Install before continuing:
-
- - `ruby-2.1.2` (install with [`rbenv install`][rbenv] or, if you must, [`rvm`][rvm]);
- - MySQL with database created.
-
-  [rbenv]: https://github.com/sstephenson/rbenv
-  [rvm]: http://rvm.io/
-
-We use MySQL (or a compatible) both in development and production. This to minimalize
-development/production mismatches. No SQLite here.
-
-### Running the Rails app
-
-This is how you can get started with the development setup.
-
-```shell
-# Clone and switch directories:
-$ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git && cd ConstipatedKoala
-
-# Install ruby dependencies:
-$ bundle install
-
-# Create and populate the database
-$ bundle exec rake db:create && bundle exec rake db:setup
-
-# Run the server
-$ bundle exec rails server
-
-# Add dev host to hosts file
-$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
-```
-
-All done! Now you have the admin system and intro website running at:
-
- - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
- - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
-
-### A note on databases
-
-There used to be a section here telling you to be a bit fearful of running the
-`db:migrate` rake task. This was misinformed. For more information on this historical
-perspective you can check out issue 53.
-
-Here are the rake tasks that you will need to use in order to effectively contribute
-to this project:
-
- - When starting out, `rake db:create` will set you up with a nice development
-   database. It won't, however fill it with any tables.
- - To create the relevant tables and seed them you can use `rake db:setup`.
- - When there are pending migrations (database changes), `rake db:migrate` will do
-   the job nicely. Use this when you create migrations yourself or when the
-   `rake db:setup` task fails due to pending migrations (in this latter case notify
-   the maintainer and complain about bad code review).
- - Messed something up? Run the task `db:reset`. This will drop the database, create
-   it and set it back up again.
-
-`schema.rb` is a file that describes the database schema of this application. Any
-changes to it are critical, therefore it is paramount that you check this file into
-version control.
+Devise and fuzzily are also hacked in a bit. Fuzzily is hacked into to ensure that you can filter first with a `where` and then perform a search on the subset just created. Devise has a feature where an existing member can create a password with their known email address. Both of them are defined in `config/initializers`.
 
 ## Contributing
 

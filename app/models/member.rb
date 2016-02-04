@@ -280,7 +280,7 @@ class Member < ActiveRecord::Base
     if status.nil? || status[2].downcase == 'actief'
       # if already filtered on study, that particular study should be active
       if code.present?
-        records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0 && study_id = ?', code.id ).map{ |education| education.member_id}))
+        records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0 AND study_id = ?', code.id ).map{ |education| education.member_id}))
       else
         records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
       end

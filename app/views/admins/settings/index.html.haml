@@ -22,7 +22,7 @@
                   %p= I18n.t 'mongoose_ideal_costs.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_mongoose_ideal_costs', :name => 'mongoose_ideal_costs', :value => Settings.mongoose_ideal_costs }
+                  %input.form-control{ :id => 'options_mongoose_ideal_costs', :name => 'mongoose_ideal_costs', :value => Settings.mongoose_ideal_costs, :placeholder => '' }
 
               %li.list-group-item
                 .col-md-6
@@ -30,7 +30,7 @@
                   %p= I18n.t 'liquor_time.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_liquor_time', :name => 'liquor_time', :value => Settings.liquor_time }
+                  %input.form-control{ :id => 'options_liquor_time', :name => 'liquor_time', :value => Settings.liquor_time, :placeholder => 'hh:mm' }
 
 
 
@@ -40,7 +40,7 @@
                   %p= I18n.t 'begin_study_year.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_begin_study_year', :name => 'begin_study_year', :value => Settings.begin_study_year }
+                  %input.form-control{ :id => 'options_begin_study_year', :name => 'begin_study_year', :value => Settings.begin_study_year, :placeholder => 'yyyy-mm-dd' }
 
 
               %li.list-group-item
