@@ -53,10 +53,12 @@ $ bundle install
 $ bundle exec rake db:create db:setup
 ```
 
+Now the hardest part; [paperclip](https://github.com/thoughtbot/paperclip#image-processor). Paperclip is a image processor, however because we use pdf as posters we have to add imagemagick to our server. Make sure the `identify` and `convert` are reachable from the path configured [here](../environment.rb). You can find the paths out by using `which convert` on your machine. 
+
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
 ###Development locally
-In development we are using Webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works on localhost on any linux system. So now you can reach the application [http://koala.rails.dev:3000].
+In development we are using Webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works on localhost on any linux system. So now you can reach the application [koala.rails.dev:3000](http://koala.rails.dev:3000).
 
 ```shell
 # Add hosts for different subdomains on localhost

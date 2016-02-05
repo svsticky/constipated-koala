@@ -19,13 +19,13 @@ There is more to be implemented :)
 Devise and fuzzily are also hacked in a bit. Fuzzily is hacked into to ensure that you can filter first with a `where` and then perform a search on the subset just created. Devise has a feature where an existing member can create a password with their known email address. Both of them are defined in `config/initializers`.
 
 ## Contributing
-
 So you want to contribute? Awesome! You are most welcome to. We do however have our
-own pecularities, please try to follow them. It will be much obliged and will smoothen
+own peculiarities, please try to follow them. It will be much obliged and will smoothen
 over the process greatly.
 
-### Branching strategy
+For the admin pages we used a template called [Flatify](http://iarouse.com/dist-flatify/v2.1/index.html#/dashboard) that you should stick to. It is quite extensive and is based on [bootstrap](http://www.getbootstrap.com).
 
+### Branching strategy
 The history of this project includes a lot of unnecessary merge commits, which aren't
 that pretty. Currently we have a contributing procedure that needs to be followed.
 
@@ -37,6 +37,7 @@ This leaves us with the following workflow:
 1. Want to work on something? Create a topic branch.
 1. Push the topic branch to GitHub when you want to show something.
 1. Open a pull request. Gather feedback. Improve the patch.
+1. Occasionally pull from master to ensure you didn't created merge errors.
 1. Wait for the PR to be merged into `master`. Then update local history.
 
 Please make sure to write a descriptive commit message. [Here][commit-messages] you
@@ -45,7 +46,6 @@ can find some tips for better commit messages.
  [commit-messages]:http://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
 
 ### Example contributing flow
-
 ```bash
 # Create and checkout a new branch for the contribution
 $ git checkout -b doc/contributing-guidelines
@@ -71,7 +71,6 @@ $ git pull origin master
 ```
 
 ### Branch naming
-
 Try to be descriptive. Use the following prefixes for the names depending on the type
 of work:
 
@@ -82,7 +81,6 @@ of work:
  - `debt/` for refactoring and enhancements.
 
 ## License
-
 ```
 ConstipatedKoala is licensed under the GPLv3 license.
 

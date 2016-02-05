@@ -1,31 +1,31 @@
 #API documentation
-Koala has an API endpoint for a few applications; radio, _zuil_, and checkout. This documentation describes the possible routes and responses. 
+Koala has an API endpoint for a few applications; radio, _zuil_, and checkout. This documentation describes the possible routes and responses.
+
+[INSERT CONTENTS HERE]
 
 ## Activities
 
 
 ## Checkout
-All checkout endpoints require a `secret` called token declared in the configuration of [.rbenv-vars-sample](/.rbenv-vars-sample). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.
+All checkout endpoints require a secret called `token` declared in the configuration of [.rbenv-vars](/.rbenv-vars-sample). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.
 ```json
 HTTP/1.1 403 FORBIDDEN
 Content-Type → application/json; charset=utf-8
-Content-Encoding → gzip
 ```
-Below are the other action that can be used for checkout.
+Below are the endpoints that can be used for checkout.
 
 ##### Retrieve products
 <pre>
 <b>GET /api/checkout/products HTTP/1.1</b>
 Host: koala.svsticky.nl
-Cache-Control: no-cache
 
-+ <b>token:</b> String (required)
++ <b>token</b> :string <em>(required)</em>
 </pre>
 
 ```json
 HTTP/1.1 200 OK
 Content-Type → application/json; charset=utf-8
-Content-Encoding → gzip
+
 
 [
   {
@@ -49,17 +49,15 @@ Content-Encoding → gzip
 <pre>
 <b>GET /api/checkout/card HTTP/1.1</b>
 Host: koala.svsticky.nl
-Cache-Control: no-cache
 
-+ <b>token:</b> String (required)
-+ <b>uuid:</b>  String (required)
++ <b>token</b> :string <em>(required)</em>
++ <b>uuid</b>  :string <em>(required)</em>
 </pre>
 Where `uuid` is the unique identifier of the card, for now we only support OV-chipcards
 
 ```json
 HTTP/1.1 200 OK
 Content-Type → application/json; charset=utf-8
-Content-Encoding → gzip
 
 {
   "id": 9,
@@ -75,4 +73,3 @@ HTTP/1.1 404 NOT FOUND
 Content-Type → application/json; charset=utf-8
 Content-Encoding → gzip
 ```
-
