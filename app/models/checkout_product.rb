@@ -16,6 +16,7 @@ class CheckoutProduct < ActiveRecord::Base
   	:styles => { :original => ['128x128', :png] },
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
+    :path => '/:class/:id',
   	:s3_permissions => {
       :original => :public_read
     }

@@ -12,5 +12,4 @@ tmp
 
 vendor/cache
 public/assets
-public/images/*
-!public/images/.keep
+public/images

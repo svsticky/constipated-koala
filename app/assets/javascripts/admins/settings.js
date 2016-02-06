@@ -18,11 +18,15 @@ $(document).on( 'ready page:load', function(){
         value: obj.value
       }
     }).done(function( data, status ){
-      $(obj).val(data['activities']);
-
       alert( $(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast', 'success' );
 
-      if(data['warning'] == true)
+      if( !data )
+        return
+
+      if( 'activities' in data )
+        $(obj).val(data['activities']);
+
+      if( 'warning' in data && data['warning'] == true )
         alert( 'niet alle activiteiten gevonden', 'warning' );
     }).fail(function(){
       alert( 'Instelling is niet opgeslagen', 'error' );
