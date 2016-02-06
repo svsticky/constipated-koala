@@ -12,12 +12,20 @@ class Admins::SettingsController < ApplicationController
     if ['additional_moot_positions', 'additional_committee_positions'].include? params[:setting]
       Settings[params[:setting]] = params[:value].split(',')
     elsif ['intro_membership','intro_activities'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].split(',').map(&:to_i)
+      Settings[params[:setting]] = Activity.where( id: params[:value].split(',').map(&:to_i) ).collect(&:id)
+      render :status => :ok, :json => {
+        activities: Settings[params[:setting]],
+        warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
+      }
+      return #check if actvities exists
     elsif ['mongoose_ideal_costs'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].to_f
+      render :status => :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+      Settings[params[:setting]] = params[:value].sub(',','.').to_f
     elsif ['begin_study_year'].include? params[:setting]
+      render :status => :bad_request and return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
       Settings[params[:setting]] = Date.parse(params[:value])
-    else
+    elsif ['liquor_time'].include? params[:setting]
+      render :status => :bad_request and return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
       Settings[params[:setting]] = params[:value]
     end
 

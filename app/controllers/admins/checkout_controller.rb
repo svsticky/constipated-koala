@@ -53,12 +53,13 @@ class Admins::CheckoutController < ApplicationController
       transaction.save
     rescue ActiveRecord::RecordNotSaved => error
       render :status => :not_acceptable, :json => {
-        alcohol_allowed_at: Settings.liquor_time
+        message: "alcohol allowed at #{Settings.liquor_time}"
       } if error.message == 'not_allowed'
 
       render :status => :bad_request, :json => '' if error.message == 'empty_items'
 
       render :status => :request_entity_too_large, :json => {
+        message: 'insufficient funds',
         balance: card.checkout_balance.balance,
         items: params[:items].to_a,
         costs: transaction.price

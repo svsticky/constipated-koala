@@ -183,6 +183,7 @@ HTTP/1.1 404 NOT ACCEPTABLE
 Content-Type → application/json; charset=utf-8
 
 {
+  "message": "insufficient funds",
   "balance": "2.9",
   "items": [
     1,
@@ -199,6 +200,6 @@ HTTP/1.1 404 NOT ACCEPTABLE
 Content-Type → application/json; charset=utf-8
 
 {
-  "alcohol_allowed_at": "16:00"
+  "message": "alcohol allowed at 16:00"
 }
 ```

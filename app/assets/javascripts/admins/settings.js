@@ -5,13 +5,7 @@
 
 $(document).on( 'ready page:load', function(){
 
-  $( '#settings input[id^=\'options\']' ).on( 'keypress', function( e ){
-    if(e.which != 13)
-      return
-    e.preventDefault();
-
-    $(this).blur();
-
+  $( '#settings input[id^=\'options\']' ).on( 'change', function( e ){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
     var obj = this;
 
@@ -23,6 +17,13 @@ $(document).on( 'ready page:load', function(){
         setting: obj.name,
         value: obj.value
       }
+    }).done(function( data, status ){
+      $(obj).val(data['activities']);
+
+      alert( $(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast', 'success' );
+
+      if(data['warning'] == true)
+        alert( 'niet alle activiteiten gevonden', 'warning' );
     }).fail(function(){
       alert( 'Instelling is niet opgeslagen', 'error' );
     });
