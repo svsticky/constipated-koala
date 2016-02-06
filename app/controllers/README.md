@@ -33,14 +33,13 @@ Content-Type → application/json; charset=utf-8
   },
   {
     "id": 199,
-    "name": "NS Inhouseday",
-    "start_date": "2016-02-18",
-    "end_date": null,
     "poster_updated_at": "2016-01-26T16:46:10.000+01:00",
-    "poster": "https://sticky-posters.s3.amazonaws.com/activities/199/medium/NSinhousedag.png?1453823170"
+    "poster": "https://sticky-posters.s3.amazonaws.com/activities/199/medium/conferentie.png?1453823170"
   }
 ]
 ```
+
+The last one is an advertisement, these should be split up in two paths `api/activities` and `api/advertisements`.
 
 ## Checkout
 All checkout endpoints require a secret called `token` declared in the configuration of [.rbenv-vars](/.rbenv-vars-sample). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.

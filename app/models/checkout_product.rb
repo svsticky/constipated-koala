@@ -2,9 +2,9 @@ class CheckoutProduct < ActiveRecord::Base
 
   validates :name, presence: true
   validates :category, presence: true
-  # validates :active
+  validates :active, presence: true
   validates :price, presence: true
-  # validate :valid_image
+  validate :valid_image
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
@@ -71,6 +71,6 @@ class CheckoutProduct < ActiveRecord::Base
 
   private
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') if !image.exists? && parent.nil?
+    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless self.image.present? || parent.present?
   end
 end
