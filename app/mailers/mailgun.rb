@@ -8,7 +8,6 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
 
   def confirmation_instructions(record, token, opts={})
     puts "confirm at #{confirmation_url(record, confirmation_token: token)}"
-    return if Rails.env.development?
 
     #todo aanpasbaar maken
     @email = record.unconfirmed_email ||= record.email
