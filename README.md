@@ -9,7 +9,8 @@ Currently, it implements methods to track several things within the association:
  - Members and membership
  - Activities and payments
  - Committees and other groups
- - The Operation Dead Mongoose (TM) and it's expenses
+ - The [Operation Dead Mongoose](app/controllers) (TM) and it's expenses
+ - Basic logging of most operations
 
 There is more to be implemented :)
 

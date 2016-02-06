@@ -52,13 +52,26 @@ class Admins::CheckoutController < ApplicationController
     begin
       transaction.save
     rescue ActiveRecord::RecordNotSaved => error
-      render :status => :not_acceptable, :json => error.message if error.message == 'not_allowed'
-      render :status => :bad_request, :json => error.message if error.message == 'empty_items'
-      render :status => :request_entity_too_large, :json => error.message if error.message == 'insufficient_funds'
+      render :status => :not_acceptable, :json => {
+        alcohol_allowed_at: Settings.liquor_time
+      } if error.message == 'not_allowed'
+
+      render :status => :bad_request, :json => '' if error.message == 'empty_items'
+
+      render :status => :request_entity_too_large, :json => {
+        balance: card.checkout_balance.balance,
+        items: params[:items].to_a,
+        costs: transaction.price
+      } if error.message == 'insufficient_funds'
       return
     end
 
-    render :status => :created, :json => transaction.created_at
+    render :status => :created, :json => {
+      uuid: card.uuid,
+      first_name: card.member.first_name,
+      balance: card.checkout_balance.balance,
+      created_at: transaction.created_at
+    }
   end
 
   def add_card_to_member
@@ -69,7 +82,7 @@ class Admins::CheckoutController < ApplicationController
 
     card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!(params[:student]), :description => params[:description] )
 
-    if card.save(:validate => false)
+    if card.save
       render :status => :created, :json => CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
       return
     else
