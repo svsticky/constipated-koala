@@ -37,7 +37,7 @@ ConstipatedKoala::Application.configure do
   # store in public folder for testing purposes
   config.paperclip_defaults = {
     :storage => :filesystem,
-    :path => ':rails_root/images/public/:class/:id/:style.:extension',
-    :url => '/images/:class/:id/:style/:filename'
+    :path => ':rails_root/public/images/:class/:id/:style.:extension',
+    :url => '/images/:class/:id/:style.:extension'
   }
 end

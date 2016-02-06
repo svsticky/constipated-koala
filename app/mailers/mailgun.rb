@@ -11,13 +11,13 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
 
     #todo aanpasbaar maken
     @email = record.unconfirmed_email ||= record.email
-    @text = "Hoi %recipient.first_name%,\r\n\r\n Bevestig je email voor Constipated Koala door naar %recipient.link% te gaan.\r\n\r\n Met vriendeijke groet"
+    @text = "Hoi %recipient.first_name%,\r\n\r\n Bevestig je email voor je account bij studievereniging sticky door naar %recipient.link% te gaan.\r\n\r\n Met vriendeijke groet"
     return mail(@email, "\"#{@email}\" : { \"link\": \"#{confirmation_url(record, confirmation_token: token)}\", \"first_name\" : \"lid\"}", 'noreply@stickyutrecht.nl', 'reset password', 'Sticky account activeren', nil, @text)
   end
 
   def reset_password_instructions(record, token, opts={})
     #todo aanpasbaar maken
-    @text = "Hoi %recipient.first_name%,\r\n\r\n Er is een nieuw wachtwoord aangevraagd voor Constipated Koala.\nGa naar %recipient.link% om een nieuw wachtwoord in te stellen. \r\n\r\n Met vriendeijke groet"
+    @text = "Hoi %recipient.first_name%,\r\n\r\n Er is een nieuw wachtwoord aangevraagd voor studievereniging sticky of je hebt geprobeerd een nieuwe account aan te maken.\nGa naar %recipient.link% om een nieuw wachtwoord in te stellen of negeer deze e-mail als je het wachtwoord nog weet. \r\n\r\n Met vriendeijke groet"
     return mail(record.email, "\"#{record.email}\" : { \"link\": \"#{edit_password_url(record, reset_password_token: token)}\", \"first_name\" : \"lid\"}", 'noreply@stickyutrecht.nl', 'password reset', 'Sticky wachtwoord opnieuw instellen', nil, @text)
   end
 

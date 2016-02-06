@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1.1'
 
 # authentication gem
-gem 'devise'
+gem 'devise', '~> 3.2.4'
 
 # logging
 gem 'impressionist'
@@ -23,7 +23,7 @@ gem 'modernizr-rails'
 gem 'paperclip'
 
 # Use mysql as the production database
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.16'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -34,12 +34,6 @@ gem 'fuzzily'
 # Use for javascript
 gem 'execjs'
 gem 'nokogiri'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

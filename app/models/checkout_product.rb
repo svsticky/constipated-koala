@@ -4,7 +4,7 @@ class CheckoutProduct < ActiveRecord::Base
   validates :category, presence: true
   # validates :active
   validates :price, presence: true
-  validate :valid_image
+  # validate :valid_image
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
@@ -16,7 +16,6 @@ class CheckoutProduct < ActiveRecord::Base
   	:styles => { :original => ['128x128', :png] },
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
-  	:path => '/:class/:id',
   	:s3_permissions => {
       :original => :public_read
     }

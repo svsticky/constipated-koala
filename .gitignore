@@ -4,14 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
-/.bundle
-
-# Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
-/vendor/cache
-/public/assets
-
-# Ignore files for passwords/secrets
+.bundle
 .rbenv-vars
+
+log/*.log
+tmp
+
+vendor/cache
+public/assets
+public/images/*
+!public/images/.keep

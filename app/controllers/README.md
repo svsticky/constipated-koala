@@ -179,7 +179,7 @@ Content-Type → application/json; charset=utf-8
 
 ```json
 # Not allowed to buy alcohol at the moment
-HTTP/1.1 404 NOT ACCEPTABLE
+HTTP/1.1 413 REQUEST ENTITY TOO LARGE
 Content-Type → application/json; charset=utf-8
 
 {
@@ -196,7 +196,7 @@ Content-Type → application/json; charset=utf-8
 
 ```json
 # Not allowed to buy alcohol at the moment
-HTTP/1.1 404 NOT ACCEPTABLE
+HTTP/1.1 406 NOT ACCEPTABLE
 Content-Type → application/json; charset=utf-8
 
 {
