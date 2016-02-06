@@ -49,6 +49,8 @@ Content-Type → application/json; charset=utf-8
 ```
 Below are the endpoints that can be used for checkout.
 
+
+
 ##### Retrieve products
 <pre>
 <b>GET /api/checkout/products HTTP/1.1</b>
@@ -79,6 +81,8 @@ Content-Type → application/json; charset=utf-8
 ]
 ```
 
+
+
 ##### Information for card
 <pre>
 <b>GET /api/checkout/card HTTP/1.1</b>
@@ -105,6 +109,8 @@ Content-Type → application/json; charset=utf-8
 HTTP/1.1 404 NOT FOUND
 Content-Type → application/json; charset=utf-8
 ```
+
+
 
 ##### Create a new card and add to member
 <pre>
@@ -140,6 +146,8 @@ Content-Type → application/json; charset=utf-8
 HTTP/1.1 409 CONFLICT
 Content-Type → application/json; charset=utf-8
 ```
+
+
 
 ##### Create a new transaction
 <pre>
@@ -177,7 +185,6 @@ Content-Type → application/json; charset=utf-8
 ```
 
 ```json
-# Not allowed to buy alcohol at the moment
 HTTP/1.1 413 REQUEST ENTITY TOO LARGE
 Content-Type → application/json; charset=utf-8
 
