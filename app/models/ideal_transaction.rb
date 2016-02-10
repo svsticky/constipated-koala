@@ -23,7 +23,8 @@ class IdealTransaction < ActiveRecord::Base
         'description' => self.description,
         'amount' => self.amount,
         'issuer' => self.issuer,
-        'type' => self.type
+        'type' => self.type,
+        'token' => ENV['IDEAL_SECRET']
       }
     )
 
