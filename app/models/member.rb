@@ -271,7 +271,7 @@ class Member < ActiveRecord::Base
 
     unless year.nil?
       query.gsub! /(year|jaargang):(\d+)/, ''
-      records = records.where("join_date >= ? AND join_date < ?", Date.study_year( year[2].to_i ), Date.study_year( 1+ year[2].to_i ))
+      records = records.where("join_date >= ? AND join_date < ?", Date.to_date( year[2].to_i ), Date.to_date( 1+ year[2].to_i ))
     end
 
     status = query.match /(status|state):([A-Za-z-]+)/
