@@ -172,6 +172,10 @@ class Member < ActiveRecord::Base
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
 
+    if result_id.blank?
+      puts "#{self.student_id} returns empty result; "
+    end
+
     if self.student_id != result_id
       logger.error 'Student id received from studystatus is different'
       return
