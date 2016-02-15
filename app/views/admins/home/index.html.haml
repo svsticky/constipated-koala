@@ -60,7 +60,7 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-shopping-cart
-            Transacties vandaag
+            Laatste transacties vandaag
           %table.table.table-striped.table-linked
             %tbody
               - @recent.each do |transaction|
@@ -82,6 +82,10 @@
                   %td.hidden-sm
                     = transaction.products
 
+              - if @recent.empty?
+                %tr
+                  %td.text-center
+                    %em geen transacties vandaag
 
       %div.col-md-3
         .panel.panel-default
