@@ -76,6 +76,7 @@ nl:
         members:
           board: Bestuursleden
           committee: Commissieleden
+          moot: Dispuutsleden
           other: Leden
 
       checkout_product:
