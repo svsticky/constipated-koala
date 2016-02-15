@@ -28,8 +28,8 @@ ConstipatedKoala::Application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
-  config.assets.precompile =  ['*.css', '*.js'] 
-  
+  config.assets.precompile =  ['*.css', '*.js']
+
   # Generate digests for assets URLs.
   config.assets.digest = true
 
@@ -63,7 +63,7 @@ ConstipatedKoala::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = {
-    :host => 'koala.stickyutrecht.nl',
+    :host => 'koala.svsticky.nl',
     :protocol => 'https'
   }
 
@@ -88,4 +88,3 @@ ConstipatedKoala::Application.configure do
     :path => '/:class/:id/:style/:filename'
   }
 end
-

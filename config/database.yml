@@ -23,7 +23,7 @@ test:
   encoding: utf8
 
 # Production
-# Version for public use running on stickyutrecht.nl
+# Version for public use running on svsticky.nl
 production:
   adapter: mysql2
   database: koala
