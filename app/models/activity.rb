@@ -1,6 +1,8 @@
 class Activity < ActiveRecord::Base
   validates :name, presence: true
-  validates :start_date, presence: true #NOTE on change type don't forget rake admin:start_year
+
+  #NOTE on changing type to datetime don't forget rake admin:start_year
+  validates :start_date, presence: true
 #  validates :end_date
 #  validates :description
 
@@ -10,12 +12,13 @@ class Activity < ActiveRecord::Base
 	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] },
 	:processors => [:ghostscript, :thumbnail],
 	:validate_media_type => false,
-	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8'}
+	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' }
 
   validates_attachment_content_type :poster,
-	:content_type => 'application/pdf'
+	 :content_type => 'application/pdf'
 
-#  validates_attachment_size :less_than => 10.megabytes
+  validates_attachment_size :poster,
+    :less_than => 10.megabytes
 
   has_one :group, :as => :organized_by
 

@@ -6,7 +6,6 @@ class Advertisement < ActiveRecord::Base
   	:processors => [ :ghostscript, :thumbnail ],
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' },
-    :path => '/:class/:id',
     :s3_permissions => {
       :original => :public_read
     }

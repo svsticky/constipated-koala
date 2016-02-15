@@ -90,10 +90,9 @@ ConstipatedKoala::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'sticky-posters'
+      :bucket => 'sticky-cdn'
     },
-    # should change this to /:class/:id/:style.:extension
-    :path => '/:class/:id/:style/:filename',
+    :path => '/:class/:id/:style.:extension',
     :s3_protocol => 'https',
     :url => ':s3_domain_url',
     :s3_permissions => {
