@@ -12,7 +12,7 @@ Currently, it implements methods to track several things within the association:
  - The [Operation Dead Mongoose](app/controllers) (TM) and it's expenses
  - Basic logging of most operations
 
-There is more to be implemented :)
+And Koala has a very basic API which is described [here](/app/controllers), it is used by RADIO and Checkout at the moment. There is more to be implemented :)
 
 ## Installing koala
 **An extensive tutorial on how to install koala on your laptop or on a production server is [here](config/deployment)**. There are a few *strange* things happening in koala. For one, it is integrated with an [ideal platform](https://github.com/StickyUtrecht/ideal.local). Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will nog work. Secondly it uses amazon for storing posters and images of mongoose products. In development this should also work on the local machine without amazon's S3 servers. And one regretful thing, posters are uploaded as pdf's, they will be resized and stored in two formats. However the parsing of a pdf file is not working very well and I had to hack in ghostscript a little bit.
@@ -25,6 +25,8 @@ own peculiarities, please try to follow them. It will be much obliged and will s
 over the process greatly.
 
 For the admin pages we used a template called [Flatify](http://iarouse.com/dist-flatify/v2.1/index.html#/dashboard) that you should stick to. It is quite extensive and is based on [bootstrap](http://www.getbootstrap.com).
+
+From this point on we are going to use the **[semantic versioning](http://semver.org/)**. This will be the first major release, any fixes increment accordingly `v1.0.9 -> v1.0.10`. Adding functionality in a backwards compatible manner is done like this; `v1.0.10 -> v1.1.0`. And a major release to `v2` is done if there are changes that are not backwards compatible.
 
 ### Branching strategy
 The history of this project includes a lot of unnecessary merge commits, which aren't
