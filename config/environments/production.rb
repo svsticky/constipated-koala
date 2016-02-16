@@ -28,14 +28,14 @@ ConstipatedKoala::Application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
 #  config.assets.compile = true
-#  config.assets.precompile =  ['*.css', '*.js'] 
+#  config.assets.precompile =  ['*.css', '*.js']
   # Generate digests for assets URLs.
 #  config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
 #  config.assets.version = '1.0'
   config.assets.debug = true
- 
+
  # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
@@ -65,9 +65,9 @@ ConstipatedKoala::Application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { 
-    :host => 'koala.stickyutrecht.nl',
-    :protocol => 'https'  
+  config.action_mailer.default_url_options = {
+    :host => 'koala.svsticky.nl',
+    :protocol => 'https'
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -82,7 +82,7 @@ ConstipatedKoala::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-  
+
   # Custom configuration
   config.mailgun = ENV['MAILGUN_TOKEN']
   config.checkout = ENV['CHECKOUT_TOKEN']
@@ -90,9 +90,9 @@ ConstipatedKoala::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'sticky-posters'
+      :bucket => 'sticky-cdn'
     },
-    :path => '/:class/:id/:style/:filename',
+    :path => '/:class/:id/:style.:extension',
     :s3_protocol => 'https',
     :url => ':s3_domain_url',
     :s3_permissions => {

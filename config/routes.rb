@@ -74,6 +74,7 @@ ConstipatedKoala::Application.routes.draw do
 
       # setting pages
       get    'settings',                  to: 'settings#index'
+      post   'settings',                  to: 'settings#create'
       get    'settings/logs',             to: 'settings#logs'
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
@@ -90,14 +91,10 @@ ConstipatedKoala::Application.routes.draw do
       patch  'checkout/transaction',  to: 'checkout#change_funds'
 
       # api routes, without authentication
-      get    'api/activities',        to: 'api#radio'
+      get    'api/activities',        to: 'api#activities'
+      get    'api/advertisements',    to: 'api#advertisements'
 
-#       # v1
-#       get    'checkout/card',         to: 'checkout#information_for_card'
-#       post   'checkout/card',         to: 'checkout#add_card_to_member'
-#       post   'checkout/transaction',  to: 'checkout#subtract_funds'
-
-      # v2 api routes, own authentication
+      # api routes, own authentication
       get    'api/checkout/card',         to: 'checkout#information_for_card'
       get    'api/checkout/products',     to: 'checkout#products_list'
 

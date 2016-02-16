@@ -9,88 +9,26 @@ Currently, it implements methods to track several things within the association:
  - Members and membership
  - Activities and payments
  - Committees and other groups
- - The Operation Dead Mongoose (TM) and it's expenses
+ - The [Operation Dead Mongoose](app/controllers) (TM) and it's expenses
+ - Basic logging of most operations
 
-There is more to be implemented :)
+And Koala has a very basic API which is described [here](/app/controllers), it is used by RADIO and Checkout at the moment. There is more to be implemented :)
 
-## Development setup
+## Installing koala
+**An extensive tutorial on how to install koala on your laptop or on a production server is [here](config/deployment)**. There are a few *strange* things happening in koala. For one, it is integrated with an [ideal platform](https://github.com/StickyUtrecht/ideal.local). Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will nog work. Secondly it uses amazon for storing posters and images of mongoose products. In development this should also work on the local machine without amazon's S3 servers. And one regretful thing, posters are uploaded as pdf's, they will be resized and stored in two formats. However the parsing of a pdf file is not working very well and I had to hack in ghostscript a little bit.
 
-You will need a working package manager, and a working ruby version manager and/or
-build tools.
-
-### External dependencies
-
-Install before continuing:
-
- - `ruby-2.1.2` (install with [`rbenv install`][rbenv] or, if you must, [`rvm`][rvm]);
- - MySQL with database created.
-
-  [rbenv]: https://github.com/sstephenson/rbenv
-  [rvm]: http://rvm.io/
-
-We use MySQL (or a compatible) both in development and production. This to minimalize
-development/production mismatches. No SQLite here.
-
-### Running the Rails app
-
-This is how you can get started with the development setup.
-
-```shell
-# Clone and switch directories:
-$ git clone git@github.com:StickyUtrecht/ConstipatedKoala.git && cd ConstipatedKoala
-
-# Install ruby dependencies:
-$ bundle install
-
-# Create `config/database.yml` with adapter `mysql2` and database credentials
-$ mvim config/database.yml
-
-# Create and populate the database
-$ bundle exec rake db:create && bundle exec rake db:setup
-
-# Run the server
-$ bundle exec rails server
-
-# Add dev host to hosts file
-$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
-```
-
-All done! Now you have the admin system and intro website running at:
-
- - [`http://koala.rails.dev:3000`](http://koala.rails.dev:3000)
- - [`http://intro.rails.dev:3000`](http://intro.rails.dev:3000)
-
-### A note on databases
-
-There used to be a section here telling you to be a bit fearful of running the
-`db:migrate` rake task. This was misinformed. For more information on this historical
-perspective you can check out issue 53.
-
-Here are the rake tasks that you will need to use in order to effectively contribute
-to this project:
-
- - When starting out, `rake db:create` will set you up with a nice development
-   database. It won't, however fill it with any tables.
- - To create the relevant tables and seed them you can use `rake db:setup`.
- - When there are pending migrations (database changes), `rake db:migrate` will do
-   the job nicely. Use this when you create migrations yourself or when the
-   `rake db:setup` task fails due to pending migrations (in this latter case notify
-   the maintainer and complain about bad code review).
- - Messed something up? Run the task `db:reset`. This will drop the database, create
-   it and set it back up again.
-
-`schema.rb` is a file that describes the database schema of this application. Any
-changes to it are critical, therefore it is paramount that you check this file into
-version control.
+Devise and fuzzily are also hacked in a bit. Fuzzily is hacked into to ensure that you can filter first with a `where` and then perform a search on the subset just created. Devise has a feature where an existing member can create a password with their known email address. Both of them are defined in `config/initializers`.
 
 ## Contributing
-
 So you want to contribute? Awesome! You are most welcome to. We do however have our
-own pecularities, please try to follow them. It will be much obliged and will smoothen
+own peculiarities, please try to follow them. It will be much obliged and will smoothen
 over the process greatly.
 
-### Branching strategy
+For the admin pages we used a template called [Flatify](http://iarouse.com/dist-flatify/v2.1/index.html#/dashboard) that you should stick to. It is quite extensive and is based on [bootstrap](http://www.getbootstrap.com).
 
+From this point on we are going to use the **[semantic versioning](http://semver.org/)**. This will be the first major release, any fixes increment accordingly `v1.0.9 -> v1.0.10`. Adding functionality in a backwards compatible manner is done like this; `v1.0.10 -> v1.1.0`. And a major release to `v2` is done if there are changes that are not backwards compatible.
+
+### Branching strategy
 The history of this project includes a lot of unnecessary merge commits, which aren't
 that pretty. Currently we have a contributing procedure that needs to be followed.
 
@@ -102,6 +40,7 @@ This leaves us with the following workflow:
 1. Want to work on something? Create a topic branch.
 1. Push the topic branch to GitHub when you want to show something.
 1. Open a pull request. Gather feedback. Improve the patch.
+1. Occasionally pull from master to ensure you didn't created merge errors.
 1. Wait for the PR to be merged into `master`. Then update local history.
 
 Please make sure to write a descriptive commit message. [Here][commit-messages] you
@@ -110,7 +49,6 @@ can find some tips for better commit messages.
  [commit-messages]:http://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
 
 ### Example contributing flow
-
 ```bash
 # Create and checkout a new branch for the contribution
 $ git checkout -b doc/contributing-guidelines
@@ -136,7 +74,6 @@ $ git pull origin master
 ```
 
 ### Branch naming
-
 Try to be descriptive. Use the following prefixes for the names depending on the type
 of work:
 
@@ -147,7 +84,6 @@ of work:
  - `debt/` for refactoring and enhancements.
 
 ## License
-
 ```
 ConstipatedKoala is licensed under the GPLv3 license.
 

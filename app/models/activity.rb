@@ -1,5 +1,7 @@
 class Activity < ActiveRecord::Base
   validates :name, presence: true
+
+  #NOTE on changing type to datetime don't forget rake admin:start_year
   validates :start_date, presence: true
 #  validates :end_date
 #  validates :description
@@ -10,12 +12,13 @@ class Activity < ActiveRecord::Base
 	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] },
 	:processors => [:ghostscript, :thumbnail],
 	:validate_media_type => false,
-	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8'}
+	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' }
 
   validates_attachment_content_type :poster,
-	:content_type => 'application/pdf'
+	 :content_type => 'application/pdf'
 
-#  validates_attachment_size :less_than => 10.megabytes
+  validates_attachment_size :poster,
+    :less_than => 10.megabytes
 
   has_one :group, :as => :organized_by
 
@@ -31,6 +34,10 @@ class Activity < ActiveRecord::Base
     joins(:participants).where('activities.start_date <= ? AND ((activities.price IS NOT NULL AND participants.paid IS FALSE AND (participants.price IS NULL OR participants.price > 0)) OR (activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))', Date.today).distinct
   end
 
+  def self.list
+    return Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today ).order( :start_date ).map{ |item| (item.attributes.merge({ :poster => Activity.find(item.id).poster.url(:medium) }) if !item.poster_updated_at.nil?)}.compact
+  end
+
   def group
     Group.find_by_id( self.organized_by )
   end
@@ -39,9 +46,10 @@ class Activity < ActiveRecord::Base
     participants.where(:member => member).first.price ||= self.price
   end
 
-#  def price
-#    0 if read_attribute(:price).nil?
-#  end
+ def price
+   return 0 if read_attribute(:price).nil?
+   return read_attribute(:price)
+ end
 
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f

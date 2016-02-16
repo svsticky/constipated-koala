@@ -20,6 +20,9 @@ module ConstipatedKoala
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :nl
 
+    config.i18n.fallbacks = true
+    config.i18n.fallbacks = [:nl]
+
     config.to_prepare do
 	    Devise::SessionsController.layout 'default'
 	    Devise::RegistrationsController.layout 'default'
@@ -32,8 +35,8 @@ module ConstipatedKoala
 	  end
 
     config.action_dispatch.rescue_responses = {
-      'ActiveRecord::RecordInvalid'                 => :bad_request,
-      'ActiveRecord::RecordNotSaved'                => :request_entity_too_large
+      'ActiveRecord::RecordNotFound'                => :not_found,
+      'ActiveRecord::RecordInvalid'                 => :bad_request
     }
   end
 end

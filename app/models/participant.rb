@@ -6,12 +6,13 @@ class Participant < ActiveRecord::Base
 
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f) unless price.blank?
+    write_attribute(:price, NIL) if price.blank?
   end
 
   def currency
-#    return activity.price if read_attribute(:price).nil?
-#    self.price ||= 0
-     self.price ||= activity.price
+    return activity.price if read_attribute(:price).nil?
+    self.price ||= 0
+#     self.price ||= activity.price
   end
 
   before_validation do

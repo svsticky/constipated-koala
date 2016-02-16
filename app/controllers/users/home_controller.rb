@@ -57,7 +57,7 @@ class Users::HomeController < ApplicationController
 
     ideal = IdealTransaction.new(
       :description => "Mongoose #{member.name}",
-      :amount => (ideal_transaction_params[:amount].to_f + ENV['MONGOOSE_IDEAL_COSTS'].to_f),
+      :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
       :issuer => ideal_transaction_params[:bank],
       :type => 'MONGOOSE',
       :member => member,
@@ -80,7 +80,7 @@ class Users::HomeController < ApplicationController
     if ideal.status == 'SUCCESS' && ideal.type == 'MONGOOSE'
 
       if ideal.transaction_id.empty?
-        transaction = CheckoutTransaction.new( :price => (ideal.amount - ENV['MONGOOSE_IDEAL_COSTS'].to_f), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
+        transaction = CheckoutTransaction.new( :price => (ideal.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
         transaction.save
 
         IdealTransaction.where(:uuid => params[:uuid]).update_all( :transaction_id => [ transaction.id ] )

@@ -255,6 +255,9 @@ class Member < ActiveRecord::Base
 
       records = Member.none if code.nil?
       records = records.where( :id => Education.select( :member_id ).where( 'study_id = ?', code.id )) unless code.nil?
+
+      #for later purposes
+      study = code
     end
 
     tag = query.match /tag:([A-Za-z-]+)/
@@ -272,14 +275,19 @@ class Member < ActiveRecord::Base
 
     unless year.nil?
       query.gsub! /(year|jaargang):(\d+)/, ''
-      records = records.where("join_date >= ? AND join_date < ?", Date.study_year( year[2].to_i ), Date.study_year( 1+ year[2].to_i ))
+      records = records.where("join_date >= ? AND join_date < ?", Date.to_date( year[2].to_i ), Date.to_date( 1+ year[2].to_i ))
     end
 
     status = query.match /(status|state):([A-Za-z-]+)/
     query.gsub! /(status|state):([A-Za-z]+)/, ''
 
     if status.nil? || status[2].downcase == 'actief'
-      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+      # if already filtered on study, that particular study should be active
+      if code.present?
+        records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0 AND study_id = ?', code.id ).map{ |education| education.member_id}))
+      else
+        records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+      end
     else
       records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
       records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'

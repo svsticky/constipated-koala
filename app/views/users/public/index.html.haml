@@ -172,7 +172,7 @@
 
               .col-md-6
                 .ui-select
-                  = select_tag 'method', options_for_select(['IDEAL', 'CONTANT'], @method)
+                  = select_tag 'method', options_for_select(['IDEAL', 'CASH'], @method)
                 .ui-select{ :style => 'margin-top: 5px;' }
                   = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']], @bank), :include_blank => ''
 
