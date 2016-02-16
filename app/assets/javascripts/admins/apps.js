@@ -104,7 +104,7 @@ $(document).on( 'ready page:load', function(){
       alert( 'checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
-      $( '#transactions' ).trigger( 'transaction_added' ); //TODO
+      $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
 
       //formulier terugveranderen
       $( '#credit' ).find( 'input#amount' ).trigger( 'keyup', [27]);

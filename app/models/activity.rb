@@ -35,7 +35,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.list
-    return Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today ).map{ |item| (item.attributes.merge({ :poster => Activity.find(item.id).poster.url(:medium) }) if !item.poster_updated_at.nil?)}.compact
+    return Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today ).order( :start_date ).map{ |item| (item.attributes.merge({ :poster => Activity.find(item.id).poster.url(:medium) }) if !item.poster_updated_at.nil?)}.compact
   end
 
   def group

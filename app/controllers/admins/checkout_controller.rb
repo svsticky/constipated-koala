@@ -22,17 +22,17 @@ class Admins::CheckoutController < ApplicationController
       transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_balance => CheckoutBalance.find_by_member_id!(params[:member_id]) )
 
     else
-      render :status => :bad_request, :json => 'no identifier given'
+      render :status => :bad_request, :json => ''
       return
     end
 
     begin
       transaction.save
     rescue ActiveRecord::RecordNotSaved => exception
-      render :status => :request_entity_too_large, :json => exception.message
+      render :status => :request_entity_too_large, :json => ''
       return
     rescue ActiveRecord::RecordInvalid
-      render :status => :bad_request, :json => exception.message
+      render :status => :bad_request, :json => ''
       return
     end
 
@@ -77,7 +77,7 @@ class Admins::CheckoutController < ApplicationController
 
   def add_card_to_member
     if !CheckoutCard.find_by_uuid(params[:uuid]).nil?
-      render :status => :conflict, :json => 'card already registered'
+      render :status => :conflict, :json => ''
       return
     end
 
@@ -87,7 +87,7 @@ class Admins::CheckoutController < ApplicationController
       render :status => :created, :json => CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
       return
     else
-      render :status => :conflict, :json => card.errors.full_messages
+      render :status => :conflict, :json => ''
       return
     end
   end
@@ -97,8 +97,6 @@ class Admins::CheckoutController < ApplicationController
 
     if params[:_destroy]
       card.destroy
-
-      # balance weghalen als er geen transacties zijn?
 
       render :status => :no_content, :json => ''
       return
@@ -110,7 +108,7 @@ class Admins::CheckoutController < ApplicationController
       render :status => :ok, :json => card.to_json
       return
     else
-      render :status => :bad_request, :json => card.errors.full_messages
+      render :status => :bad_request, :json => ''
       return
     end
   end
@@ -122,7 +120,7 @@ class Admins::CheckoutController < ApplicationController
   private
   def authenticate_checkout
     if params[:token] != ENV['CHECKOUT_TOKEN']
-      render :status => :forbidden, :json => 'not authenticated'
+      render :status => :forbidden, :json => ''
       return
     end
   end
