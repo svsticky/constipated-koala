@@ -24,7 +24,7 @@ namespace :studystatus do
       member = Member.find_by_student_id(args[:student_id])
 
       i.puts member.student_id
-      member.update_studies(o.gets ||= 'NOT FOUND')
+      member.update_studies(o.gets ||= '')
       i.close
 
     end
@@ -39,7 +39,7 @@ namespace :studystatus do
 
       Member.where.not( :student_id => nil ).each do |member|
         i.puts member.student_id
-        member.update_studies(o.gets ||= 'NOT FOUND')
+        member.update_studies(o.gets ||= '')
       end
 
       i.close
