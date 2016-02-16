@@ -91,7 +91,8 @@ ConstipatedKoala::Application.routes.draw do
       patch  'checkout/transaction',  to: 'checkout#change_funds'
 
       # api routes, without authentication
-      get    'api/activities',        to: 'api#radio'
+      get    'api/activities',        to: 'api#activities'
+      get    'api/advertisements',    to: 'api#advertisements'
 
 #       # v1
 #       get    'checkout/card',         to: 'checkout#information_for_card'

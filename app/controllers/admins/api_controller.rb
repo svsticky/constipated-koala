@@ -1,13 +1,17 @@
 class Admins::ApiController < ApplicationController
-  protect_from_forgery except: [:radio]
-  before_filter :enable_cors, only: [:radio]
+  protect_from_forgery except: [:activities, :advertisements]
+  before_filter :enable_cors, only: [:activities, :advertisements]
 
-  skip_before_action :authenticate_user!, only: [:radio]
-  skip_before_action :authenticate_admin!, only: [:radio]
+  skip_before_action :authenticate_user!, only: [:activities, :advertisements]
+  skip_before_action :authenticate_admin!, only: [:activities, :advertisements]
 
-  respond_to :json, only: :radio
+  respond_to :json, only: [:activities, :advertisements]
 
-  def radio
-    render :status => :ok, :json => Advertisement.list
+  def activities
+    render :status => :ok, :json => Activity.list.only( :name, :start_date, :end_date, :poster )
+  end
+
+  def advertisements
+    render :status => :ok, :json => Advertisement.list.only( :name, :poster )
   end
 end
