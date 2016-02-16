@@ -94,12 +94,7 @@ ConstipatedKoala::Application.routes.draw do
       get    'api/activities',        to: 'api#activities'
       get    'api/advertisements',    to: 'api#advertisements'
 
-#       # v1
-#       get    'checkout/card',         to: 'checkout#information_for_card'
-#       post   'checkout/card',         to: 'checkout#add_card_to_member'
-#       post   'checkout/transaction',  to: 'checkout#subtract_funds'
-
-      # v2 api routes, own authentication
+      # api routes, own authentication
       get    'api/checkout/card',         to: 'checkout#information_for_card'
       get    'api/checkout/products',     to: 'checkout#products_list'
 

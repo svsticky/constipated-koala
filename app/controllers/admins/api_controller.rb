@@ -12,6 +12,6 @@ class Admins::ApiController < ApplicationController
   end
 
   def advertisements
-    render :status => :ok, :json => Advertisement.list.only( :name, :poster )
+    render :status => :ok, :json => Advertisement.list.only( :poster )
   end
 end

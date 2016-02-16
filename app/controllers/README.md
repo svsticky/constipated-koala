@@ -4,7 +4,7 @@ Koala has an API endpoint for a few applications; radio, _zuil_, and checkout. T
 ## Activities
 Activities are used by radio and the _zuil_. Radio also shows commercials of companies.
 
-##### Retrieve activities and promo posters
+##### Retrieve activities with posters
 <pre>
 <b>GET /api/activities HTTP/1.1</b>
 Host → koala.svsticky.nl
@@ -16,30 +16,37 @@ Content-Type → application/json; charset=utf-8
 
 [
   {
-    "id": 195,
     "name": "Bord- en Kaartspellenavond",
     "start_date": "2016-02-08",
     "end_date": null,
-    "poster_updated_at": "2016-01-22T12:24:01.000+01:00",
     "poster": "https://sticky-posters.s3.amazonaws.com/activities/195/medium/Poster_%281%29.png?1453461841"
   },
   {
-    "id": 196,
     "name": "Git Workshop",
     "start_date": "2016-02-16",
     "end_date": "2016-02-19",
-    "poster_updated_at": "2016-01-25T00:44:52.000+01:00",
     "poster": "https://sticky-posters.s3.amazonaws.com/activities/196/medium/gitgud-poster.png?1453679092"
-  },
+  }
+]
+```
+
+##### Retrieve advertisements
+<pre>
+<b>GET /api/advertisements HTTP/1.1</b>
+Host → koala.svsticky.nl
+</pre>
+
+```json
+HTTP/1.1 200 OK
+Content-Type → application/json; charset=utf-8
+
+[
   {
-    "id": 199,
-    "poster_updated_at": "2016-01-26T16:46:10.000+01:00",
     "poster": "https://sticky-posters.s3.amazonaws.com/activities/199/medium/conferentie.png?1453823170"
   }
 ]
 ```
 
-The last one is an advertisement, these should be split up in two paths `api/activities` and `api/advertisements`.
 
 ## Checkout
 All checkout endpoints require a secret called `token` declared in the configuration of [.rbenv-vars](/.rbenv-vars-sample). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.
