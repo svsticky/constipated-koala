@@ -1,12 +1,16 @@
+# encoding: UTF-8
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.1'
-gem 'unicorn'
 
 # authentication gem
+<<<<<<< HEAD
 gem 'devise'
 gem 'doorkeeper'
+=======
+gem 'devise', '~> 3.2.4'
+>>>>>>> f037570ea99bc6f112d994e11f4b20dd45534532
 
 # logging
 gem 'impressionist'
@@ -23,10 +27,9 @@ gem 'modernizr-rails'
 
 # Paperclip easy file upload to S3
 gem 'paperclip'
-gem 'aws-sdk', '~> 1.5.7'
 
 # Use mysql as the production database
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.16'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -38,15 +41,6 @@ gem 'fuzzily'
 gem 'execjs'
 gem 'nokogiri'
 
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
@@ -56,9 +50,17 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
-# Use ActiveModel has_secure_password
-gem 'bcrypt'
+# settings cached in rails environment
+gem 'rails-settings-cached'
 
-group :development, :staging do
+group :production do
+  gem 'unicorn'
+  gem 'aws-sdk', '~> 1.5.7'
+
+  # Use Uglifier as compressor for JavaScript assets
+  gem 'uglifier'
+end
+
+group :development, :test do
   gem 'faker'
 end

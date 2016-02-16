@@ -1,0 +1,147 @@
+html {
+  overflow: auto;
+}
+
+section > .page > .row {
+  margin-top: 50px;
+}
+
+#header {
+  position: fixed;
+}
+
+.widget .widget-header {
+  padding: 15px 15px 50px 15px;
+  min-height: 130px;
+  position: relative;
+  overflow: hidden;
+}
+
+.widget .bg-primary {
+  background-color: #337ab7;
+}
+
+.widget .widget-body {
+  padding: 50px 15px 15px;
+  position: relative;
+}
+
+.widget .widget-body a.profile {
+  background-color: white;
+}
+
+.widget .widget-body a.profile img, .widget .widget-body a.profile .overlay {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  margin-left: -50px;
+  top: -50px;
+  box-shadow: 0 0 0 5px #fff;
+  border-radius: 50%;
+}
+
+.widget .widget-body a.profile .overlay {
+  background: white;
+  opacity: 0;
+  transition: opacity .25s ease;
+  -webkit-transition: opacity .25s ease;
+  -moz-transition: opacity .25s ease;
+}
+
+.widget .widget-body a.profile .overlay .fa {
+  color: #555555;
+  position: relative;
+  top: 36px;
+}
+.widget .widget-body a.profile .overlay:hover {
+  opacity: 0.5;
+}
+
+.widget .widget-body h4 {
+  margin-bottom: 0px;
+}
+
+.widget .list-group a.list-group-item {
+  background-color: #fff;
+  border: none;
+  margin-top: 1px;
+  border-top: 1px solid #EFEFEF;
+}
+
+.widget .list-group a.list-group-item.active, .widget .list-group a.list-group-item:hover {
+  color: #555555;
+  border-left: 2px solid #63A8EB;
+  padding-left: 13px;
+}
+
+.widget .list-group a.list-group-item i.fa {
+  margin-right: 15px;
+}
+
+@media (max-width: 768px) {
+  #header {
+    display: none;
+  }
+
+  .view-container {
+    margin-top: -50px;
+  }
+}
+
+/*
+.col-md-6.clear-left {
+  clear: left;
+}*/
+
+@media (max-width: 992px){
+  .col-md-6.clear-left {
+    clear: both;
+  }
+}
+
+.panel.panel-box.info-box .text-muted {
+  position: absolute;
+}
+
+.table {
+  margin-bottom: 40px;
+}
+
+.table span.fa.fa-sort-asc {
+  position: relative;
+  top: 7px;
+  color: green;
+}
+
+.table span.fa.fa-sort-desc {
+  color: red;
+}
+
+.table .form td {
+  padding: 1px !important;
+}
+
+.table .form td input {
+  line-height: 18px;
+  padding: 4px;
+  width: 100%;
+  margin: 5px 0;
+  height: 34px;
+}
+
+.table .form td button {
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 0px;
+  height: 34px;
+}
+
+.panel-left.panel-item, .panel-right.panel-item {
+  position: relative;
+  padding: 30px 0;
+}
+
+.panel-left.panel-item p.text-center, .panel-right.panel-item p.text-center {
+  width: 100%;
+}

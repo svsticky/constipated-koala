@@ -67,7 +67,7 @@
                     = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], message: impression.message
 
                 - else
-                  - if impression.impressionable_type == 'Group'
+                  - if impression.impressionable_type == 'Group' && !impression.impressionable.nil?
                     = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], category: "#{I18n.t impression.impressionable.category, scope: [ :activerecord, :attributes, :group, :categories]}"
 
                   - elsif impression.impressionable_type == 'GroupMember'

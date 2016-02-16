@@ -73,6 +73,7 @@ ConstipatedKoala::Application.routes.draw do
 
       # setting pages
       get    'settings',                  to: 'settings#index'
+      post   'settings',                  to: 'settings#create'
       get    'settings/logs',             to: 'settings#logs'
 
       patch  'settings/setting',          to: 'settings#setting'
@@ -92,7 +93,6 @@ ConstipatedKoala::Application.routes.draw do
       # json checkout urls
       patch  'checkout/card',         to: 'checkout#activate_card'
       patch  'checkout/transaction',  to: 'checkout#change_funds'
-
     end
 
     scope 'api' do
@@ -121,11 +121,10 @@ ConstipatedKoala::Application.routes.draw do
         patch  'checkout/card/:uuid',   to: 'checkout#update'
         delete 'checkout/card/:uuid',   to: 'checkout#destroy'
 
-        get    'adverts',               to: 'activities#adverts'
+        get    'advertisements',    to: 'activities#advertisements'
       end
     end
   end
 
-  # TODO redirect is ugly, if you refresh you stay at /404
-  # get '/', to: redirect('/404')
+  get '/', to: redirect('/404')
 end

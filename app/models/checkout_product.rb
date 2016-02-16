@@ -2,9 +2,9 @@ class CheckoutProduct < ActiveRecord::Base
 
   validates :name, presence: true
   validates :category, presence: true
-  # validates :active
+  validates :active, presence: true
   validates :price, presence: true
-  # validate :valid_image
+  validate :valid_image
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
@@ -16,7 +16,6 @@ class CheckoutProduct < ActiveRecord::Base
   	:styles => { :original => ['128x128', :png] },
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
-  	:path => '/:class/:id',
   	:s3_permissions => {
       :original => :public_read
     }
@@ -58,7 +57,7 @@ class CheckoutProduct < ActiveRecord::Base
   def sales( year = nil )
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where( "created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.study_year( year ), Date.study_year( year +1 ) ).group( :items ).count.map{ |k,v| { YAML.load(k) => v} }
+    sales = CheckoutTransaction.where( "created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date( year ), Date.to_date( year +1 ) ).group( :items ).count.map{ |k,v| { YAML.load(k) => v} }
     count = sales.map{ |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
 
     return [{ self => count}] if self.parent.nil?
@@ -71,6 +70,6 @@ class CheckoutProduct < ActiveRecord::Base
 
   private
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') if !image.exists? && parent.nil?
+    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless self.image.present? || parent.present?
   end
 end

@@ -11,8 +11,7 @@ class Api::ActivitiesController < ApiController
     @activity =  Activity.find_by_id!(params[:id])
   end
 
-  def adverts
-    @adverts = Advertisement.all.select(:id, :name, :poster_updated_at)
+  def advertisements
+    render :status => :ok, :json => Advertisement.list.only( :poster )
   end
-
 end

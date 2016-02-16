@@ -1,8 +1,8 @@
 namespace :studystatus do
   require 'rest_client'
-  
+
   desc "Update study progress using a stdin in the same format as given by studystatus"
-  task :update_from_stdin => :environment do 
+  task :update_from_stdin => :environment do
     STDIN.each do |line|
       member = Member.find_by_student_id(line.split(/; /).first)
 
@@ -12,7 +12,7 @@ namespace :studystatus do
         puts "#{line.split(/; /).first} is not found in the database"
       end
     end
-  end  
+  end
 
   desc "Finds study progress for a member and updates the DB"
   task :update, [:username, :password, :student_id] => :environment do |t, args|
@@ -24,12 +24,12 @@ namespace :studystatus do
       member = Member.find_by_student_id(args[:student_id])
 
       i.puts member.student_id
-      member.update_studies(o.gets)
+      member.update_studies(o.gets ||= '')
       i.close
 
     end
   end
-  
+
   desc "Finds study progress for all members and updates the DB"
   task :update_all, [:username, :password] => :environment do |t, args|
     # TODO: handle empty username and password
@@ -39,7 +39,7 @@ namespace :studystatus do
 
       Member.where.not( :student_id => nil ).each do |member|
         i.puts member.student_id
-        member.update_studies(o.gets)
+        member.update_studies(o.gets ||= '')
       end
 
       i.close

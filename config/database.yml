@@ -2,28 +2,28 @@
 # Running on local machine using sqlite
 development:
   adapter: mysql2
-  database: koala
+  database: koala-development
   hostname: localhost
   user: <%= ENV['DATABASE_USER'] %>
   pass: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: /tmp/mysql.sock
   pool: 5
   timeout: 5000
+  encoding: utf8
 
-# Staging
-# Version before release running on isaanhetwerk.nl
-staging:
+# test
+# Version before release on circle
+test:
   adapter: mysql2
   database: koala
   hostname: localhost
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: /var/run/mysqld/mysqld.sock
+  username:
+  password:
   pool: 5
   timeout: 5000
+  encoding: utf8
 
 # Production
-# Version for public use running on stickyutrecht.nl
+# Version for public use running on svsticky.nl
 production:
   adapter: mysql2
   database: koala
@@ -33,3 +33,4 @@ production:
   socket: /var/run/mysqld/mysqld.sock
   pool: 5
   timeout: 5000
+  encoding: utf8

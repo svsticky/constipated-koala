@@ -12,7 +12,7 @@ class CheckoutCard < ActiveRecord::Base
   belongs_to :member
   belongs_to :checkout_balance
 
-  before_create do
+  before_validation(on: :create) do
     self.active = false
 
     #find balance otherwise create a new one

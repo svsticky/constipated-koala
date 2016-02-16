@@ -9,10 +9,12 @@ class Users::HomeController < ApplicationController
     @balance = CheckoutBalance.find_by_member_id( @member.id )
     @default = Participant.where( :paid => false, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( :price ) + Participant.where( :paid => false, :price => nil, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( 'activities.price ')
 
-    @participants = @member.activities.study_year( params['year'] ).distinct.joins(:participants).where(:participants => { :member => @member })
+    @participants = (@member.activities.study_year( params['year'] ).distinct.joins(:participants).where(:participants => { :member => @member }) \
+      + @member.activities.joins(:participants).where("participants.paid = FALSE AND participants.price > 0") ).uniq.sort_by(&:start_date).reverse!
+
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
 
-    @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today )
+    #@activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today ).order(:start_date).limit(4)
   end
 
   def edit
@@ -55,7 +57,7 @@ class Users::HomeController < ApplicationController
 
     ideal = IdealTransaction.new(
       :description => "Mongoose #{member.name}",
-      :amount => (ideal_transaction_params[:amount].to_f + ENV['MONGOOSE_IDEAL_COSTS'].to_f),
+      :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
       :issuer => ideal_transaction_params[:bank],
       :type => 'MONGOOSE',
       :member => member,
@@ -78,7 +80,7 @@ class Users::HomeController < ApplicationController
     if ideal.status == 'SUCCESS' && ideal.type == 'MONGOOSE'
 
       if ideal.transaction_id.empty?
-        transaction = CheckoutTransaction.new( :price => (ideal.amount - ENV['MONGOOSE_IDEAL_COSTS'].to_f), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
+        transaction = CheckoutTransaction.new( :price => (ideal.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
         transaction.save
 
         IdealTransaction.where(:uuid => params[:uuid]).update_all( :transaction_id => [ transaction.id ] )

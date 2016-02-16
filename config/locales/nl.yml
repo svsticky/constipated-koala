@@ -11,6 +11,7 @@ nl:
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
+      short: "%H:%M"
 
   activerecord:
     models:
@@ -75,6 +76,7 @@ nl:
         members:
           board: Bestuursleden
           committee: Commissieleden
+          moot: Dispuutsleden
           other: Leden
 
       checkout_product:
@@ -119,6 +121,32 @@ nl:
           stopped: Gestopt
           graduated: Afgestudeerd
 
+      settings:
+        begin_study_year:
+          name: Studiejaar
+          description: Het begin van het volgende studiejaar.
+
+        mongoose_ideal_costs:
+          name: IDeal transactie kosten
+          description: De kosten van een iDEAL-transactie, zodat deze apart kunnen worden berekend in het iDEAL-overzicht.
+        liquor_time:
+          name: Tijdstip vanaf wanneer alcohol verkocht wordt
+          description: Het tijdstip vanaf wanneer leden alcohol kunnen kopen in Checkout. Tot die tijd wordt een foutmelding gepresenteerd.
+
+        intro_membership:
+          name: Introductie lidmaatschap
+          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereert.
+        intro_activities:
+          name: Introductie activiteiten
+          description: Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in het inschrijfformulier kunnen inschrijven.
+
+        additional_committee_positions:
+          name: Extra commissierollen
+          description: Rollen die naast voorzitter, penningmeester, en bestuurslid worden toegevoegd aan alle commissies.
+        additional_moot_positions:
+          name: Extra dispuutrollen
+          description: Rollen die naast voorzitter, secretaris, en penningmeester worden toegevoegd aan alle disputen.
+
       impression:
         member:
           create: lid aangemaakt
@@ -151,12 +179,12 @@ nl:
 
     errors:
       default: Er is iets fout gegaan
-      incomplete: Oh snap, niet alles is goed ingevuld;
+      incomplete: Oh snap, niet alles is goed ingevuld
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
         success: Je betaling is ontvangen en je hebt je ingeschreven!
-        no_bank_provided: 'Bank kan niet leeg zijn als je met iDeal betaald'
+        no_bank_provided: Bank kan niet leeg zijn als je met iDEAL betaalt
         success_without_payment: Je hebt je ingeschreven!
 
       models:

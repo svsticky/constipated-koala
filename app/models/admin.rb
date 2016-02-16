@@ -21,8 +21,8 @@ class Admin < ActiveRecord::Base
     return "#{self.first_name} #{self.infix} #{self.last_name} <#{self.user.email}>"
   end
 
-  before_save do
-    credentials = User.new(
+  after_create do
+    credentials = User.create(
       email:                  email,
       password:               password,
       password_confirmation:  password_confirmation,

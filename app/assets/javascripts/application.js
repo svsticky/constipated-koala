@@ -101,9 +101,9 @@ $(document).on('ready page:load', function(){
 
         if( study != null )
           $( this ).val( $( this ).val().replace( study[0], study[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
-        if( tag != null )
+        else if( tag != null )
           $( this ).val( $( this ).val().replace( tag[0], tag[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
-        if( state != null )
+        else if( state != null )
           $( this ).val( $( this ).val().replace( state[0], state[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) )
 
         $( 'ul.dropdown-menu' ).removeAttr('data-query').delay(10).hide(1);
