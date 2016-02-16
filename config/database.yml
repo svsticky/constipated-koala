@@ -2,7 +2,7 @@
 # Running on local machine using sqlite
 development:
   adapter: mysql2
-  database: koala-development
+  database: koala-development-oauth #TODO undo -oauth
   hostname: localhost
   user: <%= ENV['DATABASE_USER'] %>
   pass: <%= ENV['DATABASE_PASSWORD'] %>

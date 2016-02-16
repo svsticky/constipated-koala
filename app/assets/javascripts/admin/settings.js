@@ -10,10 +10,10 @@ $(document).on( 'ready page:load', function(){
       var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
       $.ajax({
-        url: '/settings/setting',
+        url: '/settings/update',
         type: 'PATCH',
         data: {
-          name: $( setting ).attr( 'name' ),
+          setting: $( setting ).attr( 'name' ),
           value: $( setting ).val(),
           authenticity_token: token
         }

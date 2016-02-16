@@ -1,4 +1,4 @@
-class Admins::SettingsController < ApplicationController
+class Admin::SettingsController < ApplicationController
   respond_to :json, only: [:create, :destroy]
 
   def index
@@ -31,7 +31,7 @@ class Admins::SettingsController < ApplicationController
       Settings[params[:setting]] = params[:value]
     end
 
-    render :status => :ok, :json => nil
+    render :status => :ok, :json => ''
     return
   end
 

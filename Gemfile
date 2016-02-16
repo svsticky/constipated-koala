@@ -4,13 +4,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.1'
 
-# authentication gem
-<<<<<<< HEAD
-gem 'devise'
-gem 'doorkeeper'
-=======
+# authentication gems
 gem 'devise', '~> 3.2.4'
->>>>>>> f037570ea99bc6f112d994e11f4b20dd45534532
+gem 'doorkeeper'
 
 # logging
 gem 'impressionist'

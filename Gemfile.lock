@@ -167,14 +167,8 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 1.5.7)
-<<<<<<< HEAD
-  bcrypt
-  coffee-rails
-  devise
-  doorkeeper
-=======
   devise (~> 3.2.4)
->>>>>>> f037570ea99bc6f112d994e11f4b20dd45534532
+  doorkeeper
   execjs
   faker
   fuzzily

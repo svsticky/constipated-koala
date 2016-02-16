@@ -60,10 +60,6 @@ Group.create(
 exit if Rails.env == 'test'
 exit if Rails.env == 'production'
 
-# Load the user_settings just set
-puts '-- Load user configuration for environment variables'
-load 'config/initializers/load_settings.rb' and puts '   -> config/initializers/load_settings.rb'
-
 # Create 60 members and their studies
 puts '-- Populate the database using Faker'
 60.times do
