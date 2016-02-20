@@ -38,7 +38,7 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
       text = strip_tags( html.gsub( "<br>" , "\r\n" ).squeeze(' ').gsub(/[\r\n]{2,}/, "\r\n") )
     end
 
-    @response = RestClient.post "https://api:#{ENV['MAILGUN_TOKEN']}@api.mailgun.net/v2/stickyutrecht.nl/messages",
+    @response = RestClient.post "https://api:#{ENV['MAILGUN_TOKEN']}@api.mailgun.net/v3/svsticky.nl/messages",
       :from => sender,
 
       :to => recipients,
