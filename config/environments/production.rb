@@ -90,7 +90,7 @@ ConstipatedKoala::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'koala-images'
+      :bucket => 'sticky-posters'
     },
     :path => '/:class/:id/:style.:extension',
     :s3_protocol => 'https',

@@ -5,12 +5,14 @@ upstream app {
 server {
 	listen 80;
 	server_name koala.svsticky.nl koala.stickyutrecht.nl;
+
 	return 301 https://koala.svsticky.nl$request_uri;
 }
 
 server {
 	listen 80;
 	server_name intro.svsticky.nl intro.stickyutrecht.nl;
+
 	return 301 https://intro.svsticky.nl$request_uri;
 }
 
@@ -20,6 +22,9 @@ server {
 
 	ssl_certificate /etc/letsencrypt/live/koala.svsticky.nl/fullchain.pem;
 	ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
+
+	# HSTS
+	add_header Strict-Transport-Security "max-age=31536000";
 
 	return 301 https://koala.svsticky.nl$request_uri;
 }
@@ -31,6 +36,9 @@ server {
 	ssl_certificate /etc/letsencrypt/live/koala.svsticky.nl/fullchain.pem;
 	ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
 
+	# HSTS
+	add_header Strict-Transport-Security "max-age=31536000";
+
 	return 301 https://intro.svsticky.nl$request_uri;
 }
 
@@ -38,7 +46,10 @@ server {
 	listen 443 ssl;
 	server_name koala.svsticky.nl intro.svsticky.nl;
 
-	# HSTS not configured here, is already enforced in /var/www/koala.svsticky.nl/config/environments/production.rb
+        ssl_certificate /etc/letsencrypt/live/koala.svsticky.nl/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
+
+	# HSTS is already enforced in <webroot>/config/environments/production.rb
 
 	root /var/www/koala.svsticky.nl/public;
 
@@ -56,7 +67,7 @@ server {
 		proxy_set_header X-Forwarded-Proto https;
 		proxy_redirect off;
 		proxy_pass http://app;
-  }
+	}
 
-  error_page 500 502 503 504 /500.html;
+	error_page 500 502 503 504 /500.html;
 }

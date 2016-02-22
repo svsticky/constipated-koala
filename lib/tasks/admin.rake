@@ -76,7 +76,7 @@ namespace :admin do
     # create new activity if it is time
     activity = Activity.create(
       name:                 args[:membership],
-      price:                args[:price] ||= 0,
+      price:                args[:price] ||= 7.5,
       start_date:           Settings.begin_study_year,
       description:          'automatisch gegenereerde activiteit'
     )
