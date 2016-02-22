@@ -70,7 +70,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       respond_with resource, location: :edit_registration
     else
       clean_up_passwords resource
-      respond_with(resource, :layout => 'application')
+      render 'edit', :layout => 'application'
     end
   end
 
