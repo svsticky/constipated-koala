@@ -49,13 +49,11 @@ class Admins::SettingsController < ApplicationController
     if @advert.save
       redirect_to settings_path
     else
-      @settings = UserConfiguration.all
+    @studies = Study.all
 
-      @studies = Study.all
-
-      @advertisements = Advertisement.all
-      render 'index'
-    end
+    @advert = Advertisement.new
+    @advertisements = Advertisement.all
+    render 'index'
   end
 
   def destroy_advertisement
