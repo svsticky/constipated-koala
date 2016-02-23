@@ -66,7 +66,7 @@
               - @recent.each do |transaction|
                 %tr
                   %td= I18n.l transaction.created_at, :format => :short
-                  %td
+                  %td{ :style => 'min-width: 80px;' }
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
                       %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
