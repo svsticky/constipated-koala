@@ -108,7 +108,7 @@
               .input-group
                 = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
                 .input-group-btn
-                  %button.btn.btn-primary.file-input-wrapper
+                  %div.btn.btn-primary.file-input-wrapper
                     %span Uploaden
                     = f.file_field :poster, { 'data-ui-file-upload' => '' }
                   %button.btn.btn-success.wait{type: 'submit'} Opslaan
