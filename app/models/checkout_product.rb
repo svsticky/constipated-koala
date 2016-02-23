@@ -2,7 +2,6 @@ class CheckoutProduct < ActiveRecord::Base
 
   validates :name, presence: true
   validates :category, presence: true
-  validates :active, presence: true
   validates :price, presence: true
   validate :valid_image
 

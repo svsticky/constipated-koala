@@ -73,7 +73,7 @@
                     - else
                       %span.fa.fa-sort-desc.pull-right
 
-                  %td
+                  %td{ :style => 'white-space: nowrap;' }
                     - unless transaction.checkout_balance.member.nil?
                       = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
                     - else
