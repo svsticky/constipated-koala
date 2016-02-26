@@ -5,4 +5,6 @@
 
 
 ### Steps to reproduce
+- admin/user
+- browser:
 
