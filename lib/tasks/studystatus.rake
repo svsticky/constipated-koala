@@ -17,7 +17,7 @@ namespace :studystatus do
   desc "Finds study progress for a member and updates the DB"
   task :update, [:username, :password, :student_id] => :environment do |t, args|
 
-    Open3.popen3("/usr/local/bin/studystatus",
+    Open3.popen3("/usr/local/bin/studystatus.py",
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, e, t|
 
@@ -33,7 +33,7 @@ namespace :studystatus do
   desc "Finds study progress for all members and updates the DB"
   task :update_all, [:username, :password] => :environment do |t, args|
     # TODO: handle empty username and password
-    Open3.popen3("/usr/local/bin/studystatus",
+    Open3.popen3("/usr/local/bin/studystatus.py",
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, e, t|
 
