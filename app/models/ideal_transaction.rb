@@ -91,11 +91,11 @@ class IdealTransaction < ActiveRecord::Base
           summary.merge!( activity => activity.participants.where( :member => object['member'] ).first.currency ) unless summary.has_key?( activity )
         end
       elsif !object['checkout'].nil?
-        summary.merge!( 'checkout' => summary['checkout'] + object['amount'] - ENV['MONGOOSE_IDEAL_COSTS'].to_f) if summary.has_key?( 'checkout' )
-        summary.merge!( 'checkout' => object['amount'] - ENV['MONGOOSE_IDEAL_COSTS'].to_f ) unless summary.has_key?( 'checkout' )
+        summary.merge!( 'checkout' => summary['checkout'] + object['amount'] - Settings.mongoose_ideal_costs) if summary.has_key?( 'checkout' )
+        summary.merge!( 'checkout' => object['amount'] - Settings.mongoose_ideal_costs ) unless summary.has_key?( 'checkout' )
 
-        summary.merge!( 'fees' => summary['fees'] + ENV['MONGOOSE_IDEAL_COSTS'].to_f) if summary.has_key?( 'fees' )
-        summary.merge!( 'fees' => ENV['MONGOOSE_IDEAL_COSTS'].to_f ) unless summary.has_key?( 'fees' )
+        summary.merge!( 'fees' => summary['fees'] + Settings.mongoose_ideal_costs) if summary.has_key?( 'fees' )
+        summary.merge!( 'fees' => Settings.mongoose_ideal_costs ) unless summary.has_key?( 'fees' )
       else
         summary.merge!( object['type'] => summary[ object['type'] ] + object['amount'] ) if summary.has_key?( object['type'] )
         summary.merge!( object['type'] => object['amount'] ) unless summary.has_key?( object['type'] )

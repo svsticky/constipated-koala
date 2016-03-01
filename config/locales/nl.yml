@@ -124,7 +124,7 @@ nl:
       settings:
         begin_study_year:
           name: Studiejaar
-          description: Het begin van het volgende studiejaar.
+          description: Het begin van het volgende studiejaar. Op deze datum wordt er automatisch een nieuw jaar gestart.
 
         mongoose_ideal_costs:
           name: IDeal transactie kosten
