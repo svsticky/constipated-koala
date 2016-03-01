@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160203191821) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "committee_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"

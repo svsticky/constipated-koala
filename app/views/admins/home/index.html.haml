@@ -66,14 +66,14 @@
               - @recent.each do |transaction|
                 %tr
                   %td= I18n.l transaction.created_at, :format => :short
-                  %td
+                  %td{ :style => 'min-width: 80px;' }
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
                       %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
                     - else
                       %span.fa.fa-sort-desc.pull-right
 
-                  %td
+                  %td{ :style => 'white-space: nowrap;' }
                     - unless transaction.checkout_balance.member.nil?
                       = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
                     - else

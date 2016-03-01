@@ -49,10 +49,9 @@ class Admins::SettingsController < ApplicationController
     if @advert.save
       redirect_to settings_path
     else
-      @settings = UserConfiguration.all
-
       @studies = Study.all
 
+      @advert = Advertisement.new
       @advertisements = Advertisement.all
       render 'index'
     end

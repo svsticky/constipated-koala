@@ -48,7 +48,7 @@
                       %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.url(:medium)}" if !@activity.poster_file_name.nil?) }
 
                       .input-group-btn
-                        %button.btn.btn-primary.file-input-wrapper
+                        %div.btn.btn-primary.file-input-wrapper
                           %span uploaden
                           = f.file_field :poster, { 'data-ui-file-upload' => '' }
                         %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' if @activity.poster_file_name.nil? ) }

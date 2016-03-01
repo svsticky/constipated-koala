@@ -17,8 +17,8 @@ class Activity < ActiveRecord::Base
   validates_attachment_content_type :poster,
 	 :content_type => 'application/pdf'
 
-  validates_attachment_size :poster,
-    :less_than => 10.megabytes
+#  validates_attachment_size :poster,
+#    :less_than => 10.megabytes
 
   has_one :group, :as => :organized_by
 
