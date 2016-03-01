@@ -55,7 +55,7 @@ class Admins::AppsController < ApplicationController
   end
 
   def ideal
-    @transactions = IdealTransaction.find_by_date( params['date'] || Date.yesterday )
+    @transactions = IdealTransaction.find_by_date( params['date'] || Date.current )
     @summary = IdealTransaction.summary( @transactions )
   end
 
