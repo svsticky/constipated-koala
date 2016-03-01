@@ -77,7 +77,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     kgio (2.9.2)
-    libv8 (3.16.14.7)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -87,7 +86,7 @@ GEM
     modernizr-rails (2.7.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
-    mysql2 (0.3.16)
+    mysql2 (0.3.20)
     netrc (0.7.7)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
@@ -111,6 +110,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.1)
       sprockets-rails (~> 2.0)
+    rails-settings-cached (0.4.1)
+      rails (>= 4.0.0)
     railties (4.1.1)
       actionpack (= 4.1.1)
       activesupport (= 4.1.1)
@@ -118,7 +119,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
-    ref (1.0.5)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -137,9 +137,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    therubyracer (0.12.1)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -166,9 +163,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 1.5.7)
-  bcrypt
-  coffee-rails
-  devise
+  devise (~> 3.2.4)
   execjs
   faker
   fuzzily
@@ -177,12 +172,16 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   modernizr-rails
-  mysql2
+  mysql2 (~> 0.3.16)
+  nokogiri
   paperclip
   rails (~> 4.1.1)
+  rails-settings-cached
   rest-client
   sass-rails
-  therubyracer
   turbolinks
   uglifier
   unicorn
+
+BUNDLED WITH
+   1.11.2

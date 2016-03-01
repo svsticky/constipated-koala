@@ -26,6 +26,10 @@
   background-color: #fff;
 }
 
+input.invalid, select.invalid, textarea.invalid {
+  border: solid red 1px;
+}
+
 table.table.table-linked > tbody > tr:hover > td > a {
   text-decoration: underline;
 }
@@ -39,6 +43,18 @@ table.table.table-linked > tbody > tr > td > a {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+table.table > tbody > tr > td > a.inline {
+  display: inline;
+
+  &::after {
+    content: ', '
+  }
+
+  &:last-child::after {
+    content: ''
+  }
 }
 
 table.table > tbody > tr.red, table.table > tbody > tr.red a {
@@ -68,3 +84,105 @@ label.ui-checkbox.btn input {
 aside a[href='#'] {
   cursor: default;
 }
+
+.table-footer {
+  margin: 0 !important;
+  padding: 5px;
+  border-top: 2px solid #dddddd;
+
+  ul.pagination-sm.pagination {
+    margin: 0;
+  }
+
+  .page-num-info {
+    top: 5px;
+  }
+}
+
+.panel-heading.input {
+  padding: 3px 15px 2px;
+  height: 40px;
+  line-height: 40px;
+
+  .input-group {
+    float: right;
+    height: 30px;
+    width: 150px;
+    top: -3px;
+    right: -10px;
+
+    span.input-group-addon {
+      display: initial;
+      top: -1px;
+      position: relative;
+      height: 36px;
+    }
+
+    input {
+      height: 32px;
+      line-height: 23px;
+      width: 120px;
+    }
+
+    button {
+      height: 32px;
+      line-height: 18px;
+    }
+
+  }
+}
+
+.panel-heading.year {
+  padding: 3px 15px 2px;
+
+  .ui-select {
+    width: 110px;
+    margin-left: 5px;
+
+    select {
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+}
+
+
+@media (min-width: 768px) {
+  form .form-group.poster {
+    width: calc(100% - 210px);
+    position: relative;
+    left: 210px;
+  }
+
+  form .panel-body {
+    position: relative;
+  }
+
+  form .droparea {
+    position: absolute;
+
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 55px;
+
+    border: 2px dashed #767676;
+
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.7);
+
+    display: none;
+  }
+
+  form .thumb {
+    position: absolute;
+    top: 96px;
+
+    height: 255px;
+    width: 180px;
+
+    border: solid 1px #cbd5dd;
+    overflow: hidden;
+  }
+}
+

@@ -1,23 +1,28 @@
 %section#header.top-header
   %header.clearfix
-    %a.toggle-min{href: "#"}
+    = link_to '#', :class => 'toggle-min visible-xs visible-small' do
       %i.fa.fa-bars
     .logo
-      %a{href: '/'}
+      = link_to root_path do
         %span Constipated koala
-    .top-nav      
+    .top-nav
       %ul.nav-right.pull-right.list-unstyled
         %li.dropdown.text-normal.nav-profile
-          %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
+          = link_to '#', { 'data-toggle' => 'dropdown', :class => 'dropdown-toggle' } do
             =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=30", :class => 'img-circle'
             %span.hidden-xs
               %span #{current_user.email }
           %ul.dropdown-menu.with-arrow{ :style => 'right: 0;' }
             %li
-              %a{href: '/settings/profile'}
-                %i.fa.fa-user
-                %span Profiel
+              - if current_user.admin?
+                = link_to edit_registration_path do
+                  %i.fa.fa-user
+                  %span Profiel
+              - else
+                = link_to users_edit_path do
+                  %i.fa.fa-user
+                  %span Profiel
             %li
-              %a{href: '/sign_out', 'data-method' => :delete}
+              = link_to destroy_user_session_path, 'data-method' => :delete do
                 %i.fa.fa-sign-out
                 %span Log uit

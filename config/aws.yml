@@ -1,11 +1,15 @@
 production:
-  access_key_id: <% ENV['AWS_ACCESS'] %>
-  secret_access_key: <% ENV['AWS_SECRET'] %>
-  
+  access_key_id: <%= ENV['AWS_ACCESS'] %>
+  secret_access_key: <%= ENV['AWS_SECRET'] %>
+
+test:
+  access_key_id: <%= ENV['AWS_ACCESS'] %>
+  secret_access_key: <%= ENV['AWS_SECRET'] %>
+
 staging:
-  access_key_id: <% ENV['AWS_ACCESS'] %>
-  secret_access_key: <% ENV['AWS_SECRET'] %>
+  access_key_id: <%= ENV['AWS_ACCESS'] %>
+  secret_access_key: <%= ENV['AWS_SECRET'] %>
 
 development:
-  access_key_id: <% ENV['AWS_ACCESS'] %>
-  secret_access_key: <% ENV['AWS_SECRET'] %>
+  access_key_id: <%= ENV['AWS_ACCESS'] %>
+  secret_access_key: <%= ENV['AWS_SECRET'] %>

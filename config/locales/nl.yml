@@ -1,107 +1,198 @@
 nl:
-  date: 
+  date:
     formats:
       default: "%d-%m-%Y"
       day_month: "%d %B"
       short: "%Y"
-      
+
     day_names: [~, maandag, dinsdag, woensdag, donderdag, vrijdag, zaterdag, zondag]
     month_names: [~, januari, februari, maart, april, mei, juni, juli, augustus, september, oktober, november, december]
 
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
-  
+      short: "%H:%M"
+
   activerecord:
-    models: 
-      ideal_transaction: Ideal transactie
+    models:
+      ideal_transaction: iDEAL-transactie
       activities: Activiteiten
       study: Studie
-  
+
     attributes:
       member:
        first_name: Voornaam
        infix: Tussenvoegsel
        last_name: Achternaam
-       
+
        birth_date: Geboortedatum
        gender: Geslacht
-       
+
        address: Straatnaam
        house_number: Huisnummer
        postal_code: Postcode
        city: Woonplaats
        phone_number: Telefoonnummer
-       
+
        email: E-mailadres
        student_id: Studentnummer
-       
+
+       comments: Commentaar
+
       user:
         email: E-mailadres
         password: Wachtwoord
         password_confirmation: Herhaal wachtwoord
-       
+
       activity:
         name: Naam
         price: Prijs
-        start_date: Begin datum
-        end_date: Eind datum
-        
+        description: Beschrijving
+        start_date: Begindatum
+        end_date: Einddatum
+        comments: Opmerkingen
+        organized_by: Organisator
+
+      group:
+        name: Naam
+        category: Categorie
+        comments: Opmerkingen
+
+        categories:
+          board: bestuur
+          committee: commissie
+          moot: dispuut
+          other: overig
+
+        positions:
+          chairman: Voorzitter
+          secretary: Secretaris
+          treasurer: Penningmeester
+          internal: Commissaris intern
+          external: Commissaris extern
+          education: Commissaris onderwijs
+          board: Bestuurslid
+
+        members:
+          board: Bestuursleden
+          committee: Commissieleden
+          moot: Dispuutsleden
+          other: Leden
+
       checkout_product:
         name: Naam
         price: Prijs
         image: Afbeelding
         category: Categorie
-        
-        categories: 
+        active: Is actief
+
+        categories:
           beverage: Drinken
           chocolate: Chocolade
           savory: Hartig
           additional: Overig
-          
+          liquor: Alcohol
+
       tag:
         names:
           pardon: Gratie
-          merit: Lid van verdienste
+          merit: Lid van Verdienste
           honorary: Erelid
-          
+
       study:
         names:
           inca: Informatica
           inku: Informatiekunde
           gt: Gametechnologie
           wisk: Wiskunde
-          
-          cosc: Computer science
-          mbi: Business informatics
-          gmt: Game and media technology
-          ai: Artificial intelligence
-      
+
+          cosc: Computing Science
+          mbim: Business Informatics
+          gmte: Game and Media Technology
+          ainm: Artificial Intelligence
+
+          atec: Technical Artificial Intelligence
+          acsc: Advanced Computing Science
+          ckem: Content & Knowledge Engineering
+
       education:
         status:
           active: Studerend
           stopped: Gestopt
           graduated: Afgestudeerd
 
+      settings:
+        begin_study_year:
+          name: Studiejaar
+          description: Het begin van het volgende studiejaar. Op deze datum wordt er automatisch een nieuw jaar gestart.
+
+        mongoose_ideal_costs:
+          name: IDeal transactie kosten
+          description: De kosten van een iDEAL-transactie, zodat deze apart kunnen worden berekend in het iDEAL-overzicht.
+        liquor_time:
+          name: Tijdstip vanaf wanneer alcohol verkocht wordt
+          description: Het tijdstip vanaf wanneer leden alcohol kunnen kopen in Checkout. Tot die tijd wordt een foutmelding gepresenteerd.
+
+        intro_membership:
+          name: Introductie lidmaatschap
+          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereert.
+        intro_activities:
+          name: Introductie activiteiten
+          description: Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in het inschrijfformulier kunnen inschrijven.
+
+        additional_committee_positions:
+          name: Extra commissierollen
+          description: Rollen die naast voorzitter, penningmeester, en bestuurslid worden toegevoegd aan alle commissies.
+        additional_moot_positions:
+          name: Extra dispuutrollen
+          description: Rollen die naast voorzitter, secretaris, en penningmeester worden toegevoegd aan alle disputen.
+
+      impression:
+        member:
+          create: lid aangemaakt
+          update: gegevens bewerkt
+          destroy: lid verwijderd
+
+        group:
+          create: '%{category} aangemaakt'
+          update: '%{category} bewerkt'
+
+        groupmember:
+          create_member: '%{name} toegevoegd'
+          update_member: '%{name} bewerkt'
+
+        activity:
+          create: activiteit aangemaakt
+          update: activiteit bewerkt
+
+        participant:
+          create: deelnemer toegevoegd
+          update:
+            paid: deelnemer heeft betaald
+            unpaid: deelnemer heeft niet betaald
+            price: prijs is veranderd voor deelnemer
+
+
     annotations:
       member:
-        email: E-mailadres kan geen UU email zijn
-      
+        email: E-mailadres kan geen adres van de UU zijn
+
     errors:
       default: Er is iets fout gegaan
-      incomplete: Oh snap, niet alles is goed ingevuld;
+      incomplete: Oh snap, niet alles is goed ingevuld
 
-      subscribe:          
+      subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
         success: Je betaling is ontvangen en je hebt je ingeschreven!
+        no_bank_provided: Bank kan niet leeg zijn als je met iDEAL betaalt
         success_without_payment: Je hebt je ingeschreven!
-      
+
       models:
         member:
           blank: kan niet leeg zijn
           attributes:
-            phone_number: 
-              invalid: bestaat uit 10 cijfers 
+            phone_number:
+              invalid: bestaat uit 10 cijfers
             email:
               taken: is geen geldig e-mailadres
               invalid: is geen geldig e-mailadres
@@ -109,7 +200,7 @@ nl:
               taken: is geen geldig studentnummer
               invalid: bestaat uit 7 cijfers
               elfproef: is niet geldig
-              
+
         user:
           blank: kan niet leeg zijn
           attributes:
@@ -122,9 +213,13 @@ nl:
               invalid: moet minstens 8 tekens hebben
             password_confirmation:
               confirmation: is niet goed herhaald
-        
+
         checkout_product:
           blank: kan niet leeg zijn
 
         ideal_transaction:
-          blank: ken niet leeg zijn
+          blank: kan niet leeg zijn
+          processed: is al verwerkt
+          attributes:
+            checkout: Mongoose-tegoed
+            fees: iDEAL-kosten

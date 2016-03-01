@@ -2,60 +2,56 @@
   #nav-wrapper.navbar.navbar-default
     %ul#nav{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
       %li{ :class => ('active' if yield(:page) == 'home') }
-        %a{href: '/'}
+        = link_to :root do
           %span Home
           %i.fa.fa-desktop
             %span.icon-bg.bg-danger
       %li{ :class => ('active' if yield(:page) == 'members') }
-        %a{href: '/members'}
+        = link_to :members do
           %span Leden
           %i.fa.fa-user
             %span.icon-bg.bg-orange
-      %li{ :class => ('active' if yield(:page) == 'committees') }
-        %a{href: '/committees'}
-          %span Commissies
+      %li{ :class => ('active' if yield(:page) == 'groups') }
+        = link_to :groups do
+          %span Groepen
           %i.fa.fa-users
             %span.icon-bg.bg-warning
       %li{ :class => ('active' if yield(:page) == 'activities') }
-        %a{href: '/activities'}
+        = link_to :activities do
           %span Activiteiten
           %i.fa.fa-ticket
             %span.icon-bg.bg-success
-                  
+
       %li{ :class => ('active' if yield(:page) == 'apps') }
-        %a{href: '#'}
+        = link_to '' do
           %span Apps
           %i.fa.fa-terminal
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
-          %li{ :class => ('active' if yield(:subpage) == 'books') }
-            %a{href: '/apps/books'}
-              %i.fa.fa-caret-right
-              %span Boekenverkoop
           %li{ :class => ('active' if yield(:subpage) == 'transacties') }
-            %a{href: '/apps/checkout'}
+            = link_to :apps_checkout do
               %i.fa.fa-caret-right
               %span Checkout
           %li{ :class => ('active' if yield(:subpage) == 'ideal') }
-            %a{href: '/apps/ideal'}
+            = link_to :apps_ideal do
               %i.fa.fa-caret-right
               %span iDeal
-                
-      %li{ :class => ('active' if yield(:subpage) == 'settings') }
-        %a{href: '#'}
+
+      %li{ :class => ('active' if yield(:page) == 'settings') }
+        = link_to '' do
           %span Instellingen
           %i.fa.fa-gears
             %span.icon-bg.bg-violet
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:subpage) == 'generic') }
-            %a{href: '/settings'}
+            = link_to :settings do
               %i.fa.fa-caret-right
               %span Algemeen
           %li{ :class => ('active' if yield(:subpage) == 'profile') }
-            %a{href: '/settings/profile'}
+            = link_to :edit_registration do
               %i.fa.fa-caret-right
               %span Profiel
-          %li{ :class => ('active' if yield(:subpage) == 'emails') }
-            %a{href: '#'}
+          %li{ :class => ('active' if yield(:subpage) == 'logs') }
+            = link_to :settings_logs do
               %i.fa.fa-caret-right
-              %span Mailings
+              %span Logs

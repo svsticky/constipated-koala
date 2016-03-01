@@ -7,19 +7,27 @@ class Users::PublicController < ApplicationController
     @member = Member.new
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
-    
-    @membership = Activity.find( settings.intro_membership )
-    @activities = Activity.find( settings.intro_activities )
+
+    @membership = Activity.find( Settings.intro_membership )
+    @activities = Activity.find( Settings.intro_activities )
+
+    @participate = @activities.map{ |activity| activity.id }
   end
 
   def create
     @member = Member.new( public_post_params.except :participant_attributes )
     @member.require_student_id = true
+
     activities = Activity.find( public_post_params[ :participant_attributes ].select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0
 
-    if @member.save
-      impressionist(@member, 'nieuwe lid')
+    # if bank is empty report and test model for additional errors
+    flash[:error] = NIL
+    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL' && @member.educations.none? { |education| Study.find( education.study_id ).masters }
+    @member.valid? unless flash[:error].nil?
+
+    if flash[:error].nil? && @member.save
+      impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # if a masters student no payment required, also no access to activities for bachelors
@@ -28,20 +36,20 @@ class Users::PublicController < ApplicationController
         redirect_to public_path
         return
       end
-      
+
       activities.each do |activity|
         participant = Participant.create( :member => @member, :activity => activity)
         total += participant.currency
       end
 
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new( 
+        @transaction = IdealTransaction.new(
           :description => "Introductie #{@member.name}",
           :amount => total,
           :issuer => params[:bank],
           :type => 'INTRO',
-          :member => @member, 
-          :transaction_id => activities.map{ |activity| activity.id }, 
+          :member => @member,
+          :transaction_id => activities.map{ |activity| activity.id },
           :transaction_type => 'Activity' )
 
         if @transaction.save
@@ -55,6 +63,11 @@ class Users::PublicController < ApplicationController
       redirect_to public_path
       return
     else
+      #@participants = public_post_params[ :participant_attributes ]
+
+      #number the already filled in educations to bypass an 500 error
+      @member.educations.each_with_index{ |education, index| education.id = ((index+1)*-1) }
+
       # create empty study field if not present
       if @member.educations.length < 1
         @member.educations.build( :id => '-1' )
@@ -63,9 +76,14 @@ class Users::PublicController < ApplicationController
       if @member.educations.length < 2
         @member.educations.build( :id => '-2' )
       end
- 
-      @membership = Activity.find( settings.intro_membership )
-      @activities = Activity.find( settings.intro_activities )
+
+      @membership = Activity.find( Settings.intro_membership )
+
+      @activities = Activity.find( Settings.intro_activities )
+      @participate = public_post_params[ :participant_attributes ].map{ |key, value| key.to_i if value['participate'] == '1' }.compact
+
+      @method = params[:method]
+      @bank = params[:bank]
 
       render 'index'
     end
@@ -74,7 +92,7 @@ class Users::PublicController < ApplicationController
   def confirm
     @transaction = IdealTransaction.find_by_uuid(params[:uuid])
 
-    if @transaction.status == 'SUCCESS'
+    if @transaction.status == 'SUCCESS' && @transaction.type == 'INTRO'
 
       @transaction.transaction_id.each do |activity|
         @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)

@@ -1,0 +1,60 @@
+.panel-heading {
+  height: 40px;
+  padding-top: 0;
+  line-height: 40px;
+}
+
+.ui-select.year {
+  position: relative;
+  top: -2px;
+
+  width: 110px;
+  margin-left: 5px;
+}
+
+.ui-select.year select {
+  font-size: 14px;
+  line-height: 14px;
+}
+
+table.table#members tr {
+  height: 40px;
+  line-height: 40px;
+
+  td {
+    padding: 0px;
+    width: 50%;
+
+    a {
+      height: 34px;
+      line-height: 34px;
+
+      margin: 2px;
+      margin-left: 10px;
+    }
+
+    input {
+      height: 34px;
+      width: calc(100% - 4px);
+
+      position: relative;
+      top: 1px;
+
+      margin: 2px;
+    }
+  }
+
+  td:nth-child(2) {
+    width: calc(50% - 50px);
+  }
+
+  td.buttons{
+    width: 30px;
+
+    button {
+      position: relative;
+      top: 4px;
+      margin-right: 2px;
+    }
+  }
+}

@@ -2,7 +2,7 @@
 - content_for(:title, "Constipated koala | leden | #{@member.first_name} #{@member.infix} #{@member.last_name}")
 
 %section#content
-  = render 'layouts/search' 
+  = render 'layouts/search'
 
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
@@ -18,145 +18,178 @@
                 %br
                 - if !@member.birth_date.nil?
                   = I18n.l @member.birth_date
-              %p 
-                #{@member.address} #{@member.house_number} 
+              %p
+                #{@member.address} #{@member.house_number}
                 %br
                 #{@member.postal_code} #{@member.city}
-              %p 
+              %p
                 #{@member.phone_number}
                 %br
                 #{@member.email}
               - if current_user.admin?
                 %p= @member.comments
-              
+
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
                   %i.fa.fa-fw.fa-tag
-                  = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )  
-         
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-ticket
-              Activiteiten
-            .panel-body
-              %table.table.table-striped.table-linked#participants
-                %thead
-                  %tr
-                    %th Activiteit
-                    %th Prijs
-                    %th.hidden-xs Datum
-                    %th{ :style => 'text-align: center;' } Betaald
-                %tbody
-                  - @activities.each do |activity|
-                    %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
-                      %td= link_to "#{activity.name}", activity
-                      
-                      - if !activity.currency(@member).nil?
-                        %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
-                      - else
-                        %td= link_to '-', activity, :style => 'text-decoration: none;'
-                      
-                      - if !activity.start_date.nil?  
-                        - if activity.end_date.nil?
-                          %td.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
-                        - else
-                          %td.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
-                        
-                      %td
-                        .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
-                          - if activity.participants.where(:member => @member).first.paid
-                            %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                              %i.fa.fa-fw.fa-check
-                          - else
-                            %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                              %i.fa.fa-fw.fa-times
-                          %button.btn.btn-default.destroy
-                            %i.fa.fa-fw.fa-trash-o
-          
-          - if @member.checkout_cards.length > 0
-            .panel.panel-default
-              .panel-heading
-                %i.fa.fa-fw.fa-shopping-cart
-                Checkout
-              .panel-body                    
-                %table.table.table-striped.table-linked#transactions
-                  %thead
-                    %tr
-                      %th Datum
-                      %th Prijs
-                      %th.hidden-xs Kaart
-                  %tbody
-                    - @transactions.each do |transaction|
-                      %tr
-                        %td #{I18n.l transaction.created_at}
-                        %td
-                          = number_to_currency(transaction.price, :unit => '€')
-                          - if transaction.price > 0
-                            %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
-                          - else
-                            %span.fa.fa-sort-desc.pull-right
-                        
-                        %td.hidden-xs
-                          - if !transaction.checkout_card.nil?
-                            - if transaction.checkout_card.description.nil?  
-                              = transaction.checkout_card.uuid
-                            - else
-                              = transaction.checkout_card.description
-                          - else
-                            \-
-     
-        .col-md-6
+                  = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )
+
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-graduation-cap
               Studiegegevens
             .panel-body
               %dl.dl-horizontal
-                %dt #
+                %dt Studentnummer
                 %dd= @member.student_id
+                %dt Lid sinds
+                - if !@member.join_date.nil?
+                  %dd= I18n.l @member.join_date
+
               %dl.dl-horizontal
                 - @member.educations.each do |education|
-                  %dt= education.study.name
+                  %dt= I18n.t education.study.code.downcase, scope: 'activerecord.attributes.study.names'
                   %dd
                     - if education.end_date.nil?
                       #{I18n.l education.start_date, :format => :short}
                     - else
                       #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
-                    
+
                     - if education.graduated?
                       %span.label.label-success geslaagd
                     - elsif education.stopped?
                       %span.label.label-warning gestopt
                     - elsif education.active?
                       %span.label.label-info studerend
-        
+
+          .panel.panel-default
+            .panel-body
+              = link_to 'Back', :back, { :class => 'button btn btn-default' }
+              = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+
+          - if @member.checkout_cards.length > 0
+            .panel.panel-default
+              .panel-heading.input
+                %i.fa.fa-fw.fa-shopping-cart
+                Checkout
+                .input-group#credit{ :data => { 'member_id' => @member.id }}
+                  %span.input-group-addon €
+                  %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '') }
+                  %span.input-group-btn
+                    %button.btn.btn-warning opwaarderen
+
+              %table.table.table-striped#transactions
+                %thead
+                  %tr
+                    %th Datum
+                    %th Prijs
+                    %th.hidden-xs Producten
+                %tbody
+                  - @transactions.each do |transaction|
+                    %tr
+                      %td #{I18n.l transaction.created_at}
+                      %td
+                        = number_to_currency(transaction.price, :unit => '€')
+                        - if transaction.price > 0
+                          %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                        - else
+                          %span.fa.fa-sort-desc.pull-right
+
+                      %td.hidden-xs
+                        = transaction.products
+              %footer.table-footer
+                .row
+                  .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4 } }
+                    %span
+                      Toon
+                      = select_tag 'limit', options_for_select([10,20,50], @limit)
+                      transacties per pagina
+
+                  .col-md-6.text-right.pagination-container
+                    %ul.pagination-sm.pagination
+                      %li{ :class => ( 'disabled' if @offset == 0)}
+                        %a{ :data => { :offset => @offset - @limit }} vorige
+
+                      %li.scroll{ :class => ( 'disabled' if @page / 4 == 0)}
+                        %a{ :data => { :offset => (@page / 4 * 4 -1) * @limit }} <<
+
+                      - (0 .. @pages -1).each do |i|
+                        - if i == @page
+                          %li.active
+                            - if i.between?(4 * (@page / 4), 4 * (@page / 4) + 4 -1 )
+                              %a{ :data => { :offset => @limit * i }}= i+1
+                            -else
+                              %a.hidden{ :data => { :offset => @limit * i }}= i+1
+                        - else
+                          %li
+                            - if i.between?(4 * (@page / 4), 4 * (@page / 4) + 4 -1 )
+                              %a{ :data => { :offset => @limit * i }}= i+1
+                            - else
+                              %a.hidden{ :data => { :offset => @limit * i }}= i+1
+
+                      %li.scroll{ :class => ( 'disabled' if @pages / 4.to_f <= 1 || @page +1 > (@pages -1) / 4 * 4)}
+                        %a{ :data => { :offset => (@page / 4 +1) * 4 * @limit }} >>
+
+                      %li{ :class => ( 'disabled' if @offset == @limit * @pages )}
+                        %a{ :data => { :offset => @offset + @limit }} volgende
+
+
+        .col-md-6
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-users
-              Commissies
-            .panel-body
+              Groepen
+            %table.table.table-striped
+              %tbody
+                - @member.groups.each do |group|
+                  %tr
+                    %td= link_to group[ :name ], group_path( group[ :id ] )
+                    %td= Date.years( group[ :years ].sort )
+
+                    %td.hidden-xs
+                      - group[ :positions ].each do | position |
+                        - position.each do | position, year |
+                          - unless position.nil?
+                            = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
+
 
           .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-dashboard
-              Overig
-            .panel-body
-              %dl.dl-horizontal
-                %dt Lid sinds
-                - if !@member.join_date.nil?
-                  %dd= I18n.l @member.join_date
-                
-                %dt Activiteiten
-                %dd= @member.activities.length
-                
-                %dt Tegoed
-                -if @member.checkout_cards.length > 0
-                  %dd= number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '€')
-                -else
-                  %dd -
+            .panel-heading.year
+              %i.fa.fa-fw.fa-ticket
+              Activiteiten
+              .ui-select
+                = select_tag :year, options_for_select( @years, params['year'] )
 
-          - if current_user.admin?
-            .panel.panel-default
-              .panel-body
-                = link_to 'Back', :back, { :class => 'button btn btn-default' }
-                = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+            %table.table.table-striped.table-linked#participants
+              %thead
+                %tr
+                  %th Activiteit
+                  %th Prijs
+                  %th.hidden-sm.hidden-xs Datum
+                  %th.hidden-xs{ :style => 'text-align: center;' } Betaald
+              %tbody
+                - @activities.each do |activity|
+                  %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
+                    %td= link_to "#{activity.name}", activity
+
+                    - if !activity.currency(@member).nil?
+                      %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                    - else
+                      %td= link_to '-', activity, :style => 'text-decoration: none;'
+
+                    - if !activity.start_date.nil?
+                      - if activity.end_date.nil?
+                        %td.hidden-sm.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
+                      - else
+                        %td.hidden-sm.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+
+                    %td.hidden-xs.buttons
+                      .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
+                        - if activity.participants.where(:member => @member).first.paid
+                          %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                            %i.fa.fa-fw.fa-check
+                        - else
+                          %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                            %i.fa.fa-fw.fa-times
+                        %button.btn.btn-default.destroy
+                          %i.fa.fa-fw.fa-trash-o

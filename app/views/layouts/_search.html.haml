@@ -3,9 +3,26 @@
     .panel-body
       = form_tag members_path, :method => 'get' do
         .input-group
-          = search_field_tag :search, params[:search], :autofocus => true,  placeholder: 'zoek lid op voornaam, achternaam, of studentnummer', class: 'form-control', :autocomplete => 'off'
+
+          = search_field_tag :search, params[:search],  placeholder: 'zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]', class: 'form-control', :autocomplete => 'off'
+
+          %ul.dropdown-menu{ :name => 'studies' }
+            - Study.select( :code ).all.map{ |study| [study.code.downcase, I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names')] }.each do |study|
+              %li
+                %a{ :data => { :code => study[0], :name => study[1].downcase.gsub( ' ', '-' )} }= study[1]
+
+          %ul.dropdown-menu{ :name => 'tags' }
+            - Tag.names.map{ |tag| I18n.t(tag[0], scope: 'activerecord.attributes.tag.names')}.each do |tag|
+              %li
+                %a{ :data => { :name => tag.downcase.gsub( ' ', '-' )} }= tag
+
+          %ul.dropdown-menu{ :name => 'states' }
+            %li
+              %a{ :data => { :name => 'actief' }} actief
+            %li
+              %a{ :data => { :name => 'studerend' }} studerend
+            %li
+              %a{ :data => { :name => 'alumni' }} alumni
+
           %span.input-group-btn
-            %abbr{ :title => 'alle leden' }
-              %label.ui-checkbox.btn.btn-primary
-                %input{ :type => 'checkbox', :name => 'all', :checked => @all || false }
             %button.btn.btn-primary.fa.fa-search{ type: 'submit', style: 'padding: 7px 20px; height: 34px;' }
