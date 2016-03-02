@@ -19,7 +19,7 @@ Now whe have installed ruby on your system, we have to chose which version we wi
 $ rbenv install -l
 
 # The version we are using on the moment
-$ rbenv install 2.1.2
+$ rbenv install 2.1.3
 ```
 
 ###Deployment
@@ -38,6 +38,9 @@ $ git clone https://github.com/rbenv/rbenv-vars.git
 # Copy example config file and fill in
 $ cd /var/www/koala.svsticky.nl
 $ cp .rbenv-vars-sample .rbenv-vars && vim .rbenv-vars
+
+# reset current version
+$ rbenv rehash
 
 # Finally install our package manager
 $ gem install bundler
