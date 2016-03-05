@@ -1,80 +1,105 @@
-#Constipated koala
+# Constipated koala
+
 Koala is a [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html) application, it uses ruby as language which is quite an easy language running on [rbenv](https://github.com/rbenv/rbenv). Rails is a Model-View-Controller framework denoting an easy to understand file structure. At Sticky we are using [Unicorn](unicorn) to run the application with multiple threads in a rackspace environment on the production server. Unicorn runs the app on `/tmp/unicorn.sock` which in turn is used by [Nginx](koala.svsticky.nl)
  as a proxy. In development and production we use mysql, it should work with alternatives but never tested. Finally the package manager called bundler is also required.
 
-First I will discuss some information on developing on unix and windows. These steps can be skipped if you're already developing rails applications.
+ ```shell
+ # Let's start; clone the project
+ $ git clone git@github.com:svsticky/ConstipatedKoala.git koala.svsticky.nl
+ $ cd koala.svsticky.nl
+ ```
 
-###Windows
-virtualbox linux, start at linux
-To be continued..
+First I will discuss some information on developing on unix and windows. These steps can be skipped if you're already developing rails applications using rbenv.
 
-###Linux
-Congratulations, you now have access to a superior operating system.
+### Windows
+These steps are required for Windows but can be done on any OS if you want a clean install on a virtual machine. First we have to install [Vagrant](http://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
 
-Ruby is a language and requires a environment. We are installing that with the help of rbenv and its [tutorial](https://github.com/rbenv/rbenv#basic-github-checkout). Add the end of this specific chapter they are telling about [ruby-build](https://github.com/rbenv/ruby-build#installing-as-an-rbenv-plugin-recommended) which makes your life a lot easier by adding commands to install new versions. We'll do that a little bit later on.
+```shell
+# first install vagrant plugins for virtualbox and chef
+$ vagrant plugin install vagrant-vbguest
+$ vagrant plugin install vagrant-librarian-chef-nochef
+```
 
-Now whe have installed ruby on your system, we have to chose which version we will be using. Currently that is 2.1.3, but we should update soon. Updating requires you to check if everything is still working properly.
+Now we can setup the virtual machine using Vagrant and chef. The virtual machine runs the rails environment from your working directory on the default port. In the virtual machine your project is located at `/vagrant`
+
+```shell
+# create and install a virtual machine, coffee time!
+$ vagrant up
+
+# connect to the virtual machine
+$ vagrant ssh
+$ cd /vagrant
+```
+
+Bonus card; _skip to deployment_, the linux steps are all pre-installed on your virtual machine for you!
+
+### Linux
+Congratulations, you have access to a superior operating system.
+
+Ruby is a language and requires an environment. We are installing that with the help of rbenv and its [tutorial](https://github.com/rbenv/rbenv#basic-github-checkout). Add the end of this specific chapter they are telling about [ruby-build](https://github.com/rbenv/ruby-build#installing-as-an-rbenv-plugin-recommended) which makes your life a lot easier by adding commands to install new versions. We'll do that a little bit later on.
+
+Now we have installed ruby on your system, we have to chose which version we will be using. Currently that is `2.1.3`, but we should update soon. Updating requires you to check if everything is still working properly, obviously.
+
 ```shell
 # list all available versions:
 $ rbenv install -l
 
 # The version we are using on the moment
-$ rbenv install 2.1.2
-```
-
-###Deployment
-Deploying koala or any Ruby on Rails application for that matter is just using some commands. It isn't that hard. First we have to clone the repository to a suitable location, usually that would be `/var/www` on any linux server. Then we have to install rbenv-vars, which set environment variables. It sets variables accessible on the entire system, these variables are usually secret so they are not put on Github. To list all environment variables just type `env` and press <kbd>enter</kbd>.
-
-```shell
-# Clone and switch directories:
-$ cd /var/www
-$ git clone git@github.com:svsticky/ConstipatedKoala.git koala.svsticky.nl
+$ rbenv install 2.1.3
 
 # Installing rbenv-vars in the existing rbenv installation
 $ mkdir -p ~/.rbenv/plugins
 $ cd ~/.rbenv/plugins
 $ git clone https://github.com/rbenv/rbenv-vars.git
+```
 
+Now the hardest part; [paperclip](https://github.com/thoughtbot/paperclip#image-processor). Paperclip is a image processor, however we have to add imagemagick to our server. Make sure the `identify` and `convert` are reachable from the path configured [here](../environment.rb). You can find the paths out by using `which convert` on your machine.
+
+### Running the app
+Deploying koala or any Ruby on Rails application for that matter is not that hard. First we have to clone the repository to a suitable location, we have done that already, usually that would be `/var/www` on any linux server. Then we have to install rbenv-vars, which set environment variables, also check. It sets variables accessible on the entire system, these variables are usually secret so they are not put on Github. To list all environment variables just type `env` and press <kbd>enter</kbd>.
+
+```shell
 # Copy example config file and fill in
-$ cd /var/www/koala.svsticky.nl
 $ cp .rbenv-vars-sample .rbenv-vars && vim .rbenv-vars
+
+# Create secrets for .rbenv-vars
+$ rake secret
 
 # Finally install our package manager
 $ gem install bundler
+$ rbenv rehash
 ```
 
-In the `.rbenv-vars` is a fixed set of variables required for going any further, for example credentials of the database. Next we have to install all packages listed in the Gemfile. A package is called a gem and is installed using the package manager bundler. It will output a list of all installed gems. Finally create, migrate, and fill the database with testdata.
+In `.rbenv-vars` is a fixed set of variables required for going any further, for example credentials of the database. Next we have to install all packages listed in the Gemfile. A package is called a gem and is installed using the package manager bundler. It will output a list of all installed gems. Finally create, migrate, and fill the database with testdata.
 
 ```shell
-# Install ruby dependencies:
+# Install ruby dependencies
 $ bundle install
+
+$ bundle exec rake routes
 
 # Create and populate the database
 $ bundle exec rake db:create db:setup
 ```
 
-Now the hardest part; [paperclip](https://github.com/thoughtbot/paperclip#image-processor). Paperclip is a image processor, however because we use pdf as posters we have to add imagemagick to our server. Make sure the `identify` and `convert` are reachable from the path configured [here](../environment.rb). You can find the paths out by using `which convert` on your machine.
-
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
-###Development locally
-In development we are using Webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works on localhost on any linux system. So now you can reach the application [koala.rails.dev:3000](http://koala.rails.dev:3000).
+### Development
+In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.dev:3000](http://koala.rails.dev:3000).
 
 ```shell
-# Add hosts for different subdomains on localhost
+# Add hosts for different subdomains on your own computer
 $ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
 
 # Run the server using webrick
 $ bundle exec rails server
-
-# If you get errors with mkdir
-$ sudo chmod 777 public/
 ```
 
-###Production on a server
+### Production
 Well almost there, before running this app on production it would be smart to secure the connection with an ssl certificate. This can be done by letsencrypt where the webroot should be `/var/www/koala.svsticky.nl/public` and the certificate configured in nginx.
 
-Koala needs to run some tasks occasionally called cronjobs; one to reindex the search table. Sometimes it doesn't work properly, don't know why. And secondly to update the introductory activities, we check daily if a new study year has started.
+Koala needs to run some tasks occasionally runned called cronjobs; one to reindex the search table. Sometimes it doesn't work properly, don't know why, probably due to heavy load. And secondly to update the introductory activities, we check daily if a new study year has started.
+
 ```shell
 # Reindex the search table, which can be partial because of the load on introduction day!
 $ 0 0 10 9 * cd /var/www/koala.svsticy.nl && /usr/local/bin/rake RAILS_ENV=production admin:reindex_members
