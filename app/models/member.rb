@@ -171,10 +171,7 @@ class Member < ActiveRecord::Base
   # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
-
-    if result_id.blank?
-      puts "#{self.student_id} returns empty result; "
-    end
+    puts "#{self.student_id} returns empty result;" if result_id.blank?
 
     if self.student_id != result_id
       logger.error 'Student id received from studystatus is different'
@@ -187,47 +184,48 @@ class Member < ActiveRecord::Base
     end
 
     for study in studies do
-      code, start_date, status, end_date = study.split(/, /)
+      code, year, status, end_date = study.split(/, /)
 
       if Study.find_by_code(code).nil?
         puts "#{code} is not found as a study in the database"
         next
       end
 
-      education = self.educations.find_by_start_date_and_study_code(start_date, code)
+      education = self.educations.find_by_year_and_study_code(year, code)
 
       # If not found as informatica, we can try for gametech. This only works if the student filled in GT from the subscribtion
       if education.nil? && code == 'INCA'
-        education = self.educations.find_by_start_date_and_study_code(start_date, 'GT')
+        education = self.educations.find_by_year_and_study_code(year, 'GT')
         code = 'GT'
       end
 
       if education.nil?
-        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(start_date.to_i, 9, 1))
+        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(year.to_i, 9, 1))
         puts " + #{code} (#{status})"
       else
         puts " ± #{code} (#{status})"
-      end
-
-      if !end_date.nil? && !end_date[5..-1].nil?
-        education.update_attribute('end_date', Date.parse(end_date[5..-1]))
       end
 
       if status.eql?('gestopt')
         education.update_attribute('status', 'stopped')
       elsif status.eql?('afgestudeerd')
         education.update_attribute('status', 'graduated')
-      else
+      elsif status.eql?('actief')
         education.update_attribute('status', 'active')
+      else
+        next
       end
 
-      education.save!
+      # TODO check if student joined this year, has no studies, and study is a bachelor
+
+      education.update_attribute('end_date', Date.parse(end_date[5..-1])) if education.status == 'active' && !end_date.nil? && !end_date[5..-1].nil?
+      education.save
     end
 
     # remove studies no longer present
     for education in self.educations do
       check = "#{education.study.code} | #{education.start_date.year}"
-      check = "INCA | #{education.start_date.year}" if education.study.code == 'GT' #dirty fix for gametechers
+      check = "INCA | #{education.start_date.year}" if education.study.code == 'GT' # NOTE dirty fix for gametechers
 
       unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?( check )
         puts " - #{education.study.code}"
