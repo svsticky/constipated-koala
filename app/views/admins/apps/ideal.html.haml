@@ -6,96 +6,77 @@
 %section#content
   = render 'layouts/search'
 
-  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
-    .row
-      .col-md-8
-        .panel.panel-default
-          .panel-heading
-            %i.fa.fa-fw.fa-credit-card
-            iDeal transacties
+  - if flash[:warning].present?
+    .page{ :style => 'padding-bottom: 0px;'}
+      .alert.alert-danger{ :style => 'margin: 0px;'}
+        = flash[:warning]
 
-            .date-input
-              %input{ :type => 'date', :value => params['date'] || Date.yesterday }
+  .page.page-table
+    %section.panel.panel-default.table-dynamic
+      .panel-heading
+        %i.fa.fa-fw.fa-credit-card
+        iDeal transacties
+      .table-responsive
+        %table.table.table-bordered.table-striped.table-linked
+          %thead
+            %tr
+              %th
+                .th
+                  Datum
+              %th
+                .th
+                  Lid
+              %th
+                .th
+                  Omschrijving
+              %th
+                .th
+                  Prijs
+              %th
+                .th
+                  Status
 
-          .table-responsive
-            %table.table.table-bordered.table-striped.table-linked
-              %thead
-                %tr
-                  %th
-                    .th
-                      Datum
-                  %th
-                    .th
-                      Lid
-                  %th
-                    .th
-                      Omschrijving
-                  %th
-                    .th
-                      Prijs
-                  %th
-                    .th
-                      Status
+          - @transactions.each do |transaction|
+            %tr
+              %td= I18n.l Time.parse transaction['created_at'].to_s
+              %td
+                - if transaction['member'].present?
+                  = link_to transaction['member'].name, transaction['member']
+                - elsif transaction['iban'].present?
+                  = transaction['iban']
 
-              - @transactions.each do |transaction|
-                %tr
-                  %td
-                    = transaction['created_at']
+              %td
+                - if transaction['checkout'].present?
+                  = I18n.t 'checkout', scope: 'activerecord.errors.models.ideal_transaction.attributes'
+                - elsif transaction['activities'].present?
+                  - transaction['activities'].each do |activity|
+                    = link_to activity.name, activity, :class => 'inline'
 
-                  %td
-                    = link_to transaction['member'].name, transaction['member'] unless transaction['member'].nil?
+                - else
+                  = transaction['description']
 
-                  %td
-                    - if !transaction['checkout'].nil?
-                      = I18n.t 'checkout', scope: 'activerecord.errors.models.ideal_transaction.attributes'
+              %td= number_to_currency(transaction['amount'], :unit => '€')
 
-                    - elsif transaction['activities'].nil?
-                      = transaction['description']
+              %td
+                - if transaction['status'] == 'SUCCESS'
+                  %span.label.label-success= transaction['status']
+                - elsif transaction['status'] == 'OPEN'
+                  %span.label.label-warning= transaction['status']
+                - else
+                  %span.label.label-danger= transaction['status']
 
-                    - else
-                      = transaction['activities'].map{ |activity| activity.name }.join(', ')
+      %footer.table-footer
+        .row
+          .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4, :all => @all } }
+            %span
+              Toon
+              = select_tag 'limit', options_for_select([20,50,100], @limit)
+              transacties per pagina
 
-                  %td
-                    = number_to_currency(transaction['amount'], :unit => '€')
+          .col-md-6.text-right.pagination-container
+            %ul.pagination-sm.pagination
+              %li{ :class => ( 'disabled' if @offset == 0)}
+                %a{ :data => { :offset => @offset - @limit < 0 ? 0 : @offset - @limit }} vorige
 
-                  %td
-                    - if transaction['status'] == 'SUCCESS'
-                      %span.label.label-success= transaction['status']
-
-                    - elsif transaction['status'] == 'OPEN'
-                      %span.label.label-warning= transaction['status']
-
-                    - else
-                      %span.label.label-danger= transaction['status']
-
-      .col-md-4
-        .panel.panel-default
-          .panel-heading
-            %i.fa.fa-fw.fa-credit-card
-            iDeal samenvatting
-
-          .table-responsive
-            %table.table.table-bordered.table-striped.table-linked
-              %thead
-                %tr
-                  %th
-                    .th
-                      Omschrijving
-                  %th
-                    .th
-                      Totaal
-
-              - @summary.each do |activity, amount|
-                %tr
-                  %td
-                    - if activity.is_a? String
-                      - if activity == 'checkout' || activity == 'fees'
-                        = I18n.t activity, scope: 'activerecord.errors.models.ideal_transaction.attributes'
-                      - else
-                        = activity.capitalize
-
-                    - else
-                      = link_to activity.name, activity
-
-                  %td
-                    = number_to_currency( amount, :unit => '€')
+              %li
+                %a{ :data => { :offset => @offset + @limit }} volgende

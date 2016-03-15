@@ -180,6 +180,7 @@ nl:
     errors:
       default: Er is iets fout gegaan
       incomplete: Oh snap, niet alles is goed ingevuld
+      no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
