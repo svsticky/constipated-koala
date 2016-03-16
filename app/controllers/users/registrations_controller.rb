@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # add member to user credentials
   def create
-    build_resource(sign_up_params)
+    resource = build_resource(sign_up_params)
 
     if User.find_by_email(sign_up_params[:email]).present?
       resource = resource_class.send_reset_password_instructions(sign_up_params.slice(:email))
@@ -19,11 +19,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.credentials = Member.find_by_email(sign_up_params[:email])
 
     if resource.credentials.nil?
-      set_flash_message :error, :'Ongeldige e-mailadres.'
+      set_flash_message :notice, :'not_found_in_database'
 
       clean_up_passwords resource
       set_minimum_password_length
-      render 'new'
+      render 'new' and return
     end
 
     resource_saved = resource.save
@@ -37,7 +37,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords resource
       set_minimum_password_length
-      render 'new'
+      render 'new' and return
     end
   end
 
