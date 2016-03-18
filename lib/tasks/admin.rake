@@ -70,13 +70,12 @@ namespace :admin do
       Settings.intro_activities -= [activity.id]
     end
 
-    exit if Settings.begin_study_year < Date.today
-    exit if args[:membership].nil?
+    exit unless Settings.begin_study_year < Date.today
 
     # create new activity if it is time
     activity = Activity.create(
-      name:                 args[:membership],
-      price:                args[:price] ||= 0,
+      name:                 args[:membership] ||= 'Lidmaatschap',
+      price:                args[:price] ||= 7.5,
       start_date:           Settings.begin_study_year,
       description:          'automatisch gegenereerde activiteit'
     )

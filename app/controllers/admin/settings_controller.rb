@@ -10,9 +10,9 @@ class Admin::SettingsController < ApplicationController
     @advertisements = Advertisement.all
   end
 
-  def create
+  def setting
     if ['additional_moot_positions', 'additional_committee_positions'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].split(',')
+      Settings[params[:setting]] = params[:value].downcase.split(',')
     elsif ['intro_membership','intro_activities'].include? params[:setting]
       Settings[params[:setting]] = Activity.where( id: params[:value].split(',').map(&:to_i) ).collect(&:id)
       render :status => :ok, :json => {
@@ -49,9 +49,11 @@ class Admin::SettingsController < ApplicationController
     if @advert.save
       redirect_to settings_path
     else
-      @settings = UserConfiguration.all
       @studies = Study.all
+
       @clients = Doorkeeper::Application.all
+
+      @advert = Advertisement.new
       @advertisements = Advertisement.all
 
       render 'index'

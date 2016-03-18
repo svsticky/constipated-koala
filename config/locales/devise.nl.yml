@@ -31,12 +31,13 @@ nl:
       updated: "Je wachtwoord is succesvol veranderd, je bent nu ingelogd."
       updated_not_active: "Je wachtwoord is succesvol veranderd."
     registrations:
+      not_found_in_database: "Ongeldig e-mail of wachtwoord."
       destroyed: "Tot ziens! Je account is succesvol verwijderd."
       signed_up: "Welkom, u bent succesvol ingelogd"
       signed_up_but_inactive: "Je account is nog niet geactiveerd."
       signed_up_but_locked: "Je bent succesvol ingelogd, echter kunnen we nog niet inloggen, omdat je account is geblokeerd."
       signed_up_but_unconfirmed: "Een e-mail met een bevestigings URL is verstuurd. Gebruik de URL om je account te activeren."
-      update_needs_confirmation: "Je account is succesvol gewijzigd, echter hebben moet je nog wel je e-mail adres verifiëren."
+      update_needs_confirmation: "Je account is succesvol gewijzigd, echter moet je nog wel je e-mail adres verifiëren."
       updated: "Je account is succesvol gewijzigd"
     sessions:
       signed_in: "Succesvol ingelogd"

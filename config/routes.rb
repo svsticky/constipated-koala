@@ -76,7 +76,7 @@ ConstipatedKoala::Application.routes.draw do
       post   'settings',                  to: 'settings#create'
       get    'settings/logs',             to: 'settings#logs'
 
-      patch  'settings/update',           to: 'settings#create'
+      patch  'settings/update',           to: 'settings#setting'
       patch  'settings/study',            to: 'settings#study'
       patch  'settings/client',           to: 'settings#client'
 

@@ -18,7 +18,7 @@ class IdealTransaction < ActiveRecord::Base
 
   after_validation(on: :create) do
     response = Net::HTTP.post_form(
-      URI(ENV['IDEAL_PLATFORM']),
+      URI("#{ENV['IDEAL_PLATFORM']}/"),
       {
         'description' => self.description,
         'amount' => self.amount,
@@ -28,7 +28,7 @@ class IdealTransaction < ActiveRecord::Base
     )
 
     if response.code != '200'
-      logger.error response.inspect
+      logger.fatal response.inspect
       raise ArgumentError
     end
 
@@ -39,7 +39,7 @@ class IdealTransaction < ActiveRecord::Base
   end
 
   after_find do |transaction|
-    response = Net::HTTP.get_response(URI("#{ENV['IDEAL_PLATFORM']}?uuid=#{self.uuid}"))
+    response = Net::HTTP.get_response(URI("#{ENV['IDEAL_PLATFORM']}/?uuid=#{self.uuid}"))
 
     if response.code != '200'
       logger.fatal response.inspect
@@ -55,56 +55,44 @@ class IdealTransaction < ActiveRecord::Base
     self.type = object['type']
   end
 
-  def self.find_by_date( date )
-    response = Net::HTTP.get_response( URI("#{ENV['IDEAL_PLATFORM']}?date=#{date}") )
+  def self.list( limit, offset )
+    response = Net::HTTP.get_response( URI("#{ENV['IDEAL_PLATFORM']}/?limit=#{limit}&offset=#{offset}") )
 
     if response.code != '200'
-      logger.debug response.code
+      logger.fatal response.inspect
       raise ArgumentError
     end
 
     objects = JSON.parse( response.body )
+    return IdealTransaction.merge( objects )
+  end
+
+  private
+  def self.merge( objects )
+
     objects.each do |object|
-      object.merge!( IdealTransaction.where( :uuid => object['uuid'] ).first.attributes.slice!( 'created_at', 'updated_at' ) ) unless IdealTransaction.where( :uuid => object['uuid'] ).empty?
-      object.merge!( 'member' => Member.find_by_id( object['member_id'] ) ).delete( 'member_id') unless object['member_id'].nil?
 
-      object.merge!( 'activities' => Activity.where( :id => object['transaction_id'] ).to_a ).delete( 'transaction_id' ).delete( 'transaction_type' ) unless object['transaction_id'].nil? || object['transaction_type'] != 'Activity'
+      transaction = IdealTransaction.find_by_uuid( object['uuid'] )
 
-      object.merge!( 'checkout' => CheckoutTransaction.where( :id => object['transaction_id'] )).delete( 'transaction_id' ).delete( 'transaction_type') unless object['transaction_id'].nil? || object['transaction_type'] != 'CheckoutTransaction'
+      # NOTE no koala transaction, continue
+      next if transaction.nil?
+
+      object.merge!( transaction.attributes )
+      object.merge!( 'member' => transaction.member ) if transaction.member.present?
+
+      if object['transaction_type'] == 'Activity'
+        activities = Activity.where( :id => object['transaction_id'] ).select( :id, :name, :price )
+        object.merge!( 'activities' => activities.to_a ) unless activities.nil?
+
+      elsif object['transaction_type'] == 'CheckoutTransaction'
+        products = CheckoutTransaction.where( :id => object['transaction_id'] )
+        object.merge!( 'checkout' => products ) unless products.nil?
+
+      end
 
       object.compact
     end
 
     return objects
-  end
-
-  def self.summary( objects )
-    summary = Hash.new
-
-    objects.each do |object|
-
-      next unless object['status'] == 'SUCCESS'
-
-      if !object['activities'].nil?
-        object['activities'].each do |activity|
-          summary.merge!( activity => summary[activity] + activity.participants.where( :member => object['member'] ).first.currency ) if summary.has_key?( activity )
-          summary.merge!( activity => activity.participants.where( :member => object['member'] ).first.currency ) unless summary.has_key?( activity )
-        end
-      elsif !object['checkout'].nil?
-        summary.merge!( 'checkout' => summary['checkout'] + object['amount'] - ENV['MONGOOSE_IDEAL_COSTS'].to_f) if summary.has_key?( 'checkout' )
-        summary.merge!( 'checkout' => object['amount'] - ENV['MONGOOSE_IDEAL_COSTS'].to_f ) unless summary.has_key?( 'checkout' )
-
-        summary.merge!( 'fees' => summary['fees'] + ENV['MONGOOSE_IDEAL_COSTS'].to_f) if summary.has_key?( 'fees' )
-        summary.merge!( 'fees' => ENV['MONGOOSE_IDEAL_COSTS'].to_f ) unless summary.has_key?( 'fees' )
-      else
-        summary.merge!( object['type'] => summary[ object['type'] ] + object['amount'] ) if summary.has_key?( object['type'] )
-        summary.merge!( object['type'] => object['amount'] ) unless summary.has_key?( object['type'] )
-      end
-
-    end
-
-    logger.debug summary.inspect
-
-    return summary
   end
 end

@@ -15,7 +15,6 @@ end
 
 # attributes if the member itself is authenticated
 if Authorization._member == @member
-  attributes :birth_date, :gender, :student_id, :join_date
   attributes :address, :house_number, :postal_code, :city
   attributes :phone_number, :email
 

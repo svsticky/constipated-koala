@@ -13,3 +13,6 @@ tmp
 vendor/cache
 public/assets
 public/images
+
+.vagrant
+cookbooks

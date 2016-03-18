@@ -1,7 +1,7 @@
 class Admin::HomeController < ApplicationController
   def index
     @members = Education.group('member_id').where('status = 0').length + Tag.joins(:member, member: :educations).where('status != 0').group('member_id').length
-    @studies = Education.where('status > 0').joins(:study).group('studies.code').order('studies.masters, studies.id').count
+    @studies = Education.where('status = 0').joins(:study).group('studies.code').order('studies.masters, studies.id').count
 
     @activities = Activity.where("start_date >= ?", Date.to_date( Date.today.study_year )).count
 
