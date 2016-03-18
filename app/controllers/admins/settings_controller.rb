@@ -10,7 +10,7 @@ class Admins::SettingsController < ApplicationController
 
   def create
     if ['additional_moot_positions', 'additional_committee_positions'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].split(',')
+      Settings[params[:setting]] = params[:value].downcase.split(',')
     elsif ['intro_membership','intro_activities'].include? params[:setting]
       Settings[params[:setting]] = Activity.where( id: params[:value].split(',').map(&:to_i) ).collect(&:id)
       render :status => :ok, :json => {
