@@ -4,26 +4,34 @@
 //= require bootstrap-file-input
 
 $(document).on( 'ready page:load', function(){
-  $( 'ul#settings' ).find( '.col-md-6 input' ).bind( 'change', function(){
-      var setting = $( this );
-      var current = $( setting ).val();
-      var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
-      $.ajax({
-        url: '/settings/update',
-        type: 'PATCH',
-        data: {
-          setting: $( setting ).attr( 'name' ),
-          value: $( setting ).val(),
-          authenticity_token: token
-        }
-      }).done(function(){
-        alert( 'Instelling gewijzigd', 'success' );
-      }).fail(function(){
-        alert( 'Instelling is niet gewijzigd', 'error' );
-        $( setting ).val( current )
-      });
-  })
+  $( '#settings input[id^=\'options\']' ).on( 'change', function( e ){
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+    var obj = this;
+
+    $.ajax({
+      url: '/settings',
+      type: 'POST',
+      data: {
+        authenticity_token: token,
+        setting: obj.name,
+        value: obj.value
+      }
+    }).done(function( data, status ){
+      alert( $(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast', 'success' );
+
+      if( !data )
+        return
+
+      if( 'activities' in data )
+        $(obj).val(data['activities']);
+
+      if( 'warning' in data && data['warning'] == true )
+        alert( 'niet alle activiteiten gevonden', 'warning' );
+    }).fail(function(){
+      alert( 'Instelling is niet opgeslagen', 'error' );
+    });
+  });
 
   // remove advert
   $( 'div#advertisements tr .btn-group button.destroy' ).bind( 'click', function() {

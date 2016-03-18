@@ -100,9 +100,8 @@ Ah well scopes, how do you create rights that are easily added or denied by the 
 - default  
   - member-read
   - activity-read
-  - group-read'
+  - group-read
 - optional
-  - member-write
   - participant-read
   - participant-write
   - checkout-read

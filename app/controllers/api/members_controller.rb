@@ -1,6 +1,5 @@
 class Api::MembersController < ApiController
   before_action -> { doorkeeper_authorize! 'member-read' }, only: [:index, :show]
-  before_action -> { doorkeeper_authorize! 'member-write' }, only: :update
 
   def index
     members = Member.search( params[:search] ) unless params[:search].nil?
@@ -10,25 +9,6 @@ class Api::MembersController < ApiController
 
   def show
     @member = Member.find_by_id!(params[:id])
-  end
-
-  def update
-    member = Member.find_by_id params[:id].to_i
-
-    render :status => :unauthorized, :json => '' and return unless member == Authorization._member
-    render :status => :not_found, :json => '' and return if member.nil?
-
-    begin
-      member.update member_post_params
-    rescue ActionController::UnpermittedParameters => e
-      messages = Hash[e.params.map{ |param| [param,[I18n.t(:unpermitted, scope: 'activerecord.errors.models')]] }]
-
-      # also check model for errors while we're are at it, after unpermitted params, model is not validated
-      messages = messages.merge(member.errors.messages) unless member.valid?
-      render :status => :unprocessable_entity, :json => messages
-      return
-    end
-    respond_with member
   end
 
   def member_post_params

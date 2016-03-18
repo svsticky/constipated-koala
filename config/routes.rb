@@ -93,6 +93,17 @@ ConstipatedKoala::Application.routes.draw do
       # json checkout urls
       patch  'checkout/card',         to: 'checkout#activate_card'
       patch  'checkout/transaction',  to: 'checkout#change_funds'
+
+      # api routes, without authentication                        NOTE obsolete
+      get    'api/activities',        to: 'api#activities'
+      get    'api/advertisements',    to: 'api#advertisements'
+
+      # api routes, own authentication                            NOTE obsolete
+      get    'api/checkout/card',         to: 'checkout#information_for_card'
+      get    'api/checkout/products',     to: 'checkout#products_list'
+
+      post   'api/checkout/card',         to: 'checkout#add_card_to_member'
+      post   'api/checkout/transaction',  to: 'checkout#subtract_funds'
     end
 
     scope 'api' do
@@ -101,27 +112,26 @@ ConstipatedKoala::Application.routes.draw do
       end
 
       scope module: 'api' do
-        resources :members, only: [:index, :show, :update]
+        resources :members, only: [:index, :show]
+        resources :groups, only: [:index, :show]
 
         resources :activities, only: [:index, :show]
         resources :participants, only: [:index, :create, :destroy]
 
-        resources :groups, only: [:index, :show]
-
-        get    'checkout/transactions', to: 'checkout#index'
-        post   'checkout/transactions', to: 'checkout#transaction'
-
-        get    'checkout/products',     to: 'checkout#products'
-        post   'checkout/ideal',        to: 'checkout#ideal'
-
-        get    'checkout/info',         to: 'checkout#info'
-        get    'checkout/card/:uuid',   to: 'checkout#show'
-        put    'checkout/card/:uuid',   to: 'checkout#update'
-        post   'checkout/card',         to: 'checkout#create'
-        patch  'checkout/card/:uuid',   to: 'checkout#update'
-        delete 'checkout/card/:uuid',   to: 'checkout#destroy'
-
-        get    'advertisements',    to: 'activities#advertisements'
+        # get    'checkout/transactions', to: 'checkout#index'
+        # post   'checkout/transactions', to: 'checkout#transaction'
+        #
+        # get    'checkout/products',     to: 'checkout#products'
+        # post   'checkout/ideal',        to: 'checkout#ideal'
+        #
+        # get    'checkout/info',         to: 'checkout#info'
+        # get    'checkout/card/:uuid',   to: 'checkout#show'
+        # put    'checkout/card/:uuid',   to: 'checkout#update'
+        # post   'checkout/card',         to: 'checkout#create'
+        # patch  'checkout/card/:uuid',   to: 'checkout#update'
+        # delete 'checkout/card/:uuid',   to: 'checkout#destroy'
+        #
+        # get    'advertisements',    to: 'activities#advertisements'
       end
     end
   end
