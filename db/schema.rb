@@ -206,12 +206,11 @@ ActiveRecord::Schema.define(version: 20160301185508) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: true do |t|
-    t.string   "name",                         null: false
-    t.string   "uid",                          null: false
-    t.string   "secret",                       null: false
-    t.text     "redirect_uri",                 null: false
-    t.string   "scopes",       default: "",    null: false
-    t.boolean  "trusted",      default: false, null: false
+    t.string   "name",                      null: false
+    t.string   "uid",                       null: false
+    t.string   "secret",                    null: false
+    t.text     "redirect_uri",              null: false
+    t.string   "scopes",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

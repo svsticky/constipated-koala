@@ -1,6 +1,5 @@
-class Admins::ApiController < ApplicationController
+class Admin::ApiController < ApplicationController
   protect_from_forgery except: [:activities, :advertisements]
-  before_filter :enable_cors, only: [:activities, :advertisements]
 
   skip_before_action :authenticate_user!, only: [:activities, :advertisements]
   skip_before_action :authenticate_admin!, only: [:activities, :advertisements]
