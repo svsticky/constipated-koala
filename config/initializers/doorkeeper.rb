@@ -41,7 +41,7 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    current_user || begin #TODO change scope if current_user is admin and allow to login again as admin or as member
+    current_user || begin
       session[:user_return_to] = request.fullpath
       redirect_to new_user_session_url
     end
@@ -87,7 +87,7 @@ Doorkeeper.configure do
   # For more information go to
   # https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
   default_scopes  :'member-read', :'activity-read', :'group-read'
-  optional_scopes :'member-write', :'participant-read', :'participant-write', :'checkout-read', :'checkout-write'
+  optional_scopes :'participant-read', :'participant-write', :'checkout-read', :'checkout-write'
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
@@ -135,9 +135,8 @@ Doorkeeper.configure do
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with a trusted application.
-  skip_authorization do |resource_owner, client|
-    client.application.trusted || false
-  end
+  # skip_authorization do |resource_owner, client|
+  # end
 
   # WWW-Authenticate Realm (default "Doorkeeper").
   realm "sticky"

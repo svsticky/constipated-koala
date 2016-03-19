@@ -1,5 +1,5 @@
 class Api::ActivitiesController < ApiController
-  before_action -> { doorkeeper_authorize! 'activity-read' }, only: :show
+  before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:index, :show]
 
   def index
     @activities = Activity.all.order(:end_date, :start_date).limit(params[:limit] ||= 10).offset(params[:offset] ||= 0) and return if params[:date].nil?
@@ -9,9 +9,5 @@ class Api::ActivitiesController < ApiController
 
   def show
     @activity =  Activity.find_by_id!(params[:id])
-  end
-
-  def advertisements
-    render :status => :ok, :json => Advertisement.list.only( :poster )
   end
 end

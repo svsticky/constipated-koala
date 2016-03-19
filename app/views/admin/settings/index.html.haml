@@ -124,3 +124,15 @@
                 %td= I18n.t study.code.downcase, scope: 'activerecord.attributes.study.names'
                 %td
                   %input{ :type => 'checkbox', :checked => study.active, :disabled => true }
+
+
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-rocket
+            Externe applicaties
+          %table.table.table-striped.table-linked
+            - @applications.each do |application|
+              %tr
+                %td= link_to application.name, application.redirect_uri
+                %td= application.redirect_uri

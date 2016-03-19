@@ -78,7 +78,6 @@ ConstipatedKoala::Application.routes.draw do
 
       patch  'settings/update',           to: 'settings#setting'
       patch  'settings/study',            to: 'settings#study'
-      patch  'settings/client',           to: 'settings#client'
 
       post   'settings/advertisement',    to: 'settings#advertisement'
       delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
@@ -108,15 +107,19 @@ ConstipatedKoala::Application.routes.draw do
 
     scope 'api' do
       use_doorkeeper do
-        skip_controllers :token_info, :applications, :authorized_applications
+        #skip_controllers :token_info, :applications, :authorized_applications
       end
 
       scope module: 'api' do
-        resources :members, only: [:index, :show]
+        resources :members, only: [:index, :show] do
+          resources :participants, only: :index
+        end
+
         resources :groups, only: [:index, :show]
 
-        resources :activities, only: [:index, :show]
-        resources :participants, only: [:index, :create, :destroy]
+        resources :activities, only: [:index, :show] do
+          resources :participants, only: [:index, :create, :destroy]
+        end
 
         # get    'checkout/transactions', to: 'checkout#index'
         # post   'checkout/transactions', to: 'checkout#transaction'

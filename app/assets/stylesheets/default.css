@@ -13,113 +13,164 @@
  *= require font-awesome
  *= require bootstrap
  */
-
 @import url(https://fonts.googleapis.com/css?family=Roboto);
-
-body {
-  background-color: white;
-  background: linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 50%), linear-gradient(0deg, rgba(200,0,0,.5) 50%, transparent 50%);
-  background-size: 50px 50px;
+html, body {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
-#app {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+h1, h2, h3, h4, p, a, .text-center {
+  font-family: 'Roboto', sans-serif;
+}
 
+a {
+  color: white !important;
+}
+
+span.input-group-addon {
+  background-color: white;
+}
+
+div.container {
+  background-color: #F34541;
+  height: 100%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
 }
 
-#app > div {
-  height: 100%;
-}
-
-#app div.vertical-align {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#app div.col-shadow {
-  background-color: white;
-  box-shadow: -4px 0 15px 0 gray, 4px 0 15px 0 gray;
-  background-color: white;
-}
-
-#app .col-sm-12.col-md-3 {
-  min-width: 400px;
-}
-
-#app span.input-group-addon i {
-  width: 18px;
-}
-
-.ui-select {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  height: 30px;
-  border: 1px solid #CBD5DD;
-  border-radius: 0px;
-}
-
-.ui-select > select {
-  z-index: 99;
-  display: block;
-  position: relative;
-  padding: 10px 15px 10px 10px;
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  text-transform: capitalize;
-  font-size: 11px;
-  font-weight: bold;
-  text-indent: 0.01px;
-  text-overflow: '';
-  line-height: 10px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.ui-select select::-ms-expand {
-  display: none;
-}
-
-.ui-select:after {
-  z-index: 0;
-  content: "";
+div.container h1, div.container h2 {
   position: absolute;
-  right: 5%;
-  top: 50%;
-  color: #CBD5DD;
-  width: 0;
-  margin-top: -3px;
-  height: 0;
-  border-top: 6px solid;
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-  pointer-events: none;
+  bottom: 30px;
+  width: 100%;
+  font-size: 2.5em;
+  font-weight: 100;
+  color: white;
 }
 
-/* Show only the native arrow */
-@-moz-document url-prefix() {
-  .ui-select {
-    overflow: hidden;
-  }
+div.container h2 {
+  bottom: 0px;
+  font-size: 1.1em;
+  font-weight: 200;
+}
 
-  .ui-select select {
-    width: 100%;
-    width: -moz-calc(100% + 3em);
-    width: calc(100% + em);
+div.container h3 {
+  font-size: 1.8em;
+  font-weight: 200;
+}
+
+div.container input {
+  font-weight: 200;
+}
+
+div.container .text-center {
+  font-size: 1em;
+  font-weight: 100;
+  margin-top: 10px !important;
+}
+
+div.container .row {
+  position: relative;
+  display: block;
+
+  background-color: #F34541;
+
+  text-align: center;
+  vertical-align: middle;
+
+  width: 100%;
+  margin: 0px;
+}
+
+div.container .row:nth-child(1) {
+  height: 30%;
+}
+
+div.container .row:nth-child(1):after {
+  position: absolute;
+  display: block;
+  left: 50%;
+  bottom: -20px;
+  margin-left: -4px;
+  content: '';
+  border-left: 8px solid #F34541;
+  border-right: 8px solid #F34541;
+  border-bottom: 10px solid white;
+  background-color: white;
+}
+
+div.container .row:nth-child(2) {
+  background-color: white;
+  margin: 20px 0;
+}
+
+div.container .row > form, div.container .row > div {
+  display: block;
+  background-color: white;
+  margin: 50px auto;
+  width: 90%;
+}
+
+div.container .row > div.text-center {
+  background-color: #F34541;
+  color: white;
+}
+
+div.container .row > div h3 {
+  text-align: left;
+}
+
+div.container .row > div p {
+  text-align: left;
+  margin: 0px;
+}
+
+div.container .row > div ul {
+  list-style-position: inside;
+  padding-left: 5px;
+}
+
+div.container .row > div li {
+  text-align: left;
+  padding-top: 2px;
+}
+
+div.container .row > div li:after {
+  content: ',';
+}
+
+div.container .row > div li:last-child:after
+{
+  content: '.';
+}
+
+div.container .row form div.alert {
+  margin: 0 -15px 20px;
+}
+
+div.container .row .actions form {
+  display: inline-block;
+  width: 40%;
+}
+
+div.container .row .actions form input {
+  margin: 30px 10px 0;
+}
+
+@media (min-width: 768px) {
+  div.container .row > form, div.container .row > div {
+    width: 50%;
   }
 }
-/* Firefox focus has odd artifacts around the text, this kills that. See https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-focusring */
-.ui-select select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
+
+@media (min-width: 992px) {
+  div.container .row > form, div.container .row > div {
+    width: 30%;
+  }
+}
+
+div.container .row form span.input-group-addon i {
+  width: 18px;
 }

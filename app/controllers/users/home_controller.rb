@@ -13,16 +13,20 @@ class Users::HomeController < ApplicationController
       + @member.activities.joins(:participants).where("participants.paid = FALSE AND participants.price > 0") ).uniq.sort_by(&:start_date).reverse!
 
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
-
-    #@activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today ).order(:start_date).limit(4)
   end
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
+    @applications = Doorkeeper::Application.authorized_for(current_user)
 
      if @member.educations.length < 1
        @member.educations.build( :id => '-1' )
      end
+  end
+
+  def destroy_token #TODO
+    Doorkeeper::AccessToken.revoke_all_for params[:id], current_user
+    redirect_to oauth_authorized_applications_url
   end
 
   def update

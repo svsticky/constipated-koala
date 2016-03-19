@@ -4,7 +4,7 @@ class Admin::SettingsController < ApplicationController
   def index
     @studies = Study.all
 
-    @clients = Doorkeeper::Application.all
+    @applications = Doorkeeper::Application.all
 
     @advert = Advertisement.new
     @advertisements = Advertisement.all
@@ -36,10 +36,6 @@ class Admin::SettingsController < ApplicationController
   end
 
   def study
-
-  end
-
-  def client
 
   end
 

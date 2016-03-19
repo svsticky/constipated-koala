@@ -111,7 +111,7 @@ Devise.setup do |config|
   # their account can't be confirmed with the token any more.
   # Default is nil, meaning there is no restriction on how long a user can take
   # before confirming their account.
-  config.confirm_within = 3.days
+  config.confirm_within = 1.days
 
   # If true, requires any email changes to be confirmed (exactly the same way as
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
@@ -127,11 +127,13 @@ Devise.setup do |config|
   config.remember_for = 4.weeks
 
   # If true, extends the user's remember period when remembered via cookie.
-  # config.extend_remember_period = false
+  # config.extend_remember_period = true
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
-  # config.rememberable_options = {}
+  # config.rememberable_options = {
+  #   :secure => true
+  # }
 
   # ==> Configuration for :validatable
   # Range for password length. Default is 8..128.
