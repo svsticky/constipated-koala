@@ -92,20 +92,6 @@ ConstipatedKoala::Application.routes.draw do
         skip_controllers :token_info, :applications, :authorized_applications
       end
 
-
-      # api routes, without authentication                        NOTE obsolete
-      get    'api/activities',        to: 'api#activities'
-      get    'api/advertisements',    to: 'api#advertisements'
-
-      # api routes, own authentication                            NOTE obsolete
-      get    'api/checkout/card',         to: 'checkout#information_for_card'
-      get    'api/checkout/products',     to: 'checkout#products_list'
-
-      post   'api/checkout/card',         to: 'checkout#add_card_to_member'
-      post   'api/checkout/transaction',  to: 'checkout#subtract_funds'
-
-
-
       scope module: 'api' do
         resources :members, only: [:index, :show] do
           resources :participants, only: :index
@@ -117,20 +103,17 @@ ConstipatedKoala::Application.routes.draw do
           resources :participants, only: [:index, :create, :destroy]
         end
 
-        # get    'checkout/transactions', to: 'checkout#index'
-        # post   'checkout/transactions', to: 'checkout#transaction'
-        #
-        # get    'checkout/products',     to: 'checkout#products'
-        # post   'checkout/ideal',        to: 'checkout#ideal'
-        #
-        # get    'checkout/info',         to: 'checkout#info'
-        # get    'checkout/card/:uuid',   to: 'checkout#show'
-        # put    'checkout/card/:uuid',   to: 'checkout#update'
-        # post   'checkout/card',         to: 'checkout#create'
-        # patch  'checkout/card/:uuid',   to: 'checkout#update'
-        # delete 'checkout/card/:uuid',   to: 'checkout#destroy'
-        #
-        # get    'advertisements',    to: 'activities#advertisements'
+
+        # NOTE legacy implementation for checkout without oauth
+        scope 'checkout' do
+          get 'card',           :to => 'checkout#info'
+          post 'card',          :to => 'checkout#create'
+
+          get 'products',       :to => 'checkout#products'
+          post 'transaction',   :to => 'checkout#purchase'
+        end
+
+        get 'advertisements',   :to => 'activities#advertisements'
       end
     end
   end

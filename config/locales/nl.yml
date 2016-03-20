@@ -154,8 +154,8 @@ nl:
           destroy: lid verwijderd
 
         group:
-          create: '%{category} aangemaakt'
-          update: '%{category} bewerkt'
+          create: group aangemaakt
+          update: group bewerkt
 
         groupmember:
           create: '%{name} toegevoegd'
@@ -171,6 +171,10 @@ nl:
             paid: deelnemer heeft betaald
             unpaid: deelnemer heeft niet betaald
             price: prijs is veranderd voor deelnemer
+
+        checkoutproduct:
+          change_funds: tegoed opgewaardeerd
+          activate_card: kaart geactiveerd
 
 
     annotations:
