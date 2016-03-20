@@ -11,15 +11,13 @@ function bind_activities(){
   // Activiteiten betalen met een async call
   // [PATCH] participants
   $('#participants').find('button.paid').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
 
     $.ajax({
-      url: '/participants',
+      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
-        id: id,
         authenticity_token: token,
         paid: true
       }
@@ -42,15 +40,13 @@ function bind_activities(){
   // Activiteiten op niet betaald zetten
   // [PATCH] participants
   $('#participants').find('button.unpaid').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
 
     $.ajax({
-      url: '/participants',
+      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
-        id: id,
         authenticity_token: token,
         paid: false
       }
@@ -81,10 +77,9 @@ function bind_activities(){
       return
 
     $.ajax({
-      url: '/participants',
+      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'DELETE',
       data: {
-        id: id,
         authenticity_token: token
       }
     }).done(function(){
@@ -118,10 +113,9 @@ function bind_activities(){
       $(this).val(parseFloat(price).toFixed(2));
 
     $.ajax({
-      url: '/participants',
+      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
-        id: row.attr( 'data-id' ),
         authenticity_token: token,
         price: price
       }
@@ -152,11 +146,10 @@ $(document).on( 'ready page:load', function(){
 
   $('#participants').find('input#participant').search().on('selected', function(event, id, name){
       $.ajax({
-        url: '/participants',
+        url: '/activities/' + $('#participants table').attr('data-id') + '/participants',
         type: 'POST',
         data: {
-          member: id,
-          activity: $('#participants table').attr('data-id')
+          member: id
         }
       }).done(function( data ){
         var template = $('script#activity').html();

@@ -60,13 +60,13 @@ class Users::HomeController < ApplicationController
     end
 
     ideal = IdealTransaction.new(
-      :description => "Mongoose #{member.name}",
+      :description => 'Mongoose-tegoed',
       :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
       :issuer => ideal_transaction_params[:bank],
       :type => 'MONGOOSE',
       :member => member,
       :transaction_id => NIL,
-      :transaction_type => 'CheckoutTransaction' )
+      :transaction_type => 'CHECKOUTTRANSACTION' )
 
     if ideal.save
       redirect_to ideal.url

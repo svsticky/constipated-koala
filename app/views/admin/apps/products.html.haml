@@ -18,12 +18,12 @@
             %tbody
               - @products.each do |product|
                 %tr{ :data => { 'id' => product.id }, :class => ( 'inactive' unless product.active )}
-                  %td= link_to product.name, apps_product_path(product.id)
+                  %td= link_to product.name, checkout_product_path(product.id)
                   %td= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
                   %td= number_to_currency( product.price, :unit => '€' )
 
       - unless @product.nil?
-        = form_for :checkout_product, url: apps_product_path(@product), method: :patch, :class => 'form-validation' do |f|
+        = form_for :checkout_product, url: checkout_product_path(@product), method: :patch, :class => 'form-validation' do |f|
           - if @product.errors.any?
             .col-md-6
               .alert.alert-danger
@@ -70,7 +70,7 @@
                     =image_tag @product.url
 
                 %button.btn.btn-success.wait{ type: 'submit', disabled: @product.has_children? } Opslaan
-                = link_to 'Annuleren', apps_products_path, { :class => 'button btn btn-default' }
+                = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
 
                 .pull-right
                   = label(:checkout_product, :active)
@@ -87,7 +87,7 @@
                     %td= number_to_currency( parent.price, :unit => '€' )
 
       - unless @new.nil?
-        = form_for :checkout_product, url: apps_products_path, method: :post, :class => 'form-validation' do |f|
+        = form_for :checkout_product, url: checkout_products_path, method: :post, :class => 'form-validation' do |f|
           - if @new.errors.any?
             .col-md-6.pull-right
               .alert.alert-danger
@@ -130,7 +130,7 @@
                             = f.file_field :image, { 'data-ui-file-upload' => '' }
 
                 %button.btn.btn-success.wait{type: 'submit'} Opslaan
-                = link_to 'Annuleren', apps_products_path, { :class => 'button btn btn-default' }
+                = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
 
       - unless @product.nil? || @total.nil?
         .col-md-6.pull-right
@@ -146,7 +146,7 @@
               - @product.sales( params['year'] ).each do |sale|
                 - if sale.first[1].to_i > 0
                   %tr
-                    %td=link_to sale.first[0].name, apps_product_path(sale.first[0].id)
+                    %td=link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
                     %td= number_to_currency( sale.first[0].price, :unit => '€')
                     %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
 

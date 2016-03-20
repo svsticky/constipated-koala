@@ -48,13 +48,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # make sure the admin is also updated seperatly
   def update
-    params = account_update_params
-    credentials = params.delete(:credentials)
+    user = account_update_params
+    credentials = user.delete(:credentials)
 
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    resource_updated = update_resource(resource, params)
+    resource_updated = update_resource(resource, user)
 
     yield resource if block_given?
 

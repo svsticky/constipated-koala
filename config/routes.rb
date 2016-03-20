@@ -48,50 +48,50 @@ ConstipatedKoala::Application.routes.draw do
     end
 
     scope module: 'admin' do
-      # Resource pages
-      resources :members, :activities
+      resources :members do
+        collection do
+          get 'search'
+        end
+      end
 
-      # search for member using dropdown
-      get    'search',                to: 'members#find'
+      resources :activities do
+        resources :participants, only: [:create, :update, :destroy] do
+          collection do
+            post 'mail'
+          end
+        end
+      end
 
-      get    'groups',                to: 'groups#index'
-      post   'groups',                to: 'groups#create'
-      get    'groups/:id',            to: 'groups#index',                 as: :group
-      patch  'groups/:id',            to: 'groups#update'
+      resources :groups, only: [:index, :create, :show, :update] do
+        resources :group_members, only: [:create, :update, :destroy], path: 'members'
+      end
 
-      post   'groups/:id/members',    to: 'groups#create_member'
-      patch  'groups/:id/member',     to: 'groups#update_member'
-      delete 'groups/:id/member',     to: 'groups#destroy_member'
+      resources :settings, only: [:index, :create, :update] do
+        collection do
+          get 'logs'
 
-      # Participants routes for JSON calls
-      get    'participants/list',     to: 'participants#list'
-      get    'participants',          to: 'participants#find'
-      post   'participants',          to: 'participants#create'
-      patch  'participants',          to: 'participants#update'
-      delete 'participants',          to: 'participants#destroy'
-      post   'participants/mail',     to: 'participants#mail'
+          post 'advertisement'
+          delete 'advertisement', :to => 'settings#destroy_advertisement'
+        end
+      end
 
-      # setting pages
-      get    'settings',                  to: 'settings#index'
-      post   'settings',                  to: 'settings#create'
-      get    'settings/logs',             to: 'settings#logs'
+      scope 'apps' do
+        get 'ideal',              :to => 'apps#ideal'
+        get 'checkout',           :to => 'apps#checkout'
 
-      patch  'settings/update',           to: 'settings#setting'
-      patch  'settings/study',            to: 'settings#study'
+        # json checkout urls
+        patch  'cards',           :to => 'checkout_products#activate_card'
+        patch  'transactions',    :to => 'checkout_products#change_funds'
 
-      post   'settings/advertisement',    to: 'settings#advertisement'
-      delete 'settings/advertisement',    to: 'settings#destroy_advertisement'
+        resources :checkout_products, only: [:index, :show, :create, :update], path: 'products'
+      end
+    end
 
-      get    'apps/ideal',                to: 'apps#ideal'
-      get    'apps/checkout',             to: 'apps#checkout'
-      get    'apps/products',             to: 'apps#products'
-      get    'apps/products/:id',         to: 'apps#products',            as: :apps_product
-      patch  'apps/products/:id',         to: 'apps#update_product'
-      post   'apps/products',             to: 'apps#create_product'
+    scope 'api' do
+      use_doorkeeper do
+        skip_controllers :token_info, :applications, :authorized_applications
+      end
 
-      # json checkout urls
-      patch  'checkout/card',         to: 'checkout#activate_card'
-      patch  'checkout/transaction',  to: 'checkout#change_funds'
 
       # api routes, without authentication                        NOTE obsolete
       get    'api/activities',        to: 'api#activities'
@@ -103,12 +103,8 @@ ConstipatedKoala::Application.routes.draw do
 
       post   'api/checkout/card',         to: 'checkout#add_card_to_member'
       post   'api/checkout/transaction',  to: 'checkout#subtract_funds'
-    end
 
-    scope 'api' do
-      use_doorkeeper do
-        #skip_controllers :token_info, :applications, :authorized_applications
-      end
+
 
       scope module: 'api' do
         resources :members, only: [:index, :show] do

@@ -3,15 +3,14 @@
 
 function bind_activities(){
   //reset all binds
-  $('#members button').off('click');
-  $('#members input.position').off('focusout');
+  $('#members button.destroy').off('click');
+  $('#members select.position').off('change');
 
   // Deelname aan groep verwijderen
   // [DELETE] groups
   $('#members button.destroy').on('click', function( event ){
     event.preventDefault();
 
-    var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
 
@@ -19,10 +18,9 @@ function bind_activities(){
       return
 
     $.ajax({
-      url: '/groups/' + $('table#members').attr('data-id') + '/member',
+      url: '/groups/' + $('table#members').attr('data-id') + '/members/' + row.attr( 'data-id' ),
       type: 'DELETE',
       data: {
-        member: id,
         authenticity_token: token
       }
     }).done(function(){
@@ -45,10 +43,9 @@ function bind_activities(){
     var position = $(this).val();
 
     $.ajax({
-      url: '/groups/' + $('table#members').attr('data-id') + '/member',
+      url: '/groups/' + $('table#members').attr('data-id') + '/members/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
-        member: row.attr( 'data-id' ),
         authenticity_token: token,
         position: position
       }

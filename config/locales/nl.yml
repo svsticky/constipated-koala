@@ -158,8 +158,8 @@ nl:
           update: '%{category} bewerkt'
 
         groupmember:
-          create_member: '%{name} toegevoegd'
-          update_member: '%{name} bewerkt'
+          create: '%{name} toegevoegd'
+          update: '%{name} bewerkt'
 
         activity:
           create: activiteit aangemaakt
@@ -195,7 +195,7 @@ nl:
             phone_number:
               invalid: bestaat uit 10 cijfers
             email:
-              taken: is geen geldig e-mailadres
+              taken: is al een lid
               invalid: is geen geldig e-mailadres
             student_id:
               taken: is geen geldig studentnummer

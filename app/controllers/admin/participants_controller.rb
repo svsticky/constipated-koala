@@ -1,30 +1,8 @@
 class Admin::ParticipantsController < ApplicationController
   respond_to :json
 
-  def list
-    if params[:activity].blank?
-      raise 'no activity'
-    end
-
-    @participants = Participant.where( :activity => params[:activity])
-
-    if params[:recipients] == 'all'
-      respond_with @participants.joins(:member).order('members.first_name', 'members.last_name').select(:id, :first_name, :infix, :last_name, :email)
-    elsif params[:recipients] == 'debtors'
-      respond_with @participants.where( :paid => false ).joins(:member).order('members.first_name', 'members.last_name').select(:id, :first_name, :infix, :last_name, :email)
-    else
-      raise ActiveRecord::RecordNotFound
-    end
-  end
-
-  def find
-    # do some extra filtering
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search], params[:active])
-    respond_with @members
-  end
-
   def create
-    @activity = Activity.find(params[:activity])
+    @activity = Activity.find_by_id params[:activity_id]
     @participant = Participant.new( :member => Member.find(params[:member]), :activity => @activity)
 
     if @participant.save
@@ -67,9 +45,7 @@ class Admin::ParticipantsController < ApplicationController
   end
 
   def mail
-    puts params[:recipients]
-
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
     render :json => Mailgun.participant_information(params[:recipients], @activity, current_user.credentials.sender, params[:subject], params[:html], nil).deliver_later
   end
 end

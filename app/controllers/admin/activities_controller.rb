@@ -10,7 +10,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def show
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find_by_id params[:id]
     @recipients =  @activity.participants.order('members.first_name', 'members.last_name').joins(:member).where('participants.paid = FALSE AND (participants.price IS NULL OR participants.price > 0)').select(:id, :member_id, :first_name, :email)
   end
 
@@ -34,7 +34,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def update
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find_by_id params[:id]
     params = activity_post_params
 
     # removing the images from the S3 storage
@@ -52,7 +52,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find_by_id params[:id]
     @activity.destroy
 
     redirect_to activities_path

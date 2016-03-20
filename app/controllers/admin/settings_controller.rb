@@ -10,7 +10,7 @@ class Admin::SettingsController < ApplicationController
     @advertisements = Advertisement.all
   end
 
-  def setting
+  def create
     if ['additional_moot_positions', 'additional_committee_positions'].include? params[:setting]
       Settings[params[:setting]] = params[:value].downcase.split(',')
     elsif ['intro_membership','intro_activities'].include? params[:setting]
@@ -19,7 +19,7 @@ class Admin::SettingsController < ApplicationController
         activities: Settings[params[:setting]],
         warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
       }
-      return #check if actvities exists
+      return #check if activities exists
     elsif ['mongoose_ideal_costs'].include? params[:setting]
       render :status => :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
       Settings[params[:setting]] = params[:value].sub(',','.').to_f
@@ -33,10 +33,6 @@ class Admin::SettingsController < ApplicationController
 
     render :status => :ok, :json => ''
     return
-  end
-
-  def study
-
   end
 
   def advertisement
