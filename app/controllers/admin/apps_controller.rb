@@ -11,7 +11,7 @@ class Admin::AppsController < ApplicationController
     @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
 
     @credit = CheckoutBalance.sum( :balance )
-    @products = CheckoutProduct.count( :active => true)
+    @products = CheckoutProduct.where( :active => true ).count
 
     @pages = CheckoutTransaction.count / @limit
   end

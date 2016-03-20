@@ -16,6 +16,6 @@ class Api::ActivitiesController < ApiController
   end
 
   def advertisements
-    @advertisements = Advertisements.all
+    @advertisements = Advertisement.all
   end
 end
