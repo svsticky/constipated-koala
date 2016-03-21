@@ -2,7 +2,14 @@ namespace :doorkeeper do
 
   desc 'Create a new oauth application, using a name, redirect url and a list of scopes seperated with a space.'
   task :create, [:name, :redirect_uri, :scopes] => :environment do |t, args|
-    app = Doorkeeper::Application.new args
+    puts args.class
+
+    app = Doorkeeper::Application.new({
+      :name => args[:name],
+      :redirect_uri => args[:redirect_uri],
+      :scopes => args[:scopes] ||= nil
+    })
+
     if app.save
       puts 'application id'
       puts app.uid
@@ -15,6 +22,7 @@ namespace :doorkeeper do
 
     else
       puts "failed creating #{ args[:name] }"
+      puts app.errors.full_messages
     end
   end
 
