@@ -29,11 +29,11 @@
             %span.icon-bg.bg-primary-light
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:subpage) == 'transacties') }
-            = link_to :apps_checkout do
+            = link_to :checkout do
               %i.fa.fa-caret-right
               %span Checkout
           %li{ :class => ('active' if yield(:subpage) == 'ideal') }
-            = link_to :apps_ideal do
+            = link_to :ideal do
               %i.fa.fa-caret-right
               %span iDeal
 
@@ -52,6 +52,6 @@
               %i.fa.fa-caret-right
               %span Profiel
           %li{ :class => ('active' if yield(:subpage) == 'logs') }
-            = link_to :settings_logs do
+            = link_to :logs_settings do
               %i.fa.fa-caret-right
               %span Logs

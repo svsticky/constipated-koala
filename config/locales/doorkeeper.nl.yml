@@ -1,0 +1,15 @@
+nl:
+  doorkeeper:
+    authorizations:
+      buttons:
+        authorize: toestaan
+        deny: annuleren
+      new:
+        title: Aanmelden vereist
+        prompt: '%{client_name} toestaan uw account te gebruiken?'
+        able_to: Deze applicatie kan de volgende acties ondernemen;
+
+    scopes:
+      member-read: uw naam, adres, en contactgegevens lezen
+      activity-read: deelgenomen activiteiten bekijken
+      group-read: uw commissies en andere groepen inzien

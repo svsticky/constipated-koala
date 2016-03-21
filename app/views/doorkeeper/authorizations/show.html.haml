@@ -1,0 +1,20 @@
+.row
+  .div
+
+    - if flash[:alert]
+      .alert.alert-danger
+        %span
+          = flash[:alert]
+
+    - if flash[:notice]
+      .alert.alert-info
+        %span
+          = flash[:notice]
+
+    %code#authorization_code= params[:code]
+
+.row
+  .text-center
+    = link_to 'wachtwoord vergeten', new_user_password_path
+    |
+    = link_to 'wachtwoord aanmaken', new_registration_path

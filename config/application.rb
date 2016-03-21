@@ -19,9 +19,8 @@ module ConstipatedKoala
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :nl
-
     config.i18n.fallbacks = true
-    config.i18n.fallbacks = [:nl]
+    config.i18n.fallbacks = [:nl, :en]
 
     config.to_prepare do
 	    Devise::SessionsController.layout 'default'
@@ -30,8 +29,8 @@ module ConstipatedKoala
 	    Devise::UnlocksController.layout 'default'
 	    Devise::PasswordsController.layout 'default'
 
+      Doorkeeper::AuthorizationsController.layout 'default'
 	    Users::PublicController.layout false
-	    #Users::HomeController.layout 'default'
 	  end
 
     config.action_dispatch.rescue_responses = {

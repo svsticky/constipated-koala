@@ -4,14 +4,16 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.1'
 
-# authentication gem
+# authentication gems
 gem 'devise', '~> 3.2.4'
+gem 'doorkeeper'
 
 # logging
 gem 'impressionist'
 
-# use of Haml
+# use of Haml and rabl
 gem 'haml'
+gem 'rabl'
 
 # RestClient for sending mail using mailgun
 gem 'rest-client'

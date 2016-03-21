@@ -70,6 +70,18 @@
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
                 .help-block Dit kan niet een uu email zijn!
 
+        .col-md-6.col-md-offset-3
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-rocket
+              Externe applicaties
+            %table.table.table-striped.table-linked
+              - @applications.each do |application|
+                %tr
+                  %td= application.name
+                  %td= I18n.l application.created_at
+                  %td= link_to 'revoke', '#'
+
 
         .col-md-6.col-md-offset-3
           %button.btn.btn-success{type: 'submit'} Opslaan

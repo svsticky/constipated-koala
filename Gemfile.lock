@@ -52,6 +52,8 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    doorkeeper (3.0.1)
+      railties (>= 3.2)
     erubis (2.7.0)
     execjs (2.2.0)
     faker (1.4.3)
@@ -97,6 +99,8 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     polyglot (0.3.5)
+    rabl (0.11.6)
+      activesupport (>= 2.3.14)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -164,6 +168,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 1.5.7)
   devise (~> 3.2.4)
+  doorkeeper
   execjs
   faker
   fuzzily
@@ -175,6 +180,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.16)
   nokogiri
   paperclip
+  rabl
   rails (~> 4.1.1)
   rails-settings-cached
   rest-client

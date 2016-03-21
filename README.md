@@ -9,13 +9,14 @@ Currently, it implements methods to track several things within the association:
  - Members and membership
  - Activities and payments
  - Committees and other groups
- - The [Operation Dead Mongoose](app/controllers) (TM) and it's expenses
+ - The Operation Dead Mongoose (TM) and it's expenses
+ - [OAuth](/app/views/api) authentication and authorization endpoint
  - Basic logging of most operations
 
 And Koala has a very basic API which is described [here](/app/controllers), it is used by RADIO and Checkout at the moment. There is more to be implemented :)
 
 ## Installing koala
-**An extensive tutorial on how to install koala on your laptop or on a production server is [here](config/deployment)**. There are a few *strange* things happening in koala. For one, it is integrated with an [ideal platform](https://github.com/StickyUtrecht/ideal.local). Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will nog work. Secondly it uses amazon for storing posters and images of mongoose products. In development this should also work on the local machine without amazon's S3 servers. And one regretful thing, posters are uploaded as pdf's, they will be resized and stored in two formats. However the parsing of a pdf file is not working very well and I had to hack in ghostscript a little bit.
+**An extensive tutorial on how to install koala on your laptop or on a production server is [here](config/deployment)**. There are a few *strange* things happening in koala. For one, it is integrated with an [ideal platform](https://github.com/svsticky/ideal.local). Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will nog work. Secondly it uses amazon for storing posters and images of mongoose products. In development this should also work on the local machine without amazon's S3 servers. And one regretful thing, posters are uploaded as pdf's, they will be resized and stored in two formats. However the parsing of a pdf file is not working very well and I had to hack in ghostscript a little bit.
 
 Devise and fuzzily are also hacked in a bit. Fuzzily is hacked into to ensure that you can filter first with a `where` and then perform a search on the subset just created. Devise has a feature where an existing member can create a password with their known email address. Both of them are defined in `config/initializers`.
 

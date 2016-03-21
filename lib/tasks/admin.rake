@@ -22,7 +22,7 @@ namespace :admin do
     if admin
       puts "#{args[:email]} created!"
     else
-      puts 'Admin not created, does the password meet the requirements?'
+      puts 'admin not created, does the password meet the requirements?'
     end
   end
 

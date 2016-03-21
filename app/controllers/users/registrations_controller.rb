@@ -55,7 +55,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
     resource_updated = update_resource(resource, params)
-
     yield resource if block_given?
 
     if resource_updated

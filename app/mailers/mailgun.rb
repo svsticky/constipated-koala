@@ -22,12 +22,11 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
   end
 
   def participant_information(recipients, activity, sender, subject, html, text)
-    @participants = activity.participants.joins(:member).where( 'members.email' => recipients.map{ | id, item | item['email'] } )
+    @participants = activity.participants.joins( :member ).where( 'members.email' => recipients.map{ | id, item | item['email'] } )
     @recipients = recipients.map{ | id, item | "#{ item['name'] } <#{ item['email'] }>" }
 
     @variables = @participants.map{ |participant| "\"#{participant.member.email}\" : { \"name\": \"#{participant.member.name.gsub(/\"/,'\'')}\", \"first_name\": \"#{participant.member.first_name.gsub(/\"/,'\'')}\", \"price\": \"#{ActionController::Base.helpers.number_to_currency(participant.currency, :unit => '€')}\" }"}.join(', ')
 
-    @recipients.push( sender )
     return mail(@recipients, @variables, sender, activity.name, subject, html, text)
   end
 
