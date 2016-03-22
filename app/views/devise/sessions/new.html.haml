@@ -1,5 +1,5 @@
 .row
-  = form_for(resource, as: resource_name, url: new_registration_path(resource_name), :class => 'form-horizontal' ) do |f|
+  = form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'form-horizontal'} ) do |f|
 
     - if !resource.errors.full_messages.blank?
       - resource.errors.full_messages.each do |message|
@@ -23,24 +23,16 @@
           %span.input-group-addon
             %i.fa.fa-envelope-o
           = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
-
       .form-group
         .input-group
           %span.input-group-addon
             %i.fa.fa-lock
           = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
-
       .form-group
-        .input-group
-          %span.input-group-addon
-            %i.fa.fa-lock
-          = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
-
-      .form-group
-        = f.submit 'Vraag ze aan!', :class => 'btn btn-primary btn-block'
+        = f.submit 'Log in', :class => 'btn btn-primary btn-block'
 
 .row
   .text-center
     = link_to 'wachtwoord vergeten', new_user_password_path
     |
-    = link_to 'inloggen', new_user_session_path
+    = link_to 'wachtwoord aanmaken', '#'

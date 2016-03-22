@@ -27,24 +27,7 @@ ConstipatedKoala::Application.routes.draw do
     get 'users/home',  to: redirect('/')
 
     # Devise routes
-    devise_for :users, :skip => [ :registrations ], :path => '', controllers:
-    {
-      registrations:  'users/registrations',
-      sessions:       'users/sessions',
-      passwords:      'users/passwords'
-    }
-
-    # override route for user profile
-    devise_scope :user do
-      get   'registration/cancel',    to: 'users/registrations#cancel',   as: :cancel_registration
-
-      get   'sign_up',                to: 'users/registrations#new',      as: :new_registration
-      post  'sign_up',                to: 'users/registrations#create',   as: :registration
-
-      get   'settings/profile',       to: 'users/registrations#edit',     as: :edit_registration
-      put   'settings/profile',       to: 'users/registrations#update'
-      patch 'settings/profile',       to: 'users/registrations#update'
-    end
+    devise_for :users, :path => '' #, :skip => [ :registrations ]
 
     scope module: 'admin' do
       resources :members do

@@ -11,33 +11,5 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//
 //= require turbolinks
 //= require bootstrap
-  
-$(document).on('ready page:load', function(){  
-  // Alerts for on the frontend, default type is info
-  // script#alert is a template in de header file.
-  String.prototype.format = function() {
-    var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, number) { 
-      return typeof args[number] != 'undefined'
-        ? args[number]
-        : match
-      ;
-    });
-  };
-  
-  window.alert = function(message, type){    
-    var template = $('script#alert').html();
-    var alert = template.format(message, type || 'info');
-    $('#toast-container').append(alert).find('.toast:not(.toast-error)').delay(3000).queue(function() {
-      $(this).remove();
-    });
-    
-    $('.toast-close-button').one('click', function(){
-      $(this).closest('.toast').remove();
-    })
-  }
-});

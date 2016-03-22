@@ -2,61 +2,59 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.1.1'
+gem 'rails'
+
+# Use mysql as the production database
+gem 'mysql2'
 
 # authentication gems
-gem 'devise', '~> 3.2.4'
+gem 'devise'
 gem 'doorkeeper'
 
 # logging
 gem 'impressionist'
 
-# use of Haml and rabl
-gem 'haml'
-gem 'rabl'
-
 # RestClient for sending mail using mailgun
 gem 'rest-client'
-
-# Gem voor html5 stubs met form features
-gem 'modernizr-rails'
-
-# Paperclip easy file upload to S3
-gem 'paperclip'
-
-# Use mysql as the production database
-gem 'mysql2', '~> 0.3.16'
-
-# Use SCSS for stylesheets
-gem 'sass-rails'
 
 # new search engine
 gem 'fuzzily'
 
-# Use for javascript
+# Use SCSS for stylesheets, sprockets for assets
+gem 'sass-rails'
+
+# use of Haml and rabl
+gem 'haml'
+gem 'rabl'
+
+# Gem voor html5 stubs met form features
+gem 'modernizr-rails'
+
+# Use for javascript and libraries
 gem 'execjs'
 gem 'nokogiri'
 
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'therubyracer', platforms: :ruby
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+gem 'responders' # TODO deprecate respond_to?
 
 # settings cached in rails environment
 gem 'rails-settings-cached'
 
+# Paperclip easy file upload to S3
+gem 'paperclip'
+
 group :production do
   gem 'unicorn'
   gem 'aws-sdk', '~> 1.5.7'
-
-  # Use Uglifier as compressor for JavaScript assets
   gem 'uglifier'
 end
 
 group :development, :test do
+  gem 'web-console' # TODO required? rake rails:update
   gem 'faker'
+  gem 'spring'
 end

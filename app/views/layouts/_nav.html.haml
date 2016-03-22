@@ -48,9 +48,8 @@
               %i.fa.fa-caret-right
               %span Algemeen
           %li{ :class => ('active' if yield(:subpage) == 'profile') }
-            = link_to :edit_registration do
-              %i.fa.fa-caret-right
-              %span Profiel
+            %i.fa.fa-caret-right
+            %span Profiel
           %li{ :class => ('active' if yield(:subpage) == 'logs') }
             = link_to :logs_settings do
               %i.fa.fa-caret-right
