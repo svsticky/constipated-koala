@@ -5,7 +5,7 @@ Koala is a [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html) a
 
  ```shell
  # Let's start; clone the project
- $ git clone git@github.com:svsticky/ConstipatedKoala.git koala.svsticky.nl
+ $ git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
  $ cd koala.svsticky.nl
  ```
 
