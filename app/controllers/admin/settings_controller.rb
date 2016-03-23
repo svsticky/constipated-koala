@@ -21,7 +21,7 @@ class Admin::SettingsController < ApplicationController
       }
       return #check if activities exists
     elsif ['mongoose_ideal_costs'].include? params[:setting]
-      render :status => :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+      head :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
       Settings[params[:setting]] = params[:value].sub(',','.').to_f
     elsif ['begin_study_year'].include? params[:setting]
       render :status => :bad_request and return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
@@ -31,7 +31,7 @@ class Admin::SettingsController < ApplicationController
       Settings[params[:setting]] = params[:value]
     end
 
-    render :status => :ok, :json => ''
+    head :ok
     return
   end
 
@@ -58,7 +58,7 @@ class Admin::SettingsController < ApplicationController
     end
 
     Advertisement.destroy(params[:id])
-    render :status => :no_content, :json => ''
+    head :no_content
   end
 
   def logs
