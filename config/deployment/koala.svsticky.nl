@@ -24,7 +24,7 @@ server {
 	ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
 
 	# HSTS
-	add_header Strict-Transport-Security "max-age=31536000";
+	add_header Strict-Transport-Security 'max-age=31536000';
 
 	return 301 https://koala.svsticky.nl$request_uri;
 }
@@ -37,7 +37,7 @@ server {
 	ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
 
 	# HSTS
-	add_header Strict-Transport-Security "max-age=31536000";
+	add_header Strict-Transport-Security 'max-age=31536000';
 
 	return 301 https://intro.svsticky.nl$request_uri;
 }
@@ -59,12 +59,12 @@ server {
 	error_log /var/www/koala.svsticky.nl/log/nginx.log warn;
 	access_log /var/www/koala.svsticky.nl/log/access.log;
 	
-	add_header 'Access-Control-Allow-Methods' 'HEAD, GET, POST, PUT, PATCH, DELETE'
-        add_header 'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+	add_header Access-Control-Allow-Methods 'HEAD, GET, POST, PUT, PATCH, DELETE';
+	add_header Access-Control-Allow-Headers 'Origin, Content-Type, Accept, Authorization';
 	
 	# No wildcards allowed, allow all '*' or specific uri
-	add_header 'Access-Control-Allow-Origin' 'https://svsticky.nl';
-	add_header 'Access-Control-Allow-Origin' 'https://radio.svsticky.nl';
+	add_header Access-Control-Allow-Origin 'https://svsticky.nl';
+	add_header Access-Control-Allow-Origin 'https://radio.svsticky.nl';
 	
 	try_files $uri/index.html $uri @app;
 
