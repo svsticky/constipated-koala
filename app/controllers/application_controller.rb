@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   protected
   def authenticate_admin!
     if !current_user.nil? && !current_user.admin?
-      render 'public/403', :status => 403, :layout => false
+      head :forbidden
+      return
     end
   end
 end

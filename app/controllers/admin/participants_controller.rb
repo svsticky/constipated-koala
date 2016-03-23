@@ -10,9 +10,8 @@ class Admin::ParticipantsController < ApplicationController
       @response = @participant.attributes
       @response[ 'price' ] = @activity.price
       @response[ 'email' ] = @participant.member.email
-      respond_with @response, :location => activities_url
-    else
-      respond_with @participant.errors.full_messages
+
+      render :status => :created, :json => @participant.to_json
     end
   end
 

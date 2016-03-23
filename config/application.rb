@@ -25,14 +25,14 @@ module ConstipatedKoala
     config.i18n.fallbacks = [:nl, :en]
 
     config.to_prepare do
-	    Devise::SessionsController.layout 'default'
-	    Devise::RegistrationsController.layout 'default'
-	    Devise::ConfirmationsController.layout 'default'
-	    Devise::UnlocksController.layout 'default'
-	    Devise::PasswordsController.layout 'default'
+      Devise::SessionsController.layout 'default'
+      Devise::RegistrationsController.layout 'default'
+      Devise::ConfirmationsController.layout 'default'
+      Devise::UnlocksController.layout 'default'
+      Devise::PasswordsController.layout 'default'
 
       Doorkeeper::AuthorizationsController.layout 'default'
-	    Users::PublicController.layout false
+      Users::PublicController.layout false
 	  end
 
     config.action_dispatch.rescue_responses = {

@@ -54,7 +54,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'web-console' # TODO required? rake rails:update
+  # gem 'web-console'
   gem 'faker'
   gem 'spring'
 end
