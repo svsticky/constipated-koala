@@ -21,6 +21,7 @@ gem 'rest-client'
 gem 'fuzzily'
 
 # Use SCSS for stylesheets, sprockets for assets
+gem 'sprockets', '~> 2.11.0'
 gem 'sass-rails'
 
 # use of Haml and rabl
@@ -54,7 +55,7 @@ group :production do
 end
 
 group :development, :test do
-  # gem 'web-console'
+  gem 'web-console'
   gem 'faker'
   gem 'spring'
 end
