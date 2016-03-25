@@ -1,0 +1,184 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap
+ *= require font-awesome
+ *
+ *= require_self
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+$background: #F34541;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+
+html, body {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+h1, h2, h3, h4, p, a, .text-center {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: white !important;
+}
+
+span.input-group-addon {
+  background-color: white;
+}
+
+div.container {
+  background-color: $background;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+
+  h1 {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    font-size: 2.5em;
+    font-weight: 100;
+    color: white;
+  }
+
+  h2 {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    font-size: 2.5em;
+    font-weight: 100;
+    color: white;
+    bottom: 0px;
+    font-size: 1.1em;
+    font-weight: 200;
+  }
+
+  h3 {
+    font-size: 1.8em;
+    font-weight: 200;
+  }
+
+  input {
+    font-weight: 200;
+  }
+
+  .text-center {
+    font-size: 1em;
+    font-weight: 100;
+    margin-top: 10px !important;
+  }
+
+  .row {
+    position: relative;
+    display: block;
+    background-color: $background;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0px;
+
+    &:nth-child(1) {
+      height: 30%;
+
+      &:after {
+        position: absolute;
+        display: block;
+        left: 50%;
+        bottom: -20px;
+        margin-left: -4px;
+        content: '';
+        border-left: 8px solid $background;
+        border-right: 8px solid $background;
+        border-bottom: 10px solid white;
+        background-color: white;
+      }
+    }
+
+    &:nth-child(2) {
+      background-color: white;
+      margin: 20px 0;
+    }
+
+    > {
+      form, div {
+        display: block;
+        background-color: white;
+        margin: 50px auto;
+        width: 90%;
+
+        @media screen and (min-width: @screen-sm-min){
+          width: 50%;
+        }
+
+        @media screen and (min-width: @screen-md-min){
+          width: 30%;
+        }
+      }
+
+      div {
+        &.text-center {
+          background-color: $background;
+          color: white;
+        }
+
+        h3 {
+          text-align: left;
+        }
+
+        p {
+          text-align: left;
+          margin: 0px;
+        }
+
+        ul {
+          list-style-position: inside;
+          padding-left: 5px;
+        }
+
+        li {
+          text-align: left;
+          padding-top: 2px;
+
+          &:after {
+            content: ',';
+          }
+
+          &:last-child:after {
+            content: '.';
+          }
+        }
+      }
+    }
+
+    form div.alert {
+      margin: 0 -15px 20px;
+    }
+
+    .actions form {
+      display: inline-block;
+      width: 40%;
+
+      input {
+        margin: 30px 10px 0;
+      }
+    }
+
+    form span.input-group-addon i {
+      width: 18px;
+    }
+  }
+}

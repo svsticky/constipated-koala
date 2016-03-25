@@ -94,7 +94,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     kgio (2.10.0)
-    libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -150,7 +149,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.16.0)
     rake (11.1.1)
-    ref (2.0.0)
     responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.8.0)
@@ -174,9 +172,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -216,7 +211,6 @@ DEPENDENCIES
   jquery-rails
   modernizr-rails
   mysql2
-  nokogiri
   paperclip
   rabl
   rails
@@ -226,7 +220,6 @@ DEPENDENCIES
   sass-rails
   spring
   sprockets (~> 2.11.0)
-  therubyracer
   turbolinks
   uglifier
   unicorn

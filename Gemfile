@@ -33,14 +33,11 @@ gem 'modernizr-rails'
 
 # Use for javascript and libraries
 gem 'execjs'
-gem 'nokogiri'
-
 gem 'jquery-rails'
-gem 'therubyracer', platforms: :ruby
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-gem 'responders' # TODO deprecate respond_to?
+gem 'responders'
 
 # settings cached in rails environment
 gem 'rails-settings-cached'
