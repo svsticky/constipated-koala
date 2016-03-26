@@ -4,7 +4,7 @@ class Admin::GroupMembersController < ApplicationController
   def create
     logger.debug params.inspect
 
-    @member = GroupMember.new( :member => Member.find(params[:member]), :group => Group.find(params[:group_id]), :year => params[:year] )
+    @member = GroupMember.new( :member => Member.find_by_id(params[:member]), :group => Group.find_by_id(params[:group_id]), :year => params[:year] )
 
     if @member.save
       impressionist @member

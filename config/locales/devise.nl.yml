@@ -31,7 +31,7 @@ nl:
       updated: "Je wachtwoord is succesvol veranderd, je bent nu ingelogd."
       updated_not_active: "Je wachtwoord is succesvol veranderd."
     registrations:
-      not_found_in_database: "Ongeldig e-mail of wachtwoord."
+      not_found_in_database: "Onbekend e-mailadres."
       destroyed: "Tot ziens! Je account is succesvol verwijderd."
       signed_up: "Welkom, u bent succesvol ingelogd"
       signed_up_but_inactive: "Je account is nog niet geactiveerd."

@@ -1,9 +1,10 @@
 .row
-  = form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :class => 'form-horizontal', :method => 'post'}) do |f|
+  = form_for :user, url: new_registration_path, method: :post, :html => { :class => 'form-horizontal'} do |f|
 
-    - if !resource.errors.full_messages.blank?
-      - resource.errors.full_messages.each do |message|
+    - if @user.errors.any?
+      - @user.errors.full_messages.each do |message|
         .alert.alert-danger
+          %button.close{ type: "button" } ×
           %span
             = message
 
@@ -21,6 +22,12 @@
       .form-group
         .input-group
           %span.input-group-addon
+            %i.fa.fa-envelope-o
+          = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+
+      .form-group
+        .input-group
+          %span.input-group-addon
             %i.fa.fa-lock
           = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
 
@@ -29,12 +36,11 @@
           %span.input-group-addon
             %i.fa.fa-lock
           = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
-
       .form-group
-        = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-block'
+        = f.submit 'Wachtwoord aanvragen', :class => 'btn btn-primary btn-block'
 
 .row
   .text-center
-    = link_to 'inloggen', new_user_session_path
+    = link_to 'wachtwoord vergeten', new_user_password_path
     |
-    = link_to 'wachtwoord aanmaken', new_registration_path
+    = link_to 'inloggen', new_user_session_path

@@ -72,7 +72,7 @@ class IdealTransaction < ActiveRecord::Base
 
     objects.each do |object|
 
-      transaction = IdealTransaction.find_by_uuid( object['uuid'] )
+      transaction = IdealTransaction.find_by_uuid object['uuid']
 
       # NOTE no koala transaction, continue
       next if transaction.nil?

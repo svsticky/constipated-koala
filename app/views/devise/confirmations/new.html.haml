@@ -1,21 +1,34 @@
-.row#app
-  .col-sm-12.col-md-3.col-shadow.col-md-offset-7
-    .vertical-align
-      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-      
-        - if !resource.errors.full_messages.blank?
-          - resource.errors.full_messages.each do |message|
-            .alert.alert-danger
-              %button.close{ type: "button" } ×
-              %span
-                = message
+.row
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), :html => { :class => 'form-horizontal', :method => 'post'}) do |f|
 
-        %fieldset
-          .form-group
-            .input-group.input-group-lg
-              %span.input-group-addon
-                %i.fa.fa-envelope-o
-              = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+    - if !resource.errors.full_messages.blank?
+      - resource.errors.full_messages.each do |message|
+        .alert.alert-danger
+          %span
+            = message
 
-          .form-group
-            = f.submit 'Opnieuw sturen', :class => 'btn btn-primary btn-lg btn-block'
+    - if flash[:alert]
+      .alert.alert-danger
+        %span
+          = flash[:alert]
+
+    - if flash[:notice]
+      .alert.alert-info
+        %span
+          = flash[:notice]
+
+    %fieldset
+      .form-group
+        .input-group
+          %span.input-group-addon
+            %i.fa.fa-envelope-o
+          = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
+
+      .form-group
+        = f.submit 'Versturen', :class => 'btn btn-primary btn-block'
+
+.row
+  .text-center
+    = link_to 'inloggen', new_user_session_path
+    |
+    = link_to 'wachtwoord aanmaken', new_registration_path

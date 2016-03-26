@@ -199,11 +199,11 @@ nl:
             phone_number:
               invalid: bestaat uit 10 cijfers
             email:
-              taken: is al een lid
+              taken: is al geregistreerd
               invalid: is geen geldig e-mailadres
             student_id:
-              taken: is geen geldig studentnummer
-              invalid: bestaat uit 7 cijfers
+              taken: is al geregistreerd
+              invalid: is niet geldig
               elfproef: is niet geldig
 
         user:

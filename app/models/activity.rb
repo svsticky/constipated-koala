@@ -32,7 +32,7 @@ class Activity < ActiveRecord::Base
   end
 
   def group
-    Group.find_by_id( self.organized_by )
+    Group.find_by_id self.organized_by
   end
 
   def currency( member )

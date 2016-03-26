@@ -32,6 +32,7 @@ module ConstipatedKoala
       Devise::PasswordsController.layout 'default'
 
       Doorkeeper::AuthorizationsController.layout 'default'
+      Users::RegistrationsController.layout 'default'
       Users::PublicController.layout false
 	  end
 

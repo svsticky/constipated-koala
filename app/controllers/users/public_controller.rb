@@ -8,8 +8,8 @@ class Users::PublicController < ApplicationController
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
 
-    @membership = Activity.find( Settings.intro_membership )
-    @activities = Activity.find( Settings.intro_activities )
+    @membership = Activity.find Settings.intro_membership
+    @activities = Activity.find Settings.intro_activities
 
     @participate = @activities.map{ |activity| activity.id }
   end

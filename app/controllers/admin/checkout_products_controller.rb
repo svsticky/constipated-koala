@@ -15,14 +15,14 @@ class Admin::CheckoutProductsController < ApplicationController
     @products = CheckoutProduct.order(:category, :name).last_version
     @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
-    @product = CheckoutProduct.find( params[:id] )
-    @total = @product.sales( params['year']).map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+)
+    @product = CheckoutProduct.find_by_id( params[:id] )
+    @total = @product.sales( params['year'] ).map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+)
 
     render 'admin/apps/products'
   end
 
   def create
-    @new = CheckoutProduct.new(product_post_params)
+    @new = CheckoutProduct.new product_post_params
 
     if @new.save
       redirect_to checkout_product_path(@new)
@@ -35,7 +35,7 @@ class Admin::CheckoutProductsController < ApplicationController
   end
 
   def update
-    @product = CheckoutProduct.find(params[:id])
+    @product = CheckoutProduct.find_by_id params[:id]
 
     if @product.update(product_post_params)
       # if a new product is created redirect to it

@@ -56,7 +56,8 @@ class CheckoutProduct < ActiveRecord::Base
   def sales( year = nil )
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where( "created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date( year ), Date.to_date( year +1 ) ).group( :items ).count.map{ |k,v| { YAML.load(k) => v} }
+    sales = CheckoutTransaction.where( "created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date( year ), Date.to_date( year +1 ) ).group( :items ).count.map{ |k,v| { k => v} }
+
     count = sales.map{ |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
 
     return [{ self => count}] if self.parent.nil?

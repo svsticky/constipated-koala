@@ -13,21 +13,23 @@ ConstipatedKoala::Application.routes.draw do
     authenticated :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 
-      get    'edit',   to: 'users/home#edit',   as: :users_edit
-      patch  'edit',   to: 'users/home#update'
+      get   'edit',         to: 'users/home#edit',   as: :users_edit
+      patch 'edit',         to: 'users/home#update'
 
-      post   'mongoose',        to: 'users/home#add_funds'
-      get    'mongoose',        to: 'users/home#confirm_add_funds'
+      post  'mongoose',     to: 'users/home#add_funds'
+      get   'mongoose',     to: 'users/home#confirm_add_funds'
     end
 
     root 'admin/home#index'
 
     # No double controllers
-    get 'admin/home',  to: redirect('/')
-    get 'users/home',  to: redirect('/')
+    get     'admin/home',   to: redirect('/')
+    get     'users/home',   to: redirect('/')
 
     # Devise routes
-    devise_for :users, :path => '' #, :skip => [ :registrations ]
+    devise_for :users, :path => '', :skip => [ :registrations ]
+    get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
+    post    'sign_up',      to: 'users/registrations#create'
 
     scope module: 'admin' do
       resources :members do
@@ -53,17 +55,17 @@ ConstipatedKoala::Application.routes.draw do
           get 'logs'
 
           post 'advertisement'
-          delete 'advertisement', :to => 'settings#destroy_advertisement'
+          delete 'advertisement', to: 'settings#destroy_advertisement'
         end
       end
 
       scope 'apps' do
-        get 'ideal',              :to => 'apps#ideal'
-        get 'checkout',           :to => 'apps#checkout'
+        get 'ideal',              to: 'apps#ideal'
+        get 'checkout',           to: 'apps#checkout'
 
         # json checkout urls
-        patch  'cards',           :to => 'checkout_products#activate_card'
-        patch  'transactions',    :to => 'checkout_products#change_funds'
+        patch  'cards',           to: 'checkout_products#activate_card'
+        patch  'transactions',    to: 'checkout_products#change_funds'
 
         resources :checkout_products, only: [:index, :show, :create, :update], path: 'products'
       end
@@ -88,14 +90,14 @@ ConstipatedKoala::Application.routes.draw do
 
         # NOTE legacy implementation for checkout without oauth
         scope 'checkout' do
-          get 'card',           :to => 'checkout#info'
-          post 'card',          :to => 'checkout#create'
+          get 'card',           to: 'checkout#info'
+          post 'card',          to: 'checkout#create'
 
-          get 'products',       :to => 'checkout#products'
-          post 'transaction',   :to => 'checkout#purchase'
+          get 'products',       to: 'checkout#products'
+          post 'transaction',   to: 'checkout#purchase'
         end
 
-        get 'advertisements',   :to => 'activities#advertisements'
+        get 'advertisements',   to: 'activities#advertisements'
       end
     end
   end
