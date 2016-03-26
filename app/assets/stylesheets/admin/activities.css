@@ -89,7 +89,7 @@
     display: none;
   }
 
-  form .thumb {
+  form span.poster {
     position: absolute;
     top: 96px;
 
