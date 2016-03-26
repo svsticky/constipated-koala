@@ -2,6 +2,7 @@ class Admin::SettingsController < ApplicationController
   respond_to :json, only: [:create, :destroy]
 
   def index
+    @admin = current_user.credentials
     @studies = Study.all
 
     @applications = Doorkeeper::Application.all
@@ -43,17 +44,23 @@ class Admin::SettingsController < ApplicationController
     return
   end
 
+  def profile
+    @admin = Admin.find(current_user.credentials_id)
+
+    @admin.update(member_post_params)
+    redirect_to :settings
+  end
+
   def advertisement
     @advert = Advertisement.new(advertisement_post_params)
 
     if @advert.save
-      redirect_to settings_path
+      redirect_to :settings
     else
+      @admin = current_user.credentials
       @studies = Study.all
 
-      @clients = Doorkeeper::Application.all
-
-      @advert = Advertisement.new
+      @applications = Doorkeeper::Application.all
       @advertisements = Advertisement.all
 
       render 'index'
@@ -77,6 +84,10 @@ class Admin::SettingsController < ApplicationController
   end
 
   private
+  def member_post_params
+    params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
+  end
+
   def advertisement_post_params
     params.require(:advertisement).permit(:name, :poster)
   end

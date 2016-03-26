@@ -53,9 +53,11 @@ ConstipatedKoala::Application.routes.draw do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
       end
 
-      resources :settings, only: [:index, :create, :update] do
+      resources :settings, only: [:index, :create] do
         collection do
           get 'logs'
+
+          patch 'profile',        to: 'settings#profile'
 
           post 'advertisement'
           delete 'advertisement', to: 'settings#destroy_advertisement'
