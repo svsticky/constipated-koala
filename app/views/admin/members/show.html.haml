@@ -149,7 +149,7 @@
                   %th.hidden-xs{ :style => 'text-align: center;' } Betaald
               %tbody
                 - @activities.each do |activity|
-                  %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id } }
+                  %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
                     %td= link_to "#{activity.name}", activity
 
                     - if !activity.currency(@member).nil?

@@ -7,7 +7,7 @@ class Admin::ParticipantsController < ApplicationController
 
     if @participant.save
       impressionist(@participant)
-      @response = @participant.attributes
+      @response = @participant.attributes #TODO refactor, very old code
       @response[ 'price' ] = @activity.price
       @response[ 'email' ] = @participant.member.email
 

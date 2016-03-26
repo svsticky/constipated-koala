@@ -9987,6 +9987,13 @@ div.page.search > section.panel {
     background-color: #222533;
 }
 
+@media (min-width: 768px) {
+  .top-header .logo {
+    margin-left: 15px;
+    text-align: left;
+  }
+}
+
 .top-header .logo {
     display: inline-block;
     width: 340px;
