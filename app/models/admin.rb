@@ -22,7 +22,7 @@ class Admin < ActiveRecord::Base
   end
 
   after_create do
-    credentials = User.create(
+    credentials = User.create!(
       email:                  email,
       password:               password,
       password_confirmation:  password_confirmation,
