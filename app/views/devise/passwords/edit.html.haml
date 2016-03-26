@@ -1,5 +1,5 @@
 .row
-  = form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :class => 'form-horizontal', :method => 'post'}) do |f|
+  = form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :class => 'form-horizontal', :method => 'patch'}) do |f|
 
     - if !resource.errors.full_messages.blank?
       - resource.errors.full_messages.each do |message|
@@ -16,6 +16,8 @@
       .alert.alert-info
         %span
           = flash[:notice]
+
+    = f.hidden_field :reset_password_token
 
     %fieldset
       .form-group
@@ -35,6 +37,6 @@
 
 .row
   .text-center
-    = link_to 'inloggen', new_user_session_path
+    = link_to 'wachtwoord vergeten', new_user_password_path
     |
     = link_to 'wachtwoord aanmaken', new_registration_path

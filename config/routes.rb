@@ -27,7 +27,10 @@ ConstipatedKoala::Application.routes.draw do
     get     'users/home',   to: redirect('/')
 
     # Devise routes
-    devise_for :users, :path => '', :skip => [ :registrations ]
+    devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
+      sessions:       'users/sessions'
+    }
+
     get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
 

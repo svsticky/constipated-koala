@@ -5567,7 +5567,7 @@ a.list-group-item-danger.active:focus {
 
 a.panel {
 	display: block;
-	color: #767676;	
+	color: #767676;
 }
 
 .panel {
@@ -9882,39 +9882,39 @@ div.page.search > section.panel {
   .nav-min #nav-container {
       width: 50px;
   }
-  
+
   .nav-min #content {
       left: 50px;
   }
-  
+
   .nav-min .slimScrollDiv {
       overflow: visible !important;
   }
-  
+
   .nav-min #nav {
       overflow: visible !important;
   }
-  
+
   .nav-min #nav > li {
       width: 50px;
   }
-  
+
   .nav-min #nav > li > a > i:before {
       color: white;
   }
-  
+
   .nav-min #nav > li > a > i > .icon-bg {
       left: 0;
   }
-  
+
   .nav-min #nav > li > a > span {
       display: none;
   }
-  
+
   .nav-min #nav > li .icon-has-ul {
       display: none;
   }
-  
+
   .nav-min #nav > li > ul {
       position: absolute;
       left: 100%;
@@ -9929,7 +9929,7 @@ div.page.search > section.panel {
 #nav > li:hover > ul, .nav-min #nav > li.open > ul {
     display: block !important;
 }
-    
+
 .top-header {
     z-index: 10;
     position: absolute;
@@ -10223,4 +10223,3 @@ label a.close {
   top: -2px;
   left: 5px;
 }
-

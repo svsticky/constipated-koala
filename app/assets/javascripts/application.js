@@ -20,6 +20,8 @@
 //
 //= require turbolinks
 //= require bootstrap
+//
+//= require_tree ./admin
 
 $(document).on('ready page:load', function(){
   // Alerts for on the frontend, default type is info

@@ -16,7 +16,7 @@
  *
  *= require_self
  *= require_tree ./admin
- *
+ *= require_tree ./users
  */
 
 .panel > .table-striped > tbody > tr:nth-child(even) > td,
@@ -261,4 +261,46 @@ div.clickable > .panel:hover {
 
 .table span.fa-sort-desc {
   color: red;
+}
+
+.top-header .logo > a {
+  font-weight: 300;
+}
+
+.top-nav {
+  img {
+    display: block;
+  }
+
+  .email {
+    position: absolute;
+    right: 60px;
+    top: 0px;
+
+    display: block;
+    height: 50px;
+
+    font-size: 1.2em;
+    font-weight: 100;
+    line-height: 50px;
+
+    color: white;
+  }
+
+  a {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+
+    display: block;
+    height: 50px;
+    width: 50px;
+
+    font-size: 1.2em;
+    line-height: 50px;
+    text-align: center;
+
+    background-color: #F34541;
+    color: white;
+  }
 }

@@ -6,15 +6,8 @@
       = link_to root_path do
         %span Constipated koala
     .top-nav
-      %ul.nav-right.pull-right.list-unstyled
-        %li.dropdown.text-normal.nav-profile
-          = link_to '#', { 'data-toggle' => 'dropdown', :class => 'dropdown-toggle' } do
-            =image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=30", :class => 'img-circle'
-            %span.hidden-xs
-              %span #{current_user.email }
-          %ul.dropdown-menu.with-arrow{ :style => 'right: 0;' }
+      .email.hidden-xs
+        %span= current_user.email
 
-            %li
-              = link_to destroy_user_session_path, 'data-method' => :delete do
-                %i.fa.fa-sign-out
-                %span Log uit
+      = link_to destroy_user_session_path, 'data-method' => :delete do
+        %i.fa.fa-sign-out
