@@ -51,8 +51,12 @@ group :production do
   gem 'uglifier'
 end
 
-group :development, :test do
+group :development do
   gem 'web-console'
+  gem 'spring'
   gem 'faker'
+end
+
+group :test do
   gem 'spring'
 end
