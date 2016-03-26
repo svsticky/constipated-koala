@@ -8,12 +8,15 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
+ *= require bootstrap
+ *= require flatify
+ *
  *= require font-awesome
  *= require lato
  *
- *= require bootstrap
- *= require flatify
+ *= require_self
+ *= require_tree ./admin
+ *
  */
 
 .panel > .table-striped > tbody > tr:nth-child(even) > td,
@@ -186,3 +189,76 @@ aside a[href='#'] {
   }
 }
 
+div.form-group.copyable {
+  position: relative;
+}
+
+div.form-group.copyable > div.row > div.col-md-6 {
+  width: calc( 50% - 40px );
+  padding-right: 0px;
+
+  float: left;
+}
+
+div.form-group.copyable > a.destroy {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  border-color: rgb(203, 213, 221);
+
+  line-height: 54px;
+
+  height: 68px;
+  width: 48px;
+}
+
+.table span.fa-sort-asc {
+  color: green;
+
+  position: relative;
+  top: 6px;
+}
+
+.table span.fa-sort-desc {
+  color: red;
+}
+
+dd span.label {
+  position: absolute;
+  left: 300px;
+  padding: .2em .6em .3em;
+}
+
+@media (max-width: 768px) {
+  dd span.label {
+    left: 120px;
+  }
+}
+
+div.clickable {
+  overflow: hidden;
+  height: 105px;
+  margin-bottom: 10px;
+}
+
+div.clickable > .panel {
+  margin: 0px;
+}
+
+div.clickable > .panel:hover {
+  height: 105px;
+  text-decoration: none;
+  border-color: #767676;
+}
+
+.table span.fa-sort-asc {
+  color: green;
+
+  position: relative;
+  top: 6px;
+}
+
+.table span.fa-sort-desc {
+  color: red;
+}

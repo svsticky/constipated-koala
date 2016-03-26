@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-file-input
 //
 //= require dropdown
 //= require editor
