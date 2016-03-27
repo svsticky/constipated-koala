@@ -59,4 +59,5 @@ end
 
 group :test do
   gem 'spring'
+  gem 'faker'
 end
