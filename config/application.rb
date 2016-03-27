@@ -25,20 +25,21 @@ module ConstipatedKoala
     config.i18n.fallbacks = [:nl, :en]
 
     config.to_prepare do
-      Devise::SessionsController.layout 'default'
-      Devise::RegistrationsController.layout 'default'
-      Devise::ConfirmationsController.layout 'default'
-      Devise::UnlocksController.layout 'default'
+      Devise::SessionsController.layout 'doorkeeper'
+      Devise::RegistrationsController.layout 'doorkeeper'
+      Devise::ConfirmationsController.layout 'doorkeeper'
+      Devise::UnlocksController.layout 'doorkeeper'
       Devise::PasswordsController.layout 'default'
 
-      Doorkeeper::AuthorizationsController.layout 'default'
-      Users::RegistrationsController.layout 'default'
+      Doorkeeper::AuthorizationsController.layout 'doorkeeper'
+      Users::RegistrationsController.layout 'doorkeeper'
       Users::PublicController.layout false
 	  end
 
     config.action_dispatch.rescue_responses = {
       'ActiveRecord::RecordNotFound'                => :not_found,
-      'ActiveRecord::RecordInvalid'                 => :bad_request
+      'ActiveRecord::RecordInvalid'                 => :bad_request,
+      'ActiveRecord::RecordNotUnique'               => :conflict
     }
   end
 end

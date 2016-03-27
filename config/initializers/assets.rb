@@ -7,11 +7,11 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 
 # Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( default.css )
-Rails.application.config.assets.precompile += %w( default.js )
 
-Rails.application.config.assets.precompile += %w( bootstrap.css )
-Rails.application.config.assets.precompile += %w( bootstrap.js )
+# Assets for login pages and doorkeeper pages
+Rails.application.config.assets.precompile += %w( doorkeeper.css )
+Rails.application.config.assets.precompile += %w( doorkeeper.js )
 
-Rails.application.config.assets.precompile += %w( font-awesome.css )
+# Assets for intro website
+Rails.application.config.assets.precompile += %w( public.css )
+Rails.application.config.assets.precompile += %w( public.js )

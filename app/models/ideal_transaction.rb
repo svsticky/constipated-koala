@@ -8,8 +8,6 @@ class IdealTransaction < ActiveRecord::Base
   validates :issuer, presence: true
   validates :type, presence: true
 
-  #validates :uuid
-
   belongs_to :member
   validates :member, presence: true
 

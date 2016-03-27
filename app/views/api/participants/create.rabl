@@ -8,7 +8,7 @@ child :activity do
 end
 
 if @transaction
-  object @transaction
-
-  attributes :url
+  node :url do
+    @transaction.url
+  end
 end

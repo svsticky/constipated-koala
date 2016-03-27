@@ -89,7 +89,15 @@ ConstipatedKoala::Application.routes.draw do
         resources :groups, only: [:index, :show]
 
         resources :activities, only: [:index, :show] do
-          resources :participants, only: [:index, :create, :destroy]
+          resources :participants, only: [:index, :create] do
+            collection do
+              delete '',        to: 'participants#destroy'
+            end
+          end
+
+          collection do
+            get 'hook',         to: 'participants#hook'
+          end
         end
 
 
