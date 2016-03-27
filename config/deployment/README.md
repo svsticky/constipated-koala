@@ -121,7 +121,7 @@ $ sudo update-rc.d /etc/init.d/unicorn defaults
 
 Now run `sudo service unicorn start`, congratulations you are running a rails application! :)
 
-One final action should be performed, adding at least one admin. This can be done by a rake task; `bundle exec rake 'admin:create["martijn@svsticky.nl","sticky123"]'` and goto the url displayed or mailed if you set mailgun correctly!
+One final action should be performed, adding at least one admin. This can be done by a rake task; `bundle exec rake "admin:create[martijn@svsticky.nl, sticky123]"` and goto the url displayed or mailed if you set mailgun correctly!
 
 ### A note on databases
 There used to be a section here telling you to be a bit fearful of running the

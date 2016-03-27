@@ -12,6 +12,11 @@ Before working with oauth2 we need to set some basic groundrules. Koala allows A
 
 > All traffic must be encrypted using SSL and the `client_secret` and `access_token` must never be on the users computer. Hence use sessions to store the access_token in your app. If you let others have access to this token or secret they can easily get access to your users data.
 
+```shell
+# create application using rake
+$ bundle exec rake "doorkeeper:create[Postman application, urn:ietf:wg:oauth:2.0:oob, member-read partipant-read partipant-write]"
+```
+
 ### Authorization Code
 When a user in your app wants information or if you app need a authenticated user we use this variant. Your app sends the user to a login form of koala, there the user can login (if not already) and grant rights to your application(client). Koala will redirect the user back to your app with a one time code.
 ```
@@ -72,30 +77,9 @@ POST /api/oauth/token
 }
 ```
 
-## OAuth api
-So now you know how to authenticate yourself, all the authorization is done in koala en depends on the scopes you request and the user accepts for your app.
-Before you can use koala as authenticator you need a `client_id` and `client_secret`. Also koala limits the scopes you can ask for, later more!
-```
-GET api/members?search=steel
-Authorization: Bearer eb49949219182ce572529fec8be863af2c1847061de1db21e4304f615f66c04b
-```
-```
-[
-  {
-    "id": 38,
-    "first_name": "Martijn",
-    "last_name": "Casteel"
-  },
-  {
-    "id": 39,
-    "first_name": "Emma",
-    "last_name": "Kasteel"
-  },
-  ...
-]
-```
-
 ## Scopes
+So now you know how to authenticate yourself, all the authorization is done in koala en depends on the scopes you request and the user accepts for your app. Before you can use koala as authenticator you need a `client_id` and `client_secret`. Also koala limits the scopes you can ask for, later more!
+
 Ah well scopes, how do you create rights that are easily added or denied by the user itself; scopes. Koala has a number of scopes which are pretty self-explanatory;
 - default  
   - member-read
