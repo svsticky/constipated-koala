@@ -13,11 +13,12 @@ ConstipatedKoala::Application.routes.draw do
     authenticated :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 
-      get   'edit',         to: 'users/home#edit',   as: :users_edit
-      patch 'edit',         to: 'users/home#update'
+      get   'edit',                           to: 'users/home#edit',   as: :users_edit
+      patch 'edit',                           to: 'users/home#update'
+      delete 'authorized_applications/:id',   to: 'users/home#revoke', as: :authorized_applications
 
-      post  'mongoose',     to: 'users/home#add_funds'
-      get   'mongoose',     to: 'users/home#confirm_add_funds'
+      post  'mongoose',                       to: 'users/home#add_funds'
+      get   'mongoose',                       to: 'users/home#confirm_add_funds'
     end
 
     root 'admin/home#index'

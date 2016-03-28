@@ -80,7 +80,9 @@
                 %tr
                   %td= application.name
                   %td= I18n.l application.created_at
-                  %td= link_to 'revoke', '#'
+                  %td
+                    = link_to authorized_applications_path(application), 'data-method' => :delete do
+                      revoke
 
 
         .col-md-6.col-md-offset-3

@@ -2,7 +2,6 @@
 # Default a class begins with a number of validations. student_id is special because in the intro website it cannot be empty. However an admin can make it empty
 class Member < ActiveRecord::Base
   validates :first_name, presence: true
-  #validates :infix
   validates :last_name, presence: true
   validates :address, presence: true
   validates :house_number, presence: true
@@ -19,7 +18,6 @@ class Member < ActiveRecord::Base
 
   validates :birth_date, presence: true
   validates :join_date, presence: true
-  #validates :comments
 
   attr_accessor :tags_names
   fuzzily_searchable :query
@@ -133,8 +131,6 @@ class Member < ActiveRecord::Base
   before_update do
     if email_changed?
       credentials = User.find_by_email( Member.find(self.id).email )
-
-      puts 'email has changed!'
 
       if !credentials.nil?
         credentials.update_attribute('email', self.email)
