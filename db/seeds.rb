@@ -56,9 +56,16 @@ Group.create(
   created_at: Faker::Date.between(3.years.ago, 2.years.ago)
 )
 
+exit if Rails.env == 'production'
+
+activity = Activity.create(
+  name:         'Lidmaatschap',
+  price:        7.5,
+  start_date:   Faker::Date.between(1.years.ago, 7.days.ago)
+)
+
 # Seeds not working on CI
 exit if Rails.env == 'test'
-exit if Rails.env == 'production'
 
 # Create 60 members and their studies
 puts '-- Populate the database using Faker'

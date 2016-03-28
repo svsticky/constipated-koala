@@ -29,7 +29,7 @@ module ConstipatedKoala
       Devise::RegistrationsController.layout 'doorkeeper'
       Devise::ConfirmationsController.layout 'doorkeeper'
       Devise::UnlocksController.layout 'doorkeeper'
-      Devise::PasswordsController.layout 'default'
+      Devise::PasswordsController.layout 'doorkeeper'
 
       Doorkeeper::AuthorizationsController.layout 'doorkeeper'
       Users::RegistrationsController.layout 'doorkeeper'
