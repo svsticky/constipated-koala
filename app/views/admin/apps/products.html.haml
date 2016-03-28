@@ -40,7 +40,7 @@
                 Bewerk product
               .panel-body
 
-                .form-group.poster
+                .form-group.thumb
                   .row
                     .col-md-8
                       = label(:checkout_product, :name)
@@ -49,7 +49,7 @@
                       = label(:checkout_product, :price)
                       = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control', :disabled => @product.has_children?
 
-                .form-group.poster
+                .form-group.thumb
                   .row
                     .col-md-4
                       = label(:checkout_product, :category)

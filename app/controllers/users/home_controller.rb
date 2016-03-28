@@ -1,6 +1,6 @@
 class Users::HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :confirm_add_funds ]
-  skip_before_action :authenticate_admin!, only: [ :index, :edit, :update, :add_funds, :confirm_add_funds ]
+  skip_before_action :authenticate_admin!, only: [ :index, :edit, :update, :add_funds, :confirm_add_funds, :revoke ]
   before_action :set_locale
 
   def index
@@ -24,9 +24,9 @@ class Users::HomeController < ApplicationController
      end
   end
 
-  def destroy_token #TODO
+  def revoke
     Doorkeeper::AccessToken.revoke_all_for params[:id], current_user
-    redirect_to oauth_authorized_applications_url
+    redirect_to :users_edit
   end
 
   def update
@@ -39,6 +39,7 @@ class Users::HomeController < ApplicationController
       return
     end
 
+    @applications = Doorkeeper::Application.authorized_for(current_user)
     render 'edit'
     return
   end

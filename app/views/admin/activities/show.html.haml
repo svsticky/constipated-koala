@@ -62,7 +62,7 @@
 
                     = f.hidden_field :_destroy, :class => 'remove_poster'
 
-              %span.thumb.hidden-xs
+              %span.poster.hidden-xs
                 - if !@activity.poster_file_name.nil?
                   =image_tag @activity.poster.url(:thumb)
 
@@ -100,7 +100,7 @@
           %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
               - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
-                %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :email => participant.member.email }  }
+                %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
                   %td= link_to "#{participant.member.name}", participant.member
 
                   %td{ :style => 'padding: 0px; min-width: 60%; width: 25%;' }

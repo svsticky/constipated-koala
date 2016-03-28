@@ -13,7 +13,7 @@ module Authorization
   def self._client
     app = Thread.current["authenticated_client"]
     return app.scopes if app.present? && Authorization._user.nil?
-    
+
     []
   end
 

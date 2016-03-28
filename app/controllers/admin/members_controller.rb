@@ -45,10 +45,6 @@ class Admin::MembersController < ApplicationController
     @limit = params[:limit] ? params[:limit].to_i : 10
     @offset = params[:offset] ? params[:offset].to_i : 0
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(@limit).offset(@offset)
-
-    # Pager at the bottom has number of pages and which page it is currently on
-    @page = @offset / @limit
-    @pages = (CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).count / @limit.to_f).ceil
   end
 
   def new

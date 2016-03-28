@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-file-input
 //
 //= require dropdown
 //= require editor
@@ -19,6 +20,8 @@
 //
 //= require turbolinks
 //= require bootstrap
+//
+//= require_tree ./admin
 
 $(document).on('ready page:load', function(){
   // Alerts for on the frontend, default type is info

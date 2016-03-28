@@ -1,13 +1,32 @@
-html {
-  overflow: auto;
+/*
+ * This is a manifest file that'll be compiled into application.scss, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+
+#users > #content {
+ left: 0px;
 }
 
-section > .page > .row {
-  margin-top: 50px;
+div.clickable {
+  overflow: hidden;
+  height: 105px;
 }
 
-#header {
-  position: fixed;
+div.clickable > .panel {
+  margin: 0px;
+}
+
+div.clickable > .panel:hover {
+  height: 105px;
+  text-decoration: none;
+  border-color: #767676;
 }
 
 .widget .widget-header {
@@ -77,45 +96,6 @@ section > .page > .row {
 
 .widget .list-group a.list-group-item i.fa {
   margin-right: 15px;
-}
-
-@media (max-width: 768px) {
-  #header {
-    display: none;
-  }
-
-  .view-container {
-    margin-top: -50px;
-  }
-}
-
-/*
-.col-md-6.clear-left {
-  clear: left;
-}*/
-
-@media (max-width: 992px){
-  .col-md-6.clear-left {
-    clear: both;
-  }
-}
-
-.panel.panel-box.info-box .text-muted {
-  position: absolute;
-}
-
-.table {
-  margin-bottom: 40px;
-}
-
-.table span.fa.fa-sort-asc {
-  position: relative;
-  top: 7px;
-  color: green;
-}
-
-.table span.fa.fa-sort-desc {
-  color: red;
 }
 
 .table .form td {

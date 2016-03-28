@@ -121,6 +121,45 @@ $(document).on( 'ready page:load', function(){
     });
   });
 
+  // after member is selected, set an amount
+  $( '#credit.input-group > span > button' ).on( 'click', function( event ){
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+
+    if( !$( '#credit input#amount'  ).val() )
+      return
+
+    var price = $( '#credit input#amount' ).val();
+
+    // Make it a bit more pretty
+    if(!isNaN(price))
+      $(this).val(parseFloat(price).toFixed(2));
+
+    $.ajax({
+      url: '/apps/transactions',
+      type: 'PATCH',
+      data: {
+        member_id: $( '#credit.input-group' ).attr( 'data-member-id' ),
+        amount: price,
+        authenticity_token: token
+      }
+    }).done(function( data ){
+      alert( 'checkout opgewaardeerd', 'success' );
+
+      //toevoegen aan de lijst
+      $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
+
+    }).fail(function( data ){
+      if( data.status == 404 )
+        alert( 'er is geen kaart gevonden', 'error' );
+
+      if( data.status == 413 )
+        alert( 'er is onvoldoende saldo', 'error' );
+
+      if( data.status == 400 )
+        alert( 'het bedrag moet numeriek zijn', 'error' );
+    });
+  });
+
 
   // [DELETE] checkout_product
   $('#products button.destroy').on('click', function(){

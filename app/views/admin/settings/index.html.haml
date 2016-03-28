@@ -1,5 +1,4 @@
 - content_for(:page, 'settings')
-- content_for(:subpage, 'generic')
 
 - content_for(:title, 'Constipated koala | settings')
 
@@ -78,6 +77,38 @@
 
 
       .col-md-6
+        = form_for :admin, :url => profile_settings_path, method: :patch, :class => 'form-validation' do |f|
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-user
+              Admin gegevens
+            .panel-body
+              = f.hidden_field :id, :value => @admin.id, :class => 'id'
+
+              .form-group
+                .row
+                  .col-md-5
+                    %label{for: ''} Voornaam
+                    = f.text_field :first_name, :value => @admin.first_name, :class => 'form-control'
+                  .col-md-2
+                    %label{for: ''} Tussenvoegsel
+                    = f.text_field :infix, :value => @admin.infix, :class => 'form-control'
+                  .col-md-5
+                    %label{for: ''} Achternaam
+                    = f.text_field :last_name, :value => @admin.last_name, :class => 'form-control'
+
+              .form-group#mail
+                %label{for: ''} Ondertekening
+                = render 'layouts/editor'
+
+                #textarea.form-control{ :contenteditable => 'true' }
+                  :preserve
+                    #{@admin.signature}
+
+                = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'
+
+              %button.btn.btn-success{type: 'submit'} Opslaan
+
         - if @advert.errors.any?
           .alert.alert-danger
             %button.close{ type: "button" } ×
@@ -113,20 +144,6 @@
                     = f.file_field :poster, { 'data-ui-file-upload' => '' }
                   %button.btn.btn-success.wait{type: 'submit'} Opslaan
 
-      .col-md-6
-        .panel.panel-default
-          .panel-heading
-            %i.fa.fa-fw.fa-graduation-cap
-            Actieve studies
-          %table.table.table-striped.table-linked
-            - @studies.each do |study|
-              %tr
-                %td= I18n.t study.code.downcase, scope: 'activerecord.attributes.study.names'
-                %td
-                  %input{ :type => 'checkbox', :checked => study.active, :disabled => true }
-
-
-      .col-md-6
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-rocket
@@ -136,3 +153,8 @@
               %tr
                 %td= link_to application.name, application.redirect_uri
                 %td= application.redirect_uri
+
+:javascript
+  $(document).on('ready page:load', function(){  
+    $('form').editor();
+  });

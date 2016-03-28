@@ -33,7 +33,7 @@ table.table.table-linked > tbody > tr > td > a:hover {
 }
 
 @media (min-width: 768px) {
-  form .form-group.poster {
+  form .form-group.thumb {
     width: calc(100% - 158px);
     position: relative;
     left: 158px;
@@ -43,7 +43,7 @@ table.table.table-linked > tbody > tr > td > a:hover {
     position: relative;
   }
 
-  form .thumb {
+  form span.thumb {
     position: absolute;
     top: 18px;
 

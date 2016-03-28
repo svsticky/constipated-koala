@@ -15,7 +15,7 @@ function bind_activities(){
     var row = $(this).closest('tr');
 
     $.ajax({
-      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
         authenticity_token: token,
@@ -44,7 +44,7 @@ function bind_activities(){
     var row = $(this).closest('tr');
 
     $.ajax({
-      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
         authenticity_token: token,
@@ -77,7 +77,7 @@ function bind_activities(){
       return
 
     $.ajax({
-      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'DELETE',
       data: {
         authenticity_token: token
@@ -102,7 +102,7 @@ function bind_activities(){
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var price = $(this).val().replace(',', '.');
 
-    // If left blank asume 0
+    // If left blank assume 0
     if(!price){
       price = 0;
       $(this).val(0);
@@ -113,7 +113,7 @@ function bind_activities(){
       $(this).val(parseFloat(price).toFixed(2));
 
     $.ajax({
-      url: '/activities/' + $('#participants table').attr('data-id') + '/participants/' + row.attr( 'data-id' ),
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
       type: 'PATCH',
       data: {
         authenticity_token: token,

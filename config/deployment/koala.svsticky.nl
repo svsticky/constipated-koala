@@ -24,7 +24,7 @@ server {
 	ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
 
 	# HSTS
-	add_header Strict-Transport-Security "max-age=31536000";
+	add_header Strict-Transport-Security 'max-age=31536000';
 
 	return 301 https://koala.svsticky.nl$request_uri;
 }
@@ -37,7 +37,7 @@ server {
 	ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
 
 	# HSTS
-	add_header Strict-Transport-Security "max-age=31536000";
+	add_header Strict-Transport-Security 'max-age=31536000';
 
 	return 301 https://intro.svsticky.nl$request_uri;
 }
@@ -49,7 +49,7 @@ server {
         ssl_certificate /etc/letsencrypt/live/koala.svsticky.nl/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/koala.svsticky.nl/privkey.pem;
 
-	# HSTS is already enforced in <webroot>/config/environments/production.rb
+	# HSTS is already enforced in rails
 
 	root /var/www/koala.svsticky.nl/public;
 
@@ -58,8 +58,8 @@ server {
 
 	error_log /var/www/koala.svsticky.nl/log/nginx.log warn;
 	access_log /var/www/koala.svsticky.nl/log/access.log;
-
-	try_files $uri/index.html $uri @app;
+	
+	try_files $uri @app;
 
 	location @app {
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -67,6 +67,14 @@ server {
 		proxy_set_header X-Forwarded-Proto https;
 		proxy_redirect off;
 		proxy_pass http://app;
+		
+		location /api {
+			add_header Access-Control-Allow-Methods 'HEAD, GET, POST, PUT, PATCH, DELETE';
+			add_header Access-Control-Allow-Headers 'Origin, Content-Type, Accept, Authorization';
+	
+			# No wildcards allowed, allow all '*' or specific uri, can be multiple
+			add_header Access-Control-Allow-Origin 'https://radio.svsticky.nl';
+		}
 	}
 
 	error_page 500 502 503 504 /500.html;

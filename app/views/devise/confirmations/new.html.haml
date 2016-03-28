@@ -1,5 +1,5 @@
 .row
-  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), :html => { :class => 'form-horizontal', :method => 'post'}) do |f|
 
     - if !resource.errors.full_messages.blank?
       - resource.errors.full_messages.each do |message|
@@ -18,6 +18,8 @@
           = flash[:notice]
 
     %fieldset
+      %h4= I18n.t :new, scope: 'devise.confirmations'
+
       .form-group
         .input-group
           %span.input-group-addon

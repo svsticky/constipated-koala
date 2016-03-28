@@ -1,110 +1,224 @@
-# Oauth endpoint
-This folder is where the complex reponse format are depicted. Currently the following models are supported;
+# API documentation
+Koala has an API endpoint for a few applications; radio, _zuil_, and checkout, but there are many more possibilities. This documentation describes the possible routes and responses divided in; [members](#members), [groups](#groups), [activities](#activities), [participants](#participants), and [checkout](#checkout).
 
-- Members
-- Activities
-- Participants
-- Groups
-- Checkout
+## Members
 
-## OAuth basics
-Before working with oauth2 we need to set some basic groundrules. Koala allows Authorization Code Grant Flow and the Client Credentials Grant Flow. You are more likely to implement the first one than the latter one. Below the two grants are described.
+## Groups
 
-> All traffic must be encrypted using SSL and the `client_secret` and `access_token` must never be on the users computer. Hence use sessions to store the access_token in your app. If you let others have access to this token or secret they can easily get access to your users data.
+## Activities
+Activities are used by radio and the _zuil_ and radio also shows commercials of companies. These routes are publically available, however authenticating with the `activity-read` rights gives you more information about the activities.
 
-### Authorization Code
-When a user in your app wants information or if you app need a authenticated user we use this variant. Your app sends the user to a login form of koala, there the user can login (if not already) and grant rights to your application(client). Koala will redirect the user back to your app with a one time code.
-```
-GET /api/oauth/authorize?client_id=d132e6e69dab381e39d3a14d6679b53444a83ddde4461db66013342e379c5110&redirect_uri=https://awesome.app/sign_in&response_type=code
-```
-```
-{
-  "code": "d247cf659f1076a9b2047e7711ad2f0b6b2b086944b02f4e13670a5d611a5d4f"
-}
-```
+##### Retrieve activities with posters
+<pre>
+<b>GET /api/activities HTTP/1.1</b>
+Host → koala.svsticky.nl
+</pre>
 
+```json
+HTTP/1.1 200 OK
+Content-Type → application/json; charset=utf-8
 
-Your app performs a post request with your `client_id`, `client_secret`, and the `authorization code`, at Sticky this usually be a request on the server itself. This returns an json or xml object with information about the user and more importantly an `access_token`. All request to the api will be authorized by this `access_token` which will expire after a fixed time `expires_in`.
-```
-POST /api/oauth/token
-{
-  "grant_type": "authorization_code",
-  "code": "d247cf659f1076a9b2047e7711ad2f0b6b2b086944b02f4e13670a5d611a5d4f",
-  "client_id": "d132e6e69dab381e39d3a14d6679b53444a83ddde4461db66013342e379c5110",
-  "client_secret": "822c1e42e82d921e3bbb03130cda60a607d1e63e6d705c9b5fa79aab5a683a2e",
-  "redirect_uri": "https://awesome.app/specific-page"
-}
-```
-```
-{
-  "access_token": "eb49949219182ce572529fec8be863af2c1847061de1db21e4304f615f66c04b",
-  "token_type": "bearer",
-  "expires_in": 14400,
-  "refresh_token": "d247c9b2047e7711ad2f0b6b2b086944b02f4e1f659f1076a3670a5d611a5d4f",
-  "scope": "member-read activity-read group-read",
-  "created_at": 1446895075,
-  "member": {
-    "id": 1,
-    "name": "Martijn Casteel",
-    "email": "martijn.casteel@gmail.com"
-  }
-}
-```
-Note; a response can hold a `member` or an `admin` hash holding the same information.
-
-### Client credentials
-This flow of authentication is hardly used. It is only for the app itself. If your app wants to update their own informtion periodically, you can! But don't do it to often. Using this type of login you have limited number of resources, for example `birth_date` will be hidden.
-```
-POST /api/oauth/token
-{
-  "grant_type": "client_credentials",
-  "client_id": "d132e6e69dab381e39d3a14d6679b53444a83ddde4461db66013342e379c5110",
-  "client_secret": "822c1e42e82d921e3bbb03130cda60a607d1e63e6d705c9b5fa79aab5a683a2e"
-}
-```
-```
-{
-  "access_token": "5e7bd08ef27d45c57952b1c62a13fbadf3eea313d341c1baf039765f7bb24fe0",
-  "token_type": "bearer",
-  "expires_in": 14400,
-  "scope": "member-read activity-read group-read",
-  "created_at": 1446895420
-}
-```
-
-## OAuth api
-So now you know how to authenticate yourself, all the authorization is done in koala en depends on the scopes you request and the user accepts for your app.
-Before you can use koala as authenticator you need a `client_id` and `client_secret`. Also koala limits the scopes you can ask for, later more!
-```
-GET api/members?search=steel
-Authorization: Bearer eb49949219182ce572529fec8be863af2c1847061de1db21e4304f615f66c04b
-```
-```
 [
   {
-    "id": 38,
-    "first_name": "Martijn",
-    "last_name": "Casteel"
+    "name": "Bord- en Kaartspellenavond",
+    "start_date": "2016-02-08",
+    "end_date": null,
+    "poster": "https://sticky-posters.s3.amazonaws.com/activities/195/medium/Poster_%281%29.png?1453461841"
   },
   {
-    "id": 39,
-    "first_name": "Emma",
-    "last_name": "Kasteel"
-  },
-  ...
+    "name": "Git Workshop",
+    "start_date": "2016-02-16",
+    "end_date": "2016-02-19",
+    "poster": "https://sticky-posters.s3.amazonaws.com/activities/196/medium/gitgud-poster.png?1453679092"
+  }
 ]
 ```
 
-## Scopes
-Ah well scopes, how do you create rights that are easily added or denied by the user itself; scopes. Koala has a number of scopes which are pretty self-explanatory;
-- default  
-  - member-read
-  - activity-read
-  - group-read
-- optional
-  - participant-read
-  - participant-write
-  - checkout-read
-  - checkout-write
+##### Retrieve advertisements
+<pre>
+<b>GET /api/advertisements HTTP/1.1</b>
+Host → koala.svsticky.nl
+</pre>
 
-As said before your app can have limitations for example a book supplier has no interest in your activities or groups.
+```json
+HTTP/1.1 200 OK
+Content-Type → application/json; charset=utf-8
+
+[
+  {
+    "poster": "https://sticky-posters.s3.amazonaws.com/activities/199/medium/conferentie.png?1453823170"
+  }
+]
+```
+
+## Participant
+
+
+## Checkout
+All checkout endpoints require a secret called `token` declared in the configuration of [.rbenv-vars](/.rbenv-vars-sample). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.
+```json
+HTTP/1.1 403 FORBIDDEN
+Content-Type → application/json; charset=utf-8
+```
+Below are the endpoints that can be used for checkout.
+
+
+
+##### Retrieve products
+<pre>
+<b>GET /api/checkout/products HTTP/1.1</b>
+Host → koala.svsticky.nl
+
++ <b>token</b>          :string <em>(required)</em>
+</pre>
+
+```json
+HTTP/1.1 200 OK
+Content-Type → application/json; charset=utf-8
+
+[
+  {
+    "id": 98,
+    "name": "7up",
+    "category": 1,
+    "price": "0.4",
+    "image": "https://sticky-posters.s3.amazonaws.com/checkout_products/7?1433681363"
+  },
+  {
+    "id": 100,
+    "name": "Coca Cola regular",
+    "category": 1,
+    "price": "0.53",
+    "image": "https://sticky-posters.s3.amazonaws.com/checkout_products/1?1433681225"
+  }
+]
+```
+
+
+
+##### Information for card
+<pre>
+<b>GET /api/checkout/card HTTP/1.1</b>
+Host → koala.svsticky.nl
+
++ <b>token</b>          :string <em>(required)</em>
++ <b>uuid</b>           :string <em>(required)</em> - unique identifier of the OV-card
+</pre>
+
+```json
+HTTP/1.1 200 OK
+Content-Type → application/json; charset=utf-8
+
+{
+  "id": 9,
+  "uuid": "EDD411C4",
+  "first_name": "Martijn",
+  "balance": "4.15"
+}
+```
+
+```json
+# card with that specific uuid not found
+HTTP/1.1 404 NOT FOUND
+Content-Type → application/json; charset=utf-8
+```
+
+
+
+##### Create a new card and add to member
+<pre>
+<b>POST /api/checkout/card HTTP/1.1</b>
+Host → koala.svsticky.nl
+
++ <b>token</b>          :string <em>(required)</em>
++ <b>student</b>        :string <em>(required)</em> - student id as known by koala
++ <b>uuid</b>           :string <em>(required)</em>
++ <b>description</b>    :string
+</pre>
+
+```json
+HTTP/1.1 201 CREATED
+Content-Type → application/json; charset=utf-8
+
+{
+  "id": 9,
+  "uuid": "EDD411C4",
+  "first_name": "Martijn",
+  "balance": "0.0"
+}
+```
+
+```json
+# Student could not be found, make sure the student id is correct
+HTTP/1.1 404 NOT FOUND
+Content-Type → application/json; charset=utf-8
+```
+
+```json
+# This uuid is already registered to some student
+HTTP/1.1 409 CONFLICT
+Content-Type → application/json; charset=utf-8
+```
+
+
+
+##### Create a new transaction
+<pre>
+<b>POST /api/checkout/transaction HTTP/1.1</b>
+Host → koala.svsticky.nl
+
++ <b>token</b>          :string <em>(required)</em>
++ <b>uuid</b>           :string <em>(required)</em>
++ <b>items</b>          :array  <em>(required)</em> - array with item ids
+</pre>
+
+```json
+HTTP/1.1 201 CREATED
+Content-Type → application/json; charset=utf-8
+
+{
+  "uuid": "EDD411C4",
+  "first_name": "Martijn",
+  "balance": "0.9",
+  "created_at": "2016-02-06T10:33:50.382+01:00"
+}
+```
+
+```json
+# Card is not yet activated
+HTTP/1.1 401 UNAUTHORIZED
+Content-Type → application/json; charset=utf-8
+```
+
+```json
+# One of the items in your array is not found or
+# there is no card with the specified uuid
+HTTP/1.1 404 NOT FOUND
+Content-Type → application/json; charset=utf-8
+```
+
+```json
+HTTP/1.1 413 REQUEST ENTITY TOO LARGE
+Content-Type → application/json; charset=utf-8
+
+{
+  "message": "insufficient funds",
+  "balance": "2.9",
+  "items": [
+    1,
+    2,
+    2
+  ],
+  "costs": "-4.6"
+}
+```
+
+```json
+# Not allowed to buy alcohol at the moment
+HTTP/1.1 406 NOT ACCEPTABLE
+Content-Type → application/json; charset=utf-8
+
+{
+  "message": "alcohol allowed at 16:00"
+}
+```

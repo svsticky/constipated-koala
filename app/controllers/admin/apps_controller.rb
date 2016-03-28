@@ -18,7 +18,7 @@ class Admin::AppsController < ApplicationController
 
   def ideal
     begin
-      @transactions = IdealTransaction.list( params[:limit] ||= 50, params[:offset] ||= 0 )
+      @transactions = IdealTransaction.list( params[:limit] ||= 20, params[:offset] ||= 0 )
       flash[:warning] = nil
 
     rescue ArgumentError

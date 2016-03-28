@@ -4,10 +4,10 @@
     %title= content_for?(:title) ? yield(:title) : 'Constipated koala'
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
-    = stylesheet_link_tag 'default', media: 'all', 'data-turbolinks-track' => true
-    = stylesheet_link_tag params[:controller], media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'default', 'data-turbolinks-track' => true
-    = javascript_include_tag params[:controller], 'data-turbolinks-track' => true
+
+    = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'doorkeeper', 'data-turbolinks-track' => true
+
     = csrf_meta_tags
   %body
     .container
@@ -22,5 +22,7 @@
             = link_to destroy_user_session_path, 'data-method' => :delete do
               klik dan hier
 
-
       = yield
+
+      %span.version
+        = ConstipatedKoala::Application::VERSION

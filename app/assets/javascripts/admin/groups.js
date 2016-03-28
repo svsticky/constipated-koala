@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-function bind_activities(){
+function bind_group_members(){
   //reset all binds
   $('#members button.destroy').off('click');
   $('#members select.position').off('change');
@@ -58,7 +58,7 @@ function bind_activities(){
 }
 
 $(document).on( 'ready page:load', function(){
-  bind_activities();
+  bind_group_members();
 
   $('#members').find('input#member').search().on('selected', function(event, id, name){
     event.preventDefault();

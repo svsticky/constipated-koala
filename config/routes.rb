@@ -13,38 +13,27 @@ ConstipatedKoala::Application.routes.draw do
     authenticated :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 
-      get    'edit',   to: 'users/home#edit',   as: :users_edit
-      patch  'edit',   to: 'users/home#update'
+      get   'edit',                           to: 'users/home#edit',   as: :users_edit
+      patch 'edit',                           to: 'users/home#update'
+      delete 'authorized_applications/:id',   to: 'users/home#revoke', as: :authorized_applications
 
-      post   'mongoose',        to: 'users/home#add_funds'
-      get    'mongoose',        to: 'users/home#confirm_add_funds'
+      post  'mongoose',                       to: 'users/home#add_funds'
+      get   'mongoose',                       to: 'users/home#confirm_add_funds'
     end
 
     root 'admin/home#index'
 
     # No double controllers
-    get 'admin/home',  to: redirect('/')
-    get 'users/home',  to: redirect('/')
+    get     'admin/home',   to: redirect('/')
+    get     'users/home',   to: redirect('/')
 
     # Devise routes
-    devise_for :users, :skip => [ :registrations ], :path => '', controllers:
-    {
-      registrations:  'users/registrations',
-      sessions:       'users/sessions',
-      passwords:      'users/passwords'
+    devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
+      sessions:       'users/sessions'
     }
 
-    # override route for user profile
-    devise_scope :user do
-      get   'registration/cancel',    to: 'users/registrations#cancel',   as: :cancel_registration
-
-      get   'sign_up',                to: 'users/registrations#new',      as: :new_registration
-      post  'sign_up',                to: 'users/registrations#create',   as: :registration
-
-      get   'settings/profile',       to: 'users/registrations#edit',     as: :edit_registration
-      put   'settings/profile',       to: 'users/registrations#update'
-      patch 'settings/profile',       to: 'users/registrations#update'
-    end
+    get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
+    post    'sign_up',      to: 'users/registrations#create'
 
     scope module: 'admin' do
       resources :members do
@@ -65,22 +54,24 @@ ConstipatedKoala::Application.routes.draw do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
       end
 
-      resources :settings, only: [:index, :create, :update] do
+      resources :settings, only: [:index, :create] do
         collection do
           get 'logs'
 
+          patch 'profile',        to: 'settings#profile'
+
           post 'advertisement'
-          delete 'advertisement', :to => 'settings#destroy_advertisement'
+          delete 'advertisement', to: 'settings#destroy_advertisement'
         end
       end
 
       scope 'apps' do
-        get 'ideal',              :to => 'apps#ideal'
-        get 'checkout',           :to => 'apps#checkout'
+        get 'ideal',              to: 'apps#ideal'
+        get 'checkout',           to: 'apps#checkout'
 
         # json checkout urls
-        patch  'cards',           :to => 'checkout_products#activate_card'
-        patch  'transactions',    :to => 'checkout_products#change_funds'
+        patch  'cards',           to: 'checkout_products#activate_card'
+        patch  'transactions',    to: 'checkout_products#change_funds'
 
         resources :checkout_products, only: [:index, :show, :create, :update], path: 'products'
       end
@@ -99,20 +90,28 @@ ConstipatedKoala::Application.routes.draw do
         resources :groups, only: [:index, :show]
 
         resources :activities, only: [:index, :show] do
-          resources :participants, only: [:index, :create, :destroy]
+          resources :participants, only: [:index, :create] do
+            collection do
+              delete '',        to: 'participants#destroy'
+            end
+          end
+
+          collection do
+            get 'hook',         to: 'participants#hook'
+          end
         end
 
 
         # NOTE legacy implementation for checkout without oauth
         scope 'checkout' do
-          get 'card',           :to => 'checkout#info'
-          post 'card',          :to => 'checkout#create'
+          get 'card',           to: 'checkout#info'
+          post 'card',          to: 'checkout#create'
 
-          get 'products',       :to => 'checkout#products'
-          post 'transaction',   :to => 'checkout#purchase'
+          get 'products',       to: 'checkout#products'
+          post 'transaction',   to: 'checkout#purchase'
         end
 
-        get 'advertisements',   :to => 'activities#advertisements'
+        get 'advertisements',   to: 'activities#advertisements'
       end
     end
   end

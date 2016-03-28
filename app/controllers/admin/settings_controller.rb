@@ -2,6 +2,7 @@ class Admin::SettingsController < ApplicationController
   respond_to :json, only: [:create, :destroy]
 
   def index
+    @admin = current_user.credentials
     @studies = Study.all
 
     @applications = Doorkeeper::Application.all
@@ -24,36 +25,42 @@ class Admin::SettingsController < ApplicationController
       return
 
     elsif ['mongoose_ideal_costs'].include? params[:setting]
-      render :status => :bad_request, :json => '' and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+      head :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
       Settings[params[:setting]] = params[:value].sub(',','.').to_f
 
     elsif ['begin_study_year'].include? params[:setting]
-      render :status => :bad_request, :json => '' and return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
+      head :bad_request and return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
       Settings[params[:setting]] = Date.parse(params[:value])
 
     elsif ['liquor_time'].include? params[:setting]
       logger.debug params[:value].inspect
       logger.debug (params[:value] =~ /\d{2}:\d{2}/).inspect
 
-      render :status => :bad_request, :json => '' and return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
+      head :bad_request and return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
       Settings[params[:setting]] = params[:value]
     end
 
-    render :status => :ok, :json => '{}'
+    head :ok
     return
+  end
+
+  def profile
+    @admin = Admin.find(current_user.credentials_id)
+
+    @admin.update(member_post_params)
+    redirect_to :settings
   end
 
   def advertisement
     @advert = Advertisement.new(advertisement_post_params)
 
     if @advert.save
-      redirect_to settings_path
+      redirect_to :settings
     else
+      @admin = current_user.credentials
       @studies = Study.all
 
-      @clients = Doorkeeper::Application.all
-
-      @advert = Advertisement.new
+      @applications = Doorkeeper::Application.all
       @advertisements = Advertisement.all
 
       render 'index'
@@ -66,7 +73,7 @@ class Admin::SettingsController < ApplicationController
     end
 
     Advertisement.destroy(params[:id])
-    render :status => :no_content, :json => ''
+    head :no_content
   end
 
   def logs
@@ -77,6 +84,10 @@ class Admin::SettingsController < ApplicationController
   end
 
   private
+  def member_post_params
+    params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
+  end
+
   def advertisement_post_params
     params.require(:advertisement).permit(:name, :poster)
   end

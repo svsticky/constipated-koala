@@ -12,13 +12,10 @@ class Activity < ActiveRecord::Base
 	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] },
 	:processors => [:ghostscript, :thumbnail],
 	:validate_media_type => false,
-	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' }
+	:convert_options => { :all => '-colorspace CMYK -flatten -quality 100 -density 8' }
 
   validates_attachment_content_type :poster,
 	 :content_type => 'application/pdf'
-
-#  validates_attachment_size :poster,
-#    :less_than => 10.megabytes
 
   has_one :group, :as => :organized_by
 
@@ -35,17 +32,17 @@ class Activity < ActiveRecord::Base
   end
 
   def group
-    Group.find_by_id( self.organized_by )
+    Group.find_by_id self.organized_by
   end
 
   def currency( member )
     participants.where(:member => member).first.price ||= self.price
   end
 
- def price
+  def price
    return 0 if read_attribute(:price).nil?
    return read_attribute(:price)
- end
+  end
 
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f

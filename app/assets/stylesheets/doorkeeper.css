@@ -13,7 +13,9 @@
  *= require font-awesome
  *= require bootstrap
  */
+
 @import url(https://fonts.googleapis.com/css?family=Roboto);
+
 html, body {
   display: block;
   position: relative;
@@ -59,6 +61,16 @@ div.container h2 {
 div.container h3 {
   font-size: 1.8em;
   font-weight: 200;
+}
+
+div.container h4 {
+  position: relative;
+  top: -25px;
+
+  font-size: 1.1em;
+  font-weight: 200;
+
+  line-height: 1.3em;
 }
 
 div.container input {
@@ -173,4 +185,24 @@ div.container .row .actions form input {
 
 div.container .row form span.input-group-addon i {
   width: 18px;
+}
+
+span.version {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  span.version {
+    position: absolute;
+    display: block;
+
+    right: 10px;
+    bottom: 2px;
+
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  span.version::before {
+    content: 'v';
+  }
 }

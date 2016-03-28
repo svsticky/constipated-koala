@@ -13,13 +13,13 @@ namespace :admin do
       exit
     end
 
-    admin = Admin.create(
+    admin = Admin.new(
       email:                  args[:email],
       password:               args[:password],
       password_confirmation:  args[:password]
     )
 
-    if admin
+    if admin.save!
       puts "#{args[:email]} created!"
     else
       puts 'admin not created, does the password meet the requirements?'
