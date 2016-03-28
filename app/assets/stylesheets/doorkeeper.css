@@ -63,6 +63,16 @@ div.container h3 {
   font-weight: 200;
 }
 
+div.container h4 {
+  position: relative;
+  top: -25px;
+
+  font-size: 1.1em;
+  font-weight: 200;
+
+  line-height: 1.3em;
+}
+
 div.container input {
   font-weight: 200;
 }
