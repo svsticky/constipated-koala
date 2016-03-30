@@ -144,6 +144,3 @@ to this project:
 `schema.rb` is a file that describes the database schema of this application. Any
 changes to it are critical, therefore it is paramount that you check this file into
 version control.
-
-### A note on versions
-Unfortunatly we can not update to rails 4.2 because of the mechanism hacked into `devise` to let members create there own accounts. Same counts for `mysq2` and `paperclip`. The latter is an awesome gem that works sometimes, it is very precise in the version is should be able to work with and it needs Imagemagick and Ghostscript installed on the computer with the correct paths.
