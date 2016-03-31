@@ -1,6 +1,6 @@
 class Api::ParticipantsController < ApiController
-  # before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
-  # before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy]
+  before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
+  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy]
 
   def index
     if params[:activity_id].present?
@@ -22,7 +22,7 @@ class Api::ParticipantsController < ApiController
     head :bad_request and return unless @participant.save
     render :status => :created and return unless params[:bank].present?
 
-    @transaction = IdealTransaction.new(
+    @transaction = IdealTransaction.new( # TODO add redirect website
       :description => @participant.activity.name,
       :amount => @participant.currency.to_f + Settings.mongoose_ideal_costs,
       :issuer => params[:bank],
@@ -45,7 +45,7 @@ class Api::ParticipantsController < ApiController
       participant.update_attributes :paid => true
     end
 
-    head :ok
+    head :ok # TODO redirect to target website
   end
 
   def destroy

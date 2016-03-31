@@ -1,7 +1,7 @@
 class Api::ActivitiesController < ApiController
   before_action -> { doorkeeper_authorize! 'activity-read' }, only: [ :show ]
 
-  def index # TODO index also activity-read
+  def index
     if params[:date].present?
       @activities = Activity.where('(end_date IS NULL AND start_date = ?) OR end_date <= ?', params[:date], params[:date] ).order( :start_date ).limit( params[:limit] ||= 10 ).offset( params[:offset] ||= 0 )
 

@@ -7,7 +7,7 @@ class Mailgun < ActionMailer::Base #Devise::Mailer
   include ActionView::Helpers::SanitizeHelper
 
   def confirmation_instructions(record, token, opts={})
-    puts "#{confirmation_url(record, confirmation_token: token)}" if Rails.env == 'development'
+    puts "#{confirmation_url(record, confirmation_token: token)}" if Rails.env.development?
 
     # TODO aanpasbaar maken
     @email = record.unconfirmed_email ||= record.email
