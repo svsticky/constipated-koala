@@ -35,16 +35,11 @@ Study.create(
 )
 Study.create(
   id:             6,
-  code:           'WISK',
-  masters:        false
-)
-Study.create(
-  id:             7,
   code:           'AINM',
   masters:        true
 )
 Study.create(
-  id:             8,
+  id:             7,
   code:           'GMTE',
   masters:        true
 )
