@@ -13,14 +13,6 @@ class Admin < ActiveRecord::Base
     return "#{self.first_name} #{self.infix} #{self.last_name}"
   end
 
-  def sender
-    if infix.blank?
-      return "#{self.first_name} #{self.last_name} <#{self.user.email}>"
-    end
-
-    return "#{self.first_name} #{self.infix} #{self.last_name} <#{self.user.email}>"
-  end
-
   after_create do
     credentials = User.create!(
       email:                  email,

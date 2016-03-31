@@ -44,7 +44,6 @@ class Admin::ParticipantsController < ApplicationController
   end
 
   def mail
-    @activity = Activity.find(params[:activity_id])
-    render :json => Mailgun.participant_information(params[:recipients], @activity, current_user.credentials.sender, params[:subject], params[:html], nil).deliver_later
+    render :json => Mailings::Participants.inform( Activity.find_by_id!(params[:activity_id]), params[:recipients].map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
   end
 end

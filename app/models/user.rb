@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     return Digest::MD5.hexdigest(self.email)
   end
 
+  def sender
+    "#{credentials.name} <#{self.email}>"
+  end
+
   def hash
     {
       "#{credentials_type.downcase}" => {
