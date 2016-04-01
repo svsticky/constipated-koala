@@ -6,7 +6,7 @@ module Mailings
 
     def confirmation_instructions(record, token, opts={})
       puts confirmation_url(record, confirmation_token: token) if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].BLANK?
+      return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string :locals => {
         name: record.credentials.name,
@@ -27,7 +27,7 @@ module Mailings
 
     def reset_password_instructions(record, token, opts={})
       puts edit_password_url(record, reset_password_token: token) if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].BLANK?
+      return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string :locals => {
         name: record.credentials.name,
