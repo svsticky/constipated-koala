@@ -43,7 +43,7 @@ module Mailings
         Met vriendelijke groet
       EOS
 
-      return mail(record.email, nil, 'Sticky wachtwoord opnieuw instellen', html)
+      return mail(record.email, nil, 'Sticky wachtwoord opnieuw instellen', html, text)
     end
   end
 end
