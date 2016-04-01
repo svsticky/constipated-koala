@@ -4,6 +4,27 @@ module Mailings
   class Mailer < ActionMailer::Base
     layout 'mailings'
 
+    def strip_html( html )
+      text = html
+
+      # change line brakes and paragraphs
+      text.gsub!( /<(?:br\/?|\/p)>/ , "\r\n" )
+
+      # reformat url's
+      text.gsub!(/<a\s+(?:[^>]*?\s+)?href=(\"[^"]*\"|'[^']*')(?:[^>]*?\s+)?\s*\/?>(?:.+<\/a>)/, '\1')
+
+      # remove all other tags
+      text.gsub!(/<\/?\w+\/?>/, '')
+
+      # remove double spaces
+      text.squeeze!(' ')
+
+      # remove double line brakes
+      text.gsub!( /[\r\n]{2,}/, "\r\n" )
+
+      return text
+    end
+
     private
     def mail( recipient, sender, subject, html, text = nil )
       raise ArgumentError if html.blank? && text.blank?

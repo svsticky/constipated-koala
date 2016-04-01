@@ -12,16 +12,17 @@ module Mailings
       participants.each do |participant|
         variables[ participant.member.email ] = {
           :name => participant.member.name,
-          :first_name => participant.member.first_name,
 
-          :activity => participant.activity.name,
+          :first_name => participant.member.first_name,
           :price => ActionController::Base.helpers.number_to_currency( participant.currency, :unit => '€' )
         }
       end
 
       # NOTE view is rendered in form for editing
+      text = strip_html( html )
       html = render_to_string :text => html, :layout => 'mailings'
-      return mails( variables, sender, subject, html )
+
+      return mails( variables, sender, subject, html, text )
     end
   end
 end

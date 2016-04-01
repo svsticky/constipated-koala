@@ -12,7 +12,13 @@ module Mailings
         confirmation_url: confirmation_url(record, confirmation_token: token)
       }
 
-      text = "Hoi #{record.credentials.name},\r\n\r\n Bevestig je email voor je account bij studievereniging sticky door naar #{confirmation_url(record, confirmation_token: token)} te gaan.\r\n\r\n Met vriendelijke groet"
+      text = <<-EOS
+        Hoi #{record.credentials.name},
+
+        Bevestig je email voor je account bij studievereniging sticky door naar #{confirmation_url(record, confirmation_token: token)} te gaan.
+
+        Met vriendelijke groet
+      EOS
 
       return mail(record.unconfirmed_email ||= record.email, nil, 'Sticky account activeren', html, text)
     end
@@ -26,7 +32,14 @@ module Mailings
         reset_url: edit_password_url(record, reset_password_token: token)
       }
 
-      text = "Hoi #{record.credentials.name},\r\n\r\n Er is een nieuw wachtwoord aangevraagd voor studievereniging sticky of je hebt geprobeerd een nieuwe account aan te maken.\nGa naar #{edit_password_url(record, reset_password_token: token)} om een nieuw wachtwoord in te stellen of negeer deze e-mail als je het wachtwoord nog weet. \r\n\r\n Met vriendelijke groet"
+      text = <<-EOS
+        Hoi #{record.credentials.name},
+
+        Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuwe account aan te maken.
+        Ga naar #{edit_password_url(record, reset_password_token: token)} om een nieuw wachtwoord in te stellen of negeer deze e-mail als je je huidige wachtwoord wil behouden.
+
+        Met vriendelijke groet
+      EOS
 
       return mail(record.email, nil, 'Sticky wachtwoord opnieuw instellen', html)
     end
