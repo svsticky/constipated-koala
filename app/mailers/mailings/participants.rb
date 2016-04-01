@@ -18,9 +18,9 @@ module Mailings
         }
       end
 
-      # NOTE view is rendered in form for editing
-      text = strip_html( html )
-      html = render_to_string :text => html, :layout => 'mailings'
+      # NOTE view is rendered in form for editing _mail
+      text = strip_html( html.clone )
+      html = render_to_string :inline => html, :layout => 'mailings'
 
       return mails( variables, sender, subject, html, text )
     end

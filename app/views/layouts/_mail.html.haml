@@ -6,7 +6,7 @@
         .col-md-10.col-xs-12
           .row#recipients
             .col-md-8
-              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => geadresseerden.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', '), :readonly => true }
+              %input#bbc.form-control{:name => 'recipients', :type => 'text', :value => recipients.map{ |recipient| "#{recipient.member.name} <#{recipient.email}>"}.join(', '), :readonly => true }
             .col-md-4
               .ui-select
                 %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
@@ -15,24 +15,22 @@
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Onderwerp
         .col-md-10.col-xs-12
-          %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Sticky #{onderwerp}" }
+          %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Sticky #{subject}" }
 
       = render 'layouts/editor'
 
       #textarea.form-control{ :contenteditable => 'true' }
+        - if mail.present?
+          = render :template => "mailings/#{mail}", :locals => { subject: subject }
+
         :preserve
-          Hoi %recipient.first_name%,
-          <br><br>
-          Je bent onlangs meegeweest naar #{ onderwerp.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ onderwerp.downcase }'</i>?
-          <br><br>
           #{current_user.credentials.signature}
 
       %textarea#html.form-control
+        - if mail.present?
+          = render :template => "mailings/#{mail}", :locals => { subject: subject }
+
         :preserve
-          Hoi %recipient.first_name%,
-          <br><br>
-          Je bent onlangs meegeweest naar #{ onderwerp.downcase }. Deze activiteit kostte %recipient.price%. Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%recipient.name% #{ onderwerp.downcase }'</i>?
-          <br><br>
           #{ current_user.credentials.signature }
 
       .mail-actions
