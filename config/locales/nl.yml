@@ -135,7 +135,7 @@ nl:
 
         intro_membership:
           name: Introductie lidmaatschap
-          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereert.
+          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereerd.
         intro_activities:
           name: Introductie activiteiten
           description: Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in het inschrijfformulier kunnen inschrijven.
