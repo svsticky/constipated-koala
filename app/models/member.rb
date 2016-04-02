@@ -58,11 +58,11 @@ class Member < ActiveRecord::Base
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
-    write_attribute(:first_name, first_name.capitalize)
+    write_attribute(:first_name, first_name.titleize)
   end
 
   def last_name=(last_name)
-    write_attribute(:last_name, last_name.capitalize)
+    write_attribute(:last_name, last_name.titleize)
   end
 
   # remove nonnumbers and change + to 00
@@ -73,6 +73,10 @@ class Member < ActiveRecord::Base
   # lowercase on email
   def email=(email)
     write_attribute(:email, email.downcase)
+  end
+
+  def address=(address)
+    write_attribute(:address, address.strip)
   end
 
   # remove spaces in postal_code
