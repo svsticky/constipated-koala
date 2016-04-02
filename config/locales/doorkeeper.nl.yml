@@ -11,5 +11,8 @@ nl:
 
     scopes:
       member-read: uw naam, adres, en contactgegevens lezen
-      activity-read: deelgenomen activiteiten bekijken
+      activity-read: activiteiten bekijken
       group-read: uw commissies en andere groepen inzien
+
+      participant-read: deelgenomen activiteiten bekijken
+      participant-write: inschrijven voor een activiteit
