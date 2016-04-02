@@ -58,11 +58,11 @@ class Member < ActiveRecord::Base
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
-    write_attribute(:first_name, first_name.titleize)
+    write_attribute(:first_name, first_name.downcase.titleize)
   end
 
   def last_name=(last_name)
-    write_attribute(:last_name, last_name.titleize)
+    write_attribute(:last_name, last_name.downcase.titleize)
   end
 
   # remove nonnumbers and change + to 00
