@@ -1,5 +1,6 @@
 namespace :studystatus do
   require 'rest_client'
+  require 'open3'
 
   desc "Update study progress using a stdin in the same format as given by studystatus"
   task :update_from_stdin => :environment do
