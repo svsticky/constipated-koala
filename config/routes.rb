@@ -18,9 +18,9 @@ ConstipatedKoala::Application.routes.draw do
       delete 'authorized_applications/:id',   to: 'users/home#revoke', as: :authorized_applications
 
       post  'mongoose',                       to: 'users/home#add_funds'
-      get   'mongoose',                       to: 'users/home#confirm_add_funds'
     end
 
+    get   'mongoose',                       to: 'users/home#confirm_add_funds'
     root 'admin/home#index'
 
     # No double controllers
