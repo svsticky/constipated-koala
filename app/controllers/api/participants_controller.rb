@@ -17,7 +17,7 @@ class Api::ParticipantsController < ApiController
   end
 
   def create
-    @participant = Participant.new( :member =>  Authorization._member, :activity => Activity.find_by_id!(params[:activity_id]))
+    @participant = Participant.new( :member => Authorization._member, :activity => Activity.find_by_id!(params[:activity_id]))
     head :bad_request and return unless @participant.save
 
     render :status => :created and return if params[:bank].blank?
