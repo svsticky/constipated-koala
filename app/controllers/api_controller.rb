@@ -1,5 +1,5 @@
 class ApiController < ActionController::Base
-  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
   respond_to :json, :xml
 
   around_filter do |controller, action|
