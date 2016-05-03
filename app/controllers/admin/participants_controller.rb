@@ -11,7 +11,7 @@ class Admin::ParticipantsController < ApplicationController
       @response[ 'price' ] = @activity.price
       @response[ 'email' ] = @participant.member.email
 
-      render :status => :created, :json => @participant.to_json
+      render :status => :created, :json => @response.to_json
     end
   end
 
