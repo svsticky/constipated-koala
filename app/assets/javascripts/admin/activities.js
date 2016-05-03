@@ -157,6 +157,7 @@ $(document).on( 'ready page:load', function(){
         var added = $(activity).insertBefore('#participants table tr:last');
 
         $('.number').html( +$('.number').html() +1 );
+        console.log(data)
 
         if(data.price > 0)
           $(added).addClass( 'red' );
