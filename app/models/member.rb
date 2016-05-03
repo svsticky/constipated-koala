@@ -238,18 +238,6 @@ class Member < ActiveRecord::Base
   private
   def self.filter( query )
     records = self
-#    status = query.match /(status|state):([A-Za-z-]+)/
-#    query.gsub! /(status|state):([A-Za-z]+)/, ''
-#
-#    if status.nil? || status[2].downcase == 'actief'
-#      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
-#    else
-#      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
-#      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'
-#
-#      records = Member.none unless status[2].downcase == 'studerend' || status[2].downcase == 'alumni'
-#    end
-
     study = query.match /(studie|study):([A-Za-z-]+)/
 
     unless study.nil?
