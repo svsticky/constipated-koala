@@ -51,7 +51,7 @@ POST /api/oauth/token
   "member": {
     "id": 1,
     "name": "Martijn Casteel",
-    "email": "martijn.casteel@gmail.com"
+    "email": "martijn@example.com"
   }
 }
 ```
