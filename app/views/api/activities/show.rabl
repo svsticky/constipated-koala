@@ -1,5 +1,21 @@
 object @activity
-attributes :id, :name, :description, :start_date, :end_date, :price
+attributes :id, :name, :description, :price
+
+node :start_date do |activity|
+  activity.start_date.strftime('%Y-%m-%d')
+end
+
+node :start_time do |activity|
+  activity.start_date.strftime('%H:%M')
+end
+
+node :end_date do |activity|
+  activity.end_date.strftime('%Y-%m-%d') unless activity.end_date.nil?
+end
+
+node :end_time do |activity|
+  activity.end_date.strftime('%H:%M') unless activity.end_date.nil?
+end
 
 glue :group do
   attribute :name => :group
