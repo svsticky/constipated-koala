@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402084056) do
+ActiveRecord::Schema.define(version: 20160505145015) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
-    t.date     "start_date"
-    t.date     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.decimal  "price",                             precision: 6, scale: 2
     t.text     "comments",            limit: 65535
     t.datetime "created_at"

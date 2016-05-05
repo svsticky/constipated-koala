@@ -11,6 +11,8 @@ nl:
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
+      form: "%Y-%m-%dT%H:%M"
+      day_month: "%d %B"
       short: "%H:%M"
 
   activerecord:
