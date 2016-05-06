@@ -55,9 +55,6 @@ class Activity < ActiveRecord::Base
     if end_date.present? && end_date < start_date
       errors.add(:end_date, :before_start_date)
     end
-    if start_time and end_time.nil?
-      errors.add(:end_time, :blank_and_start_time)
-    end
 
     if end_time.present?
       if end_date.nil?
