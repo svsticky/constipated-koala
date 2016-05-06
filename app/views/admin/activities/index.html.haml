@@ -77,7 +77,7 @@
                     = f.date_field :start_date, :value => @activity.start_date, :class => 'form-control'
                   .col-md-6
                     = label(:activity, :start_time)
-                    = f.time_field :start_time, :value => @activity.start_time, :class => 'form-control'
+                    = f.time_field :start_time, :value => (I18n.l(@activity.start_time, :format => :short) unless @activity.start_time.nil?), :class => 'form-control'
               .form-group
                 .row
                   .col-md-6
@@ -85,7 +85,7 @@
                     = f.date_field :end_date, :value => @activity.end_date, :class => 'form-control'
                   .col-md-6
                     = label(:activity, :end_time)
-                    = f.time_field :end_time, :value => @activity.end_time, :class => 'form-control'
+                    = f.time_field :end_time, :value => (I18n.l(@activity.end_time, :format => :short) unless @activity.end_time.nil?), :class => 'form-control'
               .form-group
                 .row
                   .col-md-12

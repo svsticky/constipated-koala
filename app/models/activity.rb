@@ -3,6 +3,7 @@ class Activity < ActiveRecord::Base
 
   #NOTE on changing type to datetime don't forget rake admin:start_year
   validates :start_date, presence: true
+  validate :end_is_possible
 #  validates :end_date
 #  validates :description
 
@@ -48,5 +49,24 @@ class Activity < ActiveRecord::Base
     price = price.to_s.gsub(',', '.').to_f
     write_attribute(:price, price)
     write_attribute(:price, NIL) if price == 0
+  end
+
+  def end_is_possible
+    if end_date.present? && end_date < start_date
+      errors.add(:end_date, :before_start_date)
+    end
+    if start_time and end_time.nil?
+      errors.add(:end_time, :blank_and_start_time)
+    end
+
+    if end_time.present?
+      if end_date.nil?
+        errors.add(:end_date, :blank) # This should not happen, set in controller if empty
+      elsif start_time.nil?
+        errors.add(:start_time, :blank_and_end_time)
+      elsif end_date == start_date && end_time < start_time
+        errors.add(:end_time, :before_start_time)
+      end
+    end
   end
 end

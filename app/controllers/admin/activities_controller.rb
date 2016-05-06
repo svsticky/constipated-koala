@@ -37,6 +37,10 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.find_by_id params[:id]
     params = activity_post_params
 
+    if params[:end_date].blank?
+      params[:end_date] = params[:start_date]
+    end
+
     # removing the images from the S3 storage
     if params[:_destroy] == 'true'
       logger.debug 'remove poster from activity'

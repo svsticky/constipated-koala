@@ -195,6 +195,16 @@ nl:
         success_without_payment: Je hebt je ingeschreven!
 
       models:
+        activity:
+          blank: kan niet leeg zijn
+          blank_and_start_time: kan niet leeg zijn als er een starttijd is
+          blank_and_end_time: kan niet leeg zijn als er een eindtijd is
+          attributes:
+            end_date:
+              before_start_date: kan niet voor de startdatum zijn
+            end_time:
+              before_start_time: kan niet voor de starttijd zijn
+
         member:
           blank: kan niet leeg zijn
           attributes:
