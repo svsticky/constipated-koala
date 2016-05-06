@@ -23,6 +23,10 @@ class Activity < ActiveRecord::Base
   has_many :participants, :dependent => :destroy
   has_many :members, :through => :participants
 
+  before_validation do
+    self.end_date = self.start_date if self.end_date.blank?
+  end
+
   def self.study_year( year )
     year = year.blank? ? Date.today.study_year : year.to_i
     where('start_date >= ? AND start_date < ?', Date.to_date( year ), Date.to_date( year +1 ))
@@ -52,14 +56,10 @@ class Activity < ActiveRecord::Base
   end
 
   def end_is_possible
-    if end_date.present? && end_date < start_date
-      errors.add(:end_date, :before_start_date)
-    end
+    errors.add(:end_date, :before_start_date) if end_date < start_date
 
     if end_time.present?
-      if end_date.nil?
-        errors.add(:end_date, :blank) # This should not happen, set in controller if empty
-      elsif start_time.nil?
+      if start_time.nil?
         errors.add(:start_time, :blank_and_end_time)
       elsif end_date == start_date && end_time < start_time
         errors.add(:end_time, :before_start_time)

@@ -17,10 +17,6 @@ class Admin::ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_post_params.except(:_destroy))
 
-    if(@activity.end_date.nil? && @activity.end_time)
-      @activity.end_date = @activity.start_date
-    end
-
     if @activity.save
       redirect_to @activity
     else
@@ -36,10 +32,6 @@ class Admin::ActivitiesController < ApplicationController
   def update
     @activity = Activity.find_by_id params[:id]
     params = activity_post_params
-
-    if params[:end_date].blank?
-      params[:end_date] = params[:start_date]
-    end
 
     # removing the images from the S3 storage
     if params[:_destroy] == 'true'
@@ -67,9 +59,9 @@ class Admin::ActivitiesController < ApplicationController
     params.require(:activity).permit( :name,
                                       :description,
                                       :start_date,
-									  :start_time,
+                                      :start_time,
                                       :end_date,
-									  :end_time,
+                                      :end_time,
                                       :comments,
                                       :price,
                                       :poster,
