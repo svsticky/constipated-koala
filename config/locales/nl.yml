@@ -49,7 +49,9 @@ nl:
         price: Prijs
         description: Beschrijving
         start_date: Begindatum
+        start_time: Begintijd
         end_date: Einddatum
+        end_time: Eindtijd
         comments: Opmerkingen
         organized_by: Organisator
 

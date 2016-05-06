@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402084056) do
+ActiveRecord::Schema.define(version: 20160506121430) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160402084056) do
     t.datetime "poster_updated_at"
     t.text     "description",         limit: 65535
     t.integer  "organized_by",        limit: 4
+    t.time     "start_time"
+    t.time     "end_time"
   end
 
   create_table "admins", force: :cascade do |t|
