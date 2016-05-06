@@ -17,7 +17,7 @@ class Admin::ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_post_params.except(:_destroy))
 
-	if(@activity.end_date.nil? && @activity.end_time)
+    if(@activity.end_date.nil? && @activity.end_time)
       @activity.end_date = @activity.start_date
     end
 
