@@ -1,7 +1,6 @@
 class Activity < ActiveRecord::Base
   validates :name, presence: true
 
-  #NOTE on changing type to datetime don't forget rake admin:start_year
   validates :start_date, presence: true
   validate :end_is_possible
 #  validates :end_date
