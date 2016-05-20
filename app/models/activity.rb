@@ -2,7 +2,7 @@ class Activity < ActiveRecord::Base
   validates :name, presence: true
 
   validates :start_date, presence: true
-  validate :end_is_possible
+  validate :end_is_possible, unless: "self.start_date.blank?"
 #  validates :end_date
 #  validates :description
 
@@ -55,7 +55,6 @@ class Activity < ActiveRecord::Base
   end
 
   def end_is_possible
-    return if start_date.blank?
     errors.add(:end_date, :before_start_date) if end_date < start_date
 
     if end_time.present?
