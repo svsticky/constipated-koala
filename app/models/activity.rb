@@ -55,6 +55,7 @@ class Activity < ActiveRecord::Base
   end
 
   def end_is_possible
+    return if start_date.blank?
     errors.add(:end_date, :before_start_date) if end_date < start_date
 
     if end_time.present?
