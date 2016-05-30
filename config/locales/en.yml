@@ -27,6 +27,14 @@ en:
 
     errors:
       models:
+        activity:
+          blank_and_start_time: can't be blank if the start time is set
+          blank_and_end_time: can't be blank if the end time is set
+          attributes:
+            end_date:
+              before_start_date: can't be before the start date
+            end_time:
+              before_start_time: can't be before the start time
         member:
           blank: can't be blank
           attributes:

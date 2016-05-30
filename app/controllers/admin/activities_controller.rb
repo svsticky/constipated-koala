@@ -17,10 +17,6 @@ class Admin::ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_post_params.except(:_destroy))
 
-    if(@activity.start_date == @activity.end_date)
-      @activity.end_date = nil
-    end
-
     if @activity.save
       redirect_to @activity
     else
@@ -63,7 +59,9 @@ class Admin::ActivitiesController < ApplicationController
     params.require(:activity).permit( :name,
                                       :description,
                                       :start_date,
+                                      :start_time,
                                       :end_date,
+                                      :end_time,
                                       :comments,
                                       :price,
                                       :poster,
