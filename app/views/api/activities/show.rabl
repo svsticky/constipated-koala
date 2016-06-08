@@ -1,12 +1,24 @@
 object @activity
-attributes :id, :name, :description, :start_date, :end_date, :price
+attributes :id, :name, :description, :price
 
-node :start_time do |activity|
-  activity.start_time.strftime('%H:%M') unless activity.start_time.nil?
+node :start_date do |activity|
+  if activity.start_time.nil?
+    activity.start_date
+  else
+    d = activity.start_date
+    t = activity.start_time
+    DateTime.new(d.year, d.month, d.day, t.hour, t.min, 0)
+  end
 end
 
-node :end_time do |activity|
-  activity.end_time.strftime('%H:%M') unless activity.end_time.nil?
+node :end_date do |activity|
+  if activity.end_time.nil?
+    activity.end_date
+  else
+    d = activity.end_date
+	t = activity.end_time
+	DateTime.new(d.year, d.month, d.day, t.hour, t.min, 0)
+  end
 end
 
 glue :group do
