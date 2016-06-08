@@ -16,7 +16,9 @@ ActiveRecord::Schema.define(version: 20160506121430) do
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
     t.date     "start_date"
+    t.time     "start_time"
     t.date     "end_date"
+    t.time     "end_time"
     t.decimal  "price",                             precision: 6, scale: 2
     t.text     "comments",            limit: 65535
     t.datetime "created_at"
@@ -27,8 +29,6 @@ ActiveRecord::Schema.define(version: 20160506121430) do
     t.datetime "poster_updated_at"
     t.text     "description",         limit: 65535
     t.integer  "organized_by",        limit: 4
-    t.time     "start_time"
-    t.time     "end_time"
   end
 
   create_table "admins", force: :cascade do |t|
