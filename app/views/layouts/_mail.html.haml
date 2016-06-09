@@ -15,7 +15,7 @@
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Onderwerp
         .col-md-10.col-xs-12
-          %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Sticky #{subject}" }
+          %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Studievereniging Sticky | #{subject}" }
 
       = render 'layouts/editor'
 
@@ -23,15 +23,9 @@
         - if mail.present?
           = render :template => "mailings/#{mail}", :locals => { subject: subject }
 
-        :preserve
-          #{current_user.credentials.signature}
-
       %textarea#html.form-control
         - if mail.present?
           = render :template => "mailings/#{mail}", :locals => { subject: subject }
-
-        :preserve
-          #{ current_user.credentials.signature }
 
       .mail-actions
         %button.btn.btn-primary{ type: 'submit' } Verstuur

@@ -20,7 +20,7 @@ module Mailings
 
       # NOTE view is rendered in form for editing _mail
       text = strip_html( html.clone )
-      html = render_to_string :inline => html, :layout => 'mailings'
+      html = render_to_string :inline => html, :layout => 'mailings', :locals => { subject: subject }
 
       return mails( variables, sender, subject, html, text )
     end

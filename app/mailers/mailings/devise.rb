@@ -10,7 +10,8 @@ module Mailings
 
       html = render_to_string :locals => {
         name: record.credentials.name,
-        confirmation_url: confirmation_url(record, confirmation_token: token)
+        confirmation_url: confirmation_url(record, confirmation_token: token),
+        subject: 'Studievereniging Sticky | account bevestigen'
       }
 
       text = <<-EOS
@@ -31,7 +32,8 @@ module Mailings
 
       html = render_to_string :locals => {
         name: record.credentials.name,
-        reset_url: edit_password_url(record, reset_password_token: token)
+        reset_url: edit_password_url(record, reset_password_token: token),
+        subject: 'Studievereniging Sticky | wachtwoord herstellen'
       }
 
       text = <<-EOS
