@@ -218,7 +218,7 @@ class Member < ActiveRecord::Base
 
       # TODO check if student joined this year, has no studies, and study is a bachelor
 
-      education.update_attribute('end_date', Date.parse(end_date[5..-1])) if education.status == 'active' && !end_date.nil? && !end_date[5..-1].nil?
+      education.update_attribute('end_date', Date::parse(end_date.split(' ')[1])) if status != 'actief' && end_date.present? && end_date.split(' ')[1].present?
       education.save
     end
 
