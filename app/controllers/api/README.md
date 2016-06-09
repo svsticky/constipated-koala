@@ -1,5 +1,5 @@
 # Oauth endpoint
-This folder is where the complex reponse format are depicted. Currently the following models are supported;
+This folder is where the complex response format are depicted. Currently the following models are supported;
 
 - Members
 - Activities
@@ -8,13 +8,13 @@ This folder is where the complex reponse format are depicted. Currently the foll
 - Checkout
 
 ## OAuth basics
-Before working with oauth2 we need to set some basic groundrules. Koala allows Authorization Code Grant Flow and the Client Credentials Grant Flow. You are more likely to implement the first one than the latter one. Below the two grants are described.
+Before working with oauth2 we need to set some basic ground rules. Koala allows Authorization Code Grant Flow and the Client Credentials Grant Flow. You are more likely to implement the first one than the latter one. Below the two grants are described.
 
 > All traffic must be encrypted using SSL and the `client_secret` and `access_token` must never be on the users computer. Hence use sessions to store the access_token in your app. If you let others have access to this token or secret they can easily get access to your users data.
 
 ```shell
 # create application using rake
-$ bundle exec rake "doorkeeper:create[Postman application, urn:ietf:wg:oauth:2.0:oob, member-read partipant-read partipant-write]"
+$ bundle exec rake "doorkeeper:create[Postman application, urn:ietf:wg:oauth:2.0:oob, member-read participant-read participant-write]"
 ```
 
 ### Authorization Code
@@ -51,7 +51,7 @@ POST /api/oauth/token
   "member": {
     "id": 1,
     "name": "Martijn Casteel",
-    "email": "martijn.casteel@gmail.com"
+    "email": "martijn@example.com"
   }
 }
 ```

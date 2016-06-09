@@ -49,7 +49,9 @@ nl:
         price: Prijs
         description: Beschrijving
         start_date: Begindatum
+        start_time: Begintijd
         end_date: Einddatum
+        end_time: Eindtijd
         comments: Opmerkingen
         organized_by: Organisator
 
@@ -135,7 +137,7 @@ nl:
 
         intro_membership:
           name: Introductie lidmaatschap
-          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereert.
+          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereerd.
         intro_activities:
           name: Introductie activiteiten
           description: Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in het inschrijfformulier kunnen inschrijven.
@@ -193,6 +195,16 @@ nl:
         success_without_payment: Je hebt je ingeschreven!
 
       models:
+        activity:
+          blank: kan niet leeg zijn
+          blank_and_start_time: kan niet leeg zijn als er een starttijd is
+          blank_and_end_time: kan niet leeg zijn als er een eindtijd is
+          attributes:
+            end_date:
+              before_start_date: kan niet voor de startdatum zijn
+            end_time:
+              before_start_time: kan niet voor de starttijd zijn
+
         member:
           blank: kan niet leeg zijn
           attributes:

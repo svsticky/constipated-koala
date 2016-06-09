@@ -58,11 +58,11 @@ class Member < ActiveRecord::Base
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
-    write_attribute(:first_name, first_name.capitalize)
+    write_attribute(:first_name, first_name.downcase.titleize)
   end
 
   def last_name=(last_name)
-    write_attribute(:last_name, last_name.capitalize)
+    write_attribute(:last_name, last_name.downcase.titleize)
   end
 
   # remove nonnumbers and change + to 00
@@ -73,6 +73,10 @@ class Member < ActiveRecord::Base
   # lowercase on email
   def email=(email)
     write_attribute(:email, email.downcase)
+  end
+
+  def address=(address)
+    write_attribute(:address, address.strip)
   end
 
   # remove spaces in postal_code
@@ -214,7 +218,7 @@ class Member < ActiveRecord::Base
 
       # TODO check if student joined this year, has no studies, and study is a bachelor
 
-      education.update_attribute('end_date', Date.parse(end_date[5..-1])) if education.status == 'active' && !end_date.nil? && !end_date[5..-1].nil?
+      education.update_attribute('end_date', Date::parse(end_date.split(' ')[1])) if status != 'actief' && end_date.present? && end_date.split(' ')[1].present?
       education.save
     end
 
@@ -234,18 +238,6 @@ class Member < ActiveRecord::Base
   private
   def self.filter( query )
     records = self
-    status = query.match /(status|state):([A-Za-z-]+)/
-    query.gsub! /(status|state):([A-Za-z]+)/, ''
-
-    if status.nil? || status[2].downcase == 'actief'
-      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
-    else
-      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
-      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'
-
-      records = Member.none unless status[2].downcase == 'studerend' || status[2].downcase == 'alumni'
-    end
-
     study = query.match /(studie|study):([A-Za-z-]+)/
 
     unless study.nil?

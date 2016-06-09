@@ -131,13 +131,33 @@ end
 # Create 20 activities and the participants
 15.times do
   start_date = Faker::Date.between(2.years.ago, 1.years.from_now)
-  end_date = (Faker::Number.between(1, 10) < 2 ? Faker::Date.between(start_date, 1.years.from_now) : NIL)
+  start_time = nil
+  end_date = nil
+  end_time = nil
+
+  # We generate four types of activities:
+  # 1: Multiple days, all day
+  # 2: Single day, all day
+  # 3: Single day, with start and end time
+  # 4: Multiple days, with start and end time
+  multiday = Faker::Boolean.boolean
+  all_day = Faker::Boolean.boolean
+
+  end_date = Faker::Date.between(start_date, 1.years.from_now) if multiday
+
+  if not all_day
+    start_sec = Faker::Number.between(0, 86400)
+    start_time = Time.at(start_sec)
+    end_time = Time.at(Faker::Number.between(start_sec, 86400))
+  end
 
   activity = Activity.create(
     name:         Faker::Hacker.ingverb.capitalize,
     price:        Faker::Commerce.price/5,
     start_date:   start_date,
+    start_time:   start_time,
     end_date:     end_date,
+    end_time:     end_time,
     organized_by: (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : NIL)
   )
 

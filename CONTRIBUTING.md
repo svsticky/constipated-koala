@@ -5,14 +5,14 @@ over the process greatly.
 
 For the admin pages we used a template called [Flatify](http://iarouse.com/dist-flatify/v2.1/index.html#/dashboard) that you should stick to. It is quite extensive and is based on [bootstrap](http://www.getbootstrap.com).
 
-From this point on we are going to use the **[semantic versioning](http://semver.org/)**. This will be the first major release, any fixes increment accordingly `v1.0.9 -> v1.0.10`. Adding functionality in a backwards compatible manner is done like this; `v1.0.10 -> v1.1.0`. And a major release to `v2` is done if there are changes that are not backwards compatible.
+From this point on we are going to use the **[semantic versioning](http://semver.org/)**. This will be the first major release, any fixes increment accordingly `v1.1.9 -> v1.1.10`. Adding functionality in a backwards compatible manner is done like this; `v1.1.10 -> v1.2.0`. And a major release to `v2` is done if there are changes that are not backwards compatible.
 
 ### Branching strategy
 The history of this project includes a lot of unnecessary merge commits, which aren't
 that pretty. Currently we have a contributing procedure that needs to be followed.
 
-Rest assured it is easy. It is based on one simple rule: **Only @martijncasteel is
-allowed to push to `master`.** And he should only do that in case of a merge conflict.
+Rest assured it is easy. It is based on one simple rule: **Only administrators are
+allowed to push to `master`.** And should only do that in case of a merge conflict.
 
 This leaves us with the following workflow:
 

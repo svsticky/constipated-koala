@@ -58,8 +58,16 @@ server {
 
 	error_log /var/www/koala.svsticky.nl/log/nginx.log warn;
 	access_log /var/www/koala.svsticky.nl/log/access.log;
-	
+
 	try_files $uri @app;
+
+	location /api {
+		add_header Access-Control-Allow-Methods 'HEAD, GET, POST, PUT, PATCH, DELETE';
+		add_header Access-Control-Allow-Headers 'Origin, Content-Type, Accept, Authorization';
+
+		# No wildcards allowed, allow all '*' or specific uri, can be multiple
+		add_header Access-Control-Allow-Origin 'https://radio.svsticky.nl';
+	}
 
 	location @app {
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -67,14 +75,6 @@ server {
 		proxy_set_header X-Forwarded-Proto https;
 		proxy_redirect off;
 		proxy_pass http://app;
-		
-		location /api {
-			add_header Access-Control-Allow-Methods 'HEAD, GET, POST, PUT, PATCH, DELETE';
-			add_header Access-Control-Allow-Headers 'Origin, Content-Type, Accept, Authorization';
-	
-			# No wildcards allowed, allow all '*' or specific uri, can be multiple
-			add_header Access-Control-Allow-Origin 'https://radio.svsticky.nl';
-		}
 	}
 
 	error_page 500 502 503 504 /500.html;
