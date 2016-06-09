@@ -26,6 +26,10 @@ class Activity < ActiveRecord::Base
     self.end_date = self.start_date if self.end_date.blank?
   end
 
+  def name=(name)
+    write_attribute(:name, name.strip)
+  end
+
   def self.study_year( year )
     year = year.blank? ? Date.today.study_year : year.to_i
     where('start_date >= ? AND start_date < ?', Date.to_date( year ), Date.to_date( year +1 ))
