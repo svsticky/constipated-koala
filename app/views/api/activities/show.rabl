@@ -7,8 +7,7 @@ node :start_date do |activity|
   else
     d = activity.start_date
     t = activity.start_time
-    offset = ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.now.utc_offset)
-    DateTime.new(d.year, d.month, d.day, t.hour, t.min, 0, offset)
+    Time.new(d.year, d.month, d.day, t.hour, t.min, 0).iso8601
   end
 end
 
@@ -18,8 +17,7 @@ node :end_date do |activity|
   else
     d = activity.end_date
     t = activity.end_time
-    offset = ActiveSupport::TimeZone.seconds_to_utc_offset(Time.zone.now.utc_offset)
-    DateTime.new(d.year, d.month, d.day, t.hour, t.min, 0, offset)
+    Time.new(d.year, d.month, d.day, t.hour, t.min, 0).iso8601
   end
 end
 
