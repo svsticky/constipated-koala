@@ -286,11 +286,12 @@ class Member < ActiveRecord::Base
       else
         records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
       end
+    else if status[2].downcase == 'alumni'
+      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+    else if status[2].downcase == 'studerend'
+      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
     else
-      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'alumni'
-      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id }) if status[2].downcase == 'studerend'
-
-      records = Member.none unless status[2].downcase == 'studerend' || status[2].downcase == 'alumni'
+      records = Member.none unless status[2].downcase == 'iedereen'
     end
 
     return records
