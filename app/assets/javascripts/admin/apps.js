@@ -83,6 +83,9 @@ $(document).on( 'ready page:load', function(){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
     event.preventDefault();
+    if( $( '#credit .form-group input#amount' ).prop( 'disabled'))
+      return
+
     if( !$( '#credit .form-group input#amount' ).val() )
       return
 
@@ -131,6 +134,9 @@ $(document).on( 'ready page:load', function(){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
     if( !$( '#credit input#amount'  ).val() )
+      return
+
+    if( $( '#credit.input-group > #amount' ).prop( 'disabled' ))
       return
 
     var price = $( '#credit input#amount' ).val();
