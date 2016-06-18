@@ -92,6 +92,8 @@ $(document).on( 'ready page:load', function(){
     if(!isNaN(price))
       $(this).val(parseFloat(price).toFixed(2));
 
+    $( '#credit .form-group input#amount' ).prop( 'disabled' , true );
+
     $.ajax({
       url: '/apps/transactions',
       type: 'PATCH',
@@ -101,6 +103,7 @@ $(document).on( 'ready page:load', function(){
         authenticity_token: token
       }
     }).done(function( data ){
+      $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
       alert( 'checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
@@ -110,6 +113,8 @@ $(document).on( 'ready page:load', function(){
       $( '#credit' ).find( 'input#amount' ).trigger( 'keyup', [27]);
 
     }).fail(function( data ){
+      $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
+
       if( data.status == 404 )
         alert( 'er is geen kaart gevonden', 'error' );
 
@@ -134,6 +139,8 @@ $(document).on( 'ready page:load', function(){
     if(!isNaN(price))
       $(this).val(parseFloat(price).toFixed(2));
 
+    $( '#credit.input-group > #amount' ).prop( 'disabled' , true );
+
     $.ajax({
       url: '/apps/transactions',
       type: 'PATCH',
@@ -143,12 +150,18 @@ $(document).on( 'ready page:load', function(){
         authenticity_token: token
       }
     }).done(function( data ){
+      $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
       alert( 'checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
 
+      //remove from input
+      $( '#credit.input-group > #amount' ).val('');
+
     }).fail(function( data ){
+      $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
+
       if( data.status == 404 )
         alert( 'er is geen kaart gevonden', 'error' );
 
