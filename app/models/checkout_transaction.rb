@@ -35,7 +35,7 @@ class CheckoutTransaction < ActiveRecord::Base
       raise ActiveRecord::RecordNotSaved.new('not_allowed') if (self.checkout_balance.member.birth_date + 18.years) > Date.today
     end
 
-    CheckoutBalance.where(id: self.checkout_balance.id).limit(1).update_all("balance = balance + %{amount}" % { amount: self.price })
+    CheckoutBalance.where(id: self.checkout_balance.id).limit(1).update_all("balance = balance + %{amount}, updated_at = NOW()" % { amount: self.price })
   end
 
   def price=(price)
