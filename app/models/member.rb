@@ -60,6 +60,11 @@ class Member < ActiveRecord::Base
   def first_name=(first_name)
     write_attribute(:first_name, first_name.downcase.titleize)
   end
+  
+  def infix=(infix)
+    write_attribute(:infix, infix.downcase)
+    write_attribute(:infix, NIL) if infix.blank?
+  end
 
   def last_name=(last_name)
     write_attribute(:last_name, last_name.downcase.titleize)
