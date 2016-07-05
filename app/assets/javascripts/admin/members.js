@@ -23,30 +23,38 @@ $(document).on('ready page:load', function(){
     $(row).find('select').each(function() {
       $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
     });
+
+    destroy(row);
   });
 
-  // TODO should also be called on creating a new education
-  $('.education .form-group a.btn.destroy').bind( "click", function(){
-    var row = $( this ).closest('.form-group');
+  function destroy( el = null ){
+    var selector = $('.education .form-group a.btn.destroy');
 
-    var destroy = $( row ).find('input.destroy');
-    console.log(destroy.val());
+    if( el !== undefined && el !== null)
+      selector = $(el).find('a.btn.destroy');
 
-    if(destroy.val() == 'true'){
-      $( row ).find('input').removeAttr('disabled');
-      $( row ).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
+    $( selector ).bind( "click", function(){
+      var row = $( this ).closest('.form-group');
 
-      $( destroy ).val("false")
-      $( this ).html("<span class='fa fa-trash-o'></span>");
-    }else{
-      if(!$( row ).find('input.id').val())
-        $( row ).find('input[type="hidden"]').attr('disabled', 'disabled');
-      $( row ).find('input.form-control').attr('disabled', 'disabled');
-      $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
+      var destroy = $( row ).find('input.destroy');
 
-      $( destroy ).val("true")
-      $( this ).html("<span class='fa fa-undo'></span>");
-    }
+      if(destroy.val() == 'true'){
+        $( row ).find('input').removeAttr('disabled');
+        $( row ).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
 
-  });
+        $( destroy ).val("false")
+        $( this ).html("<span class='fa fa-trash-o'></span>");
+      }else{
+        if(!$( row ).find('input.id').val())
+          $( row ).find('input[type="hidden"]').attr('disabled', 'disabled');
+        $( row ).find('input.form-control').attr('disabled', 'disabled');
+        $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
+
+        $( destroy ).val("true")
+        $( this ).html("<span class='fa fa-undo'></span>");
+      }
+    });
+  }
+
+  destroy(null);
 });
