@@ -34,7 +34,7 @@ module ConstipatedKoala
       Doorkeeper::AuthorizationsController.layout 'doorkeeper'
       Users::RegistrationsController.layout 'doorkeeper'
       Users::PublicController.layout false
-	  end
+    end
 
     config.action_dispatch.rescue_responses = {
       'ActiveRecord::RecordNotFound'                => :not_found,
