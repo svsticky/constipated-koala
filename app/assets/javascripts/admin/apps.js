@@ -83,6 +83,9 @@ $(document).on( 'ready page:load', function(){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
     event.preventDefault();
+    if( $( '#credit .form-group input#amount' ).prop( 'disabled'))
+      return
+
     if( !$( '#credit .form-group input#amount' ).val() )
       return
 
@@ -91,6 +94,8 @@ $(document).on( 'ready page:load', function(){
     // Make it a bit more pretty
     if(!isNaN(price))
       $(this).val(parseFloat(price).toFixed(2));
+
+    $( '#credit .form-group input#amount' ).prop( 'disabled' , true );
 
     $.ajax({
       url: '/apps/transactions',
@@ -101,6 +106,7 @@ $(document).on( 'ready page:load', function(){
         authenticity_token: token
       }
     }).done(function( data ){
+      $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
       alert( 'checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
@@ -110,6 +116,8 @@ $(document).on( 'ready page:load', function(){
       $( '#credit' ).find( 'input#amount' ).trigger( 'keyup', [27]);
 
     }).fail(function( data ){
+      $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
+
       if( data.status == 404 )
         alert( 'er is geen kaart gevonden', 'error' );
 
@@ -128,11 +136,16 @@ $(document).on( 'ready page:load', function(){
     if( !$( '#credit input#amount'  ).val() )
       return
 
+    if( $( '#credit.input-group > #amount' ).prop( 'disabled' ))
+      return
+
     var price = $( '#credit input#amount' ).val();
 
     // Make it a bit more pretty
     if(!isNaN(price))
       $(this).val(parseFloat(price).toFixed(2));
+
+    $( '#credit.input-group > #amount' ).prop( 'disabled' , true );
 
     $.ajax({
       url: '/apps/transactions',
@@ -143,12 +156,18 @@ $(document).on( 'ready page:load', function(){
         authenticity_token: token
       }
     }).done(function( data ){
+      $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
       alert( 'checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
 
+      //remove from input
+      $( '#credit.input-group > #amount' ).val('');
+
     }).fail(function( data ){
+      $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
+
       if( data.status == 404 )
         alert( 'er is geen kaart gevonden', 'error' );
 

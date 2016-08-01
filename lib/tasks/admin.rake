@@ -70,7 +70,7 @@ namespace :admin do
       Settings.intro_activities -= [activity.id]
     end
 
-    exit unless Settings.begin_study_year < Date.today
+    exit unless Settings.begin_study_year <= Date.today
 
     # create new activity if it is time
     activity = Activity.create(
