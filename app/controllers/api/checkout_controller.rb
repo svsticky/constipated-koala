@@ -64,6 +64,20 @@ class Api::CheckoutController < ApplicationController
     end
   end
 
+  def confirm
+    if card = CheckoutCard.where(["confirmation_token = ?", params['confirmation_token']]).first
+      card.active = true
+      if card.save
+        #TODO: Render correct
+      else
+        #TODO: Render wrong: Save failed
+    else
+      #TODO: Render wrong: Wrong confirmation
+    end
+
+    redirect_to public_path
+  end
+
   private # TODO implement for OAuth client credentials
   def authenticate_checkout
     if params[:token] != ENV['CHECKOUT_TOKEN']

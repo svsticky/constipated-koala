@@ -12,8 +12,11 @@ class CheckoutCard < ActiveRecord::Base
   belongs_to :member
   belongs_to :checkout_balance
 
+  devise :confirmable
+
   before_validation(on: :create) do
     self.active = false
+    self.email = self.member.email
 
     #find balance otherwise create a new one
     balance = CheckoutBalance.find_or_create_by!(member: self.member)

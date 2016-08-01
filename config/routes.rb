@@ -31,6 +31,7 @@ ConstipatedKoala::Application.routes.draw do
     devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
       sessions:       'users/sessions'
     }
+    devise_for :checkout_cards, :path => 'api/checkout/', :skip => [ :registrations, :sessions ]
 
     get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
@@ -106,6 +107,7 @@ ConstipatedKoala::Application.routes.draw do
         scope 'checkout' do
           get 'card',           to: 'checkout#info'
           post 'card',          to: 'checkout#create'
+          get 'confirmation',   to: 'checkout#confirm'
 
           get 'products',       to: 'checkout#products'
           post 'transaction',   to: 'checkout#purchase'
