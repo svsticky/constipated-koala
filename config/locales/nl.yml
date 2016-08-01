@@ -156,8 +156,8 @@ nl:
           destroy: lid verwijderd
 
         group:
-          create: group aangemaakt
-          update: group bewerkt
+          create: groep aangemaakt
+          update: groep bewerkt
 
         groupmember:
           create: '%{name} toegevoegd'
@@ -249,7 +249,7 @@ nl:
 
     passwords:
       new: Vul hier uw e-mailadres in om een nieuw wachtwoord op te vragen.
-      edit: Maak een nieuw wachtwoord aan voor het gebruik met uw Sticky account.
+      edit: Maak een nieuw wachtwoord aan voor het gebruik met uw Sticky-account.
 
     confirmations:
-      new: Bevestig uw e-mailadres voor uw Sticky account.
+      new: Bevestig uw e-mailadres voor uw Sticky-account.
