@@ -27,6 +27,8 @@ nl:
 
        birth_date: Geboortedatum
        gender: Geslacht
+       male: Man
+       female: Vrouw
 
        address: Straatnaam
        house_number: Huisnummer

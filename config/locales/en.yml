@@ -14,8 +14,10 @@ en:
        infix: Prefix
        last_name: Surname
 
-       gender: Gender
        birth_date: Date of birth
+       gender: Gender
+       male: Male
+       female: Female
 
        address: Address
        house_number: Number
