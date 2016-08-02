@@ -73,8 +73,7 @@ class Api::CheckoutController < ApplicationController
 		#Save token to card & mail confirmation link
   	card.confirmation_token = token
   	if card.save
-	  	confirmation_url = "http://koala.rails.dev:3000/api/checkout/confirmation?confirmation_token=" + token
-			Mailings::Checkout.confirmation_instructions(card, confirmation_url)
+			Mailings::Checkout.confirmation_instructions(card, confirmation_url(:confirmation_token => token))
 		end
 
     return 
