@@ -1,8 +1,8 @@
 class Api::CheckoutController < ApplicationController
   protect_from_forgery except: [:info, :purchase, :create, :products]
 
-  skip_before_action :authenticate_user!, only: [:info, :purchase, :create, :products]
-  skip_before_action :authenticate_admin!, only: [:info, :purchase, :create, :products]
+  skip_before_action :authenticate_user!, only: [:info, :purchase, :create, :products, :confirm]
+  skip_before_action :authenticate_admin!, only: [:info, :purchase, :create, :products, :confirm]
 
   before_action :authenticate_checkout, only: [:info, :purchase, :create, :products]
 
@@ -58,10 +58,46 @@ class Api::CheckoutController < ApplicationController
     card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!(params[:student]), :description => params[:description] )
 
     if card.save
+    	sendConfirmation(card)
       render :status => :created, :json => CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
     else
       head :conflict
     end
+  end
+
+  def sendConfirmation (card)
+  	#Generate token
+  	digest = OpenSSL::Digest.new('sha1')
+		token = OpenSSL::HMAC.hexdigest(digest, ENV['CHECKOUT_TOKEN'], card.uuid)
+
+		#Save token to card & mail confirmation link
+  	card.confirmation_token = token
+  	if card.save
+	  	confirmation_url = "http://koala.rails.dev:3000/api/checkout/confirmation?confirmation_token=" + token
+			Mailings::Checkout.confirmation_instructions(card, confirmation_url)
+		end
+
+    return 
+  end
+
+  def confirm
+ 		if card = CheckoutCard.where(["confirmation_token = ?", params['confirmation_token']]).first
+ 			if !card.active		
+	      card.active = true
+	      if card.save
+	    		flash[:notice] = "Kaart geactiveerd!"
+
+	      else
+	    		flash[:alert] = "Kaart kon niet worden geactiveerd!"
+	      end
+	    else
+	    	flash[:alert] = "Kaart is al geactiveerd!"
+	    end
+    else
+			flash[:alert] = "Bevestigingstoken is ongeldig!"
+    end
+
+    redirect_to :new_user_session
   end
 
   private # TODO implement for OAuth client credentials
