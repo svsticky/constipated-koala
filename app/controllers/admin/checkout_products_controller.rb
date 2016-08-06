@@ -66,7 +66,7 @@ class Admin::CheckoutProductsController < ApplicationController
     begin
       transaction.save
     rescue ActiveRecord::RecordNotSaved => exception
-      render :status => :request_entity_too_large, :json => exception.message
+      render :status => :payload_too_large, :json => exception.message
       return
     rescue ActiveRecord::RecordInvalid
       render :status => :bad_request, :json => exception.message

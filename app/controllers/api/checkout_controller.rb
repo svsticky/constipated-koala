@@ -35,7 +35,7 @@ class Api::CheckoutController < ApplicationController
 
       head :bad_request and return if error.message == 'empty_items'
 
-      render :status => :request_entity_too_large, :json => {
+      render :status => :payload_too_large, :json => {
         message: 'insufficient funds',
         balance: card.checkout_balance.balance,
         items: params[:items].to_a,
