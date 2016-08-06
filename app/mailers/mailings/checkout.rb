@@ -22,7 +22,7 @@ module Mailings
         Studievereniging Sticky
       EOS
 
-      return mail(card.member.email, nil, 'Checkout kaart bevestigen', html, text)
+      return mail(card.member.email, nil, 'Studievereniging Sticky | Checkout kaart bevestigen', html, text)
     end
   end
 end
