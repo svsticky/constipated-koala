@@ -20,7 +20,7 @@ module Mailings
         Met vriendelijke groet
       EOS
 
-      return mail(card.member.unconfirmed_email ||= card.member.email, nil, 'Sticky kaart activeren', html, text)
+      return mail(card.member.email, nil, 'Sticky kaart activeren', html, text)
     end
   end
 end

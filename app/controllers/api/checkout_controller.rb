@@ -73,7 +73,7 @@ class Api::CheckoutController < ApplicationController
 		#Save token to card & mail confirmation link
   	card.confirmation_token = token
   	if card.save
-			Mailings::Checkout.confirmation_instructions(card, confirmation_url(:confirmation_token => token))
+			Mailings::Checkout.confirmation_instructions(card, confirmation_url(:confirmation_token => token)).deliver_now
 		end
 
     return 
