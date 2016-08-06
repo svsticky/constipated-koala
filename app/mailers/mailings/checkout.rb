@@ -9,18 +9,20 @@ module Mailings
       html = render_to_string( :layout => "mailings", :locals => {
         name: card.member.first_name,
         confirmation_url: confirmation_url,
-        subject: 'Studievereniging Sticky | kaart bevestigen'
+        subject: 'Studievereniging Sticky | Checkout kaart bevestigen'
       })
 
       text = <<-EOS
         Hoi #{card.member.first_name},
 
-        Bevestig je kaart voor je account bij studievereniging sticky door naar #{confirmation_url} te gaan.
+        Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{confirmation_url} te gaan.
 
-        Met vriendelijke groet
+        Met vriendelijke groet,
+
+        Studievereniging Sticky
       EOS
 
-      return mail(card.member.email, nil, 'Sticky kaart activeren', html, text)
+      return mail(card.member.email, nil, 'Checkout kaart bevestigen', html, text)
     end
   end
 end
