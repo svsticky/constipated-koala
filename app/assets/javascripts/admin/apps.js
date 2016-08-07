@@ -105,6 +105,7 @@ $(document).on( 'ready page:load', function(){
       data: {
         member_id: $( '#credit .form-group#card' ).attr( 'data-id' ),
         amount: price,
+        payment_method: $( '#credit .form-group select#payment_method' ).val(),
         authenticity_token: token
       }
     }).done(function( data ){
@@ -116,6 +117,9 @@ $(document).on( 'ready page:load', function(){
 
       //formulier terugveranderen
       $( '#credit' ).find( 'input#amount' ).trigger( 'keyup', [27]);
+
+      //Reset select (payment_method)
+      $( '#credit .form-group select#payment_method' ).val('');
 
     }).fail(function( data ){
       $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
@@ -157,6 +161,7 @@ $(document).on( 'ready page:load', function(){
       data: {
         member_id: $( '#credit.input-group' ).attr( 'data-member-id' ),
         amount: price,
+        payment_method: $( '#credit.input-group select#payment_method' ).val(),
         authenticity_token: token
       }
     }).done(function( data ){
@@ -166,8 +171,8 @@ $(document).on( 'ready page:load', function(){
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
 
-      //remove from input
-      $( '#credit.input-group > #amount' ).val('');
+      //remove from input and select
+      $( '#credit.input-group > (#amount, select#payment_method)' ).val('');
 
     }).fail(function( data ){
       $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
@@ -182,7 +187,6 @@ $(document).on( 'ready page:load', function(){
         alert( 'Het bedrag moet numeriek zijn', 'error' );
     });
   });
-
 
   // [DELETE] checkout_product
   $('#products button.destroy').on('click', function(){

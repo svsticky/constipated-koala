@@ -15,6 +15,10 @@ class CheckoutTransaction < ActiveRecord::Base
       self.items.each do |item|
         self.price -= CheckoutProduct.find(item).price
       end
+    else
+      if self.payment_method.blank?
+        raise ActiveRecord::RecordNotSaved.new('Betaalmethode niet opgegeven')
+      end
     end
 
     if self.price.nil? || self.price == 0
