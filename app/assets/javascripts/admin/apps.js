@@ -25,10 +25,10 @@ $(document).on( 'ready page:load', function(){
         authenticity_token: token
       }
     }).done(function( data, status ){
-      alert( 'kaart geactiveerd', 'success' );
+      alert( 'Kaart geactiveerd', 'success' );
       $( row ).remove();
     }).fail(function(){
-      alert( 'kaart is niet geactiveerd', 'error' );
+      alert( 'Kaart is niet geactiveerd', 'error' );
       $( button ).removeAttr( 'disabled' );
     });
   });
@@ -49,10 +49,10 @@ $(document).on( 'ready page:load', function(){
         _destroy: true
       }
     }).done(function( data, status ){
-      alert( 'kaart verwijderd', 'warning' );
+      alert( 'Kaart verwijderd', 'warning' );
       $( row ).remove();
     }).fail(function(){
-      alert( 'kaart is niet geactiveerd', 'error' );
+      alert( 'Kaart is niet geactiveerd', 'error' );
       $( button ).removeAttr( 'disabled' );
     });
   });
@@ -84,10 +84,12 @@ $(document).on( 'ready page:load', function(){
 
     event.preventDefault();
     if( $( '#credit .form-group input#amount' ).prop( 'disabled'))
-      return
+      return;
 
-    if( !$( '#credit .form-group input#amount' ).val() )
-      return
+    if( !$( '#credit .form-group input#amount' ).val()) {
+      alert ( 'De opwaardering kan niet nul zijn', 'error');
+      return;
+    }
 
     var price = $( '#credit .form-group input#amount' ).val();
 
@@ -107,7 +109,7 @@ $(document).on( 'ready page:load', function(){
       }
     }).done(function( data ){
       $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
-      alert( 'checkout opgewaardeerd', 'success' );
+      alert( 'Checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
@@ -119,13 +121,13 @@ $(document).on( 'ready page:load', function(){
       $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
 
       if( data.status == 404 )
-        alert( 'er is geen kaart gevonden', 'error' );
+        alert( 'Er is geen kaart gevonden', 'error' );
 
       if( data.status == 413 )
-        alert( 'er is onvoldoende saldo', 'error' );
+        alert( data.responseText, 'error' );
 
       if( data.status == 400 )
-        alert( 'het bedrag moet numeriek zijn', 'error' );
+        alert( 'Het bedrag moet numeriek zijn', 'error' );
     });
   });
 
@@ -133,11 +135,13 @@ $(document).on( 'ready page:load', function(){
   $( '#credit.input-group > span > button' ).on( 'click', function( event ){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
-    if( !$( '#credit input#amount'  ).val() )
-      return
+    if( !$( '#credit input#amount'  ).val() ) {
+      alert ( 'De opwaardering kan niet nul zijn', 'error');
+      return;
+    }
 
     if( $( '#credit.input-group > #amount' ).prop( 'disabled' ))
-      return
+      return;
 
     var price = $( '#credit input#amount' ).val();
 
@@ -157,7 +161,7 @@ $(document).on( 'ready page:load', function(){
       }
     }).done(function( data ){
       $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
-      alert( 'checkout opgewaardeerd', 'success' );
+      alert( 'Checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
@@ -169,13 +173,13 @@ $(document).on( 'ready page:load', function(){
       $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
 
       if( data.status == 404 )
-        alert( 'er is geen kaart gevonden', 'error' );
+        alert( 'Er is geen kaart gevonden', 'error' );
 
       if( data.status == 413 )
-        alert( 'er is onvoldoende saldo', 'error' );
+        alert( data.responseText, 'error' );
 
       if( data.status == 400 )
-        alert( 'het bedrag moet numeriek zijn', 'error' );
+        alert( 'Het bedrag moet numeriek zijn', 'error' );
     });
   });
 

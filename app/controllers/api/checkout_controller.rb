@@ -40,7 +40,7 @@ class Api::CheckoutController < ApplicationController
         balance: card.checkout_balance.balance,
         items: params[:items].to_a,
         costs: transaction.price
-      } if error.message == 'insufficient_funds'
+      } if error.message == 'Er is te weinig saldo'
       return
     end
 
