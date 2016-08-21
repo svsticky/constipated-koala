@@ -79,9 +79,10 @@
                     %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '') }
 
                   %select#payment_method{ :required => true }
-                    %option{:value => 1}= "Gepind"
+                    %option{:value => "Gepind"}= "Gepind"
                     %option{:value => "", :selected => "selected" }= "-"
-                    %option{:value => 2}= "Contant"      
+                    %option{:value => "Contant"}= "Contant"
+                    %option{:value => "Verkoop"}= "Verkoop"
 
                   %span.input-group-btn
                     %button.btn.btn-warning opwaarderen

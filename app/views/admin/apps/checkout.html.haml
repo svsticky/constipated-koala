@@ -101,9 +101,10 @@
 
               .form-group.col-md-3.amount{ :style => 'display: none;' }
                 %select.form-control#payment_method{ :required => true }
-                  %option{:value => 1}= "Gepind"
+                  %option{:value => "Gepind"}= "Gepind"
                   %option{:value => "", :selected => "selected" }= "-"
-                  %option{:value => 2}= "Contant"
+                  %option{:value => "Contant"}= "Contant"
+                  %option{:value => "Verkoop"}= "Verkoop"
 
               .form-group.col-md-12{ :style => 'display: none;' }
                 %button.form-control.btn.btn-line-primary opslaan
