@@ -2,7 +2,7 @@ en:
   activerecord:
     annotations:
       member:
-        email: Can't be a uu e-mailaddress
+        email: Can't be a UU email address
 
     models:
       activities: Activities
@@ -11,19 +11,21 @@ en:
     attributes:
       member:
        first_name: First name
-       infix: prefix
+       infix: Prefix
        last_name: Surname
 
-       gender: Gender
        birth_date: Date of birth
+       gender: Gender
+       male: Male
+       female: Female
 
        address: Address
        house_number: Number
        postal_code: Postal code
        city: City
        phone_number: Phone number
-       email: E-mail
-       student_id: Student id
+       email: Email
+       student_id: Student ID
 
     errors:
       models:

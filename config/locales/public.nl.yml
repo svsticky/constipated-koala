@@ -4,6 +4,8 @@ nl:
   lead: Sticky is een jonge en enthousiaste studievereniging voor informatica, informatiekunde en gametechnologie. Wij bieden onze leden leuke en studie-inhoudelijke activiteiten.
   callout: Welkom in je studententijd; de mooiste tijd van je leven!
 
+  membership: Lidmaatschap
+
   headers:
     home: Home
     about: Over Sticky
@@ -13,7 +15,9 @@ nl:
 
     sticky: Studievereniging Sticky
     general: Algemene gegevens
-    study: Studie gegevens
+    study: Studiegegevens
+    payment: Betaalmethode
+    bank: Bank
 
   gezelligheid:
     title: Gezelligheid
