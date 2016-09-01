@@ -40,7 +40,7 @@ class Api::CheckoutController < ApplicationController
         balance: card.checkout_balance.balance,
         items: params[:items].to_a,
         costs: transaction.price
-      } if error.message == 'insufficient_funds'
+      } if error.message == 'Er is te weinig saldo'
       return
     end
 
@@ -58,7 +58,7 @@ class Api::CheckoutController < ApplicationController
     card = CheckoutCard.new( :uuid => params[:uuid], :member => Member.find_by_student_id!(params[:student]), :description => params[:description] )
 
     if card.save
-    	sendConfirmation(card)
+      sendConfirmation(card)
       render :status => :created, :json => CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
     else
       head :conflict
@@ -66,34 +66,34 @@ class Api::CheckoutController < ApplicationController
   end
 
   def sendConfirmation (card)
-  	#Generate token
-  	digest = OpenSSL::Digest.new('sha1')
-		token = OpenSSL::HMAC.hexdigest(digest, ENV['CHECKOUT_TOKEN'], card.uuid)
+    #Generate token
+    digest = OpenSSL::Digest.new('sha1')
+    token = OpenSSL::HMAC.hexdigest(digest, ENV['CHECKOUT_TOKEN'], card.uuid)
 
-		#Save token to card & mail confirmation link
-  	card.confirmation_token = token
-  	if card.save
-			Mailings::Checkout.confirmation_instructions(card, confirmation_url(:confirmation_token => token)).deliver_now
-		end
+    #Save token to card & mail confirmation link
+    card.confirmation_token = token
+    if card.save
+      Mailings::Checkout.confirmation_instructions(card, confirmation_url(:confirmation_token => token)).deliver_now
+    end
 
     return 
   end
 
   def confirm
- 		if card = CheckoutCard.where(["confirmation_token = ?", params['confirmation_token']]).first
- 			if !card.active		
-	      card.active = true
-	      if card.save
-	    		flash[:notice] = "Kaart geactiveerd!"
+    if card = CheckoutCard.where(["confirmation_token = ?", params['confirmation_token']]).first
+      if !card.active
+        card.active = true
+        if card.save
+          flash[:notice] = "Kaart geactiveerd!"
 
-	      else
-	    		flash[:alert] = "Kaart kon niet worden geactiveerd!"
-	      end
-	    else
-	    	flash[:alert] = "Kaart is al geactiveerd!"
-	    end
+        else
+          flash[:alert] = "Kaart kon niet worden geactiveerd!"
+        end
+      else
+        flash[:alert] = "Kaart is al geactiveerd!"
+      end
     else
-			flash[:alert] = "Bevestigingstoken is ongeldig!"
+      flash[:alert] = "Bevestigingstoken is ongeldig!"
     end
 
     redirect_to :new_user_session
