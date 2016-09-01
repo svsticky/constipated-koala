@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160817130851) do
     t.integer  "checkout_balance_id", limit: 4,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "confirmation_token",  limit: 255
   end
 
   add_index "checkout_cards", ["uuid"], name: "index_checkout_cards_on_uuid", unique: true, using: :btree

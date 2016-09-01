@@ -106,6 +106,7 @@ ConstipatedKoala::Application.routes.draw do
         scope 'checkout' do
           get 'card',           to: 'checkout#info'
           post 'card',          to: 'checkout#create'
+          get 'confirmation',   to: 'checkout#confirm'
 
           get 'products',       to: 'checkout#products'
           post 'transaction',   to: 'checkout#purchase'
