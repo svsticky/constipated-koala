@@ -295,8 +295,10 @@ class Member < ActiveRecord::Base
       records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
     elsif status[2].downcase == 'studerend'
       records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+    elsif status[2].downcase == 'iedereen'
+      records = Member.all
     else
-      records = Member.none unless status[2].downcase == 'iedereen'
+      records = Member.none
     end
 
     return records

@@ -68,7 +68,7 @@ puts '-- Populate the database using Faker'
 
   member = Member.create(
     first_name:   first_name,
-    infix:        (Faker::Number.between(1, 10) > 7 ? Faker::Name.tussenvoegsel : NIL),
+    infix:        (Faker::Number.between(1, 10) > 7 ? Faker::Name.tussenvoegsel : ' '),
     last_name:    last_name,
     address:      Faker::Address.street_name,
     house_number: Faker::Address.building_number,

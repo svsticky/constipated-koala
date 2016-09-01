@@ -15,10 +15,14 @@ class CheckoutTransaction < ActiveRecord::Base
       self.items.each do |item|
         self.price -= CheckoutProduct.find(item).price
       end
+    else
+      if self.payment_method.blank?
+        raise ActiveRecord::RecordNotSaved.new('Betaalmethode niet opgegeven')
+      end
     end
 
     if self.price.nil? || self.price == 0
-      raise ActiveRecord::RecordNotSaved.new('empty_items')
+      raise ActiveRecord::RecordNotSaved.new('De opwaardering kan niet nul zijn')
     end
 
     if self.checkout_balance.nil?
@@ -26,7 +30,7 @@ class CheckoutTransaction < ActiveRecord::Base
     end
 
     if self.checkout_balance.balance + self.price < 0
-      raise ActiveRecord::RecordNotSaved.new('insufficient_funds')
+      raise ActiveRecord::RecordNotSaved.new('Er is te weinig saldo')
     end
 
     if items.any? { |item| CheckoutProduct.find( item ).liquor? }

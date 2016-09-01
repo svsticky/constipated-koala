@@ -55,4 +55,10 @@ Rails.application.configure do
    :path => ':rails_root/public/images/:class/:id/:style.:extension',
    :url => '/images/:class/:id/:style.:extension'
   }
+
+  # allow development RADIO to use the API
+  config.action_dispatch.default_headers.merge!({
+      'Access-Control-Allow-Origin' => 'http://radio.rails.dev:3001',
+      'Access-Control-Request-Method' => '*'
+  })
 end

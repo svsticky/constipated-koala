@@ -85,7 +85,7 @@ class Users::HomeController < ApplicationController
     if ideal.status == 'SUCCESS' && ideal.type == 'MONGOOSE'
 
       if ideal.transaction_id.empty?
-        transaction = CheckoutTransaction.new( :price => (ideal.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member) )
+        transaction = CheckoutTransaction.new( :price => (ideal.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member), :payment_method => "iDeal" )
         transaction.save
 
         IdealTransaction.where(:uuid => params[:uuid]).update_all( :transaction_id => [ transaction.id ] )

@@ -56,7 +56,7 @@ class Admin::CheckoutProductsController < ApplicationController
       transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_card => card )
 
     elsif params[:member_id]
-      transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_balance => CheckoutBalance.find_by_member_id!(params[:member_id]) )
+      transaction = CheckoutTransaction.new( :price => params[:amount], :checkout_balance => CheckoutBalance.find_by_member_id!(params[:member_id]), :payment_method => params[:payment_method] )
 
     else
       render :status => :bad_request, :json => 'no identifier given'
@@ -66,7 +66,7 @@ class Admin::CheckoutProductsController < ApplicationController
     begin
       transaction.save
     rescue ActiveRecord::RecordNotSaved => exception
-      render :status => :request_entity_too_large, :json => exception.message
+      render :status => :payload_too_large, :json => exception.message
       return
     rescue ActiveRecord::RecordInvalid
       render :status => :bad_request, :json => exception.message

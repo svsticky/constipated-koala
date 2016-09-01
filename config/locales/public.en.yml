@@ -4,6 +4,8 @@ en:
   lead: Sticky is a young and enthusiastic study association for information sciences, computing sciences and gametechnology students. We offer our members fun and study-related activities.
   callout: Welcome to Sticky; the greatest time of your life!
 
+  membership: Membership
+
   headers:
     home: Home
     about: About Sticky
@@ -14,6 +16,8 @@ en:
     sticky: Studievereniging Sticky
     general: General data
     study: Study information
+    payment: Payment method
+    bank: Bank
 
   gezelligheid:
     title: Gezelligheid
@@ -26,7 +30,7 @@ en:
 
   orientation:
     title: Job orientation
-    text: Readings, workshops, inhouse days, and more. This way you can already decide what you’d like to do after your studies!
+    text: We organise talks, workshops, inhouse days, and more. This way you can already decide what you’d like to do after your studies!
 
   drinks:
     title: Drinks

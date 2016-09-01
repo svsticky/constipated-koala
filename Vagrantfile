@@ -33,14 +33,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'mysql::server'
     chef.add_recipe 'mysql::client'
 
-    # Install Ruby 2.2.3 and Bundler
+    # Install Ruby 2.3.0 and Bundler
     # Set an empty root password for MySQL to make things simple
     chef.json = {
       rbenv: {
         user_installs: [{
           user: 'vagrant',
-          rubies: ['2.1.3'],
-          global: '2.1.3',
+          rubies: ['2.3.0'],
+          global: '2.3.0',
           plugins: [
             {
               'name' => 'rbenv-vars',

@@ -37,14 +37,59 @@ tr.total {
   border-top: 2px solid #dddddd;
 }
 
+/* Members - [Member] - Checkout */
+div#credit.input-group {
+  width: 270px;
+  display: inline;
+}
+
+div#credit.input-group > span.input-group-btn > button,
+div#credit.input-group > span {
+  float: right;
+  margin-top: 2px;
+}
+
+div#credit.input-group > *,
+div#credit.input-group > * > * {
+  display: inline-block;
+}
+
+div#credit.input-group > .input-symbol > span {
+  position: absolute;
+  pointer-events: none;
+  margin-left: 0.2em;
+  margin-top: 1px;
+  width: 80px;
+  color: grey;
+}
+div#credit.input-group > .input-symbol  > input {
+  text-indent: 0.7em;
+  width: 80px;
+}
+div#credit.input-group > select {
+  background-color: white;
+  height: 32px;
+}
+
+/* Apps - Checkout - Opwaarderen */
 #credit form.form-inline > .form-group {
   padding: 0px;
 }
 
-#credit form.form-inline > .form-group.amount {
-  margin: 0px 20px;
+@media (min-width: 768px) {
+  #credit form.form-inline > .form-group {
+    display: block;
+  }
 }
 
+@media (min-width: 992px) {
+  #credit form.form-inline > .form-group.amount {
+    margin-left: 3.33%;
+    width: 30%;
+  }
+}
+
+#credit form.form-inline > .form-group > select.form-control,
 #credit form.form-inline > .form-group > input.form-control,
 #credit form.form-inline > .form-group > button.form-control {
   width: 100%;
@@ -52,6 +97,7 @@ tr.total {
   margin: 5px 0;
   padding: 1px 12px;
 }
+
 
 #credit .panel-body > ul.dropdown-menu {
   display: none;

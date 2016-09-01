@@ -97,7 +97,7 @@
                 .col-md-6
                   %label{for: ''}= I18n.t(:gender, scope: 'activerecord.attributes.member')
                   .ui-select
-                    = f.select :gender, options_for_select([['MAN', 'm'], ['VROUW', 'f']], @member.gender)
+                    = f.select :gender, options_for_select([[I18n.t(:male, scope: 'activerecord.attributes.member'), 'm'], [I18n.t(:female, scope: 'activerecord.attributes.member'), 'f']], @member.gender)
                 .col-md-6
                   %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
                   = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
@@ -160,7 +160,7 @@
                         = fa.hidden_field :id, :value => membership.id
                         = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled'
                         %span
-                          = membership.name
+                          = I18n.t(:membership)
                           %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(membership.price, :unit => '€')})
 
                   - @activities.each do |activity|
@@ -174,9 +174,11 @@
 
               .col-md-6
                 .ui-select
-                  = select_tag 'method', options_for_select(['IDEAL', 'CASH'], @method)
+                  %label{for: ''}= I18n.t(:payment, scope: 'headers')
+                  = select_tag 'method', options_for_select(['IDEAL', 'Cash'], @method)
+                  %label{for: ''}= I18n.t(:bank, scope: 'headers')
                 .ui-select{ :style => 'margin-top: 5px;' }
-                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']], @bank), :include_blank => ''
+                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING Bank', 'INGBNL2A'], ['Knab', 'KNABNL2H'], ['Rabobank', 'RABONL2U'], ['SNS Bank', 'SNSBNL2A'], ['ASN Bank','ASNBNL21'], ['RegioBank', 'RBRBNL21'], ['Triodos Bank','TRIONL2U'], ['Van Lanschot Bankiers', 'FVLBNL22']], @bank), :include_blank => ''
 
           %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 
