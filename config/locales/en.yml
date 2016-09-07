@@ -6,7 +6,7 @@ en:
 
     models:
       activities: Activities
-      study: Study
+      study: Study/Studies
 
     attributes:
       member:

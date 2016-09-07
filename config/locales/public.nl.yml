@@ -12,8 +12,9 @@ nl:
     activities: Wat doet Sticky?
     subscribe: Inschrijven
     contact: Contact
-
     sticky: Studievereniging Sticky
+
+  form:
     general: Algemene gegevens
     study: Studiegegevens
     payment: Betaalmethode

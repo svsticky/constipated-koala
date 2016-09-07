@@ -12,8 +12,9 @@ en:
     activities: What does Sticky do?
     subscribe: Sign up
     contact: Contact
-
     sticky: Studievereniging Sticky
+
+  form:
     general: General data
     study: Study information
     payment: Payment method
