@@ -17,7 +17,7 @@ nl:
     models:
       ideal_transaction: iDEAL-transactie
       activities: Activiteiten
-      study: Studie
+      study: Studie(s)
 
     attributes:
       member:

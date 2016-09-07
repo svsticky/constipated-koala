@@ -78,7 +78,7 @@
 
             %h4
               %i.fa.fa-user
-              = I18n.t(:general, scope: 'headers')
+              = I18n.t(:general, scope: 'form')
 
             .form-group
               = f.hidden_field :join_date, :value => Time.new
@@ -129,7 +129,7 @@
             .col-md-5
               %h4
                 %i.fa.fa-graduation-cap
-                = I18n.t(:study, scope: 'headers')
+                = I18n.t(:study, scope: 'form')
 
               .form-group
                 %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
@@ -174,9 +174,9 @@
 
               .col-md-6
                 .ui-select
-                  %label{for: ''}= I18n.t(:payment, scope: 'headers')
-                  = select_tag 'method', options_for_select(['IDEAL', 'Cash'], @method)
-                  %label{for: ''}= I18n.t(:bank, scope: 'headers')
+                  %label{for: ''}= I18n.t(:payment, scope: 'form')
+                  = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
+                  %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
                 .ui-select{ :style => 'margin-top: 5px;' }
                   = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING Bank', 'INGBNL2A'], ['Knab', 'KNABNL2H'], ['Rabobank', 'RABONL2U'], ['SNS Bank', 'SNSBNL2A'], ['ASN Bank','ASNBNL21'], ['RegioBank', 'RBRBNL21'], ['Triodos Bank','TRIONL2U'], ['Van Lanschot Bankiers', 'FVLBNL22']], @bank), :include_blank => ''
 

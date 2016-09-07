@@ -77,10 +77,12 @@ $(document).on('ready page:load', function(){
   });
 
   $('select#method').on("change", function(){
-    if( $(this).val() == 'CONTANT' ){
-      $('select#bank').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');;
+    if( $(this).val() == 'Cash/PIN'){
+      $('select#bank').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
+      $('label#bank').css('color', 'rgb(222, 222, 222)');;
     } else {
       $('select#bank').removeAttr('disabled').removeAttr('style');
+      $('label#bank').removeAttr('style');
     }
   });
 
