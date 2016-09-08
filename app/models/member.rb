@@ -132,8 +132,14 @@ class Member < ActiveRecord::Base
   end
 
   # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member
+  # We also check for a duplicate study, and discard the duplicate if found.
+  # (Not doing this would lead to a database constraint violation.)
   before_create do
     self.join_date = Time.new if self.join_date.blank?
+
+    if self.educations.length > 1 and self.educations[0].study_id == self.educations[1].study_id
+      self.educations[1].destroy
+    end
   end
 
   # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
