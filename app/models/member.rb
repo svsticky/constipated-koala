@@ -137,7 +137,7 @@ class Member < ActiveRecord::Base
   before_create do
     self.join_date = Time.new if self.join_date.blank?
 
-    if self.educations[0].study_id == self.educations[1].study_id
+    if self.educations.length > 1 and self.educations[0].study_id == self.educations[1].study_id
       self.educations[1].destroy
     end
   end
