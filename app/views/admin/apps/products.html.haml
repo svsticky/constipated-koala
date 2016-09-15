@@ -43,20 +43,20 @@
                 .form-group.thumb
                   .row
                     .col-md-8
-                      = label(:checkout_product, :name)
+                      = label(:checkout_product, I18n.t( :name, scope: 'activerecord.attributes.checkout_product' ))
                       = f.text_field :name, :value => @product.name, :class => 'form-control', :disabled => @product.has_children?
                     .col-md-4
-                      = label(:checkout_product, :price)
+                      = label(:checkout_product, I18n.t( :price, scope: 'activerecord.attributes.checkout_product' ))
                       = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control', :disabled => @product.has_children?
 
                 .form-group.thumb
                   .row
                     .col-md-4
-                      = label(:checkout_product, :category)
+                      = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
                       .ui-select
                         = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
                     .col-md-8
-                      = label(:checkout_product, :image)
+                      = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
                       .input-group
                         %input#output.form-control{ :readonly => ''}
 
@@ -73,7 +73,7 @@
                 = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
 
                 .pull-right
-                  = label(:checkout_product, :active)
+                  = label(:checkout_product, I18n.t( :active, scope: 'activerecord.attributes.checkout_product' ))
                   = f.check_box :active, :checked => @product.active, :disabled => @product.has_children?
 
               %table.table.table-striped.table-linked#products
@@ -107,20 +107,20 @@
                 .form-group
                   .row
                     .col-md-8
-                      = label(:checkout_product, :name)
+                      = label(:checkout_product, I18n.t( :name, scope: 'activerecord.attributes.checkout_product' ))
                       = f.text_field :name, :value => @new.name, :class => 'form-control'
                     .col-md-4
-                      = label(:checkout_product, :price)
+                      = label(:checkout_product, I18n.t( :price, scope: 'activerecord.attributes.checkout_product' ))
                       = f.text_field :price, :value => number_to_currency(@new.price, :unit => ''), :class => 'form-control'
 
                 .form-group
                   .row
                     .col-md-4
-                      = label(:checkout_product, :category)
+                      = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
                       .ui-select
                         = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @new.category )
                     .col-md-8
-                      = label(:checkout_product, :image)
+                      = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
                       .input-group
                         %input#output.form-control{ :readonly => ''}
 

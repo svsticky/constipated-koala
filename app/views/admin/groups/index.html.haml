@@ -101,15 +101,15 @@
                 .form-group
                   .row
                     .col-md-8
-                      = f.label :name
+                      = f.label I18n.t( :name, scope: 'activerecord.attributes.group' )
                       = f.text_field :name, :value => @new.name, :class => 'form-control'
                     .col-md-4
-                      = label(:group, :category)
+                      = label(:group, I18n.t( :category, scope: 'activerecord.attributes.group' ))
                       .ui-select
                         = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: @new.category, disabled: ['board'] )
 
                 .form-group
-                  = label(:group, :comments)
+                  = label(:group, I18n.t( :comments, scope: 'activerecord.attributes.group' ))
                   = f.text_area :comments, :value => @new.comments, :class => 'form-control', :rows => 5
 
                 %button.btn.btn-success.wait{type: 'submit'} Opslaan
