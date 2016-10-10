@@ -9,7 +9,7 @@ class Activity < ActiveRecord::Base
   is_impressionable
 
   has_attached_file :poster,
-	:styles => { :thumb => ['180', :png], :medium => ['x720', :png] },
+	:styles => { :thumb => ['180', :png], :medium => ['x1080', :png] },
 	:processors => [:ghostscript, :thumbnail],
 	:validate_media_type => false,
 	:convert_options => { :all => '-colorspace CMYK -flatten -quality 100 -density 8' }
