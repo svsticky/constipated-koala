@@ -1,7 +1,7 @@
 # Constipated koala
 
 Koala is a [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html) application, it uses ruby as language which is quite an easy language running on [rbenv](https://github.com/rbenv/rbenv). Rails is a Model-View-Controller framework denoting an easy to understand file structure. At Sticky we are using [Unicorn](unicorn) to run the application with multiple threads in a rackspace environment on the production server. Unicorn runs the app on `/tmp/unicorn.sock` which in turn is used by [Nginx](koala.svsticky.nl)
- as a proxy. In development and production we use mysql, it should work with alternatives but never tested. Finally the package manager called bundler is also required.
+ as a proxy. In development and production we use [MariaDB](https://downloads.mariadb.org/mariadb/repositories), it should work with MySQL as well. Finally the package manager called bundler is also required.
 
  ```shell
  # Let's start; clone the project
@@ -75,8 +75,8 @@ $ bundle install
 
 $ bundle exec rake routes
 
-# Create and populate the database
-$ bundle exec rake db:create db:setup
+# Create and populate the database for development
+$ RAILS_ENV=development bundle exec rake db:create db:setup
 ```
 
 One final action should be performed, adding at least one admin. This can be done by a rake task; `bundle exec rake "admin:create[martijn@svsticky.nl, sticky123]"` and goto the url displayed or mailed if you set mailgun correctly!
