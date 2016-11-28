@@ -1,6 +1,6 @@
 - content_for(:title, "Constipated koala | Digitale Inschrijvingen")
 
-%section#users
+%section#enrollments
   .page#content
     .row
       .col-md-12.widget
@@ -10,8 +10,12 @@
           %table.table.table-striped.table-linked
             %tbody
               - @activities.each do |activity|
-                %tr
+                %tr{ :data => {:'activity-id' => activity.id }}
                   %td
                     = activity[ :name ]
                   %td
                     = activity[ :start_date ]
+                  %td.buttons
+                    .btn-group
+                      %button.btn.btn-primary.enroll
+                        %i.fa.fa-fw.fa-check
