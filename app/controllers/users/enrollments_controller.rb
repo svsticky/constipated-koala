@@ -7,4 +7,19 @@ class Users::EnrollmentsController < ApplicationController
         Date.today, Date.today
       ).order(:start_date)
   end
+
+  def delete
+    @activity = Activity.find(params[:id])
+    @enrollment = Participant.find_by(
+        member_id: current_user.credentials_id,
+        activity_id: @activity.id)
+    @enrollment.destroy
+  end
+
+  def create
+    @activity = Activity.find(params[:id])
+    @new_enrollment = Participant.new(member_id: current_user.credentials_id, activity_id: @activity.id,
+                                      price: @activity.price)
+    @new_enrollment.save
+  end
 end
