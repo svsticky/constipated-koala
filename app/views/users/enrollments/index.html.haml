@@ -1,0 +1,17 @@
+- content_for(:title, "Constipated koala | Digitale Inschrijvingen")
+
+%section#users
+  .page#content
+    .row
+      .col-md-12.widget
+        .panel.table-dynamic.panel-default
+          .panel-heading
+            troep
+          %table.table.table-striped.table-linked
+            %tbody
+              - @activities.each do |activity|
+                %tr
+                  %td
+                    = activity[ :name ]
+                  %td
+                    = activity[ :start_date ]

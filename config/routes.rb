@@ -18,6 +18,8 @@ ConstipatedKoala::Application.routes.draw do
       delete 'authorized_applications/:id',   to: 'users/home#revoke', as: :authorized_applications
 
       post  'mongoose',                       to: 'users/home#add_funds'
+
+      get 'enrollments',                      to: 'users/enrollments#index'
     end
 
     get   'mongoose',                       to: 'users/home#confirm_add_funds'
