@@ -17,5 +17,9 @@
                     = activity[ :start_date ]
                   %td.buttons
                     .btn-group
-                      %button.btn.btn-primary.enroll
-                        %i.fa.fa-fw.fa-check
+                      - if @enrollments.include? activity.id
+                        %button.btn.btn-danger.cancel
+                          %i.fa.fa-fw.fa-times
+                      - else
+                        %button.btn.btn-success.enroll
+                          %i.fa.fa-fw.fa-hand-o-up
