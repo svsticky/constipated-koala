@@ -3,6 +3,11 @@ class Activity < ActiveRecord::Base
 
   validates :start_date, presence: true
   validate :end_is_possible, unless: "self.start_date.blank?"
+  validates :participant_limit, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 0,
+    allow_nil: true
+  }
 #  validates :end_date
 #  validates :description
 
