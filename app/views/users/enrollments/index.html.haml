@@ -1,14 +1,14 @@
 - content_for(:title, "Constipated koala | Digitale Inschrijvingen")
 
 %section#enrollments
-  .page#content
+  .page.enrollment-page#content
     .container
       - @activities.each do |activity|
         .col-lg-4.col-sm-6.col-xs-12
           .panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
             .panel-heading
               = activity[ :name ]
-            .panel-body
+            .panel-body.activity-info
               .media-left.poster-thumbnail
                 - if activity.poster_updated_at.nil?
                   =image_tag "https://koala-images.s3.amazonaws.com/activities/350/medium.png?1479996031"

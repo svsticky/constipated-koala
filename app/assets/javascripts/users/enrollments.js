@@ -26,7 +26,7 @@ function enroll_activity() {
 			authenticity_token: token
 		}
 	}).done(function() {
-		alert('Je hebt je ingeschreven voor ' + activity.children('.panel-heading'), 'success');
+		alert('Je hebt je ingeschreven voor ' + activity.children('.panel-heading').innerText, 'success');
     $(activity_button)
       .toggleClass('enroll btn-success cancel btn-warning')
       .off('click')
