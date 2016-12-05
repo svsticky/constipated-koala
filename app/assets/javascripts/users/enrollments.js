@@ -25,7 +25,7 @@ function enroll_activity() {
 		data: {
 			authenticity_token: token
 		}
-	}).done(function(){
+	}).done(function() {
 		alert('Je hebt je ingeschreven voor ' + activity.children('td')[0].innerText, 'success');
     $(activity_button)
       .toggleClass('enroll btn-success cancel btn-warning')
@@ -33,8 +33,11 @@ function enroll_activity() {
       .on('click', cancel_activity)
     $($(activity_button).children()[0]).toggleClass('fa-times fa-check')
 
-	}).fail(function(){
-		alert('Could not enroll for activity', 'error');
+	}).fail(function(data) {
+      if (!data.responseJSON) {
+        data.responseJSON = { message: 'Could not enroll for activity'};
+      }
+      alert(data.responseJSON.message, 'error');
 	});
 }
 
@@ -51,7 +54,7 @@ function cancel_activity() {
 		data: {
 			authenticity_token: token
 		}
-	}).done(function(){
+	}).done(function() {
     //Alert user of cancellation of enrollment
 		alert('Je bent uitgeschreven van ' + activity.children('td')[0].innerText, 'warning');
 
@@ -64,7 +67,10 @@ function cancel_activity() {
     //Toggle button icon
     $($(activity_button).children()[0]).toggleClass('fa-check fa-times')
 
-	}).fail(function(){
-    alert('Could not cancel enrollment for activity', 'error');
+	}).fail(function(data) {
+      if (!data.responseJSON) {
+        data.responseJSON = { message: 'Could not cancel enrollment for activity'};
+      }
+      alert(data.responseJSON.message, 'error');
 	});
 }

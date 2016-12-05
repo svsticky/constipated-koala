@@ -199,6 +199,9 @@ nl:
 
       models:
         activity:
+          participant_limit_reached: Inschrijflimiet van activiteit bereikt
+          not_enrollable: Activiteit niet inschrijfbaar
+          not_unenrollable: Activiteit niet uitschrijfbaar
           blank: kan niet leeg zijn
           blank_and_start_time: kan niet leeg zijn als er een starttijd is
           blank_and_end_time: kan niet leeg zijn als er een eindtijd is
