@@ -37,13 +37,22 @@ class Users::EnrollmentsController < ApplicationController
       }
       return
     end
+
+    @member = Member.find(current_user.credentials_id)
+    if @activity.is_alcoholic? && @member.is_underage?
+      render :status => 451, :json => { # Unavailable for legal reasons
+        message: I18n.t(:participant_underage, scope: 'activerecord.errors.models.activity')
+      }
+      return
+    end
+
     if !@activity.participant_limit.nil? && @activity.participants.count >= @activity.participant_limit
       render :status => :payload_too_large, :json => {
         message: I18n.t(:participant_limit_reached, scope: 'activerecord.errors.models.activity')
       }
       return
     else
-      @new_enrollment = Participant.new(member_id: current_user.credentials_id, activity_id: @activity.id,
+      @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
                                         price: @activity.price)
       @new_enrollment.save
       head :ok

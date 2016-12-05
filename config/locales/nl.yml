@@ -200,6 +200,7 @@ nl:
       models:
         activity:
           participant_limit_reached: Inschrijflimiet van activiteit bereikt
+          participant_underage: Deze activiteit is alleen voor grote mensen ;)
           not_enrollable: Activiteit niet inschrijfbaar
           not_unenrollable: Activiteit niet uitschrijfbaar
           blank: kan niet leeg zijn
