@@ -28,6 +28,7 @@ function enroll_activity() {
 		}
 	}).done(function(){
 		alert('Je hebt je ingeschreven voor ' + activity.html(), 'success');
+        $(row).find( 'button.enroll' ).empty().removeClass( 'enroll btn-success' ).addClass( 'cancel btn-danger' ).append( '<i class="fa fa-fw fa-check"></i>' );
 
 		// todo: update knop bijwerken
 		// knophandlers opnieuw?
@@ -52,6 +53,7 @@ function cancel_activity() {
 
 		// zelfde todos
 	}).fail(function(){
+        $(row).find( 'button.cancel' ).empty().removeClass( 'cancel btn-danger' ).addClass( 'enroll btn-success' ).append( '<i class="fa fa-fw fa-check"></i>' );
 		alert('Hij doet het alweer niet', 'error');
 	});
 }

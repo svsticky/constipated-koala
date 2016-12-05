@@ -17,7 +17,7 @@
                     = activity[ :start_date ]
                   %td.buttons
                     .btn-group
-                      - if @enrollments.include? activity.id
+                      - if @enrollments.ids.include? activity.id
                         %button.btn.btn-danger.cancel
                           %i.fa.fa-fw.fa-times
                       - else
