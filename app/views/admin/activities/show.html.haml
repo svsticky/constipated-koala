@@ -94,6 +94,18 @@
                 = label(:activity, :comments)
                 = f.text_area :comments, :value => @activity.comments, :class => 'form-control'
 
+              .form-group
+                .row
+                  .col-md-6
+                    = label(:activity, :is_alcoholic)
+                    = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
+                  .col-md-3
+                    = label(:activity, :is_enrollable)
+                    = f.check_box :is_enrollable, checked: @activity.is_enrollable
+                  .col-md-3
+                    = label(:activity, :participant_limit)
+                    = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable
+
               %button.btn.btn-success.wait{type: 'submit'} Opslaan
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }

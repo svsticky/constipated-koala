@@ -5,7 +5,7 @@
     .container
       - @activities.each do |activity|
         .col-lg-4.col-sm-6.col-xs-12
-          .panel.panel-default.panel-activity
+          .panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
             .panel-heading
               = activity[ :name ]
             .panel-body
@@ -37,7 +37,7 @@
                   %button.btn.btn-default
                     Meer info
                   - if @enrollments.ids.include? activity.id
-                    %button.btn.btn-danger.cancel
+                    %button.btn.btn-warning.cancel
                       Uitschrijven
                   - else
                     %button.btn.btn-success.enroll

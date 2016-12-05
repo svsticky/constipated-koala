@@ -30,6 +30,10 @@ en:
     errors:
       models:
         activity:
+          participant_limit_reached: Participant limit reached
+          participant_underage: This activity is for adults only ;)
+          not_enrollable: Activity not enrollable
+          not_unenrollable: Activity not unenrollable
           blank_and_start_time: can't be blank if the start time is set
           blank_and_end_time: can't be blank if the end time is set
           attributes:

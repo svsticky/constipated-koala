@@ -66,6 +66,9 @@ class Admin::ActivitiesController < ApplicationController
                                       :price,
                                       :poster,
                                       :organized_by,
+                                      :is_alcoholic,
+                                      :is_enrollable,
+                                      :participant_limit,
                                       :_destroy)
   end
 end

@@ -60,7 +60,7 @@ class Member < ActiveRecord::Base
   def first_name=(first_name)
     write_attribute(:first_name, first_name.downcase.titleize)
   end
-  
+
   def infix=(infix)
     write_attribute(:infix, infix.downcase)
     write_attribute(:infix, NIL) if infix.blank?
@@ -243,6 +243,14 @@ class Member < ActiveRecord::Base
         education.destroy
       end
     end
+  end
+
+  def is_underage?
+    return !self.is_adult?
+  end
+
+  def is_adult?
+    return 18.years.ago >= self.birth_date
   end
 
   # Private function cannot be called from outside this class
