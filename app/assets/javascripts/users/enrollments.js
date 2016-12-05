@@ -31,7 +31,8 @@ function enroll_activity() {
       .toggleClass('enroll btn-success cancel btn-warning')
       .off('click')
       .on('click', cancel_activity)
-    $($(activity_button).children()[0]).toggleClass('fa-times fa-check')
+    $($(activity_button).children()[0]).toggleClass('fa-times fa-check');
+	activity_button.innerText = "Uitschrijven";
 
 	}).fail(function(data) {
       if (!data.responseJSON) {
@@ -64,8 +65,9 @@ function cancel_activity() {
       .off('click')
       .on('click', enroll_activity)
 
-    //Toggle button icon
-    $($(activity_button).children()[0]).toggleClass('fa-check fa-times')
+    //Toggle button icon and text
+    $($(activity_button).children()[0]).toggleClass('fa-check fa-times');
+	activity_button.innerText = "Inschrijven";
 
 	}).fail(function(data) {
       if (!data.responseJSON) {
