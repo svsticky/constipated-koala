@@ -15,7 +15,7 @@ $(document).on('ready page:load', bind_enrollments);
 //Enroll user for activity when clicked
 function enroll_activity() {
 	var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-	var activity = $(this).closest('tr');
+	var activity = $(this).closest('.panel');
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
 
@@ -26,7 +26,7 @@ function enroll_activity() {
 			authenticity_token: token
 		}
 	}).done(function() {
-		alert('Je hebt je ingeschreven voor ' + activity.children('td')[0].innerText, 'success');
+		alert('Je hebt je ingeschreven voor ' + activity.children('.panel-heading'), 'success');
     $(activity_button)
       .toggleClass('enroll btn-success cancel btn-warning')
       .off('click')
@@ -44,7 +44,7 @@ function enroll_activity() {
 //Cancel user's enrollment when clicked
 function cancel_activity() {
 	var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-	var activity = $(this).closest('tr');
+	var activity = $(this).closest('.panel');
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
 
@@ -56,7 +56,7 @@ function cancel_activity() {
 		}
 	}).done(function() {
     //Alert user of cancellation of enrollment
-		alert('Je bent uitgeschreven van ' + activity.children('td')[0].innerText, 'warning');
+		alert('Je bent uitgeschreven van ' + activity.children('.panel-heading').innerText, 'warning');
 
     //Update button color and event-handler
     $(activity_button)
@@ -74,3 +74,4 @@ function cancel_activity() {
       alert(data.responseJSON.message, 'error');
 	});
 }
+;
