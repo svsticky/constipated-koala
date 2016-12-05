@@ -26,7 +26,7 @@ function enroll_activity() {
 			authenticity_token: token
 		}
 	}).done(function() {
-		alert('Je hebt je ingeschreven voor ' + activity.children('.panel-heading').innerText, 'success');
+		alert('Je hebt je ingeschreven voor ' + activity.children('.panel-heading')[0].innerHTML, 'success');
     $(activity_button)
       .toggleClass('enroll btn-success cancel btn-warning')
       .off('click')
@@ -56,7 +56,7 @@ function cancel_activity() {
 		}
 	}).done(function() {
     //Alert user of cancellation of enrollment
-		alert('Je bent uitgeschreven van ' + activity.children('.panel-heading').innerText, 'warning');
+		alert('Je bent NIET meer ingeschreven voor ' + activity.children('.panel-heading')[0].innerHTML, 'warning');
 
     //Update button color and event-handler
     $(activity_button)
