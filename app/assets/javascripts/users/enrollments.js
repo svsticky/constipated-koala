@@ -1,6 +1,3 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-
 // Register all click handlers for enrollments
 function bind_enrollments() {
 
@@ -15,10 +12,12 @@ function bind_enrollments() {
 
 $(document).on('ready page:load', bind_enrollments);
 
+//Enroll user for activity when clicked
 function enroll_activity() {
 	var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 	var activity = $(this).closest('tr');
 	var activity_id = activity.attr('data-activity-id');
+  var activity_button = this;
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -27,20 +26,24 @@ function enroll_activity() {
 			authenticity_token: token
 		}
 	}).done(function(){
-		alert('Je hebt je ingeschreven voor ' + activity.html(), 'success');
-        $(row).find( 'button.enroll' ).empty().removeClass( 'enroll btn-success' ).addClass( 'cancel btn-danger' ).append( '<i class="fa fa-fw fa-check"></i>' );
+		alert('Je hebt je ingeschreven voor ' + activity.children('td')[0].innerText, 'success');
+    $(activity_button)
+      .toggleClass('enroll btn-success cancel btn-warning')
+      .off('click')
+      .on('click', cancel_activity)
+    $($(activity_button).children()[0]).toggleClass('fa-times fa-check')
 
-		// todo: update knop bijwerken
-		// knophandlers opnieuw?
 	}).fail(function(){
-		alert('Hij doet het niet hij doet het niet', 'error');
+		alert('Could not enroll for activity', 'error');
 	});
 }
 
+//Cancel user's enrollment when clicked
 function cancel_activity() {
 	var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 	var activity = $(this).closest('tr');
 	var activity_id = activity.attr('data-activity-id');
+  var activity_button = this;
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -49,11 +52,19 @@ function cancel_activity() {
 			authenticity_token: token
 		}
 	}).done(function(){
-		alert('Je bent uitgeschreven van ' + activity.html(), 'success');
+    //Alert user of cancellation of enrollment
+		alert('Je bent uitgeschreven van ' + activity.children('td')[0].innerText, 'warning');
 
-		// zelfde todos
+    //Update button color and event-handler
+    $(activity_button)
+      .toggleClass('cancel btn-warning enroll btn-success')
+      .off('click')
+      .on('click', enroll_activity)
+
+    //Toggle button icon
+    $($(activity_button).children()[0]).toggleClass('fa-check fa-times')
+
 	}).fail(function(){
-        $(row).find( 'button.cancel' ).empty().removeClass( 'cancel btn-danger' ).addClass( 'enroll btn-success' ).append( '<i class="fa fa-fw fa-check"></i>' );
-		alert('Hij doet het alweer niet', 'error');
+    alert('Could not cancel enrollment for activity', 'error');
 	});
 }

@@ -6,7 +6,7 @@
       .col-md-12.widget
         .panel.table-dynamic.panel-default
           .panel-heading
-            troep
+            Activiteiten
           %table.table.table-striped.table-linked
             %tbody
               - @activities.each do |activity|
@@ -18,8 +18,8 @@
                   %td.buttons
                     .btn-group
                       - if @enrollments.ids.include? activity.id
-                        %button.btn.btn-danger.cancel
+                        %button.btn.btn-warning.cancel
                           %i.fa.fa-fw.fa-times
                       - else
                         %button.btn.btn-success.enroll
-                          %i.fa.fa-fw.fa-hand-o-up
+                          %i.fa.fa-fw.fa-check
