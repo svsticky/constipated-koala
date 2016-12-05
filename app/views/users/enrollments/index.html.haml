@@ -2,24 +2,43 @@
 
 %section#enrollments
   .page#content
-    .row
-      .col-md-12.widget
-        .panel.table-dynamic.panel-default
-          .panel-heading
-            troep
-          %table.table.table-striped.table-linked
-            %tbody
-              - @activities.each do |activity|
-                %tr{ :data => {:'activity-id' => activity.id }}
-                  %td
-                    = activity[ :name ]
-                  %td
-                    = activity[ :start_date ]
-                  %td.buttons
-                    .btn-group
-                      - if @enrollments.ids.include? activity.id
-                        %button.btn.btn-danger.cancel
-                          %i.fa.fa-fw.fa-times
-                      - else
-                        %button.btn.btn-success.enroll
-                          %i.fa.fa-fw.fa-hand-o-up
+    .container
+      - @activities.each do |activity|
+        .col-lg-4.col-sm-6.col-xs-12
+          .panel.panel-default.panel-activity
+            .panel-heading
+              = activity[ :name ]
+            .panel-body
+              .media-left.poster-thumbnail
+                - if activity.poster_updated_at.nil?
+                  =image_tag "https://koala-images.s3.amazonaws.com/activities/350/medium.png?1479996031"
+                - else
+                  =image_tag activity.poster.url(:medium)
+              .media-body
+                %strong Datum: 
+                = activity[ :start_date ].strftime("%d/%m/%Y")
+                - if activity.end_date.nil?
+                - elsif activity.start_date == activity.end_date
+                - else
+                  \-
+                  = activity[ :end_date ].strftime("%d/%m/%Y")
+                - if activity.start_time.nil?
+                - else
+                  <br/>
+                  %strong Begintijd:
+                  = activity[ :start_time ].strftime("%H:%M")
+                <br/>
+                %strong Prijs: 
+                &euro;
+                = number_with_precision(activity[ :price ], :precision => 2)
+            .panel-footer.clearfix
+              .pull-right
+                .btn-group
+                  %button.btn.btn-default
+                    Meer info
+                  - if @enrollments.ids.include? activity.id
+                    %button.btn.btn-danger.cancel
+                      Uitschrijven
+                  - else
+                    %button.btn.btn-success.enroll
+                      Inschrijven

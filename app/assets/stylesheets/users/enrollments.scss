@@ -1,3 +1,27 @@
-// Place all the styles related to the Users::Enrollments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.poster-thumbnail img {
+	width:150px;
+}
+
+.panel-body {
+	padding:0;
+}
+
+.media-body {
+	padding-top:5px;
+	padding-right:10px;
+}
+.full-width {
+	width:100%;
+}
+
+#content {
+	left:0;
+}
+
+.property-content {
+	padding-left:10px;
+}
+
+.panel-activity {
+	min-width:255px;
+}
