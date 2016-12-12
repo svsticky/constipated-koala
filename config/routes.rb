@@ -20,6 +20,7 @@ ConstipatedKoala::Application.routes.draw do
       post  'mongoose',                       to: 'users/home#add_funds'
 
       get 'enrollments',                      to: 'users/enrollments#index'
+      get 'enrollments/:id',                  to: 'users/enrollments#show'
       post 'enrollments/:id',                 to: 'users/enrollments#create'
       delete 'enrollments/:id',               to: 'users/enrollments#delete'
     end
