@@ -13,6 +13,14 @@ function bind_enrollments() {
         loadDataToModal(this);
         $('#poster-modal').modal('show');
     });
+
+    $("#prev-poster").on("click", function () {
+        loadDataToModal($(".panel-activity[data-activity-id=" + $("#activity-modal").attr("data-activity-id") + "]").parent().prev().children('.panel-activity'));
+    });
+
+    $("#next-poster").on("click", function () {
+        loadDataToModal($(".panel-activity[data-activity-id=" + $("#activity-modal").attr("data-activity-id") + "]").parent().next().children('.panel-activity'));
+    });
 }
 
 function loadDataToModal(node){
