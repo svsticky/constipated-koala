@@ -1,5 +1,5 @@
 object @activity
-attributes :id, :name, :description, :price
+attributes :id, :name, :description, :price, :location
 
 node :start_date do |activity|
   if activity.start_time.nil?

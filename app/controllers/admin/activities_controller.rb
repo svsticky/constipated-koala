@@ -64,6 +64,7 @@ class Admin::ActivitiesController < ApplicationController
                                       :end_time,
                                       :comments,
                                       :price,
+                                      :location,
                                       :poster,
                                       :organized_by,
                                       :is_alcoholic,
