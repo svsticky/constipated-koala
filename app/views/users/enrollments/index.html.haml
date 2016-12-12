@@ -43,6 +43,10 @@
                 %strong Prijs: 
                 &euro;
                 = number_with_precision(activity[ :price ], :precision => 2)
+                <br/>
+                - if(!activity.location.nil?)
+                  %strong Locatie:
+                  = activity.location
             .panel-footer.clearfix
               .pull-right
                 .btn-group
