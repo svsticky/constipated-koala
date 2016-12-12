@@ -21,6 +21,7 @@ function enroll_activity() {
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
 	var activity_participants = activity.find('.activity-count')[0];
+	var activity_title = activity.find('.activity_title')[0];
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -30,7 +31,7 @@ function enroll_activity() {
 		}
 	}).done(function(resp) {
 		//Alert user of  enrollment
-		alert('Je hebt je ingeschreven voor ' + activity.find('.activity-title')[0].textContent, 'success');
+		alert('Je hebt je ingeschreven voor ' + activity_title.textContent, 'success');
 
 		//Update button color and event-handler
     $(activity_button)
@@ -66,6 +67,7 @@ function cancel_activity() {
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
 	var activity_participants = activity.find('.activity-count')[0];
+	var activity_title = activity.find('.activity_title')[0];
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -75,7 +77,7 @@ function cancel_activity() {
 		}
 	}).done(function(resp) {
     //Alert user of cancellation of enrollment
-		alert('Je bent NIET meer ingeschreven voor ' + activity.find('.activity-title')[0].textContent, 'warning');
+		alert('Je bent NIET meer ingeschreven voor ' + activity_title.textContent, 'warning');
 
     //Update button color and event-handler
     $(activity_button)
