@@ -10,15 +10,15 @@
             .panel-heading.text-right
               %span.panel-title.pull-left.activity-title
                 = activity[ :name ]
-              %span.panel-title.pull-right
-              - if(activity.participant_limit.nil?)
-                = activity.participants.count
-              - elsif(activity.participants.count >= activity.participant_limit)
-                VOL!
-              - else
-                = activity.participants.count
-                \/
-                = activity.participant_limit
+              %span.panel-title.pull-right.activity-count
+                - if(activity.participant_limit.nil?)
+                  = activity.participants.count
+                - elsif(activity.participants.count >= activity.participant_limit)
+                  VOL!
+                - else
+                  = activity.participants.count
+                  \/
+                  = activity.participant_limit
               .clearfix
             .panel-body.activity-info
               .media-left.poster-thumbnail
@@ -27,7 +27,7 @@
                 - else
                   =image_tag activity.poster.url(:medium)
               .media-body
-                %strong Datum: 
+                %strong Datum:
                 = activity[ :start_date ].strftime("%d/%m/%Y")
                 - if activity.end_date.nil?
                 - elsif activity.start_date == activity.end_date
@@ -40,7 +40,7 @@
                   %strong Begintijd:
                   = activity[ :start_time ].strftime("%H:%M")
                 <br/>
-                %strong Prijs: 
+                %strong Prijs:
                 &euro;
                 = number_with_precision(activity[ :price ], :precision => 2)
                 <br/>
