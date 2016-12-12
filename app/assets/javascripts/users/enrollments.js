@@ -8,6 +8,18 @@ function bind_enrollments() {
 	// De-registering for an activity
 	// [DELETE] enrollments/:id
 	$('#enrollments').find('button.cancel').on('click', cancel_activity);
+
+    $(".show-poster-modal").on("click", function() {
+        loadDataToModal(this);
+        $('#poster-modal').modal('show');
+    });
+}
+
+function loadDataToModal(node){
+    var panelActivity = $(node).closest('.panel-activity');
+    $('#image-view').attr('src', panelActivity.find('.panel-body > .poster-thumbnail > .show-poster-modal > .small-poster').attr('src'));
+    $('#activity-title').html(panelActivity.find('.panel-heading > .activity-title').html());
+    $("#activity-modal").attr("data-activity-id", panelActivity.attr("data-activity-id"));
 }
 
 $(document).on('ready page:load', bind_enrollments);
