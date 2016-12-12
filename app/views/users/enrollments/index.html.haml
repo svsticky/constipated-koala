@@ -1,3 +1,4 @@
+- content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | Digitale Inschrijvingen")
 
 %section#enrollments
@@ -44,9 +45,8 @@
                 = number_with_precision(activity[ :price ], :precision => 2)
             .panel-footer.clearfix
               .pull-right
-                .btn-group 
-                  %button.btn.btn-default
-                    Meer info
+                .btn-group
+                  = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default"
                   - if @enrollments.ids.include? activity.id
                     %button.btn.btn-warning.cancel
                       Uitschrijven

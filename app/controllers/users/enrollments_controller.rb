@@ -1,5 +1,5 @@
 class Users::EnrollmentsController < ApplicationController
-  skip_before_action :authenticate_admin!, only: [ :index, :create, :delete ]
+  skip_before_action :authenticate_admin!, only: [ :index, :create, :delete, :show ]
 
   def index
     @activities = Activity.where(
@@ -57,5 +57,9 @@ class Users::EnrollmentsController < ApplicationController
       @new_enrollment.save
       head :ok
     end
+  end
+
+  def show
+    @activity = Activity.find(params[:id])
   end
 end
