@@ -1,3 +1,4 @@
+- content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | Digitale Inschrijvingen")
 
 %section#enrollments
@@ -6,8 +7,19 @@
       - @activities.each do |activity|
         .col-lg-4.col-sm-6.col-xs-12
           .panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
-            .panel-heading
-              = activity[ :name ]
+            .panel-heading.text-right
+              %span.panel-title.pull-left.activity-title
+                = activity[ :name ]
+              %span.panel-title.pull-right
+              - if(activity.participant_limit.nil?)
+                = activity.participants.count
+              - elsif(activity.participants.count >= activity.participant_limit)
+                VOL!
+              - else
+                = activity.participants.count
+                \/
+                = activity.participant_limit
+              .clearfix
             .panel-body.activity-info
               .media-left.poster-thumbnail
                 - if activity.poster_updated_at.nil?
