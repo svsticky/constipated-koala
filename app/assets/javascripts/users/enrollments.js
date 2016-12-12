@@ -20,6 +20,7 @@ function enroll_activity() {
 	var activity = $(this).closest('.panel');
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
+	var activity_participants = activity.find('.activity-count')[0];
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -41,12 +42,12 @@ function enroll_activity() {
     $($(activity_button).children()[0]).toggleClass('fa-times fa-check');
 		activity_button.innerText = "Uitschrijven";
 		if(resp.participant_limit == null)
-			activity.find('.activity-count')[0].innerText = resp.participant_count;
+			activity_participants.innerText = resp.participant_count;
 		else {
 			if(resp.participant_count >= resp.participant_limit)
-				activity.find('.activity-count')[0].innerText = "VOL!";
+				activity_participants.innerText = "VOL!";
 			else
-				activity.find('.activity-count')[0].innerText = resp.participant_count + ' / ' + resp.participant_limit;
+				activity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
 		}
 	}).fail(function(data) {
       if (!data.responseJSON) {
@@ -64,6 +65,7 @@ function cancel_activity() {
 	var activity = $(this).closest('.panel');
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
+	var activity_participants = activity.find('.activity-count')[0];
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -85,12 +87,12 @@ function cancel_activity() {
     $($(activity_button).children()[0]).toggleClass('fa-check fa-times');
 		activity_button.innerText = "Inschrijven";
 		if(resp.participant_limit == null)
-			activity.find('.activity-count')[0].innerText = resp.participant_count;
+			activity_participants.innerText = resp.participant_count;
 		else {
 			if(resp.participant_count >= resp.participant_limit)
-				activity.find('.activity-count')[0].innerText = "VOL!";
+				activity_participants.innerText = "VOL!";
 			else
-				activity.find('.activity-count')[0].innerText = resp.participant_count + ' / ' + resp.participant_limit;
+				aactivity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
 		}
 
 	}).fail(function(data) {
