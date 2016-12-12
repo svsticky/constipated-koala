@@ -21,7 +21,7 @@ function enroll_activity() {
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
 	var activity_participants = activity.find('.activity-count')[0];
-	var activity_title = activity.find('.activity_title')[0];
+	var activity_title = activity.find('.activity-title')[0];
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -67,7 +67,7 @@ function cancel_activity() {
 	var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
 	var activity_participants = activity.find('.activity-count')[0];
-	var activity_title = activity.find('.activity_title')[0];
+	var activity_title = activity.find('.activity-title')[0];
 
 	$.ajax({
 		url: '/enrollments/' + activity_id,
@@ -94,7 +94,7 @@ function cancel_activity() {
 			if(resp.participant_count >= resp.participant_limit)
 				activity_participants.innerText = "VOL!";
 			else
-				aactivity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
+				activity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
 		}
 
 	}).fail(function(data) {
