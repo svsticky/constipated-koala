@@ -22,10 +22,11 @@
               .clearfix
             .panel-body.activity-info
               .media-left.poster-thumbnail
-                - if activity.poster_updated_at.nil?
-                  =image_tag "https://koala-images.s3.amazonaws.com/activities/350/thumb.png?1479996031"
-                - else
-                  =image_tag activity.poster.url(:medium)
+                %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+                  - if activity.poster_updated_at.nil?
+                    =image_tag "https://koala-images.s3.amazonaws.com/activities/350/thumb.png?1479996031", class: "small-poster"
+                  - else
+                    =image_tag activity.poster.url(:thumb), id: "small-poster"
               .media-body
                 %strong Datum: 
                 = activity[ :start_date ].strftime("%d/%m/%Y")
@@ -57,3 +58,19 @@
                   - else
                     %button.btn.btn-success.enroll
                       Inschrijven
+      #poster-modal.modal{:role => "dialog"}
+        .modal-dialog
+          .modal-content#activity-modal
+            .modal-header
+              %button.close{"data-dismiss" => "modal", :type => "button"}
+                &times;
+              %h4.panel-title#activity-title
+            .modal-body
+              %img.full-width#image-view
+            .modal-footer
+              .col-md-1
+                %button.btn.btn-default#prev-poster <
+              .col-md-6.col-md-offset-2
+                %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
+              .col-md-1.col-md-offset-2
+                %button.btn.btn-default#next-poster >
