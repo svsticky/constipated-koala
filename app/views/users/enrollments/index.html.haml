@@ -23,7 +23,7 @@
             .panel-body.activity-info
               .media-left.poster-thumbnail
                 - if activity.poster_updated_at.nil?
-                  =image_tag "https://koala-images.s3.amazonaws.com/activities/350/medium.png?1479996031"
+                  =image_tag "https://koala-images.s3.amazonaws.com/activities/350/thumb.png?1479996031"
                 - else
                   =image_tag activity.poster.url(:medium)
               .media-body
