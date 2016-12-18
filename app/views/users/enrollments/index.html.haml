@@ -58,19 +58,19 @@
                   - else
                     %button.btn.btn-success.enroll
                       Inschrijven
-      #poster-modal.modal{:role => "dialog"}
-        .modal-dialog
-          .modal-content#activity-modal
-            .modal-header
-              %button.close{"data-dismiss" => "modal", :type => "button"}
-                &times;
-              %h4.panel-title#activity-title
-            .modal-body
-              %img.full-width#image-view
-            .modal-footer
-              .col-md-1
-                %button.btn.btn-default#prev-poster <
-              .col-md-6.col-md-offset-2
-                %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
-              .col-md-1.col-md-offset-2
-                %button.btn.btn-default#next-poster >
+    #poster-modal.modal{:role => "dialog"}
+      .modal-dialog
+        .modal-content#activity-modal
+          .modal-header
+            %button.close{"data-dismiss" => "modal", :type => "button"}
+              &times;
+            %h4.panel-title#activity-title
+          .modal-body
+            %img.full-width#image-view
+          .modal-footer
+            .col-md-1
+              %button.btn.btn-default#prev-poster <
+            .col-md-6.col-md-offset-2
+              %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
+            .col-md-1.col-md-offset-2
+              %button.btn.btn-default#next-poster >

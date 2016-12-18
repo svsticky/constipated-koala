@@ -28,6 +28,16 @@ function loadDataToModal(node){
     $('#image-view').attr('src', panelActivity.find('.panel-body > .poster-thumbnail > .show-poster-modal > .small-poster').attr('src'));
     $('#activity-title').html(panelActivity.find('.panel-heading > .activity-title').html());
     $("#activity-modal").attr("data-activity-id", panelActivity.attr("data-activity-id"));
+    if(panelActivity.parent().prev().length == 0){
+        $('#prev-poster').css("display", "none");
+    }else{
+        $('#prev-poster').css("display", "inline-block");
+    }
+    if(panelActivity.parent().next().length == 0){
+        $('#next-poster').css("display", "none");
+    }else{
+        $('#next-poster').css("display", "inline-block");
+    }
 }
 
 $(document).on('ready page:load', bind_enrollments);
