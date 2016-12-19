@@ -1,6 +1,5 @@
 // Register all click handlers for enrollments
-function bind_enrollments()
-{
+function bind_enrollments() {
 
   // Registering for an activity
   // [POST] enrollments/:id
@@ -11,21 +10,18 @@ function bind_enrollments()
   $('#enrollments').find('button.cancel').on('click', cancel_activity);
 
   // add event handler to poster to show the modal
-  $(".show-poster-modal").on("click", function ()
-  {
+  $(".show-poster-modal").on("click", function () {
     loadDataToModal(this);
     $('#poster-modal').modal('show');
   });
 
   // add event handler to go to the previous activity in the modal
-  $("#prev-poster").on("click", function ()
-  {
+  $("#prev-poster").on("click", function () {
     prevPoster();
   });
 
   // add event handler to go to the next activity in the modal
-  $("#next-poster").on("click", function ()
-  {
+  $("#next-poster").on("click", function () {
     nextPoster();
   });
 }
@@ -33,16 +29,14 @@ function bind_enrollments()
 /**
  * loads the previous activity to the modal
  */
-function prevPoster()
-{
+function prevPoster() {
   loadDataToModal($(".panel-activity[data-activity-id=" + $("#activity-modal").attr("data-activity-id") + "]").parent().prev().children('.panel-activity'));
 }
 
 /**
  * loads the next activity to the modal
  */
-function nextPoster()
-{
+function nextPoster() {
   loadDataToModal($(".panel-activity[data-activity-id=" + $("#activity-modal").attr("data-activity-id") + "]").parent().next().children('.panel-activity'));
 }
 
@@ -50,8 +44,7 @@ function nextPoster()
  * Loads data of a panel-activity to the modal
  * @param node a node containing a panel-activity class
  */
-function loadDataToModal(node)
-{
+function loadDataToModal(node) {
   // find the panel activity
   var panelActivity = $(node).closest('.panel-activity');
 
@@ -63,20 +56,16 @@ function loadDataToModal(node)
   $("#activity-modal").attr("data-activity-id", panelActivity.attr("data-activity-id"));
 
   //check if there are previous activities to go to
-  if (panelActivity.parent().prev().length == 0)
-  {
+  if (panelActivity.parent().prev().length == 0) {
     $('#prev-poster').css("display", "none");
-  } else
-  {
+  } else {
     $('#prev-poster').css("display", "inline-block");
   }
 
   //check if there are any next activities to go to
-  if (panelActivity.parent().next().length == 0)
-  {
+  if (panelActivity.parent().next().length == 0) {
     $('#next-poster').css("display", "none");
-  } else
-  {
+  } else {
     $('#next-poster').css("display", "inline-block");
   }
 }
@@ -84,8 +73,7 @@ function loadDataToModal(node)
 $(document).on('ready page:load', bind_enrollments);
 
 //Enroll user for activity when clicked
-function enroll_activity()
-{
+function enroll_activity() {
   if (!confirm("Je wordt ingeschreven voor deze activiteit. Weet je het zeker?"))
     return;
   var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
@@ -101,8 +89,7 @@ function enroll_activity()
     data: {
       authenticity_token: token
     }
-  }).done(function (resp)
-  {
+  }).done(function (resp) {
     //Alert user of  enrollment
     alert('Je hebt je ingeschreven voor ' + activity_title.textContent, 'success');
 
@@ -117,17 +104,14 @@ function enroll_activity()
     activity_button.innerText = "Uitschrijven";
     if (resp.participant_limit == null)
       activity_participants.innerText = resp.participant_count;
-    else
-    {
+    else {
       if (resp.participant_count >= resp.participant_limit)
         activity_participants.innerText = "VOL!";
       else
         activity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
     }
-  }).fail(function (data)
-  {
-    if (!data.responseJSON)
-    {
+  }).fail(function (data) {
+    if (!data.responseJSON) {
       data.responseJSON = {message: 'Could not enroll for activity'};
     }
     alert(data.responseJSON.message, 'error');
@@ -135,8 +119,7 @@ function enroll_activity()
 }
 
 //Cancel user's enrollment when clicked
-function cancel_activity()
-{
+function cancel_activity() {
   if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
     return;
   var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
@@ -152,8 +135,7 @@ function cancel_activity()
     data: {
       authenticity_token: token
     }
-  }).done(function (resp)
-  {
+  }).done(function (resp) {
     //Alert user of cancellation of enrollment
     alert('Je bent uitgeschreven voor ' + activity_title.textContent, 'warning');
 
@@ -168,18 +150,15 @@ function cancel_activity()
     activity_button.innerText = "Inschrijven";
     if (resp.participant_limit == null)
       activity_participants.innerText = resp.participant_count;
-    else
-    {
+    else {
       if (resp.participant_count >= resp.participant_limit)
         activity_participants.innerText = "VOL!";
       else
         activity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
     }
 
-  }).fail(function (data)
-  {
-    if (!data.responseJSON)
-    {
+  }).fail(function (data) {
+    if (!data.responseJSON) {
       data.responseJSON = {message: 'Could not cancel enrollment for activity'};
     }
     alert(data.responseJSON.message, 'error');
