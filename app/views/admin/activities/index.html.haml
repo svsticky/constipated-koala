@@ -89,6 +89,11 @@
               .form-group
                 .row
                   .col-md-12
+                    = label(:activity, :unenroll_date)
+                    = f.date_field :unenroll_date, :value => @activity.unenroll_date, :class => 'form-control'
+              .form-group
+                .row
+                  .col-md-12
                     = label(:activity, :location)
                     = f.text_field :location, class: 'form-control'
               .form-group
