@@ -120,10 +120,10 @@ function enroll_activity() {
     updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.activityonseJSON) {
-      data.activityonseJSON = {message: 'Could not enroll for activity'};
+    if (!data.activityJSON) {
+      data.activityJSON = {message: 'Could not enroll for activity'};
     }
-    alert(data.activityonseJSON.message, 'error');
+    alert(data.activityJSON.message, 'error');
   });
 }
 
@@ -162,10 +162,10 @@ function cancel_activity() {
     updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.activityonseJSON) {
-      data.activityonseJSON = {message: 'Could not cancel enrollment for activity'};
+    if (!data.activityJSON) {
+      data.activityJSON = {message: 'Could not cancel enrollment for activity'};
     }
-    alert(data.activityonseJSON.message, 'error');
+    alert(data.activityJSON.message, 'error');
   });
 }
 

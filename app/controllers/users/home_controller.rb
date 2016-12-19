@@ -113,8 +113,7 @@ class Users::HomeController < ApplicationController
                                    :city,
                                    :phone_number,
                                    :email,
-                                   :gender,
-                                   :birth_date)
+                                   :gender)
   end
 
   def ideal_transaction_params
