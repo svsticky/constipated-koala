@@ -2,8 +2,8 @@ class Activity < ActiveRecord::Base
   validates :name, presence: true
 
   validates :start_date, presence: true
-  validate :end_is_possible, unless: "self.start_date.blank?"
-  validate :unenroll_before_start
+  validate :end_is_possible, unless: "self.start_date.nil?"
+  validate :unenroll_before_start, unless: "self.unenroll_date.nil?"
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
@@ -30,7 +30,9 @@ class Activity < ActiveRecord::Base
   has_many :members, :through => :participants
 
   before_validation do
+    self.start_date = Date.today if self.start_date.blank?
     self.end_date = self.start_date if self.end_date.blank?
+    self.unenroll_date = self.start_date - 2.days if self.unenroll_date.blank?
   end
 
   def name=(name)
