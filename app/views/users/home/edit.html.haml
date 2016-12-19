@@ -2,12 +2,12 @@
 - content_for(:title, "Constipated koala | #{@member.name}")
 
 %section
-  .page.page-form
+  #content.page.page-form
     .row
       = form_for :member, method: :patch, :class => 'form-validation' do |f|
 
         - if @member.errors.any?
-          .col-md-6.col-md-offset-3
+          .col-md-10.col-md-offset-1
             .alert.alert-danger
               %button.close{ type: "button" } ×
               %span Oh snap, niet alles is goed ingevuld;
@@ -15,7 +15,7 @@
               - @member.errors.full_messages.each do |msg|
                 %li= msg
 
-        .col-md-6.col-md-offset-3
+        .col-md-10.col-md-offset-1
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-user
@@ -42,7 +42,7 @@
                       = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
                   .col-md-6
                     %label{for: ''} Geboortedatum
-                    = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+                    = f.label :birth_date, :value => @member.birth_date, :class => 'form-control birthdate'
 
               .form-group
                 .row
@@ -86,6 +86,6 @@
                       revoke
 
 
-        .col-md-6.col-md-offset-3
+        .col-md-10.col-md-offset-1
           %button.btn.btn-success{type: 'submit'} Opslaan
           = link_to 'Annuleren', users_root_path, { :class => 'button btn btn-default' }
