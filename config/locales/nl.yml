@@ -212,6 +212,8 @@ nl:
               before_start_date: kan niet voor de startdatum zijn
             end_time:
               before_start_time: kan niet voor de starttijd zijn
+            unenroll_date:
+              after_start_date: kan niet na de startdatum zijn
 
         member:
           blank: kan niet leeg zijn

@@ -3,6 +3,7 @@ class Activity < ActiveRecord::Base
 
   validates :start_date, presence: true
   validate :end_is_possible, unless: "self.start_date.blank?"
+  validate :unenroll_before_start
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
@@ -74,5 +75,9 @@ class Activity < ActiveRecord::Base
         errors.add(:end_time, :before_start_time)
       end
     end
+  end
+
+  def unenroll_before_start
+    errors.add(:unenroll_date, :after_start_date) if start_date < unenroll_date
   end
 end

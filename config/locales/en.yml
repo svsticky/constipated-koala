@@ -41,6 +41,8 @@ en:
               before_start_date: can't be before the start date
             end_time:
               before_start_time: can't be before the start time
+            unenroll_date:
+              after_start_date: can't be after the start date
         member:
           blank: can't be blank
           attributes:
