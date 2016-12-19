@@ -1,43 +1,55 @@
-// Register all click handlers for enrollments
+$(document).on('ready page:load', bind_enrollments);
+
+/**
+ * Register all click handlers for enrollments
+ */
 function bind_enrollments() {
 
-  // Registering for an activity
-  // [POST] enrollments/:id
+  //Registering for an activity
+  //[POST] enrollments/:id
   $('#enrollments').find('button.enroll').on('click', enroll_activity);
 
-  // De-registering for an activity
-  // [DELETE] enrollments/:id
+  //De-registering for an activity
+  //[DELETE] enrollments/:id
   $('#enrollments').find('button.cancel').on('click', cancel_activity);
 
-  // add event handler to poster to show the modal
+  //Add event handler to poster to show the modal
   $(".show-poster-modal").on("click", function () {
     loadDataToModal(this);
     $('#poster-modal').modal('show');
   });
 
-  // add event handler to go to the previous activity in the modal
+  //Add event handler to go to the previous activity in the modal
   $("#prev-poster").on("click", function () {
     prevPoster();
   });
 
-  // add event handler to go to the next activity in the modal
+  //Add event handler to go to the next activity in the modal
   $("#next-poster").on("click", function () {
     nextPoster();
   });
 }
 
 /**
- * loads the previous activity to the modal
+ * Loads the previous activity to the modal
  */
 function prevPoster() {
-  loadDataToModal($(".panel-activity[data-activity-id=" + $("#activity-modal").attr("data-activity-id") + "]").parent().prev().children('.panel-activity'));
+  var currentID = $("activity-modal").attr("data-activity-id");
+  var currentActivity = $(".panel-activity[data-activity-id=" + currentID + "]");
+  var prevActivity = current.parent().prev();
+
+  loadDataToModal(prevActivity);
 }
 
 /**
- * loads the next activity to the modal
+ * Loads the next activity to the modal
  */
 function nextPoster() {
-  loadDataToModal($(".panel-activity[data-activity-id=" + $("#activity-modal").attr("data-activity-id") + "]").parent().next().children('.panel-activity'));
+  var currentID = $("activity-modal").attr("data-activity-id");
+  var currentActivity = $(".panel-activity[data-activity-id=" + currentID + "]");
+  var nextActivity = current.parent().next();
+
+  loadDataToModal(nextActivity);
 }
 
 /**
@@ -45,24 +57,26 @@ function nextPoster() {
  * @param node a node containing a panel-activity class
  */
 function loadDataToModal(node) {
-  // find the panel activity
+  //Find the panel activity
   var panelActivity = $(node).closest('.panel-activity');
 
-  //load the poster of the panel activity in the modal
-  $('#image-view').attr('src', panelActivity.find('.panel-body > .poster-thumbnail > .show-poster-modal > .small-poster').attr('src'));
-  //load the title of the panel activity in the modal
-  $('#activity-title').html(panelActivity.find('.panel-heading > .activity-title').html());
-  //load the id of the panel activity in de modal
+  //Load the poster of the panel activity in the modal
+  $('#image-view').attr('src', panelActivity.find('.small-poster').attr('src'));
+
+  //Load the title of the panel activity in the modal
+  $('#activity-title').html(panelActivity.find('.activity-title').html());
+
+  //Load the id of the panel activity in de modal
   $("#activity-modal").attr("data-activity-id", panelActivity.attr("data-activity-id"));
 
-  //check if there are previous activities to go to
+  //Check if there are previous activities to go to
   if (panelActivity.parent().prev().length == 0) {
     $('#prev-poster').css("display", "none");
   } else {
     $('#prev-poster').css("display", "inline-block");
   }
 
-  //check if there are any next activities to go to
+  //Check if there are any next activities to go to
   if (panelActivity.parent().next().length == 0) {
     $('#next-poster').css("display", "none");
   } else {
@@ -70,9 +84,10 @@ function loadDataToModal(node) {
   }
 }
 
-$(document).on('ready page:load', bind_enrollments);
 
-//Enroll user for activity when clicked
+/**
+ * Enroll user for activity when clicked
+ */
 function enroll_activity() {
   if (!confirm("Je wordt ingeschreven voor deze activiteit. Weet je het zeker?"))
     return;
@@ -89,7 +104,7 @@ function enroll_activity() {
     data: {
       authenticity_token: token
     }
-  }).done(function (resp) {
+  }).done(function (activity) {
     //Alert user of  enrollment
     alert('Je hebt je ingeschreven voor ' + activity_title.textContent, 'success');
 
@@ -102,23 +117,19 @@ function enroll_activity() {
     //Toggle button icon and text, update participant counts
     $($(activity_button).children()[0]).toggleClass('fa-times fa-check');
     activity_button.innerText = "Uitschrijven";
-    if (resp.participant_limit == null)
-      activity_participants.innerText = resp.participant_count;
-    else {
-      if (resp.participant_count >= resp.participant_limit)
-        activity_participants.innerText = "VOL!";
-      else
-        activity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
-    }
+    updateParticipantsLimit(activity, activity_participants);
+
   }).fail(function (data) {
-    if (!data.responseJSON) {
-      data.responseJSON = {message: 'Could not enroll for activity'};
+    if (!data.activityonseJSON) {
+      data.activityonseJSON = {message: 'Could not enroll for activity'};
     }
-    alert(data.responseJSON.message, 'error');
+    alert(data.activityonseJSON.message, 'error');
   });
 }
 
-//Cancel user's enrollment when clicked
+/**
+ * Cancel user's enrollment when clicked
+ */
 function cancel_activity() {
   if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
     return;
@@ -135,7 +146,7 @@ function cancel_activity() {
     data: {
       authenticity_token: token
     }
-  }).done(function (resp) {
+  }).done(function (activity) {
     //Alert user of cancellation of enrollment
     alert('Je bent uitgeschreven voor ' + activity_title.textContent, 'warning');
 
@@ -148,19 +159,28 @@ function cancel_activity() {
     //Toggle button icon and text, update participant counts
     $($(activity_button).children()[0]).toggleClass('fa-check fa-times');
     activity_button.innerText = "Inschrijven";
-    if (resp.participant_limit == null)
-      activity_participants.innerText = resp.participant_count;
-    else {
-      if (resp.participant_count >= resp.participant_limit)
-        activity_participants.innerText = "VOL!";
-      else
-        activity_participants.innerText = resp.participant_count + ' / ' + resp.participant_limit;
-    }
+    updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.responseJSON) {
-      data.responseJSON = {message: 'Could not cancel enrollment for activity'};
+    if (!data.activityonseJSON) {
+      data.activityonseJSON = {message: 'Could not cancel enrollment for activity'};
     }
-    alert(data.responseJSON.message, 'error');
+    alert(data.activityonseJSON.message, 'error');
   });
+}
+
+/**
+ * Update the participants
+ * @activity Activity in json
+ * @activity_partipants Element indicating the number of participants
+ */
+function updateParticipantsLimit(activity, activity_participants) {
+  if (activity.participant_limit == null)
+    activity_participants.innerText = activity.participant_count;
+  else {
+    if (activity.participant_count >= activity.participant_limit)
+      activity_participants.innerText = "VOL!";
+    else
+      activity_participants.innerText = activity.participant_count + ' / ' + activity.participant_limit;
+  }
 }
