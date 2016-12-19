@@ -91,12 +91,23 @@ function loadDataToModal(node) {
 function enroll_activity() {
   if (!confirm("Je wordt ingeschreven voor deze activiteit. Weet je het zeker?"))
     return;
+
   var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
   var activity = $(this).closest('.panel');
   var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
   var activity_participants = activity.find('.activity-count')[0];
   var activity_title = activity.find('.activity-title')[0];
+	var date_unsplit = activity.find('.activity-unenroll')[0]
+	if(typeof date_unsplit !== "undefined"){
+		var date_split = date_unsplit.innerText.split("/");
+		var activity_unenroll = new Date(date_split[2], date_split[1]-1, date_split[0])
+		if($.now()>activity_unenroll){
+			if(!confirm("De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven")){
+				return;
+			}
+		}
+	}
 
   $.ajax({
     url: '/enrollments/' + activity_id,
@@ -131,14 +142,24 @@ function enroll_activity() {
  * Cancel user's enrollment when clicked
  */
 function cancel_activity() {
-  if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
-    return;
   var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
   var activity = $(this).closest('.panel');
   var activity_id = activity.attr('data-activity-id');
   var activity_button = this;
   var activity_participants = activity.find('.activity-count')[0];
   var activity_title = activity.find('.activity-title')[0];
+	var date_unsplit = activity.find('.activity-unenroll')[0]
+	if(typeof date_unsplit !== "undefined"){
+		var date_split = date_unsplit.innerText.split("/");
+		var activity_unenroll = new Date(date_split[2], date_split[1]-1, date_split[0])
+		if($.now()>activity_unenroll){
+			alert("Je kunt je niet meer uitschrijven na de uitschrijfdeadline, sorry :(")
+			return;
+		}
+	}
+
+	if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
+		return;
 
   $.ajax({
     url: '/enrollments/' + activity_id,

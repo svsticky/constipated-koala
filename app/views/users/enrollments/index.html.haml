@@ -48,6 +48,10 @@
                 - if(!activity.location.nil?)
                   %strong Locatie:
                   = activity.location
+                - if(!activity.unenroll_date.nil?)
+                  Uitschrijfdeadline:
+                  %span.activity-unenroll
+                    = activity[ :unenroll_date ].strftime("%d/%m/%Y")
             .panel-footer.clearfix
               .pull-right
                 .btn-group
