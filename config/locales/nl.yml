@@ -54,6 +54,7 @@ nl:
         start_time: Begintijd
         end_date: Einddatum
         end_time: Eindtijd
+        unenroll_date: Uitschrijfdeadline
         comments: Opmerkingen
         organized_by: Organisator
 

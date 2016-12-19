@@ -10,6 +10,7 @@ class Activity < ActiveRecord::Base
   }
 #  validates :end_date
 #  validates :description
+#  validates :unenroll_date
 
   is_impressionable
 
