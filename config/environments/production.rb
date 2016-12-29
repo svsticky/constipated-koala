@@ -85,4 +85,5 @@ Rails.application.configure do
       :original => :private
     }
   }
+  config.action_dispatch.default_headers.clear
 end
