@@ -21,8 +21,8 @@ function bind_activities(){
         authenticity_token: token,
         paid: true
       }
-    }).done(function(){
-      alert($(row).find('a').html() + ' heeft betaald', 'success');
+    }).done(function( message ){
+      alert(message, 'success');
 
       $(row).find( 'button.paid' ).empty().removeClass( 'paid btn-warning' ).addClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-check"></i>' );
       $(row).removeClass( 'red' );
@@ -50,8 +50,8 @@ function bind_activities(){
         authenticity_token: token,
         paid: false
       }
-    }).done(function(){
-      alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
+    }).done(function( message ){
+      alert(message, 'warning' );
 
       $(row).find( 'button.unpaid' ).empty().addClass( 'paid btn-warning' ).removeClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-times"></i>' );
       $(row).addClass( 'red' );

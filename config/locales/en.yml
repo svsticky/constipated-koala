@@ -27,6 +27,12 @@ en:
        email: Email
        student_id: Student ID
 
+     messages:
+       participant:
+         paid: '%{name} paid for %{activity}'
+         unpaid: '%{name} didn't pay for %{activity}'
+         price: '%{activity} is changed for %{name}'
+
     errors:
       models:
         activity:
