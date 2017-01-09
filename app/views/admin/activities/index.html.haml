@@ -39,7 +39,6 @@
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
 
-
       = form_for :activity, url: activities_path, method: :post, :class => 'form-validation' do |f|
         - if @activity.errors.any?
           .col-md-6
