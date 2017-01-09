@@ -15,82 +15,89 @@ class IdealTransaction < ActiveRecord::Base
   serialize :transaction_id, Array
 
   after_validation(on: :create) do
-    response = Net::HTTP.post_form(
-      URI("#{ENV['IDEAL_PLATFORM']}/"),
-      {
-        'description' => self.description,
-        'amount' => self.amount,
-        'issuer' => self.issuer,
-        'type' => self.type
+    response = IdealTransaction::post('payments', NIL, {
+      :amount => self.amount,
+      :description => self.description,
+      :issuer => self.issuer,
+
+      :metadata => {
+        :id => self.id,
+        :member => member.name,
+        :activity => activity.name
       }
-    )
+    })
 
-    if response.code != '200'
-      logger.fatal response.inspect
-      raise ArgumentError
-    end
-
-    object = JSON.parse( response.body )
-
-    self.uuid = object['uuid']
-    self.url = object['url']
+    self.uuid = response.id
   end
 
   after_find do |transaction|
-    response = Net::HTTP.get_response(URI("#{ENV['IDEAL_PLATFORM']}/?uuid=#{self.uuid}"))
+    response = IdealTransaction::get('payments', self.uuid)
 
-    if response.code != '200'
-      logger.fatal response.inspect
-      raise ArgumentError
-    end
+    self.description = response.description
+    self.amount = response.amount
+    self.status = response.status
 
-    object = JSON.parse( response.body )
-
-    self.description = object['description']
-    self.amount = object['amount']
-    self.issuer = object['issuer']
-    self.status = object['status']
-    self.type = object['type']
+    #self.issuer = object['issuer'] TODO remove
+    #self.type = object['type'] TODO remove
   end
 
-  def self.list( limit, offset )
-    response = Net::HTTP.get_response( URI("#{ENV['IDEAL_PLATFORM']}/?limit=#{limit}&offset=#{offset}") )
+  def self.list( count, offset )
+    response = IdealTransaction::get('payments', NIL, { :count => count, :offset => offset })
+    logger.debug response
 
-    if response.code != '200'
-      logger.fatal response.inspect
-      raise ArgumentError
-    end
-
-    objects = JSON.parse( response.body )
-    return IdealTransaction.merge( objects )
+    response
   end
 
   private
-  def self.merge( objects )
+  def self.get( method, id = NIL, body = {} )
+    request = Net::HTTP::Get.new("/#{ENV['MOLLIE_VERSION']}/#{method}/#{id}".chomp('/'))
 
-    objects.each do |object|
+    request['Accept'] = 'application/json'
+    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
 
-      transaction = IdealTransaction.find_by_uuid object['uuid']
-
-      # NOTE no koala transaction, continue
-      next if transaction.nil?
-
-      object.merge!( transaction.attributes )
-      object.merge!( 'member' => transaction.member ) if transaction.member.present?
-
-      if object['transaction_type'] == 'Activity'
-        activities = Activity.where( :id => object['transaction_id'] ).select( :id, :name, :price )
-        object.merge!( 'activities' => activities.to_a ) unless activities.nil?
-
-      elsif object['transaction_type'] == 'CheckoutTransaction'
-        products = CheckoutTransaction.where( :id => object['transaction_id'] )
-        object.merge!( 'checkout' => products ) unless products.nil?
-
-      end
-
-      object.compact
+    begin
+      response = Client.request(request, body)
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+        Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => error
+      raise SocketError error.message
     end
 
-    return objects
+    Client.parse! response
+  end
+
+
+  def self.post( method, id = NIL, body = {} )
+    request = Net::HTTP::Post.new("/#{ENV['MOLLIE_VERSION']}/#{method}/#{id}".chomp('/'))
+
+    body.delete_if { |k, v| v.nil? }
+    request.body = body
+
+    request['Accept'] = 'application/json'
+    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+
+    begin
+      response = Client.request(request)
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+        Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => error
+      raise SocketError error.message
+    end
+
+    Client.parse! response
+  end
+
+  def self.delete( method, id = NIL )
+    request = Net::HTTP::Delete.new("/#{ENV['MOLLIE_VERSION']}/#{method}/#{id}".chomp('/'))
+
+    request['Accept'] = 'application/json'
+    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+
+    begin
+      response = Client.request(request)
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+        Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => error
+      raise SocketError error.message
+    end
+
+    Client.parse! response
   end
 end
