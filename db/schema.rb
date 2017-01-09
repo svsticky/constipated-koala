@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219090906) do
+ActiveRecord::Schema.define(version: 20170109103831) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20161219090906) do
     t.boolean  "paid",                                          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "reservist",                                     default: false
   end
 
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree

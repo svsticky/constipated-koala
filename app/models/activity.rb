@@ -45,8 +45,32 @@ class Activity < ActiveRecord::Base
   end
 
   def self.debtors
-    joins(:participants).where('activities.start_date <= ? AND ((activities.price IS NOT NULL AND participants.paid IS FALSE AND (participants.price IS NULL OR participants.price > 0)) OR (activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))', Date.today).distinct
+    joins(:participants).where('
+      activities.start_date <= ?
+      AND
+      participants.reservist IS FALSE
+      AND
+       (
+        (activities.price IS NOT NULL
+         AND
+         participants.paid IS FALSE
+         AND
+         (participants.price IS NULL
+          OR
+          participants.price > 0)
+        )
+        OR
+        (
+         activities.price IS NULL
+         AND
+         participants.paid IS FALSE
+         AND
+         participants.price IS NOT NULL
+        )
+      )', Date.today).distinct
   end
+
+  # All participants who will receive 
 
   def group
     Group.find_by_id self.organized_by
@@ -54,6 +78,14 @@ class Activity < ActiveRecord::Base
 
   def currency( member )
     participants.where(:member => member).first.price ||= self.price
+  end
+
+  def attendees
+    participants.where(reservist: false)
+  end
+
+  def reservists
+    participants.where(reservist: true)
   end
 
   def price
