@@ -42,9 +42,6 @@ gem 'responders'
 # settings cached in rails environment
 gem 'rails-settings-cached'
 
-# payment provider
-gem 'mollie-api-ruby'
-
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
