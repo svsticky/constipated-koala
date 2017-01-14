@@ -130,6 +130,6 @@
                     = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht'
                   %td
                     .ui-select{ :style => 'margin-top: 5px;' }
-                      = f.select :bank, options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
+                      = f.select :bank, options_for_select(IdealTransaction::issuers)
                   %td
                     %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen

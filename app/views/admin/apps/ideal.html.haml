@@ -39,32 +39,29 @@
 
           - @transactions.each do |transaction|
             %tr
-              %td= I18n.l Time.parse transaction['created_at'].to_s
+              %td= I18n.l Time.parse transaction.created_at.to_s
               %td
-                - if transaction['member'].present?
-                  = link_to transaction['member'].name, transaction['member']
-                - elsif transaction['iban'].present?
-                  = transaction['iban']
+                - if transaction.member.present?
+                  = link_to transaction.member.name, transaction.member
 
               %td
-                - if transaction['checkout'].present?
+                - if transaction.transaction_type.downcase == 'checkouttransaction'
                   = I18n.t 'checkout', scope: 'activerecord.errors.models.ideal_transaction.attributes'
-                - elsif transaction['activities'].present?
-                  - transaction['activities'].each do |activity|
+                - elsif transaction.transaction_type.downcase == 'activity'
+                  - transaction.activities.each do |activity|
                     = link_to activity.name, activity, :class => 'inline'
-
                 - else
-                  = transaction['description']
+                  = transaction.description
 
-              %td= number_to_currency(transaction['amount'], :unit => '€')
+              %td= number_to_currency(transaction.amount, :unit => '€')
 
               %td
-                - if transaction['status'] == 'SUCCESS'
-                  %span.label.label-success= transaction['status']
-                - elsif transaction['status'] == 'OPEN'
-                  %span.label.label-warning= transaction['status']
+                - if transaction.status == 'paid' || transaction.status == 'paidout'
+                  %span.label.label-success= transaction.status
+                - elsif transaction.status == 'open' || transaction.status == 'pending'
+                  %span.label.label-warning= transaction.status
                 - else
-                  %span.label.label-danger= transaction['status']
+                  %span.label.label-danger= transaction.status
 
       %footer.table-footer
         .row

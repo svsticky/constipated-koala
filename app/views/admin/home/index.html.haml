@@ -74,10 +74,9 @@
                       %span.fa.fa-sort-desc.pull-right
 
                   %td{ :style => 'white-space: nowrap;' }
-                    - unless transaction.checkout_balance.member.nil?
+                    - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
                       = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
-                    - else
-                      \-
+
 
                   %td.hidden-sm
                     = transaction.products

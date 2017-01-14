@@ -64,42 +64,21 @@ class Users::HomeController < ApplicationController
       :description => 'Mongoose-tegoed',
       :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
       :issuer => ideal_transaction_params[:bank],
-      :type => 'MONGOOSE',
       :member => member,
+
       :transaction_id => NIL,
-      :transaction_type => 'CheckoutTransaction' )
+      :transaction_type => 'CheckoutTransaction',
+
+      :redirect_uri => users_root_url)
 
     if ideal.save
-      redirect_to ideal.url
+      redirect_to ideal.mollie_uri
       return
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
       redirect_to users_home_path
       return
     end
-  end
-
-  def confirm_add_funds
-    ideal = IdealTransaction.find_by_uuid(params[:uuid])
-
-    if ideal.status == 'SUCCESS' && ideal.type == 'MONGOOSE'
-
-      if ideal.transaction_id.empty?
-        transaction = CheckoutTransaction.new( :price => (ideal.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(ideal.member), :payment_method => "iDeal" )
-        transaction.save
-
-        IdealTransaction.where(:uuid => params[:uuid]).update_all( :transaction_id => [ transaction.id ] )
-      else
-        flash[:notice] = I18n.t('processed', scope: 'activerecord.errors.models.ideal_transaction')
-      end
-
-      flash[:notice] = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')
-    else
-      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-    end
-  
-    redirect_to users_home_url and return if current_user.present?
-    head :ok
   end
 
   private

@@ -1,4 +1,4 @@
 require 'extensions/date'
 require 'extensions/hash'
 require 'extensions/string'
-require 'extensions/http'
+require 'extensions/request'

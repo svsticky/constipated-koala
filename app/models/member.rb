@@ -60,7 +60,7 @@ class Member < ActiveRecord::Base
   def first_name=(first_name)
     write_attribute(:first_name, first_name.downcase.titleize)
   end
-  
+
   def infix=(infix)
     write_attribute(:infix, infix.downcase)
     write_attribute(:infix, NIL) if infix.blank?
@@ -152,6 +152,14 @@ class Member < ActiveRecord::Base
         credentials.save
       end
     end
+  end
+
+  # destroy account on removal of member
+  before_destroy do
+    logger.debug self.inspect
+
+    user = User.find_by_email( self.email )
+    user.delete if user.present?
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query

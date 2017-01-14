@@ -12,6 +12,10 @@ table.table.table-linked > tbody > tr > td > a:hover {
   text-decoration: underline;
 }
 
+table.table.table-linked span.label {
+  text-transform: uppercase;
+}
+
 .date-input {
   display: inline-block;
 }
