@@ -7,7 +7,8 @@ class Users::EnrollmentsController < ApplicationController
         Date.today, Date.today
       ).where(is_enrollable: true).order(:start_date)
     current_member = Member.find(current_user.credentials_id)
-    @enrollments = current_member.activities.where(id: @activities.ids)
+    @confirmed_activities = current_member.confirmed_activities
+    @reservist_activities = current_member.reservist_activities
   end
 
   def delete

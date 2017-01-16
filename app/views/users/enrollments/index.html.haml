@@ -56,9 +56,12 @@
               .pull-right
                 .btn-group
                   = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default"
-                  - if @enrollments.ids.include? activity.id
-                    %button.btn.btn-warning.cancel
+                  - if @confirmed_activities.ids.include? activity.id
+                    %button.btn.btn-danger.cancel
                       Uitschrijven
+                  - elsif @reservist_activities.ids.include? activity.id
+                    %button.btn.btn-warning.cancel
+                      Reservelijst
                   - else
                     %button.btn.btn-success.enroll
                       Inschrijven

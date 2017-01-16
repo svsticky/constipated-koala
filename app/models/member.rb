@@ -51,6 +51,15 @@ class Member < ActiveRecord::Base
   has_many :activities,
     :through => :participants
 
+  has_many :confirmed_activities,
+    -> {where(participants: {reservist: false})},
+    :through => :participants,
+    :source => :activity
+  has_many :reservist_activities,
+    -> {where(participants: {reservist: true})},
+    :through => :participants,
+    :source => :activity
+
   has_many :group_members,
     :dependent => :destroy
   has_many :groups,
