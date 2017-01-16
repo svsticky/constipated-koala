@@ -15,7 +15,7 @@ class Users::EnrollmentsController < ApplicationController
 
     if !@activity.is_enrollable?
       render :status => :locked, :json => {
-        message: I18n.t(:not_unenrollable, scope: 'activerecord.errors.models.activity'),
+        message: I18n.t(:not_unenrollable, scope: 'activerecord.errors.models.activity', activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
@@ -28,6 +28,7 @@ class Users::EnrollmentsController < ApplicationController
     @enrollment.destroy
 
     render :status => 200, :json => {
+        message: I18n.t(:not_enrolled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
     }
@@ -48,7 +49,7 @@ class Users::EnrollmentsController < ApplicationController
     @member = Member.find(current_user.credentials_id)
     if @activity.is_alcoholic? && @member.is_underage?
       render :status => 451, :json => { # Unavailable for legal reasons
-        message: I18n.t(:participant_underage, scope: 'activerecord.errors.models.activity'),
+        message: I18n.t(:participant_underage, scope: 'activerecord.errors.models.activity', activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
@@ -56,8 +57,12 @@ class Users::EnrollmentsController < ApplicationController
     end
 
     if !@activity.participant_limit.nil? && @activity.participants.count >= @activity.participant_limit
-      render :status => :payload_too_large, :json => {
-        message: I18n.t(:participant_limit_reached, scope: 'activerecord.errors.models.activity'),
+      @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
+                                        price: @activity.price, reservist: true)
+      @new_enrollment.save
+
+      render :status => :accepted, :json => {
+        message: I18n.t(:participant_limit_reached, scope: 'activerecord.errors.models.activity', activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
@@ -67,6 +72,7 @@ class Users::EnrollmentsController < ApplicationController
                                         price: @activity.price)
       @new_enrollment.save
       render :status => 200, :json => {
+          message: I18n.t(:enrolled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
           participant_limit: @activity.participant_limit,
           participant_count: @activity.participants.count
       }

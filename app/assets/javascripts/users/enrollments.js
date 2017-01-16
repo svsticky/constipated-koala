@@ -117,7 +117,7 @@ function enroll_activity() {
     }
   }).done(function (activity) {
     //Alert user of  enrollment
-    alert('Je hebt je ingeschreven voor ' + activity_title.textContent, 'success');
+    alert(activity.message, 'success');
 
     //Update button color and event-handler
     $(activity_button)
@@ -131,10 +131,10 @@ function enroll_activity() {
     updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.activityJSON) {
-      data.activityJSON = {message: 'Could not enroll for activity'};
+    if (!data.responseJSON) {
+      data.responseJSON = {message: 'Could not enroll for activity'};
     }
-    alert(data.activityJSON.message, 'error');
+    alert(data.responseJSON.message, 'error');
   });
 }
 
@@ -169,7 +169,7 @@ function cancel_activity() {
     }
   }).done(function (activity) {
     //Alert user of cancellation of enrollment
-    alert('Je bent uitgeschreven voor ' + activity_title.textContent, 'warning');
+    alert(activity.message, 'warning');
 
     //Update button color and event-handler
     $(activity_button)
@@ -183,10 +183,10 @@ function cancel_activity() {
     updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.activityJSON) {
-      data.activityJSON = {message: 'Could not cancel enrollment for activity'};
+    if (!data.responseJSON) {
+      data.responseJSON = {message: 'Could not enroll for activity'};
     }
-    alert(data.activityJSON.message, 'error');
+    alert(data.responseJSON.message, 'error');
   });
 }
 

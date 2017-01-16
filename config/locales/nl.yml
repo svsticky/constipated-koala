@@ -200,7 +200,9 @@ nl:
 
       models:
         activity:
-          participant_limit_reached: Inschrijflimiet van activiteit bereikt
+          enrolled: Je bent ingeschreven voor %{activity}
+          not_enrolled: Je bent uitgeschreven voor %{activity}
+          participant_limit_reached: Je bent op de reservelijst geplaatst voor %{activity}
           participant_underage: Deze activiteit is alleen voor grote mensen ;)
           not_enrollable: Activiteit niet inschrijfbaar
           not_unenrollable: Activiteit niet uitschrijfbaar
