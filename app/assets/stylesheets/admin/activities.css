@@ -1,6 +1,6 @@
 #participants tr > td {
-  padding: 0px;
-  padding-left: 8px;
+    padding: 0 0 0 8px;
+    vertical-align: middle;
 }
 
 #participants tr > td > a {
