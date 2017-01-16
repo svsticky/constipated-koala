@@ -146,7 +146,7 @@ $(document).on( 'ready page:load', function(){
 
   $('#participants').find('input#participant').search().on('selected', function(event, id, name){
       $.ajax({
-        url: '/activities/' + $('#participants table').attr('data-id') + '/participants',
+        url: '/activities/' + $('#participants-table').attr('data-id') + '/participants',
         type: 'POST',
         data: {
           member: id
@@ -154,7 +154,7 @@ $(document).on( 'ready page:load', function(){
       }).done(function( data ){
         var template = $('script#activity').html();
         var activity = template.format(data.id, data.member_id, name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
-        var added = $(activity).insertBefore('#participants table tr:last');
+        var added = $(activity).insertBefore('#participants-table tr:last');
 
         $('.number').html( +$('.number').html() +1 );
 

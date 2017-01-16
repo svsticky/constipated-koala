@@ -129,7 +129,7 @@
             %span.number= @activity.participants.count
             deelnemers
 
-          %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+          %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
               - @attendees.each do |participant|
                 %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
@@ -165,7 +165,7 @@
             %span.number= @activity.reservists.count
             Reserves
 
-          %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+          %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
               - @reservists.each do |participant|
                 %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
