@@ -2,6 +2,10 @@
 	width:150px;
 }
 
+.poster-moreinfo img {
+	max-width: 100%;
+}
+
 .activity-info {
 	padding:0;
 }
@@ -22,8 +26,11 @@
 	min-width:255px;
 }
 
-.activity-title{
+.activity-title {
   overflow: hidden;
   max-width: 80%;
   white-space: nowrap;
+}
+.custom_left {
+	padding-left: 0;
 }
