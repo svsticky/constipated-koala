@@ -9,7 +9,7 @@
           %span.panel-title.activity-title
             = @activity.name
           %span.panel-title.pull-right.activity-count
-            - if(@activity.participant_limit)
+            - if(@activity.participant_limit.nil?)
               = @activity.participants.count
             - elsif(@activity.participants.count >= @activity.participant_limit)
               VOL!
@@ -18,7 +18,7 @@
               \/
               = @activity.participant_limit
           .clearfix
-        .panel-body.activity-info
+        .panel-body.activity
           .col-lg-3.col-md-4.col-sm-6.col-xs-12
             .media-left.poster-moreinfo
               %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
