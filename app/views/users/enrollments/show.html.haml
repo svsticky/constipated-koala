@@ -19,7 +19,10 @@
             .media-body
               %strong Omschrijving:
               <br/>
-              = @activity.description
+              - if @activity.description
+                Geen beschrijving beschikbaar :(
+              - else
+                = @activity.description
               <br/>
               <br/>
               %strong Wanneer:
@@ -38,7 +41,7 @@
               <br/>
               %strong Inschrijfdeadline:
               <br/>
-              = @activity.unenroll_date.strftime
+              = @activity.unenroll_date.strftime("%d/%m/%Y")
               <br/>
               <br/>
               .col-md-6.col-sm-6.col-xs-6.custom_left
@@ -47,7 +50,8 @@
                 &euro;
                 = number_with_precision(@activity.price, :precision => 2)
                 <br/><br/>
-              - if(!@activity.location.nil?)
+              - if @activity.location
+              - else
                 .col-md-6.col-sm-6.col-xs-6.custom_left
                   %strong Locatie:
                   <br/>
