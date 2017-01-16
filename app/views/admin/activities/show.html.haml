@@ -158,3 +158,20 @@
                   - else
                     %span{ :style => 'line-height: 39px; margin-left: 8px;' } -
                 %td
+
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span.number= @activity.reservists.count
+            Reserves
+
+          %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+            %tbody
+              - @reservists.each do |participant|
+                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
+                  %td= link_to "#{participant.member.name}", participant.member
+
+                  %td.buttons
+                    .btn-group
+                      %button.btn.btn-default.destroy
+                        %i.fa.fa-fw.fa-trash-o
