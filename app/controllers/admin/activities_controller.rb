@@ -27,7 +27,7 @@ class Admin::ActivitiesController < ApplicationController
       .order('members.first_name', 'members.last_name')
       .joins(:member)
     @reservists = @activity.reservists
-      .order('members.first_name', 'members.last_name')
+      .order(id: :asc) # Explicit ordering: first come, first serve
       .joins(:member)
   end
 

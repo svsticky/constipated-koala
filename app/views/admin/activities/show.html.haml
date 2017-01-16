@@ -111,10 +111,10 @@
                     = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
                   .col-md-3
                     = label(:activity, :is_enrollable)
-                    = f.check_box :is_enrollable, checked: @activity.is_enrollable
+                    = f.check_box :is_enrollable, checked: @activity.is_enrollable, data: {original: @activity.is_enrollable}, id: "is_enrollable"
                   .col-md-3
                     = label(:activity, :participant_limit)
-                    = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable
+                    = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 
               %button.btn.btn-success.wait{type: 'submit'} Opslaan
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
@@ -126,7 +126,7 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            %span.number= @activity.participants.count
+            %span#attendeecount= @activity.attendees.count
             deelnemers
 
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
@@ -162,7 +162,7 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            %span.number= @activity.reservists.count
+            %span#reservistcount= @activity.reservists.count
             Reserves
 
           %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
