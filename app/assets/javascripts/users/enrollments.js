@@ -60,6 +60,9 @@ function loadDataToModal(panelActivity) {
   //Load the poster of the panel activity in the modal
   $('#image-view').attr('src', panelActivity.find('.small-poster').attr('src').replace('thumb', 'medium'));
 
+  //set the more info href
+  $('#more-info-link').attr('href', panelActivity.find('.more-info').attr('href'));
+
   //Load the title of the panel activity in the modal
   $('#activity-title').html(panelActivity.find('.activity-title').html());
 

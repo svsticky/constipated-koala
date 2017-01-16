@@ -55,7 +55,7 @@
             .panel-footer.clearfix
               .pull-right
                 .btn-group
-                  = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default"
+                  = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default more-info"
                   - if @enrollments.ids.include? activity.id
                     %button.btn.btn-warning.cancel
                       Uitschrijven
@@ -71,6 +71,11 @@
             %h4.panel-title#activity-title
           .modal-body
             %img.full-width#image-view
+            %br
+            %br
+            %a#more-info-link
+              %button.btn.btn-info
+                More info
           .modal-footer
             .col-md-1
               %button.btn.btn-default#prev-poster <

@@ -1,29 +1,38 @@
 .poster-thumbnail img {
-	width:150px;
+  width: 150px;
 }
 
 .activity-info {
-	padding:0;
+  padding: 0;
 }
 
 .media-body {
-	padding-top:5px;
-	padding-right:10px;
+  padding-top: 5px;
+  padding-right: 10px;
 }
+
 .full-width {
-	width:100%;
+  width: 100%;
 }
 
 .property-content {
-	padding-left:10px;
+  padding-left: 10px;
 }
 
 .panel-activity {
-	min-width:255px;
+  min-width: 255px;
 }
 
-.activity-title{
+.activity-title {
   overflow: hidden;
   max-width: 80%;
   white-space: nowrap;
+}
+
+#activity-modal{
+  text-align: center;
+}
+
+#activity-modal .modal-footer{
+  margin-top: 0;
 }
