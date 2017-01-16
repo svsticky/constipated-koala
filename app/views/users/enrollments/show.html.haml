@@ -1,12 +1,24 @@
+- content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | #{@activity.name}")
 
 %section#enrollments
   .page.enrollment-show#content
     .container
-      .panel.panel-default
+      .panel.panel-default.panel-activity{ :data => {:'activity-id' => @activity.id }}
         .panel-heading
-          = @activity.name
-        .panel-body
+          %span.panel-title.activity-title
+            = @activity.name
+          %span.panel-title.pull-right.activity-count
+            - if(@activity.participant_limit)
+              = @activity.participants.count
+            - elsif(@activity.participants.count >= @activity.participant_limit)
+              VOL!
+            - else
+              = @activity.participants.count
+              \/
+              = @activity.participant_limit
+          .clearfix
+        .panel-body.activity-info
           .col-lg-3.col-md-4.col-sm-6.col-xs-12
             .media-left.poster-moreinfo
               %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
@@ -57,3 +69,10 @@
                   <br/>
                   = @activity.location
                   <br/><br/>
+
+        .panel-footer.clearfix
+          .pull-right
+            .btn-group
+              = link_to "Terug", "/enrollments", class: "btn btn-default"
+              %button.btn.btn-success.enroll
+                Inschrijven
