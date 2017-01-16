@@ -1,4 +1,4 @@
-= form_for :activity, url: activity_path(@activity), method: method, :class => 'form-validation' do |f|
+= form_for :activity, url: url, method: method, :class => 'form-validation' do |f|
   - if @activity.errors.any?
     .alert.alert-danger
       %button.close{ type: "button" } ×
@@ -103,5 +103,8 @@
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable
 
       %button.btn.btn-success.wait{type: 'submit'} Opslaan
-      = link_to 'Back', :back, { :class => 'button btn btn-default' }
-      = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+      - if (@activity.id)
+        = link_to 'Back', :back, { :class => 'button btn btn-default' }
+        = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+      - else
+        = link_to 'Annuleren', activities_path, { :class => 'button btn btn-default' }
