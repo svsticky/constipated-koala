@@ -15,7 +15,7 @@ function bind_enrollments() {
 
   //Add event handler to poster to show the modal
   $(".show-poster-modal").on("click", function () {
-    loadDataToModal(this);
+    loadDataToModal($(this).closest('.panel-activity'));
     $('#poster-modal').modal('show');
   });
 
@@ -34,9 +34,9 @@ function bind_enrollments() {
  * Loads the previous activity to the modal
  */
 function prevPoster() {
-  var currentID = $("activity-modal").attr("data-activity-id");
+  var currentID = $("#activity-modal").attr("data-activity-id");
   var currentActivity = $(".panel-activity[data-activity-id=" + currentID + "]");
-  var prevActivity = current.parent().prev();
+  var prevActivity = currentActivity.parent().prev().find('.panel-activity');
 
   loadDataToModal(prevActivity);
 }
@@ -45,23 +45,20 @@ function prevPoster() {
  * Loads the next activity to the modal
  */
 function nextPoster() {
-  var currentID = $("activity-modal").attr("data-activity-id");
+  var currentID = $("#activity-modal").attr("data-activity-id");
   var currentActivity = $(".panel-activity[data-activity-id=" + currentID + "]");
-  var nextActivity = current.parent().next();
+  var nextActivity = currentActivity.parent().next().find('.panel-activity');
 
   loadDataToModal(nextActivity);
 }
 
 /**
  * Loads data of a panel-activity to the modal
- * @param node a node containing a panel-activity class
+ * @param panelActivity a node containing a panel-activity class
  */
-function loadDataToModal(node) {
-  //Find the panel activity
-  var panelActivity = $(node).closest('.panel-activity');
-
+function loadDataToModal(panelActivity) {
   //Load the poster of the panel activity in the modal
-  $('#image-view').attr('src', panelActivity.find('.small-poster').attr('src'));
+  $('#image-view').attr('src', panelActivity.find('.small-poster').attr('src').replace('thumb', 'medium'));
 
   //Load the title of the panel activity in the modal
   $('#activity-title').html(panelActivity.find('.activity-title').html());
