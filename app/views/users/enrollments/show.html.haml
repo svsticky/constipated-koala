@@ -74,5 +74,9 @@
           .pull-right
             .btn-group
               = link_to "Terug", "/enrollments", class: "btn btn-default"
-              %button.btn.btn-success.enroll
-                Inschrijven
+              - if @enrollment.ids.include? @activity.id
+                %button.btn.btn-warning.cancel
+                  Uitschrijven
+              - else
+                %button.btn.btn-success.enroll
+                  Inschrijven
