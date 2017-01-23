@@ -17,12 +17,12 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            %span.number= @activity.participants.count
+            %span#attendeecount= @activity.attendees.count
             deelnemers
 
-          %table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+          %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
-              - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
+              - @attendees.each do |participant|
                 %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
                   %td= link_to "#{participant.member.name}", participant.member
 
@@ -49,3 +49,20 @@
                   - else
                     %span{ :style => 'line-height: 39px; margin-left: 8px;' } -
                 %td
+
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span#reservistcount= @activity.reservists.count
+            Reserves
+
+          %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+            %tbody
+              - @reservists.each do |participant|
+                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
+                  %td= link_to "#{participant.member.name}", participant.member
+
+                  %td.buttons
+                    .btn-group
+                      %button.btn.btn-default.destroy
+                        %i.fa.fa-fw.fa-trash-o

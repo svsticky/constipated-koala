@@ -109,7 +109,7 @@ function enroll_activity() {
 		}
 	}
 
-  $.ajax({
+  response = $.ajax({
     url: '/enrollments/' + activity_id,
     type: 'POST',
     data: {
@@ -117,24 +117,36 @@ function enroll_activity() {
     }
   }).done(function (activity) {
     //Alert user of  enrollment
-    alert('Je hebt je ingeschreven voor ' + activity_title.textContent, 'success');
+    alert(activity.message, 'success');
+
+    var button_text, button_class;
+
+    //Normal enrollment
+    if (response.status == 200) {
+      button_text = "Uitschrijven";
+      button_class = "btn-danger"
+    //Back-up list enrollments
+    } else if (response.status == 202) {
+      button_text = "Reservelijst"
+      button_class = "btn-warning"
+    }
 
     //Update button color and event-handler
     $(activity_button)
-      .toggleClass('enroll btn-success cancel btn-warning')
+      .toggleClass('enroll btn-success cancel ' + button_class)
       .off('click')
       .on('click', cancel_activity)
 
     //Toggle button icon and text, update participant counts
     $($(activity_button).children()[0]).toggleClass('fa-times fa-check');
-    activity_button.innerText = "Uitschrijven";
+    activity_button.innerText = button_text;
     updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.activityJSON) {
-      data.activityJSON = {message: 'Could not enroll for activity'};
+    if (!data.responseJSON) {
+      data.responseJSON = {message: 'Could not enroll for activity'};
     }
-    alert(data.activityJSON.message, 'error');
+    alert(data.responseJSON.message, 'error');
   });
 }
 
@@ -169,11 +181,12 @@ function cancel_activity() {
     }
   }).done(function (activity) {
     //Alert user of cancellation of enrollment
-    alert('Je bent uitgeschreven voor ' + activity_title.textContent, 'warning');
+    alert(activity.message, 'warning');
 
     //Update button color and event-handler
     $(activity_button)
-      .toggleClass('cancel btn-warning enroll btn-success')
+      .removeClass('btn-danger btn-warning')
+      .toggleClass('cancel enroll btn-success')
       .off('click')
       .on('click', enroll_activity);
 
@@ -183,10 +196,10 @@ function cancel_activity() {
     updateParticipantsLimit(activity, activity_participants);
 
   }).fail(function (data) {
-    if (!data.activityJSON) {
-      data.activityJSON = {message: 'Could not cancel enrollment for activity'};
+    if (!data.responseJSON) {
+      data.responseJSON = {message: 'Could not enroll for activity'};
     }
-    alert(data.activityJSON.message, 'error');
+    alert(data.responseJSON.message, 'error');
   });
 }
 

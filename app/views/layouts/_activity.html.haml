@@ -97,10 +97,10 @@
             = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
           .col-md-3
             = label(:activity, :is_enrollable)
-            = f.check_box :is_enrollable, checked: @activity.is_enrollable
+            = f.check_box :is_enrollable, checked: @activity.is_enrollable, data: {original: @activity.is_enrollable}, id: "is_enrollable"
           .col-md-6
             = label(:activity, :participant_limit)
-            = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable
+            = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 
       %button.btn.btn-success.wait{type: 'submit'} Opslaan
       - if (@activity.id)

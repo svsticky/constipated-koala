@@ -40,7 +40,17 @@ class Admin::ParticipantsController < ApplicationController
   end
 
   def destroy
-    respond_with Participant.destroy(params[:id])
+    ghost_participant = Participant.destroy(params[:id])
+    if ghost_participant.destroyed?
+      @activity = ghost_participant.activity
+      if @activity.attendees.count < @activity.participant_limit and
+          @activity.reservists.count > 0
+        luckyperson = @activity.reservists.first
+        luckyperson.update!(reservist: false)
+        puts "luckyperson #{luckyperson.inspect} ingeschewrne"
+      end
+    end
+    respond_with ghost_participant
   end
 
   def mail

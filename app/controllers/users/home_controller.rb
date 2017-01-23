@@ -7,10 +7,42 @@ class Users::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     @balance = CheckoutBalance.find_by_member_id( @member.id )
-    @default = Participant.where( :paid => false, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( :price ) + Participant.where( :paid => false, :price => nil, :member => @member ).joins( :activity ).where('activities.start_date < NOW()').sum( 'activities.price ')
 
-    @participants = (@member.activities.study_year( params['year'] ).distinct.joins(:participants).where(:participants => { :member => @member }) \
-      + @member.activities.joins(:participants).where("participants.paid = FALSE AND participants.price > 0") ).uniq.sort_by(&:start_date).reverse!
+    # The plus makes it work for all activities where the member does NOT have
+    # a modified price.
+    @default = Participant
+      .where( paid: false, member: @member, reservist: false )
+      .joins( :activity )
+      .where('activities.start_date < NOW()')
+      .sum( :price ) \
+     + Participant
+      .where( paid: false, price: nil, member: @member, reservist: false )
+      .joins( :activity )
+      .where('activities.start_date < NOW()')
+      .sum( 'activities.price ')
+
+    #@participants =
+      #(
+       #@member.activities
+         #.study_year( params['year'] )
+         #.distinct
+         #.joins(:participants)
+         #.where(:participants => { :member => @member }) \
+       #+
+        #@member.activities
+          #.joins(:participants)
+          #.where("participants.paid = FALSE AND participants.price > 0")
+       #).uniq
+         #.sort_by(&:start_date)
+         #.reverse!
+
+    @participants =
+       @member.activities
+         .study_year( params['year'] )
+         .distinct
+         .joins(:participants)
+         .where(:participants => { member: @member, reservist: false })
+         .order('start_date DESC')
 
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
   end

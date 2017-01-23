@@ -11,7 +11,24 @@ class Admin::ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find_by_id params[:id]
-    @recipients =  @activity.participants.order('members.first_name', 'members.last_name').joins(:member).where('participants.paid = FALSE AND (participants.price IS NULL OR participants.price > 0)').select(:id, :member_id, :first_name, :email)
+    @recipients =  @activity.participants
+      .order('members.first_name', 'members.last_name')
+      .joins(:member)
+      .where('participants.paid = FALSE
+              AND
+              participants.reservist = FALSE
+              AND
+              (participants.price IS NULL
+               OR
+               participants.price > 0
+              )')
+      .select(:id, :member_id, :first_name, :email)
+    @attendees  = @activity.attendees
+      .order('members.first_name', 'members.last_name')
+      .joins(:member)
+    @reservists = @activity.reservists
+      .order(id: :asc) # Explicit ordering: first come, first serve
+      .joins(:member)
   end
 
   def create

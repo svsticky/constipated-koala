@@ -85,7 +85,8 @@ function bind_activities(){
     }).done(function(){
       alert($(row).find('a').html() + ' verwijderd', 'warning');
       $(row).remove();
-      $('.number').html( $('.number').html() -1 );
+
+      updateParticipantCounts();
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -141,12 +142,41 @@ function bind_activities(){
   });
 }
 
+function updateParticipantCounts(){
+  // Update amounts of attendees and reservists
+  // We also assume that if the participant number drops below the limit, a reservist is enrolled automatically by the server.
+  attendees = $('#attendeecount').html();
+  reservists = $('#reservistcount').html();
+
+  // This is certain
+  attendees -= 1;
+
+  is_enrollable = document.getElementById('is_enrollable').dataset["original"] == "1";
+  participant_limit = document.getElementById('participant_limit').dataset["original"] || 0;
+
+  if (is_enrollable && attendees < participant_limit)
+  {
+    reservist -= 1;
+    attendees += 1;
+
+    luckyperson = $('#reservists-table tr:first td:first')[0];
+
+    person_name = luckyperson.innerText;
+    luckyperson.parentElement.remove();
+
+
+  }
+
+  $('#attendeecount').html(attendees);
+  $('#reservistcount').html(reservists);
+}
+
 $(document).on( 'ready page:load', function(){
   bind_activities();
 
   $('#participants').find('input#participant').search().on('selected', function(event, id, name){
       $.ajax({
-        url: '/activities/' + $('#participants table').attr('data-id') + '/participants',
+        url: '/activities/' + $('#participants-table').attr('data-id') + '/participants',
         type: 'POST',
         data: {
           member: id
@@ -154,7 +184,7 @@ $(document).on( 'ready page:load', function(){
       }).done(function( data ){
         var template = $('script#activity').html();
         var activity = template.format(data.id, data.member_id, name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
-        var added = $(activity).insertBefore('#participants table tr:last');
+        var added = $(activity).insertBefore('#participants-table tr:last');
 
         $('.number').html( +$('.number').html() +1 );
 
