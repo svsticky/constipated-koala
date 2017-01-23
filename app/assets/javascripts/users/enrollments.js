@@ -125,7 +125,7 @@ function enroll_activity() {
     if (response.status == 200) {
       button_text = "Uitschrijven";
       button_class = "btn-danger"
-    //Back-up list enrollments
+      //Back-up list enrollments
     } else if (response.status == 202) {
       button_text = "Reservelijst"
       button_class = "btn-warning"
@@ -222,15 +222,24 @@ function updateParticipantsLimit(activity, activity_participants) {
 }
 
 function updateParticipantsList(activity_id) {
-  var table = $('#participants').find('table');
+  var attendeesTable = $('#attendees');
+  var reservistsTable = $('#reservists');
 
-  if (table.length == 0)
+  if (attendeesTable.length == 0)
     return;
 
   $.ajax('/api/activities/' + activity_id).done(function (activity) {
-    table.html('');
-    activity.participants.forEach(function (name) {
-      table.append('<tr><td>' + name + '</td></tr>');
-    })
+    attendeesTable.html('');
+    activity.attendees.forEach(function (name) {
+      attendeesTable.append('<tr><td>' + name + '</td></tr>');
+    });
+
+    reservistsTable.html('');
+    activity.reservists.forEach(function (name) {
+      reservistsTable.append('<tr><td>' + name + '</td></tr>');
+    });
+
+    $('#attendees-count').html(activity.attendees.length);
+    $('#reservists-count').html(activity.reservists.length)
   });
 }
