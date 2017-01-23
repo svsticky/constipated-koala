@@ -227,7 +227,10 @@ function updateParticipantsList(activity_id) {
   if (table.length == 0)
     return;
 
-  $.ajax('/api/activities/' + activity_id).done(function (data) {
-
+  $.ajax('/api/activities/' + activity_id).done(function (activity) {
+    table.html('');
+    activity.participants.forEach(function (name) {
+      table.append('<tr><td>' + name + '</td></tr>');
+    })
   });
 }
