@@ -1,74 +1,64 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-//
-//= require bootstrap-file-input
-
+/*
+ * Bind all handlers to the buttons
+ */
 function bind_activities(){
-  //reset all binds
+  //Reset all event handlers
   $('#participants button').off('click');
   $('#participants input.price').off('change');
 
-  // Activiteiten betalen met een async call
+  // Admin marks participant as having paid
   // [PATCH] participants
-  $('#participants').find('button.paid').on('click', function(){
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
+  $('#participants').find('button.paid').on('click', participant.updatePaid);
 
-    $.ajax({
-      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
-      type: 'PATCH',
-      data: {
-        authenticity_token: token,
-        paid: true
-      }
-    }).done(function(){
-      alert($(row).find('a').html() + ' heeft betaald', 'success');
-
-      $(row).find( 'button.paid' ).empty().removeClass( 'paid btn-warning' ).addClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-check"></i>' );
-      $(row).removeClass( 'red' );
-
-      $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
-
-      $( 'input#search' ).select();
-
-      bind_activities();
-    }).fail(function(){
-      alert( '', 'error' );
-    });
-  });
-
-  // Activiteiten op niet betaald zetten
+  // Admin marks participant as having not paid
   // [PATCH] participants
-  $('#participants').find('button.unpaid').on('click', function(){
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
+  $('#participants').find('button.unpaid').on('click', participant.updateUnpaid);
 
-    $.ajax({
-      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
-      type: 'PATCH',
-      data: {
-        authenticity_token: token,
-        paid: false
-      }
-    }).done(function(){
-      alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
-
-      $(row).find( 'button.unpaid' ).empty().addClass( 'paid btn-warning' ).removeClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-times"></i>' );
-      $(row).addClass( 'red' );
-
-      $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
-
-      $( 'input#search' ).select();
-
-      bind_activities();
-    }).fail(function(){
-      alert( '', 'error' );
-    });
-  });
-
-  // Deelname aan activiteiten verwijderen
+  // Admin deletes participant from activity
   // [DELETE] participants
-  $('#participants button.destroy').on('click', function(){
+  $('#participants button.destroy').on('click', participant.delete);
+
+  // Admin updates participant's price
+  // [PATCH] participants
+  $('#participants').find('input.price').on('change', participant.updatePrice);
+}
+
+/*
+ * Participant namespace containing all participant related functions
+ */
+var participant = {
+  //Update counts in the table headers
+  updateCounts : function(){
+    attendees = $('#participants-table tbody tr').length - 1; //-1 because of the add_participant row
+    reservists = $('#reservists-table tbody tr').length;
+
+    $('#attendeecount').html(attendees);
+    $('#reservistcount').html(reservists);
+  },
+
+  //Admin adds a new participant to the activity
+  add : function(data){
+    var template = $('script#activity').html();
+    var activity = template.format(data.id, data.member_id, data.name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
+    var added = $(activity).insertBefore('#participants-table tr:last');
+    $('.number').html( +$('.number').html() +1 );
+
+    if(data.price > 0)
+      $(added).addClass( 'red' );
+    else
+      $(added).find( 'button.paid' ).addClass( 'hidden' );
+
+    participant.updateCounts();
+    bind_activities();
+
+    // trigger #mail client to add recipient
+    $('#mail').trigger('recipient_added', [ data.id, name, data.email, data.price ]);
+
+    $( '#participants .form-group input#participants' ).focus();
+  },
+
+  //Admin deletes participant from activity
+  delete : function (){
     var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
@@ -82,11 +72,17 @@ function bind_activities(){
       data: {
         authenticity_token: token
       }
-    }).done(function(){
+    }).done(function(data){
       alert($(row).find('a').html() + ' verwijderd', 'warning');
       $(row).remove();
 
-      updateParticipantCounts();
+      //Move reservist to attendees if applicable
+      if (data != null) {
+        $("#reservists-table tbody tr:first").remove();
+        participant.add(data, data.name);
+      } else {
+        participant.updateCounts(); //Already executed in participant.add
+      }
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -94,11 +90,74 @@ function bind_activities(){
     }).fail(function(){
       alert( '', 'error' );
     });
-  });
+  },
 
-  // Participant bedrag aanpassen
-  // [PATCH] participants
-  $('#participants').find('input.price').on('change', function(){
+  //Admin marks participant as having paid
+  updatePaid : function (){
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
+
+    $.ajax({
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
+      type: 'PATCH',
+      data: {
+        authenticity_token: token,
+        paid: true
+      }
+    }).done(function(){
+      alert($(row).find('a').html() + ' heeft betaald', 'success');
+
+      $(row)
+        .find( 'button.paid' )
+        .empty()
+        .removeClass( 'paid btn-warning red' )
+        .addClass( 'unpaid btn-primary' )
+        .append( '<i class="fa fa-fw fa-check"></i>' );
+
+      $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
+
+      $( 'input#search' ).select();
+
+      bind_activities();
+    }).fail(function(){
+      alert( '', 'error' );
+    });
+  },
+
+  //Admin marks participant as having not paid
+  updateUnpaid : function() {
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
+
+    $.ajax({
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
+      type: 'PATCH',
+      data: {
+        authenticity_token: token,
+        paid: false
+      }
+    }).done(function(){
+      alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
+
+      $(row)
+        .find( 'button.unpaid' )
+        .empty()
+        .addClass( 'paid btn-warning red' )
+        .removeClass( 'unpaid btn-primary' )
+        .append( '<i class="fa fa-fw fa-times"></i>' );
+
+      $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
+
+      $( 'input#search' ).select();
+
+      bind_activities();
+    }).fail(function(){
+      alert( '', 'error' );
+    });
+  },
+
+  //Admin updates participant's price
+  updatePrice : function (){
     var row = $(this).closest('tr')
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var price = $(this).val().replace(',', '.');
@@ -139,42 +198,17 @@ function bind_activities(){
     }).fail(function( data ){
       alert( 'geen verbinding of geen nummer', 'error' );
     });
-  });
-}
-
-function updateParticipantCounts(){
-  // Update amounts of attendees and reservists
-  // We also assume that if the participant number drops below the limit, a reservist is enrolled automatically by the server.
-  attendees = $('#attendeecount').html();
-  reservists = $('#reservistcount').html();
-
-  // This is certain
-  attendees -= 1;
-
-  is_enrollable = document.getElementById('is_enrollable').dataset["original"] == "1";
-  participant_limit = document.getElementById('participant_limit').dataset["original"] || 0;
-
-  if (is_enrollable && attendees < participant_limit)
-  {
-    reservist -= 1;
-    attendees += 1;
-
-    luckyperson = $('#reservists-table tr:first td:first')[0];
-
-    person_name = luckyperson.innerText;
-    luckyperson.parentElement.remove();
-
-
   }
-
-  $('#attendeecount').html(attendees);
-  $('#reservistcount').html(reservists);
 }
 
+/*
+ * Document load handler
+ */
 $(document).on( 'ready page:load', function(){
   bind_activities();
 
-  $('#participants').find('input#participant').search().on('selected', function(event, id, name){
+  //Add participant to activity
+  $('#participants').find('input#participant').search().on('selected', function(event, id){
       $.ajax({
         url: '/activities/' + $('#participants-table').attr('data-id') + '/participants',
         type: 'POST',
@@ -182,51 +216,17 @@ $(document).on( 'ready page:load', function(){
           member: id
         }
       }).done(function( data ){
-        var template = $('script#activity').html();
-        var activity = template.format(data.id, data.member_id, name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
-        var added = $(activity).insertBefore('#participants-table tr:last');
-
-        $('.number').html( +$('.number').html() +1 );
-
-        if(data.price > 0)
-          $(added).addClass( 'red' );
-        else
-          $(added).find( 'button.paid' ).addClass( 'hidden' );
-
-        bind_activities();
-
-        // trigger #mail client to add recipient
-        $('#mail').trigger('recipient_added', [ data.id, name, data.email, data.price ]);
-
-        $( '#participants .form-group input#participants' ).focus();
+        participant.add(data);
       }).fail(function(){
         alert( 'Deze persoon is al toegevoegd', 'warning' );
       });
   });
 
-  $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
-    if( this.files && this.files[0] ){
-      $('form .input-group-btn .dropdown-toggle').removeClass('disabled');
-      $('form input.remove_poster').val('false');
-      $('form .input-group input#output').val(this.files[0].name);
-    }
-  });
-
-  $('form .input-group-btn a.remove').on('click', function(){
-    $('form .input-group-btn .dropdown-toggle').addClass('disabled');
-    $('form .input-group input#output').val('');
-    $('form input.remove_poster').val('true');
-
-    $('form .file-input-wrapper input[type="file"]').val(null)
-    $('form .thumb img').remove();
-  });
-
-  $('form').on('submit', function(){
-    $( this ).find('button[type="submit"].wait').addClass('disabled');
-  });
+  posterHandlers();
 
   $('form#mail').mail();
 
+  //Update search
   if( $('.filtered-search') ){
     $('input#search').on('keyup', function(){
 
@@ -249,3 +249,33 @@ $(document).on( 'ready page:load', function(){
     });
   }
 });
+
+/*
+ * Contains the poster related handlers
+ */
+function posterHandlers(){
+  //Update poster field when uploading a poseter
+  $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
+    if( this.files && this.files[0] ){
+      $('form .input-group-btn .dropdown-toggle').removeClass('disabled');
+      $('form input.remove_poster').val('false');
+      $('form .input-group input#output').val(this.files[0].name);
+    }
+  });
+
+  //Handler for removing the poster
+  $('form .input-group-btn a.remove').on('click', function(){
+    $('form .input-group-btn .dropdown-toggle').addClass('disabled');
+    $('form .input-group input#output').val('');
+    $('form input.remove_poster').val('true');
+
+    $('form .file-input-wrapper input[type="file"]').val(null)
+    $('form .thumb img').remove();
+  });
+
+  //Handler for uploading the poster (keep user waiting)
+  $('form').on('submit', function(){
+    $( this ).find('button[type="submit"].wait').addClass('disabled');
+  });
+}
+

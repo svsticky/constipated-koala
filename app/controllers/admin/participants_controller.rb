@@ -10,6 +10,7 @@ class Admin::ParticipantsController < ApplicationController
       @response = @participant.attributes #TODO refactor, very old code
       @response[ 'price' ] = @activity.price
       @response[ 'email' ] = @participant.member.email
+      @response[ 'name'  ] = @participant.member.name
 
       render :status => :created, :json => @response.to_json
     end
@@ -43,14 +44,25 @@ class Admin::ParticipantsController < ApplicationController
     ghost_participant = Participant.destroy(params[:id])
     if ghost_participant.destroyed?
       @activity = ghost_participant.activity
-      if @activity.attendees.count < @activity.participant_limit and
+      if !@activity.participant_limit.nil? and
+          @activity.attendees.count < @activity.participant_limit and
           @activity.reservists.count > 0
         luckyperson = @activity.reservists.first
         luckyperson.update!(reservist: false)
         puts "luckyperson #{luckyperson.inspect} ingeschewrne"
       end
     end
-    respond_with ghost_participant
+
+    if luckyperson
+      @response = luckyperson.attributes #TODO refactor, very old code
+      @response[ 'price' ] = @activity.price
+      @response[ 'email' ] = luckyperson.member.email
+      @response[ 'name'  ] = luckyperson.member.name
+
+      render :status => :ok, :json => @response.to_json
+    else
+      head :no_content
+    end
   end
 
   def mail
