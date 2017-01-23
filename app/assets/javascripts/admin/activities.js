@@ -85,7 +85,8 @@ function bind_activities(){
     }).done(function(){
       alert($(row).find('a').html() + ' verwijderd', 'warning');
       $(row).remove();
-      $('.number').html( $('.number').html() -1 );
+
+      updateParticipantCounts();
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -139,6 +140,35 @@ function bind_activities(){
       alert( 'geen verbinding of geen nummer', 'error' );
     });
   });
+}
+
+function updateParticipantCounts(){
+  // Update amounts of attendees and reservists
+  // We also assume that if the participant number drops below the limit, a reservist is enrolled automatically by the server.
+  attendees = $('#attendeecount').html();
+  reservists = $('#reservistcount').html();
+
+  // This is certain
+  attendees -= 1;
+
+  is_enrollable = document.getElementById('is_enrollable').dataset["original"] == "1";
+  participant_limit = document.getElementById('participant_limit').dataset["original"] || 0;
+
+  if (is_enrollable && attendees < participant_limit)
+  {
+    reservist -= 1;
+    attendees += 1;
+
+    luckyperson = $('#reservists-table tr:first td:first')[0];
+
+    person_name = luckyperson.innerText;
+    luckyperson.parentElement.remove();
+
+
+  }
+
+  $('#attendeecount').html(attendees);
+  $('#reservistcount').html(reservists);
 }
 
 $(document).on( 'ready page:load', function(){

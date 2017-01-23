@@ -38,7 +38,12 @@ class Admin::MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     # Show all activities from the given year. And make a list of years starting from the member's join_date until the last activity
-    @activities = @member.activities.study_year( params['year'] ).order( start_date: :desc ).joins( :participants ).distinct
+    @activities = @member
+      .activities
+      .study_year( params['year'] )
+      .order( start_date: :desc )
+      .joins( :participants ).distinct
+      .where( "participants.reservist = ?", false)
     @years = ( @member.join_date.study_year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
     # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
