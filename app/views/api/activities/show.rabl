@@ -31,6 +31,10 @@ node :unenroll_date do |activity|
   end
 end
 
+node :participants do |activity|
+  activity.members.collect(&:name)
+end
+
 glue :group do
   attribute :name => :group
 end
