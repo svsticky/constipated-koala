@@ -2,6 +2,10 @@
   width: 150px;
 }
 
+.poster-moreinfo img {
+	max-width: 100%;
+}
+
 .activity-info {
   padding: 0;
 }
@@ -35,4 +39,8 @@
 
 #activity-modal .modal-footer{
   margin-top: 0;
+}
+
+.custom_left {
+	padding-left: 0;
 }

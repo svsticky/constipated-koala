@@ -1,10 +1,97 @@
+- content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | #{@activity.name}")
 
 %section#enrollments
   .page.enrollment-show#content
     .container
-      .panel.panel-default
-        .panel-heading
-          = @activity.name
-        .panel-body
-          Front-end pls do the needful
+      .col-lg-9.col-md-8.col-sm-12.col-xs-12
+        .panel.panel-default.panel-activity{ :data => {:'activity-id' => @activity.id }}
+          .panel-heading
+            %span.panel-title.activity-title
+              = @activity.name
+            %span.panel-title.pull-right.activity-count
+              - if(@activity.participant_limit.nil?)
+                = @activity.participants.count
+              - elsif(@activity.participants.count >= @activity.participant_limit)
+                VOL!
+              - else
+                = @activity.participants.count
+                \/
+                = @activity.participant_limit
+            .clearfix
+          .panel-body.activity
+            .col-lg-3.col-md-4.col-sm-6.col-xs-12
+              .media-left.poster-moreinfo
+                %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+                  - if @activity.poster_updated_at.nil?
+                    =image_tag "https://koala-images.s3.amazonaws.com/activities/350/medium.png?1479996031"
+                  - else
+                    =image_tag activity.poster.url(:medium)
+
+            .col-lg-9.col-md-8.col-sm-6.col-xs-12
+              .media-body
+                %strong Omschrijving:
+                <br/>
+                - if @activity.description
+                  Geen beschrijving beschikbaar :(
+                - else
+                  = @activity.description
+                <br/>
+                <br/>
+                %strong Wanneer:
+                <br/>
+                = @activity.start_date.strftime("%d/%m/%Y")
+                om
+                = @activity.start_time.strftime("%H:%M")
+                - if @activity.end_date.nil?
+                - elsif @activity.start_date == @activity.end_date
+                - else
+                  \-
+                  = @activity.end_date.strftime("%d/%m/%Y")
+                  om
+                  = @activity.end_time.strftime("%H:%M")
+                <br/>
+                <br/>
+                %strong Inschrijfdeadline:
+                <br/>
+                = @activity.unenroll_date.strftime("%d/%m/%Y")
+                <br/>
+                <br/>
+                .col-md-6.col-sm-6.col-xs-6.custom_left
+                  %strong Prijs:
+                  <br/>
+                  &euro;
+                  = number_with_precision(@activity.price, :precision => 2)
+                  <br/><br/>
+                - if @activity.location
+                - else
+                  .col-md-6.col-sm-6.col-xs-6.custom_left
+                    %strong Locatie:
+                    <br/>
+                    = @activity.location
+                    <br/><br/>
+
+          .panel-footer.clearfix
+            .pull-right
+              .btn-group
+                = link_to "Terug", "/enrollments", class: "btn btn-default"
+                - if @enrollment.ids.include? @activity.id
+                  %button.btn.btn-warning.cancel
+                    Uitschrijven
+                - else
+                  %button.btn.btn-success.enroll
+                    Inschrijven
+
+      .col-lg-3.col-md-4.col-sm-12.col-xs-12#participants
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span.number= @activity.participants.count
+            deelnemers
+
+          %table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+            %tbody
+              - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
+                %tr
+                  %td{ :style => 'min-width: 60%; width: 25%;' }
+                    =participant.member.name

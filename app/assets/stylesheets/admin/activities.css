@@ -21,11 +21,11 @@
 }
 
 #participants tr > td {
-  width: calc( 60% - 50px );
+  width: calc(60% - 50px);
 }
 
 #participants tr > td:nth-child(2) {
-  width: calc( 40% - 50px );
+  width: calc(40% - 50px);
 
   padding-right: 5%;
   text-align: right;
@@ -43,7 +43,7 @@
   padding: 0;
 }
 
-#participants tr > td > .btn-group > button{
+#participants tr > td > .btn-group > button {
   height: 32px;
   line-height: 20px;
 
@@ -101,7 +101,6 @@
   }
 }
 
-
 #mail > #textarea, #mail > textarea#html {
   font-family: arial;
   font-size: medium;
@@ -123,4 +122,8 @@
 
 #mail:not(.html) > #textarea {
   display: block;
+}
+
+#activity_participant_limit{
+  width: 50px
 }

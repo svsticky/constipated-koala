@@ -20,7 +20,7 @@
                   \/
                   = activity.participant_limit
               .clearfix
-            .panel-body.activity-info
+            .panel-body
               .media-left.poster-thumbnail
                 %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
                   - if activity.poster_updated_at.nil?
@@ -49,7 +49,7 @@
                   %strong Locatie:
                   = activity.location
                 - if(!activity.unenroll_date.nil?)
-                  Uitschrijfdeadline:
+                  %strong Uitschrijfdeadline:
                   %span.activity-unenroll
                     = activity[ :unenroll_date ].strftime("%d/%m/%Y")
             .panel-footer.clearfix
