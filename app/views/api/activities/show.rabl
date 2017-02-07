@@ -22,12 +22,8 @@ node :end_date do |activity|
 end
 
 node :unenroll_date do |activity|
-  if activity.start_time.nil?
-    activity.unenroll_date
-  else
-    d = activity.unenroll_date
-    t = activity.start_time
-    Time.new(d.year, d.month, d.day, t.hour, t.min, 0).iso8601
+  if activity.unenroll_date
+  	activity.unenroll_date.iso8601
   end
 end
 

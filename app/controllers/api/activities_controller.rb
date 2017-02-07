@@ -20,8 +20,14 @@ class Api::ActivitiesController < ApiController
   end
 
   def authorize
-    if true
-      :authenticate_user!
+    # Either being logged in, or having a valid doorkeeper token is sufficient.
+    # This replicates the content of the doorkeeper_authorize! before_action.
+    @_doorkeeper_scopes = Doorkeeper.configuration.default_scopes
+
+    if valid_doorkeeper_token? or user_signed_in?
+      return
     end
+
+    head :unauthorized
   end
 end
