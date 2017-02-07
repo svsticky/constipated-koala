@@ -45,10 +45,10 @@
                 &euro;
                 = number_with_precision(activity[ :price ], :precision => 2)
                 <br/>
-                - if(!activity.location.nil?)
+                - if !activity.location == ''
                   %strong Locatie:
                   = activity.location
-                - if(!activity.unenroll_date.nil?)
+                - if !activity.unenroll_date.nil?
                   %strong Uitschrijfdeadline:
                   %span.activity-unenroll
                     = activity[ :unenroll_date ].strftime("%d/%m/%Y")
