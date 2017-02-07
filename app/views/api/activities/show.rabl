@@ -54,3 +54,11 @@ end
 node :poster do |activity|
   activity.poster.url(:medium) unless activity.poster_updated_at.nil?
 end
+
+node :enrollable do |activity|
+  !activity.participant_limit.nil? && activity.attendees.count < activity.participant_limit
+end
+
+node :location do |activity|
+  activity.location unless activity.location.nil?
+end
