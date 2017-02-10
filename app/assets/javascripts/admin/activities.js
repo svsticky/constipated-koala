@@ -78,8 +78,11 @@ var participant = {
 
       //Move reservist to attendees if applicable
       if (data != null) {
-        $("#reservists-table tbody tr:first").remove();
-        participant.add(data, data.name);
+        data.forEach(
+          function(item, index, array) {
+            $("#reservists-table tbody tr:first").remove();
+            participant.add(item, item.name);
+          });
       } else {
         participant.updateCounts(); //Already executed in participant.add
       }

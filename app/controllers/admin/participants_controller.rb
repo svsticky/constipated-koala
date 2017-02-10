@@ -42,22 +42,18 @@ class Admin::ParticipantsController < ApplicationController
 
   def destroy
     ghost_participant = Participant.destroy(params[:id])
-    if ghost_participant.destroyed?
-      @activity = ghost_participant.activity
-      if !@activity.participant_limit.nil? and
-          @activity.attendees.count < @activity.participant_limit and
-          @activity.reservists.count > 0
-        luckyperson = @activity.reservists.first
-        luckyperson.update!(reservist: false)
-        puts "luckyperson #{luckyperson.inspect} ingeschewrne"
-      end
-    end
 
-    if luckyperson
-      @response = luckyperson.attributes #TODO refactor, very old code
-      @response[ 'price' ] = @activity.price
-      @response[ 'email' ] = luckyperson.member.email
-      @response[ 'name'  ] = luckyperson.member.name
+    if ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists)
+      @response = []
+
+      ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists).each do |peep|
+        item = peep.attributes
+        item['price'] = peep.activity.price
+        item['email'] = peep.member.email
+        item['name']  = peep.member.name
+
+        @response << item
+      end
 
       render :status => :ok, :json => @response.to_json
     else

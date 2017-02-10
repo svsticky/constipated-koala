@@ -45,6 +45,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.debtors
+    # All participants who will receive payment reminders
     joins(:participants).where('
       activities.start_date <= ?
       AND
@@ -69,8 +70,6 @@ class Activity < ActiveRecord::Base
         )
       )', Date.today).distinct
   end
-
-  # All participants who will receive 
 
   def group
     Group.find_by_id self.organized_by
@@ -113,5 +112,28 @@ class Activity < ActiveRecord::Base
 
   def unenroll_before_start
     errors.add(:unenroll_date, :after_start_date) if start_date < unenroll_date
+  end
+
+  def enroll_reservists
+    # Check whether it is possible to enroll some reservists
+    # (participants.count < participant_limit), and then do that.
+    #
+    # This uses the following magic global to list any reservists that were
+    # enrolled, ignore at your own risk.
+    if self.is_enrollable?
+      if !self.participant_limit.nil? and
+          self.attendees.count < self.participant_limit and
+          self.reservists.count > 0
+        spots = self.participant_limit - self.attendees.count
+        luckypeople = self.reservists.first(spots)
+
+        luckypeople.each do |peep|
+          peep.update!(reservist: false)
+          puts "#{peep.member.name} geontreservist"
+        end
+
+        @magic_enrolled_reservists = luckypeople
+      end
+    end
   end
 end
