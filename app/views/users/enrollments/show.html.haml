@@ -32,7 +32,7 @@
               .media-body
                 %strong Omschrijving:
                 <br/>
-                - if @activity.description
+                - if @activity.description.blank?
                   Geen beschrijving beschikbaar :(
                 - else
                   = @activity.description
@@ -41,15 +41,17 @@
                 %strong Wanneer:
                 <br/>
                 = @activity.start_date.strftime("%d/%m/%Y")
-                om
-                = @activity.start_time.strftime("%H:%M")
+                - if @activity.start_time
+                  om
+                  = @activity.start_time.strftime("%H:%M")
                 - if @activity.end_date.nil?
                 - elsif @activity.start_date == @activity.end_date
                 - else
                   \-
                   = @activity.end_date.strftime("%d/%m/%Y")
-                  om
-                  = @activity.end_time.strftime("%H:%M")
+                  - if @activity.end_time
+                    om
+                    = @activity.end_time.strftime("%H:%M")
                 <br/>
                 <br/>
                 %strong Inschrijfdeadline:
