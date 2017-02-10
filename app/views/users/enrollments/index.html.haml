@@ -24,9 +24,9 @@
               .media-left.poster-thumbnail
                 %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
                   - if activity.poster_updated_at.nil?
-                    =image_tag "https://koala-images.s3.amazonaws.com/activities/350/thumb.png?1479996031", class: "small-poster"
+                    =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster"
                   - else
-                    =image_tag activity.poster.url(:thumb), id: "small-poster"
+                    =image_tag activity.poster.url(:thumb), class: "small-poster"
               .media-body
                 %strong Datum:
                 = activity[ :start_date ].strftime("%d/%m/%Y")
