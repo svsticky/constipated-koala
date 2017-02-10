@@ -98,16 +98,16 @@ function enroll_activity() {
   var activity_button = this;
   var activity_participants = activity.find('.activity-count')[0];
   var activity_title = activity.find('.activity-title')[0];
-	var date_unsplit = activity.find('.activity-unenroll')[0]
-	if(typeof date_unsplit !== "undefined"){
-		var date_split = date_unsplit.innerText.split("/");
-		var activity_unenroll = new Date(date_split[2], date_split[1]-1, date_split[0])
-		if($.now()>activity_unenroll){
-			if(!confirm("De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven")){
-				return;
-			}
-		}
-	}
+  var date_unsplit = activity.find('.activity-unenroll')[0]
+  if (typeof date_unsplit !== "undefined") {
+    var date_split = date_unsplit.innerText.split("/");
+    var activity_unenroll = new Date(date_split[2], date_split[1] - 1, date_split[0])
+    if ($.now() > activity_unenroll) {
+      if (!confirm("De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven")) {
+        return;
+      }
+    }
+  }
 
   response = $.ajax({
     url: '/enrollments/' + activity_id,
@@ -125,7 +125,7 @@ function enroll_activity() {
     if (response.status == 200) {
       button_text = "Uitschrijven";
       button_class = "btn-danger"
-    //Back-up list enrollments
+      //Back-up list enrollments
     } else if (response.status == 202) {
       button_text = "Reservelijst"
       button_class = "btn-warning"
@@ -141,6 +141,7 @@ function enroll_activity() {
     $($(activity_button).children()[0]).toggleClass('fa-times fa-check');
     activity_button.innerText = button_text;
     updateParticipantsLimit(activity, activity_participants);
+    updateParticipantsList(activity_id);
 
   }).fail(function (data) {
     if (!data.responseJSON) {
@@ -160,18 +161,18 @@ function cancel_activity() {
   var activity_button = this;
   var activity_participants = activity.find('.activity-count')[0];
   var activity_title = activity.find('.activity-title')[0];
-	var date_unsplit = activity.find('.activity-unenroll')[0]
-	if(typeof date_unsplit !== "undefined"){
-		var date_split = date_unsplit.innerText.split("/");
-		var activity_unenroll = new Date(date_split[2], date_split[1]-1, date_split[0])
-		if($.now()>activity_unenroll){
-			alert("Je kunt je niet meer uitschrijven na de uitschrijfdeadline, sorry :(")
-			return;
-		}
-	}
+  var date_unsplit = activity.find('.activity-unenroll')[0]
+  if (typeof date_unsplit !== "undefined") {
+    var date_split = date_unsplit.innerText.split("/");
+    var activity_unenroll = new Date(date_split[2], date_split[1] - 1, date_split[0])
+    if ($.now() > activity_unenroll) {
+      alert("Je kunt je niet meer uitschrijven na de uitschrijfdeadline, sorry :(")
+      return;
+    }
+  }
 
-	if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
-		return;
+  if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
+    return;
 
   $.ajax({
     url: '/enrollments/' + activity_id,
@@ -194,6 +195,7 @@ function cancel_activity() {
     $($(activity_button).children()[0]).toggleClass('fa-check fa-times');
     activity_button.innerText = "Inschrijven";
     updateParticipantsLimit(activity, activity_participants);
+    updateParticipantsList(activity_id);
 
   }).fail(function (data) {
     if (!data.responseJSON) {
@@ -217,4 +219,27 @@ function updateParticipantsLimit(activity, activity_participants) {
     else
       activity_participants.innerText = activity.participant_count + ' / ' + activity.participant_limit;
   }
+}
+
+function updateParticipantsList(activity_id) {
+  var attendeesTable = $('#attendees');
+  var reservistsTable = $('#reservists');
+
+  if (attendeesTable.length == 0)
+    return;
+
+  $.ajax('/api/activities/' + activity_id).done(function (activity) {
+    attendeesTable.html('');
+    activity.attendees.forEach(function (name) {
+      attendeesTable.append('<tr><td>' + name + '</td></tr>');
+    });
+
+    reservistsTable.html('');
+    activity.reservists.forEach(function (name) {
+      reservistsTable.append('<tr><td>' + name + '</td></tr>');
+    });
+
+    $('#attendees-count').html(activity.attendees.length);
+    $('#reservists-count').html(activity.reservists.length)
+  });
 }
