@@ -100,6 +100,24 @@ class Activity < ActiveRecord::Base
     write_attribute(:price, NIL) if price == 0
   end
 
+  def self.combine_dt(d, t)
+    if t
+      DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
+    elsif d
+      DateTime.new(d.year, d.month, d.day)
+    else
+      nil
+    end
+  end
+
+  def start
+    Activity.combine_dt(self.start_date, self.start_time)
+  end
+
+  def end
+    Activity.combine_dt(self.end_date, self.end_time)
+  end
+
   def end_is_possible
     errors.add(:end_date, :before_start_date) if end_date < start_date
 
@@ -122,7 +140,7 @@ class Activity < ActiveRecord::Base
     #
     # This uses the following magic global to list any reservists that were
     # enrolled, ignore at your own risk.
-    if self.is_enrollable?
+    if self.is_enrollable? and self.start >= DateTime.now
       if !self.participant_limit.nil? and
           self.attendees.count < self.participant_limit and
           self.reservists.count > 0
