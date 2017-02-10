@@ -76,7 +76,7 @@
               .btn-group
                 = link_to "Terug", "/enrollments", class: "btn btn-default"
                 - if @enrollment.ids.include? @activity.id
-                  %button.btn.btn-warning.cancel
+                  %button.btn.btn-warning.danger
                     Uitschrijven
                 - else
                   %button.btn.btn-success.enroll

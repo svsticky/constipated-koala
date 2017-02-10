@@ -26,8 +26,10 @@
                 %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
                   %td= link_to "#{participant.member.name}", participant.member
 
-                  %td{ :style => 'padding: 0px; min-width: 60%; width: 25%;' }
+                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
                     %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
+                  %td{ :style => 'min-width: 50%; width: 50%;' }
+                    %p participant.member_notes
                   %td.buttons
                     .btn-group
                       - if participant.paid
