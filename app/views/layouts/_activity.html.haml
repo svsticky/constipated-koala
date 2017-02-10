@@ -87,6 +87,12 @@
               = f.select :organized_by, options_for_select(Group.has_members.order(:category, :name).map{ |group| [group.name, group.id] }, @activity.organized_by), :include_blank => '-'
 
       .form-group
+        .row
+          .col-md-12
+            = label(:activity, :notes)
+            = f.text_field :notes, :class => 'form-control'
+
+      .form-group
         = label(:activity, :comments)
         = f.text_area :comments, :value => @activity.comments, :class => 'form-control'
 

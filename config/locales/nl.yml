@@ -57,6 +57,8 @@ nl:
         unenroll_date: Uitschrijfdeadline
         comments: Opmerkingen
         organized_by: Organisator
+        notes: Extra specificatie
+        location: Locatie
 
       group:
         name: Naam

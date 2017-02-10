@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109103831) do
+ActiveRecord::Schema.define(version: 20170210095842) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170109103831) do
     t.integer  "participant_limit",   limit: 4
     t.string   "location",            limit: 255
     t.date     "unenroll_date"
+    t.string   "notes",               limit: 255
   end
 
   create_table "admins", force: :cascade do |t|
@@ -230,11 +231,12 @@ ActiveRecord::Schema.define(version: 20170109103831) do
   create_table "participants", force: :cascade do |t|
     t.integer  "member_id",   limit: 4
     t.integer  "activity_id", limit: 4
-    t.decimal  "price",                 precision: 6, scale: 2
-    t.boolean  "paid",                                          default: false
+    t.decimal  "price",                   precision: 6, scale: 2
+    t.boolean  "paid",                                            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "reservist",                                     default: false
+    t.boolean  "reservist",                                       default: false
+    t.string   "notes",       limit: 255
   end
 
   add_index "participants", ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true, using: :btree
