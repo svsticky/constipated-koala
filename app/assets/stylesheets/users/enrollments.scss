@@ -44,3 +44,67 @@
 .custom_left {
 	padding-left: 0;
 }
+
+/* Danny please do the needful */
+.cramtable tr > td {
+    padding: 0 0 0 8px !important; // Overrides table-linked padding which is apparently more specific
+    vertical-align: middle;
+}
+
+.cramtable tr > td > a {
+  line-height: 36px;
+
+  height: 36px;
+  width: 100%;
+}
+
+.cramtable tr > td > input {
+  height: 32px;
+  width: 100%;
+  line-height: 32px;
+
+  margin: 5px 0;
+  padding: 1px;
+}
+
+.cramtable tr > td {
+  width: calc(60% - 50px);
+}
+
+.cramtable tr > td:nth-child(2) {
+  width: calc(40% - 50px);
+
+  padding-right: 5%;
+  text-align: right;
+}
+
+.cramtable tr > td.buttons {
+  width: 100px;
+}
+
+.cramtable tr > td > .btn-group {
+  height: 30px;
+  float: right;
+
+  margin: 2px 0 4px 0;
+  padding: 0;
+}
+
+.cramtable tr > td > .btn-group > button {
+  height: 32px;
+  line-height: 20px;
+
+  padding: 5px 12px;
+}
+
+.cramtable tr > td > ul.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 4px;
+  top: 30px;
+}
+
+.cramtable tr > td > ul.dropdown-menu > li:not(.active) > a:hover {
+  background-color: white;
+  color: #767676;
+}

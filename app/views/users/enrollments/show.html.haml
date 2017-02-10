@@ -4,18 +4,18 @@
 %section#enrollments
   .page.enrollment-show#content
     .container
-      .col-lg-9.col-md-8.col-sm-12.col-xs-12
+      .col-lg-6.col-md-6.col-xs-12
         .panel.panel-default.panel-activity{ :data => {:'activity-id' => @activity.id }}
           .panel-heading
             %span.panel-title.activity-title
               = @activity.name
             %span.panel-title.pull-right.activity-count
               - if(@activity.participant_limit.nil?)
-                = @activity.participants.count
-              - elsif(@activity.participants.count >= @activity.participant_limit)
+                = @activity.attendees.count
+              - elsif(@activity.attendees.count >= @activity.participant_limit)
                 VOL!
               - else
-                = @activity.participants.count
+                = @activity.attendees.count
                 \/
                 = @activity.participant_limit
             .clearfix
@@ -57,7 +57,7 @@
                 = @activity.unenroll_date.strftime("%d/%m/%Y")
                 <br/>
                 <br/>
-                .col-md-6.col-sm-6.col-xs-6.custom_left
+                .col-md-6.col-xs-6.custom_left
                   %strong Prijs:
                   <br/>
                   &euro;
@@ -65,7 +65,7 @@
                   <br/><br/>
                 - if @activity.location
                 - else
-                  .col-md-6.col-sm-6.col-xs-6.custom_left
+                  .col-md-6.col-xs-6.custom_left
                     %strong Locatie:
                     <br/>
                     = @activity.location
@@ -82,16 +82,30 @@
                   %button.btn.btn-success.enroll
                     Inschrijven
 
-      .col-lg-3.col-md-4.col-sm-12.col-xs-12#participants
+      .col-lg-3.col-md-3.col-xs-12.cramtable#participants
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            %span.number= @activity.participants.count
+            %span.number= @activity.attendees.count
             deelnemers
 
           %table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
             %tbody
-              - @activity.participants.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
+              - @activity.attendees.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
                 %tr
                   %td{ :style => 'min-width: 60%; width: 25%;' }
                     =participant.member.name
+
+      .col-lg-3.col-md-3.col-xs-12.cramtable#reservists
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span.number= @activity.reservists.count
+            op reservelijst
+
+          %table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+            %tbody
+              - @activity.reservists.joins(:member).each do |reservist|
+                %tr
+                  %td{ :style => 'min-width: 60%; width: 25%' }
+                    =reservist.member.name
