@@ -77,14 +77,21 @@
             .pull-right
               .btn-group
                 = link_to "Terug", "/enrollments", class: "btn btn-default"
-                - if @enrollment.ids.include? @activity.id
-                  %button.btn.btn-warning.cancel
-                    Uitschrijven
+                - if @current_member.confirmed_activities.ids.include? @activity.id
+                  - if !@activity.unenroll_date.nil? && @activity.unenroll_date < Date.today;
+                    %button.btn.btn-danger.disabled.enrollment
+                      Uitschrijven
+                  - else
+                    %button.btn.btn-danger.enrollment
+                      Uitschrijven
+                - elsif @current_member.reservist_activities.ids.include? @activity.id
+                  %button.btn.btn-warning.enrollment
+                    Reservelijst
                 - else
-                  %button.btn.btn-success.enroll
+                  %button.btn.btn-success.enrollment
                     Inschrijven
 
-      .col-lg-3.col-md-3.col-xs-12.cramtable#participants
+      .col-lg-3.col-md-3.col-xs-12.cramtable
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
@@ -98,14 +105,14 @@
                   %td{ :style => 'min-width: 60%; width: 25%;' }
                     =participant.member.name
 
-      .col-lg-3.col-md-3.col-xs-12.cramtable#reservists
+      .col-lg-3.col-md-3.col-xs-12.cramtable
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            %span.number= @activity.reservists.count
+            %span#reservists-count.number= @activity.reservists.count
             op reservelijst
 
-          %table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+          %table#reservists.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
             %tbody
               - @activity.reservists.joins(:member).each do |reservist|
                 %tr

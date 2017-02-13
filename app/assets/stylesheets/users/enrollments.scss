@@ -1,3 +1,9 @@
+/*
+ *= require_self
+ *= require sweetalert
+ *= require_tree .
+ */
+
 .poster-thumbnail img {
   width: 150px;
 }
@@ -33,12 +39,16 @@
   white-space: nowrap;
 }
 
-#activity-modal{
+#poster-modal{
   text-align: center;
 }
 
-#activity-modal .modal-footer{
+#poster-modal .modal-footer{
   margin-top: 0;
+}
+
+#poster-modal .activity-title{
+  max-width: 100%;
 }
 
 .custom_left {
