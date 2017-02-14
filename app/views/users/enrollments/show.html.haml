@@ -20,15 +20,15 @@
                 = @activity.participant_limit
             .clearfix
           .panel-body.activity
-            .col-lg-3.col-md-4.col-sm-6.col-xs-12
-              .media-left.poster-moreinfo
+            .col-lg-6.col-md-4.col-sm-6.col-xs-12
+              .poster-moreinfo
                 %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
                   - if @activity.poster_updated_at.nil?
                     =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg"
                   - else
                     =image_tag activity.poster.url(:medium)
 
-            .col-lg-9.col-md-8.col-sm-6.col-xs-12
+            .col-lg-6.col-md-8.col-sm-6.col-xs-12
               .media-body
                 %strong Omschrijving:
                 <br/>
