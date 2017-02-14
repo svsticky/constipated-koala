@@ -82,6 +82,6 @@ class Users::EnrollmentsController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @enrollment = Member.find(current_user.credentials_id).activities.where(id: @activity.id)
+    @current_member = Member.find(current_user.credentials_id)
   end
 end

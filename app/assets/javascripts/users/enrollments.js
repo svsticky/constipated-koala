@@ -1,245 +1,138 @@
-$(document).on('ready page:load', bind_enrollments);
+//= require sweetalert
 
-/**
- * Register all click handlers for enrollments
- */
-function bind_enrollments() {
+//TODO jquery plugins for modal and activity
+//TODO modal class
+//TODO poster nav button hide/show to modol class
 
-  //Registering for an activity
-  //[POST] enrollments/:id
-  $('#enrollments').find('button.enroll').on('click', enroll_activity);
+var token, modal, activity_container;
 
-  //De-registering for an activity
-  //[DELETE] enrollments/:id
-  $('#enrollments').find('button.cancel').on('click', cancel_activity);
+function find_in_object(object, checkFunction) {
+  for (var p in object) {
+    if (object.hasOwnProperty(p) && checkFunction(object[p]))
+      return object[p];
+  }
+}
 
-  //Add event handler to poster to show the modal
-  $(".show-poster-modal").on("click", function () {
-    loadDataToModal($(this).closest('.panel-activity'));
-    $('#poster-modal').modal('show');
+function batch_edit_properties(obj, edit_function) {
+  Object.keys(obj).forEach(function (key) {
+    obj[key] = edit_function(key, obj[key], obj);
   });
 
-  //Add event handler to go to the previous activity in the modal
-  $("#prev-poster").on("click", function () {
-    prevPoster();
-  });
+  return obj;
+}
 
-  //Add event handler to go to the next activity in the modal
-  $("#next-poster").on("click", function () {
-    nextPoster();
-  });
+function confirm_enroll(activity) {
+  swal({
+      title: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Jep!",
+      closeOnConfirm: false
+    },
+    // on confirm
+    function () {
+      if (activity.has_un_enroll_date_passed())
+        confirm_un_enroll_date_passed(activity);
+      else {
+        swal.close();
+        activity.enroll();
+      }
+    }
+  );
+}
+
+function confirm_un_enroll_date_passed(activity) {
+  swal({
+      title: "De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Jep!"
+    }
+    // anonymous function, because this is set to the sweetalert
+    , function () {
+      activity.enroll();
+    }
+  );
+}
+
+function confirm_un_enroll(activity) {
+  if (activity.has_un_enroll_date_passed()) {
+    swal('Uitschrijven mislukt!', 'De uitschrijfdeadline is al verstreken.', 'error');
+    return;
+  }
+
+  swal({
+      title: "Je schrijft je uit voor deze activiteit. Weet je het zeker?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Jep!"
+    }
+    // anonymous function, because this is set to the sweetalert
+    , function () {
+      activity.un_enroll();
+    }
+  );
 }
 
 /**
  * Loads the previous activity to the modal
  */
-function prevPoster() {
-  var currentID = $("#activity-modal").attr("data-activity-id");
-  var currentActivity = $(".panel-activity[data-activity-id=" + currentID + "]");
-  var prevActivity = currentActivity.parent().prev().find('.panel-activity');
-
-  loadDataToModal(prevActivity);
+function prev_poster() {
+  modal.activity_data.current.prev_activity.load_data_to_modal();
 }
 
 /**
  * Loads the next activity to the modal
  */
-function nextPoster() {
-  var currentID = $("#activity-modal").attr("data-activity-id");
-  var currentActivity = $(".panel-activity[data-activity-id=" + currentID + "]");
-  var nextActivity = currentActivity.parent().next().find('.panel-activity');
-
-  loadDataToModal(nextActivity);
+function next_poster() {
+  modal.activity_data.current.next_activity.load_data_to_modal();
 }
 
-/**
- * Loads data of a panel-activity to the modal
- * @param panelActivity a node containing a panel-activity class
- */
-function loadDataToModal(panelActivity) {
-  //Load the poster of the panel activity in the modal
-  $('#image-view').attr('src', panelActivity.find('.small-poster').attr('src').replace('thumb', 'medium'));
+function initialize_enrollment() {
+  activity_container = $('#activity-container');
 
-  //set the more info href
-  $('#more-info-link').attr('href', panelActivity.find('.more-info').attr('href'));
-
-  //Load the title of the panel activity in the modal
-  $('#activity-title').html(panelActivity.find('.activity-title').html());
-
-  //Load the id of the panel activity in de modal
-  $("#activity-modal").attr("data-activity-id", panelActivity.attr("data-activity-id"));
-
-  //Check if there are previous activities to go to
-  if (panelActivity.parent().prev().length == 0) {
-    $('#prev-poster').css("display", "none");
-  } else {
-    $('#prev-poster').css("display", "inline-block");
-  }
-
-  //Check if there are any next activities to go to
-  if (panelActivity.parent().next().length == 0) {
-    $('#next-poster').css("display", "none");
-  } else {
-    $('#next-poster').css("display", "inline-block");
-  }
-}
-
-
-/**
- * Enroll user for activity when clicked
- */
-function enroll_activity() {
-  if (!confirm("Je wordt ingeschreven voor deze activiteit. Weet je het zeker?"))
-    return;
-
-  var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-  var activity = $(this).closest('.panel');
-  var activity_id = activity.attr('data-activity-id');
-  var activity_button = this;
-  var activity_participants = activity.find('.activity-count')[0];
-  var activity_title = activity.find('.activity-title')[0];
-  var date_unsplit = activity.find('.activity-unenroll')[0]
-  if (typeof date_unsplit !== "undefined") {
-    var date_split = date_unsplit.innerText.split("/");
-    var activity_unenroll = new Date(date_split[2], date_split[1] - 1, date_split[0])
-    if ($.now() > activity_unenroll) {
-      if (!confirm("De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven")) {
-        return;
-      }
-    }
-  }
-
-  response = $.ajax({
-    url: '/enrollments/' + activity_id,
-    type: 'POST',
-    data: {
-      authenticity_token: token
-    }
-  }).done(function (activity) {
-    //Alert user of  enrollment
-    alert(activity.message, 'success');
-
-    var button_text, button_class;
-
-    //Normal enrollment
-    if (response.status == 200) {
-      button_text = "Uitschrijven";
-      button_class = "btn-danger"
-      //Back-up list enrollments
-    } else if (response.status == 202) {
-      button_text = "Reservelijst"
-      button_class = "btn-warning"
-    }
-
-    //Update button color and event-handler
-    $(activity_button)
-      .toggleClass('enroll btn-success cancel ' + button_class)
-      .off('click')
-      .on('click', cancel_activity)
-
-    //Toggle button icon and text, update participant counts
-    $($(activity_button).children()[0]).toggleClass('fa-times fa-check');
-    activity_button.innerText = button_text;
-    updateParticipantsLimit(activity, activity_participants);
-    updateParticipantsList(activity_id);
-
-  }).fail(function (data) {
-    if (!data.responseJSON) {
-      data.responseJSON = {message: 'Could not enroll for activity'};
-    }
-    alert(data.responseJSON.message, 'error');
-  });
-}
-
-/**
- * Cancel user's enrollment when clicked
- */
-function cancel_activity() {
-  var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-  var activity = $(this).closest('.panel');
-  var activity_id = activity.attr('data-activity-id');
-  var activity_button = this;
-  var activity_participants = activity.find('.activity-count')[0];
-  var activity_title = activity.find('.activity-title')[0];
-  var date_unsplit = activity.find('.activity-unenroll')[0]
-  if (typeof date_unsplit !== "undefined") {
-    var date_split = date_unsplit.innerText.split("/");
-    var activity_unenroll = new Date(date_split[2], date_split[1] - 1, date_split[0])
-    if ($.now() > activity_unenroll) {
-      alert("Je kunt je niet meer uitschrijven na de uitschrijfdeadline, sorry :(")
-      return;
-    }
-  }
-
-  if (!confirm("Je schrijft je uit voor deze activiteit. Weet je het zeker?"))
-    return;
-
-  $.ajax({
-    url: '/enrollments/' + activity_id,
-    type: 'DELETE',
-    data: {
-      authenticity_token: token
-    }
-  }).done(function (activity) {
-    //Alert user of cancellation of enrollment
-    alert(activity.message, 'warning');
-
-    //Update button color and event-handler
-    $(activity_button)
-      .removeClass('btn-danger btn-warning')
-      .toggleClass('cancel enroll btn-success')
-      .off('click')
-      .on('click', enroll_activity);
-
-    //Toggle button icon and text, update participant counts
-    $($(activity_button).children()[0]).toggleClass('fa-check fa-times');
-    activity_button.innerText = "Inschrijven";
-    updateParticipantsLimit(activity, activity_participants);
-    updateParticipantsList(activity_id);
-
-  }).fail(function (data) {
-    if (!data.responseJSON) {
-      data.responseJSON = {message: 'Could not enroll for activity'};
-    }
-    alert(data.responseJSON.message, 'error');
-  });
-}
-
-/**
- * Update the participants
- * @activity Activity in json
- * @activity_partipants Element indicating the number of participants
- */
-function updateParticipantsLimit(activity, activity_participants) {
-  if (activity.participant_limit == null)
-    activity_participants.innerText = activity.participant_count;
-  else {
-    if (activity.participant_count >= activity.participant_limit)
-      activity_participants.innerText = "VOL!";
+  $('#enrollments').find('button.enrollment').on('click', function () {
+    var activity = new Activity($(this).closest('.panel-activity'));
+    if (activity.is_enrollable())
+      confirm_enroll(activity);
     else
-      activity_participants.innerText = activity.participant_count + ' / ' + activity.participant_limit;
-  }
-}
-
-function updateParticipantsList(activity_id) {
-  var attendeesTable = $('#attendees');
-  var reservistsTable = $('#reservists');
-
-  if (attendeesTable.length == 0)
-    return;
-
-  $.ajax('/api/activities/' + activity_id).done(function (activity) {
-    attendeesTable.html('');
-    activity.attendees.forEach(function (name) {
-      attendeesTable.append('<tr><td>' + name + '</td></tr>');
-    });
-
-    reservistsTable.html('');
-    activity.reservists.forEach(function (name) {
-      reservistsTable.append('<tr><td>' + name + '</td></tr>');
-    });
-
-    $('#attendees-count').html(activity.attendees.length);
-    $('#reservists-count').html(activity.reservists.length)
+      confirm_un_enroll(activity);
   });
 }
+
+function initialize_modal() {
+  modal = $('#poster-modal');
+
+  modal.activity_data = {
+    img: modal.find('img')
+    , title: modal.find('.activity-title')
+    , more_info_link: modal.find('.more-info')
+  };
+
+  //Add event handler to poster to show the modal
+  $(".show-poster-modal").on("click", function () {
+    var activity = new Activity($(this).closest('.panel-activity'));
+    activity.load_data_to_modal();
+
+    modal.modal('show');
+  });
+
+//Add event handler to go to the previous activity in the modal
+  $("#prev-poster").on("click", prev_poster);
+
+//Add event handler to go to the next activity in the modal
+  $("#next-poster").on("click", next_poster);
+}
+
+/**
+ * Register all click handlers for enrollments
+ */
+$(document).on('ready page:load', function () {
+  token = encodeURIComponent($(this).find('.page').attr('data-authenticity-token'));
+
+  initialize_enrollment();
+  initialize_modal();
+});

@@ -2,6 +2,8 @@ class Participant < ActiveRecord::Base
   belongs_to :member
   belongs_to :activity
 
+  after_destroy :enroll_reservist
+
   is_impressionable
 
   def price=(price)
@@ -18,5 +20,9 @@ class Participant < ActiveRecord::Base
   before_validation do
     self.paid = false if self.price_changed?
     write_attribute(:price, NIL) if activity.price == self.price
+  end
+
+  def enroll_reservist
+    self.activity.enroll_reservists
   end
 end

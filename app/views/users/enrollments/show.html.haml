@@ -4,18 +4,18 @@
 %section#enrollments
   .page.enrollment-show#content
     .container
-      .col-lg-9.col-md-8.col-sm-12.col-xs-12
+      .col-lg-6.col-md-6.col-xs-12
         .panel.panel-default.panel-activity{ :data => {:'activity-id' => @activity.id }}
           .panel-heading
             %span.panel-title.activity-title
               = @activity.name
             %span.panel-title.pull-right.activity-count
               - if(@activity.participant_limit.nil?)
-                = @activity.participants.count
-              - elsif(@activity.participants.count >= @activity.participant_limit)
+                = @activity.attendees.count
+              - elsif(@activity.attendees.count >= @activity.participant_limit)
                 VOL!
               - else
-                = @activity.participants.count
+                = @activity.attendees.count
                 \/
                 = @activity.participant_limit
             .clearfix
@@ -32,7 +32,7 @@
               .media-body
                 %strong Omschrijving:
                 <br/>
-                - if @activity.description
+                - if @activity.description.blank?
                   Geen beschrijving beschikbaar :(
                 - else
                   = @activity.description
@@ -59,7 +59,7 @@
                 = @activity.unenroll_date.strftime("%d/%m/%Y")
                 <br/>
                 <br/>
-                .col-md-6.col-sm-6.col-xs-6.custom_left
+                .col-md-6.col-xs-6.custom_left
                   %strong Prijs:
                   <br/>
                   &euro;
@@ -67,7 +67,7 @@
                   <br/><br/>
                 - if @activity.location
                 - else
-                  .col-md-6.col-sm-6.col-xs-6.custom_left
+                  .col-md-6.col-xs-6.custom_left
                     %strong Locatie:
                     <br/>
                     = @activity.location
@@ -77,14 +77,21 @@
             .pull-right
               .btn-group
                 = link_to "Terug", "/enrollments", class: "btn btn-default"
-                - if @enrollment.ids.include? @activity.id
-                  %button.btn.btn-warning.danger
-                    Uitschrijven
+                - if @current_member.confirmed_activities.ids.include? @activity.id
+                  - if !@activity.unenroll_date.nil? && @activity.unenroll_date < Date.today;
+                    %button.btn.btn-danger.disabled.enrollment
+                      Uitschrijven
+                  - else
+                    %button.btn.btn-danger.enrollment
+                      Uitschrijven
+                - elsif @current_member.reservist_activities.ids.include? @activity.id
+                  %button.btn.btn-warning.enrollment
+                    Reservelijst
                 - else
-                  %button.btn.btn-success.enroll
+                  %button.btn.btn-success.enrollment
                     Inschrijven
 
-      .col-lg-3.col-md-4.col-sm-12.col-xs-12#participants
+      .col-lg-3.col-md-3.col-xs-12.cramtable
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
@@ -98,15 +105,16 @@
                   %td{ :style => 'min-width: 60%; width: 25%;' }
                     =participant.member.name
 
+      .col-lg-3.col-md-3.col-xs-12.cramtable
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
             %span#reservists-count.number= @activity.reservists.count
-            Reserves
+            op reservelijst
 
           %table#reservists.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
             %tbody
-              - @activity.reservists.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
+              - @activity.reservists.joins(:member).each do |reservist|
                 %tr
-                  %td{ :style => 'min-width: 60%; width: 25%;' }
-                    =participant.member.name
+                  %td{ :style => 'min-width: 60%; width: 25%' }
+                    =reservist.member.name
