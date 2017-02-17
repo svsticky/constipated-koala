@@ -138,9 +138,11 @@ class Activity < ActiveRecord::Base
     # Check whether it is possible to enroll some reservists
     # (participants.count < participant_limit), and then do that.
     #
-    # This uses the following magic global to list any reservists that were
+    # Will not run if the unenroll_date has passed.
+    #
+    # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
-    if self.is_enrollable? and self.start >= DateTime.now
+    if self.is_enrollable? and self.unenroll_date >= DateTime.now
       if !self.participant_limit.nil? and
           self.attendees.count < self.participant_limit and
           self.reservists.count > 0
