@@ -54,6 +54,10 @@
                     %strong Uitschrijf-deadline:
                     %span.activity-unenroll
                       = activity[ :unenroll_date ].strftime("%d/%m/%Y")
+
+              -if activity.notes
+                .col-lg-12
+                  Insert the text field here
             .panel-footer.clearfix
               .pull-right
                 .btn-group
