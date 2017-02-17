@@ -22,6 +22,16 @@
 
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
+              %tr
+                %td
+                  Naam
+                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                  Prijs
+                %td{ :style => 'min-width: 50%; width: 50%;' }
+                  -if @activity.notes
+                    =@activity.notes
+
+                %td.buttons
               - @attendees.each do |participant|
                 %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
                   %td= link_to "#{participant.member.name}", participant.member
@@ -50,6 +60,7 @@
                     %span{ :style => 'line-height: 39px; margin-left: 8px;' }= number_to_currency(@activity.price, :unit => '€')
                   - else
                     %span{ :style => 'line-height: 39px; margin-left: 8px;' } -
+                %td
                 %td
 
         .panel.panel-default
