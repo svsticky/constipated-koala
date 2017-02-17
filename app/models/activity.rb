@@ -170,16 +170,21 @@ class Activity < ActiveRecord::Base
     # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
     if self.is_enrollable? and self.unenroll_date >= DateTime.now
-      if !self.participant_limit.nil? and
-          self.attendees.count < self.participant_limit and
-          self.reservists.count > 0
-        spots = self.participant_limit - self.attendees.count
-        luckypeople = self.reservists.first(spots)
+      if self.reservists.count > 0
+	if self.participant_limit.nil?
+	  spots = self.reservists.count
+	else
+	  if self.attendees.count < self.participant_limit
+	    spots = self.participant_limit - self.attendees.count
+	  else
+            spots = 0
+	  end
+	end
+	luckypeople = self.reservists.first(spots)
 
         luckypeople.each do |peep|
-          peep.update!(reservist: false)
-          puts "#{peep.member.name} geontreservist"
-        end
+	  peep.update!(reservist: false)
+	end
 
         @magic_enrolled_reservists = luckypeople
       end
