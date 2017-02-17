@@ -21,37 +21,39 @@
                   = activity.participant_limit
               .clearfix
             .panel-body
-              .media-left.poster-thumbnail
-                %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
-                  - if activity.poster_updated_at.nil?
-                    =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster"
+              .col-lg-6.col-md-6.col-sm-12.activity-info.text-center
+                .poster-thumbnail
+                  %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+                    - if activity.poster_updated_at.nil?
+                      =image_tag("https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster center-block")
+                    - else
+                      =image_tag(activity.poster.url(:thumb), class: "small-poster center-block")
+              .col-lg-6.col-md-6.col-sm-12.activity-info
+                .media-body
+                  %strong Datum:
+                  = activity[ :start_date ].strftime("%d/%m/%Y")
+                  - if activity.end_date.nil?
+                  - elsif activity.start_date == activity.end_date
                   - else
-                    =image_tag activity.poster.url(:thumb), class: "small-poster"
-              .media-body
-                %strong Datum:
-                = activity[ :start_date ].strftime("%d/%m/%Y")
-                - if activity.end_date.nil?
-                - elsif activity.start_date == activity.end_date
-                - else
-                  \-
-                  = activity[ :end_date ].strftime("%d/%m/%Y")
-                - if activity.start_time.nil?
-                - else
+                    \-
+                    = activity[ :end_date ].strftime("%d/%m/%Y")
+                  - if activity.start_time.nil?
+                  - else
+                    <br/>
+                    %strong Begintijd:
+                    = activity[ :start_time ].strftime("%H:%M")
                   <br/>
-                  %strong Begintijd:
-                  = activity[ :start_time ].strftime("%H:%M")
-                <br/>
-                %strong Prijs:
-                &euro;
-                = number_with_precision(activity[ :price ], :precision => 2)
-                <br/>
-                - if !activity.location == ''
-                  %strong Locatie:
-                  = activity.location
-                - if !activity.unenroll_date.nil?
-                  %strong Uitschrijfdeadline:
-                  %span.activity-unenroll
-                    = activity[ :unenroll_date ].strftime("%d/%m/%Y")
+                  %strong Prijs:
+                  &euro;
+                  = number_with_precision(activity[ :price ], :precision => 2)
+                  <br/>
+                  - if !activity.location == ''
+                    %strong Locatie:
+                    = activity.location
+                  - if !activity.unenroll_date.nil?
+                    %strong Uitschrijf-deadline:
+                    %span.activity-unenroll
+                      = activity[ :unenroll_date ].strftime("%d/%m/%Y")
             .panel-footer.clearfix
               .pull-right
                 .btn-group

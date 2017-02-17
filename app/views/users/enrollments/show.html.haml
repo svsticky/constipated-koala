@@ -20,13 +20,13 @@
                 = @activity.participant_limit
             .clearfix
           .panel-body.activity
-            .col-lg-6.col-md-4.col-sm-6.col-xs-12
+            .col-lg-6.col-md-4.col-sm-6.col-xs-12.text-center
               .poster-moreinfo
                 %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
                   - if @activity.poster_updated_at.nil?
-                    =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg"
+                    =image_tag("https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "center-block")
                   - else
-                    =image_tag activity.poster.url(:medium)
+                    =image_tag(activity.poster.url(:medium), class: "center-block")
 
             .col-lg-6.col-md-8.col-sm-6.col-xs-12
               .media-body
