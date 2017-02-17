@@ -15,7 +15,7 @@ class Activity < ActiveRecord::Base
 
   is_impressionable
 
-  after_update :enroll_reservists, if: "participant_limit_changed?"
+  after_update :enroll_reservists, if: "participant_limit_change"
 
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x1080', :png] },
