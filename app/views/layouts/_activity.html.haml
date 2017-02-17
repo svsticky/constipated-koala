@@ -90,7 +90,7 @@
         .row
           .col-md-12
             = label(:activity, :notes)
-            = f.text_field :notes, :class => 'form-control'
+            = f.text_field :notes, :value => @activity.notes, :class => 'form-control', id: "activity-notes"
 
       .form-group
         = label(:activity, :comments)

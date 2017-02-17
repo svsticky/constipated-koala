@@ -85,6 +85,7 @@ class Admin::ActivitiesController < ApplicationController
                                       :location,
                                       :poster,
                                       :organized_by,
+                                      :notes,
                                       :is_alcoholic,
                                       :is_enrollable,
                                       :participant_limit,
