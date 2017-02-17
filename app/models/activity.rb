@@ -15,7 +15,7 @@ class Activity < ActiveRecord::Base
 
   is_impressionable
 
-  after_update :enroll_reservists, if: "participant_limit.changed?"
+  after_update :enroll_reservists, if: "participant_limit_changed?"
 
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x1080', :png] },
@@ -71,6 +71,33 @@ class Activity < ActiveRecord::Base
          participants.price IS NOT NULL
         )
       )', Date.today).distinct
+  end
+
+  def payment_mail_recipients
+    self.participants
+      .order('members.first_name', 'members.last_name')
+      .joins(:member)
+      .where('participants.paid = FALSE
+              AND
+              participants.reservist = FALSE
+              AND
+              (participants.price IS NULL
+               OR
+               participants.price > 0
+              )')
+      .select(:id, :member_id, :first_name, :email)
+  end
+
+  def ordered_attendees
+    self.attendees
+      .order('members.first_name', 'members.last_name')
+      .joins(:member)
+  end
+
+  def ordered_reservists
+    self.reservists
+      .order(id: :asc) # Explicit ordering: first come, first serve
+      .joins(:member)
   end
 
   def group
