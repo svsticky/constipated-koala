@@ -171,20 +171,21 @@ class Activity < ActiveRecord::Base
     # enrolled, ignore at your own risk.
     if self.is_enrollable? and self.unenroll_date >= DateTime.now
       if self.reservists.count > 0
-	if self.participant_limit.nil?
-	  spots = self.reservists.count
-	else
-	  if self.attendees.count < self.participant_limit
-	    spots = self.participant_limit - self.attendees.count
-	  else
+        if self.participant_limit.nil?
+          spots = self.reservists.count
+        else
+          if self.attendees.count < self.participant_limit
+            spots = self.participant_limit - self.attendees.count
+          else
             spots = 0
-	  end
-	end
-	luckypeople = self.reservists.first(spots)
+          end
+        end
+        luckypeople = self.reservists.first(spots)
 
         luckypeople.each do |peep|
-	  peep.update!(reservist: false)
-	end
+          peep.update!(reservist: false)
+          Mailings::Enrollments.enrolled(peep).deliver_later
+        end
 
         @magic_enrolled_reservists = luckypeople
       end
