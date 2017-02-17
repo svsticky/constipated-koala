@@ -6,13 +6,6 @@
 
 var token, modal, activity_container;
 
-function find_in_object(object, checkFunction) {
-  for (var p in object) {
-    if (object.hasOwnProperty(p) && checkFunction(object[p]))
-      return object[p];
-  }
-}
-
 function batch_edit_properties(obj, edit_function) {
   Object.keys(obj).forEach(function (key) {
     obj[key] = edit_function(key, obj[key], obj);
@@ -22,11 +15,16 @@ function batch_edit_properties(obj, edit_function) {
 }
 
 function confirm_enroll(activity) {
+  var button_colour = "#23AE89"
+  if (activity.fullness_display.text().trim() == Activity.full_string)
+  {
+    button_colour = "#ffc64d";
+  }
   swal({
       title: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#23AE89",
+      confirmButtonColor: button_colour,
       confirmButtonText: "Jep!",
       closeOnConfirm: false
     },
@@ -43,11 +41,17 @@ function confirm_enroll(activity) {
 }
 
 function confirm_un_enroll_date_passed(activity) {
+  var button_colour = "#DD6B55"
+  if (activity.fullness_display.text().trim() == Activity.full_string)
+  {
+    button_colour = "#ffb61c";
+  }
+
   swal({
       title: "De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
+      confirmButtonColor: button_colour,
       confirmButtonText: "Jep!"
     }
     // anonymous function, because this is set to the sweetalert
@@ -62,12 +66,17 @@ function confirm_un_enroll(activity) {
     swal('Uitschrijven mislukt!', 'De uitschrijfdeadline is al verstreken.', 'error');
     return;
   }
+  var button_colour = "#DD6B55"
+  if (activity.fullness_display.text().trim() == Activity.full_string)
+  {
+    button_colour = "#ffb61c";
+  }
 
   swal({
       title: "Je schrijft je uit voor deze activiteit. Weet je het zeker?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
+      confirmButtonColor: button_colour,
       confirmButtonText: "Jep!"
     }
     // anonymous function, because this is set to the sweetalert
@@ -83,6 +92,7 @@ function confirm_un_enroll(activity) {
 function prev_poster() {
   modal.activity_data.current.prev_activity.load_data_to_modal();
 }
+
 
 /**
  * Loads the next activity to the modal

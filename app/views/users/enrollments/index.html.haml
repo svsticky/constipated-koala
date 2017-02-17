@@ -68,7 +68,10 @@
                         Uitschrijven
                   - elsif @reservist_activities.ids.include? activity.id
                     %button.btn.btn-warning.enrollment
-                      Reservelijst
+                      Unenroll Reservelijst
+                  - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
+                    %button.btn.btn-warning-sat.enrollment
+                      Enroll Reservelijst
                   - else
                     %button.btn.btn-success.enrollment
                       Inschrijven

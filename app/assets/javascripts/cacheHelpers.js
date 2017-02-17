@@ -28,7 +28,7 @@ function init_cached_properties(obj, props) {
         descriptor.set = get_cached_writer(descriptor.write, cache_name);
     }
 
-    obj[cache_name] = {};
+    obj[cache_name] = {writable: true};
 
     return descriptor;
   });
