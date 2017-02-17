@@ -26,7 +26,7 @@ function confirm_enroll(activity) {
       title: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
+      confirmButtonColor: "#23AE89",
       confirmButtonText: "Jep!",
       closeOnConfirm: false
     },

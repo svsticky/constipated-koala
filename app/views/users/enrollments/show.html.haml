@@ -62,8 +62,11 @@
                 .col-md-6.col-xs-6.custom_left
                   %strong Prijs:
                   <br/>
-                  &euro;
-                  = number_with_precision(@activity.price, :precision => 2)
+                  - if @activity.price != 0
+                    &euro;
+                    = number_with_precision(@activity.price, :precision => 2)
+                  - else
+                    Gratis
                   <br/><br/>
                 - if @activity.location
                 - else

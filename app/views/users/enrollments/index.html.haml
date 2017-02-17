@@ -42,8 +42,11 @@
                   = activity[ :start_time ].strftime("%H:%M")
                 <br/>
                 %strong Prijs:
-                &euro;
-                = number_with_precision(activity[ :price ], :precision => 2)
+                - if activity[ :price ] != nil
+                  &euro;
+                  = number_with_precision(activity[ :price ], :precision => 2)
+                - else
+                  Gratis
                 <br/>
                 - if !activity.location == ''
                   %strong Locatie:
