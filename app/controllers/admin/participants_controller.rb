@@ -11,6 +11,7 @@ class Admin::ParticipantsController < ApplicationController
       @response[ 'price' ] = @activity.price
       @response[ 'email' ] = @participant.member.email
       @response[ 'name'  ] = @participant.member.name
+      @response[ 'notes' ] = @participant.notes
 
       render :status => :created, :json => @response.to_json
     end
@@ -51,6 +52,7 @@ class Admin::ParticipantsController < ApplicationController
         item['price'] = peep.activity.price
         item['email'] = peep.member.email
         item['name']  = peep.member.name
+        item['notes'] = peep.notes
 
         @response << item
       end

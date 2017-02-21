@@ -1,97 +1,100 @@
 - content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | Digitale Inschrijvingen")
 
-%section#enrollments
-  .page.enrollment-page#content
-    .container#activity-container
-      - @activities.each do |activity|
-        .col-lg-4.col-sm-6.col-xs-12
-          .panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
-            .panel-heading.text-right
-              %span.panel-title.pull-left.activity-title
-                = activity[ :name ]
-              %span.panel-title.pull-right.activity-count
-                - if(activity.participant_limit.nil?)
-                  = activity.participants.count
-                - elsif(activity.participants.count >= activity.participant_limit)
-                  VOL!
-                - else
-                  = activity.participants.count
-                  \/
-                  = activity.participant_limit
-              .clearfix
-            .panel-body
-              .col-lg-6.col-md-6.col-sm-12.activity-info.text-center
-                .poster-thumbnail
-                  %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
-                    - if activity.poster_updated_at.nil?
-                      =image_tag("https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster center-block")
+= form_for :participant, :class => 'form-validation' do |f|
+  %section#enrollments
+    .page.enrollment-page#content
+      .container#activity-container
+        - @activities.each do |activity|
+          .col-lg-4.col-sm-6.col-xs-12
+            .panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
+              .panel-heading.text-right
+                %span.panel-title.pull-left.activity-title
+                  = activity[ :name ]
+                %span.panel-title.pull-right.activity-count
+                  - if(activity.participant_limit.nil?)
+                    = activity.participants.count
+                  - elsif(activity.participants.count >= activity.participant_limit)
+                    VOL!
+                  - else
+                    = activity.participants.count
+                    \/
+                    = activity.participant_limit
+                .clearfix
+              .panel-body
+                .col-lg-6.col-md-6.col-sm-12.activity-info.text-center
+                  .poster-thumbnail
+                    %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+                      - if activity.poster_updated_at.nil?
+                        =image_tag("https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster center-block")
+                      - else
+                        =image_tag(activity.poster.url(:thumb), class: "small-poster center-block")
+                .col-lg-6.col-md-6.col-sm-12.activity-info
+                  .media-body
+                    %strong Datum:
+                    = activity[ :start_date ].strftime("%d/%m/%Y")
+                    - if activity.end_date.nil?
+                    - elsif activity.start_date == activity.end_date
                     - else
-                      =image_tag(activity.poster.url(:thumb), class: "small-poster center-block")
-              .col-lg-6.col-md-6.col-sm-12.activity-info
-                .media-body
-                  %strong Datum:
-                  = activity[ :start_date ].strftime("%d/%m/%Y")
-                  - if activity.end_date.nil?
-                  - elsif activity.start_date == activity.end_date
-                  - else
-                    \-
-                    = activity[ :end_date ].strftime("%d/%m/%Y")
-                  - if activity.start_time.nil?
-                  - else
+                      \-
+                      = activity[ :end_date ].strftime("%d/%m/%Y")
+                    - if activity.start_time.nil?
+                    - else
+                      <br/>
+                      %strong Begintijd:
+                      = activity[ :start_time ].strftime("%H:%M")
                     <br/>
-                    %strong Begintijd:
-                    = activity[ :start_time ].strftime("%H:%M")
-                  <br/>
-                  %strong Prijs:
-                  &euro;
-                  = number_with_precision(activity[ :price ], :precision => 2)
-                  <br/>
-                  - if !activity.location == ''
-                    %strong Locatie:
-                    = activity.location
-                  - if !activity.unenroll_date.nil?
-                    %strong Uitschrijf-deadline:
-                    %span.activity-unenroll
-                      = activity[ :unenroll_date ].strftime("%d/%m/%Y")
+                    %strong Prijs:
+                    &euro;
+                    = number_with_precision(activity[ :price ], :precision => 2)
+                    <br/>
+                    - if !activity.location == ''
+                      %strong Locatie:
+                      = activity.location
+                    - if !activity.unenroll_date.nil?
+                      %strong Uitschrijf-deadline:
+                      %span.activity-unenroll
+                        = activity[ :unenroll_date ].strftime("%d/%m/%Y")
 
-              -if activity.notes
-                .col-lg-12
-                  Insert the text field here
-            .panel-footer.clearfix
-              .pull-right
-                .btn-group
-                  = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default more-info"
-                  - if @confirmed_activities.ids.include? activity.id
-                    - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today;
-                      %button.btn.btn-danger.disabled.enrollment
-                        Uitschrijven
+                -if activity[:notes]
+                  .col-lg-12
+                    .form-group
+                      = label(activity, :notes)
+                      = f.text_area :notes, :value => "HOI", :class => 'form-control'
+              .panel-footer.clearfix
+                .pull-right
+                  .btn-group
+                    = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default more-info"
+                    - if @confirmed_activities.ids.include? activity.id
+                      - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today;
+                        %button.btn.btn-danger.disabled.enrollment{type: 'submit'}
+                          Uitschrijven
+                      - else
+                        %button.btn.btn-danger.enrollment{type: 'submit'}
+                          Uitschrijven
+                    - elsif @reservist_activities.ids.include? activity.id
+                      %button.btn.btn-warning.enrollment{type: 'submit'}
+                        Reservelijst
                     - else
-                      %button.btn.btn-danger.enrollment
-                        Uitschrijven
-                  - elsif @reservist_activities.ids.include? activity.id
-                    %button.btn.btn-warning.enrollment
-                      Reservelijst
-                  - else
-                    %button.btn.btn-success.enrollment
-                      Inschrijven
-    #poster-modal.modal{:role => "dialog"}
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"data-dismiss" => "modal", :type => "button"}
-              &times;
-            %h4.panel-title.activity-title
-          .modal-body
-            %img.full-width
-            %br
-            %br
-            %a.btn.btn-info.more-info
-              More info
-          .modal-footer
-            .col-md-1
-              %button.btn.btn-default#prev-poster <
-            .col-md-6.col-md-offset-2
-              %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
-            .col-md-1.col-md-offset-2
-              %button.btn.btn-default#next-poster >
+                      %button.btn.btn-success.enrollment{type: 'submit'}
+                        Inschrijven
+      #poster-modal.modal{:role => "dialog"}
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %button.close{"data-dismiss" => "modal", :type => "button"}
+                &times;
+              %h4.panel-title.activity-title
+            .modal-body
+              %img.full-width
+              %br
+              %br
+              %a.btn.btn-info.more-info
+                More info
+            .modal-footer
+              .col-md-1
+                %button.btn.btn-default#prev-poster <
+              .col-md-6.col-md-offset-2
+                %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
+              .col-md-1.col-md-offset-2
+                %button.btn.btn-default#next-poster >

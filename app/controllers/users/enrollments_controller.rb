@@ -1,5 +1,5 @@
 class Users::EnrollmentsController < ApplicationController
-  skip_before_action :authenticate_admin!, only: [ :index, :create, :delete, :show ]
+  skip_before_action :authenticate_admin!, only: [ :index, :create, :delete, :show, :update ]
 
   def index
     @activities = Activity.where(
@@ -37,6 +37,7 @@ class Users::EnrollmentsController < ApplicationController
 
   def create
     @activity = Activity.find(params[:id])
+    @notes = params[:participant][:notes]
 
     if !@activity.is_enrollable?
       render :status => :locked, :json => {
@@ -59,7 +60,7 @@ class Users::EnrollmentsController < ApplicationController
 
     if !@activity.participant_limit.nil? && @activity.participants.count >= @activity.participant_limit
       @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
-                                        price: @activity.price, reservist: true)
+                                        price: @activity.price, notes: @notes, reservist: true)
       @new_enrollment.save
 
       render :status => :accepted, :json => {
@@ -70,7 +71,7 @@ class Users::EnrollmentsController < ApplicationController
       return
     else
       @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
-                                        price: @activity.price)
+                                        price: @activity.price, notes: @notes)
       @new_enrollment.save
       render :status => 200, :json => {
           message: I18n.t(:enrolled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
@@ -80,8 +81,19 @@ class Users::EnrollmentsController < ApplicationController
     end
   end
 
+  def update
+    @activity = Activity.find(params[:id])
+
+    @enrollment = Participant.find_by(
+        member_id: current_user.credentials_id,
+        activity_id: @activity.id)
+  end
+
   def show
     @activity = Activity.find(params[:id])
     @current_member = Member.find(current_user.credentials_id)
+    @enrollment = Participant.find_by(
+        member_id: current_user.credentials_id,
+        activity_id: @activity.id)
   end
 end

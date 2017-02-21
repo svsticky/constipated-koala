@@ -77,8 +77,8 @@
               -if @activity.notes
                 .col-lg-12
                   .form-group
-                    =label(:participant, :notes)
-                    = f.text_area :notes, :class => 'form-control'
+                    = label(:activity, @activity.notes)
+                    = f.text_area :notes, :value => @enrollment.notes, :class => 'form-control'
 
             .panel-footer.clearfix
               .pull-right
