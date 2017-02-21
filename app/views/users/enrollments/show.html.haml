@@ -38,25 +38,31 @@
                   = @activity.description
                 <br/>
                 <br/>
-                %strong Wanneer:
-                <br/>
-                = @activity.start_date.strftime("%d/%m/%Y")
-                - if !@activity.start_time.nil?
-                  om
-                  = @activity.start_time.strftime("%H:%M")
-                - if @activity.end_date.nil?
-                - elsif @activity.start_date == @activity.end_date
-                - else
+                - if @activity.start_date != @activity.end_date
+                  %strong Wanneer:
+                  = @activity.start_date.strftime("%d/%m/%Y")
+                  - if !@activity.start_time.nil?
+                    = @activity.start_time.strftime("%H:%M")
                   \-
                   = @activity.end_date.strftime("%d/%m/%Y")
-                  - if !@activity.start_time.nil?
-                    om
+                  - if !@activity.end_time.nil?
+                    = @activity.end_time.strftime("%H:%M")
+                - elsif !@activity.start_time.nil?
+                  %strong Datum:
+                  = @activity.start_date.strftime("%d/%m/%Y")
+                  <br/>
+                  %strong Tijd:
+                  = @activity.start_time.strftime("%H:%M")
+                  - if !@activity.end_time.nil?
+                    \-
                     = @activity.end_time.strftime("%H:%M")
                 <br/>
                 <br/>
-                %strong Inschrijfdeadline:
-                <br/>
-                = @activity.unenroll_date.strftime("%d/%m/%Y")
+                - if !@activity.unenroll_date.nil?
+                  %strong Uitschrijfdeadline:
+                  <br/>
+                  %span.activity-unenroll
+                    = @activity.unenroll_date.strftime("%d/%m/%Y")
                 <br/>
                 <br/>
                 .col-md-6.col-xs-6.custom_left
@@ -68,8 +74,7 @@
                   - else
                     Gratis
                   <br/><br/>
-                - if @activity.location
-                - else
+                - if !@activity.location.nil? && activity.location != ''
                   .col-md-6.col-xs-6.custom_left
                     %strong Locatie:
                     <br/>

@@ -11,9 +11,9 @@
               %span.panel-title.pull-left.activity-title
                 = activity[ :name ]
               %span.panel-title.pull-right.activity-count
-                - if(activity.participant_limit.nil?)
+                - if activity.participant_limit.nil?
                   = activity.participants.count
-                - elsif(activity.participants.count >= activity.participant_limit)
+                - elsif activity.participants.count >= activity.participant_limit
                   VOL!
                 - else
                   = activity.participants.count
@@ -28,27 +28,34 @@
                   - else
                     =image_tag activity.poster.url(:thumb), class: "small-poster"
               .media-body
-                %strong Datum:
-                = activity[ :start_date ].strftime("%d/%m/%Y")
-                - if activity.end_date.nil?
-                - elsif activity.start_date == activity.end_date
-                - else
+                - if activity.start_date != activity.end_date
+                  %strong Wanneer:
+                  = activity.start_date.strftime("%d/%m/%Y")
+                  - if !activity.start_time.nil?
+                    = activity.start_time.strftime("%H:%M")
                   \-
-                  = activity[ :end_date ].strftime("%d/%m/%Y")
-                - if activity.start_time.nil?
+                  = activity.end_date.strftime("%d/%m/%Y")
+                  - if !activity.end_time.nil?
+                    = activity.end_time.strftime("%H:%M")
                 - else
-                  <br/>
-                  %strong Begintijd:
-                  = activity[ :start_time ].strftime("%H:%M")
+                  %strong Datum:
+                  = activity.start_date.strftime("%d/%m/%Y")
+                  - if !activity.start_time.nil?
+                    <br/>
+                    %strong Tijd:
+                    = activity.start_time.strftime("%H:%M")
+                  - if !activity.end_time.nil?
+                    \-
+                    = activity.end_time.strftime("%H:%M")
                 <br/>
                 %strong Prijs:
-                - if activity[ :price ] != nil
+                - if !activity.price.nil?
                   &euro;
                   = number_with_precision(activity[ :price ], :precision => 2)
                 - else
                   Gratis
                 <br/>
-                - if !activity.location == ''
+                - if !activity.location.nil? && activity.location != ''
                   %strong Locatie:
                   = activity.location
                 - if !activity.unenroll_date.nil?
