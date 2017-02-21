@@ -18,7 +18,7 @@ function confirm_enroll(activity) {
   var button_colour = "#23AE89"
   if (activity.fullness_display.text().trim() == Activity.full_string)
   {
-    button_colour = "#ffc64d";
+    button_colour = "#ffb61c";
   }
   swal({
       title: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
@@ -44,7 +44,7 @@ function confirm_un_enroll_date_passed(activity) {
   var button_colour = "#DD6B55"
   if (activity.fullness_display.text().trim() == Activity.full_string)
   {
-    button_colour = "#ffb61c";
+    button_colour = "#ffc64d";
   }
 
   swal({
