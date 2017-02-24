@@ -11,9 +11,9 @@
               %span.panel-title.pull-left.activity-title
                 = activity[ :name ]
               %span.panel-title.pull-right.activity-count
-                - if(activity.participant_limit.nil?)
+                - if activity.participant_limit.nil?
                   = activity.participants.count
-                - elsif(activity.participants.count >= activity.participant_limit)
+                - elsif activity.participants.count >= activity.participant_limit
                   VOL!
                 - else
                   = activity.participants.count
@@ -75,7 +75,10 @@
                         Uitschrijven
                   - elsif @reservist_activities.ids.include? activity.id
                     %button.btn.btn-warning.enrollment
-                      Reservelijst
+                      Unenroll Reservelijst
+                  - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
+                    %button.btn.btn-warning-sat.enrollment
+                      Enroll Reservelijst
                   - else
                     %button.btn.btn-success.enrollment
                       Inschrijven

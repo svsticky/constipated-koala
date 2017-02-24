@@ -15,7 +15,7 @@ class Activity < ActiveRecord::Base
 
   is_impressionable
 
-  after_update :enroll_reservists, if: "participant_limit.changed?"
+  after_update :enroll_reservists, if: "participant_limit_change"
 
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x1080', :png] },
@@ -71,6 +71,33 @@ class Activity < ActiveRecord::Base
          participants.price IS NOT NULL
         )
       )', Date.today).distinct
+  end
+
+  def payment_mail_recipients
+    self.participants
+      .order('members.first_name', 'members.last_name')
+      .joins(:member)
+      .where('participants.paid = FALSE
+              AND
+              participants.reservist = FALSE
+              AND
+              (participants.price IS NULL
+               OR
+               participants.price > 0
+              )')
+      .select(:id, :member_id, :first_name, :email)
+  end
+
+  def ordered_attendees
+    self.attendees
+      .order('members.first_name', 'members.last_name')
+      .joins(:member)
+  end
+
+  def ordered_reservists
+    self.reservists
+      .order(id: :asc) # Explicit ordering: first come, first serve
+      .joins(:member)
   end
 
   def group
@@ -138,18 +165,26 @@ class Activity < ActiveRecord::Base
     # Check whether it is possible to enroll some reservists
     # (participants.count < participant_limit), and then do that.
     #
-    # This uses the following magic global to list any reservists that were
+    # Will not run if the unenroll_date has passed.
+    #
+    # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
-    if self.is_enrollable? and self.start >= DateTime.now
-      if !self.participant_limit.nil? and
-          self.attendees.count < self.participant_limit and
-          self.reservists.count > 0
-        spots = self.participant_limit - self.attendees.count
+    if self.is_enrollable? and self.unenroll_date >= DateTime.now
+      if self.reservists.count > 0
+        if self.participant_limit.nil?
+          spots = self.reservists.count
+        else
+          if self.attendees.count < self.participant_limit
+            spots = self.participant_limit - self.attendees.count
+          else
+            spots = 0
+          end
+        end
         luckypeople = self.reservists.first(spots)
 
         luckypeople.each do |peep|
           peep.update!(reservist: false)
-          puts "#{peep.member.name} geontreservist"
+          Mailings::Enrollments.enrolled(peep).deliver_later
         end
 
         @magic_enrolled_reservists = luckypeople

@@ -1,6 +1,11 @@
 //= require cacheHelpers
 
-//TODO unify get next and prev with get sibling
+function find_in_object(object, checkFunction) {
+  for (var p in object) {
+    if (object.hasOwnProperty(p) && checkFunction(object[p]))
+      return object[p];
+  }
+}
 
 function Activity(activity_panel) {
   this.panel = activity_panel;
@@ -78,13 +83,19 @@ Activity.prototype = {
       }
     });
 
+
     return request;
   },
 
   un_enroll: function () {
     var activity = this;
     return this._remote_update_enrollment(false).done(function () {
-      activity._enrollment_status = Enrollment_stati.un_enrolled;
+      if(activity._fullness == Activity.full_string) {
+        activity._enrollment_status = Enrollment_stati.reservistable;
+      }
+      else {
+        activity._enrollment_status = Enrollment_stati.un_enrolled;
+      }
     });
   },
 
@@ -93,7 +104,7 @@ Activity.prototype = {
   },
 
   is_enrollable: function () {
-    return this.enrollment_status === Enrollment_stati.un_enrolled;
+    return this.enrollment_status === Enrollment_stati.un_enrolled || this.enrollment_status === Enrollment_stati.reservistable;
   },
 
   has_notes: function(){
@@ -116,16 +127,16 @@ Activity.prototype = {
 Object.defineProperties(Activity.prototype, {
   _fullness: {
     get: function () {
-      this.fullness_display.text();
-    },
-    set: function (value) {
-      this.fullness_display.text(value);
-    }
+      return this.fullness_display.text().trim();
+      },
+      set: function (value) {
+        this.fullness_display.text(value);
+      }
   },
 
   _participant_count: {
     get: function () {
-      Activity.get_participant_count_from_string(this._fullness);
+      return Activity.get_participant_count_from_string(this._fullness);
     },
     set: function (value) {
       this.attendee_count_display.html(value);
@@ -134,7 +145,7 @@ Object.defineProperties(Activity.prototype, {
 
   _reservist_count: {
     get: function () {
-      this.reservist_count_display.html();
+      return this.reservist_count_display.html();
     },
     set: function (value) {
       this.reservist_count_display.html(value);
@@ -252,9 +263,9 @@ Object.defineProperties(Activity.prototype,
       },
       write: function (enrollment_status) {
         this.enrollment_button
-            .removeClass(this._enrollment_status.identifying_class)
-            .addClass(enrollment_status.identifying_class)
-            .text(enrollment_status.buttonText);
+          .removeClass(this._enrollment_status.classes)
+          .addClass(enrollment_status.classes)
+          .text(enrollment_status.button_text);
       }
     },
 
@@ -295,16 +306,18 @@ Object.defineProperties(Activity.prototype,
 var Enrollment_stati = {
   un_enrolled: new Enrollment_status('btn-success', 'Inschrijven')
   , enrolled: new Enrollment_status('btn-danger', 'Uitschrijven')
-  , reservist: new Enrollment_status('btn-warning', 'Reservelijst')
+  , reservist: new Enrollment_status('btn-warning-sat', 'Unenroll Reservelijst')
+  , reservistable: new Enrollment_status('btn-warning', 'Enroll Reservelijst')
 };
 
-function Enrollment_status(identifying_class, buttonText) {
-  this.identifying_class = identifying_class;
-  this.buttonText = buttonText;
+function Enrollment_status(classes, buttonText) {
+  this.classes = classes;
+  this.button_text = buttonText;
 }
 
 Enrollment_status.fromButton = function (button) {
+    var button_text  = button.text().trim();
   return find_in_object(Enrollment_stati, function (enrollment_status) {
-    return button.hasClass(enrollment_status.identifying_class);
+    return button_text == enrollment_status.button_text;
   });
 };
