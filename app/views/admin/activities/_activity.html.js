@@ -4,6 +4,9 @@
     <td style="padding: 0px; min-width: 60%; width: 25%;">
       <input class="price" type="text" value="{4}">
     </td>
+    <td style='min-width: 50%; width: 50%;'>
+      <p></p>
+    </td>
     <td class="buttons">
       <div class="btn-group">
         <button class="btn btn-warning paid">
