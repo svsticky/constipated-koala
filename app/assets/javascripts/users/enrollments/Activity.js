@@ -96,6 +96,14 @@ Activity.prototype = {
     return this.enrollment_status === Enrollment_stati.un_enrolled;
   },
 
+  has_notes: function(){
+    return typeof this.notes !== 'undefined';
+  },
+
+  notes_filled: function(){
+    return ($.trim($('#enrollment_notes_value').val()).length > 0)
+  },
+
   is_first: get_cached_loader(function () {
     return this.corresponding_activity_container_child.is(':first-child');
   }, cached_prefix + 'is_first'),
