@@ -1,7 +1,7 @@
 - content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | #{@activity.name}")
 
-= form_for :participant, :class => 'form-validation' do |f|
+= form_for :enrollments, :class => 'form-validation' do |f|
   %section#enrollments
     .page.enrollment-show#content
       .container
@@ -89,17 +89,13 @@
                   = link_to "Terug", "/enrollments", class: "btn btn-default"
                   - if @current_member.confirmed_activities.ids.include? @activity.id
                     - if !@activity.unenroll_date.nil? && @activity.unenroll_date < Date.today;
-                      %button.btn.btn-danger.disabled.enrollment{type: 'submit'}
-                        Uitschrijven
+                      =link_to "Uitschrijven", "/enrollments/#{@activity.id}", {:class => 'btn btn-danger disabled enrollment wait', 'data-method' => :delete}
                     - else
-                      %button.btn.btn-danger.enrollment{type: 'submit'}
-                        Uitschrijven
+                      =link_to "Uitschrijven", "/enrollments/#{@activity.id}", {:class => 'btn btn-danger enrollment wait', 'data-method' => :delete}
                   - elsif @current_member.reservist_activities.ids.include? @activity.id
-                    %button.btn.btn-warning.enrollment{type: 'submit'}
-                      Reservelijst
+                    =link_to "Reservelijst", "/enrollments/#{@activity.id}", {:class => 'btn btn-warning enrollment wait'}
                   - else
-                    %button.btn.btn-success.enrollment{type: 'submit'}
-                      Inschrijven
+                    =link_to "Inschrijven", "/enrollments/#{@activity.id}", {:class => 'btn btn-success enrollment wait'}
 
         .col-lg-3.col-md-3.col-xs-12.cramtable
           .panel.panel-default

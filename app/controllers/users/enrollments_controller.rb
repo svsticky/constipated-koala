@@ -37,7 +37,7 @@ class Users::EnrollmentsController < ApplicationController
 
   def create
     @activity = Activity.find(params[:id])
-    @notes = params[:participant][:notes]
+    @notes = params[:enrollments][:notes]
 
     if !@activity.is_enrollable?
       render :status => :locked, :json => {
