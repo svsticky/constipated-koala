@@ -42,7 +42,7 @@
                     -if participant.notes
                       %p= participant.notes
                     -else
-                      %p Geen informatie gegeven
+                      %p Geen data
                   %td.buttons
                     .btn-group
                       - if participant.paid
@@ -74,9 +74,26 @@
 
           %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
+              %tr
+                %td
+                  Naam
+                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                  Prijs
+                %td{ :style => 'min-width: 50%; width: 50%;' }
+                  -if @activity.notes
+                    =@activity.notes
+
+                %td.buttons
               - @reservists.each do |participant|
                 %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
                   %td= link_to "#{participant.member.name}", participant.member
+                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
+                    %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
+                  %td{ :style => 'min-width: 50%; width: 50%;' }
+                    -if participant.notes
+                      %p= participant.notes
+                    -else
+                      %p Geen data
 
                   %td.buttons
                     .btn-group
