@@ -229,6 +229,8 @@ $(document).on( 'ready page:load', function(){
 
   $('form#mail').mail();
 
+  $('#is_enrollable').on('click', enrollable_toggled);
+
   //Update search
   if( $('.filtered-search') ){
     $('input#search').on('keyup', function(){
@@ -252,6 +254,11 @@ $(document).on( 'ready page:load', function(){
     });
   }
 });
+
+// 'Is enrollable' checkbox toggled
+function enrollable_toggled(){
+  $('#participant_limit')[0].disabled = !this.checked;
+}
 
 /*
  * Contains the poster related handlers
