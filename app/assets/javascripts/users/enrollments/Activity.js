@@ -121,7 +121,7 @@ Activity.prototype = {
     if (this.has_notes && this.notes_filled)
       return $.trim($('#enrollment_notes_value').val());
     else
-      return "Geen notes"
+      return undefined
   },
 
   is_first: get_cached_loader(function () {

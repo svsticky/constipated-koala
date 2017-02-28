@@ -57,7 +57,7 @@ class Users::EnrollmentsController < ApplicationController
       return
     end
 
-    if(params.has_key?(:par_notes))
+    if(params.has_key?(:par_notes) && !params[:par_notes].blank?)
       @notes = params[:par_notes]
       if !@activity.participant_limit.nil? && @activity.participants.count >= @activity.participant_limit
         @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
