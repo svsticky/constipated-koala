@@ -137,6 +137,16 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  def paid_sum
+    return participants.where(:reservist => false, :paid => true).sum(:price) + 
+      participants.where(:reservist => false, :paid => true, :price => NIL).count * self.price
+  end
+
+  def price_sum
+    return participants.where(:reservist => false).sum(:price) + 
+      participants.where(:reservist => false, :price => NIL).count * self.price
+  end
+
   def start
     Activity.combine_dt(self.start_date, self.start_time)
   end
