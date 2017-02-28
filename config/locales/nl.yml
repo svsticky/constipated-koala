@@ -206,6 +206,7 @@ nl:
           not_enrolled: Je bent uitgeschreven voor %{activity}
           participant_limit_reached: Je bent op de reservelijst geplaatst voor %{activity}
           participant_underage: Deze activiteit is alleen voor grote mensen ;)
+          participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voor dat je je inschrijft
           not_enrollable: Activiteit niet inschrijfbaar
           not_unenrollable: Activiteit niet uitschrijfbaar
           blank: kan niet leeg zijn

@@ -37,7 +37,6 @@ class Users::EnrollmentsController < ApplicationController
 
   def create
     @activity = Activity.find(params[:id])
-    @notes = params[:enrollments][:notes]
 
     if !@activity.is_enrollable?
       render :status => :locked, :json => {
@@ -58,26 +57,36 @@ class Users::EnrollmentsController < ApplicationController
       return
     end
 
-    if !@activity.participant_limit.nil? && @activity.participants.count >= @activity.participant_limit
-      @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
-                                        price: @activity.price, notes: @notes, reservist: true)
-      @new_enrollment.save
+    if(params.has_key?(:participant))
+      @notes = params[:participant][:notes]
+      if !@activity.participant_limit.nil? && @activity.participants.count >= @activity.participant_limit
+        @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
+                                          price: @activity.price, notes: @notes, reservist: true)
+        @new_enrollment.save
 
-      render :status => :accepted, :json => {
-        message: I18n.t(:participant_limit_reached, scope: 'activerecord.errors.models.activity', activity: @activity.name),
+        render :status => :accepted, :json => {
+          message: I18n.t(:participant_limit_reached, scope: 'activerecord.errors.models.activity', activity: @activity.name),
+          participant_limit: @activity.participant_limit,
+          participant_count: @activity.participants.count
+        }
+        return
+      else
+        @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
+                                          price: @activity.price, notes: @notes)
+        @new_enrollment.save
+        render :status => 200, :json => {
+            message: I18n.t(:enrolled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
+            participant_limit: @activity.participant_limit,
+            participant_count: @activity.participants.count
+        }
+      end
+    else
+      render :status => 451, :json => { # TODO: Better error code for this
+        message: I18n.t(:participant_notes_not_filled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
       return
-    else
-      @new_enrollment = Participant.new(member_id: @member.id, activity_id: @activity.id,
-                                        price: @activity.price, notes: @notes)
-      @new_enrollment.save
-      render :status => 200, :json => {
-          message: I18n.t(:enrolled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
-          participant_limit: @activity.participant_limit,
-          participant_count: @activity.participants.count
-      }
     end
   end
 
