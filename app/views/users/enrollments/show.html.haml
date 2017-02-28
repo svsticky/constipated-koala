@@ -1,126 +1,131 @@
 - content_for(:page, "enrollments")
 - content_for(:title, "Constipated koala | #{@activity.name}")
 
-= form_for :enrollments, :class => 'form-validation' do |f|
-  %section#enrollments
-    .page.enrollment-show#content
-      .container
-        .col-lg-6.col-md-6.col-xs-12
-          .panel.panel-default.panel-activity{ :data => {:'activity-id' => @activity.id }}
-            .panel-heading
-              %span.panel-title.activity-title
-                = @activity.name
-              %span.panel-title.pull-right.activity-count
-                - if(@activity.participant_limit.nil?)
-                  = @activity.attendees.count
-                - elsif(@activity.attendees.count >= @activity.participant_limit)
-                  VOL!
-                - else
-                  = @activity.attendees.count
-                  \/
-                  = @activity.participant_limit
-              .clearfix
-            .panel-body.activity
-              .col-lg-6.col-md-4.col-sm-6.col-xs-12.text-center
-                .poster-moreinfo
-                  %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
-                    - if @activity.poster_updated_at.nil?
-                      =image_tag("https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "center-block")
-                    - else
-                      =image_tag(activity.poster.url(:medium), class: "center-block")
-
-              .col-lg-6.col-md-8.col-sm-6.col-xs-12
-                .media-body
-                  %strong Omschrijving:
-                  <br/>
-                  - if @activity.description.blank?
-                    Geen beschrijving beschikbaar :(
+%section#enrollments
+  .page.enrollment-show#content
+    .container
+      .col-lg-6.col-md-6.col-xs-12
+        .panel.panel-default.panel-activity{ :data => {:'activity-id' => @activity.id }}
+          .panel-heading
+            %span.panel-title.activity-title
+              = @activity.name
+            %span.panel-title.pull-right.activity-count
+              - if(@activity.participant_limit.nil?)
+                = @activity.attendees.count
+              - elsif(@activity.attendees.count >= @activity.participant_limit)
+                VOL!
+              - else
+                = @activity.attendees.count
+                \/
+                = @activity.participant_limit
+            .clearfix
+          .panel-body.activity
+            .col-lg-6.col-md-4.col-sm-6.col-xs-12.text-center
+              .poster-moreinfo
+                %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+                  - if @activity.poster_updated_at.nil?
+                    =image_tag("https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "center-block")
                   - else
-                    = @activity.description
-                  <br/>
-                  <br/>
-                  %strong Wanneer:
-                  <br/>
-                  = @activity.start_date.strftime("%d/%m/%Y")
+                    =image_tag(activity.poster.url(:medium), class: "center-block")
+
+            .col-lg-6.col-md-8.col-sm-6.col-xs-12
+              .media-body
+                %strong Omschrijving:
+                <br/>
+                - if @activity.description.blank?
+                  Geen beschrijving beschikbaar :(
+                - else
+                  = @activity.description
+                <br/>
+                <br/>
+                %strong Wanneer:
+                <br/>
+                = @activity.start_date.strftime("%d/%m/%Y")
+                - if !@activity.start_time.nil?
+                  om
+                  = @activity.start_time.strftime("%H:%M")
+                - if @activity.end_date.nil?
+                - elsif @activity.start_date == @activity.end_date
+                - else
+                  \-
+                  = @activity.end_date.strftime("%d/%m/%Y")
                   - if !@activity.start_time.nil?
                     om
-                    = @activity.start_time.strftime("%H:%M")
-                  - if @activity.end_date.nil?
-                  - elsif @activity.start_date == @activity.end_date
-                  - else
-                    \-
-                    = @activity.end_date.strftime("%d/%m/%Y")
-                    - if !@activity.start_time.nil?
-                      om
-                      = @activity.end_time.strftime("%H:%M")
+                    = @activity.end_time.strftime("%H:%M")
+                <br/>
+                <br/>
+                %strong Inschrijfdeadline:
+                <br/>
+                = @activity.unenroll_date.strftime("%d/%m/%Y")
+                <br/>
+                <br/>
+                .col-md-6.col-xs-6.custom_left
+                  %strong Prijs:
                   <br/>
-                  <br/>
-                  %strong Inschrijfdeadline:
-                  <br/>
-                  = @activity.unenroll_date.strftime("%d/%m/%Y")
-                  <br/>
-                  <br/>
+                  &euro;
+                  = number_with_precision(@activity.price, :precision => 2)
+                  <br/><br/>
+                - if @activity.location
+                - else
                   .col-md-6.col-xs-6.custom_left
-                    %strong Prijs:
+                    %strong Locatie:
                     <br/>
-                    &euro;
-                    = number_with_precision(@activity.price, :precision => 2)
+                    = @activity.location
                     <br/><br/>
-                  - if @activity.location
+
+            -if @activity.notes
+              .col-lg-12
+                .form-group
+                  %strong
+                    = @activity.notes
+                    <br/>
+                  -if @enrollment
+                    %textarea{:class => 'form-control', :id => 'enrollment_notes_value', :value => @enrollment.notes}
+                  -else
+                    %textarea{:class => 'form-control', :id => 'enrollment_notes_value'}
+
+          .panel-footer.clearfix
+            .pull-right
+              .btn-group
+                = link_to "Terug", "/enrollments", class: "btn btn-default"
+                - if @current_member.confirmed_activities.ids.include? @activity.id
+                  - if !@activity.unenroll_date.nil? && @activity.unenroll_date < Date.today;
+                    %button.btn.btn-danger.disabled.enrollment
+                      Uitschrijven
                   - else
-                    .col-md-6.col-xs-6.custom_left
-                      %strong Locatie:
-                      <br/>
-                      = @activity.location
-                      <br/><br/>
+                    %button.btn.btn-danger.enrollment
+                      Uitschrijven
+                - elsif @current_member.reservist_activities.ids.include? @activity.id
+                  %button.btn.btn-warning.enrollment
+                    Reservelijst
+                - else
+                  %button.btn.btn-success.enrollment
+                    Inschrijven
 
-              -if @activity.notes
-                .col-lg-12
-                  .form-group
-                    = label(:activity, @activity.notes)
-                    -if @enrollment
-                      = f.text_area :notes, :value => @enrollment.notes, :class => 'form-control', :id => 'enrollment_notes_value'
-                    -else
-                      = f.text_area :notes, :value => "", :class => 'form-control', :id => 'enrollment_notes_value'
+      .col-lg-3.col-md-3.col-xs-12.cramtable
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span#attendees-count.number= @activity.attendees.count
+            deelnemers
 
-            .panel-footer.clearfix
-              .pull-right
-                .btn-group
-                  = link_to "Terug", "/enrollments", class: "btn btn-default"
-                  - if @current_member.confirmed_activities.ids.include? @activity.id
-                    - if !@activity.unenroll_date.nil? && @activity.unenroll_date < Date.today;
-                      =link_to "Uitschrijven", "/enrollments/#{@activity.id}", {:class => 'btn btn-danger disabled enrollment wait', 'data-method' => :delete}
-                    - else
-                      =link_to "Uitschrijven", "/enrollments/#{@activity.id}", {:class => 'btn btn-danger enrollment wait', 'data-method' => :delete}
-                  - elsif @current_member.reservist_activities.ids.include? @activity.id
-                    =link_to "Reservelijst", "/enrollments/#{@activity.id}", {:class => 'btn btn-warning enrollment wait'}
-                  - else
-                    =link_to "Inschrijven", "/enrollments/#{@activity.id}", {:class => 'btn btn-success enrollment wait'}
+          %table#attendees.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+            %tbody
+              - @activity.attendees.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
+                %tr
+                  %td{ :style => 'min-width: 60%; width: 25%;' }
+                    =participant.member.name
 
-        .col-lg-3.col-md-3.col-xs-12.cramtable
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-user
-              %span#attendees-count.number= @activity.attendees.count
-              deelnemers
+      .col-lg-3.col-md-3.col-xs-12.cramtable
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span#reservists-count.number= @activity.reservists.count
+            op reservelijst
 
-            %table#attendees.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
-              %tbody
-                - @activity.attendees.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
-                  %tr
-                    %td{ :style => 'min-width: 60%; width: 25%;' }
-                      =participant.member.name
-
-        .col-lg-3.col-md-3.col-xs-12.cramtable
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-user
-              %span#reservists-count.number= @activity.reservists.count
-              op reservelijst
-
-            %table#reservists.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
-              %tbody
-                - @activity.reservists.joins(:member).each do |reservist|
-                  %tr
-                    %td{ :style => 'min-width: 60%; width: 25%' }
-                      =reservist.member.name
+          %table#reservists.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+            %tbody
+              - @activity.reservists.joins(:member).each do |reservist|
+                %tr
+                  %td{ :style => 'min-width: 60%; width: 25%' }
+                    =reservist.member.name

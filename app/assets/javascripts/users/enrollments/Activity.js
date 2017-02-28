@@ -73,7 +73,8 @@ Activity.prototype = {
 
   enroll: function () {
     var activity = this;
-    var request = this._remote_update_enrollment(true).done(function () {
+    var notes = this.get_notes();
+    var request = this._remote_update_enrollment(true, notes).done(function () {
       //Normal enrollment
       if (request.status == 200) {
         activity._enrollment_status = Enrollment_stati.enrolled;
@@ -89,7 +90,8 @@ Activity.prototype = {
 
   un_enroll: function () {
     var activity = this;
-    return this._remote_update_enrollment(false).done(function () {
+    var notes = this.get_notes();
+    return this._remote_update_enrollment(false, notes).done(function () {
       if(activity._fullness == Activity.full_string) {
         activity._enrollment_status = Enrollment_stati.reservistable;
       }
@@ -113,6 +115,13 @@ Activity.prototype = {
 
   notes_filled: function(){
     return ($.trim($('#enrollment_notes_value').val()).length > 0)
+  },
+
+  get_notes: function(){
+    if (this.has_notes && this.notes_filled)
+      return $.trim($('#enrollment_notes_value').val());
+    else
+      return "Geen notes"
   },
 
   is_first: get_cached_loader(function () {
@@ -153,13 +162,14 @@ Object.defineProperties(Activity.prototype, {
   },
 
   _remote_update_enrollment: {
-    value: function (enrollment) {
+    value: function (enrollment, notes) {
       var activity = this;
       var request = $.ajax({
         url: '/enrollments/' + activity.id,
         type: enrollment ? 'POST' : 'DELETE',
         data: {
-          authenticity_token: token
+          authenticity_token: token,
+          par_notes: notes
         }
       }).done(function (response) {
         //Alert user of  enrollment
