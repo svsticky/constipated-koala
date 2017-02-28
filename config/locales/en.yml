@@ -32,6 +32,7 @@ en:
         activity:
           enrolled: You are enrolled for %{activity}
           not_enrolled: You have been unenrolled for %{activity}
+          participant_suspended: You have been suspended. Contact the board of Sticky
           participant_limit_reached: You have been placed on the back-up list of %{activity}
           participant_underage: This activity is for adults only ;)
           not_enrollable: Activity not enrollable
