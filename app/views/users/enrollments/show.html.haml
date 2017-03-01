@@ -88,6 +88,9 @@
             .pull-right
               .btn-group
                 = link_to "Terug", "/enrollments", class: "btn btn-default"
+                - if @activity.notes
+                  %button.btn.btn-info.update_enrollment
+                    Update info
                 - if @current_member.confirmed_activities.ids.include? @activity.id
                   - if !@activity.unenroll_date.nil? && @activity.unenroll_date < Date.today;
                     %button.btn.btn-danger.disabled.enrollment
