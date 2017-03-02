@@ -21,6 +21,7 @@ ConstipatedKoala::Application.routes.draw do
 
       get 'enrollments',                      to: 'users/enrollments#index'
       get 'enrollments/:id',                  to: 'users/enrollments#show'
+      patch 'enrollments/:id',                to: 'users/enrollments#update'
       post 'enrollments/:id',                 to: 'users/enrollments#create'
       delete 'enrollments/:id',               to: 'users/enrollments#delete'
     end

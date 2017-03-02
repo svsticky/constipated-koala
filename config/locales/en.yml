@@ -35,6 +35,7 @@ en:
           participant_limit_reached: You have been placed on the back-up list of %{activity}
           participant_underage: This activity is for adults only ;)
           participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
+          participant_notes_updated: Information updated
           not_enrollable: Activity not enrollable
           not_unenrollable: Activity not unenrollable
           blank_and_start_time: can't be blank if the start time is set

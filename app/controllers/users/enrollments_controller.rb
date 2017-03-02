@@ -81,7 +81,7 @@ class Users::EnrollmentsController < ApplicationController
         }
       end
     else
-      render :status => 451, :json => { # TODO: Better error code for this
+      render :status => :precondition_failed, :json => {
         message: I18n.t(:participant_notes_not_filled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
@@ -96,6 +96,22 @@ class Users::EnrollmentsController < ApplicationController
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
         activity_id: @activity.id)
+
+    if(params.has_key?(:par_notes) && !params[:par_notes].blank?)
+      @enrollment.update(notes: params[:par_notes])
+      @enrollment.save
+      render :status => :accepted, :json => {
+        message: I18n.t(:participant_notes_updated, scope: 'activerecord.errors.models.activity', activity: @activity.name),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
+      }
+    else
+      render :status => :precondition_failed, :json => { # TODO: Better error code for this
+        message: I18n.t(:participant_notes_not_filled, scope: 'activerecord.errors.models.activity', activity: @activity.name),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
+      }
+    end
   end
 
   def show
