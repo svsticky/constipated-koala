@@ -81,6 +81,7 @@
                     <br/>
                   -if @enrollment
                     %textarea{:class => 'form-control', :id => 'enrollment_notes_value', :value => @enrollment.notes}
+                      =@enrollment.notes
                   -else
                     %textarea{:class => 'form-control', :id => 'enrollment_notes_value'}
 

@@ -87,11 +87,7 @@ function confirm_un_enroll(activity) {
 }
 
 function confirm_update(activity) {
-  if (activity.has_un_enroll_date_passed()) {
-    swal('Uitschrijven mislukt!', 'De uitschrijfdeadline is al verstreken.', 'error');
-    return;
-  }
-  var button_colour = "#DD6B55"
+  var button_colour = "#5bc0de"
   swal({
       title: "Weet je zeker dat je deze informatie wilt bewerken?",
       type: "info",
@@ -101,7 +97,7 @@ function confirm_update(activity) {
     }
     // anonymous function, because this is set to the sweetalert
     , function () {
-      activity.update_enroll();
+      activity.edit_enroll();
     }
   );
 }
@@ -132,7 +128,8 @@ function initialize_enrollment() {
       confirm_un_enroll(activity);
   });
   $('#enrollments').find('button.update_enrollment').on('click', function(){
-
+    var activity = new Activity($(this).closest('.panel-activity'));
+    confirm_update(activity);
   });
 }
 

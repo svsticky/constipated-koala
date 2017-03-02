@@ -74,7 +74,7 @@ Activity.prototype = {
   enroll: function () {
     var activity = this;
     var notes = this.get_notes();
-    var request = this._remote_update_enrollment(true, notes).done(function () {
+    var request = this._remote_update_enrollment('POST', notes).done(function () {
       //Normal enrollment
       if (request.status == 200) {
         activity._enrollment_status = Enrollment_stati.enrolled;
@@ -91,7 +91,7 @@ Activity.prototype = {
   un_enroll: function () {
     var activity = this;
     var notes = this.get_notes();
-    return this._remote_update_enrollment(false, notes).done(function () {
+    return this._remote_update_enrollment('DELETE', notes).done(function () {
       if(activity._fullness == Activity.full_string) {
         activity._enrollment_status = Enrollment_stati.reservistable;
       }
@@ -99,6 +99,13 @@ Activity.prototype = {
         activity._enrollment_status = Enrollment_stati.un_enrolled;
       }
     });
+  },
+
+  edit_enroll: function(){
+    var activity = this;
+    var notes = this.get_notes();
+    var request = this._remote_update_enrollment('PATCH', notes)
+
   },
 
   has_un_enroll_date_passed: function () {
@@ -166,7 +173,7 @@ Object.defineProperties(Activity.prototype, {
       var activity = this;
       var request = $.ajax({
         url: '/enrollments/' + activity.id,
-        type: enrollment ? 'POST' : 'DELETE',
+        type: enrollment,
         data: {
           authenticity_token: token,
           par_notes: notes
@@ -177,7 +184,18 @@ Object.defineProperties(Activity.prototype, {
 
         activity._fullness = Activity.get_fullness_from_count_and_limit(response.participant_count, response.participant_limit);
       }).fail(function (data) {
-        var message = enrollment ? 'Kon niet inschrijven!\n' : 'Kon niet uitschrijven!\n';
+        var message;
+        switch(enrollment){
+          case "POST":
+            message = "Kon niet inschrijven!\n";
+            break;
+          case "DELETE":
+            message = "Kon niet uitschrijven!\n";
+            break;
+          case "PATCH":
+            message = "Kon niet bijwerken!\n";
+            break;
+        }
         if (data.responseJSON) {
           message += data.responseJSON.message;
         }
