@@ -39,8 +39,8 @@ module Mailings
 
         De activiteit begint op #{starts_at} en #{price}. Tot dan!
 
-        Je kunt je tot #{activity.unenroll_date} uitschrijven voor deze activiteit. Dit kan je doen door op de onderstaande link te klikken.
-        #(url)
+        Je kunt je tot #{activity.unenroll_date} uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
+        Naar de activiteit: #(url)
 
         Met vriendelijke groet,
 
