@@ -6,28 +6,41 @@ module Mailings
 
       member = participant.member
       activity = participant.activity
+      url = url_for :controller => "users/enrollments", :action => "show", :id => activity.id
 
       starts_at = I18n.l activity.start_date, format: :day_month
       if activity.start_time
         starts_at += ", om #{I18n.l activity.start_time, format: :short}"
       end
 
+      price = activity.price
+      if price > 0
+        price = "kost €#{'%.02f' % price}"
+      else
+        price = "is gratis :)"
+      end
+
       subject = "Studievereniging Sticky | Je bent ingeschreven voor #{activity.name}"
 
       html = render_to_string( :layout => "mailings", :locals => {
-        name: member.name,
+        name: member.first_name,
         activity: activity,
         starts_at: starts_at,
+        price: price,
+        url: url,
+        unenroll_date: activity.unenroll_date,
         subject: subject
       })
-
 
       text = <<-EOS
         Hoi #{member.first_name},
 
-        Geweldig nieuws! Je bent van de reservelijst ingeschreven voor #{activity.name}!
+        Geweldig nieuws! Er is een plaats vrijgekomen voor #{activity.name}. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
 
-        Je hoeft nu verder niets meer te doen, behalve natuurlijk op tijd zijn. De activiteit begint op #{starts_at}, tot dan!
+        De activiteit begint op #{starts_at} en #{price}. Tot dan!
+
+        Je kunt je tot #{activity.unenroll_date} uitschrijven voor deze activiteit. Dit kan je doen door op de onderstaande link te klikken.
+        #(url)
 
         Met vriendelijke groet,
 
