@@ -4,6 +4,8 @@ class Participant < ActiveRecord::Base
 
   after_destroy :enroll_reservist
 
+  validates :notes, length: {maximum: 30}
+
   is_impressionable
 
   def price=(price)
