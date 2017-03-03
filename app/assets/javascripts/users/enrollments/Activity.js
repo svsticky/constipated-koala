@@ -102,10 +102,8 @@ Activity.prototype = {
   },
 
   edit_enroll: function(){
-    var activity = this;
     var notes = this.get_notes();
-    var request = this._remote_update_enrollment('PATCH', notes)
-
+    this._remote_update_enrollment('PATCH', notes)
   },
 
   has_un_enroll_date_passed: function () {
@@ -131,13 +129,13 @@ Activity.prototype = {
       return undefined
   },
 
-  is_first: get_cached_loader(function () {
-    return this.corresponding_activity_container_child.is(':first-child');
-  }, cached_prefix + 'is_first'),
+  is_first: function () {
+    return typeof this.prev_activity === 'undefined';
+  },
 
-  is_last: get_cached_loader(function () {
-    return this.corresponding_activity_container_child.is(':last-child');
-  }, cached_prefix + 'is_last')
+  is_last: function () {
+    return typeof this.next_activity === 'undefined';
+  },
 };
 
 Object.defineProperties(Activity.prototype, {
@@ -306,11 +304,19 @@ Object.defineProperties(Activity.prototype,
     },
 
     next_activity: function () {
-      return new Activity(this.corresponding_activity_container_child.next().find('.panel-activity'));
+      var next = this.corresponding_activity_container_child.next().find('.panel-activity');
+      if(next.length !== 0)
+        return new Activity(next);
+      else
+        return undefined;
     },
 
     prev_activity: function () {
-      return new Activity(this.corresponding_activity_container_child.prev().find('.panel-activity'));
+      var prev = this.corresponding_activity_container_child.prev().find('.panel-activity');
+      if(prev.length !== 0)
+        return new Activity(prev);
+      else
+        return undefined;
     },
 
     attendees_table: function () {

@@ -3,7 +3,7 @@
 
 %section#enrollments
   .page.enrollment-show#content
-    .container
+    .container#activity-container
       .col-lg-6.col-md-6.col-xs-12
         = render 'layouts/activity/view', activity: @activity, view: 'show'
 
@@ -34,3 +34,4 @@
                 %tr
                   %td{ :style => 'min-width: 60%; width: 25%' }
                     =reservist.member.name
+    = render 'layouts/poster_modal'
