@@ -10,7 +10,7 @@
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        = render 'layouts/activity', activity_textfield: t('Activiteit'), url: activity_path(@activity), method: :patch
+        = render 'layouts/activity/edit', activity_textfield: t('Activiteit'), url: activity_path(@activity), method: :patch
         = render 'layouts/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants

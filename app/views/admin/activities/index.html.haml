@@ -40,7 +40,7 @@
                               %i.fa.fa-fw.fa-trash-o
 
       .col-md-6
-        = render 'layouts/activity', activity_textfield: t('Nieuwe Activiteit'), url: activities_path, method: :post
+        = render 'layouts/activity/edit', activity_textfield: t('Nieuwe Activiteit'), url: activities_path, method: :post
         .panel.panel-default
           .panel-heading.year
             %i.fa.fa-fw.fa-ticket

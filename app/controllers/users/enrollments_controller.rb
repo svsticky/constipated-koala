@@ -15,9 +15,7 @@ class Users::EnrollmentsController < ApplicationController
       '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
         Date.today, Date.today
       ).where(is_enrollable: true).order(:start_date)
-    current_member = Member.find(current_user.credentials_id)
-    @confirmed_activities = current_member.confirmed_activities
-    @reservist_activities = current_member.reservist_activities
+    @current_member = Member.find(current_user.credentials_id)
   end
 
   # [GET] /enrollments/:id

@@ -1,0 +1,100 @@
+.panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
+  .panel-heading.text-right
+    %span.panel-title.pull-left.activity-title
+      = activity.name
+    %span.panel-title.pull-right.activity-count
+      - if activity.participant_limit.nil?
+        = activity.participants.count
+      - elsif activity.participants.count >= activity.participant_limit
+        VOL!
+      - else
+        = activity.participants.count
+        \/
+        = activity.participant_limit
+    .clearfix
+  .panel-body
+    .media-left.poster-thumbnail
+      %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+        - if activity.poster_updated_at.nil?
+          =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster"
+        - else
+          =image_tag activity.poster.url(:thumb), class: "small-poster"
+    .media-body
+      - if activity.start_date != activity.end_date
+        %strong Wanneer:
+        = activity.start_date.strftime("%d/%m/%Y")
+        - if !activity.start_time.nil?
+          = activity.start_time.strftime("%H:%M")
+        \-
+        = activity.end_date.strftime("%d/%m/%Y")
+        - if !activity.end_time.nil?
+          = activity.end_time.strftime("%H:%M")
+      - else
+        %strong Datum:
+        = activity.start_date.strftime("%d/%m/%Y")
+        - if !activity.start_time.nil?
+          <br/>
+          %strong Tijd:
+          = activity.start_time.strftime("%H:%M")
+        - if !activity.end_time.nil?
+          \-
+          = activity.end_time.strftime("%H:%M")
+      <br/>
+      %strong Prijs:
+      - if !activity.price.nil?
+        &euro;
+        = number_with_precision(activity.price, :precision => 2)
+      - else
+        Gratis
+      <br/>
+      - if !activity.location.nil? && activity.location != ''
+        %strong Locatie:
+        = activity.location
+      <br/>
+      - if !activity.unenroll_date.nil?
+        %strong Uitschrijfdeadline:
+        %span.activity-unenroll
+          = activity.unenroll_date.strftime("%d/%m/%Y")
+      <br/>
+      - if view == 'show'
+        %strong Omschrijving:
+        <br/>
+        - if activity.description.blank?
+          Geen beschrijving beschikbaar :(
+        - else
+          = activity.description
+        <br/>
+      - if activity.notes
+        - if view == 'index'
+          .col-lg-12
+            %strong
+              = activity.notes
+            %p
+              %i Deze activiteit vereist extra informatie! Klik op meer info om dit in te vullen of te wijzigen
+        - if view == 'show'
+          .col-lg-12
+            .form-group
+              %strong
+                = activity.notes
+                <br/>
+              -if @enrollment
+                %textarea{:class => 'form-control', :id => 'enrollment_notes_value', :value => @enrollment.notes, :maxlength => '30'}
+                  =@enrollment.notes
+              -else
+                %textarea{:class => 'form-control', :id => 'enrollment_notes_value'}
+  .panel-footer.clearfix
+    .pull-right
+      .btn-group
+        = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default more-info"
+        - if @current_member.confirmed_activities.ids.include? activity.id
+          %button.btn.btn-danger.enrollment{ :class => ('disabled' if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today)}
+            Uitschrijven
+        - elsif @current_member.reservist_activities.ids.include? activity.id
+          %button.btn.btn-warning.enrollment
+            Uitschrijven Reservelijst
+        - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
+          %button.btn.btn-warning-sat.enrollment
+            Inschrijven Reservelijst
+        - else
+          %button.btn.btn-success.enrollment
+            Inschrijven
