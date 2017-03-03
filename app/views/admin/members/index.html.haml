@@ -91,5 +91,5 @@
               %li.scroll{ :class => ( 'disabled' if @pages / 4.to_f <= 1 || @page +1 > (@pages -1) / 4 * 4)}
                 %a{ :data => { :offset => (@page / 4 +1) * 4 * @limit }} >>
 
-              %li{ :class => ( 'disabled' if @offset >= @limit * @pages )}
+              %li{ :class => ( 'disabled' if @offset + @limit >= @limit * @pages )}
                 %a{ :data => { :offset => @offset + @limit }} volgende
