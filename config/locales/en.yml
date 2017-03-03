@@ -1,33 +1,176 @@
 en:
-  activerecord:
-    annotations:
-      member:
-        email: Can't be a UU email address
+  date:
+    formats:
+      default: "%d-%m-%Y"
+      day_month: "%d %B"
+      short: "%Y"
 
+    day_names: [~, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+    month_names: [~, January, February, March, April, May, June, July, August, September, Oktober, November, December]
+
+  time:
+    formats:
+      default: "%d-%m-%Y %H:%M"
+      short: "%H:%M"
+
+  activerecord:
     models:
+      ideal_transaction: iDEAL transaction
       activities: Activities
       study: Study/Studies
 
     attributes:
       member:
-       first_name: First name
-       infix: Prefix
-       last_name: Surname
+        first_name: First name
+        infix: Prefix
+        last_name: Surname
 
-       birth_date: Date of birth
-       gender: Gender
-       male: Male
-       female: Female
+        birth_date: Date of birth
+        gender: Gender
+        male: Male
+        female: Female
 
-       address: Address
-       house_number: Number
-       postal_code: Postal code
-       city: City
-       phone_number: Phone number
-       email: Email
-       student_id: Student ID
+        address: Address
+        house_number: Number
+        postal_code: Postal code
+        city: City
+        phone_number: Phone number
+        email: Email
+        student_id: Student ID
+
+        comments: Comments
+
+      user:
+        email: e-mailaddress
+        password: password
+        password_confirmation: Repeat password
+
+      activity:
+        name: Name
+        price: Price
+        description: Description
+        start_date: Startdate
+        start_time: Starttime
+        end_date: Enddate
+        end_time: Endtime
+        unenroll_date: Unenroll date
+        comments: Comments
+        organized_by: Organisator
+        notes: Extra notes
+        location: Location
+
+      group:
+        name: Group name
+        category: Category
+        comments: Comments
+
+        categories:
+          board: Board
+          committee: Committee
+          moot: Moot
+          other: Other
+
+        positions:
+          chairman: Chairman
+          secretary: Secretary
+          treasurer: Treasurer
+          internal: Internal affairs
+          external: External affairs
+          education: Education
+          board: Board member
+
+        members:
+          board: Board members
+          committee: Committee members
+          moot: Moot members
+          other: Members
+
+      checkout_product:
+        name: Name
+        price: Price
+        image: Image
+        category: Category
+        active: Active
+
+        categories:
+          beverage: Drinks
+          chocolate: Chocolate
+          savory: Savory
+          additional: Additional
+          liquor: Liquor
+
+      tag:
+        names:
+          pardon: Pardon
+          merit: Merit
+          honorary: Honorary
+          donator: Donator
+          suspended: Suspended
+
+      study:
+        names:
+          inca: Computer Science
+          inku: Information Science
+          gt: Gametechnology
+          wisk: Mathematics
+
+          cosc: Computing Science
+          mbim: Business Informatics
+          gmte: Game and Media Technology
+          ainm: Artificial Intelligence
+
+          atec: Technical Artificial Intelligence
+          acsc: Advanced Computing Science
+          ckem: Content & Knowledge Engineering
+
+      education:
+        status:
+          active: Studying
+          stopped: Stopped
+          graduated: Graduated
+
+      settings:
+        begin_study_year:
+          name: Study year
+          description: The start of next study year. On this date a new year will be automatically started.
+
+        mongoose_ideal_costs:
+          name: IDeal transaction costs
+          description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
+        liquor_time:
+          name: Time at which the purchase of liquor is allowed
+          description: Time at which the purchase of liquor is allowed in Checkout. Till that time, an error will be display.
+
+        intro_membership:
+          name: Introduction membership
+          description: The activity for enrolling at Sticky, automatically generated.
+        intro_activities:
+          name: Introduction activities
+          description: Activitities during the introduction period for which new members can enroll at the introduction form.
+
+        additional_committee_positions:
+          name: Additional committee roles
+          description: Roles besides chairman, treasurer and board member that will be added to the committees.
+        additional_moot_positions:
+          name: Additional moot roles
+          description: Roles besides chairman, treasurer and board member that will be added to the moots.
+
+    annotations:
+      member:
+        email: Can't be a UU email address
 
     errors:
+      default: Some has gone wrong
+      incomplete: Oh snap, you forgot some things
+      no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
+
+      subscribe:
+        failed: Your payment has failed, but you have been enrolled!
+        success: Your payment has been received and you are enrolled!
+        no_bank_provided: Bank can't be empty when paying with iDEAL.
+        success_without_payment: You have been enrolled!
+
+
       models:
         activity:
           enrolled: You are enrolled for %{activity}
@@ -48,25 +191,42 @@ en:
               before_start_time: can't be before the start time
             unenroll_date:
               after_start_date: can't be after the start date
+
         member:
-          blank: can't be blank
-          attributes:
-            phone_number:
-              invalid: has 10 digits
-            email:
-              invalid: isn't a valid e-mailaddress
-            student_id:
-              invalid: has 7 digits or starts with a 'F' followed by 6 digits
+        blank: can't be blank
+        attributes:
+          phone_number:
+            invalid: consists of 10 digits
+          email:
+            taken: is already registered
+            invalid: is not a valid mail address
+          student_id:
+            taken: is already reigstered
+            invalid: is not valid
+            elfproef: is not valid
 
+        checkout_product:
+        blank: can't be empty
 
-      errors#incomplete: Oh snap, you forgot some things;
+        ideal_transaction:
+        blank: can't be empty
+        processed: is already processed
+        attributes:
+          checkout: Mongoose credit
+          fees: iDEAL fee
 
-    create:
-      errors#error: Something went wrong.
-      errors#payment: Your payment is not received.
+        unpermitted: is not permitted
 
-      notice#success: You're now a proud member!
+  devise:
+    registrations:
+      new: Create a Sticky account with the mail address you have provided us.
+      signup: Sign up
+      passwordrecovery: Forgot password
+      login: Sign in
 
-    confirm:
-      notice#payment: Your payment is received!
-      errors#error: Something went wrong.
+    passwords:
+      new: Enter you mail address to obtain a new password
+      edit: Register
+
+    confirmations:
+      new: Confirm your mail address
