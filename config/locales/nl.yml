@@ -106,6 +106,7 @@ nl:
           merit: Lid van Verdienste
           honorary: Erelid
           donator: Begunstiger
+          suspended: Geschorst
 
       study:
         names:
@@ -204,6 +205,7 @@ nl:
         activity:
           enrolled: Je bent ingeschreven voor %{activity}
           not_enrolled: Je bent uitgeschreven voor %{activity}
+          participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky
           participant_limit_reached: Je bent op de reservelijst geplaatst voor %{activity}
           participant_underage: Deze activiteit is alleen voor grote mensen ;)
           participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voor dat je je inschrijft

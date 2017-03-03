@@ -19,6 +19,9 @@
             %i.fa.fa-fw.fa-user
             %span#attendeecount= @activity.attendees.count
             deelnemers
+            %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
+            %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
+
 
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
@@ -37,7 +40,7 @@
                   %td= link_to "#{participant.member.name}", participant.member
 
                   %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
-                    %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
+                    %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
                   %td{ :style => 'min-width: 50%; width: 50%;' }
                     -if participant.notes
                       %p= participant.notes

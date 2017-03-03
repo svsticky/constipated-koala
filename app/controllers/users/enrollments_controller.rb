@@ -38,6 +38,18 @@ class Users::EnrollmentsController < ApplicationController
   def create
     @activity = Activity.find(params[:id])
 
+    @member = Member.find(current_user.credentials_id)
+
+    if Tag.exists?(member: @member, name: 5)
+      render :status => :failed_dependency, :json => {
+          message: I18n.t(:participant_suspended, scope:
+            'activerecord.errors.models.activity'),
+          participant_limit: @activity.participant_limit,
+          participant_count: @activity.participants.count
+      }
+      return
+    end
+
     if !@activity.is_enrollable?
       render :status => :locked, :json => {
         message: I18n.t(:not_enrollable, scope: 'activerecord.errors.models.activity'),
@@ -47,7 +59,6 @@ class Users::EnrollmentsController < ApplicationController
       return
     end
 
-    @member = Member.find(current_user.credentials_id)
     if @activity.is_alcoholic? && @member.is_underage?
       render :status => 451, :json => { # Unavailable for legal reasons
         message: I18n.t(:participant_underage, scope: 'activerecord.errors.models.activity', activity: @activity.name),

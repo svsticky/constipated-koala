@@ -8,6 +8,17 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_admin!
 
   protected
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      if request.get?
+        store_location_for(:user, request.url)
+      end
+      redirect_to new_user_session_path
+    end
+  end
+
   def authenticate_admin!
     if !current_user.nil? && !current_user.admin?
       head :forbidden

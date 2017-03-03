@@ -2,16 +2,23 @@
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Hoi
-      %strong #{name},
+      Hey #{name},
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Geweldig nieuws! Je bent van de reservelijst ingeschreven voor #{activity.name}!
+      Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>#{activity.name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Je hoeft nu verder niets meer te doen, behalve natuurlijk op tijd zijn. De activiteit begint op #{starts_at}, tot dan!
+      De activiteit begint op <strong>#{starts_at}</strong> en #{price}. Tot dan!
+
+  %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
+    %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
+      Je kunt je tot <strong>#{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
+
+  %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
+    %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; text-align: center; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
+      %a.btn-primary{:href => url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #CE2027; border-color: #CE2027; border-style: solid; border-width: 2px 111px;"} Naar de activiteit
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
@@ -20,3 +27,4 @@
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
       Studievereniging Sticky
+
