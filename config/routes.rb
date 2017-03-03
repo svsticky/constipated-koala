@@ -56,6 +56,8 @@ ConstipatedKoala::Application.routes.draw do
         end
       end
 
+      resources :payments, only: [:index], path: 'payments'
+
       resources :groups, only: [:index, :create, :show, :update] do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
       end
