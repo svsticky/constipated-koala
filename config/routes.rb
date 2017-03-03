@@ -10,7 +10,7 @@ ConstipatedKoala::Application.routes.draw do
   end
 
   constraints :subdomain => 'koala' do
-    authenticated :user, ->(u) { !u.admin? } do
+    authenticate :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 
       get   'edit',                           to: 'users/home#edit',   as: :users_edit
