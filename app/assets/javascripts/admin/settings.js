@@ -53,4 +53,10 @@ $(document).on( 'ready page:load', function(){
       alert( 'Advertentie is niet verwijderd', 'error' );
     });
   });
+
+  $('li.disabled a').on('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    return false;
+  });
 });
