@@ -263,11 +263,14 @@ nl:
 
   devise:
     registrations:
-      new: Maak een account aan voor uw Sticky account door het e-mailadres te gebruiken dat bekend is bij ons.
+      new: Maak een Sticky account aan met het e-mailadres dat bekend is bij ons.
+      signup: Account registreren
+      passwordrecovery: Wachtwoord vergeten
+      login: Inloggen
 
     passwords:
-      new: Vul hier uw e-mailadres in om een nieuw wachtwoord op te vragen.
-      edit: Maak een nieuw wachtwoord aan voor het gebruik met uw Sticky-account.
+      new: Vul hier jouw e-mailadres in om een nieuw wachtwoord op te vragen.
+      edit: Registreer jouw Sticky acccount.
 
     confirmations:
-      new: Bevestig uw e-mailadres voor uw Sticky-account.
+      new: Bevestig jouw e-mailadres voor jouw Sticky-account.
