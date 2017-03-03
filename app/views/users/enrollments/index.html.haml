@@ -30,18 +30,34 @@
                       =image_tag(activity.poster.url(:thumb), class: "small-poster center-block")
               .col-lg-6.col-md-6.col-sm-12.activity-info
                 .media-body
-                  %strong Datum:
-                  = activity[ :start_date ].strftime("%d/%m/%Y")
-                  - if activity.end_date.nil?
-                  - elsif activity.start_date == activity.end_date
-                  - else
-                    \-
-                    = activity[ :end_date ].strftime("%d/%m/%Y")
-                  - if activity.start_time.nil?
-                  - else
+                  - if !activity.end_date.nil? && activity.start_date == activity.end_date
+                    %strong Datum:
+                    = activity[ :start_date ].strftime("%d/%m/%Y")
+                    - if activity.start_time.nil?
+                    - else
+                      <br/>
+                      %strong Tijd:
+                      = activity[ :start_time ].strftime("%H:%M")
+                      - if activity.end_time.nil?
+                      - else
+                        \-
+                        = activity[ :end_time ].strftime("%H:%M")
+
+                  -else
+                    %strong Begin:
+                    = activity[ :start_date ].strftime("%d/%m/%Y")
+                    - if activity.start_time.nil?
+                    - else
+                      om
+                      = activity[ :start_time ].strftime("%H:%M")
                     <br/>
-                    %strong Begintijd:
-                    = activity[ :start_time ].strftime("%H:%M")
+                    %strong Eind:
+                    = activity[ :end_date ].strftime("%d/%m/%Y")
+                    -if activity[:end_time].nil?
+                    -else
+                      om
+                      = activity[ :end_time ].strftime("%H:%M")
+
                   <br/>
                   %strong Prijs:
                   &euro;
@@ -55,7 +71,7 @@
                     %span.activity-unenroll
                       = activity[ :unenroll_date ].strftime("%d/%m/%Y")
 
-              -if activity[:notes]
+              -if !activity[:notes].blank?
                 .col-lg-12
                   %strong
                     = activity.notes
@@ -83,7 +99,7 @@
                     %button.btn.btn-success.enrollment
                       Inschrijven
       = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
-        %i.fa.fa-bug 
+        %i.fa.fa-bug
         BUG!
     #poster-modal.modal{:role => "dialog"}
       .modal-dialog

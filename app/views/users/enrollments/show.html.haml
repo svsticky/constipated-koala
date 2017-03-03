@@ -38,18 +38,31 @@
                   = @activity.description
                 <br/>
                 <br/>
-                %strong Wanneer:
-                <br/>
-                = @activity.start_date.strftime("%d/%m/%Y")
-                - if !@activity.start_time.nil?
-                  om
-                  = @activity.start_time.strftime("%H:%M")
-                - if @activity.end_date.nil?
-                - elsif @activity.start_date == @activity.end_date
-                - else
-                  \-
+                - if !@activity.end_date.nil? && @activity.start_date == @activity.end_date
+                  %strong Datum:
+                  = @activity.start_date.strftime("%d/%m/%Y")
+                  - if @activity.start_time.nil?
+                  - else
+                    <br/><br/>
+                    %strong Tijd:
+                    = @activity.start_time.strftime("%H:%M")
+                    - if @activity.end_time.nil?
+                    - else
+                      \-
+                      = @activity.end_time.strftime("%H:%M")
+
+                -else
+                  %strong Begin:
+                  = @activity.start_date.strftime("%d/%m/%Y")
+                  - if @activity.start_time.nil?
+                  - else
+                    om
+                    = @activity.start_time.strftime("%H:%M")
+                  <br/><br/>
+                  %strong Eind:
                   = @activity.end_date.strftime("%d/%m/%Y")
-                  - if !@activity.start_time.nil?
+                  -if @activity.end_time.nil?
+                  -else
                     om
                     = @activity.end_time.strftime("%H:%M")
                 <br/>
@@ -57,8 +70,7 @@
                 %strong Inschrijfdeadline:
                 <br/>
                 = @activity.unenroll_date.strftime("%d/%m/%Y")
-                <br/>
-                <br/>
+                <br/><br/>
                 .col-md-6.col-xs-6.custom_left
                   %strong Prijs:
                   <br/>
@@ -73,7 +85,7 @@
                     = @activity.location
                     <br/><br/>
 
-            -if @activity.notes
+            -if !@activity.notes.blank?
               .col-lg-12
                 .form-group
                   %strong
@@ -89,7 +101,7 @@
             .pull-right
               .btn-group
                 = link_to "Terug", "/enrollments", class: "btn btn-default"
-                - if @activity.notes
+                - if !@activity.notes.blank?
                   %button.btn.btn-info.update_enrollment
                     Update info
                 - if @current_member.confirmed_activities.ids.include? @activity.id
