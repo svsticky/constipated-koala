@@ -172,6 +172,7 @@ nl:
         activity:
           create: activiteit aangemaakt
           update: activiteit bewerkt
+          mail: betalingsmail gestuurd
 
         participant:
           create: deelnemer toegevoegd

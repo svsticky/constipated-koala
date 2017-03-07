@@ -43,6 +43,7 @@ ConstipatedKoala::Application.routes.draw do
 
     scope module: 'admin' do
       resources :members do
+        get 'payment_whatsapp'
         collection do
           get 'search'
         end

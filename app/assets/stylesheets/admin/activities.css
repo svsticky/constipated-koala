@@ -2,6 +2,11 @@
   float: right;
 }
 
+#paymentmails tr > td {
+  width: 85%;
+}
+
+#paymentmails tr > td,
 #participants tr > td {
     padding: 0 0 0 8px;
     vertical-align: middle;
@@ -9,7 +14,6 @@
 
 #participants tr > td > a {
   line-height: 36px;
-
   height: 36px;
   width: 100%;
 }
@@ -17,9 +21,7 @@
 #participants tr > td > input {
   height: 32px;
   width: 100%;
-
   line-height: 32px;
-
   margin: 5px 0;
   padding: 1px;
 }

@@ -104,6 +104,11 @@ class Admin::MembersController < ApplicationController
 		redirect_to members_path
 	end
 
+  def payment_whatsapp
+    @member = Member.find(params[:member_id])
+    render layout: false, content_type: "text/plain"
+  end
+
   private
   def member_post_params
     params.require(:member).permit(:first_name,

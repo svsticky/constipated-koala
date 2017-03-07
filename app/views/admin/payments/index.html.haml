@@ -6,6 +6,7 @@
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
+
       .col-md-6
         .panel.panel-default
           .panel-heading
@@ -38,3 +39,44 @@
                                 %i.fa.fa-fw.fa-times
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
+
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-envelope
+            Betalingsmails
+          .panel-body#paymentmails
+            %table.table.table-striped.table-linked
+              %thead
+                %th Activiteit
+                %th Dagen
+              %tbody
+              - @last_impressions.each do |tupel|
+                - activity = tupel[0]
+                - days = tupel[1]
+                %tr{ :style => 'height: 36px; line-height: 36px;' }
+                  - if days.is_a? Numeric and days < 7
+                    %td=link_to activity.name, activity
+                    %td=days                      
+                  - else
+                    %td=link_to activity.name, activity, { :style => 'color:red'}
+                    %td{ :style => 'color:red'}=days
+
+
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-whatsapp
+            Achterstallige betalingen (> 4 mails)
+
+          .panel-body#paymentmails
+            %table.table.table-striped.table-linked
+              %thead
+                %th Lid
+                %th  WhatsApp
+              %tbody
+              - @late_payments.each do |member|
+                %tr{ :style => 'height: 36px; line-height: 36px;' }
+                  %td= link_to "#{member.name}", member
+                  %td
+                    %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
+                      %i.fa.fa-fw.fa-whatsapp             

@@ -17,6 +17,7 @@
 //= require dropdown
 //= require editor
 //= require mail
+//= require clipboard
 //
 //= require turbolinks
 //= require bootstrap
