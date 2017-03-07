@@ -66,35 +66,39 @@
         <br/>
       - if activity.notes
         - if view == 'index'
-          .col-lg-12
+          .full-width
             %strong
               = activity.notes
             %p
               %i Deze activiteit vereist extra informatie! Klik op meer info om dit in te vullen of te wijzigen
         - if view == 'show'
-          .col-lg-12
+          .full-width
             .form-group
               %strong
                 = activity.notes
                 <br/>
-              -if @enrollment
-                %textarea{:class => 'form-control', :id => 'enrollment_notes_value', :value => @enrollment.notes, :maxlength => '30'}
-                  =@enrollment.notes
-              -else
-                %textarea{:class => 'form-control', :id => 'enrollment_notes_value'}
+              %textarea.form-control.notes{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?)}
+                = @enrollment.notes unless @enrollment.nil?
   .panel-footer.clearfix
     .pull-right
       .btn-group
         = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default more-info"
+        - if activity.notes
+          %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @current_member.confirmed_activities.ids.include? activity.id || (@current_member.reservist_activities.ids.include? activity.id))}
+            Update info
         - if @current_member.confirmed_activities.ids.include? activity.id
-          %button.btn.btn-danger.enrollment{ :class => ('disabled' if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today)}
-            Uitschrijven
+          - button_text = 'Uitschrijven'
+          - button_class = 'btn-danger'
+          - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
+            - button_class += ' disabled'
         - elsif @current_member.reservist_activities.ids.include? activity.id
-          %button.btn.btn-warning.enrollment
-            Uitschrijven Reservelijst
+          - button_text = 'Uitschrijven Reservelijst'
+          - button_class = 'btn-warning'
         - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
-          %button.btn.btn-warning-sat.enrollment
-            Inschrijven Reservelijst
+          - button_text = 'Inschrijven Reservelijst'
+          - button_class = 'btn-warning-sat'
         - else
-          %button.btn.btn-success.enrollment
-            Inschrijven
+          - button_text = 'Inschrijven'
+          - button_class = 'btn-success'
+        %button.btn.enrollment{ :class => button_class}
+          = button_text

@@ -1,5 +1,13 @@
 var cached_prefix = '_cached_';
 
+function batch_edit_properties(obj, edit_function) {
+  Object.keys(obj).forEach(function (key) {
+    obj[key] = edit_function(key, obj[key], obj);
+  });
+
+  return obj;
+}
+
 function get_cached_loader(load_function, cache_name) {
   return function () {
     if (typeof this[cache_name] === 'undefined')
