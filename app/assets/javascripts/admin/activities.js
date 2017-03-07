@@ -29,8 +29,8 @@ function bind_activities(){
 var participant = {
   //Update counts in the table headers
   updateCounts : function(){
-    attendees = $('#participants-table tbody tr').length - 1; //-1 because of the add_participant row
-    reservists = $('#reservists-table tbody tr').length;
+    attendees = $('#participants-table tbody tr').length - 2; //-2 because of the add_participant row and of the header
+    reservists = $('#reservists-table tbody tr').length - 1; //-1 because of the header
 
     $('#attendeecount').html(attendees);
     $('#reservistcount').html(reservists);
@@ -59,9 +59,9 @@ var participant = {
 
   //Admin deletes participant from activity
   delete : function (){
+    var row = $(this).closest('tr');
     var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
 
     if( !confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?') )
       return
@@ -80,7 +80,7 @@ var participant = {
       if (data != null) {
         data.forEach(
           function(item, index, array) {
-            $("#reservists-table tbody tr:first").remove();
+            $("#reservists-table tbody tr:nth-child(2)").remove();
             participant.add(item, item.name);
           });
       } else {
@@ -288,4 +288,3 @@ function posterHandlers(){
     $( this ).find('button[type="submit"].wait').addClass('disabled');
   });
 }
-
