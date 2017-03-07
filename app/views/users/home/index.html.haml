@@ -130,10 +130,10 @@
                         %span.fa.fa-sort-desc.pull-right
 
                 %tr.form
-                  %td
+                  %td.home_mongoose_form_element
                     = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht'
-                  %td
+                  %td.home_mongoose_form_element
                     .ui-select{ :style => 'margin-top: 5px;' }
-                      = f.select :bank, options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']])
-                  %td
+                      = f.select :bank, options_for_select([['ABN AMRO','ABNANL2A'], ['ING BANK', 'INGBNL2A'], ['KNAB', 'KNABNL2H'], ['RABOBANK', 'RABONL2U'], ['SNS BANK', 'SNSBNL2A'], ['ASN BANK','ASNBNL21'], ['REGIOBANK', 'RBRBNL21'], ['TRIODOS BANK','TRIONL2U'], ['VAN LANSCHOT BANKIERS', 'FVLBNL22']]), {}, {style: 'min-width: 0px !important'}
+                  %td.home_mongoose_form_element
                     %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen
