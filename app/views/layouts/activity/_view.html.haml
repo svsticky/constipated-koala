@@ -64,7 +64,7 @@
         - else
           = activity.description
         <br/>
-      - if activity.notes
+      - if !activity.notes.blank?
         - if view == 'index'
           .full-width
             %strong
@@ -82,8 +82,11 @@
   .panel-footer.clearfix
     .pull-right
       .btn-group
-        = link_to "Meer info", "enrollments/#{activity.id}", class: "btn btn-default more-info"
-        - if activity.notes
+        - if view == 'index'
+          = link_to "Meer info", "/enrollments/#{activity.id}", class: "btn btn-default more-info"
+        -else
+          =link_to "Terug", "/enrollments/", class: "btn btn-default more-info"
+        - if !activity.notes.blank? && view == 'show'
           %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @current_member.confirmed_activities.ids.include? activity.id || (@current_member.reservist_activities.ids.include? activity.id))}
             Update info
         - if @current_member.confirmed_activities.ids.include? activity.id
