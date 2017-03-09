@@ -88,8 +88,7 @@ Activity.prototype = {
    */
   enroll: function () {
     var activity = this;
-    var notes = this.get_notes();
-    var request = this._remote_update_enrollment('POST', notes).done(function () {
+    var request = this._remote_update_enrollment('POST').done(function () {
       //Normal enrollment
       if (request.status == 200) {
         activity._enrollment_status = Enrollment_stati.enrolled;
@@ -110,8 +109,7 @@ Activity.prototype = {
    */
   un_enroll: function () {
     var activity = this;
-    var notes = this.get_notes()
-    return this._remote_update_enrollment('DELETE', notes).done(function () {
+    return this._remote_update_enrollment('DELETE').done(function () {
       if (activity._fullness == Activity.full_string) {
         activity._enrollment_status = Enrollment_stati.reservistable;
       }
@@ -128,8 +126,7 @@ Activity.prototype = {
    * @returns jqXHR
    */
   edit_enroll: function () {
-    var notes = this.get_notes()
-    return this._remote_update_enrollment('PATCH', notes);
+    return this._remote_update_enrollment('PATCH');
   },
 
   has_un_enroll_date_passed: function () {
@@ -140,19 +137,12 @@ Activity.prototype = {
     return this.enrollment_status === Enrollment_stati.un_enrolled || this.enrollment_status === Enrollment_stati.reservistable;
   },
 
-  get_notes: function(){
-    if (this.has_notes() && this.are_notes_filled())
-      return $.trim($('#enrollment_notes_value').val());
-    else
-      return undefined
-  },
-
   has_notes: function () {
     return typeof this.notes !== 'undefined';
   },
 
   are_notes_filled: function () {
-    return ($.trim($('#enrollment_notes_value').val())).length > 0
+    return ($.trim(this.notes.val()).length > 0)
   },
 
   /**
@@ -213,14 +203,14 @@ Object.defineProperties(Activity.prototype, {
      * @param method
      * @returns {*}
      */
-    value: function (method, notes) {
+    value: function (method) {
       var activity = this;
       var request = $.ajax({
         url: '/enrollments/' + activity.id,
         type: method,
         data: {
           authenticity_token: token,
-          par_notes: notes
+          par_notes: this.notes.val()
         }
       }).done(function (response) {
         //Alert user of  enrollment

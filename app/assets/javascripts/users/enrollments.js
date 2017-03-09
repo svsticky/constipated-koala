@@ -115,9 +115,11 @@ function initialize_enrollment() {
   activity_container.find('button.enrollment').on('click', function () {
     var activity = new Activity($(this).closest('.panel-activity'));
     if (activity.is_enrollable()) {
-      confirm_enroll(activity);
-    }
-    else
+      if(activity.has_notes() && !activity.are_notes_filled())
+        swal("Je hebt geen notities ingevuld!", "Vul ze in op de meer info pagina.", "error");
+      else
+        confirm_enroll(activity);
+    }else
       confirm_un_enroll(activity);
   });
 
