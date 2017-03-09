@@ -138,7 +138,7 @@ Activity.prototype = {
   },
 
   has_notes: function () {
-    return typeof this.notes !== 'undefined';
+    return this.notes.length !== 0;
   },
 
   are_notes_filled: function () {
@@ -331,7 +331,7 @@ Object.defineProperties(Activity.prototype,
     },
 
     notes: function () {
-      return this.panel.find('textarea.notes');
+      return this.panel.find('.notes');
     },
 
     update_notes_button: function () {
