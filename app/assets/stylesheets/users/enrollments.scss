@@ -131,3 +131,11 @@
   bottom: 10px;
   right: 10px;
 }
+
+textarea.fullwidth {
+    max-width:100%;
+    min-width:100%;
+    resize:vertical;
+    box-sizing:border-box;
+    margin:auto;
+}
