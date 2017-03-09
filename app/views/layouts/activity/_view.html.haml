@@ -77,7 +77,7 @@
               %strong
                 = activity.notes
                 <br/>
-              %textarea.form-control.notes{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?)}
+              %textarea.form-control.notes{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?), :id => 'enrollment_notes_value'}
                 = @enrollment.notes unless @enrollment.nil?
   .panel-footer.clearfix
     .pull-right
