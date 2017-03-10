@@ -67,10 +67,9 @@
       - if !activity.notes.blank?
         - if view == 'index'
           .full-width
-            %strong
-              = activity.notes
-            %p
-              %i.notes Deze activiteit vereist extra informatie! Klik op meer info om dit in te vullen of te wijzigen
+            %span.label.label-info
+              %a{:href => '#', :title => activity.notes, :data => {:toggle => 'popover', :content => "Deze activiteit vereist extra informatie! Klik op meer info om dit in te vullen of te wijzigen"}}
+                Notes
         - if view == 'show'
           .full-width
             .form-group

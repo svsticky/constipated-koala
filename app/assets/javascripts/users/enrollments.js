@@ -106,6 +106,12 @@ function next_poster() {
   modal.activity_data.current.next_activity.load_data_to_modal();
 }
 
+function initialize_ui(){
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+}
+
 /**
  * Binds the enrollment events
  */
@@ -162,6 +168,7 @@ function initialize_modal() {
 $(document).on('ready page:load', function () {
   token = encodeURIComponent($(this).find('.page').attr('data-authenticity-token'));
 
+  initialize_ui();
   initialize_enrollment();
   initialize_modal();
 });
