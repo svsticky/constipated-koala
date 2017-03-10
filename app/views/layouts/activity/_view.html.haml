@@ -57,26 +57,23 @@
         %span.activity-unenroll
           = activity.unenroll_date.strftime("%d/%m/%Y")
       <br/>
-      - if view == 'show'
-        %strong Omschrijving:
-        <br/>
-        - if activity.description.blank?
-          Geen beschrijving beschikbaar :(
-        - else
-          = activity.description
-        <br/>
       - if view == 'index'
         - if !activity.notes.blank?
           %strong{style: 'color: red;'} Vereist extra info!
-      - if view == 'show'
-        .full-width
-          .form-group
-            %strong
-              = activity.notes
-              <br/>
-            %textarea.form-control.notes.full-width{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?)}
-              = @enrollment.notes unless @enrollment.nil?
-
+  - if view =='show'
+    .panel-body.show-activity-topborder
+      %strong Omschrijving:
+      <br/>
+      - if activity.description.blank?
+        Geen beschrijving beschikbaar :(
+      - else
+        = activity.description
+    - if !activity.notes.blank?
+      .panel-body.show-activity-topborder
+        %strong
+          = activity.notes
+        %textarea.form-control.notes{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?)}
+          = @enrollment.notes unless @enrollment.nil?
   .panel-footer.clearfix
     .pull-right
       .btn-group

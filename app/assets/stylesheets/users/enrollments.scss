@@ -109,7 +109,6 @@
 .cramtable tr > td > .btn-group > button {
   height: 32px;
   line-height: 20px;
-
   padding: 5px 12px;
 }
 
@@ -131,14 +130,10 @@
   right: 10px;
 }
 
-textarea.fullwidth {
-    max-width:100%;
-    min-width:100%;
-    resize:vertical;
-    box-sizing:border-box;
-    margin:auto;
+.show-activity-topborder {
+  border-top: 1px solid #efefef;
 }
 
-h3.popover-title, div.popover-content{
-  color: rgb(118,118,118);
+.notes {
+  resize: none;
 }
