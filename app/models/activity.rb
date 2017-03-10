@@ -9,6 +9,9 @@ class Activity < ActiveRecord::Base
     greater_than_or_equal_to: 0,
     allow_nil: true
   }
+  validates :price, numericality:  {
+      greater_than_or_equal_to: 0
+  }
 #  validates :end_date
 #  validates :description
 #  validates :unenroll_date
