@@ -33,6 +33,7 @@
   }
 }
 
+
 .poster-thumbnail img {
   width: 140px;
 }
@@ -165,4 +166,15 @@
 
 .notes {
   resize: none;
+}
+
+/* Sweet-alerts with a lot of text will not properly display their buttons */
+@media (max-width: 430px){
+  .long-sweet-alert {
+      box-sizing : border-box;
+      max-height : 85% !important;
+      overflow-y : auto !important;
+      padding-bottom: 30px !important;
+      margin-top: -70% !important;
+  }
 }

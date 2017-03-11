@@ -43,11 +43,12 @@ function confirm_enroll(activity) {
 
 function confirm_un_enroll_date_passed(activity) {
   swal({
-      title: "De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven?",
+      title: "De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!"
+      confirmButtonText: "Jep!",
+      customClass: "long-sweet-alert"
     }
     // anonymous function, because this is set to the sweetalert
     , function () {
