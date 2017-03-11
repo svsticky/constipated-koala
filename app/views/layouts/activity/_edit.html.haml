@@ -108,7 +108,7 @@
             = label(:activity, :participant_limit)
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 
-      %button.btn.btn-success.wait{type: 'submit', data: { confirm: 'Activiteit opslaan?' } } Opslaan
+      %button.btn.btn-success.wait{type: 'submit'} Opslaan
       - if (@activity.id)
         = link_to 'Back', :back, { :class => 'button btn btn-default' }
         = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }

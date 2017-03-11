@@ -233,6 +233,11 @@ $(document).on( 'ready page:load', function(){
   $('#is_enrollable').on('click', function() {
       $('#participant_limit')[0].disabled = !this.checked;
   });
+
+  // Add confirmation dialog only when changing participants limit
+  $('#participant_limit').on('change', function() {
+    $('.btn.btn-success.wait[type="submit"]').attr('data-confirm', "Activiteit opslaan?");
+  });
 });
 
 /*
