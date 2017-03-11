@@ -54,7 +54,6 @@
 }
 
 .media-body {
-  padding-top: 5px;
   padding-right: 10px;
 }
 
@@ -66,7 +65,9 @@
   padding-left: 10px;
 }
 
-.panel-activity {
+.panel-activity,
+.cramtable,
+.cramtable > .panel.panel-default {
   min-width: 255px;
 }
 
@@ -176,5 +177,35 @@
       overflow-y : auto !important;
       padding-bottom: 30px !important;
       margin-top: -70% !important;
+  }
+}
+
+@media (min-width: 768px) {
+    #enrollments .container {
+        width: 548px;
+    }
+
+    @media (max-width: 992px) {
+      .col-lg-4 {
+        width: 100%;
+      }
+    }
+}
+
+@media (min-width: 992px) {
+    #enrollments .container {
+        width: 772px;
+    }
+}
+
+@media (min-width: 1280px) {
+    #enrollments .container {
+        width: 1080px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1280px) {
+  .col-lg-4 {
+    width: 50%;
   }
 }
