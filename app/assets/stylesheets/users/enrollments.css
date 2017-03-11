@@ -29,6 +29,8 @@
 
     .media-left {
       padding-bottom: 15px;
+      display: flex;
+      justify-content: center
     }
   }
 }
