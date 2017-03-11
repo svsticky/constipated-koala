@@ -47,8 +47,7 @@ function confirm_un_enroll_date_passed(activity) {
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!",
-      customClass: "long-sweet-alert"
+      confirmButtonText: "Jep!"
     }
     // anonymous function, because this is set to the sweetalert
     , function () {

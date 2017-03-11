@@ -172,15 +172,20 @@
 }
 
 /* Sweet-alerts with a lot of text will not properly display their buttons */
-@media (max-width: 430px){
-  .long-sweet-alert {
-      box-sizing : border-box;
-      max-height : 85% !important;
-      overflow-y : auto !important;
-      padding-bottom: 30px !important;
-      margin-top: -70% !important;
+.sweet-alert {
+    box-sizing : border-box;
+    overflow-y : auto !important;
+}
+
+@media (max-height: 735px), (max-width: 420px) {
+  .sweet-alert {
+    top: 65px !important;
+    margin-top: 0px !important;
+    max-height: calc(100vh - 80px) !important;
+
   }
 }
+
 
 @media (min-width: 768px) {
     #enrollments .container {
