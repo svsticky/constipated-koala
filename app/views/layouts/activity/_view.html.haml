@@ -59,7 +59,7 @@
       <br/>
       - if view == 'index'
         - if !activity.notes.blank?
-          %strong{style: 'color: red;'} Vereist extra info!
+          %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'} Vereist extra info!
   - if view =='show'
     .panel-body.show-activity-topborder
       %strong Omschrijving:
