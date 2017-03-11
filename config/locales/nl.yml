@@ -54,10 +54,13 @@ nl:
         end_date: Einddatum
         end_time: Eindtijd
         unenroll_date: Uitschrijfdeadline
-        comments: Opmerkingen
+        comments: Opmerkingen (privé)
         organized_by: Organisator
-        notes: Extra specificatie
+        notes: Extra specificatie (publiek)
         location: Locatie
+        is_alcoholic: Alcohol(18+)
+        is_enrollable: Inschrijfbaar
+        participant_limit: Deelnemerslimiet
 
       group:
         name: Naam

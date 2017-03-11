@@ -41,7 +41,7 @@
           = activity.end_time.strftime("%H:%M")
       <br/>
       %strong Prijs:
-      - if !activity.price.nil?
+      - if !activity.price.nil? and activity.price != 0
         &euro;
         = number_with_precision(activity.price, :precision => 2)
         <br/>
