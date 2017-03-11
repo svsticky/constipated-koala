@@ -1,6 +1,6 @@
 .panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id }}
   .panel-heading.text-right
-    %span.panel-title.pull-left.activity-title
+    %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
     %span.panel-title.pull-right.activity-count
       - if activity.participant_limit.nil?
