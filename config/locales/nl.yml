@@ -208,6 +208,7 @@ nl:
         activity:
           enrolled: Je bent ingeschreven voor %{activity}
           not_enrolled: Je bent uitgeschreven voor %{activity}
+          activity_ended: Deze activiteit is al afgelopen
           participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky
           participant_limit_reached: Je bent op de reservelijst geplaatst voor %{activity}
           participant_underage: Deze activiteit is alleen voor grote mensen ;)

@@ -24,6 +24,13 @@ class Users::EnrollmentsController < ApplicationController
   # field.
   def show
     @activity = Activity.find(params[:id])
+
+    # Don't allow enrollments for old activities
+    if @activity.start <= Time.now
+      render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
+      return
+    end
+
     @current_member = Member.find(current_user.credentials_id)
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
@@ -36,6 +43,15 @@ class Users::EnrollmentsController < ApplicationController
     @activity = Activity.find(params[:id])
 
     @member = Member.find(current_user.credentials_id)
+
+    # Don't allow enrollments for old activities
+    if @activity.start <= Time.now
+      render :status => :gone, :json => {
+        message: I18n.t(:activity_ended, scope: 
+          'activerecord.errors.models.activity')
+      }
+      return
+    end  	
 
     # Deny suspended members
     if Tag.exists?(member: @member, name: 5)
