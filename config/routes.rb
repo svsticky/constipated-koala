@@ -1,6 +1,24 @@
+# Helper constraint to allow us to respond to multiple subdomains
+class MainDomain
+  def self.matches?(request)
+    request.subdomain.present? &&
+      ["koala", "koala.dev",
+       "leden", "leden.dev",
+       "members", "members.dev",
+      ].include?(request.subdomain)
+  end
+end
+
+class IntroDomain
+  def self.matches?(request)
+    request.subdomain.present? &&
+      ["intro", "intro.dev"].include?(request.subdomain)
+  end
+end
+
 ConstipatedKoala::Application.routes.draw do
 
-  constraints :subdomain => 'intro' do
+  constraints(IntroDomain) do
     scope module: 'users' do
       get  '/', to: 'public#index', as: 'public'
       post '/', to: 'public#create'
@@ -9,7 +27,7 @@ ConstipatedKoala::Application.routes.draw do
     end
   end
 
-  constraints :subdomain => 'koala' do
+  constraints(MainDomain) do
     authenticate :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 

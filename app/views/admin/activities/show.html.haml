@@ -17,14 +17,13 @@
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-user
-            %span#attendeecount
-              = @activity.attendees.count
-            \/
-            = @activity.participant_limit
+            -if @activity.participant_limit.nil?
+              %span#attendeecount= @activity.attendees.count
+            -else
+              %span#attendeecount= "#{@activity.attendees.count}/#{@activity.participant_limit}"
             deelnemers
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
-
 
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody

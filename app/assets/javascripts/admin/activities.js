@@ -229,36 +229,16 @@ $(document).on( 'ready page:load', function(){
 
   $('form#mail').mail();
 
-  $('#is_enrollable').on('click', enrollable_toggled);
+  // 'Enrollable' checkbox toggled
+  $('#is_enrollable').on('click', function() {
+      $('#participant_limit')[0].disabled = !this.checked;
+  });
 
-  //Update search
-  if( $('.filtered-search') ){
-    $('input#search').on('keyup', function(){
-
-      var query = new RegExp( $( this ).val(), 'i');
-
-      $( '.filtered-search table' ).each( function( index, table ){
-        $( table ).find( 'tbody tr' ).each( function( index, row ){
-
-          if( query.test( $( row ).attr( 'data-name' )))
-            $( row ).removeClass('hidden');
-          else
-            $( row ).addClass('hidden');
-        });
-
-        if( $( table ).find( 'tbody tr' ).not( '.hidden' ).length > 0 )
-          $( table ).removeClass('hidden');
-        else
-          $( table ).addClass('hidden');
-      });
-    });
-  }
+  // Add confirmation dialog only when changing participants limit
+  $('#participant_limit').on('change', function() {
+    $('.btn.btn-success.wait[type="submit"]').attr('data-confirm', "Activiteit opslaan?");
+  });
 });
-
-// 'Is enrollable' checkbox toggled
-function enrollable_toggled(){
-  $('#participant_limit')[0].disabled = !this.checked;
-}
 
 /*
  * Contains the poster related handlers
