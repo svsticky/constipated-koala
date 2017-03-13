@@ -4,8 +4,40 @@
  *= require_tree .
  */
 
+@media (max-width: 420px) {
+
+  #activity-container .btn.helpme {
+    width: 76px;
+  }
+
+  .btn-group {
+    width: 100%;
+  }
+  #activity-container .btn {
+    width: 100%;
+    margin: 4px 0px;
+  }
+
+  .panel-footer .pull-right {
+    width: 100%;
+  }
+
+  @media (max-width: 404px) {
+    .media-body {
+      display: inline;
+    }
+
+    .media-left {
+      padding-bottom: 15px;
+      display: flex;
+      justify-content: center
+    }
+  }
+}
+
+
 .poster-thumbnail img {
-  width: 150px;
+  width: 140px;
 }
 
 .poster-moreinfo a img {
@@ -24,7 +56,6 @@
 }
 
 .media-body {
-  padding-top: 5px;
   padding-right: 10px;
 }
 
@@ -36,7 +67,9 @@
   padding-left: 10px;
 }
 
-.panel-activity {
+.panel-activity,
+.cramtable,
+.cramtable > .panel.panel-default {
   min-width: 255px;
 }
 
@@ -62,7 +95,6 @@
 	padding-left: 0;
 }
 
-/* Danny please do the needful */
 .cramtable tr > td {
     padding: 0 0 0 8px !important; // Overrides table-linked padding which is apparently more specific
     vertical-align: middle;
@@ -110,7 +142,6 @@
 .cramtable tr > td > .btn-group > button {
   height: 32px;
   line-height: 20px;
-
   padding: 5px 12px;
 }
 
@@ -132,10 +163,56 @@
   right: 10px;
 }
 
-textarea.fullwidth {
-    max-width:100%;
-    min-width:100%;
-    resize:vertical;
-    box-sizing:border-box;
-    margin:auto;
+.show-activity-topborder {
+  border-top: 1px solid #efefef;
+}
+
+.notes {
+  resize: none;
+}
+
+/* Sweet-alerts with a lot of text will not properly display their buttons */
+.sweet-alert {
+    box-sizing : border-box;
+    overflow-y : auto !important;
+}
+
+@media (max-height: 735px), (max-width: 420px) {
+  .sweet-alert {
+    top: 65px !important;
+    margin-top: 0px !important;
+    max-height: calc(100vh - 80px) !important;
+
+  }
+}
+
+
+@media (min-width: 768px) {
+    #enrollments .container {
+        width: 548px;
+    }
+
+    @media (max-width: 992px) {
+      .col-lg-4 {
+        width: 100%;
+      }
+    }
+}
+
+@media (min-width: 992px) {
+    #enrollments .container {
+        width: 772px;
+    }
+}
+
+@media (min-width: 1280px) {
+    #enrollments .container {
+        width: 1080px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1280px) {
+  .col-lg-4 {
+    width: 50%;
+  }
 }

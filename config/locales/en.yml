@@ -54,10 +54,13 @@ en:
         end_date: Enddate
         end_time: Endtime
         unenroll_date: Unenroll date
-        comments: Comments
+        comments: Comments (private)
         organized_by: Organisator
-        notes: Extra notes
+        notes: Extra notes (public)
         location: Location
+        is_alcoholic: Alcoholic(18+)
+        is_enrollable: Enrollable
+        participant_limit: Participant limit
 
       group:
         name: Group name

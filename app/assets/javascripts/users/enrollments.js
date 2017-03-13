@@ -43,7 +43,7 @@ function confirm_enroll(activity) {
 
 function confirm_un_enroll_date_passed(activity) {
   swal({
-      title: "De uitschrijfdeadline voor deze activiteit is verstreken. Je inschrijving kan dus niet ongedaan gemaakt worden. Weet je heel zeker dat je je wilt inschrijven?",
+      title: "De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
@@ -106,6 +106,12 @@ function next_poster() {
   modal.activity_data.current.next_activity.load_data_to_modal();
 }
 
+function initialize_ui(){
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+}
+
 /**
  * Binds the enrollment events
  */
@@ -162,6 +168,7 @@ function initialize_modal() {
 $(document).on('ready page:load', function () {
   token = encodeURIComponent($(this).find('.page').attr('data-authenticity-token'));
 
+  initialize_ui();
   initialize_enrollment();
   initialize_modal();
 });
