@@ -26,7 +26,7 @@ class Users::EnrollmentsController < ApplicationController
     @activity = Activity.find(params[:id])
 
     # Don't allow enrollments for old activities
-    if @activity.start <= Time.now
+    if @activity.end <= Time.now
       render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
       return
     end
@@ -45,7 +45,7 @@ class Users::EnrollmentsController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     # Don't allow enrollments for old activities
-    if @activity.start <= Time.now
+    if @activity.end <= Time.now
       render :status => :gone, :json => {
         message: I18n.t(:activity_ended, scope: 
           'activerecord.errors.models.activity')
