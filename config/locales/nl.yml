@@ -193,6 +193,12 @@ nl:
       member:
         email: E-mailadres kan geen adres van de UU zijn
 
+    messages:
+      participant:
+        paid: '%{name} heeft betaald voor %{activity}'
+        unpaid: '%{name} heeft niet betaald voor %{activity}'
+        price: '%{activity} is veranderd voor %{name}'
+
     errors:
       default: Er is iets fout gegaan
       incomplete: Oh snap, niet alles is goed ingevuld

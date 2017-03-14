@@ -34,7 +34,8 @@ class Admin::ParticipantsController < ApplicationController
 
     if participant.save
       impressionist(participant, message)
-      render :status => :ok, :json => participant
+      render :status => :ok, :json => I18n.t(message, scope: 'activerecord.messages.participant',
+        :name => participant.member.name, :activity => participant.activity.name).to_json
       return
     else
       respond_with participant.errors.full_messages
