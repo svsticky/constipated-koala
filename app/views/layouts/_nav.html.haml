@@ -21,12 +21,17 @@
           %span Activiteiten
           %i.fa.fa-ticket
             %span.icon-bg.bg-success
+      %li{ :class => ('active' if yield(:page) == 'payments') }
+        = link_to :payments do
+          %span Betalingen
+          %i.fa.fa-money
+            %span.icon-bg.bg-primary-light
 
       %li{ :class => ('active' if yield(:page) == 'apps') }
         = link_to '' do
           %span Apps
           %i.fa.fa-terminal
-            %span.icon-bg.bg-primary-light
+            %span.icon-bg.bg-primary
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:subpage) == 'transacties') }
             = link_to :checkout do

@@ -17,6 +17,8 @@
 
         - if current_user.admin?
           = render 'layouts/nav'
+        - else
+          = render 'layouts/nav_user'
 
       .view-container
         = yield

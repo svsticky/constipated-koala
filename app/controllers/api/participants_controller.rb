@@ -1,6 +1,6 @@
 class Api::ParticipantsController < ApiController
   before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
-  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy]
+  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy, :update]
 
   def index
     if params[:activity_id].present?
@@ -49,6 +49,9 @@ class Api::ParticipantsController < ApiController
     end
 
     redirect_to transaction.redirect_uri
+  end
+
+  def update
   end
 
   def destroy

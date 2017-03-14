@@ -5,13 +5,14 @@ class Admin::ActivitiesController < ApplicationController
     @activities = Activity.study_year( params['year'] ).order(start_date: :desc)
     @years = (Activity.take(1).first.start_date.year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
-    @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @activity = Activity.new
   end
 
   def show
     @activity = Activity.find_by_id params[:id]
-    @recipients =  @activity.participants.order('members.first_name', 'members.last_name').joins(:member).where('participants.paid = FALSE AND (participants.price IS NULL OR participants.price > 0)').select(:id, :member_id, :first_name, :email)
+    @recipients =  @activity.payment_mail_recipients
+    @attendees  = @activity.ordered_attendees
+    @reservists = @activity.ordered_reservists
   end
 
   def create
@@ -42,7 +43,9 @@ class Admin::ActivitiesController < ApplicationController
     if @activity.update(params.except(:_destroy))
       redirect_to @activity
     else
-      @recipients =  @activity.participants.order('members.first_name', 'members.last_name').joins(:member).where('participants.paid' => false).select(:id, :member_id, :first_name, :email)
+      @recipients =  @activity.payment_mail_recipients
+      @attendees  = @activity.ordered_attendees
+      @reservists = @activity.ordered_reservists
       render 'show'
     end
   end
@@ -62,10 +65,16 @@ class Admin::ActivitiesController < ApplicationController
                                       :start_time,
                                       :end_date,
                                       :end_time,
+                                      :unenroll_date,
                                       :comments,
                                       :price,
+                                      :location,
                                       :poster,
                                       :organized_by,
+                                      :notes,
+                                      :is_alcoholic,
+                                      :is_enrollable,
+                                      :participant_limit,
                                       :_destroy)
   end
 end

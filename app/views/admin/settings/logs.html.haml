@@ -89,5 +89,5 @@
               %li{ :class => ( 'disabled' if @offset == 0)}
                 %a{ :data => { :offset => @offset - @limit < 0 ? 0 : @offset - @limit }} vorige
 
-              %li
+              %li{ :class => ( 'disabled' if @offset + @limit >= @total_log_items )}
                 %a{ :data => { :offset => @offset + @limit }} volgende

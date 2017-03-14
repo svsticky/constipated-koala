@@ -1,0 +1,40 @@
+- content_for(:page, "enrollments")
+- content_for(:title, "Constipated koala | #{@activity.name}")
+
+%section#enrollments
+  .page.enrollment-show#content
+    .container#activity-container
+      .col-lg-6
+        = render 'layouts/activity/view', activity: @activity, view: 'show'
+
+      .col-lg-3.col-md-6.cramtable
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span#attendees-count.number= @activity.attendees.count
+            deelnemers
+
+          %table#attendees.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+            %tbody
+              - @activity.attendees.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
+                %tr
+                  %td{ :style => 'min-width: 60%; width: 25%;' }
+                    =participant.member.name
+
+      .col-lg-3.col-md-6.cramtable
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-user
+            %span#reservists-count.number= @activity.reservists.count
+            op reservelijst
+
+          %table#reservists.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
+            %tbody
+              - @activity.reservists.joins(:member).each do |reservist|
+                %tr
+                  %td{ :style => 'min-width: 60%; width: 25%' }
+                    =reservist.member.name
+      = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
+        %i.fa.fa-bug
+        BUG!
+    = render 'layouts/poster_modal'

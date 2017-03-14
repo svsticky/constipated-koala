@@ -17,11 +17,13 @@
 //= require dropdown
 //= require editor
 //= require mail
+//= require clipboard
 //
 //= require turbolinks
 //= require bootstrap
 //
 //= require_tree ./admin
+//= require_tree ./users
 
 $(document).on('ready page:load', function(){
   // Alerts for on the frontend, default type is info

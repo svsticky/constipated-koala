@@ -10,6 +10,8 @@ class Admin::ParticipantsController < ApplicationController
       @response = @participant.attributes #TODO refactor, very old code
       @response[ 'price' ] = @activity.price
       @response[ 'email' ] = @participant.member.email
+      @response[ 'name'  ] = @participant.member.name
+      @response[ 'notes' ] = @participant.notes
 
       render :status => :created, :json => @response.to_json
     end
@@ -32,7 +34,8 @@ class Admin::ParticipantsController < ApplicationController
 
     if participant.save
       impressionist(participant, message)
-      render :status => :ok, :json => participant
+      render :status => :ok, :json => I18n.t(message, scope: 'activerecord.messages.participant',
+        :name => participant.member.name, :activity => participant.activity.name).to_json
       return
     else
       respond_with participant.errors.full_messages
@@ -40,10 +43,30 @@ class Admin::ParticipantsController < ApplicationController
   end
 
   def destroy
-    respond_with Participant.destroy(params[:id])
+    ghost_participant = Participant.destroy(params[:id])
+
+    if ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists)
+      @response = []
+
+      ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists).each do |peep|
+        item = peep.attributes
+        item['price'] = peep.activity.price
+        item['email'] = peep.member.email
+        item['name']  = peep.member.name
+        item['notes'] = peep.notes
+
+        @response << item
+      end
+
+      render :status => :ok, :json => @response.to_json
+    else
+      head :no_content
+    end
   end
 
   def mail
-    render :json => Mailings::Participants.inform( Activity.find_by_id!(params[:activity_id]), params[:recipients].map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
+    @activity = Activity.find_by_id!(params[:activity_id])
+    render :json => Mailings::Participants.inform( @activity, params[:recipients].map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
+    impressionist(@activity)
   end
 end

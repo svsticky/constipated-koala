@@ -36,7 +36,7 @@ class CheckoutTransaction < ActiveRecord::Base
     if items.any? { |item| CheckoutProduct.find( item ).liquor? }
       #only place you should use now, because liquor_time is without zone
       raise ActiveRecord::RecordNotSaved.new('not_allowed') if Time.now.before( Settings.liquor_time )
-      raise ActiveRecord::RecordNotSaved.new('not_allowed') if (self.checkout_balance.member.birth_date + 18.years) > Date.today
+      raise ActiveRecord::RecordNotSaved.new('not_allowed') if self.checkout_balance.member.is_underage?
     end
 
     CheckoutBalance.where(id: self.checkout_balance.id).limit(1).update_all("balance = balance + %{amount}, updated_at = NOW()" % { amount: self.price })

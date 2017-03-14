@@ -43,6 +43,6 @@
 
 .row
   .text-center
-    = link_to 'wachtwoord vergeten', new_user_password_path
+    = link_to (I18n.t'devise.registrations.passwordrecovery'), new_user_password_path
     |
-    = link_to 'inloggen', new_user_session_path
+    = link_to (I18n.t'devise.registrations.login'), new_user_session_path

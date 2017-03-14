@@ -51,6 +51,15 @@ class Member < ActiveRecord::Base
   has_many :activities,
     :through => :participants
 
+  has_many :confirmed_activities,
+    -> {where(participants: {reservist: false})},
+    :through => :participants,
+    :source => :activity
+  has_many :reservist_activities,
+    -> {where(participants: {reservist: true})},
+    :through => :participants,
+    :source => :activity
+
   has_many :group_members,
     :dependent => :destroy
   has_many :groups,
@@ -60,7 +69,7 @@ class Member < ActiveRecord::Base
   def first_name=(first_name)
     write_attribute(:first_name, first_name.downcase.titleize)
   end
-  
+
   def infix=(infix)
     write_attribute(:infix, infix.downcase)
     write_attribute(:infix, NIL) if infix.blank?
@@ -244,6 +253,41 @@ class Member < ActiveRecord::Base
       end
     end
   end
+
+  def is_underage?
+    return !self.is_adult?
+  end
+
+  def is_adult?
+    return 18.years.ago >= self.birth_date
+  end
+
+  def unpaid_activities
+      # All participants who will receive payment reminders
+      self.participants.joins(:activity).where('
+        activities.start_date <= ?
+        AND
+        participants.reservist IS FALSE
+        AND
+         (
+          (activities.price IS NOT NULL
+           AND
+           participants.paid IS FALSE
+           AND
+           (participants.price IS NULL
+            OR
+            participants.price > 0)
+          )
+          OR
+          (
+           activities.price IS NULL
+           AND
+           participants.paid IS FALSE
+           AND
+           participants.price IS NOT NULL
+          )
+        )', Date.today).distinct
+    end
 
   # Private function cannot be called from outside this class
   private

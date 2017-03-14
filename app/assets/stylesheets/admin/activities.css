@@ -1,11 +1,19 @@
+#pricesum, #paidsum {
+  float: right;
+}
+
+#paymentmails tr > td {
+  width: 85%;
+}
+
+#paymentmails tr > td,
 #participants tr > td {
-  padding: 0px;
-  padding-left: 8px;
+    padding: 0 0 0 8px;
+    vertical-align: middle;
 }
 
 #participants tr > td > a {
   line-height: 36px;
-
   height: 36px;
   width: 100%;
 }
@@ -13,19 +21,17 @@
 #participants tr > td > input {
   height: 32px;
   width: 100%;
-
   line-height: 32px;
-
   margin: 5px 0;
   padding: 1px;
 }
 
 #participants tr > td {
-  width: calc( 60% - 50px );
+  width: calc(60% - 50px);
 }
 
 #participants tr > td:nth-child(2) {
-  width: calc( 40% - 50px );
+  width: calc(40% - 50px);
 
   padding-right: 5%;
   text-align: right;
@@ -43,7 +49,7 @@
   padding: 0;
 }
 
-#participants tr > td > .btn-group > button{
+#participants tr > td > .btn-group > button {
   height: 32px;
   line-height: 20px;
 
@@ -99,8 +105,12 @@
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }
-}
 
+  @media (max-width: 991px) {
+  form span.poster {
+    top: 154px;
+  }
+}
 
 #mail > #textarea, #mail > textarea#html {
   font-family: arial;
@@ -123,4 +133,8 @@
 
 #mail:not(.html) > #textarea {
   display: block;
+}
+
+#activity_participant_limit{
+  width: 50px
 }

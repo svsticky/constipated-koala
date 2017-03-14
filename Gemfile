@@ -45,6 +45,12 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
+# fancy JS alert and confirm
+gem 'sweetalert-rails'
+
+# Clipboard: Saved text to clipboard
+gem 'clipboard-rails'
+
 group :production do
   gem 'unicorn'
   gem 'aws-sdk', '~> 1.5.7'
