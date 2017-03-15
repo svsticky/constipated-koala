@@ -18,6 +18,10 @@ dependencies:
   cache_directories:
     - "vendor/bundle"
 
+  post:
+    - bundle exec rake assets:clobber --trace
+    - bundle exec rake assets:precompile --trace
+
 database:
   override: 
     - bundle exec rake db:create --trace
