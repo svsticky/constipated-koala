@@ -2,10 +2,16 @@
 
 Note: this guide assumes only a upgrade of Koala's codebase. Changing the nginx
 config is out of scope, and will be done separately.
+Also note that this guide is based on the current skyblue server, and will
+(hopefully) be obsolete and/or need rewriting when the ansible playbook is
+done.
 
 1. Ensure that the outage is known by at least one person who is not imaginary
-	and who is a board member (bestuurslid). You might want to shut Checkout
-	down to prevent inconsistencies.
+	and who is a board member (bestuurslid). Also ensure that the IT-crowd is
+	at least aware of your actions (preferably in the same room), both to
+	prevent uninformed reboots and other mishaps and to provide emotional
+	support in the event of a screw-up.
+1. Ensure Checkout is shut down, to prevent inconsistencies.
 1. Ensure that there is a tag at the current revision running on the server,
 	and a tag at the revision to be deployed.
 1. Log in to the server.
@@ -16,9 +22,10 @@ config is out of scope, and will be done separately.
 1. As yourself, `sudo service unicorn stop`. **Checkout, Radio and the Zuil
 	will stop working from here on.**
 1. Ensure koala has stopped completely (`pgrep ruby` returns no processes).
-1. In PHPMyAdmin, create a database backup of _at least_ the entire `koala`
-	database, download this to a non-`/tmp` location, and upload it to S3 with
-	a descriptive name (`koala-db-predeploy-yyyy-mm-dd.sql`).
+1. Log in as the `koala` user in PHPMyAdmin, and use the 'pre-upgrade backup'
+	export template to create a backup of the database. This will give you
+	a file named like `pre-upgrade-koala-2017031518_i.sql`, save this file to
+	a non-`/tmp` location AND upload it to S3.
 1. In your `admin`-shell:
 	- `git pull`
 	- `git checkout $TARGET_REVISION` (zelf invullen)
@@ -27,6 +34,9 @@ config is out of scope, and will be done separately.
 		process fails, we either are missing some package needed to build an
 		extension, or something else broke. If the package can be installed,
 		install it, else, abort.
+	- `RAILS_ENV=production bundle exec rake assets:clobber`  
+		`RAILS_ENV=production bundle exec rake assets:precompile`
+		This command will ensure that all assets compile, if this fails, abort.
 	- `RAILS_ENV=production bundle exec rake db:migrate:status`  
 		This command will give information about which database migrations are
 		present, and whether or not they have been performed. If there are any
