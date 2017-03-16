@@ -1,9 +1,17 @@
 //= require sweetalert
+//= require users/enrollments/Activity
+//= require users/enrollments/PosterModal
 
-//TODO modal class
-//TODO poster nav button hide/show to modol class
+var token, activity_container, modal, isInMoreInfoView;
 
-var token, modal, activity_container, isInMoreInfoView;
+function get_activity_container() {
+  return $('#activity-container');
+}
+
+function inMoreInfoView() {
+  return $(".enrollment-show").length === 1;
+}
+
 /**
  * Converts a string with format rgb(int, int, int) to hex value
  * @param rgb
@@ -94,21 +102,6 @@ function confirm_update(activity) {
   );
 }
 
-/**
- * Loads the previous activity to the modal
- */
-function prev_poster() {
-  modal.activity_data.current.prev_activity.load_data_to_modal();
-}
-
-
-/**
- * Loads the next activity to the modal
- */
-function next_poster() {
-  modal.activity_data.current.next_activity.load_data_to_modal();
-}
-
 function initialize_ui(){
   $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
@@ -119,8 +112,7 @@ function initialize_ui(){
  * Binds the enrollment events
  */
 function initialize_enrollment() {
-  activity_container = $('#activity-container');
-  isInMoreInfoView = $(".enrollment-show").length === 1;
+  var activity_container = get_activity_container();
 
   activity_container.find('button.enrollment').on('click', function () {
     var activity = new Activity($(this).closest('.panel-activity'));
@@ -143,30 +135,36 @@ function initialize_enrollment() {
  * Binds the modal events.
  */
 function initialize_modal() {
-  modal = $('#poster-modal');
-
-  modal.activity_data = {
-    img: modal.find('img')
-    , title: modal.find('.activity-title')
-    , more_info_link: modal.find('.more-info')
-  };
-
-  if(isInMoreInfoView)
-    modal.activity_data.more_info_link.addClass("hide");
-
+  var posterModal = $('#poster-modal');
   //Add event handler to poster to show the modal
-  $(".show-poster-modal").on("click", function () {
-    var activity = new Activity($(this).closest('.panel-activity'));
-    activity.load_data_to_modal();
-
-    modal.modal('show');
+  posterModal.on("show.bs.modal", function (event) {
+    var activity = new Activity($(event.relatedTarget).closest('.panel-activity'));
+    modal = new Poster_modal(this, activity);
+    if(inMoreInfoView())
+      modal.more_info.addClass("hide");
   });
 
 //Add event handler to go to the previous activity in the modal
-  $("#prev-poster").on("click", prev_poster);
+  posterModal.find('.prev-activity').on("click",
+    /**
+   * Loads the previous activity to the modal
+   */
+  function() {
+    modal.prevActivity();
+  });
 
 //Add event handler to go to the next activity in the modal
-  $("#next-poster").on("click", next_poster);
+  posterModal.find('.next-activity').on("click",
+    /**
+   * Loads the next activity to the modal
+   */
+  function () {
+    modal.nextActivity();
+  });
+
+  posterModal.find('.more-info').on("click", function () {
+    window.location = modal.current_activity.more_info_href;
+  })
 }
 
 /**

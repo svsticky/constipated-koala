@@ -47,38 +47,6 @@ Activity.get_fullness_from_count_and_limit = function (count, limit) {
 };
 
 Activity.prototype = {
-  /**
-   * Loads data of a panel-activity to the modal
-   */
-  load_data_to_modal: function () {
-    //Load the poster of the panel activity in the modal
-    modal.activity_data.img.attr('src',
-      this.poster_source.replace('thumb', 'medium'));
-
-    //set the more info href
-    if(!isInMoreInfoView)
-      modal.activity_data.more_info_link.attr('href', this.more_info_href);
-
-    //Load the title of the panel activity in the modal
-    modal.activity_data.title.html(this.title);
-
-    modal.activity_data.id = this.id;
-
-    modal.activity_data.current = this;
-
-    //Check if there are previous activities to go to
-    if (this.is_first())
-      $('#prev-poster').css("display", "none");
-    else
-      $('#prev-poster').css("display", "inline-block");
-
-    //Check if there are any next activities to go to
-    if (this.is_last())
-      $('#next-poster').css("display", "none");
-    else
-      $('#next-poster').css("display", "inline-block");
-  },
-
   get_panel_selector: function () {
     return '.panel-activity[data-activity-id=' + this.id + ']';
   },
@@ -291,6 +259,35 @@ Object.defineProperties(Activity.prototype, batch_edit_properties({
       get: function () {
         return this._fullness;
       }
+    },
+
+    /**
+     * The div which is a child of activity_container and of which the panel of this activity is a child.
+     */
+    corresponding_activity_container_child: {
+      get: function () {
+        return get_activity_container().children(':has(' + this.get_panel_selector() + ')');
+      }
+    },
+
+    next_activity: {
+      get: function () {
+        var next = this.corresponding_activity_container_child.next().find('.panel-activity');
+        if (next.length !== 0)
+          return new Activity(next);
+        else
+          return undefined;
+      }
+    },
+
+    prev_activity: {
+      get: function () {
+        var prev = this.corresponding_activity_container_child.prev().find('.panel-activity');
+        if (prev.length !== 0)
+          return new Activity(prev);
+        else
+          return undefined;
+      }
     }
   }, function (name, descriptor) {
     descriptor.enumerable = true;
@@ -352,33 +349,10 @@ Object.defineProperties(Activity.prototype,
     },
 
     /**
-     * The div which is a child of activity_container and of which the panel of this activity is a child.
-     */
-    corresponding_activity_container_child: function () {
-      return activity_container.children(':has(' + this.get_panel_selector() + ')');
-    },
-
-    /**
      * The span that displays this activity's fullness
      */
     fullness_display: function () {
       return this.panel.find('.activity-count');
-    },
-
-    next_activity: function () {
-      var next = this.corresponding_activity_container_child.next().find('.panel-activity');
-      if (next.length !== 0)
-        return new Activity(next);
-      else
-        return undefined;
-    },
-
-    prev_activity: function () {
-      var prev = this.corresponding_activity_container_child.prev().find('.panel-activity');
-      if (prev.length !== 0)
-        return new Activity(prev);
-      else
-        return undefined;
     },
 
     attendees_table: function () {
