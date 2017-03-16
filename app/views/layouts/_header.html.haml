@@ -4,7 +4,8 @@
       %i.fa.fa-bars
     .logo
       = link_to root_path do
-        %span Constipated koala
+        %span
+          = Rails.application.config.application_name
     .top-nav
       .email.hidden-xs
         %span= current_user.email
