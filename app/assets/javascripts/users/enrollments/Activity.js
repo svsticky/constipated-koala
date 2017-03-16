@@ -239,23 +239,23 @@ Object.defineProperties(Activity.prototype, {
 
       if (this.attendees_table.length == 0)
         return request;
+      else
+        return request.done(function () {
+          $.ajax('/api/activities/' + activity.id).done(function (response) {
+            activity.attendees_table.html('');
+            response.attendees.forEach(function (name) {
+              activity.attendees_table.append('<tr><td>' + name + '</td></tr>');
+            });
 
-      $.ajax('/api/activities/' + this.id).done(function (response) {
-        activity.attendees_table.html('');
-        response.attendees.forEach(function (name) {
-          activity.attendees_table.append('<tr><td>' + name + '</td></tr>');
+            activity.reservists_table.html('');
+            response.reservists.forEach(function (name) {
+              activity.reservists_table.append('<tr><td>' + name + '</td></tr>');
+            });
+
+            activity._participant_count = response.attendees.length;
+            activity._reservist_count = response.reservists.length;
+          });
         });
-
-        activity.reservists_table.html('');
-        response.reservists.forEach(function (name) {
-          activity.reservists_table.append('<tr><td>' + name + '</td></tr>');
-        });
-
-        activity._participant_count = response.attendees.length;
-        activity._reservist_count = response.reservists.length;
-      });
-
-      return request;
     }
   }
 });
