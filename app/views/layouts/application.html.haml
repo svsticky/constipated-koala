@@ -2,10 +2,10 @@
 %html
   %head
     %title
-      = Rails.application.config.application_name
       - if content_for?(:title)
-        |
         = yield(:title)
+        |
+      = Rails.application.config.application_name
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 
