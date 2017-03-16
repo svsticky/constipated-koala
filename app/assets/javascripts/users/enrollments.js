@@ -3,8 +3,7 @@
 //TODO modal class
 //TODO poster nav button hide/show to modol class
 
-var token, modal, activity_container;
-
+var token, modal, activity_container, isInMoreInfoView;
 /**
  * Converts a string with format rgb(int, int, int) to hex value
  * @param rgb
@@ -121,6 +120,7 @@ function initialize_ui(){
  */
 function initialize_enrollment() {
   activity_container = $('#activity-container');
+  isInMoreInfoView = $(".enrollment-show").length === 1;
 
   activity_container.find('button.enrollment').on('click', function () {
     var activity = new Activity($(this).closest('.panel-activity'));
@@ -150,6 +150,9 @@ function initialize_modal() {
     , title: modal.find('.activity-title')
     , more_info_link: modal.find('.more-info')
   };
+
+  if(isInMoreInfoView)
+    modal.activity_data.more_info_link.addClass("hide");
 
   //Add event handler to poster to show the modal
   $(".show-poster-modal").on("click", function () {

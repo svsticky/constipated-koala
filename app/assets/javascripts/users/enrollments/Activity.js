@@ -56,7 +56,8 @@ Activity.prototype = {
       this.poster_source.replace('thumb', 'medium'));
 
     //set the more info href
-    modal.activity_data.more_info_link.attr('href', this.more_info_href);
+    if(!isInMoreInfoView)
+      modal.activity_data.more_info_link.attr('href', this.more_info_href);
 
     //Load the title of the panel activity in the modal
     modal.activity_data.title.html(this.title);
