@@ -13,6 +13,10 @@
             %span.icon-bg.bg-orange
       %li{ :class => ('active' if yield(:page) == 'enrollments') }
         = link_to :enrollments do
-          %span Digitaal inschrijven
+          %span Inschrijven
           %i.fa.fa-ticket
             %span.icon-bg.bg-warning
+      %li.hidden-sm-up
+        = link_to destroy_user_session_path, 'data-method' => :delete do
+          %span Uitloggen
+          %i.fa.fa-sign-out
