@@ -1,14 +1,32 @@
+# Helper constraint to allow us to respond to multiple subdomains
+class MainDomain
+  def self.matches?(request)
+    request.subdomain.present? &&
+      ["koala", "koala.dev",
+       "leden", "leden.dev",
+       "members", "members.dev",
+      ].include?(request.subdomain)
+  end
+end
+
+class IntroDomain
+  def self.matches?(request)
+    request.subdomain.present? &&
+      ["intro", "intro.dev"].include?(request.subdomain)
+  end
+end
+
 ConstipatedKoala::Application.routes.draw do
 
-  constraints :subdomain => 'intro' do
+  constraints(IntroDomain) do
     scope module: 'users' do
       get  '/', to: 'public#index', as: 'public'
       post '/', to: 'public#create'
     end
   end
 
-  constraints :subdomain => 'koala' do
-    authenticated :user, ->(u) { !u.admin? } do
+  constraints(MainDomain) do
+    authenticate :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 
       get   'edit',                           to: 'users/home#edit',   as: :users_edit
@@ -16,6 +34,12 @@ ConstipatedKoala::Application.routes.draw do
       delete 'authorized_applications/:id',   to: 'users/home#revoke', as: :authorized_applications
 
       post  'mongoose',                       to: 'users/home#add_funds'
+
+      get 'enrollments',                      to: 'users/enrollments#index'
+      get 'enrollments/:id',                  to: 'users/enrollments#show'
+      patch 'enrollments/:id',                to: 'users/enrollments#update'
+      post 'enrollments/:id',                 to: 'users/enrollments#create'
+      delete 'enrollments/:id',               to: 'users/enrollments#delete'
     end
 
     root 'admin/home#index'
@@ -34,6 +58,7 @@ ConstipatedKoala::Application.routes.draw do
 
     scope module: 'admin' do
       resources :members do
+        get 'payment_whatsapp'
         collection do
           get 'search'
         end
@@ -46,6 +71,8 @@ ConstipatedKoala::Application.routes.draw do
           end
         end
       end
+
+      resources :payments, only: [:index], path: 'payments'
 
       resources :groups, only: [:index, :create, :show, :update] do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'

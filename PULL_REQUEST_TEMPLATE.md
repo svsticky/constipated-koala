@@ -4,5 +4,3 @@
 - [ ]
 - [ ]
 - [ ]
-
-@svsticky/it-crowd

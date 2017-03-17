@@ -1,0 +1,82 @@
+- content_for(:page, 'payments')
+- content_for(:title, 'Constipated koala | betalingen')
+
+%section#content
+  = render 'layouts/search'
+
+  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
+    .row
+
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-ticket
+            Niet betaalde activiteiten
+
+          .panel-body#participants.filtered-search
+            - @detailed.each do |activity|
+              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
+                %thead
+                  %tr{ :style => 'font-size: 1.1em;' }
+                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
+
+                %tbody
+                  - activity.participants.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
+                    - if !participant.currency.nil? && participant.currency > 0
+                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :'activities-id' => activity.id, :id => participant.id, :email => participant.member.email, :name => participant.member.name } }
+                        %td= link_to "#{participant.member.name}", participant.member
+
+                        - if !participant.currency.nil?
+                          %td= link_to "#{number_to_currency(participant.currency, :unit => '€')}", participant.member
+
+                        %td.buttons
+                          .btn-group
+                            - if participant.paid
+                              %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
+                                %i.fa.fa-fw.fa-check
+                            - else
+                              %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
+                                %i.fa.fa-fw.fa-times
+                            %button.btn.btn-default.destroy
+                              %i.fa.fa-fw.fa-trash-o
+
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-envelope
+            Betalingsmails
+          .panel-body#paymentmails
+            %table.table.table-striped.table-linked
+              %thead
+                %th Activiteit
+                %th Dagen
+              %tbody
+              - @last_impressions.each do |tupel|
+                - activity = tupel[0]
+                - days = tupel[1]
+                %tr{ :style => 'height: 36px; line-height: 36px;' }
+                  - if days.is_a? Numeric and days < 7
+                    %td=link_to activity.name, activity
+                    %td=days                      
+                  - else
+                    %td=link_to activity.name, activity, { :style => 'color:red'}
+                    %td{ :style => 'color:red'}=days
+
+
+        .panel.panel-default
+          .panel-heading
+            %i.fa.fa-fw.fa-whatsapp
+            Achterstallige betalingen (> 4 mails)
+
+          .panel-body#paymentmails
+            %table.table.table-striped.table-linked
+              %thead
+                %th Lid
+                %th  WhatsApp
+              %tbody
+              - @late_payments.each do |member|
+                %tr{ :style => 'height: 36px; line-height: 36px;' }
+                  %td= link_to "#{member.name}", member
+                  %td
+                    %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
+                      %i.fa.fa-fw.fa-whatsapp             

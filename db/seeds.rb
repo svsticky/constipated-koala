@@ -142,6 +142,14 @@ end
   # 4: Multiple days, with start and end time
   multiday = Faker::Boolean.boolean
   all_day = Faker::Boolean.boolean
+  enrollable = Faker::Boolean.boolean(0.3)
+
+  participant_limit = nil
+  if enrollable
+    if Faker::Boolean.boolean(0.5)
+      participant_limit = Faker::Number.between(2, 18)
+    end
+  end
 
   end_date = Faker::Date.between(start_date, 1.years.from_now) if multiday
 
@@ -158,14 +166,21 @@ end
     start_time:   start_time,
     end_date:     end_date,
     end_time:     end_time,
-    organized_by: (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : NIL)
+    organized_by: (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : NIL),
+    is_enrollable: enrollable
   )
 
   20.times do
+    reservist = false
+    if enrollable
+      reservist = true if participant_limit and activity.participants.count > participant_limit
+    end
+
     # because of the [member, activity] key this also conflicts often
     suppress(ActiveRecord::RecordNotUnique) do
       Participant.create(
         member:       Member.find_by_id(Faker::Number.between(1, Member.count)),
+        reservist:    reservist,
         activity:     activity,
         price:        (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price/5 : NIL),
         paid:         (Faker::Number.between(1, 10) < 4 ? true : false) # if price is 0 than the paid attribute is not used

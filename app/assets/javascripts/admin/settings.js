@@ -21,12 +21,12 @@ $(document).on( 'ready page:load', function(){
       alert( $(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast', 'success' );
 
       if( !data )
-        return
+        return;
 
       if( 'activities' in data )
-        $(obj).val(data['activities']);
+        $(obj).val(data.activities);
 
-      if( 'warning' in data && data['warning'] == true )
+      if( 'warning' in data && data.warning === true )
         alert( 'niet alle activiteiten gevonden', 'warning' );
     }).fail(function(){
       alert( 'Instelling is niet opgeslagen', 'error' );
@@ -52,5 +52,11 @@ $(document).on( 'ready page:load', function(){
     }).fail(function(){
       alert( 'Advertentie is niet verwijderd', 'error' );
     });
+  });
+
+  $('li.disabled a').on('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    return false;
   });
 });

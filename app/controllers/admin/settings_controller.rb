@@ -81,6 +81,7 @@ class Admin::SettingsController < ApplicationController
     @offset = params[:offset] ? params[:offset].to_i : 0
 
     @impressions = Impression.all.order( created_at: :desc ).limit(@limit).offset(@offset)
+    @total_log_items = Impression.count
   end
 
   private

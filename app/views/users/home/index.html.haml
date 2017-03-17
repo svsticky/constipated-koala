@@ -1,3 +1,4 @@
+- content_for(:page, "home")
 - content_for(:title, "Constipated koala | #{@member.name}")
 
 %section#users
@@ -23,6 +24,9 @@
             = link_to users_edit_path, { :class => 'list-group-item' } do
               %i.fa.fa-user
               Gegevens bewerken
+            = link_to enrollments_path, { :class => 'list-group-item' } do
+              %i.fa.fa-ticket
+              Digitaal inschrijven
             = link_to destroy_user_session_path, { 'data-method' => :delete, :class => 'list-group-item visible-xs' } do
               %i.fa.fa-sign-out
               Uitloggen
@@ -126,10 +130,11 @@
                         %span.fa.fa-sort-desc.pull-right
 
                 %tr.form
-                  %td
+                  %td.home_mongoose_form_element
                     = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht'
-                  %td
+                  %td.home_mongoose_form_element
                     .ui-select{ :style => 'margin-top: 5px;' }
-                      = f.select :bank, options_for_select(IdealTransaction::issuers)
-                  %td
+                      = f.select :bank, options_for_select(IdealTransaction::issuers), {}, {style: 'min-width: 0px !important'}
+                      
+                  %td.home_mongoose_form_element
                     %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen

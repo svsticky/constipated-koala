@@ -1,0 +1,20 @@
+#poster-modal.modal{:role => "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"}
+          &times;
+        %h4.panel-title.activity-title
+      .modal-body
+        %img.full-width
+        %br
+        %br
+        %button.btn.btn-info.more-info{"data-dismiss" => "modal"}
+          Meer info
+      .modal-footer
+        .col-md-1
+          %button.btn.btn-default.prev-activity <
+        .col-md-6.col-md-offset-2
+          %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
+        .col-md-1.col-md-offset-2
+          %button.btn.btn-default.next-activity >

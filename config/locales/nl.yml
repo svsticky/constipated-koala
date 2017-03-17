@@ -35,7 +35,6 @@ nl:
        postal_code: Postcode
        city: Woonplaats
        phone_number: Telefoonnummer
-
        email: E-mailadres
        student_id: Studentnummer
 
@@ -54,8 +53,14 @@ nl:
         start_time: Begintijd
         end_date: Einddatum
         end_time: Eindtijd
-        comments: Opmerkingen
+        unenroll_date: Uitschrijfdeadline
+        comments: Opmerkingen (privé)
         organized_by: Organisator
+        notes: Extra specificatie (publiek)
+        location: Locatie
+        is_alcoholic: Alcohol(18+)
+        is_enrollable: Inschrijfbaar
+        participant_limit: Deelnemerslimiet
 
       group:
         name: Naam
@@ -103,6 +108,7 @@ nl:
           merit: Lid van Verdienste
           honorary: Erelid
           donator: Begunstiger
+          suspended: Geschorst
 
       study:
         names:
@@ -169,6 +175,7 @@ nl:
         activity:
           create: activiteit aangemaakt
           update: activiteit bewerkt
+          mail: betalingsmail gestuurd
 
         participant:
           create: deelnemer toegevoegd
@@ -205,6 +212,16 @@ nl:
 
       models:
         activity:
+          enrolled: Je bent ingeschreven voor %{activity}
+          not_enrolled: Je bent uitgeschreven voor %{activity}
+          activity_ended: Deze activiteit is al afgelopen
+          participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky
+          participant_limit_reached: Je bent op de reservelijst geplaatst voor %{activity}
+          participant_underage: Deze activiteit is alleen voor grote mensen ;)
+          participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voor dat je je inschrijft
+          participant_notes_updated: Informatie bijgewerkt
+          not_enrollable: Activiteit niet inschrijfbaar
+          not_unenrollable: Activiteit niet uitschrijfbaar
           blank: kan niet leeg zijn
           blank_and_start_time: kan niet leeg zijn als er een starttijd is
           blank_and_end_time: kan niet leeg zijn als er een eindtijd is
@@ -213,6 +230,8 @@ nl:
               before_start_date: kan niet voor de startdatum zijn
             end_time:
               before_start_time: kan niet voor de starttijd zijn
+            unenroll_date:
+              after_start_date: kan niet na de startdatum zijn
 
         member:
           blank: kan niet leeg zijn
@@ -256,11 +275,14 @@ nl:
 
   devise:
     registrations:
-      new: Maak een account aan voor uw Sticky account door het e-mailadres te gebruiken dat bekend is bij ons.
+      new: Maak een Sticky account aan met het e-mailadres dat bekend is bij ons.
+      signup: Account registreren
+      passwordrecovery: Wachtwoord vergeten
+      login: Inloggen
 
     passwords:
-      new: Vul hier uw e-mailadres in om een nieuw wachtwoord op te vragen.
-      edit: Maak een nieuw wachtwoord aan voor het gebruik met uw Sticky-account.
+      new: Vul hier jouw e-mailadres in om een nieuw wachtwoord op te vragen.
+      edit: Registreer jouw Sticky acccount.
 
     confirmations:
-      new: Bevestig uw e-mailadres voor uw Sticky-account.
+      new: Bevestig jouw e-mailadres voor jouw Sticky-account.

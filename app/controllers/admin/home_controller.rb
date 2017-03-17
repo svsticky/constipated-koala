@@ -8,7 +8,7 @@ class Admin::HomeController < ApplicationController
     @transactions = CheckoutTransaction.count(:all)
     @recent = CheckoutTransaction.where("created_at >= ?", Time.zone.now.beginning_of_day).order(created_at: :desc).take(12)
 
-    @unpayed = Participant.where(:paid => false).sum(:price) + Participant.where(:paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
+    @unpayed = Participant.where(:reservist => false, :paid => false).sum(:price) + Participant.where(:reservist => false, :paid => false, :price => NIL).joins(:activity).where('activities.price IS NOT NULL').sum('activities.price')
 
     @defaulters = Participant.where( :paid => false ).joins( :activity, :member ).where('activities.start_date < NOW()').group( :member_id ).sum( :price ).merge( \
       Participant.where( :paid => false, :price => nil ).joins( :activity, :member ).where('activities.start_date < NOW()').group( :member_id ).sum( 'activities.price ')

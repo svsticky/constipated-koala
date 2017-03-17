@@ -10,10 +10,6 @@
  *
  */
 
-#users > #content {
- left: 0px;
-}
-
 div.clickable {
   overflow: hidden;
   height: 105px;
@@ -124,4 +120,13 @@ div.clickable > .panel:hover {
 
 .panel-left.panel-item p.text-center, .panel-right.panel-item p.text-center {
   width: 100%;
+}
+
+.form-control.birthdate {
+  font-weight: normal;
+}
+
+.home_mongoose_form_element{
+  width: 33%;
+  min-width: 0 !important;
 }
