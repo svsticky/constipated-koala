@@ -24,9 +24,9 @@ $(document).on( 'ready page:load', function(){
         return;
 
       if( 'activities' in data )
-        $(obj).val(data['activities']);
+        $(obj).val(data.activities);
 
-      if( 'warning' in data && data['warning'] == true )
+      if( 'warning' in data && data.warning == true )
         alert( 'niet alle activiteiten gevonden', 'warning' );
     }).fail(function(){
       alert( 'Instelling is niet opgeslagen', 'error' );
