@@ -42,7 +42,7 @@ $(document).on('ready page:load', function(){
         $( row ).find('input').removeAttr('disabled');
         $( row ).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
 
-        $( destroy ).val("false")
+        $( destroy ).val("false");
         $( this ).html("<span class='fa fa-trash-o'></span>");
       }else{
         if(!$( row ).find('input.id').val())
@@ -50,7 +50,7 @@ $(document).on('ready page:load', function(){
         $( row ).find('input.form-control').attr('disabled', 'disabled');
         $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
 
-        $( destroy ).val("true")
+        $( destroy ).val("true");
         $( this ).html("<span class='fa fa-undo'></span>");
       }
     });

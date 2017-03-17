@@ -35,17 +35,17 @@ $(document).on('ready page:load', function(){
 
   jQuery.validator.addMethod("valid_student_id", function(value, element) {
     if( /\F\d{6}/.test( value )){
-      return true
+      return true;
     }
 
     var numbers = value.split("").reverse();
 
-    var sum = 0
+    var sum = 0;
     for (index = 0; index < numbers.length; ++index) {
-      sum += numbers[index] * (index +1)
+      sum += numbers[index] * (index +1);
     }
 
-    return sum % 11 == 0
+    return sum % 11 === 0;
   }, "Studentnummer is niet geldig");
 
   $('form').validate({
@@ -68,7 +68,7 @@ $(document).on('ready page:load', function(){
       },
       'bank': {
         required: function(){
-          return $('.ui-select select#method').val() == 'IDEAL'
+          return $('.ui-select select#method').val() == 'IDEAL';
         }
       }
     },
@@ -79,7 +79,7 @@ $(document).on('ready page:load', function(){
   $('select#method').on("change", function(){
     if( $(this).val() == 'Cash/PIN'){
       $('select#bank').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
-      $('label#bank').css('color', 'rgb(222, 222, 222)');;
+      $('label#bank').css('color', 'rgb(222, 222, 222)');
     } else {
       $('select#bank').removeAttr('disabled').removeAttr('style');
       $('label#bank').removeAttr('style');

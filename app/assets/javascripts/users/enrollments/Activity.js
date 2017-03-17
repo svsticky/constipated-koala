@@ -47,37 +47,6 @@ Activity.get_fullness_from_count_and_limit = function (count, limit) {
 };
 
 Activity.prototype = {
-  /**
-   * Loads data of a panel-activity to the modal
-   */
-  load_data_to_modal: function () {
-    //Load the poster of the panel activity in the modal
-    modal.activity_data.img.attr('src',
-      this.poster_source.replace('thumb', 'medium'));
-
-    //set the more info href
-    modal.activity_data.more_info_link.attr('href', this.more_info_href);
-
-    //Load the title of the panel activity in the modal
-    modal.activity_data.title.html(this.title);
-
-    modal.activity_data.id = this.id;
-
-    modal.activity_data.current = this;
-
-    //Check if there are previous activities to go to
-    if (this.is_first())
-      $('#prev-poster').css("display", "none");
-    else
-      $('#prev-poster').css("display", "inline-block");
-
-    //Check if there are any next activities to go to
-    if (this.is_last())
-      $('#next-poster').css("display", "none");
-    else
-      $('#next-poster').css("display", "inline-block");
-  },
-
   get_panel_selector: function () {
     return '.panel-activity[data-activity-id=' + this.id + ']';
   },
@@ -142,7 +111,7 @@ Activity.prototype = {
   },
 
   are_notes_filled: function () {
-    return ($.trim(this.notes.val()).length > 0)
+    return ($.trim(this.notes.val()).length > 0);
   },
 
   /**
@@ -237,25 +206,25 @@ Object.defineProperties(Activity.prototype, {
         alert(message, 'error');
       });
 
-      if (this.attendees_table.length == 0)
+      if (this.attendees_table.length === 0)
         return request;
+      else
+        return request.done(function () {
+          $.ajax('/api/activities/' + activity.id).done(function (response) {
+            activity.attendees_table.html('');
+            response.attendees.forEach(function (name) {
+              activity.attendees_table.append('<tr><td>' + name + '</td></tr>');
+            });
 
-      $.ajax('/api/activities/' + this.id).done(function (response) {
-        activity.attendees_table.html('');
-        response.attendees.forEach(function (name) {
-          activity.attendees_table.append('<tr><td>' + name + '</td></tr>');
+            activity.reservists_table.html('');
+            response.reservists.forEach(function (name) {
+              activity.reservists_table.append('<tr><td>' + name + '</td></tr>');
+            });
+
+            activity._participant_count = response.attendees.length;
+            activity._reservist_count = response.reservists.length;
+          });
         });
-
-        activity.reservists_table.html('');
-        response.reservists.forEach(function (name) {
-          activity.reservists_table.append('<tr><td>' + name + '</td></tr>');
-        });
-
-        activity._participant_count = response.attendees.length;
-        activity._reservist_count = response.reservists.length;
-      });
-
-      return request;
     }
   }
 });
@@ -289,6 +258,35 @@ Object.defineProperties(Activity.prototype, batch_edit_properties({
     fullness: {
       get: function () {
         return this._fullness;
+      }
+    },
+
+    /**
+     * The div which is a child of activity_container and of which the panel of this activity is a child.
+     */
+    corresponding_activity_container_child: {
+      get: function () {
+        return get_activity_container().children(':has(' + this.get_panel_selector() + ')');
+      }
+    },
+
+    next_activity: {
+      get: function () {
+        var next = this.corresponding_activity_container_child.next().find('.panel-activity');
+        if (next.length !== 0)
+          return new Activity(next);
+        else
+          return undefined;
+      }
+    },
+
+    prev_activity: {
+      get: function () {
+        var prev = this.corresponding_activity_container_child.prev().find('.panel-activity');
+        if (prev.length !== 0)
+          return new Activity(prev);
+        else
+          return undefined;
       }
     }
   }, function (name, descriptor) {
@@ -351,33 +349,10 @@ Object.defineProperties(Activity.prototype,
     },
 
     /**
-     * The div which is a child of activity_container and of which the panel of this activity is a child.
-     */
-    corresponding_activity_container_child: function () {
-      return activity_container.children(':has(' + this.get_panel_selector() + ')');
-    },
-
-    /**
      * The span that displays this activity's fullness
      */
     fullness_display: function () {
       return this.panel.find('.activity-count');
-    },
-
-    next_activity: function () {
-      var next = this.corresponding_activity_container_child.next().find('.panel-activity');
-      if (next.length !== 0)
-        return new Activity(next);
-      else
-        return undefined;
-    },
-
-    prev_activity: function () {
-      var prev = this.corresponding_activity_container_child.prev().find('.panel-activity');
-      if (prev.length !== 0)
-        return new Activity(prev);
-      else
-        return undefined;
     },
 
     attendees_table: function () {
@@ -403,10 +378,10 @@ Object.defineProperties(Activity.prototype,
  * @type {{un_enrolled: Enrollment_status, enrolled: Enrollment_status, reservist: Enrollment_status, reservistable: Enrollment_status}}
  */
 var Enrollment_stati = {
-  un_enrolled: new Enrollment_status('btn-success', 'Inschrijven')
-  , enrolled: new Enrollment_status('btn-danger', 'Uitschrijven')
-  , reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst')
-  , reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
+  un_enrolled: new Enrollment_status('btn-success', 'Inschrijven'),
+  enrolled: new Enrollment_status('btn-danger', 'Uitschrijven'),
+  reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst'),
+  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
 };
 
 function Enrollment_status(classes, buttonText) {

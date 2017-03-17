@@ -1,9 +1,16 @@
 //= require sweetalert
+//= require users/enrollments/Activity
+//= require users/enrollments/PosterModal
 
-//TODO modal class
-//TODO poster nav button hide/show to modol class
+var token, activity_container, modal, isInMoreInfoView;
 
-var token, modal, activity_container;
+function get_activity_container() {
+  return $('#activity-container');
+}
+
+function inMoreInfoView() {
+  return $(".enrollment-show").length === 1;
+}
 
 /**
  * Converts a string with format rgb(int, int, int) to hex value
@@ -27,6 +34,7 @@ function confirm_enroll(activity) {
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: "Jep!",
+      cancelButtonText: "Nee",
       closeOnConfirm: false
     },
     // on confirm
@@ -47,10 +55,11 @@ function confirm_un_enroll_date_passed(activity) {
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!"
-    }
+      confirmButtonText: "Jep!",
+      cancelButtonText: "Nee"
+    },
     // anonymous function, because this is set to the sweetalert
-    , function () {
+    function () {
       activity.enroll();
     }
   );
@@ -67,10 +76,11 @@ function confirm_un_enroll(activity) {
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!"
-    }
+      confirmButtonText: "Jep!",
+      cancelButtonText: "Nee"
+    },
     // anonymous function, because this is set to the sweetalert
-    , function () {
+    function () {
       activity.un_enroll();
     }
   );
@@ -82,28 +92,14 @@ function confirm_update(activity) {
       type: "info",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.update_notes_button.css('backgroundColor')),
-      confirmButtonText: "Jep!"
-    }
+      confirmButtonText: "Jep!",
+      cancelButtonText: "Nee"
+    },
     // anonymous function, because this is set to the sweetalert
-    , function () {
+    function () {
       activity.edit_enroll();
     }
   );
-}
-
-/**
- * Loads the previous activity to the modal
- */
-function prev_poster() {
-  modal.activity_data.current.prev_activity.load_data_to_modal();
-}
-
-
-/**
- * Loads the next activity to the modal
- */
-function next_poster() {
-  modal.activity_data.current.next_activity.load_data_to_modal();
 }
 
 function initialize_ui(){
@@ -116,7 +112,7 @@ function initialize_ui(){
  * Binds the enrollment events
  */
 function initialize_enrollment() {
-  activity_container = $('#activity-container');
+  var activity_container = get_activity_container();
 
   activity_container.find('button.enrollment').on('click', function () {
     var activity = new Activity($(this).closest('.panel-activity'));
@@ -139,27 +135,36 @@ function initialize_enrollment() {
  * Binds the modal events.
  */
 function initialize_modal() {
-  modal = $('#poster-modal');
-
-  modal.activity_data = {
-    img: modal.find('img')
-    , title: modal.find('.activity-title')
-    , more_info_link: modal.find('.more-info')
-  };
-
+  var posterModal = $('#poster-modal');
   //Add event handler to poster to show the modal
-  $(".show-poster-modal").on("click", function () {
-    var activity = new Activity($(this).closest('.panel-activity'));
-    activity.load_data_to_modal();
-
-    modal.modal('show');
+  posterModal.on("show.bs.modal", function (event) {
+    var activity = new Activity($(event.relatedTarget).closest('.panel-activity'));
+    modal = new Poster_modal(this, activity);
+    if(inMoreInfoView())
+      modal.more_info.addClass("hide");
   });
 
 //Add event handler to go to the previous activity in the modal
-  $("#prev-poster").on("click", prev_poster);
+  posterModal.find('.prev-activity').on("click",
+    /**
+   * Loads the previous activity to the modal
+   */
+  function() {
+    modal.prevActivity();
+  });
 
 //Add event handler to go to the next activity in the modal
-  $("#next-poster").on("click", next_poster);
+  posterModal.find('.next-activity').on("click",
+    /**
+   * Loads the next activity to the modal
+   */
+  function () {
+    modal.nextActivity();
+  });
+
+  posterModal.find('.more-info').on("click", function () {
+    window.location = modal.current_activity.more_info_href;
+  });
 }
 
 /**

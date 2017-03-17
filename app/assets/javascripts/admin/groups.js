@@ -15,7 +15,7 @@ function bind_group_members(){
     var row = $(this).closest('tr');
 
     if( !confirm($(row).find('a').html() + ' verwijderen?') )
-      return
+      return;
 
     $.ajax({
       url: '/groups/' + $('table#members').attr('data-id') + '/members/' + row.attr( 'data-id' ),
@@ -38,7 +38,7 @@ function bind_group_members(){
   // Functie aanpassen
   // [PATCH] groups member
   $('#members').find('select.position').on('change', function(){
-    var row = $(this).closest('tr')
+    var row = $(this).closest('tr');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var position = $(this).val();
 
