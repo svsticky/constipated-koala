@@ -57,9 +57,9 @@ function confirm_un_enroll_date_passed(activity) {
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: "Jep!",
       cancelButtonText: "Nee"
-    }
+    },
     // anonymous function, because this is set to the sweetalert
-    , function () {
+    function () {
       activity.enroll();
     }
   );
@@ -78,9 +78,9 @@ function confirm_un_enroll(activity) {
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: "Jep!",
       cancelButtonText: "Nee"
-    }
+    },
     // anonymous function, because this is set to the sweetalert
-    , function () {
+    function () {
       activity.un_enroll();
     }
   );
@@ -94,9 +94,9 @@ function confirm_update(activity) {
       confirmButtonColor: rgbToHex(activity.update_notes_button.css('backgroundColor')),
       confirmButtonText: "Jep!",
       cancelButtonText: "Nee"
-    }
+    },
     // anonymous function, because this is set to the sweetalert
-    , function () {
+    function () {
       activity.edit_enroll();
     }
   );

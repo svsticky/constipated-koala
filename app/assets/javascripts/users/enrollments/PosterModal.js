@@ -63,11 +63,11 @@ Object.defineProperties(Poster_modal.prototype,
   init_cached_properties(Poster_modal.prototype, {
     img: function () {
       return this.element.find('img');
-    }
-    , title: function () {
+    },
+    title: function () {
       return this.element.find('.activity-title');
-    }
-    , more_info: function () {
+    },
+    more_info: function () {
       return this.element.find('.more-info');
     },
     nextButton: function () {

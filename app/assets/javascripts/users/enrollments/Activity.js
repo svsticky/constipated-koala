@@ -378,10 +378,10 @@ Object.defineProperties(Activity.prototype,
  * @type {{un_enrolled: Enrollment_status, enrolled: Enrollment_status, reservist: Enrollment_status, reservistable: Enrollment_status}}
  */
 var Enrollment_stati = {
-  un_enrolled: new Enrollment_status('btn-success', 'Inschrijven')
-  , enrolled: new Enrollment_status('btn-danger', 'Uitschrijven')
-  , reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst')
-  , reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
+  un_enrolled: new Enrollment_status('btn-success', 'Inschrijven'),
+  enrolled: new Enrollment_status('btn-danger', 'Uitschrijven'),
+  reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst'),
+  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
 };
 
 function Enrollment_status(classes, buttonText) {
