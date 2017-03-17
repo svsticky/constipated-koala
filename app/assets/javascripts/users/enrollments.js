@@ -164,7 +164,7 @@ function initialize_modal() {
 
   posterModal.find('.more-info').on("click", function () {
     window.location = modal.current_activity.more_info_href;
-  })
+  });
 }
 
 /**

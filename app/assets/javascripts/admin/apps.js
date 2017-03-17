@@ -195,7 +195,7 @@ $(document).on( 'ready page:load', function(){
     var row = $(this).closest('tr');
 
     if( !confirm($(row).find('a').html() + ' verwijderen?') )
-      return
+      return;
 
     $.ajax({
       url: '/apps/products',

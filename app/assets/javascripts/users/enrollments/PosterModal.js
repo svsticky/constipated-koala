@@ -40,7 +40,7 @@ Poster_modal.prototype = {
   },
 
   prevActivity: function () {
-    this.load_activity_data(this.current_activity.prev_activity)
+    this.load_activity_data(this.current_activity.prev_activity);
   }
 };
 

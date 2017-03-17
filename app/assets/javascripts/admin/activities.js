@@ -64,7 +64,7 @@ var participant = {
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 
     if( !confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?') )
-      return
+      return;
 
     $.ajax({
       url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
@@ -161,7 +161,7 @@ var participant = {
 
   //Admin updates participant's price
   updatePrice : function (){
-    var row = $(this).closest('tr')
+    var row = $(this).closest('tr');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var price = $(this).val().replace(',', '.');
 
@@ -202,7 +202,7 @@ var participant = {
       alert( 'geen verbinding of geen nummer', 'error' );
     });
   }
-}
+};
 
 /*
  * Document load handler
@@ -259,7 +259,7 @@ function posterHandlers(){
     $('form .input-group input#output').val('');
     $('form input.remove_poster').val('true');
 
-    $('form .file-input-wrapper input[type="file"]').val(null)
+    $('form .file-input-wrapper input[type="file"]').val(null);
     $('form .thumb img').remove();
   });
 

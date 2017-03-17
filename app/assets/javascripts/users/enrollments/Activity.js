@@ -111,7 +111,7 @@ Activity.prototype = {
   },
 
   are_notes_filled: function () {
-    return ($.trim(this.notes.val()).length > 0)
+    return ($.trim(this.notes.val()).length > 0);
   },
 
   /**

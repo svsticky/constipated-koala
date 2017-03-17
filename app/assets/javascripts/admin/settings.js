@@ -21,7 +21,7 @@ $(document).on( 'ready page:load', function(){
       alert( $(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast', 'success' );
 
       if( !data )
-        return
+        return;
 
       if( 'activities' in data )
         $(obj).val(data['activities']);
