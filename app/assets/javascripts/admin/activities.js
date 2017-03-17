@@ -39,7 +39,7 @@ var participant = {
   //Admin adds a new participant to the activity
   add : function(data){
     var template = $('script#activity').html();
-    var activity = template.format(data.id, data.member_id, data.name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
+    var activity = template.format(data.id, data.member_id, data.name, data.email, ( data.price === null ? '' : parseFloat(data.price).toFixed(2)) );
     var added = $(activity).insertBefore('#participants-table tr:last');
     $('.number').html( +$('.number').html() +1 );
 
@@ -77,7 +77,7 @@ var participant = {
       $(row).remove();
 
       //Move reservist to attendees if applicable
-      if (data != null) {
+      if (data !== null) {
         data.forEach(
           function(item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();

@@ -45,7 +45,7 @@ $(document).on('ready page:load', function(){
       sum += numbers[index] * (index +1);
     }
 
-    return sum % 11 == 0;
+    return sum % 11 === 0;
   }, "Studentnummer is niet geldig");
 
   $('form').validate({

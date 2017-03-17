@@ -58,7 +58,7 @@ $(document).on('ready page:load', function(){
 
     var dropdown, selected;
 
-    if ( study != null && this.selectionStart >= study.index && this.selectionStart <= study.index + study[0].length ) {
+    if ( study !== null && this.selectionStart >= study.index && this.selectionStart <= study.index + study[0].length ) {
       dropdown = $( '.page.search .input-group' ).find( 'ul.dropdown-menu[name=studies]');
       selected = $( '.page.search .input-group ul.dropdown-menu[name=studies]').find( 'li.active' );
       $( dropdown ).show();
@@ -67,7 +67,7 @@ $(document).on('ready page:load', function(){
       $( 'ul.dropdown-menu[name=studies]' ).delay(10).hide(1);
     }
 
-    if ( tag != null && this.selectionStart >= tag.index && this.selectionStart <= tag.index + tag[0].length ) {
+    if ( tag !== null && this.selectionStart >= tag.index && this.selectionStart <= tag.index + tag[0].length ) {
       dropdown = $( '.page.search .input-group' ).find( 'ul.dropdown-menu[name=tags]');
       selected = $( '.page.search .input-group ul.dropdown-menu[name=tags]').find( 'li.active' );
       $( dropdown ).show();
@@ -76,7 +76,7 @@ $(document).on('ready page:load', function(){
       $( 'ul.dropdown-menu[name=tags]' ).delay(10).hide(1);
     }
 
-    if ( state != null && this.selectionStart >= state.index && this.selectionStart <= state.index + state[0].length ) {
+    if ( state !== null && this.selectionStart >= state.index && this.selectionStart <= state.index + state[0].length ) {
       dropdown = $( '.page.search .input-group' ).find( 'ul.dropdown-menu[name=states]');
       selected = $( '.page.search .input-group ul.dropdown-menu[name=states]').find( 'li.active' );
       $( dropdown ).show();
@@ -87,11 +87,11 @@ $(document).on('ready page:load', function(){
 
     //$( dropdown ).css('left', study.index * 6 + 'px');
 
-    if( study != null )
+    if( study !== null )
       $( dropdown).attr( 'data-query', study[0] );
-    if( tag != null )
+    if( tag !== null )
       $( dropdown).attr( 'data-query', tag[0] );
-    if( state != null )
+    if( state !== null )
       $( dropdown).attr( 'data-query', state[0] );
 
     if( event.keyCode == 13 || event.keyCode == 9){
@@ -101,11 +101,11 @@ $(document).on('ready page:load', function(){
       if( $( selected ).length != 1 )
         return;
 
-        if( study != null )
+        if( study !== null )
           $( this ).val( $( this ).val().replace( study[0], study[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) );
-        else if( tag != null )
+        else if( tag !== null )
           $( this ).val( $( this ).val().replace( tag[0], tag[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) );
-        else if( state != null )
+        else if( state !== null )
           $( this ).val( $( this ).val().replace( state[0], state[1] + ':' + $( selected ).find( 'a' ).attr('data-name') + ' ' ) );
 
         $( 'ul.dropdown-menu' ).removeAttr('data-query').delay(10).hide(1);
@@ -116,7 +116,7 @@ $(document).on('ready page:load', function(){
        $( selected ).removeClass( 'active' );
        selected = $( selected ).next();
 
-       if( $( selected ).length == 0 )
+       if( $( selected ).length === 0 )
          selected = $( dropdown ).find( 'li:first' );
        $( selected ).addClass( 'active' );
 
@@ -128,13 +128,13 @@ $(document).on('ready page:load', function(){
        $( selected ).removeClass( 'active' );
        selected = $( selected ).prev();
 
-       if( $( selected ).length == 0 )
+       if( $( selected ).length === 0 )
          selected = $( dropdown ).find( 'li:last' );
        $( selected ).addClass( 'active' );
 
        event.preventDefault();
 
-     }else if( study != null && event.type != 'keyup' && event.keyCode != 8 ){
+     }else if( study !== null && event.type != 'keyup' && event.keyCode != 8 ){
        var items = $.unique( $( '.page.search .input-group ul.dropdown-menu[name=studies] li a[data-name!=' + study[2] + '][data-name^=' + study[2] + '], .page.search .input-group ul.dropdown-menu[name=studies] li a[data-code!=' + study[2] + '][data-code^=' + study[2] + ']' ));
 
        if( $(items).length != 1 )
@@ -142,7 +142,7 @@ $(document).on('ready page:load', function(){
 
        $( '.page.search .input-group ul.dropdown-menu[name=studies] li').removeClass( 'active' );
        $( items ).parent('li').addClass( 'active' );
-     }else if( tag != null && event.type != 'keyup' && event.keyCode != 8 ){
+     }else if( tag !== null && event.type != 'keyup' && event.keyCode != 8 ){
       var items = $( '.page.search .input-group ul.dropdown-menu[name=tags] li a[data-name!=' + tag[2] + '][data-name^=' + tag[2] + ']' );
 
       if( $(items).length != 1 )
@@ -150,7 +150,7 @@ $(document).on('ready page:load', function(){
 
       $( '.page.search .input-group ul.dropdown-menu[name=tags] li').removeClass( 'active' );
       $( items ).parent('li').addClass( 'active' );
-    }else if( state != null && event.type != 'keyup' && event.keyCode != 8 ){
+    }else if( state !== null && event.type != 'keyup' && event.keyCode != 8 ){
       var items = $( '.page.search .input-group ul.dropdown-menu[name=states] li a[data-name!=' + state[2] + '][data-name^=' + state[2] + ']' );
 
       if( $(items).length != 1 )

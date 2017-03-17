@@ -206,7 +206,7 @@ Object.defineProperties(Activity.prototype, {
         alert(message, 'error');
       });
 
-      if (this.attendees_table.length == 0)
+      if (this.attendees_table.length === 0)
         return request;
       else
         return request.done(function () {
