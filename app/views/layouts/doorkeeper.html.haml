@@ -1,7 +1,11 @@
 !!! 5
 %html
   %head
-    %title= content_for?(:title) ? yield(:title) : 'Constipated koala'
+    %title
+      - if content_for?(:title)
+        = yield(:title)
+        |
+      = t :association_name
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 

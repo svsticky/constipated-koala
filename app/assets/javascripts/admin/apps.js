@@ -195,7 +195,7 @@ $(document).on( 'ready page:load', function(){
     var row = $(this).closest('tr');
 
     if( !confirm($(row).find('a').html() + ' verwijderen?') )
-      return
+      return;
 
     $.ajax({
       url: '/apps/products',
@@ -216,7 +216,7 @@ $(document).on( 'ready page:load', function(){
   $('.date-input input').on('change', function(){
     var params = {};
 
-    params['date'] = $(this).val();
+    params.date = $(this).val();
     location.search = $.param(params);
   });
 

@@ -56,3 +56,8 @@
             = link_to :logs_settings do
               %i.fa.fa-caret-right
               %span Logs
+      %li.hidden-sm-up
+        = link_to destroy_user_session_path, 'data-method' => :delete do
+          %span Uitloggen
+          %i.fa.fa-sign-out
+            %span.icon-bg.bg-danger
