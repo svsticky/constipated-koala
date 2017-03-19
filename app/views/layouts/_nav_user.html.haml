@@ -5,18 +5,19 @@
         = link_to :root do
           %span Home
           %i.fa.fa-desktop
-            %span.icon-bg.bg-danger
+            %span.icon-bg.bg-dark
+      %li{ :class => ('active' if yield(:page) == 'enrollments') }
+        = link_to :enrollments do
+          %span Activiteiten
+          %i.fa.fa-ticket
+            %span.icon-bg.bg-warning
       %li{ :class => ('active' if yield(:page) == 'edit') }
         = link_to :users_edit do
           %span Gegevens bewerken
           %i.fa.fa-user
             %span.icon-bg.bg-orange
-      %li{ :class => ('active' if yield(:page) == 'enrollments') }
-        = link_to :enrollments do
-          %span Inschrijven
-          %i.fa.fa-ticket
-            %span.icon-bg.bg-warning
       %li.hidden-sm-up
         = link_to destroy_user_session_path, 'data-method' => :delete do
           %span Uitloggen
           %i.fa.fa-sign-out
+            %span.icon-bg.bg-danger
