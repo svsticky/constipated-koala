@@ -1,5 +1,5 @@
 - content_for(:page, "home")
-- content_for(:title, "Constipated koala | #{@member.name}")
+- content_for(:title, @member.name)
 
 %section#users
   .page#content
@@ -21,12 +21,12 @@
             = link_to users_root_path, { :class => 'list-group-item active' } do
               %i.fa.fa-home
               Home
+            = link_to enrollments_path, { :class => 'list-group-item' } do
+              %i.fa.fa-ticket
+              Activiteiten
             = link_to users_edit_path, { :class => 'list-group-item' } do
               %i.fa.fa-user
               Gegevens bewerken
-            = link_to enrollments_path, { :class => 'list-group-item' } do
-              %i.fa.fa-ticket
-              Digitaal inschrijven
             = link_to destroy_user_session_path, { 'data-method' => :delete, :class => 'list-group-item visible-xs' } do
               %i.fa.fa-sign-out
               Uitloggen
