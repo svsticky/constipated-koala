@@ -6,13 +6,13 @@
       = link_to root_path do
         - if content_for?(:title)
           %span.hidden-xs
-            = Rails.application.config.application_name
+            = t :association_name
             |
           %span{style: 'text-overflow: ellipsis;'}
             = yield(:title)
         - else
           %span
-            = Rails.application.config.application_name
+            = t :association_name
     .top-nav
       .email.hidden-xs
         %span= current_user.email
