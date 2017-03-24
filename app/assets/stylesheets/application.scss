@@ -19,6 +19,9 @@
  *= require_tree ./users
  */
 
+.top-header .logo {
+	width: 100%;
+}
 .panel > .table-striped > tbody > tr:nth-child(even) > td,
 .panel > .table-striped > tbody > tr:nth-child(even) > th {
   background-color: #f9f9f9;
@@ -265,6 +268,12 @@ div.clickable > .panel:hover {
 
 .top-header .logo > a {
   font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 80%;
+  float: left;
+  padding-left: 50px;
 }
 
 .top-nav {

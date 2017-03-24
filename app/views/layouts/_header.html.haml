@@ -4,10 +4,19 @@
       %i.fa.fa-bars
     .logo
       = link_to root_path do
-        %span Constipated koala
+        - if content_for?(:title)
+          %span.hidden-xs
+            = t :association_name
+            |
+          %span
+            = yield(:title)
+        - else
+          %span
+            = t :association_name
     .top-nav
       .email.hidden-xs
         %span= current_user.email
 
-      = link_to destroy_user_session_path, 'data-method' => :delete do
-        %i.fa.fa-sign-out
+      .hidden-xs
+        = link_to destroy_user_session_path, 'data-method' => :delete do
+          %i.fa.fa-sign-out

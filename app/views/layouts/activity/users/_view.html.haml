@@ -14,7 +14,7 @@
     .clearfix
   .panel-body
     .media-left.poster-thumbnail
-      %a.show-poster-modal{"data-toggle" => "modal", :href => "#"}
+      %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
         - if activity.poster_updated_at.nil?
           =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster"
         - else

@@ -1,0 +1,11 @@
+.panel.panel-default.table-dynamic
+  .panel-heading
+    %i.fa.fa-fw.fa-fw.fa-users
+    Groepen
+
+  %table.table.table-striped.table-linked
+    %tbody
+      - groups.each do |group|
+        %tr
+          %td= link_to "#{group.name}", group
+          %td.hidden-sm= group.members.map{ |member| member.name }.join(', ')

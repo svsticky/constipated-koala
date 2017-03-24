@@ -1,13 +1,19 @@
 - content_for(:page, "enrollments")
-- content_for(:title, "Constipated koala | Digitale Inschrijvingen")
+- content_for(:title, "Activiteiten")
 
 %section#enrollments
   .page.enrollment-page#content
     .container#activity-container
-      - @activities.each do |activity|
-        .col-lg-4.col-sm-6.col-xs-12
-          = render 'layouts/activity/view', activity: activity, view: 'index'
-      = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
-        %i.fa.fa-bug
-        BUG!
-    = render 'layouts/poster_modal'
+      - if @activities.any?
+        - @activities.each do |activity|
+          .col-lg-4.col-sm-6.col-xs-12
+            = render 'layouts/activity/users/view', activity: activity, view: 'index'
+        = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
+          %i.fa.fa-bug
+          BUG!
+      - else
+        .col-xs-12.col-lg-12.col-md-12
+          .alert.alert-info
+            %i.fa.fa-frown-o
+            Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven.
+    = render 'layouts/activity/poster_modal'

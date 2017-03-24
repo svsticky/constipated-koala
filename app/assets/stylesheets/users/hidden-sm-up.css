@@ -1,0 +1,7 @@
+/* Replicates feature of Bootstrap 4, if we ever get to use that this could be removed. */
+/* Do NOT convert this file to SASS, as this breaks the media query for whatever reason. */
+@media screen and (min-width: 768px) {
+  .hidden-sm-up {
+    display: none;
+  }
+}

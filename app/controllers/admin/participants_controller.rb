@@ -67,6 +67,6 @@ class Admin::ParticipantsController < ApplicationController
   def mail
     @activity = Activity.find_by_id!(params[:activity_id])
     render :json => Mailings::Participants.inform( @activity, params[:recipients].map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
-    impressionist(@activity)
+    impressionist(@activity, "mail")
   end
 end

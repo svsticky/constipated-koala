@@ -38,8 +38,8 @@ var participant = {
 
   //Admin adds a new participant to the activity
   add : function(data){
-    var template = $('script#activity').html();
-    var activity = template.format(data.id, data.member_id, data.name, data.email, ( data.price == null ? '' : parseFloat(data.price).toFixed(2)) );
+    var template = $('template#attendee-table-row').html();
+    var activity = template.format(data.id, data.member_id, data.name, data.email);
     var added = $(activity).insertBefore('#participants-table tr:last');
     $('.number').html( +$('.number').html() +1 );
 
@@ -64,7 +64,7 @@ var participant = {
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 
     if( !confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?') )
-      return
+      return;
 
     $.ajax({
       url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
@@ -77,7 +77,7 @@ var participant = {
       $(row).remove();
 
       //Move reservist to attendees if applicable
-      if (data != null) {
+      if (data !== null) {
         data.forEach(
           function(item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();
@@ -161,7 +161,7 @@ var participant = {
 
   //Admin updates participant's price
   updatePrice : function (){
-    var row = $(this).closest('tr')
+    var row = $(this).closest('tr');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var price = $(this).val().replace(',', '.');
 
@@ -202,7 +202,7 @@ var participant = {
       alert( 'geen verbinding of geen nummer', 'error' );
     });
   }
-}
+};
 
 /*
  * Document load handler
@@ -259,7 +259,7 @@ function posterHandlers(){
     $('form .input-group input#output').val('');
     $('form input.remove_poster').val('true');
 
-    $('form .file-input-wrapper input[type="file"]').val(null)
+    $('form .file-input-wrapper input[type="file"]').val(null);
     $('form .thumb img').remove();
   });
 
