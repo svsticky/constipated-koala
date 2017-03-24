@@ -43,4 +43,22 @@ class MemberTest < ActiveSupport::TestCase
       m.assign_attributes({attribute => temp})
     end
   end
+
+  # Verify that a Member may have either a valid student number or no student
+  # number at all, but not an invalid student number.
+  test "student number valid when present" do
+    m = members(:martyparty)
+
+    m.student_id = "5636450"
+    assert m.save, "valid numerical student number marked invalid"
+
+    m.student_id = "F1337420"
+    assert m.save, "F-number marked invalid"
+
+    m.student_id = "0000001"
+    assert_not m.save, "invalid student id marked valid"
+
+    m.student_id = ''
+    assert m.save, "blank student id marked invalid"
+  end
 end

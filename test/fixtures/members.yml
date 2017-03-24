@@ -1,0 +1,13 @@
+martyparty:
+  first_name: Marty
+  last_name: Party
+  infix: van den
+  address: Partystreet
+  city: Partyville
+  house_number: 123
+  postal_code: 1337 LT
+  phone_number: 0612345678
+  email: martyparty@maartenberg.nl
+  gender: m
+  birth_date: <%= Date.today %>
+  join_date: <%= Date.today %>
