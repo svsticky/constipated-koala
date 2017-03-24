@@ -2,15 +2,13 @@
 - content_for(:title, "Activiteiten | #{@activity.name}")
 - content_for(:template, 'activities/activity.html.js')
 
-= render 'admin/activities/activity.html.js'
-
 %section#content
   = render 'layouts/search'
 
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        = render 'layouts/activity/edit', activity_textfield: t('Activiteit'), url: activity_path(@activity), method: :patch
+        = render 'layouts/activity/admin/edit', activity_textfield: t('Activiteit'), url: activity_path(@activity), method: :patch
         = render 'layouts/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
@@ -18,13 +16,18 @@
           .panel-heading
             %i.fa.fa-fw.fa-user
             -if @activity.participant_limit.nil?
-              %span#attendeecount= @activity.attendees.count
+              - fullness = @activity.attendees.count
             -else
-              %span#attendeecount= "#{@activity.attendees.count}/#{@activity.participant_limit}"
+              - fullness = "#{@activity.attendees.count}/#{@activity.participant_limit}"
+            %span#attendeecount
+              = fullness
             deelnemers
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
 
+
+          %template#attendee-table-row
+            = render 'layouts/activity/admin/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
               %tr
@@ -38,26 +41,7 @@
 
                 %td.buttons
               - @attendees.each do |participant|
-                %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
-                  %td= link_to "#{participant.member.name}", participant.member
-
-                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
-                    %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
-                  %td{ :style => 'min-width: 50%; width: 50%;' }
-                    -if participant.notes
-                      %p= participant.notes
-                    -else
-                      %p
-                  %td.buttons
-                    .btn-group
-                      - if participant.paid
-                        %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
-                          %i.fa.fa-fw.fa-check
-                      - else
-                        %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
-                          %i.fa.fa-fw.fa-times
-                      %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash-o
+                = render 'layouts/activity/admin/attendee_table_row', participant: participant
 
               %tr
                 %td{ :style => 'position: relative;'}

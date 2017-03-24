@@ -38,8 +38,8 @@ var participant = {
 
   //Admin adds a new participant to the activity
   add : function(data){
-    var template = $('script#activity').html();
-    var activity = template.format(data.id, data.member_id, data.name, data.email, ( data.price === null ? '' : parseFloat(data.price).toFixed(2)) );
+    var template = $('template#attendee-table-row').html();
+    var activity = template.format(data.id, data.member_id, data.name, data.email);
     var added = $(activity).insertBefore('#participants-table tr:last');
     $('.number').html( +$('.number').html() +1 );
 
