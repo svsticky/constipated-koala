@@ -78,7 +78,7 @@ $(document).on( 'ready page:load', function(){
       var member = template.format(data.id, data.member_id, name);
       var added = $(member).insertBefore('table#members tr:last');
 
-      bind_activities();
+      bind_group_members();
 
       $( '#members input.position:last' ).focus();
     }).fail(function(){
