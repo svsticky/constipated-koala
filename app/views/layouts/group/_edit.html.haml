@@ -1,0 +1,34 @@
+= form_for :group, :url => (group.id.nil? ? groups_path : group_path(group)), :method => (group.id.nil? ? :post : :patch), :class => 'form-validation' do |f|
+  - if group.errors.any?
+    .alert.alert-danger
+      %button.close{ type: "button" } ×
+      %span Oeps, niet alles is goed ingevuld;
+      %ul
+      - group.errors.full_messages.each do |msg|
+        %li= msg
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-fw.fa-users
+      - if group.category.nil?
+        Nieuwe groep
+      - else
+        Bewerk
+        = I18n.t(group.category, scope: 'activerecord.attributes.group.categories')
+    .panel-body
+
+      .form-group
+        .row
+          .col-md-8
+            = f.label I18n.t( :name, scope: 'activerecord.attributes.group' )
+            = f.text_field :name, :value => group.name, :class => 'form-control'
+          .col-md-4
+            = label(:group, I18n.t( :category, scope: 'activerecord.attributes.group' ))
+            .ui-select
+              = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: group.category, disabled: ['board'] )
+
+        .form-group
+          = label(:group, I18n.t( :comments, scope: 'activerecord.attributes.group' ))
+          = f.text_area :comments, :value => group.comments, :class => 'form-control', :rows => 5
+
+      %button.btn.btn-success.wait{ type: 'submit' } Opslaan
+      = link_to 'Annuleren', groups_path, { :class => 'button btn btn-default' }

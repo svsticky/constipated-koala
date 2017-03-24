@@ -74,7 +74,7 @@ $(document).on( 'ready page:load', function(){
         year: $('table#members').attr('data-year')
       }
     }).done(function( data ){
-      var template = $('script#group_member').html();
+      var template = $('template#group_member').html();
       var member = template.format(data.id, data.member_id, name);
       var added = $(member).insertBefore('table#members tr:last');
 

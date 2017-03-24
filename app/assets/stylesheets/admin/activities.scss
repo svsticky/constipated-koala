@@ -18,12 +18,23 @@
   width: 100%;
 }
 
+#participants .price-input-td{
+  padding: 0;
+  min-width: 10%;
+  width: 10%;
+}
+
 #participants tr > td > input {
   height: 32px;
   width: 100%;
   line-height: 32px;
   margin: 5px 0;
   padding: 1px;
+}
+
+#participants notes-td{
+  min-width: 50%;
+  width: 50%;
 }
 
 #participants tr > td {
@@ -35,10 +46,6 @@
 
   padding-right: 5%;
   text-align: right;
-}
-
-#participants tr > td.buttons {
-  width: 100px;
 }
 
 #participants tr > td > .btn-group {
