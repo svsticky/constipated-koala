@@ -5,154 +5,208 @@
  */
 @media (max-width: 420px) {
   #activity-container .btn.helpme {
-    width: 76px; }
+    width: 76px;
+  }
 
   .btn-group {
-    width: 100%; }
+    width: 100%;
+  }
 
   #activity-container .btn {
     width: 100%;
-    margin: 4px 0px; }
+    margin: 4px 0px;
+  }
 
   .panel-footer .pull-right {
-    width: 100%; } }
+    width: 100%;
+  }
+}
+
 @media (max-width: 420px) and (max-width: 404px) {
   .media-body {
-    display: inline; }
+    display: inline;
+  }
 
   .media-left {
     padding-bottom: 15px;
     display: flex;
-    justify-content: center; } }
+    justify-content: center;
+  }
+}
+
 .poster-thumbnail img {
-  width: 140px; }
+  width: 140px;
+}
 
 .poster-moreinfo a img {
   width: 500px;
-  max-width: 100%; }
+  max-width: 100%;
+}
 
 .btn-warning-sat {
   color: white;
   background-color: #ffc64d;
-  border-color: #ffae02; }
+  border-color: #ffae02;
+}
 
 .activity-info {
-  padding: 0; }
+  padding: 0;
+}
 
 .media-body {
-  padding-right: 10px; }
+  padding-right: 10px;
+}
 
 .full-width {
-  width: 100%; }
+  width: 100%;
+}
 
 .property-content {
-  padding-left: 10px; }
+  padding-left: 10px;
+}
 
 .panel-activity,
 .cramtable,
 .cramtable > .panel.panel-default {
-  min-width: 255px; }
+  min-width: 255px;
+}
 
 .activity-title {
   overflow: hidden;
   max-width: 80%;
-  white-space: nowrap; }
+  white-space: nowrap;
+}
 
 #poster-modal {
-  text-align: center; }
+  text-align: center;
+}
 
 #poster-modal .modal-footer {
-  margin-top: 0; }
+  margin-top: 0;
+}
 
 #poster-modal .activity-title {
-  max-width: 100%; }
+  max-width: 100%;
+}
 
 .custom_left {
-  padding-left: 0; }
+  padding-left: 0;
+}
 
 .cramtable tr > td {
   padding: 0 0 0 8px !important;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
 .cramtable tr > td > a {
   line-height: 36px;
   height: 36px;
-  width: 100%; }
+  width: 100%;
+}
 
 .cramtable tr > td > input {
   height: 32px;
   width: 100%;
   line-height: 32px;
   margin: 5px 0;
-  padding: 1px; }
+  padding: 1px;
+}
 
 .cramtable tr > td {
-  width: calc(60% - 50px); }
+  width: calc(60% - 50px);
+}
 
 .cramtable tr > td:nth-child(2) {
   width: calc(40% - 50px);
   padding-right: 5%;
-  text-align: right; }
+  text-align: right;
+}
 
 .cramtable tr > td.buttons {
-  width: 100px; }
+  width: 100px;
+}
 
 .cramtable tr > td > .btn-group {
   height: 30px;
   float: right;
   margin: 2px 0 4px 0;
-  padding: 0; }
+  padding: 0;
+}
 
 .cramtable tr > td > .btn-group > button {
   height: 32px;
   line-height: 20px;
-  padding: 5px 12px; }
+  padding: 5px 12px;
+}
 
 .cramtable tr > td > ul.dropdown-menu {
   display: none;
   position: absolute;
   left: 4px;
-  top: 30px; }
+  top: 30px;
+}
 
 .cramtable tr > td > ul.dropdown-menu > li:not(.active) > a:hover {
   background-color: white;
-  color: #767676; }
+  color: #767676;
+}
 
 .helpme {
   position: fixed;
   bottom: 10px;
-  right: 10px; }
+  right: 10px;
+}
 
 .show-activity-topborder {
-  border-top: 1px solid #efefef; }
+  border-top: 1px solid #efefef;
+}
 
 .notes {
-  resize: none; }
+  resize: none;
+}
 
 /* Sweet-alerts with a lot of text will not properly display their buttons */
 .sweet-alert {
   box-sizing: border-box;
-  overflow-y: auto !important; }
+  overflow-y: auto !important;
+}
 
 @media (max-height: 735px), (max-width: 420px) {
   .sweet-alert {
     top: 65px !important;
     margin-top: 0px !important;
-    max-height: calc(100vh - 80px) !important; } }
+    max-height: calc(100vh - 80px) !important;
+  }
+}
+
 @media (min-width: 768px) {
   #enrollments .container {
-    width: 548px; } }
+    width: 548px;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 992px) {
   .col-lg-4 {
-    width: 100%; } }
+    width: 100%;
+  }
+}
+
 @media (min-width: 992px) {
   #enrollments .container {
-    width: 772px; } }
+    width: 772px;
+  }
+}
+
 @media (min-width: 1280px) {
   #enrollments .container {
-    width: 1080px; } }
+    width: 1080px;
+  }
+}
+
 @media (min-width: 1200px) and (max-width: 1280px) {
   .col-lg-4 {
-    width: 50%; } }
+    width: 50%;
+  }
+}
 
 /*# sourceMappingURL=enrollments.css.map */
