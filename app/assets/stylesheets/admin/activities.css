@@ -33,8 +33,7 @@
 }
 
 #participants notes-td {
-  min-width: 50%;
-  width: 50%;
+  overflow: hidden;
 }
 
 #participants tr > td {
@@ -52,6 +51,7 @@
   float: right;
   margin: 2px 0 4px 0;
   padding: 0;
+  display: flex;
 }
 
 #participants tr > td > .btn-group > button {
