@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  */
-
 div.clickable {
   overflow: hidden;
   height: 105px;
@@ -69,6 +68,7 @@ div.clickable > .panel:hover {
   position: relative;
   top: 36px;
 }
+
 .widget .widget-body a.profile .overlay:hover {
   opacity: 0.5;
 }
@@ -126,7 +126,9 @@ div.clickable > .panel:hover {
   font-weight: normal;
 }
 
-.home_mongoose_form_element{
+.home_mongoose_form_element {
   width: 33%;
   min-width: 0 !important;
 }
+
+/*# sourceMappingURL=home.css.map */
