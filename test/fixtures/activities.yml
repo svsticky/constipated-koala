@@ -7,3 +7,13 @@ test_enrollments_1:
   is_enrollable: true
   is_alcoholic: false
   participant_limit: 1
+
+test_enrollments_2:
+  name: Test inschrijven van reservelijst door limiet omhoog
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  participant_limit: 1
