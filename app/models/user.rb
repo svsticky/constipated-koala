@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
       }
     }
   end
+
+  def self.taken?(email)
+    User.exists?(email: email) || User.exists?(unconfirmed_email: email)
+  end
 end
