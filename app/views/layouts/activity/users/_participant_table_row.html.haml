@@ -1,0 +1,5 @@
+%tr
+  %td.participant_name
+    = participant.member.name.blank? ? '{0}' : participant.member.name
+  %td.participant_table_notes
+    = !(defined? is_template).nil? && is_template ? '{1}' : participant.notes
