@@ -11,3 +11,30 @@ martyparty:
   gender: m
   birth_date: <%= Date.today %>
   join_date: <%= Date.today %>
+
+dannypanny:
+  first_name: Danny
+  last_name: Panny
+  infix: de
+  address: Pannystraat
+  city: Dannymarken
+  house_number: 420
+  postal_code: 1337 LT
+  phone_number: 0301337420
+  email: panny.d@maartenberg.nl
+  gender: m
+  birth_date: <%= Date.today %>
+  join_date: <%= Date.today %>
+
+captain_underpants:
+  first_name: Kapitein
+  last_name: Onderbroek
+  address: Teststraat
+  house_number: 12
+  city: Testdorp
+  postal_code: 1234 TS
+  phone_number: 0612345678
+  email: kapiteinonderbroek@maartenberg.nl
+  gender: m
+  birth_date: <%= 19.years.ago %>
+  join_date: <%= 2.weeks.ago %>

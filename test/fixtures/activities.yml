@@ -1,0 +1,9 @@
+test_enrollments_1:
+  name: Test inschrijven van reservelijst door verwijdering
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  participant_limit: 1
