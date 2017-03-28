@@ -59,10 +59,10 @@ Activity.prototype = {
     var activity = this;
     var request = this._remote_update_enrollment('POST').done(function () {
       //Normal enrollment
-      if (request.status == 200) {
+      if (request.status === 200) {
         activity._enrollment_status = Enrollment_stati.enrolled;
         //Back-up list enrollments
-      } else if (request.status == 202) {
+      } else if (request.status === 202) {
         activity._enrollment_status = Enrollment_stati.reservist;
       }
 
@@ -79,7 +79,7 @@ Activity.prototype = {
   un_enroll: function () {
     var activity = this;
     return this._remote_update_enrollment('DELETE').done(function () {
-      if (activity._fullness == Activity.full_string) {
+      if (activity._fullness === Activity.full_string) {
         activity._enrollment_status = Enrollment_stati.reservistable;
       }
       else {
@@ -206,19 +206,19 @@ Object.defineProperties(Activity.prototype, {
         alert(message, 'error');
       });
 
-      if (this.attendees_table.length === 0)
+      if (this.attendees_table_body.length === 0)
         return request;
       else
         return request.done(function () {
           $.ajax('/api/activities/' + activity.id).done(function (response) {
-            activity.attendees_table.html('');
-            response.attendees.forEach(function (name) {
-              activity.attendees_table.append('<tr><td>' + name + '</td></tr>');
+            activity.attendees_table_body.html('');
+            response.attendees.forEach(function (participant) {
+              activity.attendees_table_body.append(participant_row_template.html().format(participant.name, participant.notes === null ? '' : participant.notes));
             });
 
-            activity.reservists_table.html('');
-            response.reservists.forEach(function (name) {
-              activity.reservists_table.append('<tr><td>' + name + '</td></tr>');
+            activity.reservists_table_body.html('');
+            response.reservists.forEach(function (participant) {
+              activity.reservists_table_body.append(participant_row_template.html().format(participant.name, participant.notes === null ? '' : participant.notes));
             });
 
             activity._participant_count = response.attendees.length;
@@ -355,16 +355,16 @@ Object.defineProperties(Activity.prototype,
       return this.panel.find('.activity-count');
     },
 
-    attendees_table: function () {
-      return $('#attendees');
+    attendees_table_body: function () {
+      return $('#attendees_table').children('tbody');
     },
 
     attendee_count_display: function () {
       return $('#attendees-count');
     },
 
-    reservists_table: function () {
-      return $('#reservists');
+    reservists_table_body: function () {
+      return $('#reservists_table').children('tbody');
     },
 
     reservist_count_display: function () {
@@ -392,6 +392,6 @@ function Enrollment_status(classes, buttonText) {
 Enrollment_status.fromButton = function (button) {
   var button_text = button.text().trim();
   return find_in_object(Enrollment_stati, function (enrollment_status) {
-    return button_text == enrollment_status.button_text;
+    return button_text === enrollment_status.button_text;
   });
 };

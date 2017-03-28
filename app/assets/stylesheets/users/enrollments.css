@@ -96,6 +96,15 @@
 .cramtable tr > td {
   padding: 0 0 0 8px !important;
   vertical-align: middle;
+  width: calc(60% - 50px);
+}
+
+.cramtable tr > td.participant_name {
+  white-space: nowrap;
+}
+
+.cramtable tr > td.participant_table_notes {
+  overflow: hidden;
 }
 
 .cramtable tr > td > a {
@@ -110,10 +119,6 @@
   line-height: 32px;
   margin: 5px 0;
   padding: 1px;
-}
-
-.cramtable tr > td {
-  width: calc(60% - 50px);
 }
 
 .cramtable tr > td:nth-child(2) {
