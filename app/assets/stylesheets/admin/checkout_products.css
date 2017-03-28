@@ -1,102 +1,79 @@
 .panel-heading {
   height: 39px;
   padding-top: 0;
-  line-height: 39px;
-}
+  line-height: 39px; }
 
 table.table.table-linked > tbody > tr:hover > td > a {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 table.table.table-linked > tbody > tr > td > a:hover {
-  text-decoration: underline;
-}
+  text-decoration: underline; }
 
 .date-input {
-  display: inline-block;
-}
+  display: inline-block; }
 
 .date-input input {
   font-weight: bold;
   font-size: 14px;
   line-height: 14px;
-
   margin-left: 5px;
   display: inline-block;
   position: relative;
   padding: 5px;
-
-  border: solid 1px rgb(118, 118, 118);
+  border: solid 1px #767676;
   border-radius: 5px;
   outline: none;
-  background: transparent;
-}
+  background: transparent; }
 
 @media (min-width: 768px) {
   form .form-group.thumb {
     width: calc(100% - 158px);
     position: relative;
-    left: 158px;
-  }
+    left: 158px; }
 
   form .panel-body {
-    position: relative;
-  }
+    position: relative; }
 
   form span.thumb {
     position: absolute;
     top: 18px;
-
     height: 128px;
     width: 128px;
-
     border: solid 1px #cbd5dd;
-    overflow: hidden;
-  }
+    overflow: hidden; }
 
   table.table.table-linked > tbody > tr > td.text-right {
-    padding-right: 30px;
-  }
-}
-
+    padding-right: 30px; } }
 tr.total {
   font-weight: bold;
-  border-top: 2px solid #dddddd;
-}
+  border-top: 2px solid #dddddd; }
 
 .table span.fa-sort-asc {
   color: green;
-
   position: relative;
-  top: 6px;
-}
+  top: 6px; }
 
 .table span.fa-sort-desc {
-  color: red;
-}
+  color: red; }
 
 tr.inactive {
-  text-decoration: line-through;
-}
+  text-decoration: line-through; }
 
 p.uuid {
-  margin-bottom: 0px;
-}
+  margin-bottom: 0px; }
 
 .ui-select.year {
   width: 110px;
-  margin-left: 5px;
-}
+  margin-left: 5px; }
 
 .ui-select.year select {
   font-size: 14px;
-  line-height: 14px;
-}
+  line-height: 14px; }
 
 a.col-md-4, a.col-md-4:hover {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 a.panel:hover {
-  text-decoration: none;
-}
+  text-decoration: none; }
+
+/*# sourceMappingURL=checkout_products.css.map */

@@ -13,35 +13,28 @@
  *= require font-awesome
  *= require bootstrap
  */
-
 @import url(https://fonts.googleapis.com/css?family=Roboto);
-
 html, body {
   display: block;
   position: relative;
   height: 100%;
-  width: 100%;
-}
+  width: 100%; }
 
 h1, h2, h3, h4, p, a, .text-center {
-  font-family: 'Roboto', sans-serif;
-}
+  font-family: 'Roboto', sans-serif; }
 
 a {
-  color: white !important;
-}
+  color: white !important; }
 
 span.input-group-addon {
-  background-color: white;
-}
+  background-color: white; }
 
 div.container {
   background-color: #F34541;
   height: 100%;
   width: 100%;
   margin: 0px;
-  padding: 0px;
-}
+  padding: 0px; }
 
 div.container h1, div.container h2 {
   position: absolute;
@@ -49,56 +42,43 @@ div.container h1, div.container h2 {
   width: 100%;
   font-size: 2.5em;
   font-weight: 100;
-  color: white;
-}
+  color: white; }
 
 div.container h2 {
   bottom: 0px;
   font-size: 1.1em;
-  font-weight: 200;
-}
+  font-weight: 200; }
 
 div.container h3 {
   font-size: 1.8em;
-  font-weight: 200;
-}
+  font-weight: 200; }
 
 div.container h4 {
   position: relative;
   top: -25px;
-
   font-size: 1.1em;
   font-weight: 200;
-
-  line-height: 1.3em;
-}
+  line-height: 1.3em; }
 
 div.container input {
-  font-weight: 200;
-}
+  font-weight: 200; }
 
 div.container .text-center {
   font-size: 1em;
   font-weight: 100;
-  margin-top: 10px !important;
-}
+  margin-top: 10px !important; }
 
 div.container .row {
   position: relative;
   display: block;
-
   background-color: #F34541;
-
   text-align: center;
   vertical-align: middle;
-
   width: 100%;
-  margin: 0px;
-}
+  margin: 0px; }
 
 div.container .row:nth-child(1) {
-  height: 30%;
-}
+  height: 30%; }
 
 div.container .row:nth-child(1):after {
   position: absolute;
@@ -110,99 +90,74 @@ div.container .row:nth-child(1):after {
   border-left: 8px solid #F34541;
   border-right: 8px solid #F34541;
   border-bottom: 10px solid white;
-  background-color: white;
-}
+  background-color: white; }
 
 div.container .row:nth-child(2) {
   background-color: white;
-  margin: 20px 0;
-}
+  margin: 20px 0; }
 
 div.container .row > form, div.container .row > div {
   display: block;
   background-color: white;
   margin: 50px auto;
-  width: 90%;
-}
+  width: 90%; }
 
 div.container .row > div.text-center {
   background-color: #F34541;
-  color: white;
-}
+  color: white; }
 
 div.container .row > div h3 {
-  text-align: left;
-}
+  text-align: left; }
 
 div.container .row > div p {
   text-align: left;
-  margin: 0px;
-}
+  margin: 0px; }
 
 div.container .row > div ul {
   list-style-position: inside;
-  padding-left: 5px;
-}
+  padding-left: 5px; }
 
 div.container .row > div li {
   text-align: left;
-  padding-top: 2px;
-}
+  padding-top: 2px; }
 
 div.container .row > div li:after {
-  content: ',';
-}
+  content: ','; }
 
-div.container .row > div li:last-child:after
-{
-  content: '.';
-}
+div.container .row > div li:last-child:after {
+  content: '.'; }
 
 div.container .row form div.alert {
-  margin: 0 -15px 20px;
-}
+  margin: 0 -15px 20px; }
 
 div.container .row .actions form {
   display: inline-block;
-  width: 40%;
-}
+  width: 40%; }
 
 div.container .row .actions form input {
-  margin: 30px 10px 0;
-}
+  margin: 30px 10px 0; }
 
 @media (min-width: 768px) {
   div.container .row > form, div.container .row > div {
-    width: 50%;
-  }
-}
-
+    width: 50%; } }
 @media (min-width: 992px) {
   div.container .row > form, div.container .row > div {
-    width: 30%;
-  }
-}
-
+    width: 30%; } }
 div.container .row form span.input-group-addon i {
-  width: 18px;
-}
+  width: 18px; }
 
 span.version {
-  display: none;
-}
+  display: none; }
 
 @media (min-width: 768px) {
   span.version {
     position: absolute;
     display: block;
-
     right: 10px;
     bottom: 2px;
-
-    color: rgba(255, 255, 255, 0.8);
-  }
+    color: rgba(255, 255, 255, 0.8); }
 
   span.version::before {
-    content: 'v';
-  }
-}
+    content: 'v'; } }
+
+/*# sourceMappingURL=doorkeeper.css.map */
