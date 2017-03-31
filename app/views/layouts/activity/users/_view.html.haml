@@ -105,6 +105,6 @@
           - if !activity.notes.blank? && view == 'index'
             -button_class += ' disabled'
 
-        - if !(!activity.is_enrollable && activity.is_viewable)
+        - if activity.is_enrollable
           %button.btn.enrollment{ :class => button_class}
             = button_text

@@ -232,6 +232,7 @@ $(document).on( 'ready page:load', function(){
   // 'Enrollable' checkbox toggled
   $('#is_enrollable').on('click', function() {
       $('#participant_limit')[0].disabled = !this.checked;
+      $('#is_viewable')[0].disabled = this.checked;
   });
 
   // Add confirmation dialog only when changing participants limit
