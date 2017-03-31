@@ -21,7 +21,7 @@ dannypanny:
   house_number: 420
   postal_code: 1337 DM
   phone_number: 0301337420
-  email: panny.d@maartenberg.nl
+  email: danoontjepower@maartenberg.nl
   gender: m
   birth_date: <%= Date.today %>
   join_date: <%= Date.today %>
@@ -63,9 +63,8 @@ m8eld:
   phone_number: 0183172737
   email: mevrouwmetdehamer@maartenberg.nl
   gender: f
-  birth_date: <%= 17.years.ago =>
-  join_date: <%= 1.days.ago =>
-
+  birth_date: <%= 17.years.ago %>
+  join_date: <%= 1.days.ago %>
 
 glenniepennie:
   first_name: Stewart
@@ -119,3 +118,16 @@ needfuldoer:
   gender: m
   birth_date: <%= 40.years.ago %>
   join_date: <%= 9.weeks.ago %>
+
+thecreator:
+  first_name: Martijn
+  last_name: Castle
+  address: Kasteeldreef
+  house_number: 777
+  city: Ridderkerk
+  postal_code: 0989 MC
+  phone_number: 0134913431
+  email: inthebeginninghecreatedkoala@maartenberg.nl
+  gender: m
+  birth_date: <%= 20.years.ago %>
+  join_date: <%= 19.years.ago %>
