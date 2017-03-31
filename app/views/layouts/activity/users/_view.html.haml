@@ -104,5 +104,7 @@
           - button_class = 'btn-success'
           - if !activity.notes.blank? && view == 'index'
             -button_class += ' disabled'
-        %button.btn.enrollment{ :class => button_class}
-          = button_text
+
+        - if !(!activity.is_enrollable && activity.is_viewable)
+          %button.btn.enrollment{ :class => button_class}
+            = button_text

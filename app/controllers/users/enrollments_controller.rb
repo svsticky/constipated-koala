@@ -14,7 +14,7 @@ class Users::EnrollmentsController < ApplicationController
     @activities = Activity.where(
       '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
         Date.today, Date.today
-      ).where(is_enrollable: true).order(:start_date)
+      ).where('is_enrollable = TRUE OR (is_enrollable = FALSE AND is_viewable = TRUE)').order(:start_date)
     @current_member = Member.find(current_user.credentials_id)
   end
 
