@@ -72,6 +72,8 @@ class Admin::ActivitiesController < ApplicationController
                                       :poster,
                                       :organized_by,
                                       :notes,
+                                      :notes_mandatory,
+                                      :notes_public,
                                       :is_alcoholic,
                                       :is_enrollable,
                                       :participant_limit,
