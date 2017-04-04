@@ -32,7 +32,7 @@
   padding: 1px;
 }
 
-#participants notes-td {
+#participants .notes-td {
   overflow: hidden;
 }
 
