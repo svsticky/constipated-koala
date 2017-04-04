@@ -56,7 +56,9 @@ en:
         unenroll_date: Unenroll date
         comments: Comments (private)
         organized_by: Organisator
-        notes: Extra notes (public)
+        notes: Extra notes
+        notes_mandatory: Mandatory
+        notes_public: Public
         location: Location
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable

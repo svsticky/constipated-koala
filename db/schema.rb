@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303083051) do
+ActiveRecord::Schema.define(version: 20170404135745) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20170303083051) do
     t.string   "location",            limit: 255
     t.date     "unenroll_date"
     t.string   "notes",               limit: 255
+    t.boolean  "notes_mandatory"
+    t.boolean  "notes_public"
   end
 
   create_table "admins", force: :cascade do |t|

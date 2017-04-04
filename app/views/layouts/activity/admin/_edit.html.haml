@@ -90,7 +90,14 @@
         .row
           .col-md-12
             = label(:activity, :notes)
+        .row
+          .col-md-8
             = f.text_field :notes, :value => @activity.notes, :class => 'form-control', id: "activity-notes"
+          .col-md-4
+            = label(:activity, :notes_public)
+            = f.check_box :notes_public, checked: @activity.notes_public
+            = label(:activity, :notes_mandatory)
+            = f.check_box :notes_mandatory, checked: @activity.notes_mandatory
 
       .form-group
         = label(:activity, :comments)
