@@ -8,8 +8,8 @@
 
 #paymentmails tr > td,
 #participants tr > td {
-    padding: 0 0 0 8px;
-    vertical-align: middle;
+  padding: 0 0 0 8px;
+  vertical-align: middle;
 }
 
 #participants tr > td > a {
@@ -18,7 +18,7 @@
   width: 100%;
 }
 
-#participants .price-input-td{
+#participants .price-input-td {
   padding: 0;
   min-width: 10%;
   width: 10%;
@@ -32,9 +32,8 @@
   padding: 1px;
 }
 
-#participants notes-td{
-  min-width: 50%;
-  width: 50%;
+#participants notes-td {
+  overflow: hidden;
 }
 
 #participants tr > td {
@@ -43,7 +42,6 @@
 
 #participants tr > td:nth-child(2) {
   width: calc(40% - 50px);
-
   padding-right: 5%;
   text-align: right;
 }
@@ -51,15 +49,14 @@
 #participants tr > td > .btn-group {
   height: 30px;
   float: right;
-
   margin: 2px 0 4px 0;
   padding: 0;
+  display: flex;
 }
 
 #participants tr > td > .btn-group > button {
   height: 32px;
   line-height: 20px;
-
   padding: 5px 12px;
 }
 
@@ -88,50 +85,40 @@
 
   form .droparea {
     position: absolute;
-
     top: 5px;
     left: 5px;
     right: 5px;
     bottom: 55px;
-
     border: 2px dashed #767676;
-
     z-index: 10;
     background: rgba(255, 255, 255, 0.7);
-
     display: none;
   }
 
   form span.poster {
     position: absolute;
     top: 96px;
-
     height: 255px;
     width: 180px;
-
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }
+}
 
-  @media (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 991px) {
   form span.poster {
     top: 154px;
-    }
   }
 }
 
 #mail > #textarea, #mail > textarea#html {
   font-family: arial;
   font-size: medium;
-
   color: #222;
-
   width: 100%;
   min-height: 300px;
-
   margin-bottom: 10px;
   overflow-y: scroll;
-
   display: none;
 }
 
@@ -143,6 +130,8 @@
   display: block;
 }
 
-#activity_participant_limit{
-  width: 50px
+#activity_participant_limit {
+  width: 50px;
 }
+
+/*# sourceMappingURL=activities.css.map */

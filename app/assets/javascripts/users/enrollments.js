@@ -2,7 +2,7 @@
 //= require users/enrollments/Activity
 //= require users/enrollments/PosterModal
 
-var token, activity_container, modal, isInMoreInfoView;
+var token, modal, participant_row_template;
 
 function get_activity_container() {
   return $('#activity-container');
@@ -22,7 +22,7 @@ function rgbToHex(rgb){
   delete(parts[0]);
   for (var i = 1; i <= 3; ++i) {
     parts[i] = parseInt(parts[i]).toString(16);
-    if (parts[i].length == 1) parts[i] = '0' + parts[i];
+    if (parts[i].length === 1) parts[i] = '0' + parts[i];
   }
   return '#' + parts.join('');
 }
@@ -113,6 +113,7 @@ function initialize_ui(){
  */
 function initialize_enrollment() {
   var activity_container = get_activity_container();
+  participant_row_template = $('template#participant_table_row_template');
 
   activity_container.find('button.enrollment').on('click', function () {
     var activity = new Activity($(this).closest('.panel-activity'));

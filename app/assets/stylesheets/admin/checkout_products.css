@@ -20,13 +20,11 @@ table.table.table-linked > tbody > tr > td > a:hover {
   font-weight: bold;
   font-size: 14px;
   line-height: 14px;
-
   margin-left: 5px;
   display: inline-block;
   position: relative;
   padding: 5px;
-
-  border: solid 1px rgb(118, 118, 118);
+  border: solid 1px #767676;
   border-radius: 5px;
   outline: none;
   background: transparent;
@@ -37,6 +35,8 @@ table.table.table-linked > tbody > tr > td > a:hover {
     width: calc(100% - 158px);
     position: relative;
     left: 158px;
+    top: auto;
+    height: auto;
   }
 
   form .panel-body {
@@ -46,10 +46,8 @@ table.table.table-linked > tbody > tr > td > a:hover {
   form span.thumb {
     position: absolute;
     top: 18px;
-
     height: 128px;
     width: 128px;
-
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }
@@ -66,7 +64,6 @@ tr.total {
 
 .table span.fa-sort-asc {
   color: green;
-
   position: relative;
   top: 6px;
 }
@@ -100,3 +97,5 @@ a.col-md-4, a.col-md-4:hover {
 a.panel:hover {
   text-decoration: none;
 }
+
+/*# sourceMappingURL=checkout_products.css.map */

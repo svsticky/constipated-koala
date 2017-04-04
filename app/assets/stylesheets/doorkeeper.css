@@ -13,7 +13,6 @@
  *= require font-awesome
  *= require bootstrap
  */
-
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
 html, body {
@@ -66,10 +65,8 @@ div.container h3 {
 div.container h4 {
   position: relative;
   top: -25px;
-
   font-size: 1.1em;
   font-weight: 200;
-
   line-height: 1.3em;
 }
 
@@ -86,12 +83,9 @@ div.container .text-center {
 div.container .row {
   position: relative;
   display: block;
-
   background-color: #F34541;
-
   text-align: center;
   vertical-align: middle;
-
   width: 100%;
   margin: 0px;
 }
@@ -153,8 +147,7 @@ div.container .row > div li:after {
   content: ',';
 }
 
-div.container .row > div li:last-child:after
-{
+div.container .row > div li:last-child:after {
   content: '.';
 }
 
@@ -195,10 +188,8 @@ span.version {
   span.version {
     position: absolute;
     display: block;
-
     right: 10px;
     bottom: 2px;
-
     color: rgba(255, 255, 255, 0.8);
   }
 
@@ -206,3 +197,5 @@ span.version {
     content: 'v';
   }
 }
+
+/*# sourceMappingURL=doorkeeper.css.map */

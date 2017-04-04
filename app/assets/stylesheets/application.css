@@ -18,10 +18,10 @@
  *= require_tree ./admin
  *= require_tree ./users
  */
-
 .top-header .logo {
-	width: 100%;
+  width: 100%;
 }
+
 .panel > .table-striped > tbody > tr:nth-child(even) > td,
 .panel > .table-striped > tbody > tr:nth-child(even) > th {
   background-color: #f9f9f9;
@@ -53,14 +53,14 @@ table.table.table-linked > tbody > tr > td > a {
 
 table.table > tbody > tr > td > a.inline {
   display: inline;
+}
 
-  &::after {
-    content: ', '
-  }
+table.table > tbody > tr > td > a.inline::after {
+  content: ", ";
+}
 
-  &:last-child::after {
-    content: ''
-  }
+table.table > tbody > tr > td > a.inline:last-child::after {
+  content: "";
 }
 
 table.table > tbody > tr.red, table.table > tbody > tr.red a {
@@ -95,63 +95,61 @@ aside a[href='#'] {
   margin: 0 !important;
   padding: 5px;
   border-top: 2px solid #dddddd;
+}
 
-  ul.pagination-sm.pagination {
-    margin: 0;
-  }
+.table-footer ul.pagination-sm.pagination {
+  margin: 0;
+}
 
-  .page-num-info {
-    top: 5px;
-  }
+.table-footer .page-num-info {
+  top: 5px;
 }
 
 .panel-heading.input {
   padding: 3px 15px 2px;
   height: 40px;
   line-height: 40px;
+}
 
-  .input-group {
-    float: right;
-    height: 30px;
-    width: 150px;
-    top: -3px;
-    right: -10px;
+.panel-heading.input .input-group {
+  float: right;
+  height: 30px;
+  width: 150px;
+  top: -3px;
+  right: -10px;
+}
 
-    span.input-group-addon {
-      display: initial;
-      top: -1px;
-      position: relative;
-      height: 36px;
-    }
+.panel-heading.input .input-group span.input-group-addon {
+  display: initial;
+  top: -1px;
+  position: relative;
+  height: 36px;
+}
 
-    input {
-      height: 32px;
-      line-height: 23px;
-      width: 120px;
-    }
+.panel-heading.input .input-group input {
+  height: 32px;
+  line-height: 23px;
+  width: 120px;
+}
 
-    button {
-      height: 32px;
-      line-height: 18px;
-    }
-
-  }
+.panel-heading.input .input-group button {
+  height: 32px;
+  line-height: 18px;
 }
 
 .panel-heading.year {
   padding: 3px 15px 2px;
-
-  .ui-select {
-    width: 110px;
-    margin-left: 5px;
-
-    select {
-      font-size: 14px;
-      line-height: 14px;
-    }
-  }
 }
 
+.panel-heading.year .ui-select {
+  width: 110px;
+  margin-left: 5px;
+}
+
+.panel-heading.year .ui-select select {
+  font-size: 14px;
+  line-height: 14px;
+}
 
 @media (min-width: 768px) {
   form .form-group.poster {
@@ -166,27 +164,21 @@ aside a[href='#'] {
 
   form .droparea {
     position: absolute;
-
     top: 5px;
     left: 5px;
     right: 5px;
     bottom: 55px;
-
     border: 2px dashed #767676;
-
     z-index: 10;
     background: rgba(255, 255, 255, 0.7);
-
     display: none;
   }
 
   form .thumb {
     position: absolute;
     top: 96px;
-
     height: 255px;
     width: 180px;
-
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }
@@ -197,9 +189,8 @@ div.form-group.copyable {
 }
 
 div.form-group.copyable > div.row > div.col-md-6 {
-  width: calc( 50% - 40px );
+  width: calc(50% - 40px);
   padding-right: 0px;
-
   float: left;
 }
 
@@ -207,18 +198,14 @@ div.form-group.copyable > a.destroy {
   position: absolute;
   right: 0px;
   top: 0px;
-
-  border-color: rgb(203, 213, 221);
-
+  border-color: #cbd5dd;
   line-height: 54px;
-
   height: 68px;
   width: 48px;
 }
 
 .table span.fa-sort-asc {
   color: green;
-
   position: relative;
   top: 6px;
 }
@@ -257,7 +244,6 @@ div.clickable > .panel:hover {
 
 .table span.fa-sort-asc {
   color: green;
-
   position: relative;
   top: 6px;
 }
@@ -276,40 +262,34 @@ div.clickable > .panel:hover {
   padding-left: 50px;
 }
 
-.top-nav {
-  img {
-    display: block;
-  }
-
-  .email {
-    position: absolute;
-    right: 60px;
-    top: 0px;
-
-    display: block;
-    height: 50px;
-
-    font-size: 1.1em;
-    font-weight: 100;
-    line-height: 50px;
-
-    color: white;
-  }
-
-  a {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-
-    display: block;
-    height: 50px;
-    width: 50px;
-
-    font-size: 1.2em;
-    line-height: 50px;
-    text-align: center;
-
-    background-color: #F34541;
-    color: white;
-  }
+.top-nav img {
+  display: block;
 }
+
+.top-nav .email {
+  position: absolute;
+  right: 60px;
+  top: 0px;
+  display: block;
+  height: 50px;
+  font-size: 1.1em;
+  font-weight: 100;
+  line-height: 50px;
+  color: white;
+}
+
+.top-nav a {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: block;
+  height: 50px;
+  width: 50px;
+  font-size: 1.2em;
+  line-height: 50px;
+  text-align: center;
+  background-color: #F34541;
+  color: white;
+}
+
+/*# sourceMappingURL=application.css.map */
