@@ -243,7 +243,7 @@ $(document).on( 'ready page:load', function(){
       }
   });
 
-    if($('#is_viewable')[0].checked)
+    if($('#is_viewable').length > 0 && $('#is_viewable')[0].checked)
     {
         $('#is_enrollable')[0].disabled = false;
     }

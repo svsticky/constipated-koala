@@ -85,49 +85,7 @@ class Users::EnrollmentsController < ApplicationController
     end
 
     # Check if notes are present and deny if absent and required.
-    if(@activity.notes.blank? || !params[:par_notes].blank?)
-      @notes = params[:par_notes]
-
-      # Reservist if no spots left
-      if !@activity.participant_limit.nil? &&
-          @activity.participants.count >= @activity.participant_limit
-
-        @new_enrollment = Participant.new(
-          member_id: @member.id,
-          activity_id: @activity.id,
-          price: @activity.price,
-          notes: @notes,
-          reservist: true
-        )
-        @new_enrollment.save!
-
-        render :status => :accepted, :json => {
-          message: I18n.t(:participant_limit_reached, scope:
-                          'activerecord.errors.models.activity', activity:
-                          @activity.name),
-          participant_limit: @activity.participant_limit,
-          participant_count: @activity.participants.count
-        }
-        return
-      else
-        @new_enrollment = Participant.new(
-          member_id: @member.id,
-          activity_id: @activity.id,
-          price: @activity.price,
-          notes: @notes
-        )
-
-        @new_enrollment.save!
-
-        render :status => 200, :json => {
-            message: I18n.t(:enrolled, scope:
-                            'activerecord.errors.models.activity', activity:
-                            @activity.name),
-            participant_limit: @activity.participant_limit,
-            participant_count: @activity.participants.count
-        }
-      end
-    else
+    if @activity.notes_mandatory && params[:par_notes].blank?
       # Notify that notes are required
       render :status => :precondition_failed, :json => {
         message: I18n.t(
@@ -139,6 +97,48 @@ class Users::EnrollmentsController < ApplicationController
         participant_count: @activity.participants.count
       }
       return
+    end
+
+    @notes = params[:par_notes]
+
+    # Reservist if no spots left
+    if !@activity.participant_limit.nil? &&
+      @activity.participants.count >= @activity.participant_limit
+
+      @new_enrollment = Participant.new(
+        member_id: @member.id,
+        activity_id: @activity.id,
+        price: @activity.price,
+        notes: @notes,
+        reservist: true
+      )
+      @new_enrollment.save!
+
+      render :status => :accepted, :json => {
+        message: I18n.t(:participant_limit_reached, scope:
+          'activerecord.errors.models.activity', activity:
+                          @activity.name),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
+      }
+      return
+    else
+      @new_enrollment = Participant.new(
+        member_id: @member.id,
+        activity_id: @activity.id,
+        price: @activity.price,
+        notes: @notes
+      )
+
+      @new_enrollment.save!
+
+      render :status => 200, :json => {
+        message: I18n.t(:enrolled, scope:
+          'activerecord.errors.models.activity', activity:
+                          @activity.name),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
+      }
     end
   end
 
