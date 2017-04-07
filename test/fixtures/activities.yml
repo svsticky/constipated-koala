@@ -26,4 +26,13 @@ test_enrollments_3:
   price: 0
   is_enrollable: true
   is_alcoholic: true
+
+test_enrollments_4:
+  name: Test dat limiet omhoog niet te veel inschrijft
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
   participant_limit: 1

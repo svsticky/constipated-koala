@@ -204,4 +204,10 @@ class Activity < ActiveRecord::Base
       end
     end
   end
+
+  def participant_counts
+    # Helper method to get counts of both types of Participants for this activity at once
+    [ self.participants.count, self.attendees.count, self.reservists.count ]
+  end
+
 end
