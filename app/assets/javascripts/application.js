@@ -206,18 +206,14 @@ $(document).on('ready page:load', function(){
   window.alert = function(message, type){
     var template = $('template#alert').html();
     var alert = template.format(message, type || 'info');
-    $('#toast-container').append(alert).find('.toast:not(.toast-error)').delay(3000).queue(function() {
+    $('#toast-container').append(alert).children('.toast:not(.toast-error)').delay(3000).queue(function() {
       $(this).remove();
     });
 
-    $('.toast-close-button').one('click', function(){
+    $('.toast-close-button').on('click', function(){
       $(this).closest('.toast').remove();
     });
   };
-
-  $('#app .alert .close').on('click', function(){
-    $(this).closest('.alert').remove();
-  });
 
   //menu navigation
 
