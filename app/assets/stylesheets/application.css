@@ -73,8 +73,8 @@ table.table > tbody > tr.red, table.table > tbody > tr.red a {
 }
 
 label.ui-checkbox.btn {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   width: 34px;
   height: 34px;
@@ -190,14 +190,14 @@ div.form-group.copyable {
 
 div.form-group.copyable > div.row > div.col-md-6 {
   width: calc(50% - 40px);
-  padding-right: 0px;
+  padding-right: 0;
   float: left;
 }
 
 div.form-group.copyable > a.destroy {
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 0;
+  top: 0;
   border-color: #cbd5dd;
   line-height: 54px;
   height: 68px;
@@ -233,7 +233,7 @@ div.clickable {
 }
 
 div.clickable > .panel {
-  margin: 0px;
+  margin: 0;
 }
 
 div.clickable > .panel:hover {
@@ -269,7 +269,7 @@ div.clickable > .panel:hover {
 .top-nav .email {
   position: absolute;
   right: 60px;
-  top: 0px;
+  top: 0;
   display: block;
   height: 50px;
   font-size: 1.1em;
@@ -280,8 +280,8 @@ div.clickable > .panel:hover {
 
 .top-nav a {
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 0;
+  top: 0;
   display: block;
   height: 50px;
   width: 50px;

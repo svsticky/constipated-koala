@@ -73,7 +73,7 @@ div#credit.input-group > select {
 
 /* Apps - Checkout - Opwaarderen */
 #credit form.form-inline > .form-group {
-  padding: 0px;
+  padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -101,7 +101,7 @@ div#credit.input-group > select {
 #credit .panel-body > ul.dropdown-menu {
   display: none;
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 50px;
 }
 
@@ -120,7 +120,7 @@ tr.inactive {
 }
 
 p.uuid {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .ui-select.year {

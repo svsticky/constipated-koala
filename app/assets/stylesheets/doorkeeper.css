@@ -38,8 +38,8 @@ div.container {
   background-color: #F34541;
   height: 100%;
   width: 100%;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 div.container h1, div.container h2 {
@@ -52,7 +52,7 @@ div.container h1, div.container h2 {
 }
 
 div.container h2 {
-  bottom: 0px;
+  bottom: 0;
   font-size: 1.1em;
   font-weight: 200;
 }
@@ -87,7 +87,7 @@ div.container .row {
   text-align: center;
   vertical-align: middle;
   width: 100%;
-  margin: 0px;
+  margin: 0;
 }
 
 div.container .row:nth-child(1) {
@@ -130,7 +130,7 @@ div.container .row > div h3 {
 
 div.container .row > div p {
   text-align: left;
-  margin: 0px;
+  margin: 0;
 }
 
 div.container .row > div ul {
