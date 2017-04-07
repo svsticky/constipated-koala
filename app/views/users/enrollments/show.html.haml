@@ -12,7 +12,7 @@
           = render 'layouts/activity/users/view', activity: @activity, view: 'show'
 
       %template#participant_table_row_template
-        = render 'layouts/activity/users/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true
+        = render 'layouts/activity/users/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true, activity: @activity
       .col-lg-3.col-md-6.cramtable
         .panel.panel-default
           .panel-heading
@@ -23,7 +23,7 @@
           %table#attendees_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
             %tbody
               - @activity.attendees.sort_by { |participant| [participant.member.first_name, participant.member.last_name] }.each do |participant|
-                = render 'layouts/activity/users/participant_table_row', participant: participant
+                = render 'layouts/activity/users/participant_table_row', participant: participant, activity: @activity
 
       - if @activity.reservists.count > 0
         .col-lg-3.col-md-6.cramtable
@@ -36,7 +36,7 @@
             %table#reservists_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
               %tbody
                 - @activity.reservists.sort_by { |participant| [participant.member.first_name, participant.member.last_name] }.each do |participant|
-                  = render 'layouts/activity/users/participant_table_row', participant: participant
+                  = render 'layouts/activity/users/participant_table_row', participant: participant, activity: @activity
 
       = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
         %i.fa.fa-bug

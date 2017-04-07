@@ -1,0 +1,14 @@
+underpant_first:
+  activity: test_enrollments_1
+  member: captain_underpants
+  reservist: false
+
+underpant_second:
+  activity: test_enrollments_2
+  member: captain_underpants
+  reservist: false
+
+underpant_third:
+  activity: test_enrollments_3
+  member: captain_underpants
+  reservist: false

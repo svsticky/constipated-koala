@@ -35,6 +35,8 @@ table.table.table-linked > tbody > tr > td > a:hover {
     width: calc(100% - 158px);
     position: relative;
     left: 158px;
+    top: auto;
+    height: auto;
   }
 
   form .panel-body {

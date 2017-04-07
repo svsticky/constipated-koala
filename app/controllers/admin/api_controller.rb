@@ -7,7 +7,8 @@ class Admin::ApiController < ApplicationController
   respond_to :json, only: [:activities, :advertisements]
 
   def activities
-    render :status => :ok, :json => Activity.list.only( :name, :start_date, :end_date, :poster )
+    render :status => :ok,
+      :json => Activity.list.only( :name, :start_date, :end_date, :poster ).where(is_viewable: true)
   end
 
   def advertisements

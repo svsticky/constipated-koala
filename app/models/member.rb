@@ -296,7 +296,7 @@ class Member < ActiveRecord::Base
            participants.price IS NOT NULL
           )
         )', Date.today).distinct
-    end
+  end
 
   # Private function cannot be called from outside this class
   private

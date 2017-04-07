@@ -56,10 +56,13 @@ nl:
         unenroll_date: Uitschrijfdeadline
         comments: Opmerkingen (privé)
         organized_by: Organisator
-        notes: Extra specificatie (publiek)
+        notes: Extra specificatie
+        notes_mandatory: Verplicht
+        notes_public: Publiek
         location: Locatie
         is_alcoholic: Alcohol(18+)
         is_enrollable: Inschrijfbaar
+        is_viewable: Zichtbaar
         participant_limit: Deelnemerslimiet
 
       group:
