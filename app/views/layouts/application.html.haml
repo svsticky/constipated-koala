@@ -21,13 +21,12 @@
     = csrf_meta_tags
   %body#app
     %div
-      %div
-        = render 'layouts/header'
+      = render 'layouts/header'
 
-        - if current_user.admin?
-          = render 'layouts/nav'
-        - else
-          = render 'layouts/nav_user'
+      - if current_user.admin?
+        = render 'layouts/nav'
+      - else
+        = render 'layouts/nav_user'
 
       .view-container
         = yield

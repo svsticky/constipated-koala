@@ -282,4 +282,8 @@ div.clickable > .panel:hover {
   color: white;
 }
 
+.nav-min .view-container {
+  display: none;
+}
+
 /*# sourceMappingURL=application.css.map */
