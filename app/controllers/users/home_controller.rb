@@ -129,7 +129,7 @@ class Users::HomeController < ApplicationController
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
     end
-  
+
     redirect_to users_home_url and return if current_user.present?
     head :ok
   end

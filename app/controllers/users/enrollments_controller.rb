@@ -47,11 +47,11 @@ class Users::EnrollmentsController < ApplicationController
     # Don't allow enrollments for old activities
     if @activity.end <= Time.now
       render :status => :gone, :json => {
-        message: I18n.t(:activity_ended, scope: 
+        message: I18n.t(:activity_ended, scope:
           'activerecord.errors.models.activity')
       }
       return
-    end  	
+    end
 
     # Deny suspended members
     if Tag.exists?(member: @member, name: 5)

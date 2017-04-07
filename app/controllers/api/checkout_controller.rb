@@ -76,7 +76,7 @@ class Api::CheckoutController < ApplicationController
       Mailings::Checkout.confirmation_instructions(card, confirmation_url(:confirmation_token => token)).deliver_now
     end
 
-    return 
+    return
   end
 
   def confirm
