@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170404135745) do
     t.string   "notes",               limit: 255
     t.boolean  "notes_mandatory"
     t.boolean  "notes_public"
+    t.boolean  "is_viewable"
   end
 
   create_table "admins", force: :cascade do |t|

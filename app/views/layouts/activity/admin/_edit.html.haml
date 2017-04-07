@@ -105,12 +105,15 @@
 
       .form-group
         .row
-          .col-md-3
+          .col-md-2
             = label(:activity, :is_alcoholic)
             = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
-          .col-md-3
+          .col-md-2
+            = label(:activity, :is_viewable)
+            = f.check_box :is_viewable, checked: @activity.is_viewable || @activity.name.nil?, data: {original: @activity.is_viewable}, id: "is_viewable"
+          .col-md-2
             = label(:activity, :is_enrollable)
-            = f.check_box :is_enrollable, checked: @activity.is_enrollable, data: {original: @activity.is_enrollable}, id: "is_enrollable"
+            = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}, id: "is_enrollable"
           .col-md-6
             = label(:activity, :participant_limit)
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"

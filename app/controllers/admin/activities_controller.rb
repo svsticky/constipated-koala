@@ -76,6 +76,7 @@ class Admin::ActivitiesController < ApplicationController
                                       :notes_public,
                                       :is_alcoholic,
                                       :is_enrollable,
+                                      :is_viewable,
                                       :participant_limit,
                                       :_destroy)
   end

@@ -62,6 +62,7 @@ nl:
         location: Locatie
         is_alcoholic: Alcohol(18+)
         is_enrollable: Inschrijfbaar
+        is_viewable: Zichtbaar
         participant_limit: Deelnemerslimiet
 
       group:
