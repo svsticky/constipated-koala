@@ -22,7 +22,7 @@ node :end_date do |activity|
   end
 end
 
-if Authorization._client.include?('activities-read')
+if Authorization._client.include?('activity-read')
   attributes :id, :description, :price
 end
 
