@@ -24,13 +24,11 @@ table.table.table-linked span.label {
   font-weight: bold;
   font-size: 14px;
   line-height: 14px;
-
   margin-left: 5px;
   display: inline-block;
   position: relative;
   padding: 5px;
-
-  border: solid 1px rgb(118, 118, 118);
+  border: solid 1px #767676;
   border-radius: 5px;
   outline: none;
   background: transparent;
@@ -66,10 +64,12 @@ div#credit.input-group > .input-symbol > span {
   width: 80px;
   color: grey;
 }
-div#credit.input-group > .input-symbol  > input {
+
+div#credit.input-group > .input-symbol > input {
   text-indent: 0.7em;
   width: 80px;
 }
+
 div#credit.input-group > select {
   background-color: white;
   height: 32px;
@@ -102,7 +102,6 @@ div#credit.input-group > select {
   padding: 1px 12px;
 }
 
-
 #credit .panel-body > ul.dropdown-menu {
   display: none;
   position: absolute;
@@ -112,7 +111,6 @@ div#credit.input-group > select {
 
 .table span.fa-sort-asc {
   color: green;
-
   position: relative;
   top: 6px;
 }
@@ -146,3 +144,5 @@ a.col-md-4, a.col-md-4:hover {
 a.panel:hover {
   text-decoration: none;
 }
+
+/*# sourceMappingURL=apps.css.map */

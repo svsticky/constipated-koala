@@ -1,0 +1,133 @@
+martyparty:
+  first_name: Marty
+  last_name: Party
+  infix: van den
+  address: Partystreet
+  city: Partyville
+  house_number: 123
+  postal_code: 1337 LT
+  phone_number: 0612345678
+  email: martyparty@maartenberg.nl
+  gender: m
+  birth_date: <%= Date.today %>
+  join_date: <%= Date.today %>
+
+dannypanny:
+  first_name: Danny
+  last_name: Panny
+  infix: de
+  address: Pannystraat
+  city: Dannymarken
+  house_number: 420
+  postal_code: 1337 DM
+  phone_number: 0301337420
+  email: danoontjepower@maartenberg.nl
+  gender: m
+  birth_date: <%= Date.today %>
+  join_date: <%= Date.today %>
+
+captain_underpants:
+  first_name: Kapitein
+  last_name: Onderbroek
+  address: Teststraat
+  house_number: 12
+  city: Testdorp
+  postal_code: 1234 TS
+  phone_number: 0612345678
+  email: kapiteinonderbroek@maartenberg.nl
+  gender: m
+  birth_date: <%= 19.years.ago %>
+  join_date: <%= 2.weeks.ago %>
+
+yorici:
+  first_name: Yorici
+  last_name: Moneypenny
+  address:  Dagobertduckstraat
+  house_number: 11
+  city: El Dorado
+  postal_code: 7311 YZ
+  phone_number: 0611001100
+  email: moneymoneymoney@maartenberg.nl
+  gender: m
+  birth_date: <%= 20.years.ago %>
+  join_date: <%= 2.years.ago %>
+
+# Use this user to test for 18+ activities correctly not allowing 18- members to join an activity
+m8eld:
+  first_name: Machteld
+  last_name: Metdehamer
+  address: Schroevendraaierspad
+  house_number: 17
+  city: Spijkernisse
+  postal_code: 1888 MH
+  phone_number: 0183172737
+  email: mevrouwmetdehamer@maartenberg.nl
+  gender: f
+  birth_date: <%= 17.years.ago %>
+  join_date: <%= 1.days.ago %>
+
+glenniepennie:
+  first_name: Stewart
+  last_name: Little
+  address: Muizenwinkelsdreef
+  house_number: 1
+  city: Ratterdam
+  postal_code: 3690 GS
+  phone_number: 0612324444
+  email: stewartlittle@maartenberg.nl
+  gender: m
+  birth_date: <%= 20.years.ago %>
+  join_date: <%= 2.years.ago %>
+
+#This user has a German international phone number, just in case we want to test this
+roosje:
+  first_name: Colin
+  last_name: Roosje
+  address: Schoneslapersstraat
+  house_number: 100a
+  city: Doorndrecht
+  postal_code: 1234 CR
+  phone_number: 0049624575821
+  email: slapendeschone@maartenberg.nl
+  gender: m
+  birth_date: <%= 19.years.ago %>
+  join_date: <%= 7.weeks.ago %>
+
+meneerdeveurzitter:
+  first_name: Emilius
+  last_name: Maximus
+  address: Grootstestraat
+  house_number: 12
+  city: Groot-Ammers
+  postal_code: 3925 ER
+  phone_number: 0613480485
+  email: veurzitter@maartenberg.nl
+  gender: m
+  birth_date: <%= 29.years.ago %>
+  join_date: <%= 1.weeks.ago %>
+
+needfuldoer:
+  first_name: Raji
+  last_name: Prihani
+  address: Tajmahalstraat
+  house_number: 666
+  city: Bombay
+  postal_code: 3241 RP
+  phone_number: 0134913431
+  email: indianguywhodoesneedful@maartenberg.nl
+  gender: m
+  birth_date: <%= 40.years.ago %>
+  join_date: <%= 9.weeks.ago %>
+
+thecreator:
+  first_name: Martijn
+  last_name: Castle
+  address: Kasteeldreef
+  house_number: 777
+  city: Ridderkerk
+  postal_code: 0989 MC
+  phone_number: 0134913431
+  email: inthebeginninghecreatedkoala@maartenberg.nl
+  gender: m
+  birth_date: <%= 20.years.ago %>
+  join_date: <%= 19.years.ago %>

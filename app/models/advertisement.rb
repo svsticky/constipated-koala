@@ -12,5 +12,5 @@ class Advertisement < ActiveRecord::Base
 
   validates_attachment_content_type :poster,
 	  :content_type => ['application/pdf', 'image/jpeg', 'image/png']
-    
+
 end

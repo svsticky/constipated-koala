@@ -61,7 +61,7 @@ Rails.application.configure do
   config.paperclip_defaults = {
    :storage => :filesystem,
    :path => ':rails_root/public/images/:class/:id/:style.:extension',
-   :url => '/images/:class/:id/:style.:extension'
+   :url => 'http://koala.rails.dev:3000/images/:class/:id/:style.:extension'
   }
 
   # allow development RADIO to use the API

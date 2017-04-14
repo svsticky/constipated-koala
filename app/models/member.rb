@@ -154,9 +154,18 @@ class Member < ActiveRecord::Base
   # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
   before_update do
     if email_changed?
+
+      # abort if email is already used for another account, abort is the only method to brake in future versions
+      if User.taken?(self.email)
+        errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
+        raise ActiveRecord::Rollback
+      end
+
+      # find user by old email
       credentials = User.find_by_email( Member.find(self.id).email )
 
       if !credentials.nil?
+        # update_attribute has no validation so it should be done manually
         credentials.update_attribute('email', self.email)
         credentials.save
       end
@@ -295,7 +304,7 @@ class Member < ActiveRecord::Base
            participants.price IS NOT NULL
           )
         )', Date.today).distinct
-    end
+  end
 
   # Private function cannot be called from outside this class
   private

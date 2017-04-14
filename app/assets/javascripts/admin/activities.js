@@ -38,8 +38,8 @@ var participant = {
 
   //Admin adds a new participant to the activity
   add : function(data){
-    var template = $('script#activity').html();
-    var activity = template.format(data.id, data.member_id, data.name, data.email, ( data.price === null ? '' : parseFloat(data.price).toFixed(2)) );
+    var template = $('template#attendee-table-row').html();
+    var activity = template.format(data.id, data.member_id, data.name, data.email);
     var added = $(activity).insertBefore('#participants-table tr:last');
     $('.number').html( +$('.number').html() +1 );
 
@@ -233,6 +233,20 @@ $(document).on( 'ready page:load', function(){
   $('#is_enrollable').on('click', function() {
       $('#participant_limit')[0].disabled = !this.checked;
   });
+
+  $('#is_viewable').on('click', function() {
+      $('#is_enrollable')[0].disabled = !this.checked;
+      if(!this.checked)
+      {
+          $('#is_enrollable')[0].checked = this.checked;
+          $('#participant_limit')[0].disabled = !this.checked;
+      }
+  });
+
+    if($('#is_viewable').length > 0 && $('#is_viewable')[0].checked)
+    {
+        $('#is_enrollable')[0].disabled = false;
+    }
 
   // Add confirmation dialog only when changing participants limit
   $('#participant_limit').on('change', function() {

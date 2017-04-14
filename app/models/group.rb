@@ -17,7 +17,12 @@ class Group < ActiveRecord::Base
 
   def years
     #TODO remove years without members
-    ( self.created_at.study_year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
+    if self.created_at.nil?
+      years_in_existence = [Date.today.year]
+    else
+      years_in_existence = ( self.created_at.study_year .. Date.today.study_year )
+    end
+    years_in_existence.map{ |year| ["#{year}-#{year +1}", year] }.reverse
   end
 
   def positions

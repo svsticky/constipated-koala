@@ -3,7 +3,7 @@ class Admin::GroupsController < ApplicationController
 
   def index
     @groups = Group.all.order( :category, :name )
-    @new = Group.new
+    @group = Group.new
   end
 
   def show
@@ -12,13 +12,13 @@ class Admin::GroupsController < ApplicationController
   end
 
   def create
-    @new = Group.new group_params
+    @group = Group.new group_params
 
-    if @new.save
-      redirect_to @new
+    if @group.save
+      redirect_to @group
     else
       @groups = Group.all.order( :category, :name )
-      render 'index'
+      render 'show'
     end
   end
 
@@ -28,8 +28,8 @@ class Admin::GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to @group
     else
-      render 'edit'
-      return
+      @groups = Group.all.order( :category, :name )
+      render 'show'
     end
   end
 

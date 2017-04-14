@@ -141,12 +141,12 @@ class Activity < ActiveRecord::Base
   end
 
   def paid_sum
-    return participants.where(:reservist => false, :paid => true).sum(:price) + 
+    return participants.where(:reservist => false, :paid => true).sum(:price) +
       participants.where(:reservist => false, :paid => true, :price => NIL).count * self.price
   end
 
   def price_sum
-    return participants.where(:reservist => false).sum(:price) + 
+    return participants.where(:reservist => false).sum(:price) +
       participants.where(:reservist => false, :price => NIL).count * self.price
   end
 
@@ -204,4 +204,10 @@ class Activity < ActiveRecord::Base
       end
     end
   end
+
+  def participant_counts
+    # Helper method to get counts of both types of Participants for this activity at once
+    [ self.participants.count, self.attendees.count, self.reservists.count ]
+  end
+
 end

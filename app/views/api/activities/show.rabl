@@ -23,24 +23,24 @@ end
 
 node :unenroll_date do |activity|
   if activity.unenroll_date
-  	activity.unenroll_date.iso8601
+    activity.unenroll_date.iso8601
   end
 end
 
 node :attendees do |activity|
-  attendees = []
-  @activity.attendees.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
-    attendees << participant.member.name
+  participants = activity.attendees
+                     .sort_by { |participant| [participant.member.first_name, participant.member.last_name] }
+  if activity.notes_public
+    participants.map { |participant| {name: participant.member.name, notes: participant.notes} }
+  else
+    participants.map { |participant| {name: participant.member.name} }
   end
-  attendees
 end
 
 node :reservists do |activity|
-  reservists = []
-  @activity.reservists.joins(:member).order('members.first_name', 'members.last_name').each do |participant|
-    reservists << participant.member.name
-  end
-  reservists
+  activity.reservists
+      .sort_by { |participant| [participant.member.first_name, participant.member.last_name] }
+      .map { |participant| {name: participant.member.name, notes: participant.notes} }
 end
 
 glue :group do

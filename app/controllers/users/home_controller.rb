@@ -78,7 +78,7 @@ class Users::HomeController < ApplicationController
 
   def add_funds
     member = Member.find(current_user.credentials_id)
-    balance = CheckoutBalance.find_by_member_id!(member.id)
+    balance = CheckoutBalance.find_or_create_by!(member.id)
 
     if ideal_transaction_params[:amount].to_f <= Settings.mongoose_ideal_costs
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')

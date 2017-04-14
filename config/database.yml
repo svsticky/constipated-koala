@@ -15,10 +15,10 @@ development:
 # Version before release on circle
 test:
   adapter: mysql2
-  database: koala
+  database: koala-test
   host: localhost
-  username:
-  password:
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   pool: 5
   timeout: 5000
   encoding: utf8
