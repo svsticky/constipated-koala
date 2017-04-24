@@ -190,6 +190,7 @@ span.version {
     display: block;
     right: 10px;
     bottom: 2px;
+    color: rgb(255,255,255); /* Fallback color */
     color: rgba(255, 255, 255, 0.8);
   }
 

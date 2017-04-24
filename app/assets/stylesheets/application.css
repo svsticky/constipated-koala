@@ -170,6 +170,7 @@ aside a[href='#'] {
     bottom: 55px;
     border: 2px dashed #767676;
     z-index: 10;
+    background: rgb(255,255,255); /* Fallback color */
     background: rgba(255, 255, 255, 0.7);
     display: none;
   }

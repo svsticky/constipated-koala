@@ -59,6 +59,7 @@ div.clickable > .panel:hover {
   background: white;
   opacity: 0;
   transition: opacity .25s ease;
+  -o-transition: opacity .25s ease;
   -webkit-transition: opacity .25s ease;
   -moz-transition: opacity .25s ease;
 }
