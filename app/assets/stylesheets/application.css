@@ -253,16 +253,6 @@ div.clickable > .panel:hover {
   color: red;
 }
 
-.top-header .logo > a {
-  font-weight: 400;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 80%;
-  float: left;
-  padding-left: 50px;
-}
-
 .top-nav img {
   display: block;
 }
@@ -291,6 +281,10 @@ div.clickable > .panel:hover {
   text-align: center;
   background-color: #F34541;
   color: white;
+}
+
+.nav-min .view-container {
+  display: none;
 }
 
 /*# sourceMappingURL=application.css.map */

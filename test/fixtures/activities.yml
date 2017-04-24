@@ -1,0 +1,38 @@
+test_enrollments_1:
+  name: Test inschrijven van reservelijst door verwijdering
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  participant_limit: 1
+
+test_enrollments_2:
+  name: Test inschrijven van reservelijst door limiet omhoog
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  participant_limit: 1
+
+test_enrollments_3:
+  name: Test inschrijven grote mensen activiteit door minderjarige
+  start_date: <%= 8.days.since %>
+  end_date: <%= 8.days.since %>
+  unenroll_date: <%= 2.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: true
+
+test_enrollments_4:
+  name: Test dat limiet omhoog niet te veel inschrijft
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  participant_limit: 1

@@ -1,7 +1,9 @@
 %section#header.top-header
   %header.clearfix
-    = link_to '#', :class => 'toggle-min visible-xs visible-small' do
-      %i.fa.fa-bars
+    = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
+      .icon-bar
+      .icon-bar
+      .icon-bar
     .logo
       = link_to root_path do
         - if content_for?(:title)
