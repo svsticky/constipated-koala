@@ -1,4 +1,4 @@
-class Advertisement < ActiveRecord::Base
+class Advertisement < ApplicationRecord
   validates :name, presence: true
 
   has_attached_file :poster,

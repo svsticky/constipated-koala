@@ -1,5 +1,5 @@
 class Api::CheckoutController < ApplicationController
-  protect_from_forgery except: [:info, :purchase, :create, :products]
+  protect_from_forgery except: [:info, :purchase, :create, :products], prepend: :true
 
   skip_before_action :authenticate_user!, only: [:info, :purchase, :create, :products, :confirm]
   skip_before_action :authenticate_admin!, only: [:info, :purchase, :create, :products, :confirm]

@@ -14,7 +14,7 @@ module Mailings
           :name => participant.member.name,
 
           :first_name => participant.member.first_name,
-          :price => ActionController::Base.helpers.number_to_currency( participant.currency, :unit => '€' )
+          :price => ApplicationController.helpers.number_to_currency( participant.currency, :unit => '€' )
         }
       end
 
