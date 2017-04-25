@@ -1,4 +1,4 @@
-Fuzzily::Searchable.module_eval() do
+Fuzzily::Searchable.module_eval do
   def self.included(by)
     case ActiveRecord::VERSION::MAJOR
     when 2 then by.extend Rails2ClassMethods
