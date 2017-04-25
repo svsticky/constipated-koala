@@ -7,7 +7,7 @@
 
     = stylesheet_link_tag 'public', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'public', 'data-turbolinks-track' => true
-    
+
     = csrf_meta_tags
   %body
     - if flash[:notice]
@@ -178,7 +178,7 @@
                   = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
                   %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
                 .ui-select{ :style => 'margin-top: 5px;' }
-                  = select_tag 'bank', options_for_select([['ABN AMRO','ABNANL2A'], ['ING Bank', 'INGBNL2A'], ['Knab', 'KNABNL2H'], ['Rabobank', 'RABONL2U'], ['SNS Bank', 'SNSBNL2A'], ['ASN Bank','ASNBNL21'], ['RegioBank', 'RBRBNL21'], ['Triodos Bank','TRIONL2U'], ['Van Lanschot Bankiers', 'FVLBNL22']], @bank), :include_blank => ''
+                  = select_tag 'bank', options_for_select(IdealTransaction::issuers, @bank), :include_blank => ''
 
           %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 

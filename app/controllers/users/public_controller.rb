@@ -43,17 +43,19 @@ class Users::PublicController < ApplicationController
       end
 
       if params[:method] == 'IDEAL'
-        @transaction = IdealTransaction.new(
+        transaction = IdealTransaction.new(
           :description => "Introductie #{@member.name}",
           :amount => total,
           :issuer => params[:bank],
-          :type => 'INTRO',
           :member => @member,
-          :transaction_id => activities.map{ |activity| activity.id },
-          :transaction_type => 'Activity' )
 
-        if @transaction.save
-          redirect_to @transaction.url
+          :transaction_id => activities.map{ |activity| activity.id },
+          :transaction_type => 'Activity',
+
+          :redirect_uri => public_url)
+
+        if transaction.save
+          redirect_to transaction.mollie_uri
           return
         else
           flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
@@ -69,13 +71,8 @@ class Users::PublicController < ApplicationController
       @member.educations.each_with_index{ |education, index| education.id = ((index+1)*-1) }
 
       # create empty study field if not present
-      if @member.educations.length < 1
-        @member.educations.build( :id => '-1' )
-      end
-
-      if @member.educations.length < 2
-        @member.educations.build( :id => '-2' )
-      end
+      @member.educations.build( :id => '-1' ) if @member.educations.length < 1
+      @member.educations.build( :id => '-2' ) if @member.educations.length < 2
 
       @membership = Activity.find( Settings.intro_membership )
 
@@ -87,25 +84,6 @@ class Users::PublicController < ApplicationController
 
       render 'index'
     end
-  end
-
-  def confirm
-    @transaction = IdealTransaction.find_by_uuid(params[:uuid])
-
-    if @transaction.status == 'SUCCESS' && @transaction.type == 'INTRO'
-
-      @transaction.transaction_id.each do |activity|
-        @participant = Participant.where("member_id = ? AND activity_id = ?", @transaction.member.id, activity)
-      	@participant.first.paid = true
-      	@participant.first.save
-      end
-
-      flash[:notice] = I18n.t(:success, scope: 'activerecord.errors.subscribe')
-    else
-      flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
-    end
-
-    redirect_to public_path
   end
 
   private
