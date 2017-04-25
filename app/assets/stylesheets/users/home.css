@@ -15,7 +15,7 @@ div.clickable {
 }
 
 div.clickable > .panel {
-  margin: 0px;
+  margin: 0;
 }
 
 div.clickable > .panel:hover {
@@ -59,6 +59,7 @@ div.clickable > .panel:hover {
   background: white;
   opacity: 0;
   transition: opacity .25s ease;
+  -o-transition: opacity .25s ease;
   -webkit-transition: opacity .25s ease;
   -moz-transition: opacity .25s ease;
 }
@@ -74,7 +75,7 @@ div.clickable > .panel:hover {
 }
 
 .widget .widget-body h4 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .widget .list-group a.list-group-item {
@@ -109,7 +110,7 @@ div.clickable > .panel:hover {
 .table .form td button {
   width: 100%;
   margin-top: 5px;
-  border-radius: 0px;
+  border-radius: 0;
   height: 34px;
 }
 

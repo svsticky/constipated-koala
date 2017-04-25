@@ -22,7 +22,7 @@ table.table#members tr {
 }
 
 table.table#members tr td {
-  padding: 0px;
+  padding: 0;
   width: 50%;
 }
 
