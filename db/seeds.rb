@@ -54,7 +54,7 @@ Group.create(
 activity = Activity.create(
   name:         'Lidmaatschap',
   price:        7.5,
-  start_date:   Faker::Date.between(1.years.ago, 7.days.ago)
+  start_date:   Faker::Date.between(30.days.ago, 7.days.ago)
 )
 
 # Seeds not working on CI

@@ -19,9 +19,9 @@ tr td a {
 }
 
 #advertisements tr > td {
-  padding: 4px 0px 0px 8px;
+  padding: 4px 0 0 8px;
   width: calc(100% - 100px);
-  border: 0px;
+  border: 0;
 }
 
 #advertisements tr > td.buttons {

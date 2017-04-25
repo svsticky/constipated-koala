@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20170404135745) do
     t.string   "location",            limit: 255
     t.date     "unenroll_date"
     t.string   "notes",               limit: 255
+    t.boolean  "is_viewable"
     t.boolean  "notes_mandatory"
     t.boolean  "notes_public"
-    t.boolean  "is_viewable"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -135,14 +135,21 @@ ActiveRecord::Schema.define(version: 20170404135745) do
   end
 
   create_table "ideal_transactions", id: false, force: :cascade do |t|
-    t.string   "uuid",             limit: 16
+    t.string   "description",      limit: 255
+    t.decimal  "amount",                       precision: 6, scale: 2
+    t.string   "status",           limit: 9,                           default: "open"
     t.integer  "member_id",        limit: 4
     t.string   "transaction_type", limit: 255
     t.string   "transaction_id",   limit: 255
     t.string   "redirect_uri",     limit: 255
+    t.string   "token",            limit: 64
+    t.string   "trxid",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "ideal_transactions", ["token"], name: "index_ideal_transactions_on_token", unique: true, using: :btree
+  add_index "ideal_transactions", ["trxid"], name: "index_ideal_transactions_on_trxid", unique: true, using: :btree
 
   create_table "impressions", force: :cascade do |t|
     t.string   "impressionable_type", limit: 255

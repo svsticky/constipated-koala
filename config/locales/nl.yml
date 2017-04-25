@@ -267,7 +267,9 @@ nl:
 
         ideal_transaction:
           blank: kan niet leeg zijn
-          processed: is al verwerkt
+          processed: is al verwerkt.
+          success: is verwerkt!
+          failed: is nog niet verwerkt.
           attributes:
             checkout: Mongoose-tegoed
             fees: iDEAL-kosten

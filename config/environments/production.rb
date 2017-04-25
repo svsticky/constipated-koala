@@ -59,6 +59,12 @@ Rails.application.configure do
     :protocol => 'https'
   }
 
+  # default host for url_helpers
+  Rails.application.routes.default_url_options = {
+    :host => 'koala.svsticky.nl',
+    :protocol => 'https'
+  }
+
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
   config.active_record.raise_in_transactional_callbacks = true
