@@ -9994,11 +9994,6 @@ div.page.search > section.panel {
   }
 }
 
-.top-header .logo {
-    display: inline-block;
-    width: 340px;
-}
-
 .top-header .logo > a {
     font-size: 24px;
     vertical-align: middle;
