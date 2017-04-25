@@ -56,6 +56,12 @@ Rails.application.configure do
     :protocol => 'https'
   }
 
+  # default host for url_helpers
+  Rails.application.routes.default_url_options = {
+    :host => 'koala.svsticky.nl',
+    :protocol => 'https'
+  }
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
   config.i18n.fallbacks = true

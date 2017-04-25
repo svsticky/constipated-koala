@@ -22,8 +22,6 @@ ConstipatedKoala::Application.routes.draw do
     scope module: 'users' do
       get  '/', to: 'public#index', as: 'public'
       post '/', to: 'public#create'
-
-      get 'confirm', to: 'public#confirm'
     end
   end
 
@@ -44,7 +42,6 @@ ConstipatedKoala::Application.routes.draw do
       delete 'enrollments/:id',               to: 'users/enrollments#delete'
     end
 
-    get   'mongoose',                       to: 'users/home#confirm_add_funds'
     root 'admin/home#index'
 
     # No double controllers
@@ -122,12 +119,12 @@ ConstipatedKoala::Application.routes.draw do
               delete '',        to: 'participants#destroy'
             end
           end
-
-          collection do
-            get 'hook',         to: 'participants#hook'
-          end
         end
 
+        scope 'hook' do
+          get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
+          post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
+        end
 
         # NOTE legacy implementation for checkout without oauth
         scope 'checkout' do

@@ -172,6 +172,14 @@ class Member < ActiveRecord::Base
     end
   end
 
+  # destroy account on removal of member
+  before_destroy do
+    logger.debug self.inspect
+
+    user = User.find_by_email( self.email )
+    user.delete if user.present?
+  end
+
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
     student_id = query.match /^\F?\d{6,7}$/i

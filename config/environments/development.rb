@@ -19,7 +19,15 @@ Rails.application.configure do
 
   # Send e-mails in test mode
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = { :host => 'koala.rails.dev', :port => 3000 }
+  config.action_mailer.default_url_options = {
+    :host => 'koala.rails.dev',
+    :port => 3000
+  }
+
+  Rails.application.routes.default_url_options = {
+    :host => 'koala.rails.dev',
+    :port => 3000
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
