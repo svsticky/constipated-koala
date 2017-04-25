@@ -53,6 +53,17 @@ class Users::EnrollmentsController < ApplicationController
       return
     end
 
+    # Don't allow non-master members to enroll for masters activity
+    if (@member.educations.empty? || !@member.educations.any? { |education| Study.find( education.study_id ).masters }) && @activity.is_masters?
+      render :status => :failed_dependency, :json => {
+        message: I18n.t(:participant_no_masters, scope:
+          'activerecord.errors.models.activity'),
+          participant_limit: @activity.participant_limit,
+          participant_count: @activity.participants.count
+      }
+      return
+    end
+
     # Deny suspended members
     if Tag.exists?(member: @member, name: 5)
       render :status => :failed_dependency, :json => {
