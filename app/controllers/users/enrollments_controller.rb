@@ -26,9 +26,11 @@ class Users::EnrollmentsController < ApplicationController
     @activity = Activity.find(params[:id])
 
     # Don't allow enrollments for old activities
-    if @activity.end <= Time.now
-      render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
-      return
+    if @activity.end_time.nil?
+      if @activity.end_date.end_of_day() <= Time.now
+        render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
+        return
+      end
     end
 
     @current_member = Member.find(current_user.credentials_id)

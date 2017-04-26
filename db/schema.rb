@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20170404135745) do
     t.string   "location",            limit: 255
     t.date     "unenroll_date"
     t.string   "notes",               limit: 255
-    t.boolean  "is_viewable"
     t.boolean  "notes_mandatory"
     t.boolean  "notes_public"
+    t.boolean  "is_viewable"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -142,8 +142,8 @@ ActiveRecord::Schema.define(version: 20170404135745) do
     t.string   "transaction_type", limit: 255
     t.string   "transaction_id",   limit: 255
     t.string   "redirect_uri",     limit: 255
-    t.string   "token",            limit: 64
     t.string   "trxid",            limit: 255
+    t.string   "token",            limit: 64
     t.datetime "created_at"
     t.datetime "updated_at"
   end

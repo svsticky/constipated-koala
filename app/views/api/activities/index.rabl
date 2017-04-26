@@ -1,6 +1,6 @@
 collection @activities
 
-attribute :name, :location
+attribute :name, :location, :participant_counter
 
 node :start_date do |activity|
   if activity.start_time.nil?

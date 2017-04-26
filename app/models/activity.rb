@@ -210,4 +210,16 @@ class Activity < ActiveRecord::Base
     [ self.participants.count, self.attendees.count, self.reservists.count ]
   end
 
+  def participant_counter
+    # Helper method for use in displaying the remaining spots etc. Used both in API and in the enrollments view.
+    return "" unless self.is_enrollable
+
+    if self.participant_limit
+      return "VOL!" if self.participants.count >= self.participant_limit
+      return "#{self.participants.count}/#{self.participant_limit}"
+    end
+
+    return "#{self.participants.count}"
+  end
+
 end
