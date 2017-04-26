@@ -2,16 +2,7 @@
   .panel-heading.text-right
     %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
-    - if activity.is_enrollable
-      %span.panel-title.pull-right.activity-count
-        - if activity.participant_limit.nil?
-          = activity.participants.count
-        - elsif activity.participants.count >= activity.participant_limit
-          VOL!
-        - else
-          = activity.participants.count
-          \/
-          = activity.participant_limit
+    = activity.participant_counter
     .clearfix
   .panel-body
     .media-left.poster-thumbnail
