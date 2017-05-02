@@ -92,8 +92,6 @@
                       = link_to activity.name, "/enrollments/#{activity.id}"
                   - else
                     %td= activity.name
-                  //class: "btn btn-default more-info"
-                  //%td= activity.name
 
                   - if !activity.start_date.nil?
                     %td.hidden-xs
