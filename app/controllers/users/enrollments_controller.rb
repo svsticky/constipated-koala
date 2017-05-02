@@ -190,7 +190,7 @@ class Users::EnrollmentsController < ApplicationController
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
     if !@activity.is_enrollable? or
-        (@activity.unenroll_date and @activity.unenroll_date < DateTime.now)
+        (@activity.unenroll_date and @activity.unenroll_date.end_of_day() < DateTime.now)
       render :status => :locked, :json => {
         message: I18n.t(
           :not_unenrollable,
