@@ -37,6 +37,8 @@ class Users::EnrollmentsController < ApplicationController
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
         activity_id: @activity.id)
+    @ttendees = @activity.ordered_attendees
+    @reservists = @activity.ordered_reservists
   end
 
   # [POST] /enrollments/:id
