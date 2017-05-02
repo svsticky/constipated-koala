@@ -194,10 +194,10 @@ class Activity < ActiveRecord::Base
           end
         end
 
-        if !@activity.is_masters?
+        if !self.is_masters?
           luckypeople = self.reservists.first(spots)
         else
-          masterpeople = self.reservists.select{|m| m.is_masters?}
+          masterpeople = self.reservists.select{|m| m.member.is_masters?}
           luckypeople = masterpeople.first(spots)
         end
 
