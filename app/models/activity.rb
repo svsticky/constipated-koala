@@ -103,6 +103,15 @@ class Activity < ActiveRecord::Base
       .joins(:member)
   end
 
+  # Prevents duplication in hiding information in the API if notes_public is false.
+  def participant_filter(ps)
+    if self.notes_public
+      ps.map { |p| {name: p.member.name, notes: p.notes } }
+    else
+      ps.map { |p| {name: p.member.name } }
+    end
+  end
+
   def group
     Group.find_by_id self.organized_by
   end

@@ -28,19 +28,11 @@ node :unenroll_date do |activity|
 end
 
 node :attendees do |activity|
-  participants = activity.attendees
-                     .sort_by { |participant| [participant.member.first_name, participant.member.last_name] }
-  if activity.notes_public
-    participants.map { |participant| {name: participant.member.name, notes: participant.notes} }
-  else
-    participants.map { |participant| {name: participant.member.name} }
-  end
+  activity.participant_filter(activity.ordered_attendees)
 end
 
 node :reservists do |activity|
-  activity.reservists
-      .sort_by { |participant| [participant.member.first_name, participant.member.last_name] }
-      .map { |participant| {name: participant.member.name, notes: participant.notes} }
+  activity.participant_filter(activity.ordered_reservists)
 end
 
 glue :group do
