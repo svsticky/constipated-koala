@@ -21,7 +21,7 @@ class CheckoutCard < ActiveRecord::Base
     if balance.save
       self.checkout_balance = balance
     else
-      return false
+      throw :abort
     end
   end
 end
