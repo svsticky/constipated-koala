@@ -1,0 +1,23 @@
+defaults: &defaults
+  # year doesn't matter as long as it is in the past, cronjob creates new date incrementing exactly one year
+  begin_study_year: '2009-09-01'
+
+  mongoose_ideal_costs: 0.29
+  liquor_time: '16:00'
+
+  intro:
+    membership: [1]
+    activities: []
+
+  additional_positions:
+    committee: ['fotograaf'] # additional_committee_positions
+    moot: [] # additional_moot_positions
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
