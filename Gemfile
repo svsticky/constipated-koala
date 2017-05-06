@@ -19,7 +19,6 @@ gem 'sprockets'
 
 # authentication gems
 gem 'devise', :github => 'plataformatec/devise'
-gem 'doorkeeper'
 
 # logging
 gem 'impressionist'
