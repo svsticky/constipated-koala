@@ -48,7 +48,7 @@
                   %p= I18n.t 'intro_membership.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_intro_membership', :name => 'intro.membership', :value => Settings['intro.membership'].join(', ') }
+                  %input.form-control{ :id => 'options_intro_membership', :name => 'intro_membership', :value => Settings.intro_membership.join(', ') }
 
               %li.list-group-item
                 .col-md-6
@@ -56,7 +56,7 @@
                   %p= I18n.t 'intro_activities.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_intro_activities', :name => 'intro.activities', :value => Settings['intro.activities'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+                  %input.form-control{ :id => 'options_intro_activities', :name => 'intro_activities', :value => Settings.intro_activities.join(', '), :placeholder => 'gescheiden met komma\'s' }
 
 
               %li.list-group-item
@@ -65,7 +65,7 @@
                   %p= I18n.t 'additional_committee_positions.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_additional_committee_positions', :name => 'additional_positions.committee', :value =>Settings['additional_positions.committee'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+                  %input.form-control{ :id => 'options_additional_committee_positions', :name => 'additional_committee_positions', :value => Settings.additional_committee_positions.join(', '), :placeholder => 'gescheiden met komma\'s' }
 
               %li.list-group-item
                 .col-md-6
@@ -73,7 +73,7 @@
                   %p= I18n.t 'additional_moot_positions.description', scope: 'activerecord.attributes.settings'
 
                 .col-md-6
-                  %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_positions.moot', :value => Settings['additional_positions.moot'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+                  %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_moot_positions', :value => Settings.additional_moot_positions.join(', '), :placeholder => 'gescheiden met komma\'s' }
 
 
       .col-md-6
