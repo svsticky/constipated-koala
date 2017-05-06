@@ -13,9 +13,9 @@ gem 'mysql2'
 gem 'haml'
 gem 'rabl'
 
-# Use SCSS for stylesheets, sprockets for assets
+# sprockets for assets
 gem 'sprockets'
-gem 'sass-rails'
+# gem 'sass-rails'
 
 # authentication gems
 gem 'devise', :github => 'plataformatec/devise'
@@ -53,9 +53,13 @@ group :production do
 end
 
 group :development do
+  gem 'puma'
+
   gem 'web-console'
-  gem 'spring'
+  gem 'byebug', platform: :mri
+
   gem 'faker'
+  gem 'spring'
 end
 
 group :test do

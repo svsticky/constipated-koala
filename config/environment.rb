@@ -1,13 +1,10 @@
 # Load the Rails application.
-require File.expand_path('../application', __FILE__)
-
-# Initialize the Rails application.
-ConstipatedKoala::Application.initialize!
+require_relative 'application'
 
 # Paperclip settings
 Paperclip.options[:command_path] = ['/usr/bin/', '/usr/local/bin/']
 
-# Remove error wrappers
+# Remove error wrappers, TODO still required?
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   if html_tag =~ /<(input|label|textarea|select)/
     html_field = Nokogiri::HTML::DocumentFragment.parse(html_tag)
@@ -18,3 +15,6 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     html_tag.html_safe
   end
 end
+
+# Initialize the Rails application.
+ConstipatedKoala::Application.initialize!
