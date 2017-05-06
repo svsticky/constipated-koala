@@ -8,8 +8,8 @@ class Users::PublicController < ApplicationController
     @member.educations.build( :id => '-1' )
     @member.educations.build( :id => '-2' )
 
-    @membership = Activity.find Settings.intro_membership
-    @activities = Activity.find Settings.intro_activities
+    @membership = Activity.find Settings['intro.membership'
+    @activities = Activity.find Settings['intro.activities']
 
     @participate = @activities.map{ |activity| activity.id }
   end
@@ -74,9 +74,9 @@ class Users::PublicController < ApplicationController
       @member.educations.build( :id => '-1' ) if @member.educations.length < 1
       @member.educations.build( :id => '-2' ) if @member.educations.length < 2
 
-      @membership = Activity.find( Settings.intro_membership )
+      @membership = Activity.find( Settings['intro.membership'] )
 
-      @activities = Activity.find( Settings.intro_activities )
+      @activities = Activity.find( Settings['intro.activities'] )
       @participate = public_post_params[ :participant_attributes ].map{ |key, value| key.to_i if value['participate'] == '1' }.compact
 
       @method = params[:method]

@@ -12,10 +12,10 @@ class Admin::SettingsController < ApplicationController
   end
 
   def create
-    if ['additional_moot_positions', 'additional_committee_positions'].include? params[:setting]
+    if ['additional_positions.moot', 'additional_positions.committee'].include? params[:setting]
       Settings[params[:setting]] = params[:value].downcase.split(',').each{ |position| position.strip! }
 
-    elsif ['intro_membership','intro_activities'].include? params[:setting]
+    elsif ['intro.membership','intro.activities'].include? params[:setting]
       Settings[params[:setting]] = Activity.where( id: params[:value].split(',').map(&:to_i) ).collect(&:id)
 
       render :status => :ok, :json => {
