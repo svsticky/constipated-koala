@@ -1,39 +1,34 @@
 # encoding: UTF-8
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 gem 'rails'
-
-# Use mysql as the production database
 gem 'mysql2'
-
-# authentication gems
-gem 'devise'
-gem 'doorkeeper'
-
-# logging
-gem 'impressionist'
-
-# RestClient for sending mail using mailgun
-gem 'rest-client'
-
-# new search engine
-gem 'fuzzily'
-
-# Use SCSS for stylesheets, sprockets for assets
-gem 'sprockets'
-gem 'sass-rails'
 
 # use of Haml and rabl
 gem 'haml'
 gem 'rabl'
 
-# Gem voor html5 stubs met form features
-gem 'modernizr-rails'
+# Use SCSS for stylesheets, sprockets for assets
+gem 'sprockets'
+gem 'sass-rails'
 
-# Use for javascript and libraries
-gem 'execjs'
-gem 'jquery-rails'
+# authentication gems
+gem 'devise', :github => 'plataformatec/devise'
+gem 'doorkeeper'
+
+# logging
+gem 'impressionist'
+
+# rests calls for mailgun
+gem 'rest-client'
+
+# new search engine
+gem 'fuzzily'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
