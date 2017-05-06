@@ -13,10 +13,11 @@ Currently, it implements methods to track several things within the association:
  - members and membership,
  - activities and payments,
  - committees and other groups,
- - operation Dead Mongoose (TM) and it's expenses, and
+ - operation Dead Mongoose (TM) and it's expenses,
+ - [OAuth authentication](/app/controllers/api) and authorization endpoint, and
  - basic logging of most operations.
 
-Koala has an [api](/app/views/api), it is used by RADIO and Checkout at the moment.
+Koala has an [api](/app/views/api), it is used by RADIO and Checkout at the moment. However this api uses OAuth to create more awesome applications without hacking it into koala itself, so anybody can build an application.
 
 ## Starting with koala
 **An extensive tutorial on [how to install koala](/config/deployment) on your laptop or on a production server is available.**.
@@ -30,7 +31,7 @@ Constipated koala is started as a tool for the board of Sticky in a very limited
 
 According to the roadmap there are some new features to be implemented which should be added without breaking anything else. Please read the [contributing guideliness](https://github.com/svsticky/constipated-koala/blob/development/CONTRIBUTING.md).
 
-~~OAuth was added to allow the commit or any other group to play with the data available in koala without hacking it into koala itself. So if you would like to build an app for Sticky which is not directly affiliated with member administration do so in a different app using OAuth to authenticate and retrieve information (I do recon some things need to be added to the member pages of koala, such as groups and activities).~~
+OAuth was added to allow the commit or any other group to play with the data available in koala without hacking it into koala itself. So if you would like to build an app for Sticky which is not directly affiliated with member administration do so in a different app using OAuth to authenticate and retrieve information (I do recon some things need to be added to the member pages of koala, such as groups and activities).
 
 _Sidenote; As most of you guys I'm a programmer, design is yuk, however I do like the looks at the moment and if you implement something new it **should** look somewhat similar and presentable for all users; members, admins, and informatiekundigen._
 

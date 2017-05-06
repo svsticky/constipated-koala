@@ -1,4 +1,3 @@
-# TODO use api controller
 class Api::CheckoutController < ApplicationController
   protect_from_forgery except: [:info, :purchase, :create, :products]
 
