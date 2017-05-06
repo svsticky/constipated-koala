@@ -87,6 +87,7 @@ Rails.application.configure do
     :path => '/:class/:id/:style.:extension',
     :s3_protocol => 'https',
     :url => ':s3_domain_url',
+    :s3_region => 'TODO',
     :s3_permissions => {
       :original => :private
     }

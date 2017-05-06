@@ -53,7 +53,7 @@ gem 'clipboard-rails'
 
 group :production do
   gem 'unicorn'
-  gem 'aws-sdk', '~> 1.5.7'
+  gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 end
 
