@@ -17,4 +17,4 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
 end
 
 # Initialize the Rails application.
-ConstipatedKoala::Application.initialize!
+Rails.application.initialize!

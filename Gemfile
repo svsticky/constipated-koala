@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails'
+gem 'rails', '~> 5.0.0'
 gem 'mysql2'
 
 # use of Haml and rabl
@@ -18,7 +18,7 @@ gem 'sprockets'
 # gem 'sass-rails'
 
 # authentication gems
-gem 'devise', :github => 'plataformatec/devise'
+gem 'devise'#, :github => 'plataformatec/devise'
 gem 'doorkeeper'
 
 # logging
