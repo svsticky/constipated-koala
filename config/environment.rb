@@ -1,5 +1,6 @@
-# Load the Rails application.
+# Load and initialize the Rails application.
 require_relative 'application'
+Rails.application.initialize!
 
 # Paperclip settings
 Paperclip.options[:command_path] = ['/usr/bin/', '/usr/local/bin/']
@@ -15,6 +16,3 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     html_tag.html_safe
   end
 end
-
-# Initialize the Rails application.
-Rails.application.initialize!

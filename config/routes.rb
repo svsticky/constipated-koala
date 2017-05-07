@@ -16,7 +16,7 @@ class IntroDomain
   end
 end
 
-ConstipatedKoala::Application.routes.draw do
+Rails.application.routes.draw do
 
   constraints(IntroDomain) do
     scope module: 'users' do
