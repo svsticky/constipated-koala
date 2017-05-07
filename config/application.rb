@@ -8,8 +8,8 @@ require 'action_view/railtie'
 require 'action_mailer/railtie'
 require 'active_job/railtie'
 # require 'action_cable/engine' NOTE not working, possibly due to upgrade
-require 'rails/test_unit/railtie'
 require 'sprockets/railtie'
+require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

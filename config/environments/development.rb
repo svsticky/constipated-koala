@@ -46,21 +46,27 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  # Adds additional error checking when serving assets at runtime.
+  # Checks for improperly declared sprockets dependencies.
+  # Raises helpful error messages.
+  config.assets.raise_runtime_errors = false
+  config.assets.digest = false
+
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  config.assets.quiet = false
 
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Custom configuration
   config.mailgun = ENV['MAILGUN_TOKEN']
   config.checkout = ENV['CHECKOUT_TOKEN']
 
-  # store in public folder for testing purposes
+  # store images in public folder for testing purposes
   config.paperclip_defaults = {
     :storage => :filesystem,
     :path => ':rails_root/public/images/:class/:id/:style.:extension',

@@ -10,8 +10,8 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+//= require jquery/dist/jquery.min
+//= require jquery-ui/build/release
 //= require bootstrap-file-input
 //
 //= require dropdown
@@ -19,8 +19,8 @@
 //= require mail
 //= require clipboard
 //
-//= require turbolinks
-//= require bootstrap
+//= require turbolinks/dist/turbolinks
+//= require bootstrap/dist/js/bootstrap
 //
 //= require_tree ./admin
 //= require_tree ./users

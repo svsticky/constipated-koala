@@ -13,9 +13,9 @@ gem 'mysql2'
 gem 'haml'
 gem 'rabl'
 
-# sprockets for assets
-gem 'sprockets'
-# gem 'sass-rails'
+gem 'sprockets-rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 
 # authentication gems
 gem 'devise', :github => 'plataformatec/devise'
@@ -30,9 +30,6 @@ gem 'rest-client'
 
 # new search engine
 gem 'fuzzily'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks' # TODO move to Yarn if possible
 gem 'responders'
 
 # settings cached in rails environment
@@ -58,6 +55,7 @@ end
 
 group :development do
   gem 'puma'
+  gem 'listen'
 
   gem 'web-console'
   gem 'byebug', platform: :mri
