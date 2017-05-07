@@ -23,8 +23,17 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
-
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = {
+    :host => 'koala.rails.dev',
+    :port => 3000
+  }
+
+  Rails.application.routes.default_url_options = {
+    :host => 'koala.rails.dev',
+    :port => 3000
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -41,7 +50,7 @@ Rails.application.configure do
   config.assets.quiet = true
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
@@ -57,4 +66,10 @@ Rails.application.configure do
     :path => ':rails_root/public/images/:class/:id/:style.:extension',
     :url => 'http://koala.rails.dev:3000/images/:class/:id/:style.:extension'
   }
+
+  # for development only, debugging with test environment of radio
+  config.action_dispatch.default_headers.merge!({
+    'Access-Control-Allow-Origin' => 'http://radio.rails.dev:3001',
+    'Access-Control-Request-Method' => '*'
+  })
 end
