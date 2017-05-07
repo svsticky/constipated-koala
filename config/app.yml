@@ -10,8 +10,8 @@ defaults: &defaults
     activities: []
 
   additional_positions:
-    committee: ['fotograaf'] # additional_committee_positions
-    moot: [] # additional_moot_positions
+    committee: ['fotograaf']
+    moot: []
 
 development:
   <<: *defaults

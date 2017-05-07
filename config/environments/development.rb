@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.log_level = :debug
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -45,11 +46,12 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  config.serve_static_assets = true
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
-  config.assets.raise_runtime_errors = false
+  config.assets.raise_runtime_errors = true
   config.assets.digest = false
 
   # Suppress logger output for asset requests.
@@ -61,10 +63,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # Custom configuration
-  config.mailgun = ENV['MAILGUN_TOKEN']
-  config.checkout = ENV['CHECKOUT_TOKEN']
 
   # store images in public folder for testing purposes
   config.paperclip_defaults = {

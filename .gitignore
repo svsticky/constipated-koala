@@ -8,7 +8,7 @@
 .rbenv-vars
 .DS_Store
 
-log/*.log
+log/
 tmp
 
 public/assets/

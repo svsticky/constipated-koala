@@ -224,12 +224,12 @@ DEPENDENCIES
   byebug
   clipboard-rails
   coffee-rails
-  devise!
+  devise (~> 4.2.1)!
   doorkeeper
   faker
   fuzzily
   haml
-  impressionist!
+  impressionist (~> 1.5.2)!
   listen
   mysql2
   paperclip
@@ -241,7 +241,6 @@ DEPENDENCIES
   rest-client
   sass-rails
   spring
-  sprockets-rails
   sweetalert-rails
   uglifier
   unicorn

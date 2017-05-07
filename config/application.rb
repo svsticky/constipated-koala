@@ -1,5 +1,5 @@
 require_relative 'boot'
-# require 'rails/all' # NOTE actioncable not working
+# require 'rails/all' # TODO actioncable not working, fix needed
 
 require 'rails'
 require 'active_record/railtie'
@@ -47,6 +47,10 @@ module ConstipatedKoala
       Users::RegistrationsController.layout 'doorkeeper'
       Users::PublicController.layout false
     end
+
+    # Custom configuration
+    config.mailgun = ENV['MAILGUN_TOKEN']
+    config.checkout = ENV['CHECKOUT_TOKEN']
 
     config.action_dispatch.rescue_responses = {
       'ActiveRecord::RecordNotFound'                => :not_found,

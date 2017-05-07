@@ -9,8 +9,8 @@
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
 
     %template#alert
       .toast{:class => "toast-{1}"}
@@ -30,4 +30,8 @@
 
       .view-container
         = yield
+
+    - if Rails.env.development?
+      = console
+      
     #toast-container.toast-bottom-right

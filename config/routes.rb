@@ -1,4 +1,5 @@
 # Helper constraint to allow us to respond to multiple subdomains
+# TODO is this required? 
 class MainDomain
   def self.matches?(request)
     request.subdomain.present? &&
@@ -17,7 +18,6 @@ class IntroDomain
 end
 
 Rails.application.routes.draw do
-
   constraints(IntroDomain) do
     scope module: 'users' do
       get  '/', to: 'public#index', as: 'public'

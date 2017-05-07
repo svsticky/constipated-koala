@@ -103,10 +103,6 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  # Custom configuration
-  config.mailgun = ENV['MAILGUN_TOKEN']
-  config.checkout = ENV['CHECKOUT_TOKEN']
-
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {

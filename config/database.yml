@@ -1,5 +1,5 @@
 # Development
-# Running on local machine using sqlite
+# Running on local machine
 development:
   adapter: mysql2
   database: koala-development
@@ -12,7 +12,7 @@ development:
   encoding: utf8
 
 # test
-# Version before release on circle
+# Version used by circleci
 test:
   adapter: mysql2
   database: koala-test

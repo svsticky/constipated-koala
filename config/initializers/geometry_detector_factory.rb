@@ -1,5 +1,5 @@
+# TODO resize images on amazon
 Paperclip::GeometryDetector.module_eval do
-
   private
 
   def geometry_string
@@ -7,7 +7,7 @@ Paperclip::GeometryDetector.module_eval do
       orientation = Paperclip.options[:use_exif_orientation] ? "%[exif:orientation]" : "1"
 
       Rails.logger.debug "file: #{path}[0]"
-      
+
       response = Paperclip.run(
         "identify",
         "-format '%wx%h,#{orientation}' :file", {
@@ -17,8 +17,8 @@ Paperclip::GeometryDetector.module_eval do
         }
       )
 
-      Rails.logger.debug "output #{response.inspect}"      
-      return response 
+      Rails.logger.debug "output #{response.inspect}"
+      return response
     rescue Cocaine::ExitStatusError => e
       Rails.logger.fatal "ExitStatus #{e.inspect}"
       ""

@@ -1,3 +1,4 @@
+# TODO image resizing on amazon
 Cocaine::CommandLine.module_eval do
 
   def run(interpolations = {})

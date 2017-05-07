@@ -13,17 +13,17 @@ gem 'mysql2'
 gem 'haml'
 gem 'rabl'
 
-gem 'sprockets-rails'
+# assets and stuff
 gem 'sass-rails'
 gem 'coffee-rails'
 
 # authentication gems
-gem 'devise', :github => 'plataformatec/devise'
+gem 'devise', '~> 4.2.1', :github => 'plataformatec/devise'
 gem 'doorkeeper'
 
 # logging, using a pull request since app not supported for rails 5
 # TODO look for alternative? gem is not regularly updated anymore.
-gem 'impressionist', :github => 'martijncasteel/impressionist'
+gem 'impressionist', '~> 1.5.2', :github => 'martijncasteel/impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
