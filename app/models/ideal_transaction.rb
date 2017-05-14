@@ -1,4 +1,4 @@
-class IdealTransaction < ActiveRecord::Base
+class IdealTransaction < ApplicationRecord
   self.primary_key = :token
 
   attr_accessor :issuer, :mollie_uri, :message

@@ -1,4 +1,4 @@
-class CheckoutBalance < ActiveRecord::Base
+class CheckoutBalance < ApplicationRecord
   validates :balance, presence: true
   validates :member, presence: true
 

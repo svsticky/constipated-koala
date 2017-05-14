@@ -1,5 +1,5 @@
 module Mailings
-  class Enrollments < Mailer
+  class Enrollments < ApplicationMailer
 
     def enrolled(participant)
       return if ENV['MAILGUN_TOKEN'].blank?
@@ -22,7 +22,7 @@ module Mailings
 
       subject = "Studievereniging Sticky | Je bent ingeschreven voor #{activity.name}"
 
-      html = render_to_string( :layout => "mailings", :locals => {
+      html = render_to_string( :layout => 'mailer', :locals => {
         name: member.first_name,
         activity: activity,
         starts_at: starts_at,

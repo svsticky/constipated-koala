@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Mailings
-  class Participants < Mailer
+  class Participants < ApplicationMailer
 
     def inform( activity, recipients, sender, subject, html, text = nil )
       participants = activity.participants.joins( :member ).where( 'members.email' => recipients )
@@ -20,7 +20,7 @@ module Mailings
 
       # NOTE view is rendered in form for editing _mail
       text = strip_html( html.clone )
-      html = render_to_string :inline => html, :layout => 'mailings', :locals => { subject: subject }
+      html = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: subject }
 
       return mails( variables, sender, subject, html, text )
     end

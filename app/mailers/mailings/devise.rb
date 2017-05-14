@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Mailings
-  class Devise < Mailer
+  class Devise < ApplicationMailer
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, opts={})

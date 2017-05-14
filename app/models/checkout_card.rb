@@ -1,4 +1,4 @@
-class CheckoutCard < ActiveRecord::Base
+class CheckoutCard < ApplicationRecord
   validates :uuid, presence: true
   validates :member, presence: true
   validates :checkout_balance, presence: true

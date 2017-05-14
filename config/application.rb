@@ -7,7 +7,7 @@ require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'action_mailer/railtie'
 require 'active_job/railtie'
-# require 'action_cable/engine' NOTE not working, possibly due to upgrade
+require 'action_cable/engine' # NOTE not working, possibly due to upgrade
 require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 

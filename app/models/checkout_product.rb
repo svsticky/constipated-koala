@@ -1,4 +1,4 @@
-class CheckoutProduct < ActiveRecord::Base
+class CheckoutProduct < ApplicationRecord
 
   validates :name, presence: true
   validates :category, presence: true
@@ -16,7 +16,7 @@ class CheckoutProduct < ActiveRecord::Base
   	:validate_media_type => false,
   	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
   	:s3_permissions => {
-      :original => :public-read
+      :original => :'public-read'
     }
 
   validates_attachment_content_type :image,
