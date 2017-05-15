@@ -1,4 +1,6 @@
 class IdealTransaction < ApplicationRecord
+  require 'request'
+
   self.primary_key = :token
 
   attr_accessor :issuer, :mollie_uri, :message

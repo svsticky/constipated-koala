@@ -1,9 +1,16 @@
 GIT
-  remote: https://github.com/martijncasteel/impressionist.git
-  revision: 1ee333c6b6fef28ef504b4b1a40fd078d76b57f2
+  remote: https://github.com/charlotte-ruby/impressionist.git
+  revision: 529f9d494d375bf50ed85d41d6095b654bb26658
   specs:
     impressionist (1.5.2)
       nokogiri (~> 1)
+
+GIT
+  remote: https://github.com/martijncasteel/fuzzily.git
+  revision: b4b47e5efb4cdcde5610e34e0ab57f56fdca3078
+  specs:
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
 
 GIT
   remote: https://github.com/plataformatec/devise.git
@@ -90,8 +97,6 @@ GEM
     faker (1.7.3)
       i18n (~> 0.5)
     ffi (1.9.18)
-    fuzzily (0.3.3)
-      activerecord (>= 2.3.17)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     haml (5.0.1)
@@ -227,7 +232,7 @@ DEPENDENCIES
   devise!
   doorkeeper
   faker
-  fuzzily
+  fuzzily!
   haml
   impressionist!
   listen

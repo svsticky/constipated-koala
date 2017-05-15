@@ -21,15 +21,14 @@ gem 'coffee-rails'
 gem 'devise', :github => 'plataformatec/devise'
 gem 'doorkeeper'
 
-# logging, using a pull request since app not supported for rails 5
-# TODO look for alternative? gem is not regularly updated anymore.
-gem 'impressionist', :github => 'martijncasteel/impressionist'
+# logging, using master for rails 5 support
+gem 'impressionist', :github => 'charlotte-ruby/impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
 
-# new search engine
-gem 'fuzzily'
+# search engine
+gem 'fuzzily', :github => 'martijncasteel/fuzzily'
 gem 'responders'
 
 # settings cached in rails environment
