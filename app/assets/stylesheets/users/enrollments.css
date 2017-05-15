@@ -1,6 +1,6 @@
 /*
  *= require_self
- *= require sweetalert
+ *= require sweetalert/dist/sweetalert
  *= require_tree .
  */
 @media (max-width: 420px) {

@@ -9,7 +9,7 @@
 .DS_Store
 
 log/
-tmp
+tmp/
 
 public/assets/
 public/images/
@@ -17,8 +17,8 @@ public/images/
 .vagrant/
 cookbooks/
 
-vendor/bundle
-vendor/cache
+vendor/bundle/
+vendor/cache/
 
 node_modules/
-.sass-cache
+.sass-cache/

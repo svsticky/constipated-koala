@@ -37,15 +37,6 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
-# fancy JS alert and confirm
-# TODO is this gem required, some alerting is within the template.
-# TODO see if Yarn is a solution for javascript dependencies
-gem 'sweetalert-rails'
-
-# Clipboard: Saved text to clipboard
-# TODO move to Yarn if possible
-gem 'clipboard-rails'
-
 group :production do
   gem 'unicorn'
   gem 'aws-sdk', '>= 2.0'

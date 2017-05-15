@@ -1,20 +1,19 @@
 {
   "name": "constipated-koala",
   "version": "1.5.0",
-
   "description": "Management system for our study association",
   "repository": "git@github.com:svsticky/constipated-koala.git",
-
   "author": "Martijn Casteel <martijn.casteel@gmail.com>",
   "contributors": [
     "Martijn Casteel <martijn.casteel@gmail.com>",
-    "Maarten van den Berg <>",
+    "Maarten van den Berg <>"
   ],
-
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "clipboard": "^1.6.1",
     "jquery": "^3.2.1",
     "jquery-ui": "^1.12.1",
+    "sweetalert": "^1.1.3",
     "turbolinks": "^5.0.3"
   }
 }

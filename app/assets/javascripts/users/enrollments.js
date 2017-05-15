@@ -1,4 +1,4 @@
-//= require sweetalert
+//= require sweetalert/dist/sweetalert.min
 //= require users/enrollments/Activity
 //= require users/enrollments/PosterModal
 
