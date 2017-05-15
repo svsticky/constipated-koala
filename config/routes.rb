@@ -1,24 +1,5 @@
-# Helper constraint to allow us to respond to multiple subdomains
-# TODO is this required?
-class MainDomain
-  def self.matches?(request)
-    request.subdomain.present? &&
-      ["koala", "koala.dev",
-       "leden", "leden.dev",
-       "members", "members.dev",
-      ].include?(request.subdomain)
-  end
-end
-
-class IntroDomain
-  def self.matches?(request)
-    request.subdomain.present? &&
-      ["intro", "intro.dev"].include?(request.subdomain)
-  end
-end
-
 Rails.application.routes.draw do
-  constraints(IntroDomain) do
+    constraints :subdomain => 'intro' do
     scope module: 'users' do
       get  '/', to: 'public#index', as: 'public'
       post '/', to: 'public#create'
@@ -80,6 +61,7 @@ Rails.application.routes.draw do
 
       resources :settings, only: [:index, :create] do
         collection do
+          get 'logs'
           patch 'profile',        to: 'settings#profile'
 
           post 'advertisement'

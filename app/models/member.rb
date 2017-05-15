@@ -104,7 +104,7 @@ class Member < ApplicationRecord
   end
 
   def tags_names=(tags)
-    Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
+    Tag.where( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) }).destroy_all
 
     tags.each do |tag|
       next if tag.empty?
