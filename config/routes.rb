@@ -1,5 +1,5 @@
 # Helper constraint to allow us to respond to multiple subdomains
-# TODO is this required? 
+# TODO is this required?
 class MainDomain
   def self.matches?(request)
     request.subdomain.present? &&
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(MainDomain) do
+  constraints :subdomain => ['koala', 'leden', 'members'] do
     authenticate :user, ->(u) { !u.admin? } do
       root to: 'users/home#index', as: :users_root
 
@@ -80,8 +80,6 @@ Rails.application.routes.draw do
 
       resources :settings, only: [:index, :create] do
         collection do
-          get 'logs'
-
           patch 'profile',        to: 'settings#profile'
 
           post 'advertisement'
