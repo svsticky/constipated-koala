@@ -6,6 +6,7 @@ test_enrollments_1:
   price: 0
   is_enrollable: true
   is_alcoholic: false
+  is_masters: false
   participant_limit: 1
 
 test_enrollments_2:
@@ -16,6 +17,7 @@ test_enrollments_2:
   price: 0
   is_enrollable: true
   is_alcoholic: false
+  is_masters: false
   participant_limit: 1
 
 test_enrollments_3:
@@ -26,6 +28,7 @@ test_enrollments_3:
   price: 0
   is_enrollable: true
   is_alcoholic: true
+  is_masters: false
 
 test_enrollments_4:
   name: Test dat limiet omhoog niet te veel inschrijft
@@ -35,4 +38,5 @@ test_enrollments_4:
   price: 0
   is_enrollable: true
   is_alcoholic: false
+  is_masters: false
   participant_limit: 1

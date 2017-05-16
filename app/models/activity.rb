@@ -202,7 +202,13 @@ class Activity < ActiveRecord::Base
             spots = 0
           end
         end
-        luckypeople = self.reservists.first(spots)
+
+        if !self.is_masters?
+          luckypeople = self.reservists.first(spots)
+        else
+          masterpeople = self.reservists.select{|m| m.member.is_masters?}
+          luckypeople = masterpeople.first(spots)
+        end
 
         luckypeople.each do |peep|
           peep.update!(reservist: false)
