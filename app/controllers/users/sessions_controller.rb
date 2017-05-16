@@ -1,4 +1,4 @@
-class Users::SessionsController < Devise::SessionsController
+class Member::SessionsController < Devise::SessionsController
   skip_before_action :authenticate_admin!, only: [:create, :destroy]
 
   # NOTE overwrite create method, once a user is authenticated we can verify

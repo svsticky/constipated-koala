@@ -12,14 +12,8 @@
 //
 //= require jquery/dist/jquery.min
 //= require jquery-ui/build/release
-//= require bootstrap-file-input
 //
-//= require dropdown
-//= require editor
-//= require mail
-//
-//= require clipboard/dist/clipboard.min
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //
-//= require_tree ./admin
+//= require_tree ./users

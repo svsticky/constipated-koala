@@ -9,6 +9,9 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets; application.js, application.css, and all
 # non-JS/CSS in the app/assets folder are already added.
 
+# Assets for member part of koala
+Rails.application.config.assets.precompile += %w( members.css members.js )
+
 # Assets for login pages and doorkeeper pages
 Rails.application.config.assets.precompile += %w( doorkeeper.css doorkeeper.js )
 

@@ -26,16 +26,15 @@ module ConstipatedKoala
     config.i18n.fallbacks = true
     config.i18n.fallbacks = [:nl, :en]
 
+    # Set layout for controllers from gems, own controllers set the alternative layout
+    # in the controller itself, for example Members::RegistrationsController
     config.to_prepare do
       Devise::SessionsController.layout 'doorkeeper'
       Devise::RegistrationsController.layout 'doorkeeper'
       Devise::ConfirmationsController.layout 'doorkeeper'
       Devise::UnlocksController.layout 'doorkeeper'
       Devise::PasswordsController.layout 'doorkeeper'
-
       Doorkeeper::AuthorizationsController.layout 'doorkeeper'
-      Users::RegistrationsController.layout 'doorkeeper'
-      Users::PublicController.layout false
     end
 
     # Custom configuration

@@ -1,4 +1,4 @@
-//= require users/enrollments/cacheHelpers
+//= require users/enrollments/cache_helpers
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.

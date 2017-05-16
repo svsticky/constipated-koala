@@ -1,7 +1,9 @@
-class Users::HomeController < ApplicationController
+class Members::HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :confirm_add_funds ]
   skip_before_action :authenticate_admin!, only: [ :index, :edit, :update, :add_funds, :confirm_add_funds, :revoke ]
   before_action :set_locale
+
+  layout 'members'
 
   def index
     @member = Member.find(current_user.credentials_id)

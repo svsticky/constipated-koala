@@ -5,8 +5,10 @@
 # admin view. Note that the :id parameters here correspond to Activity ids, and
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
-class Users::EnrollmentsController < ApplicationController
+class Members::EnrollmentsController < ApplicationController
   skip_before_action :authenticate_admin!, only: [ :index, :show, :create, :update, :delete ]
+
+  layout 'members'
 
   # [GET] /enrollments
   # Renders the overview of all future activities that are enrollable.

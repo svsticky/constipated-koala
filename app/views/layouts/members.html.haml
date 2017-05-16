@@ -1,0 +1,98 @@
+!!! 5
+%html
+  %head
+    %title
+      = t :association_name
+
+      - if content_for?(:title)
+        |
+        = yield(:title)
+
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
+
+    = stylesheet_link_tag 'members', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'members', 'data-turbolinks-track' => 'reload'
+
+    %template#alert
+      .toast{:class => "toast-{1}"}
+        %button.toast-close-button
+          ×
+        .toast-message
+          {0}
+    = csrf_meta_tags
+  %body#app
+    %div
+      %section#header.top-header
+        %header.clearfix
+          = link_to root_path, :class => 'logo' do
+            %span
+              = t :association_name
+              
+          .top-nav
+            .email.hidden-xs
+              %span= current_user.email
+
+            .hidden-xs
+              = link_to destroy_user_session_path, 'data-method' => :delete do
+                %i.fa.fa-sign-out
+
+
+      .view-container
+        %section
+          .page#content
+            .row
+              .col-md-3.widget
+                .panel
+                  .widget-header.bg-primary
+
+                  .widget-body.text-center
+                    = link_to "https://secure.gravatar.com/profile/#{current_user.gravatar}", { :class => 'profile' } do
+                      = image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=100"
+                      .overlay
+                        %i.fa.fa-2x.fa-plus
+
+                    %h4= current_user.credentials.name
+                    %p.text-muted= current_user.email
+
+                  .list-group
+                    = link_to users_root_path, { :class => 'list-group-item active' } do
+                      %i.fa.fa-home
+                      Home
+                    = link_to enrollments_path, { :class => 'list-group-item' } do
+                      %i.fa.fa-ticket
+                      Activiteiten
+                    = link_to users_edit_path, { :class => 'list-group-item' } do
+                      %i.fa.fa-user
+                      Gegevens bewerken
+                    = link_to destroy_user_session_path, { 'data-method' => :delete, :class => 'list-group-item visible-xs' } do
+                      %i.fa.fa-sign-out
+                      Uitloggen
+
+                - if @balance.blank?
+                  .panel.panel-box.info-box
+                    .panel-left.panel-item.bg-info
+                      %i.fa.fa-ticket.fa-3x
+                    .panel-right.panel-item.bg-reverse
+                      %p.size-h2
+                        = current_user.credentials.activities.uniq.count
+                      %p.text-muted.text-center Activiteiten meegedaan
+                - else
+                  .panel.panel-box.info-box
+                    .panel-left.panel-item.bg-success
+                      %i.fa.fa-shopping-cart.fa-3x
+                    .panel-right.panel-item.bg-reverse
+                      %p.size-h2
+                        = number_to_currency( @balance.balance, :unit => '' )
+                      %p.text-muted.text-center Mongoose tegoed
+
+                .panel.panel-box.info-box
+                  .panel-left.panel-item.bg-reverse
+                    %p.size-h2
+                      = number_to_currency( @default, :unit => '' )
+                    %p.text-muted.text-center Openstaande betalingen
+                  .panel-right.panel-item.bg-warning
+                    %i.fa.fa-ticket.fa-3x
+
+
+              = yield

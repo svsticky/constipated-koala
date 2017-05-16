@@ -1,4 +1,4 @@
-//= require users/enrollments/cacheHelpers
+//= require users/enrollments/cache_helpers
 
 function Poster_modal(element, activity) {
   this.element = $(element);
