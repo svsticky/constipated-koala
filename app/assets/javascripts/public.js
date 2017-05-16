@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery
-//= require jquery-ui/build/release
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
