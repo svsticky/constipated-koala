@@ -20,6 +20,11 @@ class Admin::ParticipantsController < ApplicationController
   def update
     participant = Participant.find(params[:id])
 
+    if !params[:reservist].nil?
+      message = params[:reservist].to_b ? 'reservist' : 'participant'
+      participant.update_attributes(:reservist => params[:reservist])
+    end
+
     if !params[:paid].nil?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
       participant.update_attribute(:paid, params[:paid]) if !participant.currency.nil?

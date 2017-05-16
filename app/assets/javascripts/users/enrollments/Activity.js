@@ -99,7 +99,7 @@ Activity.prototype = {
   },
 
   has_un_enroll_date_passed: function () {
-    return typeof this.un_enroll_date !== 'undefined' && $.now() > this.un_enroll_date;
+    return typeof this.un_enroll_date !== 'undefined' && $.now() < this.un_enroll_date;
   },
 
   is_enrollable: function () {

@@ -74,11 +74,11 @@
 
                 %td.buttons
               - @reservists.each do |participant|
-                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
+                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email, :member_id => participant.member.id }  }
                   %td= link_to "#{participant.member.name}", participant.member
                   %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
                     %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
-                  %td{ :style => 'min-width: 50%; width: 50%;' }
+                  %td.notes-td{ :style => 'min-width: 50%; width: 50%;' }
                     -if participant.notes
                       %p= participant.notes
                     -else
@@ -86,5 +86,7 @@
 
                   %td.buttons
                     .btn-group
+                      %button.btn.btn-success.toparticipant
+                        %i.fa.fa-fw.fa-plus
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o

@@ -37,6 +37,8 @@ class Users::EnrollmentsController < ApplicationController
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
         activity_id: @activity.id)
+    @ttendees = @activity.ordered_attendees
+    @reservists = @activity.ordered_reservists
   end
 
   # [POST] /enrollments/:id
@@ -51,6 +53,27 @@ class Users::EnrollmentsController < ApplicationController
       render :status => :gone, :json => {
         message: I18n.t(:activity_ended, scope:
           'activerecord.errors.models.activity')
+      }
+      return
+    end
+
+    # Don't allow non-master members to enroll for masters activity
+    if !@member.is_masters? && @activity.is_masters?
+      @new_enrollment = Participant.new(
+        member_id: @member.id,
+        activity_id: @activity.id,
+        price: @activity.price,
+        notes: @notes,
+        reservist: true
+      )
+      @new_enrollment.save!
+
+      render :status => :accepted, :json => {
+        message: I18n.t(:participant_limit_reached, scope:
+          'activerecord.errors.models.activity', activity:
+                          @activity.name),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
       }
       return
     end
@@ -188,7 +211,7 @@ class Users::EnrollmentsController < ApplicationController
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
     if !@activity.is_enrollable? or
-        (@activity.unenroll_date and @activity.unenroll_date < DateTime.now)
+        (@activity.unenroll_date and @activity.unenroll_date.end_of_day() < DateTime.now)
       render :status => :locked, :json => {
         message: I18n.t(
           :not_unenrollable,

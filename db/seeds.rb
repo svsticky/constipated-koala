@@ -167,7 +167,8 @@ end
     end_date:     end_date,
     end_time:     end_time,
     organized_by: (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : NIL),
-    is_enrollable: enrollable
+    is_enrollable: enrollable,
+    is_masters: (Faker::Boolean.boolean(0.3))
   )
 
   20.times do
