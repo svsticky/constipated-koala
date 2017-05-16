@@ -80,23 +80,25 @@
         - if !activity.notes.blank? && view == 'show'
           %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @current_member.confirmed_activities.ids.include? activity.id || (@current_member.reservist_activities.ids.include? activity.id))}
             Update info
-        - if @current_member.confirmed_activities.ids.include? activity.id
-          - button_text = 'Uitschrijven'
-          - button_class = 'btn-danger'
-          - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
-            - button_class += ' disabled'
-        - elsif @current_member.reservist_activities.ids.include? activity.id
-          - button_text = 'Uitschrijven Reservelijst'
-          - button_class = 'btn-warning'
-        - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
-          - button_text = 'Inschrijven Reservelijst'
-          - button_class = 'btn-warning-sat'
-        - else
-          - button_text = 'Inschrijven'
-          - button_class = 'btn-success'
-          - if !activity.notes.blank? && view == 'index'
-            -button_class += ' disabled'
-
         - if activity.is_enrollable
-          %button.btn.enrollment{ :class => button_class}
-            = button_text
+          - if @current_member.confirmed_activities.ids.include? activity.id
+            - button_text = 'Uitschrijven'
+            - button_class = 'btn-danger'
+            - notes_needed = false;
+            - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
+              - button_class += ' disabled'
+          - elsif @current_member.reservist_activities.ids.include? activity.id
+            - button_text = 'Uitschrijven Reservelijst'
+            - button_class = 'btn-warning'
+            - notes_needed = false;
+          - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
+            - button_text = 'Inschrijven Reservelijst'
+            - button_class = 'btn-warning-sat'
+            - notes_needed = true;
+          - else
+            - button_text = 'Inschrijven'
+            - button_class = 'btn-success'
+            - notes_needed = true;
+          - if !(activity.notes_mandatory && view == 'index' && notes_needed == true)
+            %button.btn.enrollment{ :class => button_class}
+              = button_text
