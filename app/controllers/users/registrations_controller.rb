@@ -1,4 +1,4 @@
-class Member::RegistrationsController < ApplicationController
+class Users::RegistrationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create]
   skip_before_action :authenticate_admin!, only: [:new, :create]
 
