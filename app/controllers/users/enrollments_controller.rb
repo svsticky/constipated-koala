@@ -72,14 +72,6 @@ class Users::EnrollmentsController < ApplicationController
         participant_count: @activity.participants.count
       }
       return
-
-      # render :status => :failed_dependency, :json => {
-      #   message: I18n.t(:participant_no_masters, scope:
-      #     'activerecord.errors.models.activity'),
-      #     participant_limit: @activity.participant_limit,
-      #     participant_count: @activity.participants.count
-      # }
-      # return
     end
 
     # Deny suspended members
