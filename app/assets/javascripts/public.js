@@ -15,7 +15,7 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
 
-$(document).on('ready page:load', function(){
+$(document).on('ready page:load turbolinks:load', function(){
 
   if( $('.studies .ui-select select:first').find('option:selected').data('masters') ){
     $('.activities').hide();

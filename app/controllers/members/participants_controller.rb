@@ -1,54 +1,20 @@
-# The enrollments controller handles all actions related to enrollment for
+# The activities controller handles all actions related to enrollment for
 # activities by users.
 # The various methods in this controller directly manipulate Participants, a
 # many-to-many association on Members, and changes made will be visible in the
 # admin view. Note that the :id parameters here correspond to Activity ids, and
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
-class Members::EnrollmentsController < MembersController
-  #TODO rename to activities
+class Members::ParticipantsController < MembersController
 
-  # [GET] /enrollments
-  # Renders the overview of all future activities that are enrollable.
-  def index
-    @member = Member.find(current_user.credentials_id)
-    @activities = Activity.where(
-      '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-        Date.today, Date.today
-      ).where(is_viewable: true).order(:start_date)
-  end
-
-  # [GET] /enrollments/:id
-  # Renders the detail view of one activity, containing information about the
-  # activity, the list of enrolled people and reservists, and the notes entry
-  # field.
-  def show
-    @activity = Activity.find(params[:id])
-    @member = Member.find(current_user.credentials_id)
-
-    # Don't allow enrollments for old activities
-    if @activity.end_time.nil?
-      if @activity.end_date.end_of_day() <= Time.now
-        render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
-        return
-      end
-    end
-
-    @enrollment = Participant.find_by(
-        member_id: current_user.credentials_id,
-        activity_id: @activity.id)
-    @attendees = @activity.ordered_attendees
-    @reservists = @activity.ordered_reservists
-  end
-
-  # [POST] /enrollments/:id
+  # [POST] /activities/:id/participants
   # Create a new Participant if that's allowed.
   def create
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
 
     @member = Member.find(current_user.credentials_id)
 
-    # Don't allow enrollments for old activities
+    # Don't allow activities for old activities
     if @activity.end <= Time.now
       render :status => :gone, :json => {
         message: I18n.t(:activity_ended, scope:
@@ -58,7 +24,7 @@ class Members::EnrollmentsController < MembersController
     end
 
     # Deny suspended members
-    if Tag.exists?(member: @member, name: 5)
+    if Tag.exists?(member: @member, name: 5) # TODO 5 is not a nice pointer, it could change without knowing it should change here as well
       render :status => :failed_dependency, :json => {
           message: I18n.t(:participant_suspended, scope:
             'activerecord.errors.models.activity'),
@@ -146,10 +112,10 @@ class Members::EnrollmentsController < MembersController
     end
   end
 
-  # [PATCH] /enrollments/:id
+  # [PATCH] /activities/:id/participants
   # Used for updating member notes
   def update
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
 
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
@@ -180,12 +146,12 @@ class Members::EnrollmentsController < MembersController
     end
   end
 
-  # [DELETE] /enrollments/:id
+  # [DELETE] /activities/:id/participants
   # Performs checks to see whether or not the member is enrolled in the given
   # activity, and then cancels the member's enrollment. (Deletes the
   # Participant)
   def delete
-    @activity = Activity.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
 
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.

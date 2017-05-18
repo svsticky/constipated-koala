@@ -182,33 +182,3 @@ div.container.col-md-9 {
     max-height: calc(100vh - 80px) !important;
   }
 }
-
-@media (min-width: 768px) {
-  #enrollments .container {
-    width: 548px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 992px) {
-  .col-lg-4 {
-    width: 100%;
-  }
-}
-
-@media (min-width: 992px) {
-  #enrollments .container {
-    width: 772px;
-  }
-}
-
-@media (min-width: 1280px) {
-  #enrollments .container {
-    width: 1080px;
-  }
-}
-
-@media (min-width: 1200px) and (max-width: 1280px) {
-  .col-lg-4 {
-    width: 50%;
-  }
-}

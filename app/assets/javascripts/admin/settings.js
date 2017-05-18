@@ -3,7 +3,7 @@
 //
 //= require bootstrap-file-input
 
-$(document).on( 'ready page:load', function(){
+$(document).on( 'ready page:load turbolinks:load', function(){
 
   $( '#settings input[id^=\'options\']' ).on( 'change', function( e ){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));

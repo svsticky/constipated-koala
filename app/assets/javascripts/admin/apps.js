@@ -1,7 +1,7 @@
 //
 //= require bootstrap-file-input
 
-$(document).on( 'ready page:load', function(){
+$(document).on( 'ready page:load turbolinks:load', function(){
 
   $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
     if( this.files && this.files[0] ){

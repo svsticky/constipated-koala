@@ -8,7 +8,7 @@
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        = render 'layouts/activity/admin/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch
+        = render 'admin/activities/partials/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch
         = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
@@ -27,7 +27,7 @@
 
 
           %template#attendee-table-row
-            = render 'layouts/activity/admin/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
+            = render 'admin/activities/partials/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %tbody
               %tr
@@ -41,7 +41,7 @@
 
                 %td.buttons
               - @attendees.each do |participant|
-                = render 'layouts/activity/admin/attendee_table_row', participant: participant
+                = render 'admin/activities/partials/attendee_table_row', participant: participant
 
               %tr
                 %td{ :style => 'position: relative;'}

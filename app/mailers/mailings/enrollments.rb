@@ -1,12 +1,12 @@
 module Mailings
-  class Enrollments < ApplicationMailer
+  class activities < ApplicationMailer
 
     def enrolled(participant)
       return if ENV['MAILGUN_TOKEN'].blank?
 
       member = participant.member
       activity = participant.activity
-      url = url_for :controller => "users/enrollments", :action => "show", :id => activity.id
+      url = url_for :controller => "users/activities", :action => "show", :id => activity.id
 
       starts_at = I18n.l activity.start_date, format: :day_month
       if activity.start_time

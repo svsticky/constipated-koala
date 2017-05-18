@@ -15,11 +15,9 @@ Rails.application.routes.draw do
 
         post  'mongoose',                       to: 'home#add_funds'
 
-        get 'enrollments',                      to: 'enrollments#index'
-        get 'enrollments/:id',                  to: 'enrollments#show'
-        patch 'enrollments/:id',                to: 'enrollments#update'
-        post 'enrollments/:id',                 to: 'enrollments#create'
-        delete 'enrollments/:id',               to: 'enrollments#delete'
+        resources :activities, only: [:index, :show] do
+          resource :participants, only: [:create, :update, :destroy]
+        end
       end
     end
 

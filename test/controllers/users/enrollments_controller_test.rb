@@ -1,4 +1,4 @@
-class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
+class activitiesControllerTest < ActionDispatch::IntegrationTest
   def assert_counts(activity, expected_counts)
     # Assert that an activity's participant counts match the given values.
     actual_counts = activity.participant_counts
@@ -14,7 +14,7 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
     end
   end
   test "enrolling reservist through deleting previous participant" do
-    a = activities(:test_enrollments_1)
+    a = activities(:test_activities_1)
     assert_counts(a, [1,1,0])
 
     p1 = participants(:underpant_first)
@@ -37,13 +37,13 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "enrolling reservists will not exceed limits" do
-    a = activities(:test_enrollments_3)
+    a = activities(:test_activities_3)
     assert_counts(a, [1,1,0])
 
   end
 
   test "enrolling reservist through increasing participant limit" do
-    a = activities(:test_enrollments_2)
+    a = activities(:test_activities_2)
     assert_counts(a, [1,1,0])
 
     m = members(:dannypanny)
@@ -64,7 +64,7 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "minors not being able to enroll for 18+ activities" do
-    a = activities(:test_enrollments_3)
+    a = activities(:test_activities_3)
     m1 = members(:m8eld) #underage
     m2 = members(:thecreator) #adult
     assert m1.is_underage?, "Expected member being underage, but this member has grown up quite a bit"

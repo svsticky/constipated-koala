@@ -1,6 +1,6 @@
 //= require sweetalert/dist/sweetalert.min
-//= require members/enrollments/activities
-//= require members/enrollments/poster_modal
+//= require members/activities/activities
+//= require members/activities/poster_modal
 
 var token, modal, participant_row_template;
 
@@ -12,7 +12,7 @@ function inMoreInfoView() {
   return $(".enrollment-show").length === 1;
 }
 
-/**
+/** TODO WHY?
  * Converts a string with format rgb(int, int, int) to hex value
  * @param rgb
  * @returns {string}
@@ -166,9 +166,9 @@ function initialize_modal() {
 }
 
 /**
- * Register all click handlers for enrollments
+ * Register all click handlers for activities
  */
-$(document).on('ready page:load', function () {
+$(document).on('ready page:load turbolinks:load', function () {
   token = encodeURIComponent($(this).find('.page').attr('data-authenticity-token'));
 
   initialize_ui();

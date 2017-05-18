@@ -155,6 +155,6 @@
                 %td= application.redirect_uri
 
 :javascript
-  $(document).on('ready page:load', function(){
+  $(document).on('ready page:load turbolinks:load', function(){
     $('form').editor();
   });

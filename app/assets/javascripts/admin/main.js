@@ -1,5 +1,5 @@
 
-$(document).on('ready page:load', function(){
+$(document).on('ready page:load turbolinks:load', function(){
   // Alerts for on the frontend, default type is info
   // script#alert is a template in de header file.
   String.prototype.format = function() {
@@ -181,7 +181,6 @@ $(document).on('ready page:load', function(){
   };
 
   //menu navigation
-
   $('.toggle-min').click(function(event){
     event.preventDefault();
 

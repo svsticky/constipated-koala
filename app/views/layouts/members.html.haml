@@ -59,7 +59,7 @@
                     = link_to users_root_path, { :class => ['list-group-item', ('active' if yield(:page) == 'home')] } do
                       %i.fa.fa-home
                       Home
-                    = link_to enrollments_path, { :class => ['list-group-item', ('active' if yield(:page) == 'activities')] } do
+                    = link_to activities_path, { :class => ['list-group-item', ('active' if yield(:page) == 'activities')] } do
                       %i.fa.fa-ticket
                       Activiteiten
                     = link_to users_edit_path, { :class => ['list-group-item', ('active' if yield(:page) == 'edit')] } do

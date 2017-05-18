@@ -1,4 +1,4 @@
-//= require members/enrollments/cache_helpers
+//= require members/activities/cache_helpers
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.
@@ -61,7 +61,7 @@ Activity.prototype = {
       //Normal enrollment
       if (request.status === 200) {
         activity._enrollment_status = Enrollment_stati.enrolled;
-        //Back-up list enrollments
+        //Back-up list activities
       } else if (request.status === 202) {
         activity._enrollment_status = Enrollment_stati.reservist;
       }
@@ -175,7 +175,7 @@ Object.defineProperties(Activity.prototype, {
     value: function (method) {
       var activity = this;
       var request = $.ajax({
-        url: '/enrollments/' + activity.id,
+        url: '/activities/' + activity.id + '/participants',
         type: method,
         data: {
           authenticity_token: token,

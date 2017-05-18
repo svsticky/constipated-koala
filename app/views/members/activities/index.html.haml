@@ -1,7 +1,7 @@
 - content_for(:page, 'activities')
 - content_for(:title, 'Activiteiten')
 
-.container.col-md-9
+.container.col-md-9#activity-container
   .col-md-12
     - unless @activities.any?
       .alert.alert-warning
@@ -9,7 +9,7 @@
 
   - @activities.each do |activity|
     .col-lg-4.col-sm-6.col-xs-12
-      = render 'members/enrollments/partials/view', activity: activity, view: 'index'
+      = render 'members/activities/partials/view', activity: activity, view: 'index'
 
 = link_to 'mailto:pleasedotheneedful@svsticky.nl' , class: 'btn btn-danger helpme' do
   %i.fa.fa-bug

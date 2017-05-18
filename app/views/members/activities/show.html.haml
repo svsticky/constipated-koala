@@ -1,16 +1,16 @@
 - content_for(:page, 'activities')
 - content_for(:title, "Activiteiten | #{@activity.name}")
 
-.container.col-md-9
+.container.col-md-9#activity-container
   - if @activity.reservists.count > 0
     .col-lg-6
-      = render 'members/enrollments/partials/view', activity: @activity, view: 'show'
+      = render 'members/activities/partials/view', activity: @activity, view: 'show'
   - else
     .col-lg-9
-      = render 'members/enrollments/partials/view', activity: @activity, view: 'show'
+      = render 'members/activities/partials/view', activity: @activity, view: 'show'
 
   %template#participant_table_row_template
-    = render 'members/enrollments/partials/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true, activity: @activity
+    = render 'members/activities/partials/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true, activity: @activity
   .col-lg-3.col-md-6.cramtable
     .panel.panel-default
       .panel-heading
@@ -21,7 +21,7 @@
       %table#attendees_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
         %tbody
           - @attendees.each do |participant|
-            = render 'members/enrollments/partials/participant_table_row', participant: participant, activity: @activity
+            = render 'members/activities/partials/participant_table_row', participant: participant, activity: @activity
 
   - if @activity.reservists.count > 0
     .col-lg-3.col-md-6.cramtable
@@ -34,7 +34,7 @@
         %table#reservists_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
           %tbody
             - @reservists.each do |participant|
-              = render 'members/enrollments/partials/participant_table_row', participant: participant, activity: @activity
+              = render 'members/activities/partials/participant_table_row', participant: participant, activity: @activity
 
 = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
   %i.fa.fa-bug
