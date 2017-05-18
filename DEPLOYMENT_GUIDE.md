@@ -47,7 +47,7 @@ done.
 	- `RAILS_ENV=production bundle exec rake db:migrate`  
 		If this fails, you might need to restore the database backup.
 1. If everything went well, you _should_ be able to start Koala again by
-	running (as non-`admin`): `sudo service koala start`.
+	running (as non-`admin`): `sudo service unicorn start`.
 1. Deactivate maintenance mode by removing
 	`/var/www/koala.svsticky.nl/MAINTENANCE_MODE`, verify that you can log in,
 	and that the [API] is responding.
