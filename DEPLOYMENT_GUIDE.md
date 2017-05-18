@@ -11,7 +11,6 @@ done.
 	at least aware of your actions (preferably in the same room), both to
 	prevent uninformed reboots and other mishaps and to provide emotional
 	support in the event of a screw-up.
-1. Ensure Checkout is shut down, to prevent inconsistencies.
 1. Ensure that there is a tag at the current revision running on the server,
 	and a tag at the revision to be deployed.
 1. Log in to the server.
@@ -47,7 +46,7 @@ done.
 	- `RAILS_ENV=production bundle exec rake db:migrate`  
 		If this fails, you might need to restore the database backup.
 1. If everything went well, you _should_ be able to start Koala again by
-	running (as non-`admin`): `sudo service koala start`.
+	running (as non-`admin`): `sudo service unicorn start`.
 1. Deactivate maintenance mode by removing
 	`/var/www/koala.svsticky.nl/MAINTENANCE_MODE`, verify that you can log in,
 	and that the [API] is responding.
