@@ -146,9 +146,11 @@ class Member < ActiveRecord::Base
   before_create do
     self.join_date = Time.new if self.join_date.blank?
 
-    if self.educations.length > 1 and self.educations[0].study_id == self.educations[1].study_id
-      self.educations[1].destroy
-    end
+    self.educations[1].destroy if self.educations.length > 1 and self.educations[0].study_id == self.educations[1].study_id
+
+    # TODO not allowed combinations
+    # destroy informatica if gametech is selected as well
+    # destroy computer science if gmt is also selected
   end
 
   # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
@@ -362,12 +364,17 @@ class Member < ActiveRecord::Base
       else
         records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
       end
+
     elsif status[2].downcase == 'alumni'
-      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+      # hence all graduated students minus students still following a study
+      records = records.where( :id => ( Education.select( :member_id ).where( 'status = 2' ).map{ |education| education.member_id } - Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id } ))
+
     elsif status[2].downcase == 'studerend'
       records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+
     elsif status[2].downcase == 'iedereen'
       records = Member.all
+
     else
       records = Member.none
     end
