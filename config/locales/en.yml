@@ -62,6 +62,7 @@ en:
         location: Location
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
+        is_masters: Masters
         participant_limit: Participant limit
 
       group:
@@ -182,6 +183,7 @@ en:
           not_enrolled: You have been unenrolled for %{activity}
           activity_ended: This activity has already ended
           participant_suspended: You have been suspended. Contact the board of Sticky
+          participant_no_masters: You are not a masters student. This is a masters-only activity
           participant_limit_reached: You have been placed on the back-up list of %{activity}
           participant_underage: This activity is for adults only ;)
           participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling

@@ -19,6 +19,8 @@ done.
 	Also ensure you're in a `tmux` session or have a separate terminal open to
 	`sudo` other things in.
 1. As `admin`, `cd /var/www/koala.svsticky.nl`
+1. As `admin`, `touch MAINTENANCE_MODE`. This will stop all requests with a 503
+	at the nginx level, so don't forget to revert it!
 1. As yourself, `sudo service unicorn stop`. **Checkout, Radio and the Zuil
 	will stop working from here on.**
 1. Ensure koala has stopped completely (`pgrep ruby` returns no processes).
@@ -45,8 +47,10 @@ done.
 	- `RAILS_ENV=production bundle exec rake db:migrate`  
 		If this fails, you might need to restore the database backup.
 1. If everything went well, you _should_ be able to start Koala again by
-	running (as non-`admin`): `sudo service koala start`. Verify that you can
-	log in, and that the [API] is responding.
+	running (as non-`admin`): `sudo service unicorn start`.
+1. Deactivate maintenance mode by removing
+	`/var/www/koala.svsticky.nl/MAINTENANCE_MODE`, verify that you can log in,
+	and that the [API] is responding.
 
 ## Reverting non-destructive migrations
 In order to revert a set number of migrations, the command `bundle exec rake

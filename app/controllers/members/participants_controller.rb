@@ -23,6 +23,27 @@ class Members::ParticipantsController < MembersController
       return
     end
 
+    # Don't allow non-master members to enroll for masters activity
+    if !@member.is_masters? && @activity.is_masters?
+      @new_enrollment = Participant.new(
+        member_id: @member.id,
+        activity_id: @activity.id,
+        price: @activity.price,
+        notes: @notes,
+        reservist: true
+      )
+      @new_enrollment.save!
+
+      render :status => :accepted, :json => {
+        message: I18n.t(:participant_limit_reached, scope:
+          'activerecord.errors.models.activity', activity:
+                          @activity.name),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
+      }
+      return
+    end
+
     # Deny suspended members
     if Tag.exists?(member: @member, name: 5) # TODO 5 is not a nice pointer, it could change without knowing it should change here as well
       render :status => :failed_dependency, :json => {

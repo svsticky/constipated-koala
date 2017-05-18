@@ -275,6 +275,10 @@ class Member < ApplicationRecord
     return !self.is_adult?
   end
 
+  def is_masters?
+    return !self.educations.empty? && self.educations.any? { |education| Study.find( education.study_id ).masters }
+  end
+
   def is_adult?
     return 18.years.ago >= self.birth_date
   end

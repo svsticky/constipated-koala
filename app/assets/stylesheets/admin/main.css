@@ -270,3 +270,13 @@ div.clickable > .panel:hover {
 #header .menu-button {
   left: 0;
 }
+
+.is-table-row {
+  display: table;
+}
+
+.is-table-row [class*="col-"] {
+  float: left;
+  display: table-cell;
+  vertical-align: top;
+}
