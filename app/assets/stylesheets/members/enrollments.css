@@ -1,20 +1,19 @@
 /*
  *= require_self
  *= require sweetalert/dist/sweetalert
- *= require_tree .
  */
+div.container.col-md-9 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 @media (max-width: 420px) {
-  #activity-container .btn.helpme {
+  .btn.helpme {
     width: 76px;
   }
 
   .btn-group {
     width: 100%;
-  }
-
-  #activity-container .btn {
-    width: 100%;
-    margin: 4px 0;
   }
 
   .panel-footer .pull-right {
