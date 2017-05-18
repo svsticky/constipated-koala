@@ -1,4 +1,4 @@
-class CheckoutProduct < ActiveRecord::Base
+class CheckoutProduct < ApplicationRecord
 
   validates :name, presence: true
   validates :category, presence: true

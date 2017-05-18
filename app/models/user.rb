@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   is_impressionable
 
   belongs_to :credentials, :polymorphic => true

@@ -1,4 +1,4 @@
-class CheckoutTransaction < ActiveRecord::Base
+class CheckoutTransaction < ApplicationRecord
   validates :price, presence: true
   belongs_to :checkout_card
   belongs_to :checkout_balance

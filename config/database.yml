@@ -10,6 +10,8 @@ development:
   pool: 5
   timeout: 5000
   encoding: utf8
+  variables:
+    sql_mode: ''
 
 # test
 # Version before release on circle
@@ -22,6 +24,8 @@ test:
   pool: 5
   timeout: 5000
   encoding: utf8
+  variables:
+    sql_mode: ''
 
 # Production
 # Version for public use running on svsticky.nl
@@ -35,3 +39,5 @@ production:
   pool: 5
   timeout: 5000
   encoding: utf8
+  variables:
+    sql_mode: ''

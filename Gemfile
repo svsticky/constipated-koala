@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '~> 5.0.0'
 
 # Use mysql as the production database
 gem 'mysql2'
@@ -21,7 +21,7 @@ gem 'rest-client'
 gem 'fuzzily'
 
 # Use SCSS for stylesheets, sprockets for assets
-gem 'sprockets', '~> 2.11.0'
+gem 'sprockets'
 gem 'sass-rails'
 
 # use of Haml and rabl

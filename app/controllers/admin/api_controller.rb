@@ -1,5 +1,5 @@
 class Admin::ApiController < ApplicationController
-  protect_from_forgery except: [:activities, :advertisements]
+  protect_from_forgery except: [:activities, :advertisements], prepend: :true
 
   skip_before_action :authenticate_user!, only: [:activities, :advertisements]
   skip_before_action :authenticate_admin!, only: [:activities, :advertisements]

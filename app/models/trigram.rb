@@ -1,3 +1,3 @@
-class Trigram < ActiveRecord::Base
+class Trigram < ApplicationRecord
   include Fuzzily::Model
 end
