@@ -11,7 +11,6 @@ done.
 	at least aware of your actions (preferably in the same room), both to
 	prevent uninformed reboots and other mishaps and to provide emotional
 	support in the event of a screw-up.
-1. Ensure Checkout is shut down, to prevent inconsistencies.
 1. Ensure that there is a tag at the current revision running on the server,
 	and a tag at the revision to be deployed.
 1. Log in to the server.
