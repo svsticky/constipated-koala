@@ -5,10 +5,9 @@
   .page.enrollment-page#content
     .container#activity-container
       - if @activities.any?
-        .row.is-table-row
-          - @activities.each do |activity|
-            .col-lg-4.col-sm-6.col-xs-12
-              = render 'layouts/activity/users/view', activity: activity, view: 'index'
+        - @activities.each do |activity|
+          .col-lg-4.col-sm-6.col-xs-12.sameheight
+            = render 'layouts/activity/users/view', activity: activity, view: 'index'
         = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
           %i.fa.fa-bug
           BUG!
