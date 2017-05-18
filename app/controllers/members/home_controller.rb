@@ -1,42 +1,36 @@
-class Members::HomeController < ApplicationController
+class Members::HomeController < MembersController
   skip_before_action :authenticate_user!, only: [ :confirm_add_funds ]
-  skip_before_action :authenticate_admin!, only: [ :index, :edit, :update, :add_funds, :confirm_add_funds, :revoke ]
-  before_action :set_locale
-
-  layout 'members'
 
   def index
     @member = Member.find(current_user.credentials_id)
 
-    @balance = CheckoutBalance.find_by_member_id( @member.id )
-
-    # The plus makes it work for all activities where the member does NOT have
-    # a modified price.
-    @default = Participant
+    # information of the middlebar
+    @balance = CheckoutBalance.find_by_member_id( current_user.credentials_id ).balance
+    @debt = Participant
       .where( paid: false, member: @member, reservist: false )
       .joins( :activity )
       .where('activities.start_date < NOW()')
       .sum( :price ) \
-     + Participant
+     + Participant # The plus makes it work for all activities where the member does NOT have a modified price.
       .where( paid: false, price: nil, member: @member, reservist: false )
       .joins( :activity )
       .where('activities.start_date < NOW()')
       .sum( 'activities.price ')
 
-    #@participants =
-      #(
-       #@member.activities
-         #.study_year( params['year'] )
-         #.distinct
-         #.joins(:participants)
-         #.where(:participants => { :member => @member }) \
-       #+
-        #@member.activities
-          #.joins(:participants)
-          #.where("participants.paid = FALSE AND participants.price > 0")
-       #).uniq
-         #.sort_by(&:start_date)
-         #.reverse!
+    # @participants =
+    #   (
+    #    @member.activities
+    #      .study_year( params['year'] )
+    #      .distinct
+    #      .joins(:participants)
+    #      .where(:participants => { :member => @member }) \
+    #    +
+    #     @member.activities
+    #       .joins(:participants)
+    #       .where("participants.paid = FALSE AND participants.price > 0")
+    #    ).uniq
+    #      .sort_by(&:start_date)
+    #      .reverse!
 
     @participants =
        @member.activities
@@ -131,10 +125,5 @@ class Members::HomeController < ApplicationController
 
   def ideal_transaction_params
     params.require( :ideal_transaction ).permit( :bank, :amount )
-  end
-
-  def set_locale
-    session['locale'] = params[:l] || session['locale'] || I18n.default_locale
-    I18n.locale = session['locale']
   end
 end

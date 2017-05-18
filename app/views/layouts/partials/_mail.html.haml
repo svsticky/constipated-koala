@@ -17,7 +17,7 @@
         .col-md-10.col-xs-12
           %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Studievereniging Sticky | #{subject}" }
 
-      = render 'layouts/editor'
+      = render 'layouts/partials/editor'
 
       #textarea.form-control{ :contenteditable => 'true' }
         - if mail.present?

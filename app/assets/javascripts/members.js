@@ -16,4 +16,4 @@
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //
-//= require_tree ./users
+//= require_tree ./members

@@ -78,14 +78,14 @@
           =link_to "Terug", "/enrollments/", class: "btn btn-default more-info"
 
         - if !activity.notes.blank? && view == 'show'
-          %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @current_member.confirmed_activities.ids.include? activity.id || (@current_member.reservist_activities.ids.include? activity.id))}
+          %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @member.confirmed_activities.ids.include? activity.id || (@member.reservist_activities.ids.include? activity.id))}
             Update info
-        - if @current_member.confirmed_activities.ids.include? activity.id
+        - if @member.confirmed_activities.ids.include? activity.id
           - button_text = 'Uitschrijven'
           - button_class = 'btn-danger'
           - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
             - button_class += ' disabled'
-        - elsif @current_member.reservist_activities.ids.include? activity.id
+        - elsif @member.reservist_activities.ids.include? activity.id
           - button_text = 'Uitschrijven Reservelijst'
           - button_class = 'btn-warning'
         - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count

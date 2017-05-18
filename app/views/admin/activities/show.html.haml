@@ -3,13 +3,13 @@
 - content_for(:template, 'activities/activity.html.js')
 
 %section#content
-  = render 'layouts/search'
+  = render 'layouts/partials/search'
 
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        = render 'layouts/activity/admin/edit', activity_textfield: t('Activiteit'), url: activity_path(@activity), method: :patch
-        = render 'layouts/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
+        = render 'layouts/activity/admin/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch
+        = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
         .panel.panel-default

@@ -15,5 +15,5 @@
  *= require lato
  *
  *= require_self
- *= require_tree ./users
+ *= require_tree ./members
  */

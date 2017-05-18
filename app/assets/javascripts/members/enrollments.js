@@ -1,6 +1,6 @@
 //= require sweetalert/dist/sweetalert.min
-//= require users/enrollments/activities
-//= require users/enrollments/poster_modal
+//= require members/enrollments/activities
+//= require members/enrollments/poster_modal
 
 var token, modal, participant_row_template;
 
