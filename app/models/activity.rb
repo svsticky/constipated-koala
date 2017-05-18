@@ -206,7 +206,7 @@ class Activity < ApplicationRecord
 
         luckypeople.each do |peep|
           peep.update!(reservist: false)
-          Mailings::activities.enrolled(peep).deliver_later
+          Mailings::Participants.enrolled(peep).deliver_later
         end
 
         @magic_enrolled_reservists = luckypeople

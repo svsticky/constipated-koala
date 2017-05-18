@@ -1,4 +1,4 @@
-class activitiesControllerTest < ActionDispatch::IntegrationTest
+class ParticipantsControllerTest < ActionDispatch::IntegrationTest
   def assert_counts(activity, expected_counts)
     # Assert that an activity's participant counts match the given values.
     actual_counts = activity.participant_counts
@@ -13,6 +13,7 @@ class activitiesControllerTest < ActionDispatch::IntegrationTest
       assert_equal expected_counts[pos], actual_counts[pos], "#{type} count doesn't match"
     end
   end
+
   test "enrolling reservist through deleting previous participant" do
     a = activities(:test_activities_1)
     assert_counts(a, [1,1,0])

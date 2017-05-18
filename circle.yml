@@ -13,7 +13,7 @@ machine:
 
 dependencies:
   bundler:
-    without: [production, staging, development]
+    without: [production, development]
 
   cache_directories:
     - "vendor/bundle"
@@ -23,6 +23,6 @@ dependencies:
     - bundle exec rake assets:precompile --trace
 
 database:
-  override: 
+  override:
     - bundle exec rake db:create --trace
     - bundle exec rake db:setup --trace
