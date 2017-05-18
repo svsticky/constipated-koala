@@ -171,7 +171,7 @@ class Members::ParticipantsController < MembersController
   # Performs checks to see whether or not the member is enrolled in the given
   # activity, and then cancels the member's enrollment. (Deletes the
   # Participant)
-  def delete
+  def destroy
     @activity = Activity.find(params[:activity_id])
 
     # Unenrollment is denied if the activity is not or no longer enrollable by
