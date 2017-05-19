@@ -67,7 +67,7 @@ class Members::HomeController < MembersController
       return
     end
 
-    @applications = Doorkeeper::Application.authorized_for(current_user)
+    # @applications = Doorkeeper::Application.authorized_for(current_user)
     render 'edit'
     return
   end

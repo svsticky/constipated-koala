@@ -1,6 +1,6 @@
 class CheckoutTransaction < ApplicationRecord
   validates :price, presence: true
-  belongs_to :checkout_card
+  belongs_to :checkout_card, optional: true
   belongs_to :checkout_balance
 
   serialize :items, Array
