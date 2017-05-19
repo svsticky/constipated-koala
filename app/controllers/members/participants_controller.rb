@@ -94,7 +94,7 @@ class Members::ParticipantsController < MembersController
 
     # Reservist if no spots left
     if !@activity.participant_limit.nil? &&
-      @activity.participants.count >= @activity.participant_limit
+      @activity.attendees.count >= @activity.participant_limit
 
       @new_enrollment = Participant.new(
         member_id: @member.id,

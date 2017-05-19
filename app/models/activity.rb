@@ -229,12 +229,13 @@ class Activity < ApplicationRecord
     # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
     return "" unless self.is_enrollable
 
+    # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if self.participant_limit
-      return "VOL!" if self.participants.count >= self.participant_limit
-      return "#{self.participants.count}/#{self.participant_limit}"
+      return "VOL!" if self.attendees.count >= self.participant_limit
+      return "#{self.attendees.count}/#{self.participant_limit}"
     end
 
-    return "#{self.participants.count}"
+    return "#{self.attendees.count}"
   end
 
 end
