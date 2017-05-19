@@ -98,12 +98,12 @@ Rails.application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'koalaimages'
+      :bucket => ENV['AWS_BUCKET']
     },
     :path => '/:class/:id/:style.:extension',
     :s3_protocol => 'https',
     :url => ':s3_domain_url',
-    :s3_region => 'TODO',
+    :s3_region => ENV['AWS_DOMAIN'],
     :s3_permissions => {
       :original => :private
     }
