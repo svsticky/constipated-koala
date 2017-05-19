@@ -70,8 +70,10 @@ class Admin::ParticipantsController < ApplicationController
   end
 
   def mail
+    logger.debug params[:recipients].inspect
+
     @activity = Activity.find_by_id!(params[:activity_id])
-    render :json => Mailings::Participants.inform( @activity, params[:recipients].map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
+    render :json => Mailings::Participants.inform( @activity, params[:recipients].permit!.to_h.map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
     impressionist(@activity, "mail")
   end
 end
