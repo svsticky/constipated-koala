@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  constraints :subdomain => 'intro' do
+  constraints :subdomain => ['intro', 'intro.dev'] do
     get  '/', to: 'public#index', as: 'public'
     post '/', to: 'public#create'
   end
 
-  constraints :subdomain => ['koala', 'leden', 'members'] do
+  constraints :subdomain => ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
     authenticate :user, ->(u) { !u.admin? } do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
