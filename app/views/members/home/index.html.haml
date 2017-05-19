@@ -5,7 +5,7 @@
   - unless @balance.blank?
     .panel.panel-box.info-box
       .panel-left.panel-item.bg-success
-        %i.fa.fa-shopping-cart.fa-3x
+        %i.fa.fa-shopping-cart.fa-5x
       .panel-right.panel-item.bg-reverse
         %p.size-h2
           = number_to_currency( @balance.balance, :unit => '€' )
@@ -17,7 +17,7 @@
         = number_to_currency( @debt, :unit => '€' )
       %p.text-muted.text-center Openstaande betalingen
     .panel-right.panel-item.bg-warning
-      %i.fa.fa-ticket.fa-3x
+      %i.fa.fa-ticket.fa-5x
 
 .col-md-6.col-xs-12.pull-right
   .panel.panel-default.table-dynamic
