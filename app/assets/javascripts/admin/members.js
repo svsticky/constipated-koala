@@ -27,7 +27,7 @@ $(document).on('ready page:load turbolinks:load', function(){
     destroy(row);
   });
 
-  function destroy( el = null ){
+  function destroy( el ){
     var selector = $('.education .form-group a.btn.destroy');
 
     if( el !== undefined && el !== null)
