@@ -744,7 +744,7 @@ a.close {
   display: block;
   width: 8px;
   height: 8px;
-  background: url("checkmark.png") no-repeat center center;
+  background: image-url("checkmark.png") no-repeat center center;
   background-size: 14px 14px;
   content: "";
 }
@@ -756,7 +756,7 @@ a.close {
 }
 
 .ui-checkbox input[type="checkbox"]:disabled:checked + span:after {
-  background: url("checkmark.png") no-repeat center center;
+  background: image-url("checkmark.png") no-repeat center center;
   opacity: .65;
   cursor: no-drop;
 }
@@ -786,7 +786,7 @@ a.close {
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: url("/assets/bg.jpg") no-repeat center center;
+  background: image-url("bg.jpg") no-repeat center center;
   background-size: cover;
 }
 
