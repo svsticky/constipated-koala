@@ -29,7 +29,8 @@ function rgbToHex(rgb){
 
 function confirm_enroll(activity) {
   swal({
-      title: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
+      title: 'Inschrijven',
+      text: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
@@ -42,7 +43,6 @@ function confirm_enroll(activity) {
       if (activity.has_un_enroll_date_passed())
         confirm_un_enroll_date_passed(activity);
       else {
-        swal.close();
         activity.enroll();
       }
     }
@@ -51,7 +51,8 @@ function confirm_enroll(activity) {
 
 function confirm_un_enroll_date_passed(activity) {
   swal({
-      title: "De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?",
+      title: 'Inschrijven',
+      text: "De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
@@ -72,12 +73,14 @@ function confirm_un_enroll(activity) {
   }
 
   swal({
-      title: "Je schrijft je uit voor deze activiteit. Weet je het zeker?",
+      title: 'Uitschrijven',
+      text: "Je schrijft je uit voor deze activiteit. Weet je het zeker?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: "Jep!",
-      cancelButtonText: "Nee"
+      cancelButtonText: "Nee",
+      closeOnConfirm: false
     },
     // anonymous function, because this is set to the sweetalert
     function () {
@@ -93,7 +96,8 @@ function confirm_update(activity) {
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.update_notes_button.css('backgroundColor')),
       confirmButtonText: "Jep!",
-      cancelButtonText: "Nee"
+      cancelButtonText: "Nee",
+      closeOnConfirm: false
     },
     // anonymous function, because this is set to the sweetalert
     function () {

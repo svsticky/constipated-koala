@@ -13,6 +13,12 @@ function find_in_object(object, checkFunction) {
   }
 }
 
+var TITLE = {
+  'POST': 'Inschrijven',
+  'PATCH': 'Bijwerken',
+  'DELETE': 'Uitschrijven'
+};
+
 /**
  * Activity constructor
  * @param activity_panel The panel frim which to create the activity
@@ -183,7 +189,14 @@ Object.defineProperties(Activity.prototype, {
         }
       }).done(function (response) {
         //Alert user of  enrollment
-        alert(response.message, 'success');
+        // alert(response.message, 'success');
+
+        swal({
+          title: TITLE[method],
+          text: response.message,
+          timer: 2000,
+          type: "success"
+        });
 
         activity._fullness = Activity.get_fullness_from_count_and_limit(response.participant_count,
           response.participant_limit);
@@ -191,19 +204,24 @@ Object.defineProperties(Activity.prototype, {
         var message;
         switch (method) {
           case "POST":
-            message = "Kon niet inschrijven!\n";
+            message = "Kon niet inschrijven! ";
             break;
           case "DELETE":
-            message = "Kon niet uitschrijven!\n";
+            message = "Kon niet uitschrijven! ";
             break;
           case "PATCH":
-            message = "Kon niet bijwerken!\n";
+            message = "Kon niet bijwerken! ";
             break;
         }
         if (data.responseJSON) {
           message += data.responseJSON.message;
         }
-        alert(message, 'error');
+
+        swal({
+          title: TITLE[method],
+          text: message,
+          type: "error"
+        });
       });
 
       if (this.attendees_table_body.length === 0)
