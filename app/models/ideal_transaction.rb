@@ -45,6 +45,8 @@ class IdealTransaction < ApplicationRecord
 
   def self.issuers
     # cache the payment issuers for 12 hours, don't request it to often. Stored in tmp/cache
+    return [] unless ENV['MOLLIE_TOKEN'].present?
+
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
       http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
 
