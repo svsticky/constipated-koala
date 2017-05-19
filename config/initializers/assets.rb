@@ -5,7 +5,7 @@ Rails.application.config.assets.version = ConstipatedKoala::Application::VERSION
 
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
-Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
+Rails.application.config.assets.precompile << /\.(?:svg|woff|woff2|ttf)\z/
 
 # Precompile additional assets; application.js, application.css, and all
 # non-JS/CSS in the app/assets folder are already added.
