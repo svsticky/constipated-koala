@@ -63,7 +63,7 @@ class Members::HomeController < MembersController
     if @member.update(member_post_params)
       impressionist(@member, 'lid bewerkt')
 
-      redirect_to users_home_path
+      redirect_to users_root_path
       return
     end
 
@@ -84,7 +84,7 @@ class Members::HomeController < MembersController
 
     if balance.nil?
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_home_path
+      redirect_to users_root_path
       return
     end
 
@@ -104,7 +104,7 @@ class Members::HomeController < MembersController
       return
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_home_path
+      redirect_to users_root_path
       return
     end
   end
