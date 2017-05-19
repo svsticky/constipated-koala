@@ -8,13 +8,13 @@
         %i.fa.fa-shopping-cart.fa-3x
       .panel-right.panel-item.bg-reverse
         %p.size-h2
-          = number_to_currency( @balance.balance, :unit => '' )
+          = number_to_currency( @balance.balance, :unit => '€' )
         %p.text-muted.text-center Mongoose tegoed
 
   .panel.panel-box.info-box
     .panel-left.panel-item.bg-reverse
       %p.size-h2
-        = number_to_currency( @debt, :unit => '' )
+        = number_to_currency( @debt, :unit => '€' )
       %p.text-muted.text-center Openstaande betalingen
     .panel-right.panel-item.bg-warning
       %i.fa.fa-ticket.fa-3x
