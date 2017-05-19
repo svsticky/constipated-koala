@@ -2,21 +2,13 @@
 
 .col-md-3.hidden-xs
 
-  - if @balance.blank?
-    .panel.panel-box.info-box
-      .panel-left.panel-item.bg-info
-        %i.fa.fa-ticket.fa-3x
-      .panel-right.panel-item.bg-reverse
-        %p.size-h2
-          = current_user.credentials.activities.uniq.count
-        %p.text-muted.text-center Activiteiten meegedaan
-  - else
+  - unless @balance.blank?
     .panel.panel-box.info-box
       .panel-left.panel-item.bg-success
         %i.fa.fa-shopping-cart.fa-3x
       .panel-right.panel-item.bg-reverse
         %p.size-h2
-          = number_to_currency( @balance, :unit => '' )
+          = number_to_currency( @balance.balance, :unit => '' )
         %p.text-muted.text-center Mongoose tegoed
 
   .panel.panel-box.info-box

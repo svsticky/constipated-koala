@@ -5,7 +5,7 @@ class Members::HomeController < MembersController
     @member = Member.find(current_user.credentials_id)
 
     # information of the middlebar
-    @balance = CheckoutBalance.find_by_member_id( current_user.credentials_id ).balance
+    @balance = CheckoutBalance.find_by_member_id( current_user.credentials_id )
     @debt = Participant
       .where( paid: false, member: @member, reservist: false )
       .joins( :activity )
