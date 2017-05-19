@@ -26,6 +26,11 @@ There are a few *strange* things happening in koala. For one, Mollie is used as 
 
 And a few regretful things; posters are uploaded as pdf's, they will be resized and stored in two formats. However the parsing of a pdf file is not working very well and I had to hack into paperclip and specifically ghostscript to get it working. And Fuzzily is hacked into to ensure filtering first with a `where` and then perform a search on the subset just created. Both of them are defined in `config/initializers`. Currently I made a fuzzily-fork to fix some problems, I will try to move these changes to the fork.
 
+```shell
+# Add hosts for different subdomains on your own computer for development
+$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
+```
+
 ## Future
 Constipated koala is started as a tool for the board of Sticky in a very limited way; tracking members. Later on activities, groups, checkout ([POS](https://en.wikipedia.org/wiki/Point_of_sale)), and user login was added. I would like to see that in ten years it still is a tool for the board of Sticky. Developing started because the previous inhouse-build tool (written in php) started to break down. Rails proven to be a good candidate, a very solid foundation where the model-view-controller paradigm is enforced. At it's core it should remain to be an app for the board and new features should not be implemented at the expense of newly introduced bugs or not workable situations (changing stuff in the database directly would be bad!).
 
