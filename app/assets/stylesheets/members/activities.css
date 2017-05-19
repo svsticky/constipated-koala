@@ -19,6 +19,11 @@ div.container.col-md-9 {
   .panel-footer .pull-right {
     width: 100%;
   }
+
+  .panel-activity .btn-group .btn {
+    width: 100%;
+    margin: 4px 0;
+  }
 }
 
 @media (max-width: 420px) and (max-width: 404px) {
