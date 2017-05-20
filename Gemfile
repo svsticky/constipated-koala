@@ -43,6 +43,14 @@ group :production do
   gem 'uglifier'
 end
 
+group :staging do
+  gem 'unicorn'
+  gem 'aws-sdk', '>= 2.0'
+  gem 'uglifier'
+
+  gem 'faker'
+end
+
 group :development do
   gem 'puma'
   gem 'listen'

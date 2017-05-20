@@ -10,13 +10,16 @@ defaults: &defaults
     activities: []
 
   additional_positions:
-    committee: ['fotograaf']
+    committee: ['fotograaf','pr']
     moot: []
 
 development:
   <<: *defaults
 
 test:
+  <<: *defaults
+
+staging:
   <<: *defaults
 
 production:

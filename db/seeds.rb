@@ -58,7 +58,7 @@ activity = Activity.create(
 )
 
 # Seeds not working on CI
-exit unless Rails.env.development?
+exit unless Rails.env.development? || Rails.env.staging?
 
 # Create 60 members and their studies
 puts '-- Populate the database using Faker'

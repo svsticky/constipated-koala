@@ -35,3 +35,16 @@ production:
   pool: 5
   timeout: 5000
   encoding: utf8
+
+# Staging
+# Version for QA running on dev.svsticky.nl
+staging:
+  adapter: mysql2
+  database: koala
+  host: localhost
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/run/mysqld/mysqld.sock
+  pool: 5
+  timeout: 5000
+  encoding: utf8
