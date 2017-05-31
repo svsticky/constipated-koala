@@ -241,7 +241,7 @@ var participant = {
 /*
  * Document load handler
  */
-$(document).on( 'ready page:load', function(){
+$(document).on( 'ready page:load turbolinks:load', function(){
   bind_activities();
 
   //Add participant to activity

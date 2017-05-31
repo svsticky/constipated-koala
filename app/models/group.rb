@@ -1,4 +1,4 @@
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true
 
@@ -28,9 +28,9 @@ class Group < ActiveRecord::Base
   def positions
     return [ 'chairman', 'secretary', 'treasurer', 'internal', 'external', 'education' ] if self.board?
 
-    return ([ 'chairman', 'treasurer', 'board' ] + Settings.additional_committee_positions + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.committee?
+    return ([ 'chairman', 'treasurer', 'board' ] + Settings['additional_positions.committee'] + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.committee?
 
-    return ([ 'chairman', 'secretary', 'treasurer' ] + Settings.additional_moot_positions + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.moot?
+    return ([ 'chairman', 'secretary', 'treasurer' ] + Settings['additional_positions.moot'] + group_members.select( :position ).order(  :position ).uniq.map { |member| member.position }).compact.uniq if self.moot?
 
     return [ 'chairman', 'treasurer' ]
   end

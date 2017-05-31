@@ -1,4 +1,4 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   validates :name, presence: true
 
   validates :start_date, presence: true
@@ -212,7 +212,7 @@ class Activity < ActiveRecord::Base
 
         luckypeople.each do |peep|
           peep.update!(reservist: false)
-          Mailings::Enrollments.enrolled(peep).deliver_later
+          Mailings::Participants.enrolled(peep).deliver_later
         end
 
         @magic_enrolled_reservists = luckypeople
@@ -226,7 +226,7 @@ class Activity < ActiveRecord::Base
   end
 
   def participant_counter
-    # Helper method for use in displaying the remaining spots etc. Used both in API and in the enrollments view.
+    # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
     return "" unless self.is_enrollable
 
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.

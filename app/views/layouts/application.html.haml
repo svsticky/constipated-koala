@@ -2,15 +2,17 @@
 %html
   %head
     %title
-      - if content_for?(:title)
-        = yield(:title)
-        |
       = t :association_name
+
+      - if content_for?(:title)
+        |
+        = yield(:title)
+
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
 
     %template#alert
       .toast{:class => "toast-{1}"}
@@ -21,13 +23,33 @@
     = csrf_meta_tags
   %body#app
     %div
-      = render 'layouts/header'
+      %section#header.top-header
+        %header.clearfix
+          = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
+            .icon-bar
+            .icon-bar
+            .icon-bar
+          = link_to root_path, :class => 'logo' do
+            - if content_for?(:title)
+              %span.hidden-xs
+                = t :association_name
+                |
+              %span
+                = yield(:title)
+            - else
+              %span
+                = t :association_name
+          .top-nav
+            .email.hidden-xs
+              %span= current_user.email
 
-      - if current_user.admin?
-        = render 'layouts/nav'
-      - else
-        = render 'layouts/nav_user'
+            .hidden-xs
+              = link_to destroy_user_session_path, 'data-method' => :delete do
+                %i.fa.fa-sign-out
+
+      = render 'layouts/partials/navigation'
 
       .view-container
         = yield
+
     #toast-container.toast-bottom-right

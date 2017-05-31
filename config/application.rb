@@ -1,18 +1,20 @@
-require File.expand_path('../boot', __FILE__)
-
+require_relative 'boot'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
+# you've limited to :test, :development, :staging or :production.
 Bundler.require(*Rails.groups)
 
 module ConstipatedKoala
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    VERSION = '1.5.2'
+    VERSION = '1.6.0'
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -24,17 +26,20 @@ module ConstipatedKoala
     config.i18n.fallbacks = true
     config.i18n.fallbacks = [:nl, :en]
 
+    # Set layout for controllers from gems, own controllers set the alternative layout
+    # in the controller itself, for example Members::RegistrationsController
     config.to_prepare do
       Devise::SessionsController.layout 'doorkeeper'
       Devise::RegistrationsController.layout 'doorkeeper'
       Devise::ConfirmationsController.layout 'doorkeeper'
       Devise::UnlocksController.layout 'doorkeeper'
       Devise::PasswordsController.layout 'doorkeeper'
-
       Doorkeeper::AuthorizationsController.layout 'doorkeeper'
-      Users::RegistrationsController.layout 'doorkeeper'
-      Users::PublicController.layout false
     end
+
+    # Custom configuration
+    config.mailgun = ENV['MAILGUN_TOKEN']
+    config.checkout = ENV['CHECKOUT_TOKEN']
 
     config.action_dispatch.rescue_responses = {
       'ActiveRecord::RecordNotFound'                => :not_found,

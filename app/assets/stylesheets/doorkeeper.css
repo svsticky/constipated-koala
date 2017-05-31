@@ -11,7 +11,7 @@
  *= require_self
  *
  *= require font-awesome
- *= require bootstrap
+ *= require bootstrap/dist/css/bootstrap
  */
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
@@ -198,5 +198,3 @@ span.version {
     content: 'v';
   }
 }
-
-/*# sourceMappingURL=doorkeeper.css.map */

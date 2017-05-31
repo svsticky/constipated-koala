@@ -1,4 +1,4 @@
-class AddStatusToEducation < ActiveRecord::Migration
+class AddStatusToEducation < ActiveRecord::Migration[4.2]
   def change
     change_table :studies do |t|
       t.boolean :masters

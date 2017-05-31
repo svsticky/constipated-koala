@@ -106,4 +106,15 @@ class Api::CheckoutController < ApplicationController
       return
     end
   end
+
+  def to_a
+    return Array.new if self.empty?
+
+    begin
+      return Array.new(1, self.to_i ) if self.is_number?
+      return JSON.parse(self)
+    rescue
+      return Array.new
+    end
+  end
 end

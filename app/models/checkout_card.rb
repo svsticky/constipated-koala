@@ -1,4 +1,4 @@
-class CheckoutCard < ActiveRecord::Base
+class CheckoutCard < ApplicationRecord
   validates :uuid, presence: true
   validates :member, presence: true
   validates :checkout_balance, presence: true
@@ -21,7 +21,7 @@ class CheckoutCard < ActiveRecord::Base
     if balance.save
       self.checkout_balance = balance
     else
-      return false
+      throw :abort
     end
   end
 end

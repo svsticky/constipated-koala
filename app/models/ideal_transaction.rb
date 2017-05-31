@@ -1,4 +1,6 @@
-class IdealTransaction < ActiveRecord::Base
+class IdealTransaction < ApplicationRecord
+  require 'request'
+
   self.primary_key = :token
 
   attr_accessor :issuer, :mollie_uri, :message
@@ -43,6 +45,8 @@ class IdealTransaction < ActiveRecord::Base
 
   def self.issuers
     # cache the payment issuers for 12 hours, don't request it to often. Stored in tmp/cache
+    return [] unless ENV['MOLLIE_TOKEN'].present?
+
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
       http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
 
@@ -92,15 +96,13 @@ class IdealTransaction < ActiveRecord::Base
 
       # create a single transaction to update the checkoutbalance and mark the ideal transaction as processed
       IdealTransaction.transaction do
-        transaction = CheckoutTransaction.create( :price => (self.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(self.member), :payment_method => "iDeal" )
+        transaction = CheckoutTransaction.create!( :price => (self.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(self.member), :payment_method => "iDeal" )
 
         self.transaction_id = [ transaction.id ]
         self.save!
 
         self.message = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')
       end
-
-
     end
   end
 

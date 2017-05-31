@@ -1,6 +1,6 @@
 # encoding: utf-8
 # Default a class begins with a number of validations. student_id is special because in the intro website it cannot be empty. However an admin can make it empty
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :address, presence: true
@@ -104,7 +104,7 @@ class Member < ActiveRecord::Base
   end
 
   def tags_names=(tags)
-    Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
+    Tag.where( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) }).destroy_all
 
     tags.each do |tag|
       next if tag.empty?

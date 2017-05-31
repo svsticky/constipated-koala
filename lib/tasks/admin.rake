@@ -65,9 +65,9 @@ namespace :admin do
   task :start_year, [:membership, :price] => :environment do |t, args|
 
     # remove activities from settings if passed
-    Activity.find( Settings.intro_activities ).each do |activity|
+    Activity.find( Settings['intro.activities'] ).each do |activity|
       next unless activity.start_date < Date.today
-      Settings.intro_activities -= [activity.id]
+      Settings['intro.activities'] -= [activity.id]
     end
 
     exit unless Settings.begin_study_year <= Date.today
@@ -82,6 +82,6 @@ namespace :admin do
 
     # set next date for new activity
     Settings.begin_study_year = Date.today + 1.year
-    Settings.intro_membership = [activity.id]
+    Settings['intro.membership'] = [activity.id]
   end
 end

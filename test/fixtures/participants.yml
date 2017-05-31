@@ -1,14 +1,14 @@
 underpant_first:
-  activity: test_enrollments_1
+  activity: test_activities_1
   member: captain_underpants
   reservist: false
 
 underpant_second:
-  activity: test_enrollments_2
+  activity: test_activities_2
   member: captain_underpants
   reservist: false
 
 underpant_third:
-  activity: test_enrollments_3
+  activity: test_activities_3
   member: captain_underpants
   reservist: false
