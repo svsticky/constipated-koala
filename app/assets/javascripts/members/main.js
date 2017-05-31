@@ -20,3 +20,10 @@ $(document).on('ready page:load turbolinks:load', function(){
     });
   };
 });
+
+// Callback handler for menu
+$('.toggle-min').click(function(event){
+	event.preventDefault();
+
+    $('#app').children('div').toggleClass('nav-min');
+});

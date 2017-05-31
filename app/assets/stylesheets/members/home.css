@@ -13,6 +13,12 @@ div#content {
   left: 0px;
 }
 
+@media (min-width: 768px) {
+  div#content {
+    left: 220px;
+  }
+}
+
 div.clickable {
   overflow: hidden;
   height: 105px;

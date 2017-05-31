@@ -25,6 +25,10 @@
     %div
       %section#header.top-header
         %header.clearfix
+          = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
+            .icon-bar
+            .icon-bar
+            .icon-bar
           = link_to root_path, :class => 'logo' do
             %span
               = t :association_name
@@ -37,60 +41,34 @@
               = link_to destroy_user_session_path, 'data-method' => :delete do
                 %i.fa.fa-sign-out
 
+      %aside#nav-container{role: 'navigation'}
+        #nav-wrapper.navbar.navbar-default
+          %ul#nav{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
+            %li{ :class => ('active' if yield(:page) == 'home') }
+              = link_to :root do
+                %span Home
+                %i.fa.fa-desktop
+                  %span.icon-bg.bg-dark
+            %li{ :class => ('active' if yield(:page) == 'enrollments') }
+              = link_to activities_path do
+                %span Activiteiten
+                %i.fa.fa-ticket
+                  %span.icon-bg.bg-warning
+            %li{ :class => ('active' if yield(:page) == 'edit') }
+              = link_to :users_edit do
+                %span Gegevens bewerken
+                %i.fa.fa-user
+                  %span.icon-bg.bg-orange
+            %li.hidden-sm-up
+              = link_to destroy_user_session_path, 'data-method' => :delete do
+                %span Uitloggen
+                %i.fa.fa-sign-out
+                  %span.icon-bg.bg-danger
 
       .view-container
         %section
           .page#content
             .row
-              .col-md-3.widget
-                .panel
-                  .widget-header.bg-primary
-
-                  .widget-body.text-center
-                    = link_to "https://secure.gravatar.com/profile/#{current_user.gravatar}", { :class => 'profile' } do
-                      = image_tag "https://secure.gravatar.com/avatar/#{current_user.gravatar}?d=mm&s=100"
-                      .overlay
-                        %i.fa.fa-2x.fa-plus
-
-                    %h4= current_user.credentials.name
-                    %p.text-muted= current_user.email
-
-                  .list-group
-                    = link_to users_root_path, { :class => ['list-group-item', ('active' if yield(:page) == 'home')] } do
-                      %i.fa.fa-home
-                      Home
-                    = link_to activities_path, { :class => ['list-group-item', ('active' if yield(:page) == 'activities')] } do
-                      %i.fa.fa-ticket
-                      Activiteiten
-                    = link_to users_edit_path, { :class => ['list-group-item', ('active' if yield(:page) == 'edit')] } do
-                      %i.fa.fa-user
-                      Gegevens bewerken
-                    = link_to destroy_user_session_path, { 'data-method' => :delete, :class => 'list-group-item visible-xs' } do
-                      %i.fa.fa-sign-out
-                      Uitloggen
-
-                - if @member.groups.any?
-                  .panel.panel-default.hidden-xs
-                    .panel-heading
-                      %i.fa.fa-fw.fa-users
-                      Groepen
-                    %table.table.table-striped
-                      %tbody
-                        - @member.groups.each do |group|
-                          %tr
-                            %td
-                              %strong
-                                = group[ :name ]
-                            %td= Date.years( group[ :years ].sort )
-
-                            %td
-                              - group[ :positions ].each do | position |
-                                - position.each do | position, year |
-                                  - unless position.nil?
-                                    - if year == Date.today.study_year
-                                      = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
-
-
               = yield
 
     #toast-container.toast-bottom-right
