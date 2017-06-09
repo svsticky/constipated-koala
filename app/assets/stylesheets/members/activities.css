@@ -104,7 +104,7 @@ div.container.col-md-9 {
 }
 
 .cramtable tr > td.participant_name {
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .cramtable tr > td.participant_table_notes {
