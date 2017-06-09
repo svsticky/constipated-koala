@@ -183,3 +183,10 @@ div.clickable > .panel:hover {
 #header .menu-button {
   left: 0;
 }
+
+.form-control-disabled {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+  opacity: 1;
+  font-weight: normal;
+}
