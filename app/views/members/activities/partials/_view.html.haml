@@ -90,7 +90,7 @@
           - button_class = 'btn-warning'
         - elsif (activity.participant_limit != nil && activity.participant_limit <= activity.attendees.count) || (activity.is_masters? && !@current_member.is_masters?)
           - button_text = 'Inschrijven Reservelijst'
-          - button_class = 'btn-warning-sat'
+          - button_class = 'btn-warning-full'
         - else
           - button_text = 'Inschrijven'
           - button_class = 'btn-success'
