@@ -32,5 +32,15 @@
                         %span.label.label-warning= activity.group.name.upcase
                   - else
                     %td.hidden-sm
+                      %span
+
+
 
                   %td.hidden-xs= link_to "#{I18n.l(activity.start_date, :format => :day_month)}", activity
+
+                  - if activity.end_date < Date.today
+                    %td.hidden-sm
+                      %span.label.label-primary= "Afgelopen"
+                  -else
+                    %td.hidden-sm
+                      %span
