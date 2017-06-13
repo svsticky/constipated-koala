@@ -198,3 +198,10 @@ span.version {
     content: 'v';
   }
 }
+
+.remember_label {
+  position: relative;
+  vertical-align: middle;
+  bottom: 1px;
+  font-weight: normal
+}

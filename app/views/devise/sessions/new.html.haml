@@ -29,11 +29,11 @@
             %i.fa.fa-lock
           = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
       .form-group
-        .input-group
-          %span.input-group-addon
+        .center
+          %span
             = f.check_box :remember_me
-          %span.form-control
-            Onthoud mij
+            = f.label(:remember_me, 'Onthoud mij', :class => 'remember_label')
+
       .form-group
         = f.submit 'Log in', :class => 'btn btn-primary btn-block'
 
