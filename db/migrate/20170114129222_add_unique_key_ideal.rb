@@ -1,4 +1,4 @@
-class AddUniqueKeyIdeal < ActiveRecord::Migration
+class AddUniqueKeyIdeal < ActiveRecord::Migration[4.2]
   def change
     change_column :ideal_transactions, :status, :string, :default => 'open', :limit => 9
     change_column :ideal_transactions, :token, :string, :limit => 64

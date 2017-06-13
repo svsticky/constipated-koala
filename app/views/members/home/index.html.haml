@@ -1,0 +1,119 @@
+- content_for(:page, 'home')
+
+.col-md-6.col-xs-12
+  .widget.visible-xs
+    .panel
+      .list-group
+        = link_to activities_path, { class: 'list-group-item' } do
+          %i.fa.fa-ticket
+          Activiteiten
+        = link_to :users_edit, { class: 'list-group-item' } do
+          %i.fa.fa-ticket
+          Gegevens bewerken
+        = link_to destroy_user_session_path, { 'data-method' => :delete, class: 'list-group-item' } do
+          %i.fa.fa-sign-out
+          Uitloggen
+
+  - unless @balance.blank?
+    .panel.panel-box.info-box
+      .panel-left.panel-item.bg-success
+        %i.fa.fa-shopping-cart.fa-5x
+      .panel-right.panel-item.bg-reverse
+        %p.size-h2
+          = number_to_currency( @balance.balance, :unit => '€' )
+        %p.text-muted.text-center Mongoose tegoed
+
+  .panel.panel-box.info-box
+    .panel-left.panel-item.bg-reverse
+      %p.size-h2
+        = number_to_currency( @debt, :unit => '€' )
+      %p.text-muted.text-center Openstaande betalingen
+    .panel-right.panel-item.bg-warning
+      %i.fa.fa-ticket.fa-5x
+
+  - if @member.groups.any?
+    .widget
+      .panel.panel-default.hidden-xs
+        .panel-heading
+          %i.fa.fa-fw.fa-users
+          Groepen
+        %table.table.table-striped
+          %tbody
+            - @member.groups.each do |group|
+              %tr
+                %td
+                  %strong
+                    = group[ :name ]
+                %td= Date.years( group[ :years ].sort )
+
+                %td
+                  - group[ :positions ].each do | position |
+                    - position.each do | position, year |
+                      - unless position.nil?
+                        - if year == Date.today.study_year
+                          = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
+
+.col-md-6.col-xs-12.pull-right
+  .panel.panel-default.table-dynamic
+    .panel-heading
+      %i.fa.fa-fw.fa-fw.fa-ticket
+      Activiteiten
+
+    %table.table.table-striped.table-linked
+      %tbody
+        - @participants.each do |activity|
+          %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
+            - if activity.end_date >= Date.today
+              %td= link_to activity.name, "/activities/#{activity.id}"
+            - else
+              %td= activity.name
+
+            - if !activity.start_date.nil?
+              %td.hidden-xs
+                - if activity.end_date.nil?
+                  = I18n.l activity.start_date
+                - else
+                  #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
+
+            - if !activity.currency(@member).nil?
+              %td= number_to_currency(activity.currency(@member), :unit => '€')
+            - else
+              %td
+
+            %td.text-center.hidden-xs
+              - if !activity.currency(@member).nil? && activity.currency(@member) > 0
+                - if activity.participants.where(:member => @member).first.paid
+                  %span.label.label-success betaald
+                - else
+                  %span.label.label-warning niet betaald
+
+  = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
+    .panel.panel-default.table-dynamic
+      .panel-heading
+        %i.fa.fa-fw.fa-fw.fa-shopping-cart
+        Mongoose transacties
+
+      %table.table.table-striped.table-linked
+        %tbody
+          - @transactions.each do |transaction|
+            %tr
+              %td.visible-xs{ :colspan => 2 } #{I18n.l transaction.created_at}
+              %td.hidden-xs #{I18n.l transaction.created_at}
+
+              %td.hidden-xs= transaction.products
+              %td
+                = number_to_currency(transaction.price, :unit => '€')
+                - if transaction.price > 0
+                  %span.fa.fa-sort-asc.pull-right
+                - else
+                  %span.fa.fa-sort-desc.pull-right
+
+          %tr.form
+            %td.home_mongoose_form_element
+              = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €0,45 transactiekosten in rekening gebracht'
+            %td.home_mongoose_form_element
+              .ui-select{ :style => 'margin-top: 5px;' }
+                = f.select :bank, options_for_select(IdealTransaction::issuers), {}, {style: 'min-width: 0px !important'}
+
+            %td.home_mongoose_form_element
+              %button.btn.btn-success.btn-sm{ :type => 'submit'} opwaarderen

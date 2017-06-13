@@ -5,12 +5,13 @@
       - if content_for?(:title)
         = yield(:title)
         |
-      = t :association_name
-    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
-    %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
+      = I18n.t :association_name
 
-    = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'doorkeeper', 'data-turbolinks-track' => true
+    %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
+    %meta{content: 'width=device-width, initial-scale=1, user-scalable=no', name: 'viewport'}
+
+    = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'doorkeeper', 'data-turbolinks-track' => 'reload'
 
     = csrf_meta_tags
   %body
@@ -28,5 +29,8 @@
 
       = yield
 
+    - if Rails.env.development?
+      = console
+
       %span.version
-        = ConstipatedKoala::Application::VERSION
+        = ConstipatedKoala::Application::VERSION.to_s

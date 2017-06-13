@@ -1,0 +1,192 @@
+/*
+ * This is a manifest file that'll be compiled into application.scss, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+div#content {
+  left: 0px;
+}
+
+@media (min-width: 768px) {
+  div#content {
+    left: 220px;
+  }
+}
+
+div.clickable {
+  overflow: hidden;
+  height: 105px;
+}
+
+div.clickable > .panel {
+  margin: 0;
+}
+
+div.clickable > .panel:hover {
+  height: 105px;
+  text-decoration: none;
+  border-color: #767676;
+}
+
+.widget .widget-header {
+  padding: 15px 15px 50px 15px;
+  min-height: 130px;
+  position: relative;
+  overflow: hidden;
+}
+
+.widget .bg-primary {
+  background-color: #337ab7;
+}
+
+.widget .widget-body {
+  padding: 50px 15px 15px;
+  position: relative;
+}
+
+.widget .widget-body a.profile {
+  background-color: white;
+}
+
+.widget .widget-body a.profile img, .widget .widget-body a.profile .overlay {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  margin-left: -50px;
+  top: -50px;
+  box-shadow: 0 0 0 5px #fff;
+  border-radius: 50%;
+}
+
+.widget .widget-body a.profile .overlay {
+  background: white;
+  opacity: 0;
+  transition: opacity .25s ease;
+  -o-transition: opacity .25s ease;
+  -webkit-transition: opacity .25s ease;
+  -moz-transition: opacity .25s ease;
+}
+
+.widget .widget-body a.profile .overlay .fa {
+  color: #555555;
+  position: relative;
+  top: 36px;
+}
+
+.widget .widget-body a.profile .overlay:hover {
+  opacity: 0.5;
+}
+
+.widget .widget-body h4 {
+  margin-bottom: 0;
+}
+
+.widget .list-group a.list-group-item {
+  background-color: #fff;
+  border: none;
+  margin-top: 1px;
+  border-top: 1px solid #EFEFEF;
+}
+
+.widget .list-group a.list-group-item.active, .widget .list-group a.list-group-item:hover {
+  color: #555555;
+  border-left: 2px solid #63A8EB;
+  padding-left: 13px;
+}
+
+.widget .list-group a.list-group-item i.fa {
+  margin-right: 15px;
+}
+
+.table .form td {
+  padding: 1px !important;
+}
+
+.table .form td input {
+  line-height: 18px;
+  padding: 4px;
+  width: 100%;
+  margin: 5px 0;
+  height: 34px;
+}
+
+.table .form td button {
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 0;
+  height: 34px;
+}
+
+.panel-left.panel-item, .panel-right.panel-item {
+  position: relative;
+  padding: 30px 0;
+}
+
+.panel-left.panel-item p.text-center, .panel-right.panel-item p.text-center {
+  width: 100%;
+}
+
+.form-control.birthdate {
+  font-weight: normal;
+}
+
+.home_mongoose_form_element {
+  width: 33%;
+  min-width: 0 !important;
+}
+
+.top-nav img {
+  display: block;
+}
+
+.top-nav .email {
+  position: absolute;
+  right: 60px;
+  top: 0;
+  display: block;
+  height: 50px;
+  font-size: 1.1em;
+  font-weight: 100;
+  line-height: 50px;
+  color: white;
+}
+
+.top-nav a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  height: 50px;
+  width: 50px;
+  font-size: 1.2em;
+  line-height: 50px;
+  text-align: center;
+  background-color: #F34541;
+  color: white;
+}
+
+.nav-min .view-container {
+  display: none;
+}
+
+#header .logo {
+  color: white;
+}
+
+#header .menu-button {
+  left: 0;
+}
+
+.form-control-disabled {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+  opacity: 1;
+  font-weight: normal;
+}

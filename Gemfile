@@ -1,42 +1,34 @@
 # encoding: UTF-8
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 gem 'rails'
-
-# Use mysql as the production database
 gem 'mysql2'
-
-# authentication gems
-gem 'devise'
-gem 'doorkeeper'
-
-# logging
-gem 'impressionist'
-
-# RestClient for sending mail using mailgun
-gem 'rest-client'
-
-# new search engine
-gem 'fuzzily'
-
-# Use SCSS for stylesheets, sprockets for assets
-gem 'sprockets', '~> 2.11.0'
-gem 'sass-rails'
 
 # use of Haml and rabl
 gem 'haml'
 gem 'rabl'
 
-# Gem voor html5 stubs met form features
-gem 'modernizr-rails'
+# assets and stuff
+gem 'sass-rails'
+gem 'coffee-rails'
 
-# Use for javascript and libraries
-gem 'execjs'
-gem 'jquery-rails'
+# authentication gems
+gem 'devise', :github => 'plataformatec/devise'
+gem 'doorkeeper'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# logging, using master for rails 5 support
+gem 'impressionist', :github => 'charlotte-ruby/impressionist'
+
+# rests calls for mailgun
+gem 'rest-client'
+
+# search engine
+gem 'fuzzily', :github => 'martijncasteel/fuzzily'
 gem 'responders'
 
 # settings cached in rails environment
@@ -45,22 +37,29 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
-# fancy JS alert and confirm
-gem 'sweetalert-rails'
-
-# Clipboard: Saved text to clipboard
-gem 'clipboard-rails'
-
 group :production do
   gem 'unicorn'
-  gem 'aws-sdk', '~> 1.5.7'
+  gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 end
 
-group :development do
-  gem 'web-console'
-  gem 'spring'
+group :staging do
+  gem 'unicorn'
+  gem 'aws-sdk', '>= 2.0'
+  gem 'uglifier'
+
   gem 'faker'
+end
+
+group :development do
+  gem 'puma'
+  gem 'listen'
+
+  gem 'web-console'
+  gem 'byebug', platform: :mri
+
+  gem 'faker'
+  gem 'spring'
 end
 
 group :test do

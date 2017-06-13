@@ -2,12 +2,12 @@
 - content_for(:title, 'Activiteiten')
 
 %section#content
-  = render 'layouts/search'
+  = render 'layouts/partials/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
       .col-md-6
-        = render 'layouts/activity/admin/edit', activity_textfield: t('Nieuwe Activiteit'), url: activities_path, method: :post
+        = render 'admin/activities/partials/edit', activity_textfield: 'Nieuwe Activiteit', url: activities_path, method: :post
 
       .col-md-6
         .panel.panel-default
@@ -32,5 +32,15 @@
                         %span.label.label-warning= activity.group.name.upcase
                   - else
                     %td.hidden-sm
+                      %span
+
+
 
                   %td.hidden-xs= link_to "#{I18n.l(activity.start_date, :format => :day_month)}", activity
+
+                  - if activity.end_date < Date.today
+                    %td.hidden-sm
+                      %span.label.label-primary= "Afgelopen"
+                  -else
+                    %td.hidden-sm
+                      %span
