@@ -1,7 +1,7 @@
 - content_for(:page, 'activities')
 - content_for(:title, "Activiteiten | #{@activity.name}")
 
-.container.col-md-9#activity-container
+.container.col-md-12#activity-container
   - if @activity.reservists.count > 0
     .col-lg-6
       = render 'members/activities/partials/view', activity: @activity, view: 'show'
