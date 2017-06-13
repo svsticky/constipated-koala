@@ -29,7 +29,7 @@
           %template#attendee-table-row
             = render 'admin/activities/partials/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
-            %tbody
+            %thead
               %tr
                 %td
                   Naam
@@ -38,8 +38,8 @@
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes
-
                 %td.buttons
+            %tbody
               - @attendees.each do |participant|
                 = render 'admin/activities/partials/attendee_table_row', participant: participant
 
