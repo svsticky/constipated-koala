@@ -20,7 +20,7 @@ Currently, it implements methods to track several things within the association:
 Koala has an [api](/app/views/api), it is used by RADIO and Checkout at the moment. However this api uses OAuth to create more awesome applications without hacking it into koala itself, so anybody can build an application.
 
 ## Starting with koala
-**An extensive tutorial on [how to install koala](/config/deployment) on your laptop or on a production server is available.**.
+**An extensive tutorial on [how to install koala](/INSTALLING.md) on your laptop or on a production server is available.**.
 
 There are a few *strange* things happening in koala. For one, Mollie is used as the ideal provider. Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will not work. Secondly it uses amazon for storing posters and images of mongoose products. In development this also work on the local machine.
 
