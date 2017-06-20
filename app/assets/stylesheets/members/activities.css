@@ -199,3 +199,49 @@ div.container.col-md-9 {
     max-height: calc(100vh - 80px) !important;
   }
 }
+
+#activity-container {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.flexwrap {
+	flex-wrap: wrap;
+	flex-direction: column;
+	padding: 0px 10px;
+}
+
+.flexwrap .media-body {
+  width: auto;
+}
+
+/* xs: 1 */
+@media(max-width: 900px) {
+	#activity-container .flexwrap {
+		width: 100%;
+	}
+}
+
+/* sm: 2 */
+@media(min-width: 900px) and (max-width: 1230px) {
+	#activity-container .flexwrap {
+		width: 50%;
+	}
+}
+
+/* md: 3 */
+@media(min-width: 1230px) and (max-width: 2000px) {
+	#activity-container .flexwrap {
+		width: 33.3%;
+	}
+}
+
+/* lg: 4 */
+@media(min-width: 2000px) {
+	#activity-container .flexwrap {
+		width: 25%;
+	}
+}

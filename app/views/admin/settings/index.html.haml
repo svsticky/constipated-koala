@@ -102,8 +102,7 @@
                 = render 'layouts/partials/editor'
 
                 #textarea.form-control{ :contenteditable => 'true' }
-                  :preserve
-                    #{@admin.signature}
+                  != @admin.signature
 
                 = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'
 

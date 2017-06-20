@@ -88,7 +88,7 @@
         - elsif @member.reservist_activities.ids.include? activity.id
           - button_text = 'Uitschrijven Reservelijst'
           - button_class = 'btn-warning'
-        - elsif (activity.participant_limit != nil && activity.participant_limit <= activity.attendees.count) || (activity.is_masters? && !@current_member.is_masters?)
+        - elsif (activity.participant_limit != nil && activity.participant_limit <= activity.attendees.count) || (activity.is_masters? && !@member.is_masters?)
           - button_text = 'Inschrijven Reservelijst'
           - button_class = 'btn-warning-full'
         - else

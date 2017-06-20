@@ -1,14 +1,13 @@
 - content_for(:page, 'activities')
 - content_for(:title, 'Activiteiten')
 
-.container.col-md-12#activity-container
-  .col-md-12
-    - unless @activities.any?
-      .alert.alert-warning
-        Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven.
+#activity-container
+  - unless @activities.any?
+    .alert.alert-warning
+      Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven.
 
   - @activities.each do |activity|
-    .col-lg-4.col-sm-6.col-xs-12.sameheight
+    .flexwrap
       = render 'members/activities/partials/view', activity: activity, view: 'index'
 
 = link_to 'mailto:pleasedotheneedful@svsticky.nl' , class: 'btn btn-danger helpme' do

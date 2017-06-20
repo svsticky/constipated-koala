@@ -24,7 +24,7 @@ class Api::CheckoutController < ApplicationController
       return
     end
 
-    transaction = CheckoutTransaction.new( :items => params[:items].to_a, :checkout_card => card )
+    transaction = CheckoutTransaction.new( :items => self.ahelper(params[:items]), :checkout_card => card )
 
     begin
       transaction.save
@@ -38,7 +38,7 @@ class Api::CheckoutController < ApplicationController
       render :status => :payload_too_large, :json => {
         message: 'insufficient funds',
         balance: card.checkout_balance.balance,
-        items: params[:items].to_a,
+        items: self.ahelper(params[:items]),
         costs: transaction.price
       } if error.message == 'Er is te weinig saldo'
       return
@@ -99,22 +99,22 @@ class Api::CheckoutController < ApplicationController
     redirect_to :new_user_session
   end
 
+  def ahelper(obj)
+    return Array.new if obj.empty?
+
+    begin
+      return Array.new(1, obj.to_i ) if obj.is_number?
+      return JSON.parse(obj)
+    rescue
+      return Array.new
+    end
+  end
+
   private # TODO implement for OAuth client credentials
   def authenticate_checkout
     if params[:token] != ENV['CHECKOUT_TOKEN']
       head :forbidden
       return
-    end
-  end
-
-  def to_a
-    return Array.new if self.empty?
-
-    begin
-      return Array.new(1, self.to_i ) if self.is_number?
-      return JSON.parse(self)
-    rescue
-      return Array.new
     end
   end
 end
