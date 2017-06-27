@@ -72,7 +72,7 @@ class Member < ApplicationRecord
 
   def infix=(infix)
     write_attribute(:infix, infix.downcase)
-    write_attribute(:infix, NIL) if infix.blank?
+    write_attribute(:infix, nil) if infix.blank?
   end
 
   def last_name=(last_name)
@@ -100,7 +100,7 @@ class Member < ApplicationRecord
 
   def student_id=(student_id)
     write_attribute(:student_id, student_id.upcase)
-    write_attribute(:student_id, NIL) if student_id.blank?
+    write_attribute(:student_id, nil) if student_id.blank?
   end
 
   def tags_names=(tags)

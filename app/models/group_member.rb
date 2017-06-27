@@ -9,7 +9,7 @@ class GroupMember < ApplicationRecord
 
   def position=(position)
     write_attribute( :position, position )
-    write_attribute( :position, NIL ) if position.blank? || position == '-'
+    write_attribute( :position, nil ) if position.blank? || position == '-'
   end
 
   def name

@@ -35,7 +35,7 @@ class Group < ApplicationRecord
     return [ 'chairman', 'treasurer' ]
   end
 
-  def members( year = NIL )
+  def members( year = nil )
     year = year.nil? ? Date.today.study_year : year.to_i
 
     self.group_members.where( :year => year ).sort do |a,b|

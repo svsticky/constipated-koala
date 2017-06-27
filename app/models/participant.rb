@@ -10,7 +10,7 @@ class Participant < ApplicationRecord
 
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f) unless price.blank?
-    write_attribute(:price, NIL) if price.blank?
+    write_attribute(:price, nil) if price.blank?
   end
 
   def currency
@@ -21,7 +21,7 @@ class Participant < ApplicationRecord
 
   before_validation do
     self.paid = false if self.price_changed?
-    write_attribute(:price, NIL) if activity.price == self.price
+    write_attribute(:price, nil) if activity.price == self.price
   end
 
   def enroll_reservist

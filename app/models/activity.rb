@@ -2,8 +2,8 @@ class Activity < ApplicationRecord
   validates :name, presence: true
 
   validates :start_date, presence: true
-  validate :end_is_possible, unless: "self.start_date.nil?"
-  validate :unenroll_before_start, unless: "self.unenroll_date.nil?"
+  validate :end_is_possible, unless: Proc.new{|a| a.start_date.nil? }
+  validate :unenroll_before_start, unless: Proc.new{|a| a.unenroll_date.nil? }
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
@@ -18,7 +18,7 @@ class Activity < ApplicationRecord
 
   is_impressionable
 
-  after_update :enroll_reservists, if: "participant_limit_change"
+  after_update :enroll_reservists, if: Proc.new{|a| a.participant_limit_change}
 
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x1080', :png] },
@@ -136,7 +136,7 @@ class Activity < ApplicationRecord
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f
     write_attribute(:price, price)
-    write_attribute(:price, NIL) if price == 0
+    write_attribute(:price, nil) if price == 0
   end
 
   def self.combine_dt(d, t)
@@ -151,12 +151,12 @@ class Activity < ApplicationRecord
 
   def paid_sum
     return participants.where(:reservist => false, :paid => true).sum(:price) +
-      participants.where(:reservist => false, :paid => true, :price => NIL).count * self.price
+      participants.where(:reservist => false, :paid => true, :price => nil).count * self.price
   end
 
   def price_sum
     return participants.where(:reservist => false).sum(:price) +
-      participants.where(:reservist => false, :price => NIL).count * self.price
+      participants.where(:reservist => false, :price => nil).count * self.price
   end
 
   def start
@@ -238,4 +238,7 @@ class Activity < ApplicationRecord
     return "#{self.attendees.count}"
   end
 
+  def ended?
+    (self.end and self.end < DateTime.now) or (self.end.nil? and self.start < DateTime.now)
+  end
 end

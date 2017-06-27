@@ -24,7 +24,7 @@ class PublicController < ApplicationController
     total = 0
 
     # if bank is empty report and test model for additional errors
-    flash[:error] = NIL
+    flash[:error] = nil
     flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL' && @member.educations.none? { |education| Study.find( education.study_id ).masters }
     @member.valid? unless flash[:error].nil?
 
