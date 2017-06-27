@@ -238,4 +238,7 @@ class Activity < ApplicationRecord
     return "#{self.attendees.count}"
   end
 
+  def ended?
+    (self.end and self.end < DateTime.now) or (self.end.nil? and self.start < DateTime.now)
+  end
 end
