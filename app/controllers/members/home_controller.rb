@@ -94,7 +94,7 @@ class Members::HomeController < MembersController
       :issuer => ideal_transaction_params[:bank],
       :member => member,
 
-      :transaction_id => NIL,
+      :transaction_id => nil,
       :transaction_type => 'CheckoutTransaction',
 
       :redirect_uri => users_root_url)

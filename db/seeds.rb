@@ -80,7 +80,7 @@ puts '-- Populate the database using Faker'
     student_id:   "F#{Faker::Number.number(6)}",
     birth_date:   Faker::Date.between(28.years.ago, 18.years.ago),
     join_date:    Faker::Date.between(3.years.ago, Date.today),
-    comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : NIL)
+    comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
   ) and puts "   -> #{member.name} (#{member.student_id})"
 
   Faker::Number.between(1, 3).times do
@@ -88,7 +88,7 @@ puts '-- Populate the database using Faker'
     suppress(ActiveRecord::RecordNotUnique) do
       status = Faker::Number.between(0, 2)
       start_date = Faker::Date.between(member.join_date, Date.today)
-      end_date = (status > 0 ? Faker::Date.between(start_date, Date.today) : NIL)
+      end_date = (status > 0 ? Faker::Date.between(start_date, Date.today) : nil)
 
       Education.create(
         member_id:    member.id,
@@ -112,7 +112,7 @@ end
 
   8.times do
     member = Member.find_by_id(Faker::Number.between(1, Member.count))
-    position = (Faker::Number.between(1, 10) < 5 ? group.positions[ Faker::Number.between(1, group.positions.count) ] : NIL)
+    position = (Faker::Number.between(1, 10) < 5 ? group.positions[ Faker::Number.between(1, group.positions.count) ] : nil)
 
     next if member.nil?
 
@@ -166,7 +166,7 @@ end
     start_time:   start_time,
     end_date:     end_date,
     end_time:     end_time,
-    organized_by: (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : NIL),
+    organized_by: (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : nil),
     is_enrollable: enrollable,
     is_masters: (Faker::Boolean.boolean(0.3))
   )
@@ -183,7 +183,7 @@ end
         member:       Member.find_by_id(Faker::Number.between(1, Member.count)),
         reservist:    reservist,
         activity:     activity,
-        price:        (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price/5 : NIL),
+        price:        (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price/5 : nil),
         paid:         (Faker::Number.between(1, 10) < 4 ? true : false) # if price is 0 than the paid attribute is not used
       )
     end
