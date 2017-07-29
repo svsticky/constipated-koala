@@ -77,7 +77,7 @@
 
 
       .col-md-6
-        = form_for :admin, :url => profile_settings_path, method: :patch, :class => 'form-validation' do |f|
+        = form_for :admin, :url => profile_settings_path, method: :patch, :html => { :class => 'form-validation signature' } do |f|
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-user
@@ -155,5 +155,5 @@
 
 :javascript
   $(document).on('ready page:load turbolinks:load', function(){
-    $('form').editor();
+    $('form.signature').editor();
   });
