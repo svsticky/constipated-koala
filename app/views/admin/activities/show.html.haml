@@ -3,13 +3,13 @@
 - content_for(:template, 'activities/activity.html.js')
 
 %section#content
-  = render 'layouts/search'
+  = render 'layouts/partials/search'
 
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        = render 'layouts/activity/admin/edit', activity_textfield: t('Activiteit'), url: activity_path(@activity), method: :patch
-        = render 'layouts/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
+        = render 'admin/activities/partials/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch
+        = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
         .panel.panel-default
@@ -27,9 +27,9 @@
 
 
           %template#attendee-table-row
-            = render 'layouts/activity/admin/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
+            = render 'admin/activities/partials/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
-            %tbody
+            %thead
               %tr
                 %td
                   Naam
@@ -38,10 +38,10 @@
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes
-
                 %td.buttons
+            %tbody
               - @attendees.each do |participant|
-                = render 'layouts/activity/admin/attendee_table_row', participant: participant
+                = render 'admin/activities/partials/attendee_table_row', participant: participant
 
               %tr
                 %td{ :style => 'position: relative;'}
@@ -74,11 +74,11 @@
 
                 %td.buttons
               - @reservists.each do |participant|
-                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email }  }
+                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email, :member_id => participant.member.id }  }
                   %td= link_to "#{participant.member.name}", participant.member
                   %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
                     %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
-                  %td{ :style => 'min-width: 50%; width: 50%;' }
+                  %td.notes-td{ :style => 'min-width: 50%; width: 50%;' }
                     -if participant.notes
                       %p= participant.notes
                     -else
@@ -86,5 +86,7 @@
 
                   %td.buttons
                     .btn-group
+                      %button.btn.btn-success.toparticipant
+                        %i.fa.fa-fw.fa-plus
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o

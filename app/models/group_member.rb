@@ -1,4 +1,4 @@
-class GroupMember < ActiveRecord::Base
+class GroupMember < ApplicationRecord
   belongs_to :member
   belongs_to :group
 
@@ -9,7 +9,7 @@ class GroupMember < ActiveRecord::Base
 
   def position=(position)
     write_attribute( :position, position )
-    write_attribute( :position, NIL ) if position.blank? || position == '-'
+    write_attribute( :position, nil ) if position.blank? || position == '-'
   end
 
   def name

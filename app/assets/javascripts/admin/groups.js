@@ -57,7 +57,7 @@ function bind_group_members(){
   });
 }
 
-$(document).on( 'ready page:load', function(){
+$(document).on( 'ready page:load turbolinks:load', function(){
   bind_group_members();
 
   $('#members').find('input#member').search().on('selected', function(event, id, name){

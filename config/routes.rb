@@ -1,52 +1,34 @@
-# Helper constraint to allow us to respond to multiple subdomains
-class MainDomain
-  def self.matches?(request)
-    request.subdomain.present? &&
-      ["koala", "koala.dev",
-       "leden", "leden.dev",
-       "members", "members.dev",
-      ].include?(request.subdomain)
-  end
-end
-
-class IntroDomain
-  def self.matches?(request)
-    request.subdomain.present? &&
-      ["intro", "intro.dev"].include?(request.subdomain)
-  end
-end
-
-ConstipatedKoala::Application.routes.draw do
-
-  constraints(IntroDomain) do
-    scope module: 'users' do
-      get  '/', to: 'public#index', as: 'public'
-      post '/', to: 'public#create'
-    end
+Rails.application.routes.draw do
+  constraints :subdomain => ['intro', 'intro.dev'] do
+    get  '/', to: 'public#index', as: 'public'
+    post '/', to: 'public#create'
   end
 
-  constraints(MainDomain) do
+  constraints :subdomain => ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
     authenticate :user, ->(u) { !u.admin? } do
-      root to: 'users/home#index', as: :users_root
+      scope module: 'members' do
+        root to: 'home#index', as: :users_root
 
-      get   'edit',                           to: 'users/home#edit',   as: :users_edit
-      patch 'edit',                           to: 'users/home#update'
-      delete 'authorized_applications/:id',   to: 'users/home#revoke', as: :authorized_applications
+        get   'edit',                           to: 'home#edit',   as: :users_edit
+        patch 'edit',                           to: 'home#update'
+        delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
 
-      post  'mongoose',                       to: 'users/home#add_funds'
+        post  'mongoose',                       to: 'home#add_funds'
 
-      get 'enrollments',                      to: 'users/enrollments#index'
-      get 'enrollments/:id',                  to: 'users/enrollments#show'
-      patch 'enrollments/:id',                to: 'users/enrollments#update'
-      post 'enrollments/:id',                 to: 'users/enrollments#create'
-      delete 'enrollments/:id',               to: 'users/enrollments#delete'
+        get 'enrollments',                      to: redirect('/activities')
+        get 'enrollments/:id',                  to: redirect('/activities/%{id}')
+
+        resources :activities, only: [:index, :show] do
+          resource :participants, only: [:create, :update, :destroy]
+        end
+      end
     end
 
     root 'admin/home#index'
 
     # No double controllers
     get     'admin/home',   to: redirect('/')
-    get     'users/home',   to: redirect('/')
+    get     'members/home',   to: redirect('/')
 
     # Devise routes
     devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
@@ -81,7 +63,6 @@ ConstipatedKoala::Application.routes.draw do
       resources :settings, only: [:index, :create] do
         collection do
           get 'logs'
-
           patch 'profile',        to: 'settings#profile'
 
           post 'advertisement'

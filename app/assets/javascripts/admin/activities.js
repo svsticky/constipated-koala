@@ -18,6 +18,8 @@ function bind_activities(){
   // [DELETE] participants
   $('#participants button.destroy').on('click', participant.delete);
 
+  $('#participants button.toparticipant').on('click', participant.upgrade);
+
   // Admin updates participant's price
   // [PATCH] participants
   $('#participants').find('input.price').on('change', participant.updatePrice);
@@ -90,6 +92,38 @@ var participant = {
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
       $( 'input#search' ).select();
+    }).fail(function(){
+      alert( '', 'error' );
+    });
+  },
+
+  // Upgrade from reservists to participants by admin
+  upgrade : function (){
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var row = $(this).closest('tr');
+
+    $.ajax({
+      url: '/activities/' + row.attr('data-activities-id') + '/participants/' + row.attr( 'data-id' ),
+      type: 'PATCH',
+      data: {
+        authenticity_token: token,
+        reservist: false
+      }
+    }).done(function(data){
+      var name = $(row).find('a').html();
+      alert(name + ' is op de deelnemerslijst geplaatst', 'success');
+
+      var rowdata = {
+        id: $(row).data('id'),
+        email: $(row).data('email'),
+        name: name,
+        notes: $(row).find('.notes-td')[0].innerHTML,
+      };
+      participant.add(rowdata);
+
+      $(row).remove();
+
+      bind_activities();
     }).fail(function(){
       alert( '', 'error' );
     });
@@ -207,7 +241,7 @@ var participant = {
 /*
  * Document load handler
  */
-$(document).on( 'ready page:load', function(){
+$(document).on( 'ready page:load turbolinks:load', function(){
   bind_activities();
 
   //Add participant to activity

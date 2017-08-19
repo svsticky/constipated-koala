@@ -20,6 +20,11 @@ class Admin::ParticipantsController < ApplicationController
   def update
     participant = Participant.find(params[:id])
 
+    if !params[:reservist].nil?
+      message = params[:reservist].to_b ? 'reservist' : 'participant'
+      participant.update_attributes(:reservist => params[:reservist])
+    end
+
     if !params[:paid].nil?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
       participant.update_attribute(:paid, params[:paid]) if !participant.currency.nil?
@@ -65,8 +70,10 @@ class Admin::ParticipantsController < ApplicationController
   end
 
   def mail
+    logger.debug params[:recipients].inspect
+
     @activity = Activity.find_by_id!(params[:activity_id])
-    render :json => Mailings::Participants.inform( @activity, params[:recipients].map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
+    render :json => Mailings::Participants.inform( @activity, params[:recipients].permit!.to_h.map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
     impressionist(@activity, "mail")
   end
 end

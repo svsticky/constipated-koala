@@ -1,4 +1,4 @@
-class CreateCheckoutTables < ActiveRecord::Migration
+class CreateCheckoutTables < ActiveRecord::Migration[4.2]
   def change
     create_table :checkout_balances do |t|
       

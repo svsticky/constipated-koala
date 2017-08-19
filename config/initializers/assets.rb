@@ -1,16 +1,20 @@
 # Be sure to restart your server when you modify this file.
 
 # Version of your assets, change this if you want to expire all your assets.
-Rails.application.config.assets.version = '1.1'
+Rails.application.config.assets.version = ConstipatedKoala::Application::VERSION
 
-# Add additional assets to the asset load path
-# Rails.application.config.assets.paths << Emoji.images_path
+# Add Yarn node_modules folder to the asset load path.
+Rails.application.config.assets.paths << Rails.root.join('node_modules')
+Rails.application.config.assets.precompile << /\.(?:svg|woff|woff2|ttf)\z/
 
-# Precompile additional assets.
+# Precompile additional assets; application.js, application.css, and all
+# non-JS/CSS in the app/assets folder are already added.
+
+# Assets for member part of koala
+Rails.application.config.assets.precompile += %w( members.css members.js )
+
 # Assets for login pages and doorkeeper pages
-Rails.application.config.assets.precompile += %w( doorkeeper.css )
-Rails.application.config.assets.precompile += %w( doorkeeper.js )
+Rails.application.config.assets.precompile += %w( doorkeeper.css doorkeeper.js )
 
 # Assets for intro website
-Rails.application.config.assets.precompile += %w( public.css )
-Rails.application.config.assets.precompile += %w( public.js )
+Rails.application.config.assets.precompile += %w( public.css public.js )

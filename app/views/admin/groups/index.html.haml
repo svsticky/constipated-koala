@@ -2,12 +2,12 @@
 - content_for(:title, 'Groepen')
 
 %section#content
-  = render 'layouts/search'
+  = render 'layouts/partials/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
       .col-md-6{ :class => ('hidden-xs' unless @group.nil?) }
-        = render 'layouts/group/index', group: @group, groups: @groups
+        = render 'admin/groups/partials/index', group: @group, groups: @groups
 
       .col-md-6
-        = render 'layouts/group/edit', group: @group
+        = render 'admin/groups/partials/edit', group: @group

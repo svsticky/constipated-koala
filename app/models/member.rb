@@ -1,6 +1,6 @@
 # encoding: utf-8
 # Default a class begins with a number of validations. student_id is special because in the intro website it cannot be empty. However an admin can make it empty
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :address, presence: true
@@ -72,7 +72,7 @@ class Member < ActiveRecord::Base
 
   def infix=(infix)
     write_attribute(:infix, infix.downcase)
-    write_attribute(:infix, NIL) if infix.blank?
+    write_attribute(:infix, nil) if infix.blank?
   end
 
   def last_name=(last_name)
@@ -100,11 +100,11 @@ class Member < ActiveRecord::Base
 
   def student_id=(student_id)
     write_attribute(:student_id, student_id.upcase)
-    write_attribute(:student_id, NIL) if student_id.blank?
+    write_attribute(:student_id, nil) if student_id.blank?
   end
 
   def tags_names=(tags)
-    Tag.delete_all( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) })
+    Tag.where( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) }).destroy_all
 
     tags.each do |tag|
       next if tag.empty?
@@ -273,6 +273,10 @@ class Member < ActiveRecord::Base
 
   def is_underage?
     return !self.is_adult?
+  end
+
+  def is_masters?
+    return !self.educations.empty? && self.educations.any? { |education| Study.find( education.study_id ).masters }
   end
 
   def is_adult?

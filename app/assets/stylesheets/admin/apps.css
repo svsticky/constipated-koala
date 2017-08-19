@@ -145,4 +145,17 @@ a.panel:hover {
   text-decoration: none;
 }
 
-/*# sourceMappingURL=apps.css.map */
+#cards .list-group-item {
+  position: relative;
+  padding: 10px;
+}
+
+#cards .list-group-item > p:first-child {
+  margin: 0px;
+}
+
+#cards .list-group-item .btn-group {
+  position: absolute;
+  bottom: 12px;
+  right: 10px;
+}

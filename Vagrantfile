@@ -39,8 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       rbenv: {
         user_installs: [{
           user: 'vagrant',
-          rubies: ['2.3.0'],
-          global: '2.3.0',
+          rubies: ['2.4.1'],
+          global: '2.4.1',
           plugins: [
             {
               'name' => 'rbenv-vars',

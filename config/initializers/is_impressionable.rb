@@ -1,3 +1,4 @@
+# NOTE don't destroy records we want to preserve even after destroying the object
 module Impressionist
   module IsImpressionable
     extend ActiveSupport::Concern
@@ -12,7 +13,7 @@ module Impressionist
 
       private
 
-      def define_association( dependent = NIL )
+      def define_association( dependent = nil )
         # Don't remove the logs recarding if it is destroyed
         if dependent == :ignore
           has_many(:impressions,

@@ -15,8 +15,13 @@ class Admin::PaymentsController < ApplicationController
 
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
     @late_activities = Activity.debtors.select { |activity| activity.impressionist_count(message: "mail", start_date: activity.start) >= 4 }
-    @late_payments = @late_activities.map{ |activity|
-      activity.participants.select{ |participant| participant.paid == false and participant.price != 0 }.map{ |p| p.member}
+    @late_payments =
+      @late_activities.map{ |activity|
+        activity.participants.select{ |participant|
+          participant.paid == false and
+          participant.price != 0 and
+          participant.reservist == false
+        }.map{ |p| p.member}
     }.flatten.uniq
   end
 end

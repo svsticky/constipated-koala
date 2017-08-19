@@ -1,9 +1,9 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   validates :name, presence: true
 
   validates :start_date, presence: true
-  validate :end_is_possible, unless: "self.start_date.nil?"
-  validate :unenroll_before_start, unless: "self.unenroll_date.nil?"
+  validate :end_is_possible, unless: Proc.new{|a| a.start_date.nil? }
+  validate :unenroll_before_start, unless: Proc.new{|a| a.unenroll_date.nil? }
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
@@ -18,7 +18,7 @@ class Activity < ActiveRecord::Base
 
   is_impressionable
 
-  after_update :enroll_reservists, if: "participant_limit_change"
+  after_update :enroll_reservists, if: Proc.new{|a| a.participant_limit_change}
 
   has_attached_file :poster,
 	:styles => { :thumb => ['180', :png], :medium => ['x1080', :png] },
@@ -136,7 +136,7 @@ class Activity < ActiveRecord::Base
   def price=( price )
     price = price.to_s.gsub(',', '.').to_f
     write_attribute(:price, price)
-    write_attribute(:price, NIL) if price == 0
+    write_attribute(:price, nil) if price == 0
   end
 
   def self.combine_dt(d, t)
@@ -151,12 +151,12 @@ class Activity < ActiveRecord::Base
 
   def paid_sum
     return participants.where(:reservist => false, :paid => true).sum(:price) +
-      participants.where(:reservist => false, :paid => true, :price => NIL).count * self.price
+      participants.where(:reservist => false, :paid => true, :price => nil).count * self.price
   end
 
   def price_sum
     return participants.where(:reservist => false).sum(:price) +
-      participants.where(:reservist => false, :price => NIL).count * self.price
+      participants.where(:reservist => false, :price => nil).count * self.price
   end
 
   def start
@@ -202,11 +202,17 @@ class Activity < ActiveRecord::Base
             spots = 0
           end
         end
-        luckypeople = self.reservists.first(spots)
+
+        if !self.is_masters?
+          luckypeople = self.reservists.first(spots)
+        else
+          masterpeople = self.reservists.select{|m| m.member.is_masters?}
+          luckypeople = masterpeople.first(spots)
+        end
 
         luckypeople.each do |peep|
           peep.update!(reservist: false)
-          Mailings::Enrollments.enrolled(peep).deliver_later
+          Mailings::Participants.enrolled(peep).deliver_later
         end
 
         @magic_enrolled_reservists = luckypeople
@@ -220,15 +226,19 @@ class Activity < ActiveRecord::Base
   end
 
   def participant_counter
-    # Helper method for use in displaying the remaining spots etc. Used both in API and in the enrollments view.
+    # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
     return "" unless self.is_enrollable
 
+    # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if self.participant_limit
-      return "VOL!" if self.participants.count >= self.participant_limit
-      return "#{self.participants.count}/#{self.participant_limit}"
+      return "VOL!" if self.attendees.count >= self.participant_limit
+      return "#{self.attendees.count}/#{self.participant_limit}"
     end
 
-    return "#{self.participants.count}"
+    return "#{self.attendees.count}"
   end
 
+  def ended?
+    (self.end and self.end < DateTime.now) or (self.end.nil? and self.start < DateTime.now)
+  end
 end

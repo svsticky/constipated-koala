@@ -1,0 +1,87 @@
+- content_for(:page, "edit")
+- content_for(:title, @member.name)
+
+= form_for :member, method: :patch, :class => 'form-validation' do |f|
+
+  - if @member.errors.any?
+    .col-md-9
+      .alert.alert-danger
+        %button.close{ type: "button" } ×
+        %span Oh snap, niet alles is goed ingevuld;
+        %ul
+        - @member.errors.full_messages.each do |msg|
+          %li= msg
+
+  .col-md-9
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-fw.fa-user
+        Algemene gegevens
+      .panel-body
+
+        .form-group
+          .row
+            .col-md-5
+              %label{for: ''} Voornaam
+              = f.label :first_name, :value => @member.first_name, :class => 'form-control form-control-disabled'
+            .col-md-2
+              %label{for: ''} Tussenvoegsel
+              = f.label :infix, :value => @member.infix, :class => 'form-control form-control-disabled'
+            .col-md-5
+              %label{for: ''} Achternaam
+              = f.label :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled'
+
+        .form-group
+          .row
+            .col-md-6
+              %label{for: ''} Geslacht
+              .ui-select
+                = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
+            .col-md-6
+              %label{for: ''} Geboortedatum
+              = f.label :birth_date, :value => @member.birth_date, :class => 'form-control form-control-disabled birthdate'
+
+        .form-group
+          .row
+            .col-md-8
+              %label{for: ''} Adres
+              = f.text_field :address, :value => @member.address, :class => 'form-control'
+            .col-md-4
+              %label{for: ''} Huisnummer
+              = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+
+        .form-group
+          .row
+            .col-md-6
+              %label{for: ''} Postcode
+              = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
+            .col-md-6
+              %label{for: ''} Woonplaats
+              = f.text_field :city, :value => @member.city, :class => 'form-control'
+
+        .form-group
+          %label{for: ''} Telefoonnummer
+          = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+
+        .form-group
+          %label{for: ''} E-mailadres
+          = f.email_field :email, :value => @member.email, :class => 'form-control'
+          .help-block Dit kan niet een uu email zijn!
+
+        %button.btn.btn-success{type: 'submit'} Opslaan
+        = link_to 'Annuleren', users_root_path, { :class => 'button btn btn-default' }
+
+  -#
+    .col-md-9
+      .panel.panel-default
+        .panel-heading
+          %i.fa.fa-fw.fa-rocket
+          Externe applicaties
+        %table.table.table-striped.table-linked
+          - @applications.each do |application|
+            %tr
+              %td= application.name
+              %td= I18n.l application.created_at
+              %td
+                = link_to authorized_applications_path(application), 'data-method' => :delete do
+                  revoke

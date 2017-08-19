@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   is_impressionable
 
   belongs_to :credentials, :polymorphic => true
@@ -33,5 +33,10 @@ class User < ActiveRecord::Base
 
   def self.taken?(email)
     User.exists?(email: email) || User.exists?(unconfirmed_email: email)
+  end
+
+  # Admins must always re-enter their password.
+  def remember_me?(token, generated_at)
+    not self.admin? and super
   end
 end

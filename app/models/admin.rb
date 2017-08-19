@@ -1,4 +1,4 @@
-class Admin < ActiveRecord::Base
+class Admin < ApplicationRecord
   has_one :user, as: :credentials
 
   attr_accessor :email

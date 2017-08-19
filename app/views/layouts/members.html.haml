@@ -1,0 +1,74 @@
+!!! 5
+%html
+  %head
+    %title
+      = t :association_name
+
+      - if content_for?(:title)
+        |
+        = yield(:title)
+
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
+
+    = stylesheet_link_tag 'members', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'members', 'data-turbolinks-track' => 'reload'
+
+    %template#alert
+      .toast{:class => "toast-{1}"}
+        %button.toast-close-button
+          ×
+        .toast-message
+          {0}
+    = csrf_meta_tags
+  %body#app
+    %div
+      %section#header.top-header
+        %header.clearfix
+          = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
+            .icon-bar
+            .icon-bar
+            .icon-bar
+          = link_to root_path, :class => 'logo' do
+            %span
+              = t :association_name
+
+          .top-nav
+            .email.hidden-xs
+              %span= current_user.email
+
+            .hidden-xs
+              = link_to destroy_user_session_path, 'data-method' => :delete do
+                %i.fa.fa-sign-out
+
+      %aside#nav-container{role: 'navigation'}
+        #nav-wrapper.navbar.navbar-default
+          %ul#nav{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
+            %li{ :class => ('active' if yield(:page) == 'home') }
+              = link_to :root do
+                %span Home
+                %i.fa.fa-desktop
+                  %span.icon-bg.bg-dark
+            %li{ :class => ('active' if yield(:page) == 'enrollments') }
+              = link_to activities_path do
+                %span Activiteiten
+                %i.fa.fa-ticket
+                  %span.icon-bg.bg-warning
+            %li{ :class => ('active' if yield(:page) == 'edit') }
+              = link_to :users_edit do
+                %span Gegevens bewerken
+                %i.fa.fa-user
+                  %span.icon-bg.bg-orange
+            %li.hidden-sm-up
+              = link_to destroy_user_session_path, 'data-method' => :delete do
+                %span Uitloggen
+                %i.fa.fa-sign-out
+                  %span.icon-bg.bg-danger
+
+      .view-container
+        %section
+          .page#content
+            .row
+              = yield
+
+    #toast-container.toast-bottom-right

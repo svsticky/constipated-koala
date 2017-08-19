@@ -14,4 +14,21 @@ class ApplicationController < ActionController::Base
       return
     end
   end
+
+  def member_information
+    @member = Member.find(current_user.credentials_id)
+
+    # information of the sidebar
+    @balance = CheckoutBalance.find_by_member_id( current_user.credentials_id ).balance
+    @debt = Participant
+      .where( paid: false, member: @member, reservist: false )
+      .joins( :activity )
+      .where('activities.start_date < NOW()')
+      .sum( :price ) \
+     + Participant # The plus makes it work for all activities where the member does NOT have a modified price.
+      .where( paid: false, price: nil, member: @member, reservist: false )
+      .joins( :activity )
+      .where('activities.start_date < NOW()')
+      .sum( 'activities.price ')
+  end
 end
