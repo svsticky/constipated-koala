@@ -280,7 +280,9 @@ class Member < ApplicationRecord
   end
 
   def is_freshman?
-    educations.any? { |education| education.status == 'active' && 1.year.ago < education.start_date }
+    educations.any? do |education|
+      education.status == 'active' && 1.year.ago < education.start_date && !Study.find(education.study_id).masters
+    end
   end
 
   def is_adult?
