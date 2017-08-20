@@ -222,7 +222,7 @@ nl:
           activity_ended: Deze activiteit is al afgelopen
           participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky
           participant_no_masters: Je bent geen masters student. Deze activiteit is een masters-activiteit.
-          participant_no_freshman: Je bent geen eerstejaars students. Dit is een eerstejaarsactiviteit.
+          participant_no_freshman: Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit.
           participant_limit_reached: '%{activity} zit vol!'
           participant_underage: Deze activiteit is alleen voor grote mensen ;)
           participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voor dat je je inschrijft
