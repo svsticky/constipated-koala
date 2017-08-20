@@ -1,7 +1,7 @@
 - content_for(:page, 'activities')
 - content_for(:title, 'Activiteiten')
 
-#activity-container
+#activity-container{:data => {:view => 'index'}}
   - unless @activities.any?
     .alert.alert-warning
       Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven.
