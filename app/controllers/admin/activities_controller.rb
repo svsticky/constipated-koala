@@ -78,6 +78,7 @@ class Admin::ActivitiesController < ApplicationController
                                       :is_enrollable,
                                       :is_viewable,
                                       :is_masters,
+                                      :is_freshmans,
                                       :participant_limit,
                                       :_destroy)
   end

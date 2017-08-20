@@ -93,9 +93,10 @@
         .row
           .col-md-8
             = f.text_field :notes, :value => @activity.notes, :class => 'form-control', id: "activity-notes"
-          .col-md-4
+          .col-md-2
             = label(:activity, :notes_public)
             = f.check_box :notes_public, checked: @activity.notes_public
+          .col-md-2
             = label(:activity, :notes_mandatory)
             = f.check_box :notes_mandatory, checked: @activity.notes_mandatory
 
@@ -117,7 +118,12 @@
           .col-md-2
             = label(:activity, :is_masters)
             = f.check_box :is_masters, checked: @activity.is_masters
-          .col-md-4
+          .col-md-2
+            = label(:activity, :is_freshmans)
+            = f.check_box :is_freshmans, checked: @activity.is_freshmans
+      .form-group
+        .row
+          .col-md-6
             = label(:activity, :participant_limit)
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 

@@ -194,7 +194,7 @@ Object.defineProperties(Activity.prototype, {
         swal({
           title: AlertTitles[method],
           text: response.message,
-          timer: 2000,
+          timer: 10000,
           type: "success"
         });
 
