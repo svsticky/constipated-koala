@@ -123,11 +123,8 @@ function initialize_enrollment() {
   activity_container.find('button.enrollment').on('click', function () {
     var activity = new Activity($(this).closest('.panel-activity'));
     if (activity.is_enrollable()) {
-      if (activity.notes_mandatory && !activity.are_notes_filled()) {
-        if (view === 'index')
-          window.location.href += '/' + activity.id;
-        else
-          swal({title: 'Let op!', text: 'Vul eerst de verplichte info in!', type: 'error'});
+      if (activity.notes_mandatory && !activity.are_notes_filled() && view === 'index') {
+        window.location.href += '/' + activity.id;
       } else
         confirm_enroll(activity);
     } else
