@@ -15,37 +15,39 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
 
-$(document).on('ready page:load turbolinks:load', function(){
+$(document).on('ready page:load turbolinks:load', function () {
+  var disabledStudyOptions = null;
+  var studyBlockers = {
+    1: 3,
+    3: 1
+  };
 
-  if( $('.studies .ui-select select:first').find('option:selected').data('masters') ){
-    $('.activities').hide();
-  }
-
-  $("#menu-close").click(function(e) {
-      e.preventDefault();
-      $("#sidebar-wrapper").toggleClass("active");
+  $("#menu-close").click(function (e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
   });
 
-  $('.alert .close').on('click', function(){
+  $('.alert .close').on('click', function () {
     $(this).closest('.alert').remove();
   });
 
-  $( "a[href*='#']").click(function() {
-      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+  $("a[href*='#']").click(function () {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//,
+        '') || location.hostname == this.hostname) {
 
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-          if (target.length) {
-              $('html,body').animate({
-                  scrollTop: target.offset().top
-              }, 1000);
-              return false;
-          }
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
       }
+    }
   });
 
-  jQuery.validator.addMethod("valid_student_id", function(value, element) {
-    if( /\F\d{6}/.test( value )){
+  jQuery.validator.addMethod("valid_student_id", function (value, element) {
+    if (/\F\d{6}/.test(value)) {
       return true;
     }
 
@@ -53,7 +55,7 @@ $(document).on('ready page:load turbolinks:load', function(){
 
     var sum = 0;
     for (index = 0; index < numbers.length; ++index) {
-      sum += numbers[index] * (index +1);
+      sum += numbers[index] * (index + 1);
     }
 
     return sum % 11 === 0;
@@ -78,18 +80,23 @@ $(document).on('ready page:load turbolinks:load', function(){
         valid_student_id: true
       },
       'bank': {
-        required: function(){
+        required: function () {
           return $('.ui-select select#method').val() == 'IDEAL';
         }
       }
     },
     errorClass: 'invalid',
-    errorPlacement: function(error, element) {}
+    errorPlacement: function (error, element) {
+    }
   });
 
-  $('select#method').on("change", function(){
-    if( $(this).val() == 'Cash/PIN'){
-      $('select#bank').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
+  $('select#method').on("change", function () {
+    if ($(this).val() == 'Cash/PIN') {
+      $('select#bank')
+        .attr('disabled', 'disabled')
+        .css('background-color', 'rgb(238, 238, 238)')
+        .css('color', 'rgb(118, 118, 118)')
+        .css('border-color', 'rgb(203, 213, 221)');
       $('label#bank').css('color', 'rgb(222, 222, 222)');
     } else {
       $('select#bank').removeAttr('disabled').removeAttr('style');
@@ -97,23 +104,36 @@ $(document).on('ready page:load turbolinks:load', function(){
     }
   });
 
-  $('.studies .ui-select select').on('change', function(){
-    if( $(this).find('option:selected').data('masters') ){
+  $('.studies select').on('change', function () {
+    var selected = $(this).find('option:selected');
+
+    if (selected.data('masters')) {
       $('.activities').hide();
     } else {
       $('.activities').show();
     }
+
+    if(disabledStudyOptions !== null){
+      disabledStudyOptions.prop('disabled', false);
+      disabledStudyOptions = null;
+    }
+
+    var blockedId = studyBlockers[selected.val()];
+    if(typeof blockedId !== 'undefined'){
+      disabledStudyOptions = $(this).closest('.studies > *').nextAll().find('option[value=' + blockedId + ']');
+      disabledStudyOptions.prop('disabled', true);
+    }
   });
 
-  setTimeout(function() {
+  setTimeout(function () {
     $('.alert.alert-success').hide();
   }, 3000);
 
   var jumboHeight = $('.header').outerHeight();
 
-  $(window).scroll(function(e){
+  $(window).scroll(function (e) {
     var scrolled = $(window).scrollTop();
-    $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
-    $('.header-bg').css('height', (jumboHeight-scrolled) + 'px');
+    $('.header-bg').css('height', (jumboHeight - scrolled) + 'px');
+    $('.header-bg').css('height', (jumboHeight - scrolled) + 'px');
   });
 });
