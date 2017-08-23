@@ -1,6 +1,6 @@
 class Users::RegistrationsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create]
-  skip_before_action :authenticate_admin!, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
 
   layout 'doorkeeper'
 
@@ -34,6 +34,36 @@ class Users::RegistrationsController < ApplicationController
       redirect_to :new_user_session
     else
       render 'devise/registrations/new'
+    end
+  end
+
+  def new_member_confirmation
+    @user = User.find_by(confirmation_token: params[:confirmation_token])
+    if not @user or @user.confirmed?
+      redirect_to :new_user_session
+      return
+    end
+
+    render 'devise/confirmations/with_password'
+  end
+
+  def new_member_confirm
+    @user = User.find_by(confirmation_token: params[:user][:confirmation_token])
+    byebug
+    if not @user or @user.confirmed?
+      redirect_to :new_user_session
+      return
+    end
+
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+
+    if @user.save
+      @user.confirm
+      flash[:notice] = 'Geactiveerd, je kan je aanmelden enzo'
+      redirect_to :new_user_session
+    else
+      render 'devise/confirmations/with_password'
     end
   end
 

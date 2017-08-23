@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
     get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
+    get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
+    post    'activate',     to: 'users/registrations#new_member_confirm', as: :new_member_confirm
 
     scope module: 'admin' do
       resources :members do
