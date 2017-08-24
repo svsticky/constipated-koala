@@ -39,4 +39,19 @@ class User < ApplicationRecord
   def remember_me?(token, generated_at)
     not self.admin? and super
   end
+
+  # Clear the accounts password, and send a customized 'welcome to Sticky!'-mail if not confirmed already
+  def require_activation!
+    return if self.confirmed?
+    self.generate_confirmation_token!
+    self.skip_confirmation_notification!
+
+    pw = Devise.friendly_token 128
+    self.password = pw
+    self.password_confirmation = pw
+
+    self.confirmation_sent_at = Time.now
+    self.save
+    send_devise_notification(:activation_instructions, @raw_confirmation_token, {})
+  end
 end
