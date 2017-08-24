@@ -4,6 +4,7 @@ nl:
       confirmed: "Je account is bevestigd, je kunt nu inloggen."
       send_instructions: "Je zult een e-mail met instructies ontvangen over hoe je jouw account moet bevestigen over een paar minuten."
       send_paranoid_instructions: "Als je e-mail bestaat in onze database, zul je een e-mail met instructies ontvangen over hoe je jouw account moet bevestigen over een paar minuten."
+      activate: "Activeer je Sticky-account en kies een wachtwoord"
     failure:
       already_authenticated: "Je bent al ingelogd."
       inactive: "Je account is nog niet geactiveerd."
