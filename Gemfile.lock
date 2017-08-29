@@ -6,13 +6,6 @@ GIT
       nokogiri (~> 1)
 
 GIT
-  remote: https://github.com/martijncasteel/fuzzily.git
-  revision: b4b47e5efb4cdcde5610e34e0ab57f56fdca3078
-  specs:
-    fuzzily (0.3.3)
-      activerecord (>= 2.3.17)
-
-GIT
   remote: https://github.com/plataformatec/devise.git
   revision: ee01bac8b0b828b3da0d79c46115ba65c433d6c8
   specs:
@@ -22,6 +15,13 @@ GIT
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+
+GIT
+  remote: https://github.com/svsticky/fuzzily.git
+  revision: 9deddd48a79892ff19aff09bc2efafdfe4552b2e
+  specs:
+    fuzzily (0.4.0)
+      activerecord
 
 GEM
   remote: https://rubygems.org/
@@ -247,4 +247,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
