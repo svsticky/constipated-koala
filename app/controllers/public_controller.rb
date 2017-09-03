@@ -19,6 +19,7 @@ class PublicController < ApplicationController
   def create
     @member = Member.new( public_post_params.except :participant_attributes )
     @member.require_student_id = true
+    @member.create_account = true
 
     activities = Activity.find( public_post_params[ :participant_attributes ].to_h.select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i } )
     total = 0

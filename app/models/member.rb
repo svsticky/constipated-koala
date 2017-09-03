@@ -103,6 +103,19 @@ class Member < ApplicationRecord
     write_attribute(:student_id, nil) if student_id.blank?
   end
 
+  # If set to true, a User is created after committing
+  def create_account=(value)
+    v = value
+    if not (value.is_a? FalseClass or value.is_a? TrueClass)
+      v = value.to_b # to_b does not exist for booleans, required for handling truthy "0" and "1" from forms.
+    end
+    @create_account = v
+  end
+
+  def create_account
+    @create_account
+  end
+
   def tags_names=(tags)
     Tag.where( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) }).destroy_all
 
@@ -148,6 +161,19 @@ class Member < ApplicationRecord
 
     if self.educations.length > 1 and self.educations[0].study_id == self.educations[1].study_id
       self.educations[1].destroy
+    end
+  end
+
+  after_commit :create_user, on: :create
+
+  def create_user
+    if @create_account
+      user = User.new
+      user.skip_confirmation_notification!
+      user.email = self.email
+      user.credentials = self
+      user.require_activation!
+      user.save
     end
   end
 

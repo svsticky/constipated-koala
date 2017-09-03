@@ -1,6 +1,7 @@
 class Users::RegistrationsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create]
-  skip_before_action :authenticate_admin!, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
+  before_action :get_user_from_token, only: [:new_member_confirmation, :new_member_confirm]
 
   layout 'doorkeeper'
 
@@ -34,6 +35,46 @@ class Users::RegistrationsController < ApplicationController
       redirect_to :new_user_session
     else
       render 'devise/registrations/new'
+    end
+  end
+
+  def new_member_confirmation
+    render 'devise/confirmations/with_password'
+  end
+
+  def new_member_confirm
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+
+    if @user.save
+      @user.confirm
+      flash[:notice] = I18n.t :confirmed, scope: 'devise.confirmations'
+      redirect_to :new_user_session
+    else
+      render 'devise/confirmations/with_password'
+    end
+  end
+
+  # Ensure the confirmation_token is valid, retrieve user if it is, else redirect with error.
+  def get_user_from_token
+    token = params[:confirmation_token]
+    if not token and params[:user]
+      token = params[:user][:confirmation_token] # Or doesn't work if :user == nil
+    end
+
+    if not token
+      flash[:alert] = I18n.t 'devise.passwords.no_token'
+      redirect_to :new_user_session
+      return
+    end
+
+    @user = User.find_by(confirmation_token: token)
+    if not @user
+      flash[:alert] = I18n.t 'devise.failure.invalid_token'
+      redirect_to :new_user_session
+    elsif @user.confirmed?
+      flash[:notice] = "#{@user.email} #{I18n.t 'errors.messages.already_confirmed'}"
+      redirect_to :new_user_session
     end
   end
 
