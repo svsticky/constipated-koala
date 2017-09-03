@@ -110,6 +110,7 @@ class PublicController < ApplicationController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
+                                   :create_account,
 
                                    :method,
                                    :bank,

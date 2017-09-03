@@ -172,6 +172,18 @@
                           = activity.name
                           %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(activity.price, :unit => '€')})
 
+                .form-group
+                  %h4
+                    %i.fa.fa-user
+                    Koala-account
+                  %p
+                    Koala is ons ledenbeheersysteem en is supercool en leuk!!!
+
+                  %label.ui-checkbox
+                    = f.check_box :create_account, :checked => 'checked'
+                    %span
+                      Ik wil een account
+
               .col-md-6
                 .ui-select
                   %label{for: ''}= I18n.t(:payment, scope: 'form')
