@@ -20,11 +20,6 @@ nl:
     payment: Betaalmethode
     bank: Bank
 
-  account:
-    title: Koala-account
-    text: Inschrijven voor activiteiten kan online via ons ledenbeheersysteem, met het onderstaande selectievakje krijg je hiervoor een account.
-    buttontext: Maak account
-
   gezelligheid:
     title: Gezelligheid
     text: In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.

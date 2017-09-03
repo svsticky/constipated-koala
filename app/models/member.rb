@@ -106,7 +106,7 @@ class Member < ApplicationRecord
   # If set to true, a User is created after committing
   def create_account=(value)
     v = value
-    if not value.is_a? FalseClass or value.is_a? TrueClass
+    if not (value.is_a? FalseClass or value.is_a? TrueClass)
       v = value.to_b # to_b does not exist for booleans, required for handling truthy "0" and "1" from forms.
     end
     @create_account = v
@@ -169,6 +169,7 @@ class Member < ApplicationRecord
   def create_user
     if @create_account
       user = User.new
+      user.skip_confirmation_notification!
       user.email = self.email
       user.credentials = self
       user.require_activation!

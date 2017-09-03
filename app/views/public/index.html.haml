@@ -172,18 +172,6 @@
                           = activity.name
                           %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(activity.price, :unit => '€')})
 
-                .form-group
-                  %h4
-                    %i.fa.fa-user
-                    = t 'account.title'
-                  %p
-                    = t 'account.text'
-
-                  %label.ui-checkbox
-                    = f.check_box :create_account, :checked => 'checked'
-                    %span
-                      = t 'account.buttontext'
-
               .col-md-6
                 .ui-select
                   %label{for: ''}= I18n.t(:payment, scope: 'form')
