@@ -28,7 +28,7 @@ gem 'impressionist', :github => 'charlotte-ruby/impressionist'
 gem 'rest-client'
 
 # search engine
-gem 'fuzzily', :github => 'martijncasteel/fuzzily'
+gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
 # settings cached in rails environment

@@ -1,3 +1,6 @@
+# Note: autoloading credentials from here _seems_ to have broken. We're not
+# sure if the credentials here are actually used, but we're keeping them to be
+# sure not to break stuff.
 production:
   access_key_id: <%= ENV['AWS_ACCESS'] %>
   secret_access_key: <%= ENV['AWS_SECRET'] %>
