@@ -175,14 +175,14 @@
                 .form-group
                   %h4
                     %i.fa.fa-user
-                    Koala-account
+                    = t 'account.title'
                   %p
-                    Koala is ons ledenbeheersysteem en is supercool en leuk!!!
+                    = t 'account.text'
 
                   %label.ui-checkbox
                     = f.check_box :create_account, :checked => 'checked'
                     %span
-                      Ik wil een account
+                      = t 'account.buttontext'
 
               .col-md-6
                 .ui-select

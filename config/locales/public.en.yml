@@ -14,6 +14,11 @@ en:
     contact: Contact
     sticky: Studievereniging Sticky
 
+  account:
+    title: Koala-account
+    text: You can enroll for activities online using our member-management system. Mark the following checkbox to create an account.
+    buttontext: Create account
+
   form:
     general: General data
     study: Study information
