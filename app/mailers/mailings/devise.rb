@@ -31,17 +31,44 @@ module Mailings
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string :locals => {
-        name: record.credentials.name,
+        name: record.credentials.first_name,
         activation_url: url,
         subject: 'Welkom bij Sticky! | account activeren'
       }
 
       text = <<-EOS
-        Hoi #{record.credentials.name},
+Hoi #{record.credentials.first_name},
 
-        Welkom bij Sticky! Activeer je account voor ons ledenbeheersysteem door naar #{url} te gaan.
+## Welkom bij Sticky!
+Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
 
-        Met vriendelijke groet
+Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.
+
+Altijd op de hoogte blijven van deze activiteiten? Word lid van de [Sticky-leden Facebookgroep][1] en like [onze pagina][2]!
+Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: [svsticky.nl][3].
+
+## Onderwijs
+Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via [svsticky.nl/boeken][4]!
+
+## Bedrijfsleven
+Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via [svsticky.nl/partners/vacatures][5]!
+
+## Gezelligheid
+Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiseren we ook veel simpelweg gezellige activiteiten. Daarnaast is er wekelijks een gratis borrel!
+
+## En nu?
+Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
+
+Activeer je account voor ons ledenbeheersysteem door naar #{url} te gaan.
+
+Tot snel!  
+Het bestuur
+
+[1]: https://www.facebook.com/groups/814759978565158
+[2]: https://www.facebook.com/stickyutrecht
+[3]: https://svsticky.nl
+[4]: https://svsticky.nl/boeken
+[5]: https://svsticky.nl/partners/vacatures
       EOS
 
       return mail(record.email, nil, 'Welkom bij Sticky | account activeren', html, text)
