@@ -3,7 +3,7 @@ app_dir = File.expand_path("../..", __FILE__)
 working_directory app_dir
 
 # Set unicorn options
-worker_processes ENV.fetch('RAILS_MAX_THREADS'){ 4 }
+worker_processes ENV.fetch('RAILS_MAX_THREADS'){ 4 }.to_i
 preload_app true
 timeout 30
 
