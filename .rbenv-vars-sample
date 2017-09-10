@@ -22,3 +22,6 @@ AWS_ACCESS=
 AWS_SECRET=
 AWS_REGION=
 AWS_BUCKET=
+
+# Number of threads to run
+RAILS_MAX_THREADS=4
