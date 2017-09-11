@@ -19,11 +19,11 @@ $(document).on('ready page:load turbolinks:load', function(){
       $(this).closest('.toast').remove();
     });
   };
-});
 
-// Callback handler for menu
-$('.toggle-min').click(function(event){
-	event.preventDefault();
+  // Callback handler for menu
+  $('.toggle-min').click(function(event){
+      event.preventDefault();
 
-    $('#app').children('div').toggleClass('nav-min');
+      $('#app').children('div').toggleClass('nav-min');
+  });
 });
