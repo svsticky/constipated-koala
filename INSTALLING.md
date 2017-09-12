@@ -36,9 +36,9 @@ Bonus card; _skip to running the app_, the linux steps are all pre-installed on 
 ### Linux
 Congratulations, you have access to a superior operating system.
 
-Ruby is a language and requires an environment. We are installing that with the help of rbenv and its [tutorial](https://github.com/rbenv/rbenv#basic-github-checkout). Add the end of this specific chapter they are telling about [ruby-build](https://github.com/rbenv/ruby-build#installing-as-an-rbenv-plugin-recommended) which makes your life a lot easier by adding commands to install new versions. We'll do that a little bit later on.
+Ruby is a language and requires an environment. We are installing that with the help of rbenv and its [tutorial](https://github.com/rbenv/rbenv#basic-github-checkout). At the end of this specific chapter they are telling about [ruby-build](https://github.com/rbenv/ruby-build#installing-as-an-rbenv-plugin-recommended) which makes your life a lot easier by adding commands to install new versions. We'll do that a little bit later on.
 
-Now we have installed ruby on your system, we have to chose which version we will be using. Currently that is `2.3.0`, but we should update regularly. Updating requires you to check if everything is still working properly, obviously.
+Now we have installed ruby on your system, we have to chose which version we will be using. Currently that is `2.4.1`, but we should update regularly. Updating requires you to check if everything is still working properly, obviously.
 
 ```shell
 # list all available versions:
