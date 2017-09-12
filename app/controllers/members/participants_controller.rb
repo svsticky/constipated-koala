@@ -27,7 +27,7 @@ class Members::ParticipantsController < MembersController
     end
 
     # Deny suspended members
-    if Tag.exists?(member: @member, name: 5) # TODO 5 is not a nice pointer, it could change without knowing it should change here as well
+    if Tag.exists?(member: @member, name: Tag.names[:suspended])
       render status: :failed_dependency, json: {
         message: I18n.t(:participant_suspended, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,
