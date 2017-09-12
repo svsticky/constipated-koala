@@ -19,7 +19,7 @@ class Members::ParticipantsController < MembersController
     @member = Member.find(current_user.credentials_id)
 
     # Don't allow activities for old activities
-    if @activity.end <= Time.now
+    if @activity.ended?
       render status: :gone, json: {
         message: I18n.t(:activity_ended, scope: @activity_errors_scope)
       }

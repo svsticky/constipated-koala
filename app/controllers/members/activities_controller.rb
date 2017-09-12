@@ -26,17 +26,15 @@ class Members::ActivitiesController < MembersController
     @member = Member.find(current_user.credentials_id)
 
     # Don't allow activities for old activities
-    if @activity.end_time.nil?
-      if @activity.end_date.end_of_day() <= Time.now
-        render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
-        return
-      end
+    if @activity.ended?
+      render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
+      return
     end
 
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
         activity_id: @activity.id)
-        
+
     @attendees = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
   end
