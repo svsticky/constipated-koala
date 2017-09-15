@@ -9,10 +9,16 @@
         = yield(:title)
 
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
-    %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
+    %meta{content: "width=device-width, initial-scale=1, user-scalable=no, minimal-ui", name: "viewport"}
+    %meta{content: "yes", name:"apple-mobile-web-app-capable"}
 
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+
+    %link{:href => "/assets/images/apple-icon-koala-144.png", :rel => "apple-touch-icon"}
+    %link{:href => "/assets/images/apple-icon-koala-114.png", :rel => "apple-touch-icon"}
+    %link{:href => "/assets/images/apple-icon-koala-72.png", :rel => "apple-touch-icon"}
+    %link{:href => "/assets/images/apple-icon-koala-57.png", :rel => "apple-touch-icon"}
 
     %template#alert
       .toast{:class => "toast-{1}"}
