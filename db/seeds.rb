@@ -83,6 +83,20 @@ puts '-- Populate the database using Faker'
     comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
   ) and puts "   -> #{member.name} (#{member.student_id})"
 
+  checkout_balance = CheckoutBalance.create(
+    balance:      Faker::Number.decimal(2),
+    member_id:    member.id
+  )
+
+  Faker::Number.between(1, 2).times do
+    CheckoutCard.create(
+      uuid:                 Faker::Number.hexadecimal(8),
+      active:               1,
+      member_id:            member.id,
+      checkout_balance_id:  checkout_balance.id
+    )
+  end
+
   Faker::Number.between(1, 3).times do
     # because of the [member, study, start_date] key this goes wrong often
     suppress(ActiveRecord::RecordNotUnique) do
@@ -101,8 +115,23 @@ puts '-- Populate the database using Faker'
   end
 end
 
+3.times do
+  # Create a few food products
+  CheckoutProduct.create(
+    name:        Faker::Food.unique.dish,
+    category:    Faker::Number.between(2, 4),
+    price:       Faker::Number.decimal(2)
+  )
 
-# Create groups
+  # Create a few alcoholic products
+  CheckoutProduct.create(
+    name:        Faker::Beer.name,
+    category:    5,
+    price:       Faker::Number.decimal(2)
+  )
+end
+
+# Create committees
 6.times do
   group = Group.create(
     name:       Faker::Team.name,

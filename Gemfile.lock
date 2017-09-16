@@ -93,7 +93,7 @@ GEM
       railties (>= 4.2)
     erubi (1.6.0)
     execjs (2.7.0)
-    faker (1.7.3)
+    faker (1.8.4)
       i18n (~> 0.5)
     ffi (1.9.18)
     globalid (0.4.0)
@@ -227,7 +227,7 @@ DEPENDENCIES
   coffee-rails
   devise!
   doorkeeper
-  faker
+  faker (>= 1.8.4)
   fuzzily!
   haml
   impressionist!
@@ -247,4 +247,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.15.1
+   1.15.4
