@@ -70,7 +70,7 @@ div#credit.input-group > .input-symbol > input {
   width: 80px;
 }
 
-div#credit.input-group > select {
+div#credit.input-group select {
   background-color: white;
   height: 32px;
 }
