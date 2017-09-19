@@ -5,8 +5,4 @@ class CheckoutBalance < ApplicationRecord
   belongs_to :member
   has_many :checkout_cards,
     :dependent => :destroy
-
-  before_validation(on: :create) do
-    self.balance = 0
-  end
 end
