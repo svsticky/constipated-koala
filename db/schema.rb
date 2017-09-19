@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820113433) do
+ActiveRecord::Schema.define(version: 20170919131851) do
 
   create_table "activities", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20170820113433) do
   create_table "checkout_cards", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "uuid", limit: 16, null: false
     t.text "description"
-    t.boolean "active"
+    t.boolean "active", default: false
     t.integer "member_id", null: false
     t.integer "checkout_balance_id", null: false
     t.datetime "created_at"
