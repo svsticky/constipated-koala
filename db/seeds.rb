@@ -90,17 +90,11 @@ end
 Member.connection.commit_db_transaction
 
 Member.all.each do |member|
-  checkout_balance = CheckoutBalance.create(
-    balance:   0,
-    member_id: member.id
-  )
-
   Faker::Number.between(1, 2).times do
     CheckoutCard.create(
       uuid:                Faker::Number.hexadecimal(8),
       active:              1,
-      member_id:           member.id,
-      checkout_balance_id: checkout_balance.id
+      member_id:           member.id
     )
   end
 
