@@ -78,11 +78,15 @@
                     %span &euro;
                     %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '') }
 
-                  %select#payment_method{ :required => true }
-                    %option{:value => "Gepind"}= "Gepind"
-                    %option{:value => "Contant"}= "Contant"
-                    %option{:value => "", :selected => "selected" }= "-"
-                    %option{:value => "Verkoop"}= "Verkoop"
+                  <!-- Containing this selector in a div fixes an
+                  overflow in Firefox, that doesn't occur in
+                  Chrome. See #203. -->
+                  #selector-container
+                    %select#payment_method{ :required => true }
+                      %option{:value => "Gepind"}= "Gepind"
+                      %option{:value => "Contant"}= "Contant"
+                      %option{:value => "", :selected => "selected" }= "-"
+                      %option{:value => "Verkoop"}= "Verkoop"
 
                   %span.input-group-btn
                     %button.btn.btn-warning opwaarderen
