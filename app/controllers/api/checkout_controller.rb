@@ -13,7 +13,10 @@ class Api::CheckoutController < ApplicationController
   end
 
   def info
-    @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid])
+    @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by(uuid: params[:uuid])
+    if not @card
+      head :not_found
+    end
   end
 
   def purchase
