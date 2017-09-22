@@ -24,7 +24,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         uuid: $( row ).attr( 'data-uuid' ),
         authenticity_token: token
       }
-    }).done(function( data, status ){
+    }).done(function(){
       alert( 'Kaart geactiveerd', 'success' );
       $( row ).remove();
     }).fail(function(){
@@ -48,7 +48,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         authenticity_token: token,
         _destroy: true
       }
-    }).done(function( data, status ){
+    }).done(function(){
       alert( 'Kaart verwijderd', 'warning' );
       $( row ).remove();
     }).fail(function(){
@@ -57,133 +57,84 @@ $(document).on( 'ready page:load turbolinks:load', function(){
     });
   });
 
+  var credit = $( '#credit' );
   // search members using dropdown
-  $( '#credit' ).find( 'input#card_holder' ).search().on( 'selected', function(event, id, name){
+  var cardHolder = credit.find( 'input#card_holder' );
+  var amountInput = credit.find( '.form-group input#amount' );
+  var paymentMethodInput = credit.find('select#payment_method');
+  cardHolder.search().on( 'selected', function(event, id, name){
 
     $( this ).attr( 'disabled', 'disabled' ).val( name );
-    $( '#credit .form-group#card' ).attr( 'data-id', id).removeClass( 'col-md-12' ).addClass( 'col-md-4' );
+    credit.find( '.form-group#search_card' ).attr( 'data-id', id).removeClass( 'col-md-12' ).addClass( 'col-md-4' );
 
-    $( '#credit .form-group' ).css( 'display', 'block' );
-    $( '#credit .form-group input#amount' ).focus();
+    credit.find( '.form-group' ).css( 'display', 'block' );
+    amountInput.focus();
   });
 
   // catch [ESC] to cancel
-  $( '#credit' ).find( 'input#amount' ).on( 'keyup', function( event, code ){
-    if( event.keyCode == 27 || code == 27 ){
-      $( '#credit .form-group#card input' ).removeAttr( 'disabled' ).val('');
-      $( '#credit .form-group:not(#card)' ).css( 'display', 'none' );
-      $( '#credit .form-group#card' ).removeAttr( 'data-id' ).removeClass( 'col-md-4' ).addClass( 'col-md-12' );
-      $( '#credit input#card_holder' ).focus();
-      $( '#credit input#amount' ).val('');
+  amountInput.on( 'keyup', function( event, code ){
+    if( event.keyCode === 27 || code === 27 ){
+      credit.find( '.form-group#search_card input' ).removeAttr( 'disabled' ).val('');
+      credit.find( '.form-group:not(#search_card)' ).css( 'display', 'none' );
+      credit.find( '.form-group#search_card' ).removeAttr( 'data-id' ).removeClass( 'col-md-4' ).addClass( 'col-md-12' );
+      cardHolder.focus();
+      $( this ).val('');
     }
   });
 
   // after member is selected, set an amount
-  $( '#credit' ).find( 'form.form-inline' ).on( 'submit', function( event ){
+  credit.find( 'form.form-inline' ).on( 'submit', function( event ){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
 
     event.preventDefault();
-    if( $( '#credit .form-group input#amount' ).prop( 'disabled'))
+    if( amountInput.prop( 'disabled'))
       return;
 
-    if( !$( '#credit .form-group input#amount' ).val()) {
+    if( !amountInput.val()) {
       alert ( 'De opwaardering kan niet nul zijn', 'error');
       return;
     }
 
-    var price = $( '#credit .form-group input#amount' ).val();
+    var price = amountInput.val();
 
     // Make it a bit more pretty
     if(!isNaN(price))
       $(this).val(parseFloat(price).toFixed(2));
 
-    $( '#credit .form-group input#amount' ).prop( 'disabled' , true );
+    amountInput.prop( 'disabled' , true );
 
     $.ajax({
       url: '/apps/transactions',
       type: 'PATCH',
       data: {
-        member_id: $( '#credit .form-group#card' ).attr( 'data-id' ),
+        member_id: credit.find( '.form-group#search_card' ).attr( 'data-id' ),
         amount: price,
-        payment_method: $( '#credit .form-group select#payment_method' ).val(),
+        payment_method: paymentMethodInput.val(),
         authenticity_token: token
       }
     }).done(function( data ){
-      $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
+      amountInput.prop( 'disabled' , false);
       alert( 'Checkout opgewaardeerd', 'success' );
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
 
       //formulier terugveranderen
-      $( '#credit' ).find( 'input#amount' ).trigger( 'keyup', [27]);
+      amountInput.trigger( 'keyup', [27]);
 
       //Reset select (payment_method)
-      $( '#credit .form-group select#payment_method' ).val('');
+      paymentMethodInput.val('');
 
     }).fail(function( data ){
-      $( '#credit .form-group input#amount' ).prop( 'disabled' , false );
+      amountInput.prop( 'disabled' , false );
 
-      if( data.status == 404 )
+      if( data.status === 404 )
         alert( 'Er is geen kaart gevonden', 'error' );
 
-      if( data.status == 413 )
+      if( data.status === 413 )
         alert( data.responseText, 'error' );
 
-      if( data.status == 400 )
-        alert( 'Het bedrag moet numeriek zijn', 'error' );
-    });
-  });
-
-  // after member is selected, set an amount
-  $( '#credit.input-group > span > button' ).on( 'click', function( event ){
-    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
-
-    if( !$( '#credit input#amount'  ).val() ) {
-      alert ( 'De opwaardering kan niet nul zijn', 'error');
-      return;
-    }
-
-    if( $( '#credit.input-group > #amount' ).prop( 'disabled' ))
-      return;
-
-    var price = $( '#credit input#amount' ).val();
-
-    // Make it a bit more pretty
-    if(!isNaN(price))
-      $(this).val(parseFloat(price).toFixed(2));
-
-    $( '#credit.input-group > #amount' ).prop( 'disabled' , true );
-
-    $.ajax({
-      url: '/apps/transactions',
-      type: 'PATCH',
-      data: {
-        member_id: $( '#credit.input-group' ).attr( 'data-member-id' ),
-        amount: price,
-        payment_method: $( '#credit.input-group select#payment_method' ).val(),
-        authenticity_token: token
-      }
-    }).done(function( data ){
-      $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
-      alert( 'Checkout opgewaardeerd', 'success' );
-
-      //toevoegen aan de lijst
-      $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
-
-      //remove from input and select
-      $( '#credit.input-group > (#amount, select#payment_method)' ).val('');
-
-    }).fail(function( data ){
-      $( '#credit.input-group > #amount' ).prop( 'disabled' , false );
-
-      if( data.status == 404 )
-        alert( 'Er is geen kaart gevonden', 'error' );
-
-      if( data.status == 413 )
-        alert( data.responseText, 'error' );
-
-      if( data.status == 400 )
+      if( data.status === 400 )
         alert( 'Het bedrag moet numeriek zijn', 'error' );
     });
   });
