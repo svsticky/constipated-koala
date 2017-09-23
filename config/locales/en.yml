@@ -235,10 +235,10 @@ en:
       login: Sign in
 
     passwords:
-      new: Enter you mail address to obtain a new password
-      edit: Register
+      new: Enter your email address to obtain a new password.
+      edit: Enter the password you want to use for your Sticky-account.
 
     confirmations:
-      new: Confirm your mail address
+      new: Confirm your email address
 
   association_name: Study association Sticky

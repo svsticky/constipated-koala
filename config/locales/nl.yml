@@ -288,8 +288,8 @@ nl:
       login: Inloggen
 
     passwords:
-      new: Vul hier jouw e-mailadres in om een nieuw wachtwoord op te vragen.
-      edit: Registreer jouw Sticky acccount.
+      new: Vul hier jouw e-mailadres in om een nieuw wachtwoord aan te vragen.
+      edit: Vul hier het gewenste wachtwoord in voor je Sticky-account.
 
     confirmations:
       new: Bevestig jouw e-mailadres voor jouw Sticky-account.
