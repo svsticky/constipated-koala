@@ -8,6 +8,7 @@ Faker::Config.locale = :nl
 puts '-- Populate the database with default configuration'
 
 # Default values required for educations
+puts 'Creating studies'
 Study.create(
   id:      1,
   code:    'INCA',
@@ -45,12 +46,14 @@ Study.create(
 )
 
 # Create one board which by default is not selectable in the app
+puts 'Creating board group'
 Group.create(
   name:       'Bestuur',
   category:   1,
   created_at: Faker::Date.between(3.years.ago, 2.years.ago)
 )
 
+puts 'Creating membership activity'
 activity = Activity.create(
   name:       'Lidmaatschap',
   price:      7.5,
@@ -60,8 +63,27 @@ activity = Activity.create(
 # Seeds not working on CI
 exit unless Rails.env.development? || Rails.env.staging?
 
+puts 'Creating products'
+3.times do
+  # Create a few food products
+  CheckoutProduct.create!(
+    name:     Faker::Food.unique.dish,
+    category: Faker::Number.between(2, 4),
+    price:    Faker::Number.between(0.50, 4.0),
+    skip_image_validation: true
+  )
+
+  # Create a few alcoholic products
+  CheckoutProduct.create(
+    name:     Faker::Beer.name,
+    category: 5,
+    price:    Faker::Number.between(1.0, 3.0),
+    skip_image_validation: true
+  )
+end
+
 # Create 60 members and their studies
-puts '-- Populate the database using Faker'
+puts 'Creating members'
 60.times do
   first_name = Faker::Name.first_name
   last_name  = Faker::Name.last_name
@@ -89,19 +111,25 @@ end
 # Commit transaction because we need the member ids
 Member.connection.commit_db_transaction
 
+puts 'Creating balances, cards and educations'
 Member.all.each do |member|
-  checkout_balance = CheckoutBalance.create(
-    balance:   Faker::Number.decimal(2),
-    member_id: member.id
-  )
-
-  Faker::Number.between(1, 2).times do
-    CheckoutCard.create(
-      uuid:                Faker::Number.hexadecimal(8),
-      active:              1,
-      member_id:           member.id,
-      checkout_balance_id: checkout_balance.id
+  checkout_balance = nil
+  CheckoutBalance.transaction do
+    checkout_balance = CheckoutBalance.create(
+      balance:   Faker::Number.between(130.00, 150.00),
+      member_id: member.id
     )
+  end
+
+  CheckoutCard.transaction do
+    Faker::Number.between(1, 2).times do
+      CheckoutCard.create(
+        uuid:                Faker::Number.hexadecimal(8),
+        active:              1,
+        member_id:           member.id,
+        checkout_balance_id: checkout_balance.id
+      )
+    end
   end
 
   Faker::Number.between(1, 3).times do
@@ -122,23 +150,24 @@ Member.all.each do |member|
   end
 end
 
-3.times do
-  # Create a few food products
-  CheckoutProduct.create(
-    name:     Faker::Food.unique.dish,
-    category: Faker::Number.between(2, 4),
-    price:    Faker::Number.decimal(2)
-  )
+CheckoutBalance.connection.commit_db_transaction
+CheckoutCard.connection.commit_db_transaction
 
-  # Create a few alcoholic products
-  CheckoutProduct.create(
-    name:     Faker::Beer.name,
-    category: 5,
-    price:    Faker::Number.decimal(2)
-  )
+puts 'Creating checkout transactions'
+Member.all.each do |member|
+  member.checkout_cards.each do |checkout_card|
+    10.times do
+      CheckoutTransaction.create(
+        checkout_card_id:    checkout_card.id,
+        items:               CheckoutProduct.all.sample(Faker::Number.between(1, 3)).map { |product| product.id },
+        payment_method: %w[Gepind Contant Verkoop].sample
+      )
+    end
+  end
 end
 
 # Create committees
+puts 'Creating committees'
 6.times do
   group = Group.create(
     name:       Faker::Team.name,
@@ -165,6 +194,7 @@ end
 
 
 # Create 20 activities and the participants
+puts 'Creating activities'
 15.times do
   start_date = Faker::Date.between(2.years.ago, 1.years.from_now)
   start_time = nil

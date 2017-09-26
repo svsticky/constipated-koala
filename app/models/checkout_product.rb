@@ -3,7 +3,9 @@ class CheckoutProduct < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true
   validates :price, presence: true
-  validate :valid_image
+  validate :valid_image, unless: :skip_image_validation
+
+  attr_accessor :skip_image_validation
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
@@ -12,26 +14,26 @@ class CheckoutProduct < ApplicationRecord
   end
 
   has_attached_file :image,
-  	:styles => { :original => ['128x128', :png] },
-  	:validate_media_type => false,
-  	:convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
-  	:s3_permissions => {
-      :original => :'public-read'
-    }
+                    :styles              => { :original => ['128x128', :png] },
+                    :validate_media_type => false,
+                    :convert_options     => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
+                    :s3_permissions      => {
+                      :original => :'public-read'
+                    }
 
   validates_attachment_content_type :image,
-	  :content_type => ['image/jpeg', 'image/png']
+                                    :content_type => ['image/jpeg', 'image/png']
 
   before_update do
     if name_changed? || category_changed? || price_changed?
-      record = CheckoutProduct.new
-      record.name = self.name
+      record          = CheckoutProduct.new
+      record.name     = self.name
       record.category = self.category
-      record.price = self.price
-      record.parent = self.id
+      record.price    = self.price
+      record.parent   = self.id
 
       self.reload
-      self.update_columns( :active => false )
+      self.update_columns(:active => false)
 
       record.save
     end
@@ -40,32 +42,32 @@ class CheckoutProduct < ApplicationRecord
   def url
     return self.image.url(:original) if self.image.exists?
     return nil if self.parent.nil?
-    return CheckoutProduct.find_by_id( self.parent ).url
+    return CheckoutProduct.find_by_id(self.parent).url
   end
 
   def has_children?
-    return true unless CheckoutProduct.find_by_parent( self.id ).nil?
+    return true unless CheckoutProduct.find_by_parent(self.id).nil?
     return false
   end
 
   def parents
     return [] if self.parent.nil?
-    return CheckoutProduct.where( :id => self.parent).select( :id, :name, :price, :category, :created_at ) + CheckoutProduct.find_by_id(self.parent).parents
+    return CheckoutProduct.where(:id => self.parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(self.parent).parents
   end
 
-  def sales( year = nil )
+  def sales(year = nil)
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where( "created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date( year ), Date.to_date( year +1 ) ).group( :items ).count.map{ |k,v| { k => v} }
+    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date(year), Date.to_date(year +1)).group(:items).count.map { |k, v| { k => v } }
 
-    count = sales.map{ |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
+    count = sales.map { |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
 
-    return [{ self => count}] if self.parent.nil?
-    return [{ self => count}] + CheckoutProduct.find_by_id( self.parent ).sales( year )
+    return [{ self => count }] if self.parent.nil?
+    return [{ self => count }] + CheckoutProduct.find_by_id(self.parent).sales(year)
   end
 
   def self.last_version
-    self.select{ |product| !product.has_children? }
+    self.select { |product| !product.has_children? }
   end
 
   private
