@@ -13,8 +13,6 @@ class CheckoutCard < ApplicationRecord
   belongs_to :checkout_balance
 
   before_validation(on: :create) do
-    self.active = false
-
     #find balance otherwise create a new one
     balance = CheckoutBalance.find_or_create_by!(member: self.member)
 

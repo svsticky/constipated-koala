@@ -48,7 +48,7 @@ group :staging do
   gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 
-  gem 'faker'
+  gem 'faker', '>= 1.8.4'
 end
 
 group :development do
@@ -58,11 +58,11 @@ group :development do
   gem 'web-console'
   gem 'byebug', platform: :mri
 
-  gem 'faker'
+  gem 'faker', '>= 1.8.4'
   gem 'spring'
 end
 
 group :test do
   gem 'spring'
-  gem 'faker'
+  gem 'faker', '>= 1.8.4'
 end

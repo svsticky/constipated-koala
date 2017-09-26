@@ -64,7 +64,8 @@ Rails.application.configure do
   config.paperclip_defaults = {
     :storage => :filesystem,
     :path => ':rails_root/public/images/:class/:id/:style.:extension',
-    :url => 'http://koala.rails.dev:3000/images/:class/:id/:style.:extension'
+    :url => 'http://koala.rails.dev:3000/images/:class/:id/:style.:extension',
+    :default_url => ':rails_root/public/images/default.png'
   }
 
   # for development only, debugging with test environment of radio
