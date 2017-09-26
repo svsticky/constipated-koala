@@ -67,17 +67,17 @@ puts 'Creating products'
 3.times do
   # Create a few food products
   CheckoutProduct.create!(
-    name:     Faker::Food.unique.dish,
-    category: Faker::Number.between(2, 4),
-    price:    Faker::Number.between(0.50, 4.0),
+    name:                  Faker::Food.unique.dish,
+    category:              Faker::Number.between(2, 4),
+    price:                 Faker::Number.between(0.50, 4.0),
     skip_image_validation: true
   )
 
   # Create a few alcoholic products
   CheckoutProduct.create(
-    name:     Faker::Beer.name,
-    category: 5,
-    price:    Faker::Number.between(1.0, 3.0),
+    name:                  Faker::Beer.name,
+    category:              5,
+    price:                 Faker::Number.between(1.0, 3.0),
     skip_image_validation: true
   )
 end
@@ -158,9 +158,10 @@ Member.all.each do |member|
   member.checkout_cards.each do |checkout_card|
     10.times do
       CheckoutTransaction.create(
-        checkout_card_id:    checkout_card.id,
-        items:               CheckoutProduct.all.sample(Faker::Number.between(1, 3)).map { |product| product.id },
-        payment_method: %w[Gepind Contant Verkoop].sample
+        checkout_card_id: checkout_card.id,
+        items:            CheckoutProduct.all.sample(Faker::Number.between(1, 3)).map { |product| product.id },
+        payment_method:   %w[Gepind Contant Verkoop].sample,
+        created_at:       Faker::Date.backward
       )
     end
   end
