@@ -21,16 +21,6 @@ class User < ApplicationRecord
     "#{credentials.name} <#{self.email}>"
   end
 
-  def hash
-    {
-      "#{credentials_type.downcase}" => {
-        'id'       => self.credentials.id,
-        'name'     => self.credentials.name,
-        'email'    => self.email,
-      }
-    }
-  end
-
   def self.taken?(email)
     User.exists?(email: email) || User.exists?(unconfirmed_email: email)
   end
