@@ -1,5 +1,5 @@
 # Oauth endpoint
-This folder is where the complex response format are depicted. Currently the following models are supported;
+This folder (`/app/controllers/api`) is where the complex response format are depicted. Currently the following models are supported;
 
 - Members
 - Activities
