@@ -23,12 +23,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   config.action_mailer.default_url_options = {
-    :host => 'koala.rails.dev',
+    :host => 'koala.rails.local',
     :port => 3000
   }
 
   Rails.application.routes.default_url_options = {
-    :host => 'koala.rails.dev',
+    :host => 'koala.rails.local',
     :port => 3000
   }
 
@@ -64,13 +64,13 @@ Rails.application.configure do
   config.paperclip_defaults = {
     :storage => :filesystem,
     :path => ':rails_root/public/images/:class/:id/:style.:extension',
-    :url => 'http://koala.rails.dev:3000/images/:class/:id/:style.:extension',
+    :url => 'http://koala.rails.local:3000/images/:class/:id/:style.:extension',
     :default_url => ':rails_root/public/images/default.png'
   }
 
   # for development only, debugging with test environment of radio
   config.action_dispatch.default_headers.merge!({
-    'Access-Control-Allow-Origin' => 'http://radio.rails.dev:3001',
+    'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
     'Access-Control-Request-Method' => '*'
   })
 end

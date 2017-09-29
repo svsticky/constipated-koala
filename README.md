@@ -28,7 +28,7 @@ And a few regretful things; posters are uploaded as pdf's, they will be resized 
 
 ```shell
 # Add hosts for different subdomains on your own computer for development
-$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
 ```
 
 ## Future
