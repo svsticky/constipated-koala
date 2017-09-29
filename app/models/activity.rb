@@ -141,9 +141,9 @@ class Activity < ApplicationRecord
 
   def self.combine_dt(d, t)
     if t
-      DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
+      Time.zone.local(d.year, d.month, d.day, t.hour, t.min, t.sec)
     elsif d
-      DateTime.new(d.year, d.month, d.day)
+      Time.zone.local(d.year, d.month, d.day)
     else
       nil
     end
@@ -239,6 +239,6 @@ class Activity < ApplicationRecord
   end
 
   def ended?
-    (self.end_time and self.end < DateTime.now) or (self.end_time.nil? and self.start < DateTime.now)
+    (self.end_time and self.end < Time.zone.now) or (self.end_time.nil? and self.start < Time.zone.now)
   end
 end
