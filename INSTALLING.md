@@ -86,11 +86,11 @@ One final action should be performed, adding at least one admin. This can be don
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
 ### Development
-In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.dev:3000](http://koala.rails.dev:3000).
+In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.local:3000](http://koala.rails.local:3000).
 
 ```shell
 # Add hosts for different subdomains on your own computer
-$ echo "127.0.0.1 koala.rails.dev intro.rails.dev" >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
 
 # Run the server using webrick
 $ bundle exec rails server

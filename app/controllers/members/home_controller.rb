@@ -41,6 +41,7 @@ class Members::HomeController < MembersController
          .order('start_date DESC')
 
     @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
+    @transaction_costs = Settings.mongoose_ideal_costs
   end
 
   def edit

@@ -1,60 +1,124 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).on('ready page:load turbolinks:load', function(){
+$(document).on('ready page:load turbolinks:load', function () {
 
-  $('.education label a.close').bind( 'click', function() {
+  $('.education label a.close').bind('click', function () {
     var row = $('.education .copyable:last').clone().insertAfter($('.education .copyable:last'));
 
     //member[educations_attributes][39][name_id]
     var name = $(row).find('select').attr('name');
-    var id = name.match(/\[(-?\d*\d+)\]/)[1];
+    var id = name.match(/\[(-?\d*\d+)]/)[1];
 
-    if(+id < 0)
+    if (+id < 0)
       id = +id - 1;
     else
       id = -1;
 
     //replace all inputs and select name and id?
-    $(row).find('input').each(function() {
-      $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
+    $(row).find('input').each(function () {
+      $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)]/, '[' + id + ']'));
     });
 
-    $(row).find('select').each(function() {
-      $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)\]/, '[' + id + ']'));
+    $(row).find('select').each(function () {
+      $(this).val('').attr("name", $(this).attr("name").replace(/\[(-?\d*\d+)]/, '[' + id + ']'));
     });
 
     destroy(row);
   });
 
-  function destroy( el ){
+  function destroy(el) {
     var selector = $('.education .form-group a.btn.destroy');
 
-    if( el !== undefined && el !== null)
+    if (typeof el !== "undefined" && el !== null)
       selector = $(el).find('a.btn.destroy');
 
-    $( selector ).bind( "click", function(){
-      var row = $( this ).closest('.form-group');
+    $(selector).bind("click", function () {
+      var row = $(this).closest('.form-group');
 
-      var destroy = $( row ).find('input.destroy');
+      var destroy = $(row).find('input.destroy');
 
-      if(destroy.val() == 'true'){
-        $( row ).find('input').removeAttr('disabled');
-        $( row ).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
+      if (destroy.val() == 'true') {
+        $(row).find('input').removeAttr('disabled');
+        $(row).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
 
-        $( destroy ).val("false");
-        $( this ).html("<span class='fa fa-trash-o'></span>");
-      }else{
-        if(!$( row ).find('input.id').val())
-          $( row ).find('input[type="hidden"]').attr('disabled', 'disabled');
-        $( row ).find('input.form-control').attr('disabled', 'disabled');
-        $( row ).find('select').attr('disabled', 'disabled').css('background-color', 'rgb(238, 238, 238)').css('color', 'rgb(118, 118, 118)').css('border-color', 'rgb(203, 213, 221)');
+        $(destroy).val("false");
+        $(this).html("<span class='fa fa-trash-o'></span>");
+        $(row).find('input.form-control').attr('disabled', 'disabled');
 
-        $( destroy ).val("true");
-        $( this ).html("<span class='fa fa-undo'></span>");
+      } else {
+        if (!$(row).find('input.id').val())
+          $(row).find('input[type="hidden"]').attr('disabled', 'disabled');
+        $(row).find('input.form-control').attr('disabled', 'disabled');
+        $(row)
+          .find('select')
+          .attr('disabled', 'disabled')
+          .css('background-color', 'rgb(238, 238, 238)')
+          .css('color', 'rgb(118, 118, 118)')
+          .css('border-color', 'rgb(203, 213, 221)');
+
+        $(destroy).val("true");
+        $(this).html("<span class='fa fa-undo'></span>");
       }
     });
   }
+
+  // after member is selected, set an amount
+  var creditInputGroup = $('#credit.input-group');
+  var inputAmount = creditInputGroup.find('input#amount');
+  var paymentMethodInput = creditInputGroup.find('select#payment_method');
+  creditInputGroup.find('#upgrade-btn').on('click', function () {
+    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+
+    if (!inputAmount.val()) {
+      alert('De opwaardering kan niet nul zijn', 'error');
+      return;
+    }
+
+    if (inputAmount.prop('disabled'))
+      return;
+
+    var price = $(inputAmount).val();
+
+    // Make it a bit more pretty
+    if (!isNaN(price))
+      $(this).val(parseFloat(price).toFixed(2));
+
+    inputAmount.prop('disabled', true);
+
+    $.ajax({
+      url: '/apps/transactions',
+      type: 'PATCH',
+      data: {
+        member_id: creditInputGroup.attr('data-member-id'),
+        amount: price,
+        payment_method: paymentMethodInput.val(),
+        authenticity_token: token
+      }
+    }).done(function (data) {
+      inputAmount.prop('disabled', false);
+      alert('Checkout opgewaardeerd', 'success');
+
+      //toevoegen aan de lijst
+      $('#transactions').trigger('transaction_added', data); //TODO
+
+      //remove from input and select
+      paymentMethodInput.val('');
+      inputAmount.val('');
+
+    }).fail(function (data) {
+      inputAmount.prop('disabled', false);
+
+      if (data.status === 404)
+        alert('Er is geen kaart gevonden', 'error');
+
+      if (data.status === 413)
+        alert(data.responseText, 'error');
+
+      if (data.status === 400)
+        alert('Het bedrag moet numeriek zijn', 'error');
+    });
+  });
 
   destroy(null);
 });

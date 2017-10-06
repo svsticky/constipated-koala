@@ -116,8 +116,13 @@ class Member < ApplicationRecord
     @create_account
   end
 
+  def tags_names
+    self.tags.pluck(:name)
+  end
+
   def tags_names=(tags)
-    Tag.where( :member_id => id, :name => Tag.names.map{ |tag, i| i unless tags.include?(tag) }).destroy_all
+    inversetagnames = Tag.names.keys - tags
+    self.tags.where(name: inversetagnames).delete_all
 
     tags.each do |tag|
       next if tag.empty?
