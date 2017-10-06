@@ -110,7 +110,7 @@
 
           %tr.form
             %td.home_mongoose_form_element
-              = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + ' transactiekosten in rekening gebracht'
+              = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + ' transactiekosten in rekening gebracht', :required => ''
             %td.home_mongoose_form_element
               .ui-select{ :style => 'margin-top: 5px;' }
                 = f.select :bank, options_for_select(IdealTransaction::issuers), {}, {style: 'min-width: 0px !important'}
