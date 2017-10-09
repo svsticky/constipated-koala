@@ -218,6 +218,18 @@ en:
         checkout_product:
         blank: can't be empty
 
+        checkout_transaction:
+          attributes:
+            price:
+              blank: The price was not specified
+              other_than: The upgrade can't be 0
+              insufficient_credit: Insufficient credit
+            payment_method:
+              blank: The payment method was not specified
+            items:
+              not_liquor_time: 'Buying alcohol is not allowed until %{Settings.liquor_time}'
+              member_under_age: You're legally not allowed to buy alcohol yet
+
         ideal_transaction:
         blank: can't be empty
         processed: is already processed
