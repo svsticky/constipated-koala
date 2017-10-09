@@ -101,8 +101,8 @@ puts 'Creating members'
       email:        Faker::Internet.safe_email(first_name + '.' + last_name),
       gender:       ['m', 'f'].sample,
       student_id:   "F#{Faker::Number.number(6)}",
-      birth_date:   Faker::Date.between(28.years.ago, 18.years.ago),
-      join_date:    Faker::Date.between(3.years.ago, Date.today),
+      birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
+      join_date:    Faker::Date.between(6.years.ago, Date.today),
       comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
     ) and puts "   -> #{member.name} (#{member.student_id})"
   end
