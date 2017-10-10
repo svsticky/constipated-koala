@@ -82,6 +82,38 @@ puts 'Creating products'
   )
 end
 
+puts 'Creating admin: dev@svsticky.nl, sticky123'
+Admin.create!(
+  email: 'dev@svsticky.nl',
+  password: 'sticky123',
+  skip_confirmation: true
+)
+
+puts 'Creating test user: test@svsticky.nl, test123'
+=begin
+Member.create(
+  first_name:   'Sticky',
+  last_name:    'Developer',
+  address:      Faker::Address.street_name,
+  house_number: Faker::Address.building_number,
+  postal_code:  Faker::Address.postcode,
+  city:         Faker::Address.city,
+  phone_number: Faker::PhoneNumber.phone_number,
+  email:        Faker::Internet.safe_email(first_name + '.' + last_name),
+  gender:       ['m', 'f'].sample,
+  student_id:   "F#{Faker::Number.number(6)}",
+  birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
+  join_date:    Faker::Date.between(6.years.ago, Date.today),
+  comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
+)
+=end
+test_user = User.new(
+  email: 'test@svsticky.nl',
+  password: 'test123'
+)
+test_user.skip_confirmation!
+test_user.save
+
 # Create 60 members and their studies
 puts 'Creating members'
 60.times do
