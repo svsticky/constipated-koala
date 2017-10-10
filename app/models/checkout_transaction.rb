@@ -15,7 +15,7 @@ class CheckoutTransaction < ApplicationRecord
   before_validation do
     # add items for a price
     unless items.blank?
-      self.price = -items.reduce { |total, item| total + item.price }
+      self.price = -items.reduce(0) { |total, item_id| total + CheckoutProduct.find(item_id).price }
     end
 
     if checkout_balance.nil?
@@ -39,8 +39,8 @@ class CheckoutTransaction < ApplicationRecord
     return unless items.any? {|item| CheckoutProduct.find(item).liquor?}
 
     # only place you should use now, because liquor_time is without zone
-    errors.add(attr, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
-    errors.add(attr, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
+    errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
+    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
   end
 
   def price=(price)
