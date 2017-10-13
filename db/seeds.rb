@@ -89,7 +89,7 @@ Admin.create!(
   skip_confirmation: true
 )
 
-puts 'Creating test user: test@svsticky.nl, test123'
+puts 'Creating test user: test@svsticky.nl, sticky123'
 test_member = Member.create(
   first_name:   'Sticky',
   last_name:    'Tester',
