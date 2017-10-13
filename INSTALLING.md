@@ -78,10 +78,9 @@ $ bundle exec rake routes
 # Create and populate the database for development
 $ RAILS_ENV=development bundle exec rake db:create db:setup
 ```
+This will install the gems, setup the database and create an admin and test user account for you: dev@svsticky.nl and This will install the gems, setup the database and create an admin and test user account for you: dev@svsticky.nl and This will install the gems, setup the database and create an admin and test user account for you: dev@svsticky.nl and test@svsticky.nl respectively. Password for both is sticky123.
 
 Yarn is a package manager for frontend packages. It's currently used for Bootstrap. Install using the [installation guide](https://yarnpkg.com/en/docs/install). Run command `yarn` to initialise Yarn.
-
-One final action should be performed, adding at least one admin. This can be done by a rake task; `bundle exec rake "admin:create[martijn@svsticky.nl, sticky123]"` and goto the url displayed or mailed if you set mailgun correctly!
 
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
