@@ -216,7 +216,6 @@ Layout/MultilineMethodCallIndentation:
 Layout/MultilineOperationIndentation:
   Exclude:
     - 'app/controllers/admin/payments_controller.rb'
-    - 'app/models/activity.rb'
 
 # Offense count: 7
 # Cop supports --auto-correct.
@@ -281,7 +280,6 @@ Layout/SpaceBeforeBlockBraces:
     - 'app/controllers/admin/settings_controller.rb'
     - 'app/controllers/public_controller.rb'
     - 'app/mailers/application_mailer.rb'
-    - 'app/models/activity.rb'
     - 'app/models/group.rb'
     - 'app/models/ideal_transaction.rb'
     - 'app/models/member.rb'
@@ -304,7 +302,6 @@ Layout/SpaceInsideBlockBraces:
     - 'app/controllers/admin/members_controller.rb'
     - 'app/controllers/admin/payments_controller.rb'
     - 'app/controllers/api/activities_controller.rb'
-    - 'app/models/activity.rb'
     - 'app/models/checkout_transaction.rb'
     - 'app/models/ideal_transaction.rb'
     - 'app/models/member.rb'
@@ -525,7 +522,6 @@ Performance/Casecmp:
 # Cop supports --auto-correct.
 Performance/StringReplacement:
   Exclude:
-    - 'app/models/activity.rb'
     - 'app/models/checkout_product.rb'
     - 'app/models/member.rb'
     - 'app/models/participant.rb'
@@ -542,7 +538,6 @@ Style/AndOr:
     - 'app/controllers/api/groups_controller.rb'
     - 'app/controllers/api/participants_controller.rb'
     - 'app/controllers/users/registrations_controller.rb'
-    - 'app/models/activity.rb'
     - 'app/models/member.rb'
     - 'app/models/user.rb'
 
@@ -596,20 +591,11 @@ Style/ConditionalAssignment:
   Exclude:
     - 'app/controllers/admin/payments_controller.rb'
     - 'app/mailers/mailings/participants.rb'
-    - 'app/models/activity.rb'
     - 'app/models/group.rb'
 
 # Offense count: 44
 Style/Documentation:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'app/models/activity.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -683,11 +669,6 @@ Style/IdenticalConditionalBranches:
     - 'app/controllers/admin/checkout_products_controller.rb'
     - 'app/controllers/members/home_controller.rb'
 
-# Offense count: 1
-Style/IfInsideElse:
-  Exclude:
-    - 'app/models/activity.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: MaxLineLength.
@@ -750,7 +731,6 @@ Style/NumericPredicate:
     - 'app/controllers/admin/home_controller.rb'
     - 'app/controllers/admin/members_controller.rb'
     - 'app/mailers/mailings/participants.rb'
-    - 'app/models/activity.rb'
     - 'app/models/checkout_transaction.rb'
 
 # Offense count: 1
@@ -775,12 +755,6 @@ Style/PreferredHashMethods:
   Exclude:
     - 'app/models/member.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'app/models/activity.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantBegin:
@@ -797,7 +771,6 @@ Style/RedundantReturn:
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Exclude:
-    - 'app/models/activity.rb'
     - 'app/models/admin.rb'
     - 'app/models/checkout_card.rb'
     - 'app/models/checkout_product.rb'
@@ -842,7 +815,6 @@ Style/StringLiterals:
     - 'app/controllers/admin/participants_controller.rb'
     - 'app/controllers/admin/payments_controller.rb'
     - 'app/mailers/mailings/participants.rb'
-    - 'app/models/activity.rb'
     - 'app/models/ideal_transaction.rb'
     - 'app/models/member.rb'
 
@@ -881,12 +853,6 @@ Style/TrivialAccessors:
 Style/UnlessElse:
   Exclude:
     - 'app/controllers/admin/payments_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'app/models/activity.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
