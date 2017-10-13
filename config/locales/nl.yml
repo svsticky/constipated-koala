@@ -244,7 +244,7 @@ nl:
           blank: kan niet leeg zijn
           attributes:
             phone_number:
-              invalid: bestaat uit 10 cijfers
+              invalid: bestaat niet uit 10 cijfers
             email:
               taken: is al geregistreerd
               invalid: is geen geldig e-mailadres
