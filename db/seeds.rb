@@ -129,7 +129,7 @@ puts 'Creating members'
       house_number: Faker::Address.building_number,
       postal_code:  Faker::Address.postcode,
       city:         Faker::Address.city,
-      phone_number: Faker::PhoneNumber.phone_number,
+      phone_number: Faker::Base.numerify('+316########'),
       email:        Faker::Internet.safe_email(first_name + '.' + last_name),
       gender:       ['m', 'f'].sample,
       student_id:   "F#{Faker::Number.number(6)}",
