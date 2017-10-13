@@ -170,6 +170,9 @@ en:
       incomplete: Oh snap, you forgot some things
       no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
 
+      messages:
+        blank: can't be blank
+
       subscribe:
         failed: Your payment has failed, but you have been enrolled!
         success: Your payment has been received and you are enrolled!
@@ -203,7 +206,6 @@ en:
               after_start_date: can't be after the start date
 
         member:
-        blank: can't be blank
         attributes:
           phone_number:
             invalid: consists of 10 digits
@@ -215,8 +217,16 @@ en:
             invalid: is not valid
             elfproef: is not valid
 
-        checkout_product:
-        blank: can't be empty
+        user:
+          attributes:
+            email:
+              invalid: is not a valid email address
+              taken: already exists in the database
+            password:
+              too_short: should be at least 8 characters long
+              invalid: isn't valid
+            password_confirmation:
+              confirmation: isn't repeated correctly
 
         checkout_transaction:
           attributes:
@@ -231,7 +241,6 @@ en:
               member_under_age: You're legally not allowed to buy alcohol yet
 
         ideal_transaction:
-        blank: can't be empty
         processed: is already processed
         attributes:
           checkout: Mongoose credit
