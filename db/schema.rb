@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.integer "parent"
     t.boolean "active", default: true
     t.decimal "price", precision: 6, scale: 2
-    t.integer "kelder_voorraad"
-    t.integer "kamer_voorraad"
+    t.integer "kelder_voorraad", default: 0
+    t.integer "kamer_voorraad", default: 0
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
