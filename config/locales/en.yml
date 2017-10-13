@@ -203,20 +203,20 @@ en:
               after_start_date: can't be after the start date
 
         member:
-        blank: can't be blank
-        attributes:
-          phone_number:
-            invalid: consists of 10 digits
-          email:
-            taken: is already registered
-            invalid: is not a valid mail address
-          student_id:
-            taken: is already reigstered
-            invalid: is not valid
-            elfproef: is not valid
+          blank: can't be blank
+          attributes:
+            phone_number:
+              invalid: consists of 10 digits
+            email:
+              taken: is already registered
+              invalid: is not a valid mail address
+            student_id:
+              taken: is already reigstered
+              invalid: is not valid
+              elfproef: is not valid
 
         checkout_product:
-        blank: can't be empty
+          blank: can't be empty
 
         checkout_transaction:
           attributes:
@@ -231,11 +231,11 @@ en:
               member_under_age: You're legally not allowed to buy alcohol yet
 
         ideal_transaction:
-        blank: can't be empty
-        processed: is already processed
-        attributes:
-          checkout: Mongoose credit
-          fees: iDEAL fee
+          blank: can't be empty
+          processed: is already processed
+          attributes:
+            checkout: Mongoose credit
+            fees: iDEAL fee
 
         unpermitted: is not permitted
 
