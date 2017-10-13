@@ -257,9 +257,9 @@ nl:
           blank: kan niet leeg zijn
           attributes:
             email:
-              blank: is geen geldig e-mailadres
+              blank: mag niet leeg zijn
               invalid: is geen geldig e-mailadres
-              taken: is geen geldig e-mailadres
+              taken: bestaat al in database
             password:
               too_short: moet minstens 8 tekens hebben
               invalid: moet minstens 8 tekens hebben
