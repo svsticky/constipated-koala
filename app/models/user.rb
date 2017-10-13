@@ -20,7 +20,11 @@ class User < ApplicationRecord
   end
 
   def sender
-    "#{ credentials.name } <#{ email }>"
+    "#{ credentials.name } <#{ self.email }>"
+  end
+
+  def self.taken?(email)
+    User.exists?(email: email) || User.exists?(unconfirmed_email: email)
   end
 
   # Admins must always re-enter their password.

@@ -37,14 +37,21 @@ gem 'rails-settings-cached'
 gem 'paperclip'
 gem 'terrapin'
 
+gem 'chartkick'
+gem 'groupdate'
+
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
+gem 'bootstrap-will_paginate'
+
 group :production, :staging do
   gem 'sentry-raven'
-  gem 'uglifier'
   gem 'unicorn'
+  gem 'uglifier'
 end
 
 group :development, :test, :staging do
-  gem 'faker'
+  gem 'faker', '>= 1.8.4'
 end
 
 group :development do

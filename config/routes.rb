@@ -88,8 +88,14 @@ Rails.application.routes.draw do
       end
 
       scope 'apps' do
-        get 'ideal',              to: 'apps#ideal'
-        get 'checkout',           to: 'apps#checkout'
+        get 'ideal',                   to: 'apps#ideal'
+        get 'checkout',                to: 'apps#checkout'
+        get 'stocky',                  to: 'stocks#stock'
+        get 'stocky/stock',            to: 'stocks#stock'
+        get 'stocky/purchases',        to: 'stocks#purchases'
+        post 'stocky/create',          to: 'stocks#create'
+        post 'stocky/create_purchase', to: 'stocks#create_purchase'
+        get 'stocky/sales',            to: 'stocks#sales'
 
         # json checkout urls
         patch  'cards',           to: 'checkout_products#activate_card'

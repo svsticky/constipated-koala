@@ -93,6 +93,9 @@ nl:
         liquor_time:
           name: Tijdstip vanaf wanneer alcohol verkocht wordt
           description: Het tijdstip vanaf wanneer leden alcohol kunnen kopen in Checkout. Tot die tijd wordt een foutmelding gepresenteerd.
+        mongoose_price_compensation_factor:
+          name: Mongoose prijs compensatie factor
+          description: De kostprijs van alle Mongoose producten wordt met deze factor vermenigvuldigd om de verkoopprijs te verkrijgen. Dit wordt gebruikt om het verlies en over datum gaan van producten (derving) te compenseren, zodat de Mongoose geen verlies en geen winst maakt.
 
         intro_membership:
           name: Introductie lidmaatschap
@@ -225,6 +228,8 @@ nl:
           success: "Transactie is verwerkt!"
         member:
           attributes:
+            phone_number:
+              invalid: bestaat niet uit 10 cijfers
             email:
               invalid: "is geen geldig e-mailadres"
               taken: "is al geregistreerd"

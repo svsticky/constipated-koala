@@ -39,6 +39,10 @@ class Admin::SettingsController < ApplicationController
 
       head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
       Settings[params[:setting]] = params[:value]
+
+    elsif ['mongoose_price_compensation_factor'].include? params[:setting]
+      head :bad_request and return if (params[:value] =~ /\d{1,}([,.]\d{1,})?/).nil?
+      Settings[params[:setting]] = params[:value]
     end
 
     head :ok

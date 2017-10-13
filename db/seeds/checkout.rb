@@ -25,10 +25,12 @@ end
 puts '-- Creating products'
 5.times do
   # Create a few food products
-  CheckoutProduct.create!(
+  CheckoutProductType.create!(
     name:                  Faker::Food.unique.dish,
     category:              Faker::Number.between(2, 4),
     price:                 Faker::Number.between(0.50, 4.0),
+    storage_stock:         Faker::Number.between(0, 200),
+    chamber_stock:         Faker::Number.between(0, 50),
     skip_image_validation: true
   )
 end
@@ -39,7 +41,34 @@ end
     name:                  Faker::Beer.name,
     category:              5,
     price:                 Faker::Number.between(1.0, 3.0),
+    storage_stock:         Faker::Number.between(0, 200),
+    chamber_stock:         Faker::Number.between(0, 50),
     skip_image_validation: true
+  )
+end
+
+# Create stocky purchases
+puts '-- Creating stocky purchases'
+20.times do
+  date = Faker::Date.between(4.months.ago, 1.day.ago)
+  StockyTransaction.create!(
+    checkout_product_type: CheckoutProductType.all.sample,
+    amount:                Faker::Number.between(1, 100),
+    from:                  "shop",
+    to:                    "basement",
+    created_at:            date
+  )
+end
+
+puts '-- Creating Stocky Transactions'
+20.times do
+  date = Faker::Date.between(4.months.ago, 1.day.ago)
+  StockyTransaction.create!(
+    checkout_product_type: CheckoutProductType.all.sample,
+    amount:                Faker::Number.between(1, 100),
+    from:                  ["shop", "basement", "mongoose"].sample,
+    to:                    ["basement", "mongoose"].sample,
+    created_at:            date
   )
 end
 

@@ -5,6 +5,7 @@ class Admin < ApplicationRecord
   attr_accessor :email
   attr_accessor :password
   attr_accessor :password_confirmation
+  attr_accessor :skip_confirmation
 
   def name
     return "#{ first_name } #{ last_name }" if infix.blank?

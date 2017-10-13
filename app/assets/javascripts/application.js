@@ -23,3 +23,5 @@
 //= require bootstrap/dist/js/bootstrap
 //
 //= require_tree ./admin
+//= require Chart.bundle
+//= require chartkick

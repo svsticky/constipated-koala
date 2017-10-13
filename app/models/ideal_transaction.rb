@@ -96,17 +96,10 @@ class IdealTransaction < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the ideal transaction as processed
       IdealTransaction.transaction do
-        transaction = CheckoutTransaction.create!(:price => (amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(member), :payment_method => "iDeal")
 
         self.transaction_id = [transaction.id]
         save!
 
-        self.message = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')
-      end
-    end
-  end
-
-  def activities
     Activity.find(transaction_id) if transaction_type.casecmp('activity').zero?
   end
 end

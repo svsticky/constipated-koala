@@ -1,0 +1,28 @@
+= form_for :stocky_transaction, url: url, method: method, :class => 'form-validation' do |f|
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-fw.fa-ticket
+      = I18n.t 'admin.stocky.stock.new_move'
+    .panel-body
+      .form-group
+        .row
+          .col-md-4
+            = label(:stocky_transaction, :checkout_product_id)
+            .ui-select
+              = f.select :checkout_product_type_id, options_for_select( CheckoutProductType.all.order(:name).map{|p| [p.name, p.id]})
+          .col-md-2
+            = label(:stocky_transaction, :amount)
+            = f.text_field :amount, :value => @stocky_transaction.amount, :class => 'form-control'
+          .col-md-3
+            = label(:stocky_transaction, :from)
+            = f.select(:from, [['Basement', 'basement'], ['Mongoose', 'mongoose']], {}, { :class => 'form-control' })
+          .col-md-3
+            = label(:stocky_transaction, :to)
+            = f.select(:to, [['Basement', 'basement'], ['Mongoose', 'mongoose'], ['Waste', 'waste'], ['Activity', 'activity']], {}, { :class => 'form-control'})
+
+      %button.btn.btn-success.wait{type: 'submit'} Opslaan
+      - if (@stocky_transaction.id)
+        = link_to 'Back', :back, { :class => 'button btn btn-default' }
+        = link_to 'Verwijderen', '#', { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+      - else
+        = link_to 'Annuleren', '#', { :class => 'button btn btn-default' }

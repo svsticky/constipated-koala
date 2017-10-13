@@ -9,7 +9,7 @@ development:
   host: <%= ENV['DATABASE_HOST'] %>
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4
 
 # test
 # Version used by circleci
@@ -19,9 +19,10 @@ test:
   host:  127.0.0.1
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: <%= ENV['DATABASE_SOCKET'] %>
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4
 
 # Production
 # Version for public use running on svsticky.nl
@@ -34,7 +35,7 @@ production:
   host: localhost
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4
 
 # Staging
 # Version for QA running on dev.svsticky.nl
@@ -47,4 +48,4 @@ staging:
   host: localhost
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4

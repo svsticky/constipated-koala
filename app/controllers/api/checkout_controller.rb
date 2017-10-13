@@ -1,13 +1,17 @@
 # Controller used for checkout before oauth was implemented
 # @deprecated controller, base controller should be replaced with oauth
-class Api::CheckoutController < ActionController::Base
+class Api::CheckoutController < ApplicationController
   protect_from_forgery except: %i[info purchase create products]
+
+  skip_before_action :authenticate_user!, only: %i[info purchase create products confirm]
+  skip_before_action :authenticate_admin!, only: %i[info purchase create products confirm]
+
   before_action :authenticate_checkout, only: %i[info purchase create products]
 
   respond_to :json
 
   def products
-    @products = CheckoutProduct.where(active: true)
+    @products = CheckoutProductType.where(active: true)
   end
 
   def info
@@ -34,10 +38,8 @@ class Api::CheckoutController < ActionController::Base
       }
     else
       i18n_scope = %i[activerecord errors models checkout_transaction attributes]
-
-      not_liquor_time_translation = I18n.t('items.not_liquor_time', scope: i18n_scope)
+      not_liquor_time_translation = I18n.t('items.not_liquor_time', scope: i18n_scope, liquor_time: Settings.liquor_time)
       insufficient_credit_translation = I18n.t('price.insufficient_credit', scope: i18n_scope)
-
       case transaction.errors
       when transaction.errors[:items].includes(not_liquor_time_translation)
         render status: :not_acceptable, json: {

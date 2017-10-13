@@ -13,7 +13,7 @@ Metrics/AbcSize:
   Max: 125
 
 Metrics/BlockLength:
-  Max: 275
+  Max: 500
 
 Metrics/ClassLength:
   Max: 500
@@ -35,3 +35,8 @@ Layout/SpaceInsideStringInterpolation:
 Style/RegexpLiteral:
   EnforcedStyle: slashes
   AllowInnerSlashes: true
+
+# Ignore auto-generated whitespace errors
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'db/schema.rb'

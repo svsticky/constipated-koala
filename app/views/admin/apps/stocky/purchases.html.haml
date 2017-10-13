@@ -1,0 +1,47 @@
+- content_for(:page, 'apps')
+- content_for(:subpage, 'stock management')
+
+- content_for(:title, 'Apps | Stocky')
+
+%section#content
+  = render 'layouts/partials/search'
+
+  = line_chart @chart_data
+
+  .page
+    = render 'admin/apps/stocky/partials/stocknav'
+    .row
+      .col-lg-12
+        %section.panel.panel-default.table-dynamic
+          .panel-heading
+            = I18n.t 'admin.stocky.purchases.title'
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      = I18n.t 'admin.stocky.product'
+                  %th
+                    .th
+                      = I18n.t 'admin.stocky.amount'
+                  %th
+                    .th
+                      = I18n.t 'admin.stocky.date'
+              - @purchases.each do |purchase|
+                %tr
+                  %td
+                    = purchase.checkout_product_type.name
+                  %td
+                    = purchase.amount
+                  %td
+                    = purchase.created_at
+          %footer.table-footer
+            .row
+              .col-md-12.text-right
+                = will_paginate @purchases
+
+    .row
+      .col-lg-12
+        = render 'admin/apps/stocky/partials/new_purchase',
+        url: '/apps/stocky/create_purchase', method: :post

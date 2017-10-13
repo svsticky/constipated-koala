@@ -77,6 +77,10 @@ aside a[href='#'] {
   margin: 0;
 }
 
+.pagination {
+  margin: 0;
+}
+
 .table-footer .page-num-info {
   top: 5px;
 }

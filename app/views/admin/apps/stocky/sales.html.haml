@@ -1,0 +1,40 @@
+- content_for(:page, 'apps')
+- content_for(:subpage, 'stock management')
+
+- content_for(:title, 'Apps | Stocky')
+
+%section#content
+  = render 'layouts/partials/search'
+
+  .page
+    = render 'admin/apps/stocky/partials/stocknav'
+    .row
+      .col-lg-12
+        %section.panel.panel-default.table-dynamic
+          .panel-heading
+            = I18n.t 'admin.stocky.sales.title'
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      = I18n.t 'admin.stocky.product'
+                  %th
+                    .th
+                      = I18n.t 'admin.stocky.amount'
+                  %th
+                    .th
+                      = I18n.t 'admin.stocky.date'
+              - @sales.each do |sale|
+                %tr
+                  %td
+                    = sale.checkout_product_type.name
+                  %td
+                    = sale.amount
+                  %td
+                    = sale.created_at
+          %footer.table-footer
+            .row
+              .col-md-12.text-right
+                = will_paginate @sales
