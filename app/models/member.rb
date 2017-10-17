@@ -351,7 +351,9 @@ class Member < ApplicationRecord
   end
 
   # Private function cannot be called from outside this class
+
   private
+
   def self.filter( query )
     records = self
     study = query.match /(studie|study):([A-Za-z-]+)/

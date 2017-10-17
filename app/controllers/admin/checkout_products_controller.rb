@@ -94,6 +94,7 @@ class Admin::CheckoutProductsController < ApplicationController
   end
 
   private
+
   def product_post_params
     params.require(:checkout_product).permit( :name,
                                               :price,

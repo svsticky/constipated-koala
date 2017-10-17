@@ -71,6 +71,7 @@ class CheckoutProduct < ApplicationRecord
   end
 
   private
+
   def valid_image
     errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless self.image.present? || parent.present?
   end

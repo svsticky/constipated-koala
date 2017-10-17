@@ -6,33 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Layout/EmptyLines:
-  Exclude:
-    - 'app/controllers/public_controller.rb'
-    - 'app/mailers/mailings/devise.rb'
-    - 'db/migrate/20140413133212_create_admins.rb'
-    - 'db/seeds.rb'
-
-# Offense count: 13
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'app/controllers/admin/activities_controller.rb'
-    - 'app/controllers/admin/checkout_products_controller.rb'
-    - 'app/controllers/admin/groups_controller.rb'
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/settings_controller.rb'
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/checkout_product.rb'
-    - 'app/models/member.rb'
-    - 'config/initializers/helpers.rb'
-    - 'config/initializers/paperclip.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Layout/EmptyLinesAroundBeginBody:

@@ -58,6 +58,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   private
+
   def activity_post_params
     params.require(:activity).permit( :name,
                                       :description,

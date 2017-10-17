@@ -111,6 +111,7 @@ class Members::HomeController < MembersController
   end
 
   private
+
   def member_post_params
     params.require(:member).permit(:address,
                                    :house_number,

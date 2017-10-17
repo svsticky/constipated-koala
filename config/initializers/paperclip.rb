@@ -61,6 +61,7 @@ Cocaine::CommandLine.module_eval do
   end
 
   private
+
   def interpolate(pattern, interpolations)
     interpolations = stringify_keys(interpolations)
 

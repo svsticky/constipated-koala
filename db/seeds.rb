@@ -229,7 +229,6 @@ puts 'Creating committees'
   end
 end
 
-
 # Create 20 activities and the participants
 puts 'Creating activities'
 15.times do

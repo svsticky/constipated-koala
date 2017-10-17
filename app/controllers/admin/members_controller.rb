@@ -110,6 +110,7 @@ class Admin::MembersController < ApplicationController
   end
 
   private
+
   def member_post_params
     params.require(:member).permit(:first_name,
                                    :infix,

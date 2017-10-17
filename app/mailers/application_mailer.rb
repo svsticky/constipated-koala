@@ -22,6 +22,7 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   private
+
   def mail( recipient, sender, subject, html, text )
     raise ArgumentError if html.blank? && text.blank?
 

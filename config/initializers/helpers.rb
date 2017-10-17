@@ -47,6 +47,7 @@ class Date
   end
 
   private
+
   def self.find_consecutive_year( years, year )
     # return same year if no succesive year
     return year unless years.include? 1+ year
