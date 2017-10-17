@@ -10,7 +10,7 @@ namespace :studystatus do
       if !member.nil?
         member.update_studies(line)
       else
-        puts "#{line.split(/; /).first} is not found in the database"
+        puts "#{ line.split(/; /).first } is not found in the database"
       end
     end
   end

@@ -18,9 +18,9 @@ class IdealTransaction < ApplicationRecord
 
   after_validation(on: :create) do
     http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
-    self.token = Digest::SHA256.hexdigest("#{self.member.id}#{Time.now.to_f}#{self.redirect_uri}")
+    self.token = Digest::SHA256.hexdigest("#{ self.member.id }#{ Time.now.to_f }#{ self.redirect_uri }")
 
-    request = http.post("/#{ENV['MOLLIE_VERSION']}/payments", {
+    request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments", {
       :amount => self.amount,
       :description => self.description,
 
@@ -36,7 +36,7 @@ class IdealTransaction < ApplicationRecord
       :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => self.token)
     })
 
-    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+    request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
     response = http.send! request
 
     self.trxid = response.id
@@ -50,8 +50,8 @@ class IdealTransaction < ApplicationRecord
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
       http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
 
-      request = http.get("/#{ENV['MOLLIE_VERSION']}/issuers")
-      request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+      request = http.get("/#{ ENV['MOLLIE_VERSION'] }/issuers")
+      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
       response = http.send! request
       response.data.map{ |issuer| [issuer.name, issuer.id]}
@@ -62,8 +62,8 @@ class IdealTransaction < ApplicationRecord
     http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
     @status = self.status
 
-    request = http.get("/#{ENV['MOLLIE_VERSION']}/payments/#{self.trxid}")
-    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+    request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ self.trxid }")
+    request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
     response = http.send! request
     self.status = response.status

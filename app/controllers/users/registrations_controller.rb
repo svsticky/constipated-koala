@@ -73,7 +73,7 @@ class Users::RegistrationsController < ApplicationController
       flash[:alert] = I18n.t 'devise.failure.invalid_token'
       redirect_to :new_user_session
     elsif @user.confirmed?
-      flash[:notice] = "#{@user.email} #{I18n.t 'errors.messages.already_confirmed'}"
+      flash[:notice] = "#{ @user.email } #{ I18n.t 'errors.messages.already_confirmed' }"
       redirect_to :new_user_session
     end
   end

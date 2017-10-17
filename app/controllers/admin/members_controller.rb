@@ -44,7 +44,7 @@ class Admin::MembersController < ApplicationController
       .order( start_date: :desc )
       .joins( :participants ).distinct
       .where( "participants.reservist = ?", false)
-    @years = ( @member.join_date.study_year .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
+    @years = ( @member.join_date.study_year .. Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
 
     # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
     @limit = params[:limit] ? params[:limit].to_i : 10

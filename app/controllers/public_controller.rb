@@ -47,7 +47,7 @@ class PublicController < ApplicationController
 
       if params[:method] == 'IDEAL'
         transaction = IdealTransaction.new(
-          :description => "Introductie #{@member.name}",
+          :description => "Introductie #{ @member.name }",
           :amount => total,
           :issuer => params[:bank],
           :member => @member,

@@ -270,16 +270,6 @@ Layout/SpaceInsideRangeLiteral:
     - 'app/controllers/admin/members_controller.rb'
     - 'app/models/group.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: space, no_space
-Layout/SpaceInsideStringInterpolation:
-  Exclude:
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/checkout_product.rb'
-    - 'lib/tasks/doorkeeper.rake'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:

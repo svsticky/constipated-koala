@@ -136,8 +136,8 @@ class Member < ApplicationRecord
 
   # Some other function can improve your life a lot, for example the name function
   def name
-    return "#{self.first_name} #{self.last_name}" if infix.blank?
-    return "#{self.first_name} #{self.infix} #{self.last_name}"
+    return "#{ self.first_name } #{ self.last_name }" if infix.blank?
+    return "#{ self.first_name } #{ self.infix } #{ self.last_name }"
   end
 
   # create hash for gravatar
@@ -217,10 +217,10 @@ class Member < ApplicationRecord
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
     student_id = query.match /^\F?\d{6,7}$/i
-    return self.where("student_id like ?", "%#{student_id}%") unless student_id.nil?
+    return self.where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
 
     phone_number = query.match /^(?:\+\d{2}|00\d{2}|0)(\d{9})$/
-    return self.where("phone_number like ?", "%#{phone_number[1]}") unless phone_number.nil?
+    return self.where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
     return self.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } )) if query.blank?
@@ -232,7 +232,7 @@ class Member < ApplicationRecord
 
   # Query for fuzzy search, this string is used for building indexes for searching
   def query
-    "#{self.name} #{self.email}"
+    "#{ self.name } #{ self.email }"
   end
 
   def query_changed?
@@ -242,7 +242,7 @@ class Member < ApplicationRecord
   # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
-    puts "#{self.student_id} returns empty result;" if result_id.blank?
+    puts "#{ self.student_id } returns empty result;" if result_id.blank?
 
     if self.student_id != result_id
       logger.error 'Student id received from studystatus is different'
@@ -250,7 +250,7 @@ class Member < ApplicationRecord
     end
 
     if studies == 'NOT FOUND'
-      puts "#{student_id} not found"
+      puts "#{ student_id } not found"
       return
     end
 
@@ -258,7 +258,7 @@ class Member < ApplicationRecord
       code, year, status, end_date = study.split(/, /)
 
       if Study.find_by_code(code).nil?
-        puts "#{code} is not found as a study in the database"
+        puts "#{ code } is not found as a study in the database"
         next
       end
 
@@ -272,9 +272,9 @@ class Member < ApplicationRecord
 
       if education.nil?
         education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(year.to_i, 9, 1))
-        puts " + #{code} (#{status})"
+        puts " + #{ code } (#{ status })"
       else
-        puts " ± #{code} (#{status})"
+        puts " ± #{ code } (#{ status })"
       end
 
       if status.eql?('gestopt')
@@ -295,11 +295,11 @@ class Member < ApplicationRecord
 
     # remove studies no longer present
     for education in self.educations do
-      check = "#{education.study.code} | #{education.start_date.year}"
-      check = "INCA | #{education.start_date.year}" if education.study.code == 'GT' # NOTE dirty fix for gametechers
+      check = "#{ education.study.code } | #{ education.start_date.year }"
+      check = "INCA | #{ education.start_date.year }" if education.study.code == 'GT' # NOTE dirty fix for gametechers
 
-      unless studies.map{ |string| "#{string.split(/, /)[0]} | #{string.split(/, /)[1]}" }.include?( check )
-        puts " - #{education.study.code}"
+      unless studies.map{ |string| "#{ string.split(/, /)[0] } | #{ string.split(/, /)[1] }" }.include?( check )
+        puts " - #{ education.study.code }"
         education.destroy
       end
     end

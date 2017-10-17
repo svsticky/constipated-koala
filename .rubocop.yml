@@ -12,6 +12,10 @@ ClassLength:
 Style/NumericPredicate:
   Enabled: False
 
+# Require spaces in string interpolation "#{ meme }" instead of "#{meme}"
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: space
+
 # Ignore auto-generated whitespace errors
 Layout/EmptyLinesAroundBlockBody:
   Exclude:

@@ -9,9 +9,9 @@ namespace :doorkeeper do
     })
 
     if app.save
-      puts "uid:      #{app.uid}"
-      puts "secret:   #{app.secret}"
-      puts "scopes:   #{app.scopes}"
+      puts "uid:      #{ app.uid }"
+      puts "secret:   #{ app.secret }"
+      puts "scopes:   #{ app.scopes }"
 
     else
       puts "failed creating #{ args[:name] }"

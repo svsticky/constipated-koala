@@ -6,24 +6,24 @@ Paperclip::GeometryDetector.module_eval do
     begin
       orientation = Paperclip.options[:use_exif_orientation] ? "%[exif:orientation]" : "1"
 
-      Rails.logger.debug "file: #{path}[0]"
+      Rails.logger.debug "file: #{ path }[0]"
 
       response = Paperclip.run(
         "identify",
-        "-format '%wx%h,#{orientation}' :file", {
-          :file => "#{path}[0]"
+        "-format '%wx%h,#{ orientation }' :file", {
+          :file => "#{ path }[0]"
         }, {
           :swallow_stderr => true
         }
       )
 
-      Rails.logger.debug "output #{response.inspect}"
+      Rails.logger.debug "output #{ response.inspect }"
       return response
     rescue Cocaine::ExitStatusError => e
-      Rails.logger.fatal "ExitStatus #{e.inspect}"
+      Rails.logger.fatal "ExitStatus #{ e.inspect }"
       ""
     rescue Cocaine::CommandNotFoundError => e
-      Rails.logger.fatal "CommandNotFound #{e.inspect}"
+      Rails.logger.fatal "CommandNotFound #{ e.inspect }"
       raise_because_imagemagick_missing
     end
   end
@@ -35,7 +35,7 @@ Cocaine::CommandLine.module_eval do
     @exit_status = nil
     begin
       full_command = command(interpolations)
-      log("#{colored("Command")} :: #{full_command}")
+      log("#{ colored("Command") } :: #{ full_command }")
       @output = execute(full_command)
     rescue Errno::ENOENT => e
       raise Cocaine::CommandNotFoundError, e.message
@@ -49,7 +49,7 @@ Cocaine::CommandLine.module_eval do
 
     unless @expected_outcodes.include?(@exit_status)
       message = [
-        "Command '#{full_command}' returned #{@exit_status}. Expected #{@expected_outcodes.join(", ")}",
+        "Command '#{ full_command }' returned #{ @exit_status }. Expected #{ @expected_outcodes.join(", ") }",
         "Here is the command output: STDOUT:\n", command_output,
         "\nSTDERR:\n", command_error_output
       ].join("\n")
@@ -68,7 +68,7 @@ Cocaine::CommandLine.module_eval do
       key = match.tr(":{}", "")
 
       if interpolations.key?(key)
-        "'#{interpolations[key]}'"
+        "'#{ interpolations[key] }'"
       else
         match
       end

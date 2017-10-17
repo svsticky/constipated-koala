@@ -15,9 +15,9 @@ module Mailings
       }
 
       text = <<-EOS
-Hoi #{record.credentials.name},
+Hoi #{ record.credentials.name },
 
-Bevestig je email voor je account bij studievereniging sticky door naar #{confirmation_url(record, confirmation_token: token)} te gaan.
+Bevestig je email voor je account bij studievereniging sticky door naar #{ confirmation_url(record, confirmation_token: token) } te gaan.
 
 Met vriendelijke groet,
 Het bestuur
@@ -38,7 +38,7 @@ Het bestuur
       }
 
       text = <<-EOS
-Hoi #{record.credentials.first_name},
+Hoi #{ record.credentials.first_name },
 
 ## Welkom bij Sticky!
 Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
@@ -60,7 +60,7 @@ Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiser
 ## En nu?
 Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
 
-Activeer je account voor ons ledenbeheersysteem door naar #{url} te gaan.
+Activeer je account voor ons ledenbeheersysteem door naar #{ url } te gaan.
 
 Tot snel!
 Het bestuur
@@ -86,10 +86,10 @@ Het bestuur
       }
 
       text = <<-EOS
-Hoi #{record.credentials.name},
+Hoi #{ record.credentials.name },
 
 Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuwe account aan te maken.
-Ga naar #{edit_password_url(record, reset_password_token: token)} om een nieuw wachtwoord in te stellen of negeer deze e-mail als je je huidige wachtwoord wil behouden.
+Ga naar #{ edit_password_url(record, reset_password_token: token) } om een nieuw wachtwoord in te stellen of negeer deze e-mail als je je huidige wachtwoord wil behouden.
 
 Met vriendelijke groet,
 Het bestuur

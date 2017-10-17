@@ -11,7 +11,7 @@ class String
     return true if self =~ (/^(true|t|yes|y|1)$/i)
     return false if self.empty? || self =~ (/^(false|f|no|n|0)$/i)
 
-    raise ArgumentError.new "invalid value: #{self}"
+    raise ArgumentError.new "invalid value: #{ self }"
   end
 end
 
@@ -38,7 +38,7 @@ class Date
       last = Date.find_consecutive_year( list, year )
 
       if current != last
-        years.push(  "#{year} - #{1+ last}" )
+        years.push(  "#{ year } - #{ 1+ last }" )
         current = last
       end
     end

@@ -12,9 +12,9 @@ module Mailings
       })
 
       text = <<-EOS
-Hoi #{card.member.first_name},
+Hoi #{ card.member.first_name },
 
-Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{confirmation_url} te gaan.
+Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{ confirmation_url } te gaan.
 
 Met vriendelijke groet,
 
