@@ -94,27 +94,6 @@ Layout/MultilineBlockLayout:
   Exclude:
     - 'app/views/api/activities/index.rabl'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineMethodCallBraceLayout:
-  Exclude:
-    - 'app/controllers/members/activities_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-    - 'app/controllers/public_controller.rb'
-
-# Offense count: 30
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented, indented_relative_to_receiver
-Layout/MultilineMethodCallIndentation:
-  Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-    - 'config/initializers/searchable.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

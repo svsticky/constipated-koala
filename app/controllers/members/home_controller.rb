@@ -7,15 +7,15 @@ class Members::HomeController < MembersController
     # information of the middlebar
     @balance = CheckoutBalance.find_by_member_id(current_user.credentials_id)
     @debt = Participant
-      .where(paid: false, member: @member, reservist: false)
-      .joins(:activity)
-      .where('activities.start_date < NOW()')
-      .sum(:price) \
+            .where(paid: false, member: @member, reservist: false)
+            .joins(:activity)
+            .where('activities.start_date < NOW()')
+            .sum(:price) \
      + Participant # The plus makes it work for all activities where the member does NOT have a modified price.
-      .where(paid: false, price: nil, member: @member, reservist: false)
-      .joins(:activity)
-      .where('activities.start_date < NOW()')
-      .sum('activities.price ')
+            .where(paid: false, price: nil, member: @member, reservist: false)
+            .joins(:activity)
+            .where('activities.start_date < NOW()')
+            .sum('activities.price ')
 
     # @participants =
     #   (
@@ -34,11 +34,11 @@ class Members::HomeController < MembersController
 
     @participants =
        @member.activities
-         .study_year(params['year'])
-         .distinct
-         .joins(:participants)
-         .where(:participants => { member: @member, reservist: false })
-         .order('start_date DESC')
+              .study_year(params['year'])
+              .distinct
+              .joins(:participants)
+              .where(:participants => { member: @member, reservist: false })
+              .order('start_date DESC')
 
     @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
     @transaction_costs = Settings.mongoose_ideal_costs
@@ -98,7 +98,8 @@ class Members::HomeController < MembersController
       :transaction_id => nil,
       :transaction_type => 'CheckoutTransaction',
 
-      :redirect_uri => users_root_url)
+      :redirect_uri => users_root_url
+    )
 
     if ideal.save
       redirect_to ideal.mollie_uri

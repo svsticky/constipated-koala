@@ -55,7 +55,8 @@ class PublicController < ApplicationController
           :transaction_id => activities.map { |activity| activity.id },
           :transaction_type => 'Activity',
 
-          :redirect_uri => public_url)
+          :redirect_uri => public_url
+        )
 
         if transaction.save
           redirect_to transaction.mollie_uri

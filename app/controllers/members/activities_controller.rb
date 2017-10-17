@@ -35,7 +35,8 @@ class Members::ActivitiesController < MembersController
 
     @enrollment = Participant.find_by(
         member_id: current_user.credentials_id,
-        activity_id: @activity.id)
+        activity_id: @activity.id
+    )
 
     @attendees = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
