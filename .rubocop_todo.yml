@@ -261,15 +261,6 @@ Layout/SpaceInsidePercentLiteralDelimiters:
   Exclude:
     - 'config/initializers/assets.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-Layout/SpaceInsideRangeLiteral:
-  Exclude:
-    - 'app/controllers/admin/activities_controller.rb'
-    - 'app/controllers/admin/checkout_products_controller.rb'
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/models/group.rb'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:

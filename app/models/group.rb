@@ -18,7 +18,7 @@ class Group < ApplicationRecord
     if self.created_at.nil?
       years_in_existence = [Date.today.year]
     else
-      years_in_existence = ( self.created_at.study_year .. Date.today.study_year )
+      years_in_existence = ( self.created_at.study_year..Date.today.study_year )
     end
     years_in_existence.map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
   end

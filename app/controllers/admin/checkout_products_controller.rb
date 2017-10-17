@@ -4,7 +4,7 @@ class Admin::CheckoutProductsController < ApplicationController
 
   def index
     @products = CheckoutProduct.order(:category, :name).last_version
-    @years = (2015 .. Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
+    @years = (2015..Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
 
     @new = CheckoutProduct.new
 
@@ -13,7 +13,7 @@ class Admin::CheckoutProductsController < ApplicationController
 
   def show
     @products = CheckoutProduct.order(:category, :name).last_version
-    @years = (2015 .. Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
+    @years = (2015..Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
 
     @product = CheckoutProduct.find_by_id( params[:id] )
     @total = @product.sales( params['year'] ).map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+)
@@ -28,7 +28,7 @@ class Admin::CheckoutProductsController < ApplicationController
       redirect_to checkout_product_path(@new)
     else
       @products = CheckoutProduct.order(:category, :name).last_version
-      @years = (2015 .. Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
+      @years = (2015..Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
 
       render 'admin/apps/products'
     end
@@ -43,7 +43,7 @@ class Admin::CheckoutProductsController < ApplicationController
 
       redirect_to checkout_product_path( product || @product.id )
     else
-      @years = (2015 .. Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
+      @years = (2015..Date.today.study_year ).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
       @products = CheckoutProduct.order(:category, :name).last_version
 
       render 'admin/apps/products'
