@@ -33,12 +33,12 @@ class Members::HomeController < MembersController
     #      .reverse!
 
     @participants =
-       @member.activities
-              .study_year(params['year'])
-              .distinct
-              .joins(:participants)
-              .where(:participants => { member: @member, reservist: false })
-              .order('start_date DESC')
+      @member.activities
+             .study_year(params['year'])
+             .distinct
+             .joins(:participants)
+             .where(:participants => { member: @member, reservist: false })
+             .order('start_date DESC')
 
     @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
     @transaction_costs = Settings.mongoose_ideal_costs
