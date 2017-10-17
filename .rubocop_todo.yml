@@ -280,16 +280,6 @@ Layout/SpaceInsideStringInterpolation:
     - 'app/models/checkout_product.rb'
     - 'lib/tasks/doorkeeper.rake'
 
-# Offense count: 13
-# Cop supports --auto-correct.
-Layout/Tab:
-  Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/models/advertisement.rb'
-    - 'db/migrate/20160506121430_activity_times.rb'
-    - 'db/migrate/20160802082751_add_confirmation_to_checkout_cards.rb'
-    - 'db/migrate/20160817130851_add_payment_method_to_checkout_transactions.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

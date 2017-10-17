@@ -96,13 +96,13 @@ class Admin::MembersController < ApplicationController
     end
   end
 
-	def destroy
-		member = Member.find(params[:id])
+  def destroy
+    member = Member.find(params[:id])
     impressionist(member, member.name)
 
     member.destroy
-		redirect_to members_path
-	end
+    redirect_to members_path
+  end
 
   def payment_whatsapp
     @member = Member.find(params[:member_id])
