@@ -36,13 +36,6 @@ Layout/IndentAssignment:
   Exclude:
     - 'app/controllers/members/home_controller.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentHash:
-  EnforcedStyle: consistent
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

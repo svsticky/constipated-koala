@@ -21,20 +21,20 @@ class IdealTransaction < ApplicationRecord
     self.token = Digest::SHA256.hexdigest("#{ self.member.id }#{ Time.now.to_f }#{ self.redirect_uri }")
 
     request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments", {
-      :amount => self.amount,
-      :description => self.description,
+                          :amount => self.amount,
+                          :description => self.description,
 
-      :method => 'ideal',
-      :issuer => self.issuer,
+                          :method => 'ideal',
+                          :issuer => self.issuer,
 
-      :metadata => {
-        :member => member.name,
-        :transaction_type => transaction_type,
-        :transaction_id => transaction_id
-      },
+                          :metadata => {
+                            :member => member.name,
+                            :transaction_type => transaction_type,
+                            :transaction_id => transaction_id
+                          },
 
-      :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => self.token)
-    })
+                          :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => self.token)
+                        })
 
     request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
     response = http.send! request

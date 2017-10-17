@@ -46,14 +46,14 @@ module Mailings
       subject = "Studievereniging Sticky | Je bent ingeschreven voor #{ activity.name }"
 
       html = render_to_string(:layout => 'mailer', :locals => {
-        name: member.first_name,
-        activity: activity,
-        starts_at: starts_at,
-        price: price,
-        url: url,
-        unenroll_date: activity.unenroll_date,
-        subject: subject
-      })
+                                name: member.first_name,
+                                activity: activity,
+                                starts_at: starts_at,
+                                price: price,
+                                url: url,
+                                unenroll_date: activity.unenroll_date,
+                                subject: subject
+                              })
 
       text = <<~EOS
         Hoi #{ member.first_name },
