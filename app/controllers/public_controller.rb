@@ -74,7 +74,7 @@ class PublicController < ApplicationController
       @member.educations.each_with_index{ |education, index| education.id = ((index+1)*-1) }
 
       # create empty study field if not present
-      @member.educations.build( :id => '-1' ) if @member.educations.length < 1
+      @member.educations.build( :id => '-1' ) if @member.educations.empty?
       @member.educations.build( :id => '-2' ) if @member.educations.length < 2
 
       @membership = Activity.find( Settings['intro.membership'] )

@@ -70,7 +70,7 @@ class Admin::MembersController < ApplicationController
     else
 
       # If the member hasn't filled in a study, again show an empty field
-      if @member.educations.length < 1
+      if @member.educations.empty?
         @member.educations.build( :id => '-1' )
       end
 
@@ -81,7 +81,7 @@ class Admin::MembersController < ApplicationController
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
 
-     if @member.educations.length < 1
+     if @member.educations.empty?
        @member.educations.build( :id => '-1' )
      end
   end

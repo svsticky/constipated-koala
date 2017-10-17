@@ -1085,11 +1085,3 @@ Style/UnneededInterpolation:
 Style/WordArray:
   EnforcedStyle: percent
   MinSize: 7
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-    - 'app/controllers/public_controller.rb'
