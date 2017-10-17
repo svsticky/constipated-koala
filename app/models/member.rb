@@ -427,7 +427,7 @@ class Member < ApplicationRecord
 
     sum = 0
     numbers.each_with_index do |digit, i|
-      i = i+1
+      i += 1
       sum += digit * i
     end
 
