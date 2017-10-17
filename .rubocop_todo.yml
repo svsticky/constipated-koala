@@ -6,60 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundBeginBody:
-  Exclude:
-    - 'app/controllers/users/sessions_controller.rb'
-
-# Offense count: 15
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'config/environments/production.rb'
-    - 'config/environments/staging.rb'
-    - 'config/initializers/paperclip.rb'
-    - 'config/initializers/searchable.rb'
-    - 'db/schema.rb'
-    - 'lib/tasks/admin.rake'
-    - 'lib/tasks/devise.rake'
-    - 'lib/tasks/doorkeeper.rake'
-    - 'lib/tasks/studystatus.rake'
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'app/controllers/admin/apps_controller.rb'
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'app/controllers/api/webhook_controller.rb'
-    - 'app/controllers/members/activities_controller.rb'
-    - 'app/mailers/mailings/checkout.rb'
-    - 'app/mailers/mailings/participants.rb'
-    - 'app/models/advertisement.rb'
-    - 'app/models/checkout_product.rb'
-    - 'app/models/settings.rb'
-    - 'lib/paperclip/ghostscript.rb'
-    - 'lib/request.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Exclude:
-    - 'app/controllers/users/sessions_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'config/initializers/is_impressionable.rb'
-
 # Offense count: 19
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.

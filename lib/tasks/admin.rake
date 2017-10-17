@@ -1,5 +1,4 @@
 namespace :admin do
-
   desc 'Create a new admin user'
   task :create, [:email, :password] => :environment do |t, args|
     admin = Admin.new(
@@ -17,7 +16,6 @@ namespace :admin do
 
   desc 'Delete a normal user, that is it\'s login access'
   task :remove, [:email] => :environment do |t, args|
-
     user = User.find_by_email args[:email]
 
     if user.nil?
@@ -52,7 +50,6 @@ namespace :admin do
 
   desc 'Start a new year, create a new membership activity if given and set in config'
   task :start_year, [:membership, :price] => :environment do |t, args|
-
     # remove activities from settings if passed
     Activity.find( Settings['intro.activities'] ).each do |activity|
       next unless activity.start_date < Date.today

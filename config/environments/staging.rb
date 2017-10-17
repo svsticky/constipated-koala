@@ -110,5 +110,4 @@ Rails.application.configure do
       :original => :private
     }
   }
-
 end

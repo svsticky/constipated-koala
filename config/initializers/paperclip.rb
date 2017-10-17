@@ -31,7 +31,6 @@ end
 
 # TODO image resizing on amazon
 Cocaine::CommandLine.module_eval do
-
   def run(interpolations = {})
     @exit_status = nil
     begin
@@ -66,7 +65,6 @@ Cocaine::CommandLine.module_eval do
     interpolations = stringify_keys(interpolations)
 
     pattern.gsub(/:\{?(\w+)\b\}?/) do |match|
-
       key = match.tr(":{}", "")
 
       if interpolations.key?(key)

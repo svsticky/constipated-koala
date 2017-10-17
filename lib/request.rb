@@ -6,7 +6,6 @@ require 'uri'
 
 module ConstipatedKoala
   class Request
-
     def initialize( domain )
       @uri = URI.parse domain
 

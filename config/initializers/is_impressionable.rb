@@ -25,6 +25,5 @@ module Impressionist
         end
       end
     end
-
   end
 end

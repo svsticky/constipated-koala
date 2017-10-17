@@ -1,5 +1,4 @@
 namespace :devise do
-
   desc 'Clean users table by removing unconfirmed emails after a set period'
   task :clean_unconfirmed_emails => :environment do
     puts 'clear unconfirmed emails'

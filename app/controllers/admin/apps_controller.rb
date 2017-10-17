@@ -1,5 +1,4 @@
 class Admin::AppsController < ApplicationController
-
   def checkout
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0

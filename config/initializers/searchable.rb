@@ -3,7 +3,6 @@ require 'ostruct'
 
 # NOTE allow to search on subset of a model
 Fuzzily::Searchable::ClassMethods.module_eval do
-
   private
 
   def _find_by_fuzzy(_o, pattern, options={})

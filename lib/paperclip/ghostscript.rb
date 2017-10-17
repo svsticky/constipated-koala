@@ -1,6 +1,5 @@
 module Paperclip
   class Ghostscript < Processor
-
     attr_accessor :current_geometry, :target_geometry, :format, :whiny, :convert_options, :source_file_options
 
     def initialize file, options = {}, attachment = nil

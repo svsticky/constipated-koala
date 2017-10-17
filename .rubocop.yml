@@ -11,3 +11,8 @@ ClassLength:
 # Allow 'some.variable == 0' and others
 Style/NumericPredicate:
   Enabled: False
+
+# Ignore auto-generated whitespace errors
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'db/schema.rb'

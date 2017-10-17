@@ -6,7 +6,6 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 class Members::ActivitiesController < MembersController
-
   # [GET] /activities
   # Renders the overview of all future activities that are enrollable.
   def index

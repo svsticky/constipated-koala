@@ -1,5 +1,4 @@
 class Admin::PaymentsController < ApplicationController
-
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @last_impressions = Activity.debtors.map { |activity|
