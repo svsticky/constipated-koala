@@ -5,17 +5,17 @@ class Members::HomeController < MembersController
     @member = Member.find(current_user.credentials_id)
 
     # information of the middlebar
-    @balance = CheckoutBalance.find_by_member_id( current_user.credentials_id )
+    @balance = CheckoutBalance.find_by_member_id(current_user.credentials_id)
     @debt = Participant
-      .where( paid: false, member: @member, reservist: false )
-      .joins( :activity )
+      .where(paid: false, member: @member, reservist: false)
+      .joins(:activity)
       .where('activities.start_date < NOW()')
-      .sum( :price ) \
+      .sum(:price) \
      + Participant # The plus makes it work for all activities where the member does NOT have a modified price.
-      .where( paid: false, price: nil, member: @member, reservist: false )
-      .joins( :activity )
+      .where(paid: false, price: nil, member: @member, reservist: false)
+      .joins(:activity)
       .where('activities.start_date < NOW()')
-      .sum( 'activities.price ')
+      .sum('activities.price ')
 
     # @participants =
     #   (
@@ -34,13 +34,13 @@ class Members::HomeController < MembersController
 
     @participants =
        @member.activities
-         .study_year( params['year'] )
+         .study_year(params['year'])
          .distinct
          .joins(:participants)
          .where(:participants => { member: @member, reservist: false })
          .order('start_date DESC')
 
-    @transactions = CheckoutTransaction.where( :checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
+    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10)
     @transaction_costs = Settings.mongoose_ideal_costs
   end
 
@@ -49,7 +49,7 @@ class Members::HomeController < MembersController
     @applications = Doorkeeper::Application.authorized_for(current_user)
 
      if @member.educations.empty?
-       @member.educations.build( :id => '-1' )
+       @member.educations.build(:id => '-1')
      end
   end
 
@@ -123,6 +123,6 @@ class Members::HomeController < MembersController
   end
 
   def ideal_transaction_params
-    params.require( :ideal_transaction ).permit( :bank, :amount )
+    params.require(:ideal_transaction).permit(:bank, :amount)
   end
 end

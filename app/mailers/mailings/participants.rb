@@ -2,8 +2,8 @@
 
 module Mailings
   class Participants < ApplicationMailer
-    def inform( activity, recipients, sender, subject, html, text = nil )
-      participants = activity.participants.joins( :member ).where( 'members.email' => recipients )
+    def inform(activity, recipients, sender, subject, html, text = nil)
+      participants = activity.participants.joins(:member).where('members.email' => recipients)
 
       # hash for mailgun with recipient-variables
       variables = Hash.new
@@ -13,15 +13,15 @@ module Mailings
           :name => participant.member.name,
 
           :first_name => participant.member.first_name,
-          :price => ActionController::Base.helpers.number_to_currency( participant.currency, :unit => '€' )
+          :price => ActionController::Base.helpers.number_to_currency(participant.currency, :unit => '€')
         }
       end
 
       # NOTE view is rendered in form for editing _mail
-      text = strip_html( html.clone )
+      text = strip_html(html.clone)
       html = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: subject }
 
-      return mails( variables, sender, subject, html, text )
+      return mails(variables, sender, subject, html, text)
     end
 
     def enrolled(participant)
@@ -45,7 +45,7 @@ module Mailings
 
       subject = "Studievereniging Sticky | Je bent ingeschreven voor #{ activity.name }"
 
-      html = render_to_string( :layout => 'mailer', :locals => {
+      html = render_to_string(:layout => 'mailer', :locals => {
         name: member.first_name,
         activity: activity,
         starts_at: starts_at,

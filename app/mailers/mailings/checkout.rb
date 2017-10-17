@@ -5,7 +5,7 @@ module Mailings
     def confirmation_instructions (card, confirmation_url)
       return if ENV['MAILGUN_TOKEN'].blank?
 
-      html = render_to_string( :layout => 'mailer', :locals => {
+      html = render_to_string(:layout => 'mailer', :locals => {
         name: card.member.first_name,
         confirmation_url: confirmation_url,
         subject: 'Studievereniging Sticky | Checkout kaart bevestigen'

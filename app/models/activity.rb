@@ -51,9 +51,9 @@ class Activity < ApplicationRecord
     write_attribute(:name, name.strip)
   end
 
-  def self.study_year( year )
+  def self.study_year(year)
     year = year.blank? ? Date.today.study_year : year.to_i
-    where('start_date >= ? AND start_date < ?', Date.to_date( year ), Date.to_date( year + 1 ))
+    where('start_date >= ? AND start_date < ?', Date.to_date(year), Date.to_date(year + 1))
   end
 
   def self.debtors
@@ -123,7 +123,7 @@ class Activity < ApplicationRecord
     Group.find_by_id organized_by
   end
 
-  def currency( member )
+  def currency(member)
     participants.where(:member => member).first.price ||= price
   end
 
@@ -140,7 +140,7 @@ class Activity < ApplicationRecord
     return read_attribute(:price)
   end
 
-  def price=( price )
+  def price=(price)
     price = price.to_s.tr(',', '.').to_f
     write_attribute(:price, price)
     write_attribute(:price, nil) if price == 0

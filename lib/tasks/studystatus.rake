@@ -36,7 +36,7 @@ namespace :studystatus do
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, e, t|
 
-      Member.where.not( :student_id => nil ).each do |member|
+      Member.where.not(:student_id => nil).each do |member|
         i.puts member.student_id
         member.update_studies(o.gets ||= '')
       end

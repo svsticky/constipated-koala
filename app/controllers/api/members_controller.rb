@@ -3,7 +3,7 @@ class Api::MembersController < ApiController
 
   def index
     @members = if params[:search].present?
-                 Member.search( params[:search] )[params[:offset] ||= 0, params[:limit] ||= 20]
+                 Member.search(params[:search])[params[:offset] ||= 0, params[:limit] ||= 20]
                elsif params[:student].present?
                  Member.find_by_student_id! params[:student]
                else

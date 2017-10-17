@@ -25,20 +25,20 @@ class Date
     end
   end
 
-  def self.to_date( year )
-    return Date.new( year, 8, 1)
+  def self.to_date(year)
+    return Date.new(year, 8, 1)
   end
 
   # Make s list of consecutive years without interuptions
-  def self.years( list )
+  def self.years(list)
     current = last = 0
     years = Array.new
 
     list.each do |year|
-      last = Date.find_consecutive_year( list, year )
+      last = Date.find_consecutive_year(list, year)
 
       if current != last
-        years.push(  "#{ year } - #{ 1+ last }" )
+        years.push("#{ year } - #{ 1+ last }")
         current = last
       end
     end
@@ -48,18 +48,18 @@ class Date
 
   private
 
-  def self.find_consecutive_year( years, year )
+  def self.find_consecutive_year(years, year)
     # return same year if no succesive year
     return year unless years.include? 1+ year
 
     # take next year and try further
-    return Date.find_consecutive_year( years, 1+ year)
+    return Date.find_consecutive_year(years, 1+ year)
   end
 end
 
 class Time
-  def before( time )
-    return Time.zone.parse( time ).to_i > self.to_i
+  def before(time)
+    return Time.zone.parse(time).to_i > self.to_i
   end
 
   # Return the first year of a study year using time, hence 2014 means the year 2014-2015
@@ -79,7 +79,7 @@ class Hash
 end
 
 class Array
-  def only( *keys )
+  def only(*keys)
     map do |hash|
       hash.select do |key, value|
         keys.map{ |symbol| symbol.to_s }.include? key.to_s

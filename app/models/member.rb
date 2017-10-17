@@ -130,7 +130,7 @@ class Member < ApplicationRecord
     tags.each do |tag|
       next if tag.empty?
 
-      puts Tag.where( :member_id => id, :name => Tag.names[tag] ).first_or_create!
+      puts Tag.where(:member_id => id, :name => Tag.names[tag]).first_or_create!
     end
   end
 
@@ -148,14 +148,14 @@ class Member < ApplicationRecord
   def groups
     groups = Hash.new
 
-    group_members.order( year: :desc ).each do |group_member|
-      if groups.has_key?( group_member.group.id )
-        groups[ group_member.group.id ][ :years ].push( group_member.year )
+    group_members.order(year: :desc).each do |group_member|
+      if groups.has_key?(group_member.group.id)
+        groups[ group_member.group.id ][ :years ].push(group_member.year)
 
-        groups[ group_member.group.id ][ :positions ].push( group_member.position => group_member.year ) unless group_member.position.blank? || group_member.group.board?
+        groups[ group_member.group.id ][ :positions ].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
       end
 
-      groups.merge!( group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [ group_member.year ], :positions => [ group_member.position => group_member.year ]} ) unless groups.has_key?( group_member.group.id )
+      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [ group_member.year ], :positions => [ group_member.position => group_member.year ]}) unless groups.has_key?(group_member.group.id)
     end
 
     return groups.values
@@ -196,7 +196,7 @@ class Member < ApplicationRecord
       end
 
       # find user by old email
-      credentials = User.find_by_email( Member.find(self.id).email )
+      credentials = User.find_by_email(Member.find(self.id).email)
 
       if !credentials.nil?
         # update_attribute has no validation so it should be done manually
@@ -210,7 +210,7 @@ class Member < ApplicationRecord
   before_destroy do
     logger.debug self.inspect
 
-    user = User.find_by_email( self.email )
+    user = User.find_by_email(self.email)
     user.delete if user.present?
   end
 
@@ -223,10 +223,10 @@ class Member < ApplicationRecord
     return self.where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
-    return self.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } )) if query.blank?
+    return self.where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id} + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id })) if query.blank?
 
-    records = self.filter( query )
-    return records.find_by_fuzzy_query( query ) unless query.blank?
+    records = self.filter(query)
+    return records.find_by_fuzzy_query(query) unless query.blank?
     return records
   end
 
@@ -271,7 +271,7 @@ class Member < ApplicationRecord
       end
 
       if education.nil?
-        education = Education.new( :member => self, :study => Study.find_by_code(code), :start_date => Date.new(year.to_i, 9, 1))
+        education = Education.new(:member => self, :study => Study.find_by_code(code), :start_date => Date.new(year.to_i, 9, 1))
         puts " + #{ code } (#{ status })"
       else
         puts " ± #{ code } (#{ status })"
@@ -298,7 +298,7 @@ class Member < ApplicationRecord
       check = "#{ education.study.code } | #{ education.start_date.year }"
       check = "INCA | #{ education.start_date.year }" if education.study.code == 'GT' # NOTE dirty fix for gametechers
 
-      unless studies.map{ |string| "#{ string.split(/, /)[0] } | #{ string.split(/, /)[1] }" }.include?( check )
+      unless studies.map{ |string| "#{ string.split(/, /)[0] } | #{ string.split(/, /)[1] }" }.include?(check)
         puts " - #{ education.study.code }"
         education.destroy
       end
@@ -310,7 +310,7 @@ class Member < ApplicationRecord
   end
 
   def is_masters?
-    !self.educations.empty? && self.educations.any? { |education| Study.find( education.study_id ).masters }
+    !self.educations.empty? && self.educations.any? { |education| Study.find(education.study_id).masters }
   end
 
   def is_freshman?
@@ -354,23 +354,23 @@ class Member < ApplicationRecord
 
   private
 
-  def self.filter( query )
+  def self.filter(query)
     records = self
     study = query.match /(studie|study):([A-Za-z-]+)/
 
     unless study.nil?
       query.gsub! /(studie|study):([A-Za-z-]+)/, ''
 
-      code = Study.find_by_code( study[2] )
+      code = Study.find_by_code(study[2])
 
       # Lookup using full names
       if code.nil?
-        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names' ).downcase => study.code.downcase }}.find{ |hash| hash.keys[0] == study[2].downcase.gsub( '-', ' ' ) }
-        code = Study.find_by_code( study_name.values[0] ) unless study_name.nil?
+        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names').downcase => study.code.downcase }}.find{ |hash| hash.keys[0] == study[2].downcase.gsub('-', ' ') }
+        code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
       end
 
       records = Member.none if code.nil? #TODO add active to the selector if status is not in the query
-      records = records.where( :id => Education.select( :member_id ).where( 'study_id = ?', code.id )) unless code.nil?
+      records = records.where(:id => Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
 
       #for later purposes
       study = code
@@ -381,17 +381,17 @@ class Member < ApplicationRecord
     unless tag.nil?
       query.gsub! /tag:([A-Za-z-]+)/, ''
 
-      tag_name = Tag.names.map{ |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1]} }.find{ |hash| hash.keys[0] == tag[1].downcase.gsub( '-', ' ' ) }
+      tag_name = Tag.names.map{ |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1]} }.find{ |hash| hash.keys[0] == tag[1].downcase.gsub('-', ' ') }
 
       records = Member.none if tag_name.nil?
-      records = records.where( :id => Tag.select( :member_id ).where( 'name = ?', tag_name.values[0] )) unless tag_name.nil?
+      records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
     end
 
     year = query.match /(year|jaargang):(\d+)/
 
     unless year.nil?
       query.gsub! /(year|jaargang):(\d+)/, ''
-      records = records.where("join_date >= ? AND join_date < ?", Date.to_date( year[2].to_i ), Date.to_date( 1+ year[2].to_i ))
+      records = records.where("join_date >= ? AND join_date < ?", Date.to_date(year[2].to_i), Date.to_date(1+ year[2].to_i))
     end
 
     status = query.match /(status|state):([A-Za-z-]+)/
@@ -401,15 +401,15 @@ class Member < ApplicationRecord
       if status.nil? || status[2].downcase == 'actief'
         # if already filtered on study, that particular study should be active
         if code.present?
-          records.where( :id => ( Education.select( :member_id ).where( 'status = 0 AND study_id = ?', code.id ).map{ |education| education.member_id}))
+          records.where(:id => (Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map{ |education| education.member_id}))
         else
-          records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+          records.where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id} + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id }))
         end
 
       elsif status[2].downcase == 'alumni'
-        records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+        records.where.not(:id => Education.select(:member_id).where('status = 0').map{ |education| education.member_id })
       elsif status[2].downcase == 'studerend'
-        records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+        records.where(:id => Education.select(:member_id).where('status = 0').map{ |education| education.member_id })
       elsif status[2].downcase == 'iedereen'
         Member.all
       else
@@ -425,7 +425,7 @@ class Member < ApplicationRecord
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
 
     # do not do the elfproef if a foreign student
-    return if ( student_id =~ /\F\d{6}/)
+    return if (student_id =~ /\F\d{6}/)
     return if student_id.blank?
 
     numbers = student_id.split("").map(&:to_i).reverse

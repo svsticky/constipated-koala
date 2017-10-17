@@ -8,10 +8,10 @@ class Admin::ApiController < ApplicationController
 
   def activities
     render :status => :ok,
-           :json => Activity.list.only( :name, :start_date, :end_date, :poster )
+           :json => Activity.list.only(:name, :start_date, :end_date, :poster)
   end
 
   def advertisements
-    render :status => :ok, :json => Advertisement.list.only( :poster )
+    render :status => :ok, :json => Advertisement.list.only(:poster)
   end
 end

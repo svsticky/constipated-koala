@@ -250,17 +250,6 @@ Layout/SpaceInsideHashLiteralBraces:
     - 'app/models/participant.rb'
     - 'db/migrate/20140719124341_create_impressions_table.rb'
 
-# Offense count: 401
-# Cop supports --auto-correct.
-Layout/SpaceInsideParens:
-  Enabled: false
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Layout/SpaceInsidePercentLiteralDelimiters:
-  Exclude:
-    - 'config/initializers/assets.rb'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:

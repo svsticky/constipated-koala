@@ -16,7 +16,7 @@ class Admin::SettingsController < ApplicationController
       Settings[params[:setting]] = params[:value].downcase.split(',').each{ |position| position.strip! }
 
     elsif ['intro.membership','intro.activities'].include? params[:setting]
-      Settings[params[:setting]] = Activity.where( id: params[:value].split(',').map(&:to_i) ).collect(&:id)
+      Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
 
       render :status => :ok, :json => {
         activities: Settings[params[:setting]],
@@ -80,7 +80,7 @@ class Admin::SettingsController < ApplicationController
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0
 
-    @impressions = Impression.all.order( created_at: :desc ).limit(@limit).offset(@offset)
+    @impressions = Impression.all.order(created_at: :desc).limit(@limit).offset(@offset)
     @total_log_items = Impression.count
   end
 
