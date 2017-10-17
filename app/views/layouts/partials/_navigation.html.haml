@@ -37,6 +37,10 @@
             = link_to :checkout do
               %i.fa.fa-caret-right
               %span Checkout
+          %li{ :class => ('active' if yield(:subpage) == 'stock management' ) }
+            = link_to :stocky do
+              %i.fa.fa-caret-right
+              %span Stocky
           %li{ :class => ('active' if yield(:subpage) == 'ideal') }
             = link_to :ideal do
               %i.fa.fa-caret-right
