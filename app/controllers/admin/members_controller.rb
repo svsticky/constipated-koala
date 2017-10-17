@@ -81,9 +81,9 @@ class Admin::MembersController < ApplicationController
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
 
-     if @member.educations.empty?
-       @member.educations.build(:id => '-1')
-     end
+    if @member.educations.empty?
+      @member.educations.build(:id => '-1')
+    end
   end
 
   def update

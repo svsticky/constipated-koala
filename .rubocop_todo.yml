@@ -53,27 +53,6 @@ Layout/IndentHeredoc:
     - 'app/mailers/mailings/devise.rb'
     - 'app/mailers/mailings/participants.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: normal, rails
-Layout/IndentationConsistency:
-  Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'app/models/member.rb'
-    - 'db/migrate/20160506121430_activity_times.rb'
-    - 'db/migrate/20160802082751_add_confirmation_to_checkout_cards.rb'
-    - 'db/migrate/20160817130851_add_payment_method_to_checkout_transactions.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

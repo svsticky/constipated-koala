@@ -324,30 +324,30 @@ class Member < ApplicationRecord
   end
 
   def unpaid_activities
-      # All participants who will receive payment reminders
-      self.participants.joins(:activity).where('
-        activities.start_date <= ?
-        AND
-        participants.reservist IS FALSE
-        AND
-         (
-          (activities.price IS NOT NULL
-           AND
-           participants.paid IS FALSE
-           AND
-           (participants.price IS NULL
-            OR
-            participants.price > 0)
-          )
+    # All participants who will receive payment reminders
+    self.participants.joins(:activity).where('
+      activities.start_date <= ?
+      AND
+      participants.reservist IS FALSE
+      AND
+       (
+        (activities.price IS NOT NULL
+         AND
+         participants.paid IS FALSE
+         AND
+         (participants.price IS NULL
           OR
-          (
-           activities.price IS NULL
-           AND
-           participants.paid IS FALSE
-           AND
-           participants.price IS NOT NULL
-          )
-        )', Date.today).distinct
+          participants.price > 0)
+        )
+        OR
+        (
+         activities.price IS NULL
+         AND
+         participants.paid IS FALSE
+         AND
+         participants.price IS NOT NULL
+        )
+      )', Date.today).distinct
   end
 
   # Private function cannot be called from outside this class

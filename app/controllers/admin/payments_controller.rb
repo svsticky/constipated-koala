@@ -20,11 +20,11 @@ class Admin::PaymentsController < ApplicationController
     @late_activities = Activity.debtors.select { |activity| activity.impressionist_count(message: "mail", start_date: activity.start) >= 4 }
     @late_payments =
       @late_activities.map { |activity|
-        activity.participants.select { |participant|
-          participant.paid == false &&
-            participant.price != 0 &&
-            participant.reservist == false
-        }.map { |p| p.member }
+      activity.participants.select { |participant|
+        participant.paid == false &&
+          participant.price != 0 &&
+          participant.reservist == false
+      }.map { |p| p.member }
     }.flatten.uniq
   end
 
@@ -33,7 +33,7 @@ class Admin::PaymentsController < ApplicationController
     data = checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }
 
     respond_to do |format|
-        format.js { render :json => data.to_json }
+      format.js { render :json => data.to_json }
     end
   end
 end
