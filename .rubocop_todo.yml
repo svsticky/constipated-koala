@@ -89,12 +89,6 @@ Layout/LeadingCommentSpace:
     - 'db/migrate/20150516184235_define_enum.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Layout/MultilineBlockLayout:
-  Exclude:
-    - 'app/views/api/activities/index.rabl'
-
-# Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
   Exclude:
