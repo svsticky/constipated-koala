@@ -8,10 +8,10 @@ class Admin::ParticipantsController < ApplicationController
     if @participant.save
       impressionist(@participant)
       @response = @participant.attributes #TODO refactor, very old code
-      @response[ 'price' ] = @activity.price
-      @response[ 'email' ] = @participant.member.email
-      @response[ 'name'  ] = @participant.member.name
-      @response[ 'notes' ] = @participant.notes
+      @response['price'] = @activity.price
+      @response['email'] = @participant.member.email
+      @response['name'] = @participant.member.name
+      @response['notes'] = @participant.notes
 
       render :status => :created, :json => @response.to_json
     end

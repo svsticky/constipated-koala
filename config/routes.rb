@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get     'members/home',   to: redirect('/')
 
     # Devise routes
-    devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
+    devise_for :users, :path => '', :skip => [:registrations], :controllers => {
       sessions:       'users/sessions'
     }
 

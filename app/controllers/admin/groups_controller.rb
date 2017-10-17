@@ -1,5 +1,5 @@
 class Admin::GroupsController < ApplicationController
-  impressionist :actions => [ :create, :update ]
+  impressionist :actions => [:create, :update]
 
   def index
     @groups = Group.all.order(:category, :name)

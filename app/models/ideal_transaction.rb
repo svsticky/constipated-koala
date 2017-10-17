@@ -98,7 +98,7 @@ class IdealTransaction < ApplicationRecord
       IdealTransaction.transaction do
         transaction = CheckoutTransaction.create!(:price => (self.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(self.member), :payment_method => "iDeal")
 
-        self.transaction_id = [ transaction.id ]
+        self.transaction_id = [transaction.id]
         self.save!
 
         self.message = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')

@@ -1,5 +1,5 @@
 class Admin::GroupMembersController < ApplicationController
-  respond_to :json, only: [ :create, :update, :destroy ]
+  respond_to :json, only: [:create, :update, :destroy]
 
   def create
     logger.debug params.inspect

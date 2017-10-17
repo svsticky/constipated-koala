@@ -222,7 +222,7 @@ class Activity < ApplicationRecord
 
   def participant_counts
     # Helper method to get counts of both types of Participants for this activity at once
-    [ participants.count, attendees.count, reservists.count ]
+    [participants.count, attendees.count, reservists.count]
   end
 
   def participant_counter

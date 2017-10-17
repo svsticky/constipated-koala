@@ -3,7 +3,7 @@ class Advertisement < ApplicationRecord
 
   has_attached_file :poster,
                     :styles => { :original => ['x1080', :png] },
-                    :processors => [ :ghostscript, :thumbnail ],
+                    :processors => [:ghostscript, :thumbnail],
                     :validate_media_type => false,
                     :convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' },
                     :s3_permissions => {

@@ -1,5 +1,5 @@
 class Members::HomeController < MembersController
-  skip_before_action :authenticate_user!, only: [ :confirm_add_funds ]
+  skip_before_action :authenticate_user!, only: [:confirm_add_funds]
 
   def index
     @member = Member.find(current_user.credentials_id)

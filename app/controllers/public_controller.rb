@@ -21,7 +21,7 @@ class PublicController < ApplicationController
     @member.require_student_id = true
     @member.create_account = true
 
-    activities = Activity.find(public_post_params[ :participant_attributes ].to_h.select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i })
+    activities = Activity.find(public_post_params[:participant_attributes].to_h.select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i })
     total = 0
 
     # if bank is empty report and test model for additional errors
@@ -80,7 +80,7 @@ class PublicController < ApplicationController
       @membership = Activity.find(Settings['intro.membership'])
 
       @activities = Activity.find(Settings['intro.activities'])
-      @participate = public_post_params[ :participant_attributes ].to_h.map{ |key, value| key.to_i if value['participate'] == '1' }.compact
+      @participate = public_post_params[:participant_attributes].to_h.map{ |key, value| key.to_i if value['participate'] == '1' }.compact
 
       @method = params[:method]
       @bank = params[:bank]
@@ -114,7 +114,7 @@ class PublicController < ApplicationController
                                    :method,
                                    :bank,
 
-                                   participant_attributes: [ :id, :participate ],
-                                   educations_attributes: [ :id, :study_id, :_destroy ])
+                                   participant_attributes: [:id, :participate],
+                                   educations_attributes: [:id, :study_id, :_destroy])
   end
 end

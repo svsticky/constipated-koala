@@ -1,6 +1,6 @@
 class Admin::CheckoutProductsController < ApplicationController
-  impressionist :actions => [ :activate_card, :change_funds ]
-  respond_to :json, only: [ :activate_card, :change_funds ]
+  impressionist :actions => [:activate_card, :change_funds]
+  respond_to :json, only: [:activate_card, :change_funds]
 
   def index
     @products = CheckoutProduct.order(:category, :name).last_version

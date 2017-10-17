@@ -1,5 +1,5 @@
 class Admin::MembersController < ApplicationController
-  impressionist :actions => [ :create, :update ]
+  impressionist :actions => [:create, :update]
   respond_to :json, only: [:search]
 
   def index
@@ -127,6 +127,6 @@ class Admin::MembersController < ApplicationController
                                    :join_date,
                                    :comments,
                                    :tags_names => [],
-                                   educations_attributes: [ :id, :study_id, :status, :start_date, :end_date, :_destroy ])
+                                   educations_attributes: [:id, :study_id, :status, :start_date, :end_date, :_destroy])
   end
 end

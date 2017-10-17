@@ -233,23 +233,6 @@ Layout/SpaceInsideBlockBraces:
     - 'app/models/member.rb'
     - 'config/initializers/searchable.rb'
 
-# Offense count: 83
-# Cop supports --auto-correct.
-Layout/SpaceInsideBrackets:
-  Enabled: false
-
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'app/models/member.rb'
-    - 'app/models/participant.rb'
-    - 'db/migrate/20140719124341_create_impressions_table.rb'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:

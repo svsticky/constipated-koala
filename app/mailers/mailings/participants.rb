@@ -9,7 +9,7 @@ module Mailings
       variables = Hash.new
 
       participants.each do |participant|
-        variables[ participant.member.email ] = {
+        variables[participant.member.email] = {
           :name => participant.member.name,
 
           :first_name => participant.member.first_name,

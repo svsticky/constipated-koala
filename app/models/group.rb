@@ -24,13 +24,13 @@ class Group < ApplicationRecord
   end
 
   def positions
-    return [ 'chairman', 'secretary', 'treasurer', 'internal', 'external', 'education' ] if self.board?
+    return ['chairman', 'secretary', 'treasurer', 'internal', 'external', 'education'] if self.board?
 
-    return ([ 'chairman', 'treasurer', 'board' ] + Settings['additional_positions.committee'] + group_members.select(:position).order(:position).uniq.map { |member| member.position }).compact.uniq if self.committee?
+    return (['chairman', 'treasurer', 'board'] + Settings['additional_positions.committee'] + group_members.select(:position).order(:position).uniq.map { |member| member.position }).compact.uniq if self.committee?
 
-    return ([ 'chairman', 'secretary', 'treasurer' ] + Settings['additional_positions.moot'] + group_members.select(:position).order(:position).uniq.map { |member| member.position }).compact.uniq if self.moot?
+    return (['chairman', 'secretary', 'treasurer'] + Settings['additional_positions.moot'] + group_members.select(:position).order(:position).uniq.map { |member| member.position }).compact.uniq if self.moot?
 
-    return [ 'chairman', 'treasurer' ]
+    return ['chairman', 'treasurer']
   end
 
   def members(year = nil)

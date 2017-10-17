@@ -4,7 +4,7 @@ class Participant < ApplicationRecord
 
   after_destroy :enroll_reservist
 
-  validates :notes, length: {maximum: 30}
+  validates :notes, length: { maximum: 30 }
 
   is_impressionable
 

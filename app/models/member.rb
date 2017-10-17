@@ -12,7 +12,7 @@ class Member < ApplicationRecord
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
-  validates :gender, presence: true, inclusion: { in: %w(m f)}
+  validates :gender, presence: true, inclusion: { in: %w(m f) }
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
@@ -55,11 +55,11 @@ class Member < ApplicationRecord
            :through => :participants
 
   has_many :confirmed_activities,
-           -> {where(participants: {reservist: false})},
+           -> {where(participants: { reservist: false })},
            :through => :participants,
            :source => :activity
   has_many :reservist_activities,
-           -> {where(participants: {reservist: true})},
+           -> {where(participants: { reservist: true })},
            :through => :participants,
            :source => :activity
 
@@ -150,12 +150,12 @@ class Member < ApplicationRecord
 
     group_members.order(year: :desc).each do |group_member|
       if groups.has_key?(group_member.group.id)
-        groups[ group_member.group.id ][ :years ].push(group_member.year)
+        groups[group_member.group.id][:years].push(group_member.year)
 
-        groups[ group_member.group.id ][ :positions ].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
+        groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
       end
 
-      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [ group_member.year ], :positions => [ group_member.position => group_member.year ]}) unless groups.has_key?(group_member.group.id)
+      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [group_member.year], :positions => [group_member.position => group_member.year] }) unless groups.has_key?(group_member.group.id)
     end
 
     return groups.values
@@ -381,7 +381,7 @@ class Member < ApplicationRecord
     unless tag.nil?
       query.gsub! /tag:([A-Za-z-]+)/, ''
 
-      tag_name = Tag.names.map{ |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1]} }.find{ |hash| hash.keys[0] == tag[1].downcase.gsub('-', ' ') }
+      tag_name = Tag.names.map{ |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1] } }.find{ |hash| hash.keys[0] == tag[1].downcase.gsub('-', ' ') }
 
       records = Member.none if tag_name.nil?
       records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
