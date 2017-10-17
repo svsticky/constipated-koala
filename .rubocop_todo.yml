@@ -134,12 +134,6 @@ Layout/SpaceAfterComma:
     - 'db/migrate/20140719124341_create_impressions_table.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Layout/SpaceAfterMethodName:
-  Exclude:
-    - 'app/mailers/mailings/checkout.rb'
-
-# Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
   Exclude:
