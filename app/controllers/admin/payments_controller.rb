@@ -21,9 +21,9 @@ class Admin::PaymentsController < ApplicationController
     @late_payments =
       @late_activities.map { |activity|
         activity.participants.select { |participant|
-          participant.paid == false and
-          participant.price != 0 and
-          participant.reservist == false
+          participant.paid == false &&
+            participant.price != 0 &&
+            participant.reservist == false
         }.map { |p| p.member }
     }.flatten.uniq
   end
