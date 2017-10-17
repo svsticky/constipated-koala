@@ -8,7 +8,7 @@ class Admin::ApiController < ApplicationController
 
   def activities
     render :status => :ok,
-      :json => Activity.list.only( :name, :start_date, :end_date, :poster )
+           :json => Activity.list.only( :name, :start_date, :end_date, :poster )
   end
 
   def advertisements
