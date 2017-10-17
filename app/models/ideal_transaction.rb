@@ -9,7 +9,7 @@ class IdealTransaction < ApplicationRecord
   validates :status, presence: true
 
   belongs_to :member
-  #validates :member, presence: true
+  # validates :member, presence: true
 
   validates :transaction_type, presence: true
   serialize :transaction_id, Array

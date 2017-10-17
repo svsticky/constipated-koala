@@ -369,10 +369,10 @@ class Member < ApplicationRecord
         code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
       end
 
-      records = Member.none if code.nil? #TODO add active to the selector if status is not in the query
+      records = Member.none if code.nil? # TODO add active to the selector if status is not in the query
       records = records.where(:id => Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
 
-      #for later purposes
+      # for later purposes
       study = code
     end
 

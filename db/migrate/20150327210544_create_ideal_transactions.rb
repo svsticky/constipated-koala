@@ -13,7 +13,7 @@ class CreateIdealTransactions < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    #create unique email for login
+    # create unique email for login
     add_index :members, :email, :unique => true
   end
 end

@@ -69,9 +69,9 @@ class PublicController < ApplicationController
       redirect_to public_path
       return
     else
-      #@participants = public_post_params[ :participant_attributes ]
+      # @participants = public_post_params[ :participant_attributes ]
 
-      #number the already filled in educations to bypass an 500 error
+      # number the already filled in educations to bypass an 500 error
       @member.educations.each_with_index { |education, index| education.id = ((index + 1) * -1) }
 
       # create empty study field if not present

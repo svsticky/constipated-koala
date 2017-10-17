@@ -74,20 +74,6 @@ Layout/IndentationWidth:
     - 'db/migrate/20160802082751_add_confirmation_to_checkout_cards.rb'
     - 'db/migrate/20160817130851_add_payment_method_to_checkout_transactions.rb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-Layout/LeadingCommentSpace:
-  Exclude:
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/controllers/api/groups_controller.rb'
-    - 'app/controllers/public_controller.rb'
-    - 'app/models/checkout_card.rb'
-    - 'app/models/group.rb'
-    - 'app/models/ideal_transaction.rb'
-    - 'app/models/member.rb'
-    - 'db/migrate/20150327210544_create_ideal_transactions.rb'
-    - 'db/migrate/20150516184235_define_enum.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

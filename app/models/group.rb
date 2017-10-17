@@ -14,7 +14,7 @@ class Group < ApplicationRecord
   is_impressionable
 
   def years
-    #TODO remove years without members
+    # TODO remove years without members
     if self.created_at.nil?
       years_in_existence = [Date.today.year]
     else
