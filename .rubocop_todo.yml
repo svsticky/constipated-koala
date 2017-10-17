@@ -150,16 +150,6 @@ Layout/SpaceAroundBlockParameters:
     - 'app/mailers/application_mailer.rb'
     - 'app/models/member.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: space, no_space
-Layout/SpaceAroundEqualsInParameterDefault:
-  Exclude:
-    - 'app/mailers/mailings/devise.rb'
-    - 'config/initializers/is_impressionable.rb'
-    - 'config/initializers/searchable.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

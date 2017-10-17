@@ -4,7 +4,7 @@ module Mailings
   class Devise < ApplicationMailer
     include ::Devise::Controllers::UrlHelpers
 
-    def confirmation_instructions(record, token, opts={})
+    def confirmation_instructions(record, token, opts = {})
       puts confirmation_url(record, confirmation_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
@@ -26,7 +26,7 @@ Het bestuur
       return mail(record.unconfirmed_email ||= record.email, nil, 'Sticky account activeren', html, text)
     end
 
-    def activation_instructions(record, token, opts={})
+    def activation_instructions(record, token, opts = {})
       url = new_member_confirmation_url(confirmation_token: token)
       puts url if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
@@ -75,7 +75,7 @@ Het bestuur
       return mail(record.email, nil, 'Welkom bij Sticky | account activeren', html, text)
     end
 
-    def reset_password_instructions(record, token, opts={})
+    def reset_password_instructions(record, token, opts = {})
       puts edit_password_url(record, reset_password_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 

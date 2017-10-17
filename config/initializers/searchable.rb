@@ -5,7 +5,7 @@ require 'ostruct'
 Fuzzily::Searchable::ClassMethods.module_eval do
   private
 
-  def _find_by_fuzzy(_o, pattern, options={})
+  def _find_by_fuzzy(_o, pattern, options = {})
     options[:limit] ||= 10
     options[:offset] ||= 0
 
