@@ -6,21 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'app/controllers/admin/activities_controller.rb'
-    - 'app/models/group.rb'
-    - 'config/initializers/doorkeeper.rb'
-    - 'config/initializers/helpers.rb'
-    - 'config/routes.rb'
-    - 'db/migrate/20141221190631_add_users_to_admin.rb'
-    - 'db/migrate/20151101205457_create_doorkeeper_tables.rb'
-    - 'db/migrate/20160802082751_add_confirmation_to_checkout_cards.rb'
-    - 'db/migrate/20160817130851_add_payment_method_to_checkout_transactions.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

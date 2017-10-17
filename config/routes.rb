@@ -9,11 +9,11 @@ Rails.application.routes.draw do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
 
-        get   'edit',                           to: 'home#edit',   as: :users_edit
+        get   'edit',                           to: 'home#edit', as: :users_edit
         patch 'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
 
-        post 'mongoose',                       to: 'home#add_funds'
+        post 'mongoose', to: 'home#add_funds'
 
         get 'enrollments',                      to: redirect('/activities')
         get 'enrollments/:id',                  to: redirect('/activities/%{id}')
@@ -28,14 +28,14 @@ Rails.application.routes.draw do
 
     # No double controllers
     get     'admin/home',   to: redirect('/')
-    get     'members/home',   to: redirect('/')
+    get     'members/home', to: redirect('/')
 
     # Devise routes
     devise_for :users, :path => '', :skip => [:registrations], :controllers => {
       sessions:       'users/sessions'
     }
 
-    get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
+    get     'sign_up',      to: 'users/registrations#new', as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
     get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
     post    'activate',     to: 'users/registrations#new_member_confirm', as: :new_member_confirm
@@ -68,7 +68,7 @@ Rails.application.routes.draw do
       resources :settings, only: [:index, :create] do
         collection do
           get 'logs'
-          patch 'profile',        to: 'settings#profile'
+          patch 'profile', to: 'settings#profile'
 
           post 'advertisement'
           delete 'advertisement', to: 'settings#destroy_advertisement'
@@ -102,7 +102,7 @@ Rails.application.routes.draw do
         resources :activities, only: [:index, :show] do
           resources :participants, only: [:index, :create] do
             collection do
-              delete '',        to: 'participants#destroy'
+              delete '', to: 'participants#destroy'
             end
           end
         end
@@ -122,7 +122,7 @@ Rails.application.routes.draw do
           post 'transaction',   to: 'checkout#purchase'
         end
 
-        get 'advertisements',   to: 'activities#advertisements'
+        get 'advertisements', to: 'activities#advertisements'
       end
     end
   end
