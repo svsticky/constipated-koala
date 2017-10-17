@@ -24,7 +24,7 @@ class Admin::PaymentsController < ApplicationController
           participant.paid == false and
           participant.price != 0 and
           participant.reservist == false
-        }.map{ |p| p.member}
+        }.map{ |p| p.member }
     }.flatten.uniq
   end
 

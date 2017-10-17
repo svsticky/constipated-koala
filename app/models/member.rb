@@ -55,11 +55,11 @@ class Member < ApplicationRecord
            :through => :participants
 
   has_many :confirmed_activities,
-           -> {where(participants: { reservist: false })},
+           -> { where(participants: { reservist: false }) },
            :through => :participants,
            :source => :activity
   has_many :reservist_activities,
-           -> {where(participants: { reservist: true })},
+           -> { where(participants: { reservist: true }) },
            :through => :participants,
            :source => :activity
 
@@ -223,7 +223,7 @@ class Member < ApplicationRecord
     return self.where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
-    return self.where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id} + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id })) if query.blank?
+    return self.where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id })) if query.blank?
 
     records = self.filter(query)
     return records.find_by_fuzzy_query(query) unless query.blank?
@@ -365,7 +365,7 @@ class Member < ApplicationRecord
 
       # Lookup using full names
       if code.nil?
-        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names').downcase => study.code.downcase }}.find{ |hash| hash.keys[0] == study[2].downcase.gsub('-', ' ') }
+        study_name = Study.all.map{ |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names').downcase => study.code.downcase } }.find{ |hash| hash.keys[0] == study[2].downcase.gsub('-', ' ') }
         code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
       end
 
@@ -401,9 +401,9 @@ class Member < ApplicationRecord
       if status.nil? || status[2].downcase == 'actief'
         # if already filtered on study, that particular study should be active
         if code.present?
-          records.where(:id => (Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map{ |education| education.member_id}))
+          records.where(:id => (Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map{ |education| education.member_id }))
         else
-          records.where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id} + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id }))
+          records.where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id }))
         end
 
       elsif status[2].downcase == 'alumni'

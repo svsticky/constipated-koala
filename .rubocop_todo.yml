@@ -207,32 +207,6 @@ Layout/SpaceBeforeComma:
     - 'app/controllers/admin/home_controller.rb'
     - 'app/mailers/application_mailer.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Layout/SpaceBeforeFirstArg:
-  Exclude:
-    - 'config/routes.rb'
-    - 'db/migrate/20141221190631_add_users_to_admin.rb'
-    - 'db/migrate/20160802082751_add_confirmation_to_checkout_cards.rb'
-    - 'db/migrate/20160817130851_add_payment_method_to_checkout_transactions.rb'
-
-# Offense count: 17
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Exclude:
-    - 'app/controllers/admin/home_controller.rb'
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'app/controllers/api/activities_controller.rb'
-    - 'app/models/checkout_transaction.rb'
-    - 'app/models/ideal_transaction.rb'
-    - 'app/models/member.rb'
-    - 'config/initializers/searchable.rb'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:

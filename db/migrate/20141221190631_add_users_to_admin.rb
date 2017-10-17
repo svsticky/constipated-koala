@@ -49,7 +49,7 @@ class AddUsersToAdmin < ActiveRecord::Migration[4.2]
       t.string :infix
       t.string :last_name
 
-      t.text  :signature
+      t.text :signature
       t.timestamps
     end
   end

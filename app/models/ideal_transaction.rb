@@ -54,7 +54,7 @@ class IdealTransaction < ApplicationRecord
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
       response = http.send! request
-      response.data.map{ |issuer| [issuer.name, issuer.id]}
+      response.data.map{ |issuer| [issuer.name, issuer.id] }
     end
   end
 

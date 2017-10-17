@@ -36,7 +36,7 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def validate_liquor_items
-    return unless items.any? {|item| CheckoutProduct.find(item).liquor?}
+    return unless items.any? { |item| CheckoutProduct.find(item).liquor? }
 
     # only place you should use now, because liquor_time is without zone
     errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation

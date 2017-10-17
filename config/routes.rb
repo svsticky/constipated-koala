@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         patch 'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
 
-        post  'mongoose',                       to: 'home#add_funds'
+        post 'mongoose',                       to: 'home#add_funds'
 
         get 'enrollments',                      to: redirect('/activities')
         get 'enrollments/:id',                  to: redirect('/activities/%{id}')
