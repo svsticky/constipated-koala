@@ -392,22 +392,24 @@ class Member < ApplicationRecord
     status = query.match /(status|state):([A-Za-z-]+)/
     query.gsub! /(status|state):([A-Za-z]+)/, ''
 
-    if status.nil? || status[2].downcase == 'actief'
-      # if already filtered on study, that particular study should be active
-      if code.present?
-        records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0 AND study_id = ?', code.id ).map{ |education| education.member_id}))
+    records =
+      if status.nil? || status[2].downcase == 'actief'
+        # if already filtered on study, that particular study should be active
+        if code.present?
+          records.where( :id => ( Education.select( :member_id ).where( 'status = 0 AND study_id = ?', code.id ).map{ |education| education.member_id}))
+        else
+          records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+        end
+
+      elsif status[2].downcase == 'alumni'
+        records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+      elsif status[2].downcase == 'studerend'
+        records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
+      elsif status[2].downcase == 'iedereen'
+        Member.all
       else
-        records = records.where( :id => ( Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id} + Tag.select( :member_id ).where( :name => Tag.active_by_tag ).map{ | tag | tag.member_id } ))
+        Member.none
       end
-    elsif status[2].downcase == 'alumni'
-      records = records.where.not( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
-    elsif status[2].downcase == 'studerend'
-      records = records.where( :id => Education.select( :member_id ).where( 'status = 0' ).map{ |education| education.member_id })
-    elsif status[2].downcase == 'iedereen'
-      records = Member.all
-    else
-      records = Member.none
-    end
 
     return records
   end

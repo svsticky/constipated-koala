@@ -4,6 +4,10 @@ inherit_from: '.rubocop_todo.yml'
 AllCops:
   DisplayStyleGuide: true
 
+# Longer class length
+ClassLength:
+  Max: 500
+
 # Allow 'some.variable == 0' and others
 Style/NumericPredicate:
   Enabled: False
