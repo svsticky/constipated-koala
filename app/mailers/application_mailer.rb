@@ -4,7 +4,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def strip_html(text)
     # change line brakes and paragraphs
-    text.gsub!(/<(?:br\/?|\/p)>/ , "\r\n")
+    text.gsub!(/<(?:br\/?|\/p)>/, "\r\n")
 
     # reformat url's
     text.gsub!(/<a\s+(?:[^>]*?\s+)?href=(\"[^"]*\"|'[^']*')(?:[^>]*?\s+)?\s*\/?>(?:.+<\/a>)/, '\1')
@@ -40,7 +40,7 @@ class ApplicationMailer < ActionMailer::Base
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
                            :from => sender ||= ::Devise.mailer_sender,
-                           :to => variables.map{ | email, item | "#{ item['name'] } <#{ email }>" },
+                           :to => variables.map { | email, item | "#{ item['name'] } <#{ email }>" },
 
                            'recipient-variables' => variables.to_json,
 

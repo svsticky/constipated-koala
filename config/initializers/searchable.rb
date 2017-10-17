@@ -23,7 +23,7 @@ Fuzzily::Searchable::ClassMethods.module_eval do
 
   def _load_for_ids(ids, limit)
     {}.tap do |result|
-      ids.each{ |id|
+      ids.each { |id|
         if find_by_id(id).present?
           result[id] = find_by_id(id)
           break if ((limit-=1) == 0)

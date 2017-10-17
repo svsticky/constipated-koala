@@ -13,7 +13,7 @@ class Admin::SettingsController < ApplicationController
 
   def create
     if ['additional_positions.moot', 'additional_positions.committee'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].downcase.split(',').each{ |position| position.strip! }
+      Settings[params[:setting]] = params[:value].downcase.split(',').each { |position| position.strip! }
 
     elsif ['intro.membership','intro.activities'].include? params[:setting]
       Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)

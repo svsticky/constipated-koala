@@ -23,7 +23,7 @@ class Admin::MembersController < ApplicationController
       end
 
     else
-      @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map{ |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map{ | tag | tag.member_id })).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
+      @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { | tag | tag.member_id })).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
       @pages = (Member.count / @limit.to_f).ceil
     end
   end
@@ -44,7 +44,7 @@ class Admin::MembersController < ApplicationController
       .order(start_date: :desc)
       .joins(:participants).distinct
       .where("participants.reservist = ?", false)
-    @years = (@member.join_date.study_year..Date.today.study_year).map{ |year| ["#{ year }-#{ year +1 }", year] }.reverse
+    @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year +1 }", year] }.reverse
 
     # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
     @limit = params[:limit] ? params[:limit].to_i : 10

@@ -13,7 +13,7 @@ class PublicController < ApplicationController
     @membership = Activity.find Settings['intro.membership']
     @activities = Activity.find Settings['intro.activities']
 
-    @participate = @activities.map{ |activity| activity.id }
+    @participate = @activities.map { |activity| activity.id }
   end
 
   def create
@@ -21,7 +21,7 @@ class PublicController < ApplicationController
     @member.require_student_id = true
     @member.create_account = true
 
-    activities = Activity.find(public_post_params[:participant_attributes].to_h.select{ |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map{ |id, participant| participant['id'].to_i })
+    activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |id, participant| participant['id'].to_i })
     total = 0
 
     # if bank is empty report and test model for additional errors
@@ -52,7 +52,7 @@ class PublicController < ApplicationController
           :issuer => params[:bank],
           :member => @member,
 
-          :transaction_id => activities.map{ |activity| activity.id },
+          :transaction_id => activities.map { |activity| activity.id },
           :transaction_type => 'Activity',
 
           :redirect_uri => public_url)
@@ -71,7 +71,7 @@ class PublicController < ApplicationController
       #@participants = public_post_params[ :participant_attributes ]
 
       #number the already filled in educations to bypass an 500 error
-      @member.educations.each_with_index{ |education, index| education.id = ((index+1)*-1) }
+      @member.educations.each_with_index { |education, index| education.id = ((index+1)*-1) }
 
       # create empty study field if not present
       @member.educations.build(:id => '-1') if @member.educations.empty?
@@ -80,7 +80,7 @@ class PublicController < ApplicationController
       @membership = Activity.find(Settings['intro.membership'])
 
       @activities = Activity.find(Settings['intro.activities'])
-      @participate = public_post_params[:participant_attributes].to_h.map{ |key, value| key.to_i if value['participate'] == '1' }.compact
+      @participate = public_post_params[:participant_attributes].to_h.map { |key, value| key.to_i if value['participate'] == '1' }.compact
 
       @method = params[:method]
       @bank = params[:bank]
