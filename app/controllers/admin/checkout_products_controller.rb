@@ -50,6 +50,16 @@ class Admin::CheckoutProductsController < ApplicationController
     end
   end
 
+  def flip_active
+    @product = CheckoutProduct.find_by_id(params[:checkout_product_id])
+
+    if @product.update(product_post_params)
+      product = CheckoutProduct.find_by_parent(@product.id)
+    else
+      render 'admin/apps/products'
+    end
+  end
+
   def change_funds
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])

@@ -18,9 +18,18 @@
             %tbody
               - @products.each do |product|
                 %tr{ :data => { 'id' => product.id }, :class => ( 'inactive' unless product.active )}
-                  %td= link_to product.name, checkout_product_path(product.id)
-                  %td= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
-                  %td= number_to_currency( product.price, :unit => '€' )
+                  %td.col-sm-4= link_to product.name, checkout_product_path(product.id)
+                  %td.col-sm-4= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
+                  %td.col-sm-4= number_to_currency( product.price, :unit => '€' )
+                  %td.col-sm-4
+                    - if product.active
+                      %button.btn.btn-warning.deactivate
+                        %i.fa.fa-fw.fa-times
+                        Deactiveer
+                    - else
+                      %button.btn.btn-primary.activate
+                        %i.fa.fa-fw.fa-check
+                        Activeer
 
       - unless @product.nil?
         = form_for :checkout_product, url: checkout_product_path(@product), method: :patch, :class => 'form-validation' do |f|
