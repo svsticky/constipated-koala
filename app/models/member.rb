@@ -223,7 +223,7 @@ class Member < ApplicationRecord
     return self.where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
-    return self.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { | tag | tag.member_id })) if query.blank?
+    return self.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |tag| tag.member_id })) if query.blank?
 
     records = self.filter(query)
     return records.find_by_fuzzy_query(query) unless query.blank?
@@ -403,7 +403,7 @@ class Member < ApplicationRecord
         if code.present?
           records.where(:id => (Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map { |education| education.member_id }))
         else
-          records.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { | tag | tag.member_id }))
+          records.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |tag| tag.member_id }))
         end
 
       elsif status[2].downcase == 'alumni'

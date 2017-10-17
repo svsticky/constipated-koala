@@ -139,17 +139,6 @@ Layout/SpaceAfterMethodName:
   Exclude:
     - 'app/mailers/mailings/checkout.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleInsidePipes, SupportedStylesInsidePipes.
-# SupportedStylesInsidePipes: space, no_space
-Layout/SpaceAroundBlockParameters:
-  Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/member.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
