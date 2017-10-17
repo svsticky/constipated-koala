@@ -34,21 +34,21 @@ class AddUsersToAdmin < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    
+
     add_index :users, [:credentials_id, :credentials_type], :unique => true
-    
+
     add_index :users, :email,                :unique => true
     add_index :users, :reset_password_token, :unique => true
     add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
-    
+
     drop_table :admins
-    
+
     create_table(:admins) do |t|
       t.string :first_name
       t.string :infix
       t.string :last_name
-      
+
       t.text  :signature
       t.timestamps
     end

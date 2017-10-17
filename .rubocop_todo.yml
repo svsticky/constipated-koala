@@ -306,26 +306,6 @@ Layout/TrailingBlankLines:
     - 'db/migrate/20150411144717_add_products_to_checkout_transactions.rb'
     - 'db/migrate/20150530120521_create_configurations.rb'
 
-# Offense count: 44
-# Cop supports --auto-correct.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'app/mailers/mailings/devise.rb'
-    - 'app/views/api/participants/index.rabl'
-    - 'db/migrate/20140617161041_create_educations.rb'
-    - 'db/migrate/20140628193400_create_tags.rb'
-    - 'db/migrate/20140710145913_create_activities.rb'
-    - 'db/migrate/20140814143108_create_studies.rb'
-    - 'db/migrate/20141005092729_create_checkout_tables.rb'
-    - 'db/migrate/20141116153106_add_status_to_education.rb'
-    - 'db/migrate/20141221190631_add_users_to_admin.rb'
-    - 'db/migrate/20150327210544_create_ideal_transactions.rb'
-    - 'db/migrate/20150405131158_create_advertisements.rb'
-    - 'db/migrate/20150411144717_add_products_to_checkout_transactions.rb'
-    - 'db/migrate/20150516184235_define_enum.rb'
-    - 'db/migrate/20150530120521_create_configurations.rb'
-    - 'db/migrate/20150803115158_add_parent_to_checkout_product.rb'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:

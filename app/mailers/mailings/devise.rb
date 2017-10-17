@@ -62,7 +62,7 @@ Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie 
 
 Activeer je account voor ons ledenbeheersysteem door naar #{url} te gaan.
 
-Tot snel!  
+Tot snel!
 Het bestuur
 
 [1]: https://www.facebook.com/groups/814759978565158
