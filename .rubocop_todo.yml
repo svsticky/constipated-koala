@@ -6,21 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 26
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Layout/AlignParameters:
-  Exclude:
-    - 'app/controllers/members/activities_controller.rb'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/advertisement.rb'
-    - 'app/models/checkout_balance.rb'
-    - 'app/models/checkout_card.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
-    - 'config/initializers/is_impressionable.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Layout/ClosingParenthesisIndentation:

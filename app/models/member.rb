@@ -25,45 +25,45 @@ class Member < ApplicationRecord
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
   has_many :tags,
-    :dependent => :destroy,
-    :autosave => true
+           :dependent => :destroy,
+           :autosave => true
 
   accepts_nested_attributes_for :tags,
-    :reject_if => :all_blank,
-    :allow_destroy => true
+                                :reject_if => :all_blank,
+                                :allow_destroy => true
 
   has_many :checkout_cards,
-    :dependent => :destroy
+           :dependent => :destroy
   has_one :checkout_balance,
-    :dependent => :destroy
+          :dependent => :destroy
 
   has_many :educations,
-    :dependent => :destroy
+           :dependent => :destroy
   has_many :studies,
-    :through => :educations
+           :through => :educations
 
   accepts_nested_attributes_for :educations,
-    :reject_if => proc { |attributes| attributes['study_id'].blank? },
-    :allow_destroy => true
+                                :reject_if => proc { |attributes| attributes['study_id'].blank? },
+                                :allow_destroy => true
 
   has_many :participants,
-    :dependent => :destroy
+           :dependent => :destroy
   has_many :activities,
-    :through => :participants
+           :through => :participants
 
   has_many :confirmed_activities,
-    -> {where(participants: {reservist: false})},
-    :through => :participants,
-    :source => :activity
+           -> {where(participants: {reservist: false})},
+           :through => :participants,
+           :source => :activity
   has_many :reservist_activities,
-    -> {where(participants: {reservist: true})},
-    :through => :participants,
-    :source => :activity
+           -> {where(participants: {reservist: true})},
+           :through => :participants,
+           :source => :activity
 
   has_many :group_members,
-    :dependent => :destroy
+           :dependent => :destroy
   has_many :groups,
-    :through => :group_members
+           :through => :group_members
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)

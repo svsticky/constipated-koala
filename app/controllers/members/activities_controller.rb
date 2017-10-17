@@ -13,7 +13,7 @@ class Members::ActivitiesController < MembersController
     @member = Member.find(current_user.credentials_id)
     @activities = Activity.where(
       '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-        Date.today, Date.today
+      Date.today, Date.today
       ).where(is_viewable: true).order(:start_date)
   end
 

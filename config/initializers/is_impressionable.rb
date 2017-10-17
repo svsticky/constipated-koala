@@ -17,11 +17,11 @@ module Impressionist
         # Don't remove the logs recarding if it is destroyed
         if dependent == :ignore
           has_many(:impressions,
-            :as => :impressionable)
+                   :as => :impressionable)
         else
           has_many(:impressions,
-            :as => :impressionable,
-            :dependent => :destroy)
+                   :as => :impressionable,
+                   :dependent => :destroy)
         end
       end
     end

@@ -7,7 +7,7 @@ class CheckoutCard < ApplicationRecord
 #  is_impressionable
 
   has_many :checkout_transactions,
-    :dependent => :destroy
+           :dependent => :destroy
 
   belongs_to :member
   belongs_to :checkout_balance

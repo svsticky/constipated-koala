@@ -11,6 +11,6 @@ class Advertisement < ApplicationRecord
                     }
 
   validates_attachment_content_type :poster,
-	  :content_type => ['application/pdf', 'image/jpeg', 'image/png']
+                                    :content_type => ['application/pdf', 'image/jpeg', 'image/png']
 
 end

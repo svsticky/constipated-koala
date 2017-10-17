@@ -9,9 +9,9 @@ class Group < ApplicationRecord
   has_many :activities, :foreign_key => :organized_by
 
   has_many :group_members,
-    :dependent => :destroy
+           :dependent => :destroy
   has_many :members,
-    :through => :group_members
+           :through => :group_members
 
   is_impressionable
 
