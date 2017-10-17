@@ -280,22 +280,6 @@ Layout/SpaceInsideStringInterpolation:
     - 'app/models/checkout_product.rb'
     - 'lib/tasks/doorkeeper.rake'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
-  Exclude:
-    - 'app/models/trigram.rb'
-    - 'config/initializers/impression.rb'
-    - 'db/migrate/20140617161041_create_educations.rb'
-    - 'db/migrate/20140814143108_create_studies.rb'
-    - 'db/migrate/20140928120239_create_trigrams.rb'
-    - 'db/migrate/20141116153106_add_status_to_education.rb'
-    - 'db/migrate/20141221190631_add_users_to_admin.rb'
-    - 'db/migrate/20150411144717_add_products_to_checkout_transactions.rb'
-    - 'db/migrate/20150530120521_create_configurations.rb'
-
 # Offense count: 10
 Lint/AmbiguousRegexpLiteral:
   Exclude:
