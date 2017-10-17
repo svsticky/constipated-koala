@@ -160,28 +160,6 @@ Layout/SpaceAroundEqualsInParameterDefault:
     - 'config/initializers/is_impressionable.rb'
     - 'config/initializers/searchable.rb'
 
-# Offense count: 24
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Layout/SpaceAroundOperators:
-  Exclude:
-    - 'app/controllers/admin/activities_controller.rb'
-    - 'app/controllers/admin/checkout_products_controller.rb'
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/public_controller.rb'
-    - 'app/models/checkout_product.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
-    - 'config/initializers/doorkeeper.rb'
-    - 'config/initializers/helpers.rb'
-    - 'config/initializers/searchable.rb'
-    - 'db/seeds.rb'
-
-# Offense count: 10
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'app/models/member.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

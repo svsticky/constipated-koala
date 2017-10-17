@@ -216,10 +216,10 @@ class Member < ApplicationRecord
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
-    student_id = query.match /^\F?\d{6,7}$/i
+    student_id = query.match(/^\F?\d{6,7}$/i)
     return self.where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
 
-    phone_number = query.match /^(?:\+\d{2}|00\d{2}|0)(\d{9})$/
+    phone_number = query.match(/^(?:\+\d{2}|00\d{2}|0)(\d{9})$/)
     return self.where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
@@ -356,10 +356,10 @@ class Member < ApplicationRecord
 
   def self.filter(query)
     records = self
-    study = query.match /(studie|study):([A-Za-z-]+)/
+    study = query.match(/(studie|study):([A-Za-z-]+)/)
 
     unless study.nil?
-      query.gsub! /(studie|study):([A-Za-z-]+)/, ''
+      query.gsub!(/(studie|study):([A-Za-z-]+)/, '')
 
       code = Study.find_by_code(study[2])
 
@@ -376,10 +376,10 @@ class Member < ApplicationRecord
       study = code
     end
 
-    tag = query.match /tag:([A-Za-z-]+)/
+    tag = query.match(/tag:([A-Za-z-]+)/)
 
     unless tag.nil?
-      query.gsub! /tag:([A-Za-z-]+)/, ''
+      query.gsub!(/tag:([A-Za-z-]+)/, '')
 
       tag_name = Tag.names.map { |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1] } }.find { |hash| hash.keys[0] == tag[1].downcase.gsub('-', ' ') }
 
@@ -387,15 +387,15 @@ class Member < ApplicationRecord
       records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
     end
 
-    year = query.match /(year|jaargang):(\d+)/
+    year = query.match(/(year|jaargang):(\d+)/)
 
     unless year.nil?
-      query.gsub! /(year|jaargang):(\d+)/, ''
-      records = records.where("join_date >= ? AND join_date < ?", Date.to_date(year[2].to_i), Date.to_date(1+ year[2].to_i))
+      query.gsub!(/(year|jaargang):(\d+)/, '')
+      records = records.where("join_date >= ? AND join_date < ?", Date.to_date(year[2].to_i), Date.to_date(1 + year[2].to_i))
     end
 
-    status = query.match /(status|state):([A-Za-z-]+)/
-    query.gsub! /(status|state):([A-Za-z]+)/, ''
+    status = query.match(/(status|state):([A-Za-z-]+)/)
+    query.gsub!(/(status|state):([A-Za-z]+)/, '')
 
     records =
       if status.nil? || status[2].downcase == 'actief'

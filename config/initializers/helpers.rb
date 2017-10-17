@@ -19,7 +19,7 @@ class Date
   # Return the first year of a study year, hence 2014 means the year 2014-2015
   def study_year
     if self.month < 8
-      return self.year.to_i-1
+      return self.year.to_i - 1
     else
       return self.year
     end
@@ -38,7 +38,7 @@ class Date
       last = Date.find_consecutive_year(list, year)
 
       if current != last
-        years.push("#{ year } - #{ 1+ last }")
+        years.push("#{ year } - #{ 1 + last }")
         current = last
       end
     end
@@ -50,10 +50,10 @@ class Date
 
   def self.find_consecutive_year(years, year)
     # return same year if no succesive year
-    return year unless years.include? 1+ year
+    return year unless years.include? 1 + year
 
     # take next year and try further
-    return Date.find_consecutive_year(years, 1+ year)
+    return Date.find_consecutive_year(years, 1 + year)
   end
 end
 
@@ -65,7 +65,7 @@ class Time
   # Return the first year of a study year using time, hence 2014 means the year 2014-2015
   def study_year
     if self.month < 8
-      return self.year.to_i-1
+      return self.year.to_i - 1
     else
       return self.year
     end

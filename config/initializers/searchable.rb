@@ -26,7 +26,7 @@ Fuzzily::Searchable::ClassMethods.module_eval do
       ids.each { |id|
         if find_by_id(id).present?
           result[id] = find_by_id(id)
-          break if ((limit-=1) == 0)
+          break if ((limit -= 1) == 0)
         end
       }
     end

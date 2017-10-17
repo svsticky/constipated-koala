@@ -3,14 +3,14 @@ class Admin::ActivitiesController < ApplicationController
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
-    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year +1 }", year] }.reverse
+    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
     @activity = Activity.new
   end
 
   def show
     @activity = Activity.find_by_id params[:id]
-    @recipients =  @activity.payment_mail_recipients
+    @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
   end
@@ -22,7 +22,7 @@ class Admin::ActivitiesController < ApplicationController
       redirect_to @activity
     else
       @activities = Activity.all.order(start_date: :desc)
-      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year +1 }", year] }.reverse
+      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
       @detailed = Activity.debtors.sort_by(&:start_date).reverse!
 
@@ -43,7 +43,7 @@ class Admin::ActivitiesController < ApplicationController
     if @activity.update(params.except(:_destroy))
       redirect_to @activity
     else
-      @recipients =  @activity.payment_mail_recipients
+      @recipients = @activity.payment_mail_recipients
       @attendees  = @activity.ordered_attendees
       @reservists = @activity.ordered_reservists
       render 'show'

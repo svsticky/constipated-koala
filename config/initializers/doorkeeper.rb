@@ -28,7 +28,7 @@ Rabl.configure do |config|
   config.include_bson_root = false
   config.include_xml_root  = false
   config.include_child_root = false
-  config.xml_options = { :dasherize  => true, :skip_types => true }
+  config.xml_options = { :dasherize => true, :skip_types => true }
 
   config.replace_empty_string_values_with_nil_values = true
   config.exclude_nil_values = true

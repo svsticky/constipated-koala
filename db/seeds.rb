@@ -263,7 +263,7 @@ puts 'Creating activities'
 
   activity = Activity.create(
     name:          Faker::Hacker.ingverb.capitalize,
-    price:         Faker::Commerce.price/5,
+    price:         Faker::Commerce.price / 5,
     start_date:    start_date,
     start_time:    start_time,
     end_date:      end_date,
@@ -285,7 +285,7 @@ puts 'Creating activities'
         member:    Member.find_by_id(Faker::Number.between(1, Member.count)),
         reservist: reservist,
         activity:  activity,
-        price:     (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price/5 : nil),
+        price:     (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price / 5 : nil),
         paid:      (Faker::Number.between(1, 10) < 4 ? true : false) # if price is 0 than the paid attribute is not used
       )
     end
