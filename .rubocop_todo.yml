@@ -123,16 +123,6 @@ Layout/MultilineOperationIndentation:
   Exclude:
     - 'app/controllers/admin/payments_controller.rb'
 
-# Offense count: 13
-# Cop supports --auto-correct.
-Layout/SpaceAfterComma:
-  Exclude:
-    - 'app/controllers/admin/home_controller.rb'
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/settings_controller.rb'
-    - 'app/models/group.rb'
-    - 'db/migrate/20140719124341_create_impressions_table.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

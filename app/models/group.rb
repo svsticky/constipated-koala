@@ -36,7 +36,7 @@ class Group < ApplicationRecord
   def members(year = nil)
     year = year.nil? ? Date.today.study_year : year.to_i
 
-    self.group_members.where(:year => year).sort do |a,b|
+    self.group_members.where(:year => year).sort do |a, b|
       if positions.index(a.position).nil? && positions.index(b.position).nil?
         a.name <=> b.name
       elsif positions.index(b.position).nil?

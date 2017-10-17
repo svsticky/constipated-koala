@@ -13,7 +13,7 @@ class Admin::MembersController < ApplicationController
       @results = Member.search(params[:search].clone)
 
       @pages = (@results.size / @limit.to_f).ceil
-      @members = @results[@offset,@limit]
+      @members = @results[@offset, @limit]
 
       @members = Member.none if @members.nil?
       @search = params[:search]
