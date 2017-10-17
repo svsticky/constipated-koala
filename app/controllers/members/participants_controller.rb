@@ -177,7 +177,7 @@ class Members::ParticipantsController < MembersController
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
     if !@activity.is_enrollable? ||
-       (@activity.unenroll_date && @activity.unenroll_date.end_of_day < DateTime.now)
+       (@activity.unenroll_date&.end_of_day && @activity.unenroll_date.end_of_day < DateTime.now)
       render status: :locked, json: {
         message: I18n.t(
           :not_unenrollable,

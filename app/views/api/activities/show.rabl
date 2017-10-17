@@ -22,9 +22,7 @@ node :end_date do |activity|
 end
 
 node :unenroll_date do |activity|
-  if activity.unenroll_date
-    activity.unenroll_date.iso8601
-  end
+  activity.unenroll_date&.iso8601
 end
 
 node :attendees do |activity|
