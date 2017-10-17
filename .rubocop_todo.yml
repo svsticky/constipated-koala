@@ -43,16 +43,6 @@ Layout/IndentAssignment:
 Layout/IndentHash:
   EnforcedStyle: consistent
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: auto_detection, squiggly, active_support, powerpack, unindent
-Layout/IndentHeredoc:
-  Exclude:
-    - 'app/mailers/mailings/checkout.rb'
-    - 'app/mailers/mailings/devise.rb'
-    - 'app/mailers/mailings/participants.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

@@ -55,19 +55,19 @@ module Mailings
         subject: subject
       })
 
-      text = <<-EOS
-Hoi #{ member.first_name },
+      text = <<~EOS
+        Hoi #{ member.first_name },
 
-Geweldig nieuws! Er is een plaats vrijgekomen voor #{ activity.name }. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
+        Geweldig nieuws! Er is een plaats vrijgekomen voor #{ activity.name }. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
 
-De activiteit begint op #{ starts_at } en #{ price }. Tot dan!
+        De activiteit begint op #{ starts_at } en #{ price }. Tot dan!
 
-Je kunt je tot #{ activity.unenroll_date } uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
-Naar de activiteit: #{ url }
+        Je kunt je tot #{ activity.unenroll_date } uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
+        Naar de activiteit: #{ url }
 
-Met vriendelijke groet,
+        Met vriendelijke groet,
 
-Het bestuur
+        Het bestuur
       EOS
 
       return mail(member.email, nil, subject, html, text)

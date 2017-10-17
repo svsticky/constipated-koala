@@ -11,14 +11,14 @@ module Mailings
         subject: 'Studievereniging Sticky | Checkout kaart bevestigen'
       })
 
-      text = <<-EOS
-Hoi #{ card.member.first_name },
+      text = <<~EOS
+        Hoi #{ card.member.first_name },
 
-Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{ confirmation_url } te gaan.
+        Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{ confirmation_url } te gaan.
 
-Met vriendelijke groet,
+        Met vriendelijke groet,
 
-Het bestuur
+        Het bestuur
       EOS
 
       return mail(card.member.email, nil, 'Studievereniging Sticky | Checkout kaart bevestigen', html, text)
