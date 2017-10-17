@@ -75,7 +75,6 @@ Het bestuur
       return mail(record.email, nil, 'Welkom bij Sticky | account activeren', html, text)
     end
 
-
     def reset_password_instructions(record, token, opts={})
       puts edit_password_url(record, reset_password_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?

@@ -10,11 +10,11 @@ Fuzzily::Searchable::ClassMethods.module_eval do
     options[:limit] ||= 10
     options[:offset] ||= 0
 
-    trigrams = _o.trigram_class_name.constantize.
-      offset(options[:offset]).
-      for_model(self.name).
-      for_field(_o.field.to_s).
-      matches_for(pattern)
+    trigrams = _o.trigram_class_name.constantize
+      .offset(options[:offset])
+      .for_model(self.name)
+      .for_field(_o.field.to_s)
+      .matches_for(pattern)
 
     records = _load_for_ids(trigrams.map(&:owner_id), options[:limit])
 

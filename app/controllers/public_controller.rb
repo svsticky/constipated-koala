@@ -96,7 +96,6 @@ class PublicController < ApplicationController
     I18n.locale = session['locale']
   end
 
-
   def public_post_params
     params.require(:member).permit(:first_name,
                                    :infix,

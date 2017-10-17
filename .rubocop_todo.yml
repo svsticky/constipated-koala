@@ -8,28 +8,6 @@
 
 # Offense count: 4
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: leading, trailing
-Layout/DotPosition:
-  Exclude:
-    - 'config/initializers/searchable.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'app/models/member.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Exclude:
-    - 'app/controllers/public_controller.rb'
-    - 'app/mailers/mailings/devise.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
 Layout/EmptyLines:
   Exclude:
     - 'app/controllers/public_controller.rb'
