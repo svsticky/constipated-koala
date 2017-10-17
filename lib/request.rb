@@ -46,7 +46,7 @@ module ConstipatedKoala
       begin
         response = @client.request( request )
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-          Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => error
+             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => error
         raise SocketError error.message
       end
 
