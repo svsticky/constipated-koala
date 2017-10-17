@@ -53,10 +53,9 @@ group :development do
 
   gem 'web-console'
   gem 'byebug', platform: :mri
-
-  gem 'rubocop', '~> 0.50.0', require: false
 end
 
 group :development, :test do
+  gem 'rubocop', '~> 0.50.0'
   gem 'spring'
 end
