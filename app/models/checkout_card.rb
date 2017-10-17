@@ -2,9 +2,6 @@ class CheckoutCard < ApplicationRecord
   validates :uuid, presence: true
   validates :member, presence: true
   validates :checkout_balance, presence: true
-#  validates :active
-
-#  is_impressionable
 
   has_many :checkout_transactions,
            :dependent => :destroy

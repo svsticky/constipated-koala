@@ -16,7 +16,6 @@ class Participant < ApplicationRecord
   def currency
     return activity.price if read_attribute(:price).nil?
     self.price ||= 0
-#     self.price ||= activity.price
   end
 
   before_validation do

@@ -11,10 +11,13 @@ class Members::ActivitiesController < MembersController
   # Renders the overview of all future activities that are enrollable.
   def index
     @member = Member.find(current_user.credentials_id)
-    @activities = Activity.where(
-      '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-      Date.today, Date.today
-      ).where(is_viewable: true).order(:start_date)
+    @activities = Activity
+                  .where(
+                    '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
+                    Date.today, Date.today
+                  )
+                  .where(is_viewable: true)
+                  .order(:start_date)
   end
 
   # [GET] /activities/:id
