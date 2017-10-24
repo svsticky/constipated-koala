@@ -11,7 +11,7 @@ module Mailings
                                 subject: 'Studievereniging Sticky | Checkout kaart bevestigen'
                               })
 
-      text = <<~EOS
+      text = <<~PLAINTEXT
         Hoi #{ card.member.first_name },
 
         Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{ confirmation_url } te gaan.
@@ -19,7 +19,7 @@ module Mailings
         Met vriendelijke groet,
 
         Het bestuur
-      EOS
+      PLAINTEXT
 
       return mail(card.member.email, nil, 'Studievereniging Sticky | Checkout kaart bevestigen', html, text)
     end

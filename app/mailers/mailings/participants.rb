@@ -55,7 +55,7 @@ module Mailings
                                 subject: subject
                               })
 
-      text = <<~EOS
+      text = <<~PLAINTEXT
         Hoi #{ member.first_name },
 
         Geweldig nieuws! Er is een plaats vrijgekomen voor #{ activity.name }. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
@@ -68,7 +68,7 @@ module Mailings
         Met vriendelijke groet,
 
         Het bestuur
-      EOS
+      PLAINTEXT
 
       return mail(member.email, nil, subject, html, text)
     end

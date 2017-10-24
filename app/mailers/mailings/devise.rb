@@ -14,14 +14,14 @@ module Mailings
         subject: 'Studievereniging Sticky | account bevestigen'
       }
 
-      text = <<~EOS
+      text = <<~PLAINTEXT
         Hoi #{ record.credentials.name },
 
         Bevestig je email voor je account bij studievereniging sticky door naar #{ confirmation_url(record, confirmation_token: token) } te gaan.
 
         Met vriendelijke groet,
         Het bestuur
-      EOS
+      PLAINTEXT
 
       return mail(record.unconfirmed_email ||= record.email, nil, 'Sticky account activeren', html, text)
     end
@@ -37,7 +37,7 @@ module Mailings
         subject: 'Welkom bij Sticky! | account activeren'
       }
 
-      text = <<~EOS
+      text = <<~MARKDOWN
         Hoi #{ record.credentials.first_name },
 
         ## Welkom bij Sticky!
@@ -70,7 +70,7 @@ module Mailings
         [3]: https://svsticky.nl
         [4]: https://svsticky.nl/boeken
         [5]: https://svsticky.nl/partners/vacatures
-      EOS
+      MARKDOWN
 
       return mail(record.email, nil, 'Welkom bij Sticky | account activeren', html, text)
     end
@@ -85,7 +85,7 @@ module Mailings
         subject: 'Studievereniging Sticky | wachtwoord herstellen'
       }
 
-      text = <<~EOS
+      text = <<~PLAINTEXT
         Hoi #{ record.credentials.name },
 
         Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuwe account aan te maken.
@@ -93,7 +93,7 @@ module Mailings
 
         Met vriendelijke groet,
         Het bestuur
-      EOS
+      PLAINTEXT
 
       return mail(record.email, nil, 'Sticky wachtwoord opnieuw instellen', html, text)
     end
