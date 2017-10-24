@@ -138,11 +138,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 20
 
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/controllers/users/registrations_controller.rb'
-
 # Offense count: 5
 # Configuration parameters: Blacklist.
 # Blacklist: END, (?-mix:EO[A-Z]{1})

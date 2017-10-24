@@ -56,7 +56,7 @@ class Users::RegistrationsController < ApplicationController
   end
 
   # Ensure the confirmation_token is valid, retrieve user if it is, else redirect with error.
-  def get_user_from_token
+  def get_user_from_token # rubocop:disable AccessorMethodName
     token = params[:confirmation_token]
     if not token and params[:user]
       token = params[:user][:confirmation_token] # Or doesn't work if :user == nil
