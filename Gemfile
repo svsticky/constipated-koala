@@ -66,3 +66,6 @@ group :test do
   gem 'spring'
   gem 'faker', '>= 1.8.4'
 end
+
+# Added at 2017-10-13 14:00:00 +0200 by mhr:
+gem "rubocop", "~> 0.50.0"

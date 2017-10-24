@@ -105,8 +105,8 @@ puts 'Creating members'
       email:        Faker::Internet.safe_email(first_name + '.' + last_name),
       gender:       ['m', 'f'].sample,
       student_id:   "F#{Faker::Number.number(6)}",
-      birth_date:   Faker::Date.between(28.years.ago, 18.years.ago),
-      join_date:    Faker::Date.between(3.years.ago, Date.today),
+      birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
+      join_date:    Faker::Date.between(6.years.ago, Date.today),
       comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
     ) and puts "   -> #{member.name} (#{member.student_id})"
   end
@@ -160,12 +160,17 @@ CheckoutCard.connection.commit_db_transaction
 puts 'Creating checkout transactions'
 Member.all.each do |member|
   member.checkout_cards.each do |checkout_card|
-    10.times do
+    Faker::Number.between(0, 10).times do
+      checkout_products = CheckoutProduct.all
+      if member.is_underage?
+        checkout_products.reject { |product| product.liquor? }
+      end
       CheckoutTransaction.create(
         checkout_card_id: checkout_card.id,
-        items:            CheckoutProduct.all.sample(Faker::Number.between(1, 3)).map { |product| product.id },
+        items:            checkout_products.sample(Faker::Number.between(1, 3)).map { |product| product.id },
         payment_method:   %w[Gepind Contant Verkoop].sample,
-        created_at:       Faker::Date.backward
+        created_at:       Faker::Date.backward,
+        skip_liquor_time_validation: true
       )
     end
   end
