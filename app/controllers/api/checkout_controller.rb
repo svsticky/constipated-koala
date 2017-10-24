@@ -64,14 +64,14 @@ class Api::CheckoutController < ApplicationController
     card = CheckoutCard.new(uuid: params[:uuid], member: Member.find_by_student_id!(params[:student]), description: params[:description])
 
     if card.save
-      sendConfirmation(card)
+      send_confirmation(card)
       render status: :created, json: CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
     else
       head :conflict
     end
   end
 
-  def sendConfirmation(card)
+  def send_confirmation(card)
     # Generate token
     digest = OpenSSL::Digest.new('sha1')
     token  = OpenSSL::HMAC.hexdigest(digest, ENV['CHECKOUT_TOKEN'], card.uuid)
