@@ -70,6 +70,8 @@ puts 'Creating products'
     name:                  Faker::Food.unique.dish,
     category:              Faker::Number.between(2, 4),
     price:                 Faker::Number.between(0.50, 4.0),
+    storage_stock:         Faker::Number.between(0, 200),
+    chamber_stock:         Faker::Number.between(0, 50),
     skip_image_validation: true
   )
 
@@ -78,6 +80,8 @@ puts 'Creating products'
     name:                  Faker::Beer.name,
     category:              5,
     price:                 Faker::Number.between(1.0, 3.0),
+    storage_stock:         Faker::Number.between(0, 200),
+    chamber_stock:         Faker::Number.between(0, 50),
     skip_image_validation: true
   )
 end
