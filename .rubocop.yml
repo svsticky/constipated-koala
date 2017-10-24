@@ -1,0 +1,9 @@
+inherit_from: '.rubocop_todo.yml'
+
+# Display reason and how to do it better.
+AllCops:
+  DisplayStyleGuide: true
+
+# Allow 'some.variable == 0' and others
+Style/NumericPredicate:
+  Enabled: False

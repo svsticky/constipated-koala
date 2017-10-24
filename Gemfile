@@ -37,17 +37,13 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
-group :production do
+group :production, :staging do
   gem 'unicorn'
   gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 end
 
-group :staging do
-  gem 'unicorn'
-  gem 'aws-sdk', '>= 2.0'
-  gem 'uglifier'
-
+group :development, :test, :staging do
   gem 'faker', '>= 1.8.4'
 end
 
@@ -58,14 +54,9 @@ group :development do
   gem 'web-console'
   gem 'byebug', platform: :mri
 
-  gem 'faker', '>= 1.8.4'
-  gem 'spring'
+  gem 'rubocop', '~> 0.50.0', require: false
 end
 
-group :test do
+group :development, :test do
   gem 'spring'
-  gem 'faker', '>= 1.8.4'
 end
-
-# Added at 2017-10-13 14:00:00 +0200 by mhr:
-gem "rubocop", "~> 0.50.0"

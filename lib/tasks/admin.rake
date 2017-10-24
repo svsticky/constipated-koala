@@ -2,17 +2,6 @@ namespace :admin do
 
   desc 'Create a new admin user'
   task :create, [:email, :password] => :environment do |t, args|
-
-    if !User.find_by_email( args[:email] ).nil?
-      puts "#{args[:email]} is already an admin"
-      exit
-    end
-
-    if !Member.find_by_email( args[:email] ).nil?
-      puts "#{args[:email]} is already a member"
-      exit
-    end
-
     admin = Admin.new(
       email:                  args[:email],
       password:               args[:password],

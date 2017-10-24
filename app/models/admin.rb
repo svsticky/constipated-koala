@@ -4,22 +4,23 @@ class Admin < ApplicationRecord
   attr_accessor :email
   attr_accessor :password
   attr_accessor :password_confirmation
+  attr_accessor :skip_confirmation
 
   def name
-    if infix.blank?
-      return "#{self.first_name} #{self.last_name}"
-    end
+    return "#{first_name} #{last_name}" if infix.blank?
 
-    return "#{self.first_name} #{self.infix} #{self.last_name}"
+    "#{first_name} #{infix} #{last_name}"
   end
 
   after_create do
-    credentials = User.create!(
+    user = User.new(
       email:                  email,
       password:               password,
       password_confirmation:  password_confirmation,
 
       credentials: self
     )
+    user.skip_confirmation! if skip_confirmation
+    user.save!
   end
 end

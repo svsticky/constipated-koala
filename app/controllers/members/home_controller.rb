@@ -79,13 +79,13 @@ class Members::HomeController < MembersController
 
     if ideal_transaction_params[:amount].to_f <= Settings.mongoose_ideal_costs
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_home_url
+      redirect_to members_home_path
       return
     end
 
     if balance.nil?
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_root_path
+      redirect_to members_home_path
       return
     end
 
@@ -105,7 +105,7 @@ class Members::HomeController < MembersController
       return
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to users_root_path
+      redirect_to members_home_path
       return
     end
   end
