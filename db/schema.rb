@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919145334) do
+ActiveRecord::Schema.define(version: 20171024121449) do
 
   create_table "activities", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name"
@@ -85,14 +85,14 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.integer "parent"
     t.boolean "active", default: true
     t.decimal "price", precision: 6, scale: 2
-    t.integer "kelder_voorraad", default: 0
-    t.integer "kamer_voorraad", default: 0
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "storage_stock", default: 0
+    t.integer "chamber_stock", default: 0
   end
 
   create_table "checkout_transactions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
