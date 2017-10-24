@@ -63,17 +63,13 @@ class Admin::CheckoutProductsController < ApplicationController
       return
     end
 
-    begin
-      transaction.save
-    rescue ActiveRecord::RecordNotSaved => exception
-      render :status => :payload_too_large, :json => exception.message
-      return
-    rescue ActiveRecord::RecordInvalid
-      render :status => :bad_request, :json => exception.message
-      return
+    if transaction.save
+      render :status => :created, :json => transaction
+    else
+      render status: :bad_request, json: {
+        errors: transaction.errors
+      }
     end
-
-    render :status => :created, :json => transaction
   end
 
   def activate_card

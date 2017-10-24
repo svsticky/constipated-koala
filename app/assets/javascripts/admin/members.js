@@ -109,14 +109,20 @@ $(document).on('ready page:load turbolinks:load', function () {
     }).fail(function (data) {
       inputAmount.prop('disabled', false);
 
-      if (data.status === 404)
-        alert('Er is geen kaart gevonden', 'error');
+      let errors = data.responseJSON.errors;
+      let text = "";
+      for(let attribute in errors){
+        for(let error of errors[attribute])
+          text += error + ', ';
 
-      if (data.status === 413)
-        alert(data.responseText, 'error');
+        // remove last colon and space
+        text = text.slice(0, -2);
+        text += '<br/>';
+      }
+      // remove last line break
+      text = text.slice(0, -5);
 
-      if (data.status === 400)
-        alert('Het bedrag moet numeriek zijn', 'error');
+      alert('Fout!<br>'+ text, 'error');
     });
   });
 

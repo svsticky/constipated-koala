@@ -269,6 +269,18 @@ nl:
         checkout_product:
           blank: kan niet leeg zijn
 
+        checkout_transaction:
+          attributes:
+            price:
+              blank: De prijs moet gespecificeerd zijn
+              other_than: De opwaardering kan niet 0 zijn
+              insufficient_credit: Er is te weinig saldo
+            payment_method:
+              blank: De betaalmethode moet gespecificeerd zijn
+            items:
+              not_liquor_time: 'Het kopen van alcohol is pas toegestaan om %{Settings.liquor_time}'
+              member_under_age: Je bent nog niet out genoeg om alcohol te kopen
+
         ideal_transaction:
           blank: kan niet leeg zijn
           processed: is al verwerkt.
