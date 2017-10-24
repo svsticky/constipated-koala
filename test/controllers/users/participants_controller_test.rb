@@ -68,8 +68,8 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     a = activities(:test_activities_3)
     m1 = members(:m8eld) #underage
     m2 = members(:thecreator) #adult
-    assert m1.is_underage?, "Expected member being underage, but this member has grown up quite a bit"
-    assert m2.is_adult?, "Expected member being 18+, but this member hasn't left puberty yet"
+    assert m1.underage?, "Expected member being underage, but this member has grown up quite a bit"
+    assert m2.adult?, "Expected member being 18+, but this member hasn't left puberty yet"
     p1 = Participant.create!(
       member: m1,
       activity: a,

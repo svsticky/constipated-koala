@@ -47,7 +47,7 @@ class Members::ParticipantsController < MembersController
     end
 
     # Deny minors from alcoholic activities
-    if @activity.is_alcoholic? && @member.is_underage?
+    if @activity.is_alcoholic? && @member.underage?
       render status: 451, json: { # Unavailable for legal reasons
         message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
         participant_limit: @activity.participant_limit,
@@ -83,7 +83,7 @@ class Members::ParticipantsController < MembersController
       reason_for_spare_message = I18n.t(:participant_no_masters,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
-    elsif !@member.is_freshman? && @activity.is_freshmans?
+    elsif !@member.freshman? && @activity.is_freshmans?
       reservist = true
       reason_for_spare_message = I18n.t(:participant_no_freshman,
                                         scope: @activity_errors_scope,

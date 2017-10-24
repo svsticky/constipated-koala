@@ -146,11 +146,6 @@ Metrics/PerceivedComplexity:
 Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
-    - 'app/models/checkout_product.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
-    - 'config/initializers/helpers.rb'
-    - 'config/initializers/is_impressionable.rb'
 
 # Offense count: 6
 # Cop supports --auto-correct.

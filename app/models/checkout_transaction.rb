@@ -40,7 +40,7 @@ class CheckoutTransaction < ApplicationRecord
 
     # only place you should use now, because liquor_time is without zone
     errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
-    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
+    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.underage?
   end
 
   def price=(price)

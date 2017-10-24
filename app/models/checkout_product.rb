@@ -44,7 +44,7 @@ class CheckoutProduct < ApplicationRecord
     return CheckoutProduct.find_by_id(self.parent).url
   end
 
-  def has_children?
+  def children?
     return true unless CheckoutProduct.find_by_parent(self.id).nil?
     return false
   end
@@ -66,7 +66,7 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def self.last_version
-    self.select { |product| !product.has_children? }
+    self.select { |product| !product.children? }
   end
 
   private

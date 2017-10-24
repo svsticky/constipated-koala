@@ -1,5 +1,5 @@
 class String
-  def is_number?
+  def is_number? # rubocop:disable PredicateName
     begin
       return true if Float(self)
     rescue

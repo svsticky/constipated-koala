@@ -51,7 +51,7 @@ class Group < ApplicationRecord
     end
   end
 
-  def self.has_members
+  def self.has_members # rubocop:disable PredicateName
     self.joins(:group_members).select('`groups`.*, COUNT( `groups`.`id` ) as members').group('`groups`.`id`').having('members > 0')
   end
 end

@@ -4,7 +4,7 @@ module Impressionist
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def is_impressionable(options = {})
+      def is_impressionable(options = {}) # rubocop:disable PredicateName
         define_association options.delete(:dependent)
         @impressionist_cache_options = options
 

@@ -305,21 +305,21 @@ class Member < ApplicationRecord
     end
   end
 
-  def is_underage?
-    !self.is_adult?
+  def underage?
+    !self.adult?
   end
 
-  def is_masters?
+  def masters?
     !self.educations.empty? && self.educations.any? { |education| Study.find(education.study_id).masters }
   end
 
-  def is_freshman?
+  def freshman?
     educations.any? do |education|
       education.status == 'active' && 1.year.ago < education.start_date && !Study.find(education.study_id).masters
     end
   end
 
-  def is_adult?
+  def adult?
     return 18.years.ago >= self.birth_date
   end
 
