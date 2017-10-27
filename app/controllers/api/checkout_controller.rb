@@ -86,7 +86,8 @@ class Api::CheckoutController < ApplicationController
   end
 
   def confirm
-    if card = CheckoutCard.where(['confirmation_token = ?', params['confirmation_token']]).first
+    card = CheckoutCard.where(['confirmation_token = ?', params['confirmation_token']]).first
+    if card
       if !card.active
         card.active = true
         if card.save
