@@ -4,7 +4,7 @@ class Admin::PaymentsController < ApplicationController
     @last_impressions = Activity.debtors.map { |activity|
       impression = Impression.where(impressionable_type: Activity).where(impressionable_id: activity.id).where(message: "mail").where('created_at > ?', activity.start).last
 
-      unless impression.nil?
+      if impression
         days = Integer(Date.today - impression.created_at.to_date)
       else
         days = "-"
