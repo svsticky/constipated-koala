@@ -107,16 +107,14 @@ class Member < ApplicationRecord
   end
 
   # If set to true, a User is created after committing
+  attr_reader :create_account
+
   def create_account=(value)
     v = value
     if not (value.is_a? FalseClass or value.is_a? TrueClass)
       v = value.to_b # to_b does not exist for booleans, required for handling truthy "0" and "1" from forms.
     end
     @create_account = v
-  end
-
-  def create_account
-    @create_account
   end
 
   def tags_names
