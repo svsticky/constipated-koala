@@ -52,12 +52,10 @@ class Admin::CheckoutProductsController < ApplicationController
 
   def flip_active
     @product = CheckoutProduct.find_by_id(params[:checkout_product_id])
-#    @products = CheckoutProduct.order(:category, :name).last_version
 
     if @product.update(product_flipactive_params)
       product = CheckoutProduct.find_by_parent(@product.id)
     else
-  #    render 'admin/apps/products'
        head :internal_server_error
     end
   end
