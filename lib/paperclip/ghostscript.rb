@@ -24,7 +24,7 @@ module Paperclip
 
         parameters = parameters.flatten.compact.join(' ').strip.squeeze(' ')
 
-        success = Paperclip.run('gs', parameters, :source => "#{ File.expand_path(src.path) }", :dest => File.expand_path(dst.path))
+        success = Paperclip.run('gs', parameters, :source => File.expand_path(src.path), :dest => File.expand_path(dst.path))
       rescue PaperclipCommandLineError => e
         raise PaperclipError, "There was an error processing the thumbnail for #{ @basename }" if @whiny
       end
