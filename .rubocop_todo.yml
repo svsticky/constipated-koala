@@ -11,11 +11,6 @@ Lint/DuplicateMethods:
   Exclude:
     - 'app/models/member.rb'
 
-# Offense count: 1
-Lint/EnsureReturn:
-  Exclude:
-    - 'app/controllers/users/sessions_controller.rb'
-
 # Offense count: 2
 Lint/IneffectiveAccessModifier:
   Exclude:

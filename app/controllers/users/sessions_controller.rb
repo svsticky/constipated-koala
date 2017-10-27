@@ -9,8 +9,9 @@ class Users::SessionsController < Devise::SessionsController
       super
     ensure
       # check if authentication succeeded, otherwise log failed attempt
-      return unless current_user.nil?
-      logger.fatal "[#{ Time.zone.now }] failed login attempt; #{ request.remote_ip }; #{ request.filtered_parameters['user']['email'] }"
+      if current_user.nil?
+        logger.fatal "[#{ Time.zone.now }] failed login attempt; #{ request.remote_ip }; #{ request.filtered_parameters['user']['email'] }"
+      end
     end
   end
 end
