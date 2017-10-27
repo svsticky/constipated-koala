@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith, SupportedStylesAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Lint/BlockAlignment:
-  Exclude:
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'db/migrate/20160802082751_add_confirmation_to_checkout_cards.rb'
-    - 'db/migrate/20160817130851_add_payment_method_to_checkout_transactions.rb'
-
 # Offense count: 2
 Lint/DuplicateMethods:
   Exclude:

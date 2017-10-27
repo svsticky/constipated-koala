@@ -20,12 +20,12 @@ class Admin::PaymentsController < ApplicationController
     @late_activities = Activity.debtors.select { |activity| activity.impressionist_count(message: "mail", start_date: activity.start) >= 4 }
     @late_payments =
       @late_activities.map { |activity|
-      activity.participants.select { |participant|
-        participant.paid == false &&
-          participant.price != 0 &&
-          participant.reservist == false
-      }.map { |p| p.member }
-    }.flatten.uniq
+        activity.participants.select { |participant|
+          participant.paid == false &&
+            participant.price != 0 &&
+            participant.reservist == false
+        }.map { |p| p.member }
+      }.flatten.uniq
   end
 
   def update_transactions
