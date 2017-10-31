@@ -40,7 +40,7 @@ gem 'paperclip'
 group :production, :staging do
   gem 'unicorn'
   gem 'aws-sdk', '>= 2.0'
-  gem 'uglifier'
+  gem 'closure-compiler'
 end
 
 group :development, :test, :staging do
