@@ -50,6 +50,16 @@ class Admin::CheckoutProductsController < ApplicationController
     end
   end
 
+  def flip_active
+    @product = CheckoutProduct.find params[:checkout_product_id]
+
+    if @product.update(product_flipactive_params)
+      product = CheckoutProduct.find_by_parent(@product.id)
+    else
+       head :internal_server_error
+    end
+  end
+
   def change_funds
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
@@ -100,5 +110,9 @@ class Admin::CheckoutProductsController < ApplicationController
                                               :category,
                                               :active,
                                               :image)
+  end
+
+  def product_flipactive_params
+    params.require(:checkout_product).permit(:active)
   end
 end
