@@ -56,10 +56,7 @@ Rails.application.routes.draw do
         end
       end
 
-      scope 'payments' do
-        get 'payments',           to: 'payments#index'
-        get 'transactions',       to: 'payments#update_transactions'
-      end
+      resources :payments, only: [:index], path: 'payments'
 
       resources :groups, only: [:index, :create, :show, :update] do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
