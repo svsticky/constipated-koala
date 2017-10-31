@@ -51,7 +51,7 @@ class Admin::CheckoutProductsController < ApplicationController
   end
 
   def flip_active
-    @product = CheckoutProduct.find_by_id(params[:checkout_product_id])
+    @product = CheckoutProduct.find params[:checkout_product_id]
 
     if @product.update(product_flipactive_params)
       product = CheckoutProduct.find_by_parent(@product.id)
