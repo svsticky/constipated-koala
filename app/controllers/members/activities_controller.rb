@@ -15,6 +15,7 @@ class Members::ActivitiesController < MembersController
       '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
         Date.today, Date.today
       ).where(is_viewable: true).order(:start_date)
+    @activities = @activities.reject { |a| a.ended? }
   end
 
   # [GET] /activities/:id
