@@ -9,6 +9,8 @@ class CheckoutTransaction < ApplicationRecord
 
   serialize :items, Array
 
+  is_impressionable
+
   class_attribute :i18n_error_scope
   self.i18n_error_scope = %i[activerecord errors models checkout_transaction attributes]
 

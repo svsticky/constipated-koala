@@ -1,5 +1,6 @@
 class Admin::MembersController < ApplicationController
-  impressionist :actions => [ :create, :update ]
+  # replaced with calls in each of the methods
+  # impressionist :actions => [ :create, :update ]
   respond_to :json, only: [:search]
 
   def index
@@ -90,6 +91,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     if @member.update(member_post_params)
+      impressionist @member
       redirect_to @member
     else
       render 'edit'

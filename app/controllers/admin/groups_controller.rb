@@ -1,5 +1,6 @@
 class Admin::GroupsController < ApplicationController
-  impressionist :actions => [ :create, :update ]
+  # replaced with calls in each of the methods
+  # impressionist :actions => [ :create, :update ]
 
   def index
     @groups = Group.all.order( :category, :name )
@@ -15,6 +16,7 @@ class Admin::GroupsController < ApplicationController
     @group = Group.new group_params
 
     if @group.save
+      impressionist @group
       redirect_to @group
     else
       @groups = Group.all.order( :category, :name )
@@ -26,6 +28,7 @@ class Admin::GroupsController < ApplicationController
     @group = Group.find_by_id params[:id]
 
     if @group.update(group_params)
+      impressionist @group
       redirect_to @group
     else
       @groups = Group.all.order( :category, :name )

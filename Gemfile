@@ -21,8 +21,7 @@ gem 'coffee-rails'
 gem 'devise', :github => 'plataformatec/devise'
 gem 'doorkeeper'
 
-# logging, using master for rails 5 support
-gem 'impressionist', :github => 'charlotte-ruby/impressionist'
+gem 'impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'

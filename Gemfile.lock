@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/charlotte-ruby/impressionist.git
-  revision: 529f9d494d375bf50ed85d41d6095b654bb26658
-  specs:
-    impressionist (1.5.2)
-      nokogiri (~> 1)
-
-GIT
   remote: https://github.com/plataformatec/devise.git
   revision: ee01bac8b0b828b3da0d79c46115ba65c433d6c8
   specs:
@@ -105,6 +98,8 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.1)
+    impressionist (1.6.0)
+      nokogiri (~> 1)
     jmespath (1.3.1)
     kgio (2.11.0)
     listen (3.1.5)
@@ -246,7 +241,7 @@ DEPENDENCIES
   faker (>= 1.8.4)
   fuzzily!
   haml
-  impressionist!
+  impressionist
   listen
   mysql2
   paperclip

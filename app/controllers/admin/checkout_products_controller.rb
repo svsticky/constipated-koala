@@ -1,5 +1,6 @@
 class Admin::CheckoutProductsController < ApplicationController
-  impressionist :actions => [ :activate_card, :change_funds ]
+  # replaced with calls in each of the methods
+  # impressionist :actions => [ :activate_card, :change_funds ]
   respond_to :json, only: [ :activate_card, :change_funds ]
 
   def index
@@ -74,6 +75,7 @@ class Admin::CheckoutProductsController < ApplicationController
     end
 
     if transaction.save
+      impressionist transaction
       render :status => :created, :json => transaction
     else
       render status: :bad_request, json: {
@@ -95,11 +97,10 @@ class Admin::CheckoutProductsController < ApplicationController
     card.update_attribute(:active, true)
 
     if card.save
+      impressionist card
       render :status => :ok, :json => card.to_json
-      return
     else
       render :status => :bad_request, :json => card.errors.full_messages
-      return
     end
   end
 
