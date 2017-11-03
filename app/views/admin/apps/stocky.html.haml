@@ -5,3 +5,8 @@
 
 %section#content
   = render 'layouts/partials/search'
+
+  - @products.each do |product|
+    %strong= product.name
+    .storage= product.storage_stock
+    .chamber= product.chamber_stock
