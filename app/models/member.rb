@@ -320,6 +320,10 @@ class Member < ApplicationRecord
     return 18.years.ago >= self.birth_date
   end
 
+  def enrolled_in_study?
+    return Education.exists?(member: self, status: Education.statuses[:active])
+  end
+
   def unpaid_activities
       # All participants who will receive payment reminders
       self.participants.joins(:activity).where('
