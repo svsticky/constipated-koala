@@ -6,7 +6,30 @@
 %section#content
   = render 'layouts/partials/search'
 
-  - @products.each do |product|
-    %strong= product.name
-    .storage= product.storage_stock
-    .chamber= product.chamber_stock
+  .page.page-table
+    .row
+      .col-lg-8
+        %section.panel.panel-default.table-dynamic
+          .panel-heading
+            Voorraad
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      Product
+                  %th
+                    .th
+                      Kelder
+                  %th
+                    .th
+                      Kamer
+              - @products.each do |product|
+                %tr
+                  %td
+                    =product.name
+                  %td
+                    = product.storage_stock
+                  %td
+                    = product.chamber_stock
