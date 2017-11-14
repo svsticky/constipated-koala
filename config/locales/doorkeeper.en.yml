@@ -47,6 +47,14 @@ en:
         callback_urls: 'Callback urls'
         actions: 'Actions'
 
+    scopes:
+      member-read: read your name, address, and contact information
+      activity-read: view activities
+      group-read: view your committees and other groups
+
+      participant-read: view participated activities
+      participant-write: enroll for an activity
+
     authorizations:
       buttons:
         authorize: 'Authorize'
