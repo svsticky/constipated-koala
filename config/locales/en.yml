@@ -64,6 +64,7 @@ en:
         is_enrollable: Enrollable
         is_masters: Masters
         participant_limit: Participant limit
+        is_viewable: Viewable
 
       group:
         name: Group name
@@ -161,9 +162,45 @@ en:
           name: Additional moot roles
           description: Roles besides chairman, treasurer and board member that will be added to the moots.
 
+    impression:
+      member:
+        create: member created
+        update: member updated
+        destroy: member deleted
+
+      group:
+        create: group created
+        update: group updated
+
+      groupmember:
+        create: '%{name} added'
+        update: '%{name} updated'
+
+      activity:
+        create: activity created
+        update: activity updated
+        mail: paymentmail sent
+
+      participant:
+        create: participant added
+        update:
+          paid: participant has paid
+          unpaid: participant hasn't paid
+          price: price for participant has been updated
+
+      checkoutproduct:
+        change_funds: funds added
+        activate_card: card activated
+
     annotations:
       member:
         email: Can't be a UU email address
+
+    messages:
+      participant:
+        paid: '%{name} has paid for %{activity}'
+        unpaid: '%{name} has not paid for %{activity}'
+        price: '%{activity} has been changed for %{name}'
 
     errors:
       default: Some has gone wrong
@@ -196,6 +233,7 @@ en:
           participant_notes_updated: Information updated
           not_enrollable: Activity not enrollable
           not_unenrollable: Activity not unenrollable
+          blank: can't be blank
           blank_and_start_time: can't be blank if the start time is set
           blank_and_end_time: can't be blank if the end time is set
           attributes:
@@ -207,6 +245,7 @@ en:
               after_start_date: can't be after the start date
 
         member:
+          blank: can't be blank
           attributes:
             phone_number:
               invalid: consists of 10 digits
@@ -219,6 +258,7 @@ en:
               elfproef: is not valid
 
         user:
+          blank: can't be blank
           attributes:
             email:
               invalid: is not a valid email address
@@ -228,6 +268,9 @@ en:
               invalid: isn't valid
             password_confirmation:
               confirmation: isn't repeated correctly
+
+        checkout_product:
+          blank: can't be blank
 
         checkout_transaction:
           attributes:
@@ -242,7 +285,10 @@ en:
               member_under_age: You're legally not allowed to buy alcohol yet
 
         ideal_transaction:
+          blank: can't be blank
           processed: is already processed
+          success: has been processed
+          failed: has not been processed
           attributes:
             checkout: Mongoose credit
             fees: iDEAL fee
