@@ -9,7 +9,4 @@
         %tr
           %td= link_to "#{group.name}", group
           %td.hidden-sm= group.members.map{ |member| member.name }.join(', ')
-          - if group.category != "board"
-            %td.col-xs-2= link_to 'Verwijderen', group_path(group.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
-          - else
-            %td.col-xs-2
+          
