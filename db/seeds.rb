@@ -147,7 +147,6 @@ Member.all.each do |member|
   checkout_balance = nil
   CheckoutBalance.transaction do
     checkout_balance = CheckoutBalance.create(
-      balance:   Faker::Number.between(130.00, 150.00),
       member_id: member.id
     )
   end
@@ -187,19 +186,21 @@ CheckoutCard.connection.commit_db_transaction
 puts 'Creating checkout transactions'
 Member.all.each do |member|
   member.checkout_cards.each do |checkout_card|
+    checkout_transactions = []
     Faker::Number.between(0, 10).times do
       checkout_products = CheckoutProduct.all
       if member.is_underage?
         checkout_products.reject { |product| product.liquor? }
       end
-      CheckoutTransaction.create(
-        checkout_card_id: checkout_card.id,
-        items:            checkout_products.sample(Faker::Number.between(1, 3)).map { |product| product.id },
-        payment_method:   %w[Gepind Contant Verkoop].sample,
-        created_at:       Faker::Date.backward,
-        skip_liquor_time_validation: true
-      )
+      checkout_transactions.push(CheckoutTransaction.new(
+                                   checkout_card_id: checkout_card.id,
+                                   items:            checkout_products.sample(Faker::Number.between(1, 3)).map { |product| product.id },
+                                   payment_method:   %w[Gepind Contant Verkoop].sample,
+                                   created_at:       Faker::Date.backward(365 * (Date.today - member.join_date)),
+                                   skip_liquor_time_validation: true
+      ))
     end
+
   end
 end
 
