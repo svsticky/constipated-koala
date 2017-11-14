@@ -6,7 +6,16 @@
 %section#content
   = render 'layouts/partials/search'
 
-  .page.page-table
+  .page
+
+    .btn-group
+      %button.btn.btn-primary{:type=>"button"}
+        Voorraad
+      %button.btn.btn-primary{:type=>"button"}
+        Inkoop
+      %button.btn.btn-primary{:type=>"button"}
+        Verkoop
+
     .row
       .col-lg-8
         %section.panel.panel-default.table-dynamic
