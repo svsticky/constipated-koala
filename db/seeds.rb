@@ -84,8 +84,8 @@ end
 
 puts 'Creating admin: dev@svsticky.nl, sticky123'
 Admin.create!(
-  email: 'dev@svsticky.nl',
-  password: 'sticky123',
+  email:             'dev@svsticky.nl',
+  password:          'sticky123',
   skip_confirmation: true
 )
 
@@ -99,15 +99,15 @@ test_member = Member.create(
   city:         Faker::Address.city,
   phone_number: Faker::Base.numerify('+316########'),
   email:        Faker::Internet.safe_email('Sticky' + '.' + 'Tester'),
-  gender:       ['m', 'f'].sample,
+  gender:       %w[m f].sample,
   student_id:   "F#{Faker::Number.number(6)}",
   birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
   join_date:    Faker::Date.between(6.years.ago, Date.today),
   comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
 )
-test_user = User.new(
-  email: 'test@svsticky.nl',
-  password: 'sticky123',
+test_user   = User.new(
+  email:       'test@svsticky.nl',
+  password:    'sticky123',
   credentials: test_member
 )
 test_user.skip_confirmation!
@@ -120,7 +120,7 @@ puts 'Creating members'
   last_name  = Faker::Name.last_name
 
   Member.transaction do
-    member = Member.create(
+    (member = Member.create(
       first_name:   first_name,
       infix:        (Faker::Number.between(1, 10) > 7 ? Faker::Name.tussenvoegsel : ' '),
       last_name:    last_name,
@@ -130,12 +130,12 @@ puts 'Creating members'
       city:         Faker::Address.city,
       phone_number: Faker::Base.numerify('+316########'),
       email:        Faker::Internet.safe_email(first_name + '.' + last_name),
-      gender:       ['m', 'f'].sample,
+      gender:       %w[m f].sample,
       student_id:   "F#{Faker::Number.number(6)}",
       birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
       join_date:    Faker::Date.between(6.years.ago, Date.today),
-      comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
-    ) and puts "   -> #{member.name} (#{member.student_id})"
+      comments:     Faker::Boolean.boolean(0.3) ? Faker::Hacker.say_something_smart : nil
+    )) && puts("   -> #{member.name} (#{member.student_id})")
   end
 end
 
@@ -171,7 +171,7 @@ Member.all.each do |member|
 
       Education.create(
         member_id:  member.id,
-        study_id:   Faker::Number.between(1, Study.count),
+        study_id:   Study.all.sample,
         start_date: start_date,
         end_date:   end_date,
         status:     status
@@ -189,18 +189,15 @@ Member.all.each do |member|
     checkout_transactions = []
     Faker::Number.between(0, 10).times do
       checkout_products = CheckoutProduct.all
-      if member.is_underage?
-        checkout_products.reject { |product| product.liquor? }
-      end
+      checkout_products.reject(&:liquor?) if member.is_underage?
       checkout_transactions.push(CheckoutTransaction.new(
-                                   checkout_card_id: checkout_card.id,
-                                   items:            checkout_products.sample(Faker::Number.between(1, 3)).map { |product| product.id },
-                                   payment_method:   %w[Gepind Contant Verkoop].sample,
-                                   created_at:       Faker::Date.backward(365 * (Date.today - member.join_date)),
-                                   skip_liquor_time_validation: true
+        checkout_card_id:            checkout_card.id,
+        items:                       checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
+        payment_method:              %w[Gepind Contant Verkoop].sample,
+        created_at:                  Faker::Date.backward(365 * (Date.today - member.join_date)),
+        skip_liquor_time_validation: true
       ))
     end
-
   end
 end
 
@@ -214,8 +211,8 @@ puts 'Creating committees'
   )
 
   8.times do
-    member   = Member.find_by_id(Faker::Number.between(1, Member.count))
-    position = (Faker::Number.between(1, 10) < 5 ? group.positions[Faker::Number.between(1, group.positions.count)] : nil)
+    member   = Member.all.sample
+    position = Faker::Boolean.boolean(0.5) ? group.positions.sample : nil
 
     next if member.nil?
 
@@ -230,10 +227,9 @@ puts 'Creating committees'
   end
 end
 
-
-# Create 20 activities and the participants
+# Create activities and the participants
 puts 'Creating activities'
-15.times do
+50.times do
   start_date = Faker::Date.between(2.years.ago, 1.years.from_now)
   start_time = nil
   end_date   = nil
@@ -255,40 +251,57 @@ puts 'Creating activities'
     end
   end
 
-  end_date = Faker::Date.between(start_date, 1.years.from_now) if multiday
+  end_date = Faker::Date.between(start_date, start_date + 7.days) if multiday
 
-  if not all_day
-    start_sec  = Faker::Number.between(0, 86400)
+  unless all_day
+    start_sec  = Faker::Number.between(0, 86_400)
     start_time = Time.at(start_sec)
-    end_time   = Time.at(Faker::Number.between(start_sec, 86400))
+    end_time   = Time.at(Faker::Number.between(start_sec, 86_400))
   end
 
+  notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.words(Faker::Number.between(1, 5)).join(' ') : nil
+
   activity = Activity.create(
-    name:          Faker::Hacker.ingverb.capitalize,
-    price:         Faker::Commerce.price/5,
-    start_date:    start_date,
-    start_time:    start_time,
-    end_date:      end_date,
-    end_time:      end_time,
-    organized_by:  (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : nil),
-    is_enrollable: enrollable,
-    is_masters:    (Faker::Boolean.boolean(0.3))
+    name:              Faker::Hacker.ingverb.capitalize,
+    price:             Faker::Commerce.price / 5,
+    start_date:        start_date,
+    start_time:        start_time,
+    end_date:          end_date,
+    end_time:          end_time,
+    organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
+    description:       Faker::Lorem.paragraph(5),
+    is_enrollable:     enrollable,
+    is_masters:        Faker::Boolean.boolean(0.3),
+    is_viewable:       Faker::Boolean.boolean(0.9),
+    is_alcoholic:      Faker::Boolean.boolean(0.2),
+    participant_limit: participant_limit,
+    location:          Faker::Lorem.words(Faker::Number.between(1, 3)).join(' '),
+    notes:             notes,
+    notes_mandatory:   notes.nil? ? Faker::Boolean.boolean(0.2) : false,
+    notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true,
+    is_freshmans:      Faker::Boolean.boolean(0.2)
   )
 
   20.times do
     reservist = false
     if enrollable
-      reservist = true if participant_limit and activity.participants.count > participant_limit
+      reservist = true if participant_limit && (activity.participants.count > participant_limit)
+    end
+
+    notes = nil
+    if !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3))
+      notes = Faker::Lorem.words(Faker::Number.between(1, 3)).join(' ')
     end
 
     # because of the [member, activity] key this also conflicts often
     suppress(ActiveRecord::RecordNotUnique) do
       Participant.create(
-        member:    Member.find_by_id(Faker::Number.between(1, Member.count)),
+        member:    Member.all.sample,
         reservist: reservist,
         activity:  activity,
-        price:     (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price/5 : nil),
-        paid:      (Faker::Number.between(1, 10) < 4 ? true : false) # if price is 0 than the paid attribute is not used
+        price:     Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil,
+        paid:      Faker::Boolean.boolean(0.4), # if price is 0 than the paid attribute is not used
+        notes: notes
       )
     end
   end
