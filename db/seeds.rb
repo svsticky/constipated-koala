@@ -250,7 +250,7 @@ start_dates.each do |start_date|
   # 4: Multiple days, with start and end time
   multiday   = Faker::Boolean.boolean
   all_day    = Faker::Boolean.boolean
-  enrollable = Faker::Boolean.boolean(0.3)
+  enrollable = Faker::Boolean.boolean(0.5)
 
   participant_limit = nil
   if enrollable
@@ -279,7 +279,7 @@ start_dates.each do |start_date|
     organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
     description:       Faker::Lorem.paragraph(5),
     is_enrollable:     enrollable,
-    is_masters:        Faker::Boolean.boolean(0.3),
+    is_masters:        Faker::Boolean.boolean(0.2),
     is_viewable:       Faker::Boolean.boolean(0.9),
     is_alcoholic:      Faker::Boolean.boolean(0.2),
     participant_limit: participant_limit,
@@ -290,7 +290,7 @@ start_dates.each do |start_date|
     is_freshmans:      Faker::Boolean.boolean(0.2)
   )
 
-  20.times do
+  Faker::Number.between(0, 20).times do
     reservist = false
     if enrollable
       reservist = true if participant_limit && (activity.participants.count > participant_limit)
