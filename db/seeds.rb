@@ -293,7 +293,7 @@ start_dates.each do |start_date|
   Faker::Number.between(0, 20).times do
     reservist = false
     if enrollable
-      reservist = true if participant_limit && (activity.participants.count > participant_limit)
+      reservist = participant_limit && (activity.participants.count >= participant_limit)
     end
 
     notes = nil
