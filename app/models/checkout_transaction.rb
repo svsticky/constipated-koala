@@ -27,6 +27,8 @@ class CheckoutTransaction < ApplicationRecord
     CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{self.price}, updated_at = NOW()")
   end
 
+  after_commit :update_product_stock
+
   def validate_sufficient_credit
     errors.add(:price, I18n.t('price.insufficient_credit', scope: i18n_error_scope)) if price + checkout_balance.balance < 0
   end
@@ -45,6 +47,13 @@ class CheckoutTransaction < ApplicationRecord
 
   def price=(price)
     write_attribute(:price, price.to_s.tr(',', '.').to_f)
+  end
+
+  def update_product_stock
+    items.each do |item_id|
+      item = CheckoutProduct.find(item_id)
+      item.decrement!(:chamber_stock)
+    end
   end
 
   def products
