@@ -7,14 +7,7 @@
   = render 'layouts/partials/search'
 
   .page
-
-    .btn-group
-      %button.btn.btn-primary{:type=>"button"}
-        Voorraad
-      %button.btn.btn-primary{:type=>"button"}
-        Inkoop
-      %button.btn.btn-primary{:type=>"button"}
-        Verkoop
+    = render 'admin/apps/stocky/partials/stocknav'
 
     .row
       .col-lg-8

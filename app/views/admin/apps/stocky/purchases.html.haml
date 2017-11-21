@@ -1,0 +1,10 @@
+- content_for(:page, 'apps')
+- content_for(:subpage, 'stock management')
+
+- content_for(:title, 'Apps | Stocky')
+
+%section#content
+  = render 'layouts/partials/search'
+
+  .page
+    = render 'admin/apps/stocky/partials/stocknav'
