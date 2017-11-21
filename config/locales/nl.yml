@@ -192,7 +192,6 @@ nl:
           change_funds: tegoed opgewaardeerd
           activate_card: kaart geactiveerd
 
-
     annotations:
       member:
         email: E-mailadres kan geen adres van de UU zijn

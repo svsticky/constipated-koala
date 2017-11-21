@@ -62,9 +62,9 @@ en:
         location: Location
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
+        is_viewable: Viewable
         is_masters: Masters
         participant_limit: Participant limit
-        is_viewable: Viewable
 
       group:
         name: Group name
@@ -207,15 +207,11 @@ en:
       incomplete: Oh snap, you forgot some things
       no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
 
-      messages:
-        blank: can't be blank
-
       subscribe:
         failed: Your payment has failed, but you have been enrolled!
         success: Your payment has been received and you are enrolled!
         no_bank_provided: Bank can't be empty when paying with iDEAL.
         success_without_payment: You have been enrolled!
-
 
       models:
         activity:
@@ -253,7 +249,7 @@ en:
               taken: is already registered
               invalid: is not a valid mail address
             student_id:
-              taken: is already reigstered
+              taken: is already registered
               invalid: is not valid
               elfproef: is not valid
 
@@ -261,6 +257,7 @@ en:
           blank: can't be blank
           attributes:
             email:
+              blank: can't be blank
               invalid: is not a valid email address
               taken: already exists in the database
             password:
@@ -286,8 +283,8 @@ en:
 
         ideal_transaction:
           blank: can't be blank
-          processed: is already processed
-          success: has been processed
+          processed: has already been processed
+          success: has been processed!
           failed: has not been processed
           attributes:
             checkout: Mongoose credit

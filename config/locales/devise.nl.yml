@@ -1,3 +1,5 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
 nl:
   devise:
     confirmations:
@@ -11,6 +13,7 @@ nl:
       invalid: "Ongeldig e-mail of wachtwoord."
       invalid_token: "Ongeldig authenticiteit token."
       locked: "Je account is vergrendeld."
+      last_attempt: "Je hebt nog een poging voor je account wordt vergrendeld."
       not_found_in_database: "Ongeldig e-mail of wachtwoord."
       timeout: "Je sessie is verlopen, log alsjeblieft opnieuw in om verder te gaan."
       unauthenticated: "Je moet eerst inloggen, voordat je verder kunt gaan."
