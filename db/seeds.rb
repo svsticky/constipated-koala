@@ -229,8 +229,16 @@ end
 
 # Create activities and the participants
 puts 'Creating activities'
-50.times do
-  start_date = Faker::Date.between(2.years.ago, 1.years.from_now)
+start_dates = []
+20.times do
+  start_dates.push(Faker::Date.between(DateTime.now, 3.months.from_now))
+end
+
+40.times do
+  start_dates << Faker::Date.between(2.years.ago, Date.today)
+end
+
+start_dates.each do |start_date|
   start_time = nil
   end_date   = nil
   end_time   = nil
