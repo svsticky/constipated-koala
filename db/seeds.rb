@@ -54,10 +54,15 @@ Group.create(
 )
 
 puts 'Creating membership activity'
-activity = Activity.create(
-  name:       'Lidmaatschap',
-  price:      7.5,
-  start_date: Faker::Date.between(30.days.ago, 7.days.ago)
+Activity.create(
+  name:          'Lidmaatschap',
+  price:         7.5,
+  start_date:    Faker::Date.between(30.days.ago, 7.days.ago),
+  is_enrollable: false,
+  is_masters:    false,
+  is_viewable:   false,
+  is_alcoholic:  false,
+  is_freshmans:  false
 )
 
 # Seeds not working on CI
