@@ -30,7 +30,7 @@ module Mailings
 
       member = participant.member
       activity = participant.activity
-      url = url_for :controller => "users/activities", :action => "show", :id => activity.id
+      url = activity_url activity.id
 
       starts_at = I18n.l activity.start_date, format: :day_month
       if activity.start_time
