@@ -21,7 +21,7 @@ class Activity < ApplicationRecord
 
   is_impressionable
 
-  after_update :enroll_reservists, if: proc { |a| a.participant_limit_change }
+  after_update :enroll_reservists, if: proc { |a| a.saved_change_to_participant_limit }
 
   has_attached_file :poster,
                     :styles => {
