@@ -1,4 +1,4 @@
-class Admin::CheckoutProductsController < ApplicationController
+class Admin::CheckoutProductsController < AdminController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :activate_card, :change_funds ]
   respond_to :json, only: [ :activate_card, :change_funds ]

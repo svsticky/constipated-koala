@@ -1,4 +1,4 @@
-class Admin::PaymentsController < ApplicationController
+class Admin::PaymentsController < AdminController
 
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!

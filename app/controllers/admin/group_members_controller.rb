@@ -1,4 +1,4 @@
-class Admin::GroupMembersController < ApplicationController
+class Admin::GroupMembersController < AdminController
   respond_to :json, only: [ :create, :update, :destroy ]
 
   def create

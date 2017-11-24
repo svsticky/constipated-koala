@@ -1,4 +1,4 @@
-class Admin::ParticipantsController < ApplicationController
+class Admin::ParticipantsController < AdminController
   respond_to :json
 
   def create

@@ -1,6 +1,5 @@
-class Users::RegistrationsController < ApplicationController
+class Users::RegistrationsController < UserController
   skip_before_action :authenticate_user!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
-  skip_before_action :authenticate_admin!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
   before_action :get_user_from_token, only: [:new_member_confirmation, :new_member_confirm]
 
   layout 'doorkeeper'

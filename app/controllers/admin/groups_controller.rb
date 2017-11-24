@@ -1,4 +1,4 @@
-class Admin::GroupsController < ApplicationController
+class Admin::GroupsController < AdminController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update ]
 

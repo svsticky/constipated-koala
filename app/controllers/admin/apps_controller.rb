@@ -1,4 +1,4 @@
-class Admin::AppsController < ApplicationController
+class Admin::AppsController < AdminController
 
   def checkout
     @limit = params[:limit] ? params[:limit].to_i : 50
