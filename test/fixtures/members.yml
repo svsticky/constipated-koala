@@ -144,3 +144,17 @@ masterboy030man:
   gender: m
   birth_date: <%= 25.years.ago %>
   join_date: <%= 19.years.ago %>
+
+feutemeteut:
+  first_name: Feu
+  infix: te
+  last_name: Meteut
+  address: Vuilnisbakkensteeg
+  house_number: 4
+  city: Ouderdorp
+  postal_code: 1111 BB
+  phone_number: 0643214321
+  email: eenofanderverschrikkelijkadres@maartenberg.nl
+  gender: m
+  birth_date: <%= 18.years.ago %>
+  join_date: <%= 17.years.ago %>

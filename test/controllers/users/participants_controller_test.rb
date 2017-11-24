@@ -88,4 +88,12 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     assert_counts(a, [3, 1, 2])
     assert_equal a.attendees.first, members(:masterboy030man)
   end
+
+  test "luckypeople selection for freshman's activities not broken" do
+    a = activities(:test_luckypeople_freshmen)
+    a.enroll_reservists
+
+    assert_counts(a, [3, 1, 2])
+    assert_equal a.attendees.first, members(:feutemeteut)
+  end
 end

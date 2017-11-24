@@ -29,3 +29,18 @@ nonmaster_3:
   member: masterboy030man # [Witty comment explaning masterboy030man is a masters student]
   reservist: true
 
+# Same here:
+nonfreshman_1:
+  activity: test_luckypeople_freshmen
+  member: dannypanny
+  reservist: true
+
+nonfreshman_2:
+  activity: test_luckypeople_freshmen
+  member: roosje
+  reservist: true
+
+nonfreshman_3:
+  activity: test_luckypeople_freshmen
+  member: feutemeteut
+  reservist: true
