@@ -80,4 +80,12 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     a.reload
     #assert_not p1.save!, "Expected m1 not being able to enroll, but she did"
   end
+
+  test "luckypeople selection for master's activities not broken" do
+    a = activities(:test_luckypeople_masters)
+    a.enroll_reservists
+
+    assert_counts(a, [3, 1, 2])
+    assert_equal a.attendees.first, members(:masterboy030man)
+  end
 end
