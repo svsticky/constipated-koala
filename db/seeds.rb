@@ -118,6 +118,12 @@ test_user = User.new(
 test_user.skip_confirmation!
 test_user.save!
 
+puts 'Create Education for test user'
+Education.create(
+  study: Study.first,
+  member: test_member
+)
+
 # Create 60 members and their studies
 puts 'Creating members'
 60.times do
