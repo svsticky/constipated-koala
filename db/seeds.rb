@@ -110,7 +110,7 @@ test_member = Member.create(
   join_date:    Faker::Date.between(6.years.ago, Date.today),
   comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
 )
-test_user   = User.new(
+test_user = User.new(
   email:       'test@svsticky.nl',
   password:    'sticky123',
   credentials: test_member
@@ -196,11 +196,11 @@ Member.all.each do |member|
       checkout_products = CheckoutProduct.all
       checkout_products.reject(&:liquor?) if member.is_underage?
       checkout_transactions.push(CheckoutTransaction.new(
-        checkout_card_id:            checkout_card.id,
-        items:                       checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
-        payment_method:              %w[Gepind Contant Verkoop].sample,
-        created_at:                  Faker::Date.backward(365 * (Date.today - member.join_date)),
-        skip_liquor_time_validation: true
+                                   checkout_card_id:            checkout_card.id,
+                                   items:                       checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
+                                   payment_method:              %w[Gepind Contant Verkoop].sample,
+                                   created_at:                  Faker::Date.backward(365 * (Date.today - member.join_date)),
+                                   skip_liquor_time_validation: true
       ))
     end
   end
@@ -244,10 +244,6 @@ end
 end
 
 start_dates.each do |start_date|
-  start_time = nil
-  end_date   = nil
-  end_time   = nil
-
   # We generate four types of activities:
   # 1: Multiple days, all day
   # 2: Single day, all day
@@ -257,19 +253,19 @@ start_dates.each do |start_date|
   all_day    = Faker::Boolean.boolean
   enrollable = Faker::Boolean.boolean(0.5)
 
-  participant_limit = nil
-  if enrollable
-    if Faker::Boolean.boolean(0.5)
-      participant_limit = Faker::Number.between(2, 18)
-    end
-  end
+  participant_limit = enrollable && Faker::Boolean.boolean(0.5) ? Faker::Number.between(2, 18) : nil
 
-  end_date = Faker::Date.between(start_date, start_date + 7.days) if multiday
+  end_date = multiday ? Faker::Date.between(start_date + 1.day, start_date + 7.days) : nil
 
-  unless all_day
-    start_sec  = Faker::Number.between(0, 86_400)
-    start_time = Time.at(start_sec)
-    end_time   = Time.at(Faker::Number.between(start_sec, 86_400))
+  if all_day
+    start_time, end_time = nil
+  else
+    start_time = Faker::Time.between(start_date, start_date)
+    end_time = if end_date.nil?
+                 rand(start_time..(start_date + 1.day).to_time)
+               else
+                 rand(end_date..(end_date + 1.day))
+               end
   end
 
   notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.words(Faker::Number.between(1, 5)).join(' ') : nil
@@ -296,10 +292,7 @@ start_dates.each do |start_date|
   )
 
   Faker::Number.between(0, 20).times do
-    reservist = false
-    if enrollable
-      reservist = participant_limit && (activity.participants.count >= participant_limit)
-    end
+    reservist = enrollable && !participant_limit.nil? && (activity.participants.count >= participant_limit)
 
     notes = nil
     if !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3))
