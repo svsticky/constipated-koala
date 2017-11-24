@@ -205,13 +205,15 @@ class Activity < ApplicationRecord
     spots = participant_limit - attendees.count if attendees.count <
                                                    participant_limit
 
-    luckypeople = reservists.first(spots)
+    reservistpool = reservists.to_a # to_a because in-place `select!`
 
     # Filter non-masters if masters-only, non-freshmen if freshman-only.
     # Note: this will leave nobody if someone enables both is_masters and
     # is_freshmans, as is_freshman? explicitly rejects masters.
-    luckypeople.select! { |m| m.member.is_masters? } if is_masters?
-    luckypeople.select! { |m| m.member.is_freshman? } if is_freshmans?
+    reservistpool.select! { |m| m.member.is_masters? } if is_masters?
+    reservistpool.select! { |m| m.member.is_freshman? } if is_freshmans?
+
+    luckypeople = reservistpool.first(spots)
 
     luckypeople.each do |peep|
       peep.update!(reservist: false)
