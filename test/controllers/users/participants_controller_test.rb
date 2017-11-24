@@ -1,3 +1,5 @@
+require "test_helper"
+
 class ParticipantsControllerTest < ActionDispatch::IntegrationTest
   def assert_counts(activity, expected_counts)
     # Assert that an activity's participant counts match the given values.
