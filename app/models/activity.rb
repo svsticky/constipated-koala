@@ -205,7 +205,7 @@ class Activity < ApplicationRecord
     spots = participant_limit - attendees.count if attendees.count <
                                                    participant_limit
 
-    luckypeople = reservists
+    luckypeople = reservists.first(spots)
 
     # Filter non-masters if masters-only, non-freshmen if freshman-only.
     # Note: this will leave nobody if someone enables both is_masters and
@@ -213,7 +213,7 @@ class Activity < ApplicationRecord
     luckypeople.select! { |m| m.member.is_masters? } if is_masters?
     luckypeople.select! { |m| m.member.is_freshman? } if is_freshmans?
 
-    luckypeople.first(spots).each do |peep|
+    luckypeople.each do |peep|
       peep.update!(reservist: false)
       Mailings::Participants.enrolled(peep).deliver_later
     end
