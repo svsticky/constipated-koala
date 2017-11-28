@@ -1,0 +1,34 @@
+inca:
+  id: 1
+  code: 'INCA'
+  masters: false
+
+inku:
+  id: 2
+  code: 'INKU'
+  masters: false
+
+gt:
+  id: 3
+  code: 'GT'
+  masters: false
+
+cosc:
+  id: 4
+  code: 'COSC'
+  masters: true
+
+mbim:
+  id: 5
+  code: 'MBIM'
+  masters: true
+
+ainm:
+  id: 6
+  code: 'AINM'
+  masters: true
+
+gmte:
+  id: 7
+  code: 'GMTE'
+  masters: true
