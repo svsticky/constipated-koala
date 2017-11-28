@@ -324,6 +324,11 @@ class Member < ApplicationRecord
     return Education.exists?(member: self, status: Education.statuses[:active])
   end
 
+  #member may enroll when currently enrolled in study, or tagged with one of tags that is not
+  def may_enroll?
+    return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
+  end
+
   def unpaid_activities
       # All participants who will receive payment reminders
       self.participants.joins(:activity).where('
