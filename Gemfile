@@ -36,6 +36,9 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
+# Icalendar for calendar integration
+gem 'icalendar'
+
 group :production, :staging do
   gem 'unicorn'
   gem 'aws-sdk', '>= 2.0'
