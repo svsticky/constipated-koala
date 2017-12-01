@@ -44,7 +44,8 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def calculate_price
-    self.price = -items.reduce(0) do |total, item|
+    self.price = -items.reduce(0) do |total, item_id|
+      item = CheckoutProduct.find(item_id)
       total + item.price
     end
     price
