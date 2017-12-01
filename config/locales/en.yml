@@ -39,6 +39,8 @@ en:
         student_id: Student ID
 
         comments: Comments
+        tags: Tags
+        educations: Study
 
       user:
         email: e-mailaddress

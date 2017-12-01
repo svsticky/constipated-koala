@@ -39,6 +39,8 @@ nl:
        student_id: Studentnummer
 
        comments: Commentaar
+       tags: Tags
+       educations: Studie
 
       user:
         email: E-mailadres
