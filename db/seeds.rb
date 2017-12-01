@@ -233,6 +233,16 @@ puts 'Creating committees'
   end
 end
 
+# Create stocky purchases
+puts 'Creating stocky purchases'
+20.times do
+  StockyTransaction.create!(
+    product_id: CheckoutProduct.all.sample(1).first.id,
+    amount:  Faker::Number.between(-10, 100),
+    from:    "purchase",
+    to:      "storage"
+  )
+end
 
 # Create 20 activities and the participants
 puts 'Creating activities'
