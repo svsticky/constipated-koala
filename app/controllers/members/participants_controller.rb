@@ -88,7 +88,7 @@ class Members::ParticipantsController < MembersController
       reason_for_spare_message = I18n.t(:participant_limit_reached,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
-    elsif !@member.is_masters? && @activity.is_masters?
+    elsif !@member.masters? && @activity.is_masters?
       reservist = true
       reason_for_spare_message = I18n.t(:participant_no_masters,
                                         scope: @activity_errors_scope,
