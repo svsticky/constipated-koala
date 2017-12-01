@@ -16,9 +16,7 @@ class CheckoutTransaction < ApplicationRecord
 
   before_validation do
     # add items for a price
-    unless items.blank?
-      self.price = -items.reduce(0) { |total, item_id| total + CheckoutProduct.find(item_id).price }
-    end
+    calculate_price unless items.blank?
 
     if checkout_balance.nil?
       self.checkout_balance = checkout_card.checkout_balance
@@ -26,7 +24,7 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   after_validation do
-    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{self.price}, updated_at = NOW()")
+    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{price}, updated_at = NOW()")
   end
 
   def validate_sufficient_credit
@@ -38,11 +36,18 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def validate_liquor_items
-    return unless items.any? {|item| CheckoutProduct.find(item).liquor?}
+    return unless items.any? { |item| CheckoutProduct.find(item).liquor? }
 
     # only place you should use now, because liquor_time is without zone
     errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
     errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
+  end
+
+  def calculate_price
+    self.price = -items.reduce(0) do |total, item|
+      total + item.price
+    end
+    price
   end
 
   def price=(price)
