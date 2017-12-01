@@ -61,7 +61,7 @@ Rails.application.routes.draw do
         get 'transactions',       to: 'payments#update_transactions'
       end
 
-      resources :groups, only: [:index, :create, :show, :update] do
+      resources :groups, only: [:index, :create, :show, :update, :destroy] do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
       end
 

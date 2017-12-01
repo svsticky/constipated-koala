@@ -36,6 +36,17 @@ class Admin::GroupsController < ApplicationController
     end
   end
 
+  def destroy
+    @group = Group.find(params[:id])
+
+    if @group.category != "board"
+      @group.destroy
+      redirect_to groups_path
+    else
+      redirect_to group_path
+    end
+  end
+
   private
   def group_params
     params.require(:group).permit( :name, :category, :comments)
