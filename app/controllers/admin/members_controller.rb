@@ -1,4 +1,4 @@
-class Admin::MembersController < ApplicationController
+class Admin::MembersController < AdminController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update ]
   respond_to :json, only: [:search]

@@ -1,4 +1,4 @@
-class Admin::HomeController < ApplicationController
+class Admin::HomeController < AdminController
   def index
     @members = Education.where('status = 0').distinct.count(:member_id) + Tag.joins(:member, member: :educations).where('status != 0').distinct.count(:member_id)
     @studies = Education.where('status = 0').joins(:study).group('studies.code').count
