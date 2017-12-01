@@ -27,7 +27,7 @@ class Members::ParticipantsController < MembersController
     end
 
     # Deny members that don't study, except if they tagged
-    if !@member.may_enroll?
+    unless @member.may_enroll?
       render status: :failed_dependency, json: {
         message: I18n.t(:participant_no_student, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,

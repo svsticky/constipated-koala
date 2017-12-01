@@ -87,7 +87,6 @@ Rails.application.routes.draw do
           patch :flip, action: :flip_active
           match :flip, action: :flip_active, via: [:patch]
         end
-
       end
     end
 

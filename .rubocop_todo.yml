@@ -79,34 +79,9 @@ Lint/UselessAssignment:
     - 'app/mailers/application_mailer.rb'
     - 'lib/paperclip/ghostscript.rb'
 
-# Offense count: 66
-Metrics/AbcSize:
-  Max: 116
-
-# Offense count: 14
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/BlockLength:
-  Max: 269
-
-# Offense count: 4
-# Configuration parameters: CountComments.
-Metrics/ClassLength:
-  Max: 312
-
 # Offense count: 10
 Metrics/CyclomaticComplexity:
   Max: 18
-
-# Offense count: 383
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 389
-
-# Offense count: 53
-# Configuration parameters: CountComments.
-Metrics/MethodLength:
-  Max: 97
 
 # Offense count: 1
 # Configuration parameters: CountKeywordArgs.

@@ -24,7 +24,7 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   after_validation do
-    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{price}, updated_at = NOW()")
+    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{ price }, updated_at = NOW()")
   end
 
   def validate_sufficient_credit

@@ -1,7 +1,7 @@
 class Admin::CheckoutProductsController < ApplicationController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :activate_card, :change_funds ]
-  respond_to :json, only: [ :activate_card, :change_funds ]
+  respond_to :json, only: [:activate_card, :change_funds]
 
   def index
     @products = CheckoutProduct.order(:category, :name).last_version
@@ -54,11 +54,7 @@ class Admin::CheckoutProductsController < ApplicationController
   def flip_active
     @product = CheckoutProduct.find params[:checkout_product_id]
 
-    if @product.update(product_flipactive_params)
-      product = CheckoutProduct.find_by_parent(@product.id)
-    else
-       head :internal_server_error
-    end
+    head :internal_server_error unless @product.update(product_flipactive_params)
   end
 
   def change_funds

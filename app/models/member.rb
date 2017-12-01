@@ -325,7 +325,7 @@ class Member < ApplicationRecord
     return Education.exists?(member: self, status: Education.statuses[:active])
   end
 
-  #member may enroll when currently enrolled in study, or tagged with one of tags that is not
+  # Member may enroll when currently enrolled in study, or tagged with one of the whitelisting tags.
   def may_enroll?
     return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
   end

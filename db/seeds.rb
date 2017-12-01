@@ -203,11 +203,11 @@ Member.all.each do |member|
       checkout_products.reject(&:liquor?) if member.underage?
       checkout_transactions.push(
         CheckoutTransaction.new(
-         checkout_card_id:            checkout_card.id,
-         items:                       checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
-         payment_method:              %w[Gepind Contant Verkoop].sample,
-         created_at:                  Faker::Date.backward(365 * (Date.today - member.join_date)),
-         skip_liquor_time_validation: true
+          checkout_card_id:            checkout_card.id,
+          items:                       checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
+          payment_method:              %w[Gepind Contant Verkoop].sample,
+          created_at:                  Faker::Date.backward(365 * (Date.today - member.join_date)),
+          skip_liquor_time_validation: true
         )
       )
     end
