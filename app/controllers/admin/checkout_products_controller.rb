@@ -1,6 +1,7 @@
 class Admin::CheckoutProductsController < ApplicationController
-  impressionist :actions => [:activate_card, :change_funds]
-  respond_to :json, only: [:activate_card, :change_funds]
+  # replaced with calls in each of the methods
+  # impressionist :actions => [ :activate_card, :change_funds ]
+  respond_to :json, only: [ :activate_card, :change_funds ]
 
   def index
     @products = CheckoutProduct.order(:category, :name).last_version
@@ -50,6 +51,16 @@ class Admin::CheckoutProductsController < ApplicationController
     end
   end
 
+  def flip_active
+    @product = CheckoutProduct.find params[:checkout_product_id]
+
+    if @product.update(product_flipactive_params)
+      product = CheckoutProduct.find_by_parent(@product.id)
+    else
+       head :internal_server_error
+    end
+  end
+
   def change_funds
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
@@ -64,6 +75,7 @@ class Admin::CheckoutProductsController < ApplicationController
     end
 
     if transaction.save
+      impressionist transaction
       render :status => :created, :json => transaction
     else
       render status: :bad_request, json: {
@@ -85,11 +97,10 @@ class Admin::CheckoutProductsController < ApplicationController
     card.update_attribute(:active, true)
 
     if card.save
+      impressionist card
       render :status => :ok, :json => card.to_json
-      return
     else
       render :status => :bad_request, :json => card.errors.full_messages
-      return
     end
   end
 
@@ -101,5 +112,9 @@ class Admin::CheckoutProductsController < ApplicationController
                                              :category,
                                              :active,
                                              :image)
+  end
+
+  def product_flipactive_params
+    params.require(:checkout_product).permit(:active)
   end
 end

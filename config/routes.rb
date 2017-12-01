@@ -61,7 +61,7 @@ Rails.application.routes.draw do
         get 'transactions',       to: 'payments#update_transactions'
       end
 
-      resources :groups, only: [:index, :create, :show, :update] do
+      resources :groups, only: [:index, :create, :show, :update, :destroy] do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
       end
 
@@ -83,7 +83,11 @@ Rails.application.routes.draw do
         patch  'cards',           to: 'checkout_products#activate_card'
         patch  'transactions',    to: 'checkout_products#change_funds'
 
-        resources :checkout_products, only: [:index, :show, :create, :update], path: 'products'
+        resources :checkout_products, only: [:index, :show, :create, :update], path: 'products' do
+          patch :flip, action: :flip_active
+          match :flip, action: :flip_active, via: [:patch]
+        end
+
       end
     end
 

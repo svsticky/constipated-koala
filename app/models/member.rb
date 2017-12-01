@@ -234,7 +234,7 @@ class Member < ApplicationRecord
   end
 
   def query_changed?
-    first_name_changed? || infix_changed? || last_name_changed? || email_changed?
+    saved_change_to_first_name? || saved_change_to_infix? || saved_change_to_last_name? || saved_change_to_email?
   end
 
   # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less
@@ -319,6 +319,15 @@ class Member < ApplicationRecord
 
   def adult?
     return 18.years.ago >= self.birth_date
+  end
+
+  def enrolled_in_study?
+    return Education.exists?(member: self, status: Education.statuses[:active])
+  end
+
+  #member may enroll when currently enrolled in study, or tagged with one of tags that is not
+  def may_enroll?
+    return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
   end
 
   def unpaid_activities

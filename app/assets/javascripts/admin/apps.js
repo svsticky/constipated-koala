@@ -3,6 +3,8 @@
 
 $(document).on( 'ready page:load turbolinks:load', function(){
 
+  bind_flip();
+
   $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
     if( this.files && this.files[0] ){
       $('form .input-group input#output').val(this.files[0].name);
@@ -174,4 +176,76 @@ $(document).on( 'ready page:load turbolinks:load', function(){
   $('form').on('submit', function(){
     $( this ).find('button[type="submit"].wait').addClass('disabled');
   });
+
 });
+
+function bind_flip(){
+  //Reset all event handlers
+  $('#products button').off('click');
+
+  $('#products').find('button.activate').on('click', product.activate);
+
+  $('#products').find('button.deactivate').on('click', product.deactivate);;
+}
+
+var product = {
+  deactivate : function(){
+    var row = $(this).closest('tr');
+
+    $.ajax({
+      url: '/apps/products/' + row.attr( 'data-id' ) + '/flip',
+      type: 'PATCH',
+      data: {
+        checkout_product: {
+          active: false
+        }
+
+      }
+    }).done(function(){
+      alert($(row).find('a').html() + ' is gedeactiveerd', 'success');
+
+      $(row)
+        .addClass('inactive')
+        .find( 'button.deactivate' )
+        .empty()
+        .removeClass( 'deactivate btn-warning' )
+        .addClass( 'activate btn-primary' )
+        .append( '<i class="fa fa-fw fa-check"></i> Activeer' );
+
+      //Reset all event handlers
+      bind_flip();
+
+    }).fail(function(){
+      alert( 'Not working', 'error' );
+    });
+  },
+
+  activate : function(){
+    var row = $(this).closest('tr');
+
+    $.ajax({
+      url: '/apps/products/' + row.attr('data-id') + '/flip',
+      type: 'PATCH',
+      data: {
+        checkout_product: {
+          active: true
+        }
+      }
+    }).done(function(){
+      alert($(row).find('a').html() + ' is geactiveerd', 'success');
+
+      $(row)
+        .removeClass( 'inactive' )
+        .find( 'button.activate' )
+        .empty()
+        .removeClass( 'activate btn-primary inactive' )
+        .addClass( 'deactivate btn-warning' )
+        .append( '<i class="fa fa-fw fa-times"></i> Deactiveer' );
+
+        bind_flip();
+
+    }).fail(function(){
+      alert( 'Not working', 'error' );
+    });
+  }
+};

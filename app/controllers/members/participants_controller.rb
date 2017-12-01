@@ -26,6 +26,16 @@ class Members::ParticipantsController < MembersController
       return
     end
 
+    # Deny members that don't study, except if they tagged
+    if !@member.may_enroll?
+      render status: :failed_dependency, json: {
+        message: I18n.t(:participant_no_student, scope: @activity_errors_scope),
+        participant_limit: @activity.participant_limit,
+        participant_count: @activity.participants.count
+      }
+      return
+    end
+
     # Deny suspended members
     if Tag.exists?(member: @member, name: Tag.names[:suspended])
       render status: :failed_dependency, json: {
