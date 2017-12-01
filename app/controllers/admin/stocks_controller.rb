@@ -1,11 +1,13 @@
 class Admin::StocksController < ApplicationController
   def stock
-    @products = CheckoutProduct.order(:category, :name).last_version
+    @products = CheckoutProduct.order(:category, :name)
 
     render 'admin/apps/stocky/stock'
   end
 
   def purchases
+    @purchases = StockyTransaction.order(:created_at)
+
     render 'admin/apps/stocky/purchases'
   end
 

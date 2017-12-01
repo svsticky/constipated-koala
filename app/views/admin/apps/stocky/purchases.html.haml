@@ -8,3 +8,29 @@
 
   .page
     = render 'admin/apps/stocky/partials/stocknav'
+    .row
+      .col-lg-8
+        %section.panel.panel-default.table-dynamic
+          .panel-heading
+            Voorraad
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      Product
+                  %th
+                    .th
+                      Aantal
+                  %th
+                    .th
+                      Datum
+              - @purchases.each do |purchase|
+                %tr
+                  %td
+                    = purchase.product.name
+                  %td
+                    = purchase.amount
+                  %td
+                    = purchase.created_at
