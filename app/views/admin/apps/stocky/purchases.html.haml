@@ -29,7 +29,7 @@
               - @purchases.each do |purchase|
                 %tr
                   %td
-                    = purchase.product_id
+                    = purchase.checkout_product.name
                   %td
                     = purchase.amount
                   %td

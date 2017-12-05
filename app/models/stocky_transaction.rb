@@ -1,3 +1,3 @@
 class StockyTransaction < ApplicationRecord
-  has_one :product
+   belongs_to :checkout_product
 end
