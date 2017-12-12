@@ -239,8 +239,8 @@ puts 'Creating stocky purchases'
   StockyTransaction.create!(
     checkout_product: CheckoutProduct.all.sample,
     amount:           Faker::Number.between(-10, 100),
-    from:             "purchase",
-    to:               "storage"
+    from:             "shop",
+    to:               "basement"
   )
 end
 
