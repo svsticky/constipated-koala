@@ -34,3 +34,7 @@
                     = purchase.amount
                   %td
                     = purchase.created_at
+    .row
+      .col-lg-8
+        = render 'admin/apps/stocky/partials/new_purchase',
+        url: '#', method: :post

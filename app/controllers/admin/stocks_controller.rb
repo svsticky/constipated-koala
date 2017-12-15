@@ -7,6 +7,7 @@ class Admin::StocksController < ApplicationController
 
   def purchases
     @purchases = StockyTransaction.where(from: "shop").order(:created_at)
+    @stocky_transaction = StockyTransaction.new
 
     render 'admin/apps/stocky/purchases'
   end
