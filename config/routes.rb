@@ -81,6 +81,7 @@ Rails.application.routes.draw do
         get 'stocky',             to: 'stocks#stock'
         get 'stocky/stock',       to: 'stocks#stock'
         get 'stocky/purchases',   to: 'stocks#purchases'
+        post 'stocky/create',     to: 'stocks#create'
         get 'stocky/sales',       to: 'stocks#sales'
 
         # json checkout urls
