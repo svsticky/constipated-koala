@@ -14,7 +14,7 @@ class Members::ActivitiesController < MembersController
                   .where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
                          Date.today, Date.today)
                   .where(is_viewable: true)
-                  .order(:start_date)
+                  .order(:start_date, :start_time)
     @activities = @activities.reject(&:ended?)
   end
 
