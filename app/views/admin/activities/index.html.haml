@@ -13,7 +13,7 @@
         .panel.panel-default
           .panel-heading.year
             %i.fa.fa-fw.fa-ticket
-            Activiteiten
+            = I18n.t('activerecord.models.activities')
             .ui-select
               = select_tag :year, options_for_select( @years, params['year'] )
           %table.table.table-striped.table-linked
