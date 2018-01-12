@@ -48,8 +48,13 @@ class CalendarsController < ActionController::Base
     event.dtstart = @sdt
     event.dtend = @edt
     event.summary = activity.name
-    event.description = activity.description
+    unless activity.description.nil?
+      event.description = activity.description + '\n'
+    end
     event.location = activity.location
+    unless activity.price.nil? || activity.price == 0
+      event.description += "Price: €" + activity.price.to_s
+    end
     event.alarm do |a|
       a.trigger = "-PT2H"
       a.summary = activity.description
