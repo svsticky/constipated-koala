@@ -97,6 +97,7 @@ GEM
       tilt
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    i15r (0.5.5)
     i18n (0.8.1)
     impressionist (1.6.0)
       nokogiri (~> 1)
@@ -241,6 +242,7 @@ DEPENDENCIES
   faker (>= 1.8.4)
   fuzzily!
   haml
+  i15r (~> 0.5.5)
   impressionist
   listen
   mysql2

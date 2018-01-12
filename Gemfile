@@ -59,3 +59,6 @@ end
 group :development, :test do
   gem 'spring'
 end
+
+# Added at 2018-01-12 12:01:35 +0100 by cdfa:
+gem "i15r", "~> 0.5.5"
