@@ -13,6 +13,19 @@ en:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
 
+  files:
+    upload: Upload
+    download: Download
+    delete: Remove
+
+  navigation:
+    back: Back
+
+  editing:
+    save: Save
+    delete: Delete
+    cancel: Cancel
+
   activerecord:
     models:
       ideal_transaction: iDEAL transaction
@@ -293,6 +306,12 @@ en:
             fees: iDEAL fee
 
         unpermitted: is not permitted
+
+  admin:
+    activities:
+      partials:
+        edit:
+          invalid_values: Oops, not everything was filled in correctly
 
   devise:
     registrations:

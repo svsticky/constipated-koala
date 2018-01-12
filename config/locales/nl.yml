@@ -13,6 +13,19 @@ nl:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
 
+  files:
+    upload: Upload
+    download: Download
+    delete: Verwijder
+
+  navigation:
+    back: Terug
+
+  editing:
+    save: Opslaan
+    delete: Verwijderen
+    cancel: Annuleren
+
   activerecord:
     models:
       ideal_transaction: iDEAL-transactie
@@ -293,6 +306,12 @@ nl:
             fees: iDEAL-kosten
 
         unpermitted: is niet geldig
+
+  admin:
+    activities:
+      partials:
+        edit:
+          invalid_values: Oeps, niet alles is goed ingevuld
 
   devise:
     registrations:
