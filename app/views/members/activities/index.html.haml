@@ -1,6 +1,9 @@
 - content_for(:page, 'activities')
 - content_for(:title, 'Activiteiten')
 
+.span
+  = link_to 'Subscribe', calendarfeed_url(protocol: :webcal, format: :ics), class: 'btn btn-success'
+
 #activity-container{:data => {:view => 'index'}}
   - unless @activities.any?
     .alert.alert-warning

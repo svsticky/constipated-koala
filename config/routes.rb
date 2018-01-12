@@ -29,11 +29,12 @@ Rails.application.routes.draw do
     # No double controllers
     get     'admin/home',   to: redirect('/')
     get     'members/home',   to: redirect('/')
-
     # Devise routes
     devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
       sessions:       'users/sessions'
     }
+
+    get     'calendarfeed', to: 'calendars#show'
 
     get     'sign_up',      to: 'users/registrations#new',  as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
