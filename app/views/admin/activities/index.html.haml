@@ -20,7 +20,7 @@
             %tbody
               - @activities.each do |activity|
                 %tr
-                  %td= link_to "#{activity.name}", activity
+                  %td= link_to activity.name, activity
 
                   - if !activity.group.nil?
                     %td.hidden-sm
@@ -36,7 +36,7 @@
 
 
 
-                  %td.hidden-xs= link_to "#{I18n.l(activity.start_date, :format => :day_month)}", activity
+                  %td.hidden-xs= link_to I18n.l(activity.start_date, :format => :day_month), activity
 
                   - if activity.ended?
                     %td.hidden-sm
