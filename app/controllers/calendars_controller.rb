@@ -48,6 +48,7 @@ class CalendarsController < ActionController::Base
     event.dtstart = @sdt
     event.dtend = @edt
     event.summary = activity.name
+    event.url = activity_url(activity)
     unless activity.description.nil?
       event.description = activity.description + '\n'
     end
