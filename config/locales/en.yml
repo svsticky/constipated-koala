@@ -146,6 +146,9 @@ en:
         liquor_time:
           name: Time at which the purchase of liquor is allowed
           description: Time at which the purchase of liquor is allowed in Checkout. Till that time, an error will be display.
+        mongoose_price_compensation_factor:
+          name: Mongoose price compensation
+          description: All Mongoose products' cost prices will be multiplied by this factor to get the actual sale prices, to account for loss of products (referred to as 'derving' in Dutch).
 
         intro_membership:
           name: Introduction membership

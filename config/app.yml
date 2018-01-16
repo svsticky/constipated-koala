@@ -4,6 +4,7 @@ defaults: &defaults
 
   mongoose_ideal_costs: 0.29
   liquor_time: '16:00'
+  mongoose_price_compensation_factor: 1.1
 
   intro:
     membership: [1]
