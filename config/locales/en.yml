@@ -338,3 +338,7 @@ en:
           subject: "Subject"
           send: "Send"
           draft: "Draft"
+        editor:
+          small: "small"
+          standard: "standard"
+          large: "large"

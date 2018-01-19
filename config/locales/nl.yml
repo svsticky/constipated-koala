@@ -338,3 +338,7 @@ nl:
         subject: "Onderwerp"
         send: "Verstuur"
         draft: "Concept"
+      editor:
+        small: "klein"
+        standard: "standaard"
+        large: "groot"
