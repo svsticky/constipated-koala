@@ -354,3 +354,6 @@ en:
           small: "small"
           standard: "standard"
           large: "large"
+        poster_modal:
+          more_info: "Meer info"
+          close: "Sluiten"

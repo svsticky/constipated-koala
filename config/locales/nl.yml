@@ -354,3 +354,6 @@ nl:
         small: "klein"
         standard: "standaard"
         large: "groot"
+      poster_modal:
+        more_info: "Meer info"
+        close: "Sluiten"
