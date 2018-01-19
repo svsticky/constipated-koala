@@ -362,3 +362,7 @@ nl:
         studying: "studerend"
         alumni: "alumni"
         anybody: "iedereen"
+    doorkeeper:
+      hi: "Hoi"
+      identity_confirmation: "Bent u niet %{name}?"
+      click_here: "Klik dan hier"

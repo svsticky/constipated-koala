@@ -342,23 +342,27 @@ en:
       new: Confirm your email address
 
   layouts:
-      partials:
-        mail:
-          addressees: "Addressees"
-          all_participants: "ALL_PARTICIPANTS"
-          non_payers: "NON_PAYERS"
-          subject: "Subject"
-          send: "Send"
-          draft: "Draft"
-        editor:
-          small: "small"
-          standard: "standard"
-          large: "large"
-        poster_modal:
-          more_info: "Meer info"
-          close: "Sluiten"
+    partials:
+      mail:
+        addressees: "Addressees"
+        all_participants: "ALL_PARTICIPANTS"
+        non_payers: "NON_PAYERS"
+        subject: "Subject"
+        send: "Send"
+        draft: "Draft"
+      editor:
+        small: "small"
+        standard: "standard"
+        large: "large"
+      poster_modal:
+        more_info: "Meer info"
+        close: "Sluiten"
       search:
         active: "active"
         studying: "studying"
         alumni: "alumni"
         anybody: "anybody"
+    doorkeeper:
+      hi: "Hoi"
+      identity_confirmation: "Bent u niet %{name}?"
+      click_here: "Klik dan hier"
