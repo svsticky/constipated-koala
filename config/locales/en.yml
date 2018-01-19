@@ -22,6 +22,18 @@ en:
 
   navigation:
     back: Back
+    home: "Home"
+    members: "Members"
+    groups: "Groups"
+    activities: "Activities"
+    payments: "Payments"
+    apps: "Apps"
+    checkout: "Checkout"
+    ideal: "iDeal"
+    settings: "Settings"
+    general: "General"
+    logs: "Logs"
+    log_out: "Log out"
 
   editing:
     save: Save

@@ -22,6 +22,18 @@ nl:
 
   navigation:
     back: Terug
+    home: "Home"
+    members: "Leden"
+    groups: "Groepen"
+    activities: "Activiteiten"
+    payments: "Betalingen"
+    apps: "Apps"
+    checkout: "Checkout"
+    ideal: "iDeal"
+    settings: "Instellingen"
+    general: "Algemeen"
+    logs: "Logs"
+    log_out: "Uitloggen"
 
   editing:
     save: Opslaan
