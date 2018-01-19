@@ -1,4 +1,6 @@
 nl:
+  association_name: Studievereniging Sticky
+
   date:
     formats:
       default: "%d-%m-%Y"
@@ -327,4 +329,12 @@ nl:
     confirmations:
       new: Bevestig jouw e-mailadres voor jouw Sticky-account.
 
-  association_name: Studievereniging Sticky
+  layouts:
+    partials:
+      mail:
+        addressees: "Geadresseerden"
+        all_participants: "ALLE DEELNEMERS"
+        non_payers: "NOG BETALERS"
+        subject: "Onderwerp"
+        send: "Verstuur"
+        draft: "Concept"
