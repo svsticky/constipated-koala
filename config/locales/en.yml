@@ -357,3 +357,8 @@ en:
         poster_modal:
           more_info: "Meer info"
           close: "Sluiten"
+      search:
+        active: "active"
+        studying: "studying"
+        alumni: "alumni"
+        anybody: "anybody"

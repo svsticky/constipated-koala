@@ -357,3 +357,8 @@ nl:
       poster_modal:
         more_info: "Meer info"
         close: "Sluiten"
+      search:
+        active: "actief"
+        studying: "studerend"
+        alumni: "alumni"
+        anybody: "iedereen"
