@@ -6,4 +6,22 @@ class StockyTransaction < ApplicationRecord
   validates :to, inclusion: { in: LOCATIONS, message: NOT_VALID_MESSAGE }
 
   belongs_to :checkout_product
+
+  after_commit :update_stock
+
+  def update_stock
+    if from == 'basement'
+      checkout_product.storage_stock -= amount
+    elsif from == 'mongoose'
+      checkout_product.chamber_stock -= amount
+    end
+
+    if to == 'basement'
+      checkout_product.storage_stock += amount
+    elsif to == 'mongoose'
+      checkout_product.chamber_stock += amount
+    end
+
+    checkout_product.save
+  end
 end

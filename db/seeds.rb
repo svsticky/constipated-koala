@@ -72,7 +72,10 @@ puts 'Creating products'
     price:                 Faker::Number.between(0.50, 4.0),
     storage_stock:         Faker::Number.between(0, 200),
     chamber_stock:         Faker::Number.between(0, 50),
-    skip_image_validation: true
+    image_file_name:       'public/images/checokut_products/1/original.png',
+    image_content_type:    'image/png',
+    image_file_size:       19526,
+    image_updated_at:      Date.today
   )
 
   # Create a few alcoholic products
@@ -82,7 +85,10 @@ puts 'Creating products'
     price:                 Faker::Number.between(1.0, 3.0),
     storage_stock:         Faker::Number.between(0, 200),
     chamber_stock:         Faker::Number.between(0, 50),
-    skip_image_validation: true
+    image_file_name:       'public/images/checokut_products/1/original.png',
+    image_content_type:    'image/png',
+    image_file_size:       19526,
+    image_updated_at:      Date.today
   )
 end
 

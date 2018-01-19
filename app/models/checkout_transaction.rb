@@ -53,6 +53,7 @@ class CheckoutTransaction < ApplicationRecord
     items.each do |item_id|
       item = CheckoutProduct.find(item_id)
       item.decrement!(:chamber_stock)
+      item.save
     end
   end
 
