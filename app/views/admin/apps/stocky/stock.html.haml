@@ -35,3 +35,7 @@
                     = product.storage_stock
                   %td
                     = product.chamber_stock
+    .row
+      .col-lg-8
+        = render 'admin/apps/stocky/partials/new_move',
+        url: '/apps/stocky/create', method: :post
