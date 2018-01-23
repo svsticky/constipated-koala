@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919145334) do
+ActiveRecord::Schema.define(version: 20180123092344) do
 
   create_table "activities", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name"
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.string "location"
     t.date "unenroll_date"
     t.string "notes"
+    t.boolean "is_viewable"
     t.boolean "notes_mandatory"
     t.boolean "notes_public"
-    t.boolean "is_viewable"
     t.boolean "is_masters"
     t.boolean "is_freshmans"
   end
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.datetime "poster_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "calendars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "member_id"
+    t.string "calendar_hash"
   end
 
   create_table "checkout_balances", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -140,8 +145,8 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.string "transaction_type"
     t.string "transaction_id"
     t.string "redirect_uri"
-    t.string "trxid"
     t.string "token", limit: 64
+    t.string "trxid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["token"], name: "index_ideal_transactions_on_token", unique: true
