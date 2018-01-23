@@ -39,3 +39,40 @@
       .col-lg-8
         = render 'admin/apps/stocky/partials/new_move',
         url: '/apps/stocky/create', method: :post
+
+    .row
+      .col-lg-8
+        %section.panel.panel-default.table-dynamic
+          .panel-heading
+            Verplaatsingen
+          .table-responsive
+            %table.table.table-bordered.table-striped.table-linked
+              %thead
+                %tr
+                  %th
+                    .th
+                      Product
+                  %th
+                    .th
+                      From
+                  %th
+                    .th
+                      To
+                  %th
+                    .th
+                      Amount
+                  %th
+                    .th
+                      Date
+              - @moves.each do |transaction|
+                %tr
+                  %td
+                    = transaction.checkout_product.name
+                  %td
+                    = transaction.from
+                  %td
+                    = transaction.to
+                  %td
+                    = transaction.amount
+                  %td
+                    = transaction.created_at

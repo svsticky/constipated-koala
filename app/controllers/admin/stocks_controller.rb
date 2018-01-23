@@ -2,6 +2,10 @@ class Admin::StocksController < ApplicationController
   def stock
     @products = CheckoutProduct.order(:category, :name)
     @stocky_transaction      = StockyTransaction.new
+    @moves = StockyTransaction
+             .where(:from => ['basement', 'mongoose'])
+             .where(:to   => ['basement', 'mongoose',
+                              'activity', 'waste'])
 
     render 'admin/apps/stocky/stock'
   end
