@@ -342,6 +342,10 @@ en:
 
     confirmations:
       new: Confirm your email address
+    sessions:
+      new:
+        remember_me: "Remember me"
+        log_in: "Log in"
 
   layouts:
     partials:

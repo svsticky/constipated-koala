@@ -32,10 +32,10 @@
         .center
           %span
             = f.check_box :remember_me
-            = f.label(:remember_me, 'Onthoud mij', :class => 'remember_label')
+            = f.label(:remember_me, I18n.t("devise.sessions.new.remember_me"), :class => 'remember_label')
 
       .form-group
-        = f.submit 'Log in', :class => 'btn btn-primary btn-block'
+        = f.submit I18n.t("devise.sessions.new.log_in"), :class => 'btn btn-primary btn-block'
 
 .row
   .text-center

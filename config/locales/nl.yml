@@ -342,6 +342,10 @@ nl:
 
     confirmations:
       new: Bevestig jouw e-mailadres voor jouw Sticky-account.
+    sessions:
+      new:
+        remember_me: "Onthoud mij"
+        log_in: "Log in"
 
   layouts:
     partials:
