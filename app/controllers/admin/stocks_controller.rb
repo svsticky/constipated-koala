@@ -22,6 +22,8 @@ class Admin::StocksController < ApplicationController
       stocky_transaction_post_params)
 
     @stocky_transaction.save
+
+    stock
   end
 
   def create_purchase
@@ -31,6 +33,8 @@ class Admin::StocksController < ApplicationController
     @stocky_transaction.to   = "basement"
 
     @stocky_transaction.save
+
+    purchases
   end
 
   def sales
