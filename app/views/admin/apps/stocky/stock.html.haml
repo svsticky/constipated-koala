@@ -10,7 +10,7 @@
     = render 'admin/apps/stocky/partials/stocknav'
 
     .row
-      .col-lg-8
+      .col-lg-12
         %section.panel.panel-default.table-dynamic
           .panel-heading
             Voorraad
@@ -36,12 +36,12 @@
                   %td
                     = product.chamber_stock
     .row
-      .col-lg-8
+      .col-lg-12
         = render 'admin/apps/stocky/partials/new_move',
         url: '/apps/stocky/create', method: :post
 
     .row
-      .col-lg-8
+      .col-lg-12
         %section.panel.panel-default.table-dynamic
           .panel-heading
             Verplaatsingen
