@@ -329,7 +329,9 @@ en:
 
   devise:
     registrations:
-      new: Create a Sticky account with the mail address you have provided us.
+      new:
+        instruction: "Create a Sticky account"
+        submit: "Create account"
       signup: Sign up
       passwordrecovery: Forgot password
       login: Sign in

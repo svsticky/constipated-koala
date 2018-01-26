@@ -19,7 +19,7 @@
           = flash[:notice]
 
     %fieldset
-      %h4= I18n.t :new, scope: 'devise.registrations'
+      %h4= I18n.t 'devise.registrations.new.instruction'
 
       .form-group
         .input-group
@@ -39,7 +39,7 @@
             %i.fa.fa-lock
           = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
       .form-group
-        = f.submit 'Wachtwoord aanvragen', :class => 'btn btn-primary btn-block'
+        = f.submit I18n.t('devise.registrations.new.submit'), :class => 'btn btn-primary btn-block'
 
 .row
   .text-center

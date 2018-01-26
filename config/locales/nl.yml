@@ -329,7 +329,9 @@ nl:
 
   devise:
     registrations:
-      new: Maak een Sticky account aan met het e-mailadres dat bekend is bij ons.
+      new:
+        instruction: "Maak een Sticky account aan"
+        submit: "Wachtwoord aanvragen"
       signup: Account registreren
       passwordrecovery: Wachtwoord vergeten
       login: Inloggen
