@@ -161,7 +161,7 @@
                         = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled'
                         %span
                           = I18n.t(:membership)
-                          %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(membership.price, :unit => '€')})
+                          %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(membership.price, :unit => '€')
 
                   - @activities.each do |activity|
                     = f.fields_for 'participant_attributes[]', activity do |fa|
@@ -170,7 +170,7 @@
                         = fa.check_box :participate, :checked => ('checked' if @participate.include? activity.id )
                         %span
                           = activity.name
-                          %span{ :style => 'color: grey; font-size: 0.8em;' } (#{number_to_currency(activity.price, :unit => '€')})
+                          %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(activity.price, :unit => '€')
 
               .col-md-6
                 .ui-select
