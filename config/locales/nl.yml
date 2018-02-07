@@ -332,8 +332,8 @@ nl:
       new:
         instruction: "Maak een Sticky account aan"
         submit: "Wachtwoord aanvragen"
-      signup: Account registreren
-      passwordrecovery: Wachtwoord vergeten
+      sign_up: Account registreren
+      password_recovery: Wachtwoord vergeten
       login: Inloggen
 
     passwords:

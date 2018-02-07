@@ -332,8 +332,8 @@ en:
       new:
         instruction: "Create a Sticky account"
         submit: "Create account"
-      signup: Sign up
-      passwordrecovery: Forgot password
+      sign_up: Sign up
+      password_recovery: Forgot password
       login: Sign in
 
     passwords:
