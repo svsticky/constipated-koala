@@ -12,11 +12,7 @@
      - [ ] payments
      - [ ] settings
    - [ ] api
-   - [ ] devise
-     - [x] confirmations
-     - [ ] passwords
-     - [x] regristrations
-     - [x] sessions
+   - [x] devise
    - [x] doorkeeper
    - [x] layouts
    - [ ] mailings

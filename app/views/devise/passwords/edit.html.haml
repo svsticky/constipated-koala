@@ -20,7 +20,7 @@
     = f.hidden_field :reset_password_token
 
     %fieldset
-      %h4= I18n.t :edit, scope: 'devise.passwords'
+      %h4= I18n.t 'devise.passwords.edit.instruction'
 
       .form-group
         .input-group
@@ -35,7 +35,7 @@
           = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
 
       .form-group
-        = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-block'
+        = f.submit I18n.t('devise.passwords.edit.change_password'), :class => 'btn btn-primary btn-block'
 
 .row
   .text-center

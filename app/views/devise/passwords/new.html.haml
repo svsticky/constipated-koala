@@ -18,7 +18,7 @@
           = flash[:notice]
 
     %fieldset
-      %h4= I18n.t :new, scope: 'devise.passwords'
+      %h4= I18n.t 'devise.passwords.new.instruction'
 
       .form-group
         .input-group
@@ -27,7 +27,7 @@
           = f.email_field :email, autofocus: true, placeholder: 'e-mailadres', :class => 'form-control'
 
       .form-group
-        = f.submit 'Versturen', :class => 'btn btn-primary btn-block'
+        = f.submit I18n.t('devise.passwords.new.submit'), :class => 'btn btn-primary btn-block'
 
 .row
   .text-center

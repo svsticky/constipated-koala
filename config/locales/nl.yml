@@ -336,8 +336,12 @@ nl:
       password_recovery: Wachtwoord vergeten
       login: Inloggen
     passwords:
-      new: Vul hier jouw e-mailadres in om een nieuw wachtwoord aan te vragen.
-      edit: Vul hier het gewenste wachtwoord in voor je Sticky-account.
+      new:
+        instruction: Vul hier jouw e-mailadres in om een nieuw wachtwoord aan te vragen.
+        submit: "Versturen"
+      edit:
+        instruction: Vul hier het gewenste wachtwoord in voor je Sticky-account.
+        change_password: "Verander wachtwoord"
     confirmations:
       new:
         instruction: Bevestig jouw e-mailadres voor jouw Sticky-account.
