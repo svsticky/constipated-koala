@@ -335,13 +335,14 @@ en:
       sign_up: Sign up
       password_recovery: Forgot password
       login: Sign in
-
     passwords:
       new: Enter your email address to obtain a new password.
       edit: Enter the password you want to use for your Sticky-account.
-
     confirmations:
-      new: Confirm your email address
+      new:
+        instruction: "Confirm the email adress for your sticky account"
+        submit: "Submit"
+      activate_account: "Activate account"
     sessions:
       new:
         remember_me: "Remember me"

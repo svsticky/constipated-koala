@@ -335,13 +335,14 @@ nl:
       sign_up: Account registreren
       password_recovery: Wachtwoord vergeten
       login: Inloggen
-
     passwords:
       new: Vul hier jouw e-mailadres in om een nieuw wachtwoord aan te vragen.
       edit: Vul hier het gewenste wachtwoord in voor je Sticky-account.
-
     confirmations:
-      new: Bevestig jouw e-mailadres voor jouw Sticky-account.
+      new:
+        instruction: Bevestig jouw e-mailadres voor jouw Sticky-account.
+        submit: 'Versturen'
+      activate_account: "Account activeren"
     sessions:
       new:
         remember_me: "Onthoud mij"

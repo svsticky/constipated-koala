@@ -13,7 +13,7 @@
      - [ ] settings
    - [ ] api
    - [ ] devise
-     - [ ] confirmations
+     - [x] confirmations
      - [ ] passwords
      - [x] regristrations
      - [x] sessions
@@ -22,3 +22,5 @@
    - [ ] mailings
    - [ ] members
    - [x] public
+   
+placeholders don't seem to be detected by i15r
