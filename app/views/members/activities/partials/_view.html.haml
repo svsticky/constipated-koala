@@ -44,7 +44,7 @@
         %strong Locatie:
         = activity.location
         <br/>
-      - if !activity.unenroll_date.nil?
+      - if !activity.unenroll_date.nil? && activity.is_enrollable?
         %strong Uitschrijfdeadline:
         %span.activity-unenroll
           = activity.unenroll_date.strftime("%d/%m/%Y")
