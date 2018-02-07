@@ -37,6 +37,7 @@ gem 'rails-settings-cached'
 gem 'paperclip'
 
 group :production, :staging do
+  gem 'sentry-raven'
   gem 'unicorn'
   gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
