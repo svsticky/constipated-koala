@@ -9,7 +9,7 @@
   .page
     = render 'admin/apps/stocky/partials/stocknav'
     .row
-      .col-lg-8
+      .col-lg-12
         %section.panel.panel-default.table-dynamic
           .panel-heading
             Voorraad
@@ -34,7 +34,43 @@
                     = purchase.amount
                   %td
                     = purchase.created_at
+
+          %footer.table-footer
+            .row
+              .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
+                %span
+                  Toon
+                  = select_tag 'limit', options_for_select([10,20,50,100], @limit)
+                  purchases per pagina
+
+              .col-md-6.text-right.pagination-container
+                %ul.pagination-sm.pagination
+                  %li{ :class => ( 'disabled' if @offset == 0)}
+                    %a{ :data => { :offset => @offset - @limit }} vorige
+
+                  %li.scroll{ :class => ( 'disabled' if @page / 4 == 0)}
+                    %a{ :data => { :offset => (@page / 4 * 4 -1) * @limit }} <<
+
+                  - (0 .. @pages -1).each do |i|
+                    - if i == @page
+                      %li.active
+                        - if i.between?(4 * (@page / 4), 4 * (@page / 4) + 4 -1 )
+                          %a{ :data => { :offset => @limit * i }}= i+1
+                        -else
+                          %a.hidden{ :data => { :offset => @limit * i }}= i+1
+                    - else
+                      %li
+                        - if i.between?(4 * (@page / 4), 4 * (@page / 4) + 4 -1 )
+                          %a{ :data => { :offset => @limit * i }}= i+1
+                        - else
+                          %a.hidden{ :data => { :offset => @limit * i }}= i+1
+
+                  %li.scroll{ :class => ( 'disabled' if @pages / 4.to_f <= 1 || @page +1 > (@pages -1) / 4 * 4)}
+                    %a{ :data => { :offset => (@page / 4 +1) * 4 * @limit }} >>
+
+                  %li{ :class => ( 'disabled' if @offset + @limit >= @limit * @pages )}
+                    %a{ :data => { :offset => @offset + @limit }} volgende
     .row
-      .col-lg-8
+      .col-lg-12
         = render 'admin/apps/stocky/partials/new_purchase',
         url: '/apps/stocky/create_purchase', method: :post

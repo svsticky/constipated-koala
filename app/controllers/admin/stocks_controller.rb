@@ -11,8 +11,16 @@ class Admin::StocksController < ApplicationController
   end
 
   def purchases
-    @purchases = StockyTransaction.where(from: "shop").order(:created_at)
+    @results = StockyTransaction.where(from: "shop").order(:created_at)
     @stocky_transaction      = StockyTransaction.new
+
+    @limit = params[:limit] ? params[:limit].to_i : 20
+    @offset = params[:offset] ? params[:offset].to_i : 0
+
+    @page = @offset / @limit
+    @pages = (@results.count / @limit.to_f).ceil
+
+    @purchases = @results[@offset,@limit]
 
     render 'admin/apps/stocky/purchases'
   end
