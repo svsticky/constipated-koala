@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         post 'mongoose', to: 'home#add_funds'
 
         get 'enrollments',                      to: redirect('/activities')
-        get 'enrollments/:id',                  to: redirect('/activities/%{id}')
+        get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
 
         resources :activities, only: [:index, :show] do
           resource :participants, only: [:create, :update, :destroy]

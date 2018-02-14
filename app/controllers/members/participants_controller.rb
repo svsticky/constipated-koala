@@ -6,6 +6,8 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 class Members::ParticipantsController < MembersController
+  before_action :set_activity!
+
   def initialize
     @activity_errors_scope = 'activerecord.errors.models.activity'
   end
@@ -13,11 +15,6 @@ class Members::ParticipantsController < MembersController
   # [POST] /activities/:id/participants
   # Create a new Participant if that's allowed.
   def create
-    puts @activity_errors_scope
-    @activity = Activity.find(params[:activity_id])
-
-    @member = Member.find(current_user.credentials_id)
-
     # Don't allow activities for old activities
     if @activity.ended?
       render status: :gone, json: {
@@ -144,10 +141,8 @@ class Members::ParticipantsController < MembersController
   # [PATCH] /activities/:id/participants
   # Used for updating member notes
   def update
-    @activity = Activity.find(params[:activity_id])
-
     @enrollment = Participant.find_by(
-      member_id: current_user.credentials_id,
+      member_id: @member.id,
       activity_id: @activity.id
     )
 
@@ -181,9 +176,6 @@ class Members::ParticipantsController < MembersController
   # activity, and then cancels the member's enrollment. (Deletes the
   # Participant)
   def destroy
-    puts @activity_errors_scope
-    @activity = Activity.find(params[:activity_id])
-
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
     if !@activity.is_enrollable? ||
