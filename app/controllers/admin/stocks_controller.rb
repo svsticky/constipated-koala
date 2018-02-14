@@ -46,6 +46,17 @@ class Admin::StocksController < ApplicationController
   end
 
   def sales
+    @results = StockyTransaction.where(from: "mongoose").order(:created_at)
+    @stocky_transaction = StockyTransaction.new
+
+    @limit  = params[:limit]  ? params[:limit] .to_i : 20
+    @offset = params[:offset] ? params[:offset].to_i :  0
+
+    @page  = @offset / @limit
+    @pages = (@results.count / @limit.to_f).ceil
+
+    @sales = @results[@offset,@limit]
+
     render 'admin/apps/stocky/sales'
   end
 
