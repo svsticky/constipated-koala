@@ -43,7 +43,8 @@ nl:
         other: Groepen
       settings: Instellingen
       impressions: Logs
-
+      checkout_transactions: Mongoose transacties
+      checkout_balance: Mongoose tegoed
 
     attributes:
       member:
@@ -220,6 +221,11 @@ nl:
           change_funds: tegoed opgewaardeerd
           activate_card: kaart geactiveerd
 
+      participant:
+        paid:
+          "true": Betaald
+          "false": Niet betaald
+
     annotations:
       member:
         email: E-mailadres kan geen adres van de UU zijn
@@ -384,3 +390,15 @@ nl:
       hi: "Hoi"
       identity_confirmation: "Bent u niet %{name}?"
       click_here: "Klik dan hier"
+
+  members:
+    genders:
+      male: MAN
+      female: Vrouw
+    home:
+      edit:
+        general_data: "Algemene gegevens"
+      index:
+        edit_profile: "Gegevens bewerken"
+        outstanding_payments: "Openstaande betalingen"
+        upgrade: "Opwaarderen"

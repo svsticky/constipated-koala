@@ -21,6 +21,8 @@
      - [x] doorkeeper
      - [ ] mailer
      - [ ] members
+       - [ ] activities
+       - [x] home
    - [ ] mailings
    - [ ] members
    - [x] public

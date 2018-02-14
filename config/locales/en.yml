@@ -43,6 +43,8 @@ en:
         other: Groups
       settings: Settings
       impressions: Logs
+      checkout_transactions: Mongoose transacties
+      checkout_balance: Mongoose tegoed
 
     attributes:
       member:
@@ -188,6 +190,11 @@ en:
         additional_moot_positions:
           name: Additional moot roles
           description: Roles besides chairman, treasurer and board member that will be added to the moots.
+
+      participant:
+        paid:
+          "true": "Paid"
+          "false": "Not payed"
 
     impression:
       member:
@@ -383,3 +390,15 @@ en:
       hi: "Hoi"
       identity_confirmation: "Bent u niet %{name}?"
       click_here: "Klik dan hier"
+
+  members:
+    genders:
+      male: MALE
+      female: FEMALE
+    home:
+      edit:
+        general_data: "General"
+      index:
+        edit_profile: "Edit profile"
+        outstanding_payments: "Outstanding payments"
+        upgrade: "Upgrade"
