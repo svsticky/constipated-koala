@@ -22,18 +22,6 @@ en:
 
   navigation:
     back: Back
-    home: "Home"
-    members: "Members"
-    groups: "Groups"
-    activities: "Activities"
-    payments: "Payments"
-    apps: "Apps"
-    checkout: "Checkout"
-    ideal: "iDeal"
-    settings: "Settings"
-    general: "General"
-    logs: "Logs"
-    log_out: "Log out"
 
   editing:
     save: Save
@@ -43,8 +31,18 @@ en:
   activerecord:
     models:
       ideal_transaction: iDEAL transaction
-      activities: Activities
+      activity:
+        one: Activity
+        other: Activities
       study: Study/Studies
+      member:
+        one: Member
+        other: Members
+      group:
+        one: Group
+        other: Groups
+      settings: Settings
+      impressions: Logs
 
     attributes:
       member:
@@ -322,6 +320,13 @@ en:
         unpermitted: is not permitted
 
   admin:
+    navigation:
+      home: "Home"
+      payments: "Payments"
+      apps: "Apps"
+      checkout: "Checkout"
+      ideal: "iDeal"
+      general: "General"
     activities:
       partials:
         edit:
@@ -350,7 +355,8 @@ en:
     sessions:
       new:
         remember_me: "Remember me"
-        log_in: "Log in"
+        sign_in: "Log in"
+        sign_out: "Sign out"
 
   layouts:
     partials:

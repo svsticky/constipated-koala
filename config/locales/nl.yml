@@ -22,18 +22,6 @@ nl:
 
   navigation:
     back: Terug
-    home: "Home"
-    members: "Leden"
-    groups: "Groepen"
-    activities: "Activiteiten"
-    payments: "Betalingen"
-    apps: "Apps"
-    checkout: "Checkout"
-    ideal: "iDeal"
-    settings: "Instellingen"
-    general: "Algemeen"
-    logs: "Logs"
-    log_out: "Uitloggen"
 
   editing:
     save: Opslaan
@@ -43,8 +31,19 @@ nl:
   activerecord:
     models:
       ideal_transaction: iDEAL-transactie
-      activities: Activiteiten
+      activity:
+        one: Activiteit
+        other: Activiteiten
       study: Studie(s)
+      member:
+        one: Lid
+        other: Leden
+      group:
+        one: Groep
+        other: Groepen
+      settings: Instellingen
+      impressions: Logs
+
 
     attributes:
       member:
@@ -322,6 +321,13 @@ nl:
         unpermitted: is niet geldig
 
   admin:
+    navigation:
+      home: "Home"
+      payments: "Betalingen"
+      apps: "Apps"
+      checkout: "Checkout"
+      ideal: "iDeal"
+      general: "Algemeen"
     activities:
       partials:
         edit:
@@ -350,7 +356,8 @@ nl:
     sessions:
       new:
         remember_me: "Onthoud mij"
-        log_in: "Log in"
+        sign_in: "Log in"
+        sign_out: "Log uit"
 
   layouts:
     partials:

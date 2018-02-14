@@ -25,4 +25,4 @@
    - [ ] members
    - [x] public
    
-placeholders don't seem to be detected by i15r
+- [ ] placeholders don't seem to be detected by i15r
