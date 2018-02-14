@@ -23,9 +23,12 @@ class MembersController < ActionController::Base
     @activity = Activity.find(activity_id)
 
     # Don't allow activities for old activities
-    if @activity.ended? || !@activity.is_viewable?
-      render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
-      return
+    if @activity.ended? || !@activity.is_viewable? # rubocop:disable Style/GuardClause
+      render :status => :gone,
+             :plain => I18n.t(
+               :activity_ended,
+               scope: 'activerecord.errors.models.activity'
+             )
     end
   end
 end
