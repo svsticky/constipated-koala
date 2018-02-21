@@ -8,17 +8,17 @@
             %span.icon-bg.bg-danger
       %li{ :class => ('active' if yield(:page) == 'members') }
         = link_to :members do
-          %span= I18n.t("activerecord.models.member.other")
+          %span= I18n.t("activerecord.models.member")
           %i.fa.fa-user
             %span.icon-bg.bg-orange
       %li{ :class => ('active' if yield(:page) == 'groups') }
         = link_to :groups do
-          %span= I18n.t("activerecord.models.group.other")
+          %span= I18n.t("activerecord.models.group")
           %i.fa.fa-users
             %span.icon-bg.bg-warning
       %li{ :class => ('active' if yield(:page) == 'activities') }
         = link_to :activities do
-          %span= I18n.t("activerecord.models.activity.other")
+          %span= I18n.t("activerecord.models.activity")
           %i.fa.fa-ticket
             %span.icon-bg.bg-success
       %li{ :class => ('active' if yield(:page) == 'payments') }

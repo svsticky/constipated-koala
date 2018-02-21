@@ -31,16 +31,10 @@ nl:
   activerecord:
     models:
       ideal_transaction: iDEAL-transactie
-      activity:
-        one: Activiteit
-        other: Activiteiten
+      activity: Activiteiten
       study: Studie(s)
-      member:
-        one: Lid
-        other: Leden
-      group:
-        one: Groep
-        other: Groepen
+      member: Leden
+      group: Groepen
       settings: Instellingen
       impressions: Logs
       checkout_transactions: Mongoose transacties

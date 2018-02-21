@@ -31,16 +31,10 @@ en:
   activerecord:
     models:
       ideal_transaction: iDEAL transaction
-      activity:
-        one: Activity
-        other: Activities
+      activity: Activities
       study: Study/Studies
-      member:
-        one: Member
-        other: Members
-      group:
-        one: Group
-        other: Groups
+      member: Members
+      group: Groups
       settings: Settings
       impressions: Logs
       checkout_transactions: Mongoose transacties
