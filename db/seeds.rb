@@ -299,6 +299,8 @@ start_dates.each do |start_date|
     is_freshmans:      Faker::Boolean.boolean(0.2)
   )
 
+  next unless enrollable
+
   Faker::Number.between(0, 20).times do
     reservist = enrollable && !participant_limit.nil? && (activity.participants.count >= participant_limit)
 
