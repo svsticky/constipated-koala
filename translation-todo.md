@@ -22,6 +22,9 @@
      - [ ] mailer
      - [ ] members
        - [ ] activities
+         - [ ] partials
+         - [x] index
+         - [x] show
        - [x] home
    - [ ] mailings
    - [ ] members

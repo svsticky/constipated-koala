@@ -3,8 +3,7 @@
 
 #activity-container{:data => {:view => 'index'}}
   - unless @activities.any?
-    .alert.alert-warning
-      Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven.
+    .alert.alert-warning= I18n.t('members.activities.index.no_activities')
 
   - @activities.each do |activity|
     .flexwrap
