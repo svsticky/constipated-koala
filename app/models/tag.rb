@@ -5,6 +5,6 @@ class Tag < ApplicationRecord
   belongs_to :member
 
   def self.active_by_tag
-    [ 1, 2, 3, 4, 5 ]
+    [1, 2, 3, 4, 5]
   end
 end

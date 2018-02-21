@@ -21,6 +21,7 @@ dependencies:
   post:
     - bundle exec rake assets:clobber --trace
     - bundle exec rake assets:precompile --trace
+    - bundle exec rubocop app lib db config
 
 database:
   override:

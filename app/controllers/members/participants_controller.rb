@@ -6,6 +6,8 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 class Members::ParticipantsController < MembersController
+  before_action :set_activity!
+
   def initialize
     @activity_errors_scope = 'activerecord.errors.models.activity'
   end
@@ -13,11 +15,6 @@ class Members::ParticipantsController < MembersController
   # [POST] /activities/:id/participants
   # Create a new Participant if that's allowed.
   def create
-    puts @activity_errors_scope
-    @activity = Activity.find(params[:activity_id])
-
-    @member = Member.find(current_user.credentials_id)
-
     # Don't allow activities for old activities
     if @activity.ended?
       render status: :gone, json: {
@@ -26,8 +23,8 @@ class Members::ParticipantsController < MembersController
       return
     end
 
-    # Deny members that don't study
-    if !@member.enrolled_in_study?
+    # Deny members that don't study, except if they tagged
+    unless @member.may_enroll?
       render status: :failed_dependency, json: {
         message: I18n.t(:participant_no_student, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,
@@ -57,7 +54,7 @@ class Members::ParticipantsController < MembersController
     end
 
     # Deny minors from alcoholic activities
-    if @activity.is_alcoholic? && @member.is_underage?
+    if @activity.is_alcoholic? && @member.underage?
       render status: 451, json: { # Unavailable for legal reasons
         message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
         participant_limit: @activity.participant_limit,
@@ -88,12 +85,12 @@ class Members::ParticipantsController < MembersController
       reason_for_spare_message = I18n.t(:participant_limit_reached,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
-    elsif !@member.is_masters? && @activity.is_masters?
+    elsif !@member.masters? && @activity.is_masters?
       reservist = true
       reason_for_spare_message = I18n.t(:participant_no_masters,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
-    elsif !@member.is_freshman? && @activity.is_freshmans?
+    elsif !@member.freshman? && @activity.is_freshmans?
       reservist = true
       reason_for_spare_message = I18n.t(:participant_no_freshman,
                                         scope: @activity_errors_scope,
@@ -144,10 +141,8 @@ class Members::ParticipantsController < MembersController
   # [PATCH] /activities/:id/participants
   # Used for updating member notes
   def update
-    @activity = Activity.find(params[:activity_id])
-
     @enrollment = Participant.find_by(
-      member_id: current_user.credentials_id,
+      member_id: @member.id,
       activity_id: @activity.id
     )
 
@@ -181,13 +176,10 @@ class Members::ParticipantsController < MembersController
   # activity, and then cancels the member's enrollment. (Deletes the
   # Participant)
   def destroy
-    puts @activity_errors_scope
-    @activity = Activity.find(params[:activity_id])
-
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
     if !@activity.is_enrollable? ||
-       (@activity.unenroll_date && @activity.unenroll_date.end_of_day < DateTime.now)
+       (@activity.unenroll_date&.end_of_day && @activity.unenroll_date.end_of_day < DateTime.now)
       render status: :locked, json: {
         message: I18n.t(
           :not_unenrollable,

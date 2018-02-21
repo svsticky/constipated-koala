@@ -6,7 +6,7 @@ class CreateStudies < ActiveRecord::Migration[4.2]
     end
 
     change_table :educations do |t|
-      t.belongs_to :study   
+      t.belongs_to :study
       t.remove :name_id
     end
   end

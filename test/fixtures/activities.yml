@@ -40,3 +40,27 @@ test_activities_4:
   is_alcoholic: false
   is_masters: false
   participant_limit: 1
+
+test_luckypeople_masters:
+  name: Test dat enroller geen non-masters voor masters-only act. inschrijft
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  is_masters: true
+  is_freshmans: false
+  participant_limit: 1
+
+test_luckypeople_freshmen:
+  name: Test dat enroller geen non-eerstejaars voor jaars-only act. inschrijft
+  start_date: <%= 10.days.since %>
+  end_date: <%= 10.days.since %>
+  unenroll_date: <%= 7.days.since %>
+  price: 0
+  is_enrollable: true
+  is_alcoholic: false
+  is_masters: false
+  is_freshmans: true
+  participant_limit: 1

@@ -4,7 +4,7 @@ class Participant < ApplicationRecord
 
   after_destroy :enroll_reservist
 
-  validates :notes, length: {maximum: 30}
+  validates :notes, length: { maximum: 30 }
 
   is_impressionable
 
@@ -16,7 +16,6 @@ class Participant < ApplicationRecord
   def currency
     return activity.price if read_attribute(:price).nil?
     self.price ||= 0
-#     self.price ||= activity.price
   end
 
   before_validation do

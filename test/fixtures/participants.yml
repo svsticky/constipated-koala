@@ -12,3 +12,35 @@ underpant_third:
   activity: test_activities_3
   member: captain_underpants
   reservist: false
+
+# Order is needed for master-reservist-enrollment testing, do NOT reorder:
+nonmaster_1:
+  activity: test_luckypeople_masters
+  member: needfuldoer
+  reservist: true
+
+nonmaster_2:
+  activity: test_luckypeople_masters
+  member: martyparty
+  reservist: true
+
+nonmaster_3:
+  activity: test_luckypeople_masters
+  member: masterboy030man # [Witty comment explaning masterboy030man is a masters student]
+  reservist: true
+
+# Same here:
+nonfreshman_1:
+  activity: test_luckypeople_freshmen
+  member: dannypanny
+  reservist: true
+
+nonfreshman_2:
+  activity: test_luckypeople_freshmen
+  member: roosje
+  reservist: true
+
+nonfreshman_3:
+  activity: test_luckypeople_freshmen
+  member: feutemeteut
+  reservist: true

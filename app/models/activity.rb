@@ -21,7 +21,7 @@ class Activity < ApplicationRecord
 
   is_impressionable
 
-  after_update :enroll_reservists, if: proc { |a| a.participant_limit_change }
+  after_update :enroll_reservists, if: proc { |a| a.saved_change_to_participant_limit }
 
   has_attached_file :poster,
                     :styles => {
@@ -51,9 +51,9 @@ class Activity < ApplicationRecord
     write_attribute(:name, name.strip)
   end
 
-  def self.study_year( year )
+  def self.study_year(year)
     year = year.blank? ? Date.today.study_year : year.to_i
-    where('start_date >= ? AND start_date < ?', Date.to_date( year ), Date.to_date( year + 1 ))
+    where('start_date >= ? AND start_date < ?', Date.to_date(year), Date.to_date(year + 1))
   end
 
   def self.debtors
@@ -123,7 +123,7 @@ class Activity < ApplicationRecord
     Group.find_by_id organized_by
   end
 
-  def currency( member )
+  def currency(member)
     participants.where(:member => member).first.price ||= price
   end
 
@@ -140,7 +140,7 @@ class Activity < ApplicationRecord
     return read_attribute(:price)
   end
 
-  def price=( price )
+  def price=(price)
     price = price.to_s.tr(',', '.').to_f
     write_attribute(:price, price)
     write_attribute(:price, nil) if price == 0
@@ -205,12 +205,15 @@ class Activity < ApplicationRecord
     spots = participant_limit - attendees.count if attendees.count <
                                                    participant_limit
 
-    if !is_masters?
-      luckypeople = reservists.first(spots)
-    else
-      masterpeople = reservists.select { |m| m.member.is_masters? }
-      luckypeople = masterpeople.first(spots)
-    end
+    reservistpool = reservists.to_a # to_a because in-place `select!`
+
+    # Filter non-masters if masters-only, non-freshmen if freshman-only.
+    # Note: this will leave nobody if someone enables both is_masters and
+    # is_freshmans, as freshman? explicitly rejects masters.
+    reservistpool.select! { |m| m.member.masters? } if is_masters?
+    reservistpool.select! { |m| m.member.freshman? } if is_freshmans?
+
+    luckypeople = reservistpool.first(spots)
 
     luckypeople.each do |peep|
       peep.update!(reservist: false)
@@ -222,7 +225,7 @@ class Activity < ApplicationRecord
 
   def participant_counts
     # Helper method to get counts of both types of Participants for this activity at once
-    [ participants.count, attendees.count, reservists.count ]
+    [participants.count, attendees.count, reservists.count]
   end
 
   def participant_counter
@@ -232,7 +235,7 @@ class Activity < ApplicationRecord
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if participant_limit
       return 'VOL!' if attendees.count >= participant_limit
-      return "#{attendees.count}/#{participant_limit}"
+      return "#{ attendees.count }/#{ participant_limit }"
     end
 
     return attendees.count.to_s

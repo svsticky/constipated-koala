@@ -9,7 +9,7 @@ class Education < ApplicationRecord
   # validates :study, presence: true
   # validates :member, presence: true
 
-  enum status: [ :active, :stopped, :graduated ]
+  enum status: [:active, :stopped, :graduated]
 
   def self.find_by_year_and_study_code(year, code)
     study = Study.find_by_code(code)

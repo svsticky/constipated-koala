@@ -1,5 +1,4 @@
 class CheckoutProduct < ApplicationRecord
-
   validates :name, presence: true
   validates :category, presence: true
   validates :price, presence: true
@@ -45,7 +44,7 @@ class CheckoutProduct < ApplicationRecord
     return CheckoutProduct.find_by_id(self.parent).url
   end
 
-  def has_children?
+  def children?
     return true unless CheckoutProduct.find_by_parent(self.id).nil?
     return false
   end
@@ -58,7 +57,7 @@ class CheckoutProduct < ApplicationRecord
   def sales(year = nil)
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date(year), Date.to_date(year +1)).group(:items).count.map { |k, v| { k => v } }
+    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date(year), Date.to_date(year + 1)).group(:items).count.map { |k, v| { k => v } }
 
     count = sales.map { |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
 
@@ -67,10 +66,11 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def self.last_version
-    self.select { |product| !product.has_children? }
+    self.select { |product| !product.children? }
   end
 
   private
+
   def valid_image
     errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless self.image.present? || parent.present?
   end
