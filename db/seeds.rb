@@ -301,7 +301,9 @@ start_dates.each do |start_date|
 
   next unless enrollable
 
-  Faker::Number.between(0, 20).times do
+  participant_count = Faker::Number.between(0, 20)
+  members = Member.all.sample(participant_count)
+  members.each do |member|
     reservist = enrollable && !participant_limit.nil? && (activity.participants.count >= participant_limit)
 
     notes = nil
@@ -309,16 +311,13 @@ start_dates.each do |start_date|
       notes = Faker::Lorem.words(Faker::Number.between(1, 3)).join(' ')
     end
 
-    # because of the [member, activity] key this also conflicts often
-    suppress(ActiveRecord::RecordNotUnique) do
-      Participant.create(
-        member:    Member.all.sample,
-        reservist: reservist,
-        activity:  activity,
-        price:     (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
-        paid:      Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
-        notes: notes
-      )
-    end
+    Participant.create(
+      member:    member,
+      reservist: reservist,
+      activity:  activity,
+      price:     (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
+      paid:      Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
+      notes: notes
+    )
   end
 end
