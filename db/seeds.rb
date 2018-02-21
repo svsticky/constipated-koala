@@ -278,6 +278,10 @@ start_dates.each do |start_date|
 
   notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.words(Faker::Number.between(1, 5)).join(' ') : nil
 
+  is_freshmans = Faker::Boolean.boolean(0.2)
+  is_masters = Faker::Boolean.boolean(0.2)
+  is_alcoholic = Faker::Boolean.boolean(0.2)
+
   activity = Activity.create(
     name:              Faker::Hacker.ingverb.capitalize,
     price:             Faker::Commerce.price / 5,
@@ -288,18 +292,42 @@ start_dates.each do |start_date|
     organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
     description:       Faker::Lorem.paragraph(5),
     is_enrollable:     enrollable,
-    is_masters:        Faker::Boolean.boolean(0.2),
+    is_masters:        is_masters,
     is_viewable:       Faker::Boolean.boolean(0.9),
-    is_alcoholic:      Faker::Boolean.boolean(0.2),
+    is_alcoholic:      is_alcoholic,
     participant_limit: participant_limit,
     location:          Faker::Lorem.words(Faker::Number.between(1, 3)).join(' '),
     notes:             notes,
     notes_mandatory:   notes.nil? ? Faker::Boolean.boolean(0.2) : false,
     notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true,
-    is_freshmans:      Faker::Boolean.boolean(0.2)
+    is_freshmans:      is_freshmans
   )
 
-  Faker::Number.between(0, 20).times do
+  next unless enrollable
+
+  eligible_members = Member.all
+
+  if is_freshmans
+    eligible_members = eligible_members.select do |member|
+      member.freshman?
+    end
+  end
+
+  if is_masters
+    eligible_members = eligible_members.select do |member|
+      member.masters?
+    end
+  end
+
+  if is_alcoholic
+    eligible_members = eligible_members.select do |member|
+      member.adult?
+    end
+  end
+
+  participant_count = Faker::Number.between(0, 20)
+  members = eligible_members.sample(participant_count)
+  members.each do |member|
     reservist = enrollable && !participant_limit.nil? && (activity.participants.count >= participant_limit)
 
     notes = nil
@@ -307,16 +335,13 @@ start_dates.each do |start_date|
       notes = Faker::Lorem.words(Faker::Number.between(1, 3)).join(' ')
     end
 
-    # because of the [member, activity] key this also conflicts often
-    suppress(ActiveRecord::RecordNotUnique) do
-      Participant.create(
-        member:    Member.all.sample,
-        reservist: reservist,
-        activity:  activity,
-        price:     (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
-        paid:      Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
-        notes: notes
-      )
-    end
+    Participant.create(
+      member:    member,
+      reservist: reservist,
+      activity:  activity,
+      price:     (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
+      paid:      Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
+      notes: notes
+    )
   end
 end
