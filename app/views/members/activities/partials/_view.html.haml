@@ -2,7 +2,8 @@
   .panel-heading.text-right
     %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
-    = activity.participant_counter
+    .fullness
+      = activity.fullness
     .clearfix
   .panel-body
     .media-left.poster-thumbnail

@@ -228,7 +228,7 @@ class Activity < ApplicationRecord
     [participants.count, attendees.count, reservists.count]
   end
 
-  def participant_counter
+  def fullness
     # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
     return '' unless is_enrollable
 
