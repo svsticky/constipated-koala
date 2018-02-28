@@ -241,6 +241,7 @@ en:
       default: Some has gone wrong
       incomplete: Oh snap, you forgot some things
       no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
+      record_invalid: Error! The data is invalid.
 
       subscribe:
         failed: Your payment has failed, but you have been enrolled!
