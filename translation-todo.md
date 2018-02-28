@@ -20,12 +20,7 @@
      - [ ] application
      - [x] doorkeeper
      - [ ] mailer
-     - [ ] members
-       - [ ] activities
-         - [ ] partials
-         - [x] index
-         - [x] show
-       - [x] home
+     - [x] members
    - [ ] mailings
    - [ ] members
    - [x] public

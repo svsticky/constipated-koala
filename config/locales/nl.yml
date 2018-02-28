@@ -47,6 +47,17 @@ nl:
           one: Reserve
           other: Reserves
 
+    labels:
+      activities:
+        when: Wanneer
+        date: Datum
+        time: Tijd
+
+    missing_value_placeholders:
+      activity:
+        free: Gratis
+        description: Geen beschrijving beschikbaar
+
     attributes:
       member:
        first_name: Voornaam
@@ -408,3 +419,13 @@ nl:
       bug_report: BUG!
       index:
         no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
+      partials:
+        view:
+          notes_mandatory: "Extra info vereist!"
+          more_info: "Meer info"
+          actions:
+            update_info: Update info
+            enroll: Inschrijven
+            reservist_enroll: Inschrijven op reservelijst
+            unenroll: Uitschrijven
+            reservist_unenroll: Uitschrijven van reservelijst
