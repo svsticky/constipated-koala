@@ -20,7 +20,7 @@
      - [ ] application
      - [x] doorkeeper
      - [ ] mailer
-     - [ ] members
+     - [x] members
    - [ ] mailings
    - [x] members
    - [x] public

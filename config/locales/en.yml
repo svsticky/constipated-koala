@@ -21,6 +21,7 @@ en:
     delete: Remove
 
   navigation:
+    home: "Home"
     back: Back
 
   editing:
@@ -336,7 +337,6 @@ en:
 
   admin:
     navigation:
-      home: "Home"
       payments: "Payments"
       apps: "Apps"
       checkout: "Checkout"
@@ -424,3 +424,5 @@ en:
             reservist_enroll: Enroll to spares list
             unenroll: Uitschrijven
             reservist_unenroll: Unenroll from spares list
+    navigation:
+      edit_profile: "Edit profile"

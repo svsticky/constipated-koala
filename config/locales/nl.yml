@@ -21,6 +21,7 @@ nl:
     delete: Verwijder
 
   navigation:
+    home: "Home"
     back: Terug
 
   editing:
@@ -341,7 +342,6 @@ nl:
 
   admin:
     navigation:
-      home: "Home"
       payments: "Betalingen"
       apps: "Apps"
       checkout: "Checkout"
@@ -429,3 +429,5 @@ nl:
             reservist_enroll: Inschrijven op reservelijst
             unenroll: Uitschrijven
             reservist_unenroll: Uitschrijven van reservelijst
+    navigation:
+      edit_profile: "Gegevens bewerken"
