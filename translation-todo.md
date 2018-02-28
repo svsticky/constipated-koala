@@ -17,7 +17,7 @@
    - [ ] layouts
      - [x] partials
      - [ ] _blank
-     - [ ] application
+     - [x] application
      - [x] doorkeeper
      - [ ] mailer
      - [x] members
