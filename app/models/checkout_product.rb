@@ -9,6 +9,8 @@ class CheckoutProduct < ApplicationRecord
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
+  belongs_to :checkout_product_type
+
   def price=(price)
     write_attribute(:price, price.to_s.gsub(',', '.').to_f)
   end

@@ -4,6 +4,8 @@ class CheckoutProductType < ApplicationRecord
   validates :price, presence: true
   validate :valid_image, unless: :skip_image_validation
 
+  has_many :checkout_products
+
   attr_accessor :skip_image_validation
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
