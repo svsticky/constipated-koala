@@ -20,9 +20,9 @@
      - [ ] application
      - [x] doorkeeper
      - [ ] mailer
-     - [x] members
+     - [ ] members
    - [ ] mailings
-   - [ ] members
+   - [x] members
    - [x] public
    
 - [ ] placeholders don't seem to be detected by i15r
