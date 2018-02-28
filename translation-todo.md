@@ -16,7 +16,7 @@
    - [x] doorkeeper
    - [ ] layouts
      - [x] partials
-     - [ ] _blank
+     - [x] _blank
      - [x] application
      - [x] doorkeeper
      - [ ] mailer
