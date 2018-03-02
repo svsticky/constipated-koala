@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228133722) do
+ActiveRecord::Schema.define(version: 20180228153049) do
 
   create_table "activities", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string "name"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20180228133722) do
     t.index ["uuid"], name: "index_checkout_cards_on_uuid", unique: true
   end
 
-  create_table "checkout_product_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+  create_table "checkout_product_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
     t.integer "category"
     t.boolean "active", default: true
@@ -108,6 +108,14 @@ ActiveRecord::Schema.define(version: 20180228133722) do
     t.integer "chamber_stock", default: 0
     t.bigint "checkout_product_type_id"
     t.index ["checkout_product_type_id"], name: "index_checkout_products_on_checkout_product_type_id"
+  end
+
+  create_table "checkout_transaction_items", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.bigint "checkout_transaction_id"
+    t.bigint "checkout_product_type_id"
+    t.decimal "price", precision: 6, scale: 2
+    t.index ["checkout_product_type_id"], name: "index_checkout_transaction_items_on_checkout_product_type_id"
+    t.index ["checkout_transaction_id"], name: "index_checkout_transaction_items_on_checkout_transaction_id"
   end
 
   create_table "checkout_transactions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
