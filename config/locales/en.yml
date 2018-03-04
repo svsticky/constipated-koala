@@ -134,6 +134,7 @@ en:
           active: Studying
           stopped: Stopped
           graduated: Graduated
+          inactive: Not studying
 
       settings:
         begin_study_year:

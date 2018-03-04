@@ -135,6 +135,7 @@ nl:
           active: Studerend
           stopped: Gestopt
           graduated: Afgestudeerd
+          inactive: Niet studerend
 
       settings:
         begin_study_year:
