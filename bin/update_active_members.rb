@@ -167,6 +167,8 @@ def leguiddit(studydata)
         end
 
         switched += 1
+      else
+        noop += 1
       end
 
     else
