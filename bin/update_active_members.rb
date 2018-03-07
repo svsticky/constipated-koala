@@ -75,7 +75,7 @@ end
 def activate(member, study_code)
   edu = Education.find_or_initialize_by(
     member: member,
-    study: $studies[study_code]
+    study: $study_cache[study_code]
   )
 
   edu.start_date ||= Date.today # Only changed if not present
@@ -87,7 +87,7 @@ end
 def deactivate(member, study_code)
   edu = Education.find_by(
     member: member,
-    study: $studies[study_code]
+    study: $study_cache[study_code]
   )
 
   edu.status = :inactive
@@ -102,7 +102,7 @@ def leguiddit(studydata)
   noop = 0
   switched = 0
 
-  Member.each do |m|
+  Member.all.each do |m|
     # The script expects the following situations:
     #  - Student was inactive, and still is (no-op)
     #  - Student was active, and still is (no-op)
