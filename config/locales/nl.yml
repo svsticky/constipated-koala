@@ -403,6 +403,9 @@ nl:
       hi: "Hoi"
       identity_confirmation: "Bent u niet %{name}?"
       click_here: "Klik dan hier"
+    mailer:
+      alerts: "Waarschuwingen, bijvoorbeeld: Dichtbij je limiet"
+      footer_html: "Kijk voor meer informatie op %{site_address} of mail naar %{secretaris_mail} voor vragen."
 
   members:
     genders:

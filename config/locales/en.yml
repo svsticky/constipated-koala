@@ -398,6 +398,9 @@ en:
       hi: "Hoi"
       identity_confirmation: "Bent u niet %{name}?"
       click_here: "Klik dan hier"
+    mailer:
+      alerts: "Alerts e.g. approaching your limit"
+      footer_html: "For more information, visit %{site_address} or mail to %{secretary_mail} for questions."
 
   members:
     genders:

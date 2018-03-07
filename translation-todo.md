@@ -14,13 +14,7 @@
    - [ ] api
    - [x] devise
    - [x] doorkeeper
-   - [ ] layouts
-     - [x] partials
-     - [x] _blank
-     - [x] application
-     - [x] doorkeeper
-     - [ ] mailer
-     - [x] members
+   - [x] layouts
    - [ ] mailings
    - [x] members
    - [x] public
