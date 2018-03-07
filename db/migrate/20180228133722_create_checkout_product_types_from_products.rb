@@ -40,6 +40,7 @@ class CreateCheckoutProductTypesFromProducts < ActiveRecord::Migration[5.1]
         cpt.active    = p.active # Alleen de nieuwste kan actief zijn, lekker makkelijk
         cpt.price     = p.price
         cpt.image     = p.image
+        cpt.skip_image_validation = true
         cpt.save!
 
         puts 'CPT created.'
