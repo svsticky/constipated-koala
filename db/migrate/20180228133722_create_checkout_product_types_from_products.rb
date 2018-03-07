@@ -48,6 +48,7 @@ class CreateCheckoutProductTypesFromProducts < ActiveRecord::Migration[5.1]
         # Sla het CPT op bij de hele lineage van p als opvolger
         lineage.each do |p|
           p.checkout_product_type = cpt
+          p.skip_image_validation = true
           p.save!
         end
 
