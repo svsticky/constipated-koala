@@ -66,7 +66,7 @@ exit unless Rails.env.development? || Rails.env.staging?
 puts 'Creating products'
 3.times do
   # Create a few food products
-  CheckoutProduct.create!(
+  CheckoutProductType.create!(
     name:                  Faker::Food.unique.dish,
     category:              Faker::Number.between(2, 4),
     price:                 Faker::Number.between(0.50, 4.0),
@@ -79,7 +79,7 @@ puts 'Creating products'
   )
 
   # Create a few alcoholic products
-  CheckoutProduct.create(
+  CheckoutProductType.create(
     name:                  Faker::Beer.name,
     category:              5,
     price:                 Faker::Number.between(1.0, 3.0),
@@ -198,17 +198,18 @@ puts 'Creating checkout transactions'
 Member.all.each do |member|
   member.checkout_cards.each do |checkout_card|
     Faker::Number.between(0, 10).times do
-      checkout_products = CheckoutProduct.all
+      checkout_products = CheckoutProductType.all
       if member.is_underage?
         checkout_products.reject { |product| product.liquor? }
       end
-      CheckoutTransaction.create(
+      ct = CheckoutTransaction.new(
         checkout_card_id: checkout_card.id,
-        items:            checkout_products.sample(Faker::Number.between(1, 3)).map { |product| product.id },
+        items:            checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
         payment_method:   %w[Gepind Contant Verkoop].sample,
         created_at:       Faker::Date.backward,
         skip_liquor_time_validation: true
       )
+      ct.save!
     end
   end
 end
@@ -243,10 +244,10 @@ end
 puts 'Creating stocky purchases'
 20.times do
   StockyTransaction.create!(
-    checkout_product: CheckoutProduct.all.sample,
-    amount:           Faker::Number.between(-10, 100),
-    from:             "shop",
-    to:               "basement"
+    checkout_product_type: CheckoutProductType.all.sample,
+    amount:                Faker::Number.between(-10, 100),
+    from:                  "shop",
+    to:                    "basement"
   )
 end
 

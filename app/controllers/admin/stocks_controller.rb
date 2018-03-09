@@ -1,6 +1,6 @@
 class Admin::StocksController < ApplicationController
   def stock
-    @products = CheckoutProduct.order(:category, :name)
+    @products = CheckoutProductType.order(:category, :name)
     @stocky_transaction      = StockyTransaction.new
     @moves = StockyTransaction
              .where(:from => ['basement', 'mongoose'])
@@ -63,14 +63,14 @@ class Admin::StocksController < ApplicationController
   private
   def stocky_purchase_transaction_post_params
     params.require(:stocky_transaction)
-      .permit(:checkout_product_id,
+      .permit(:checkout_product_type_id,
               :amount)
   end
 
   private
   def stocky_transaction_post_params
     params.require(:stocky_transaction)
-      .permit(:checkout_product_id,
+      .permit(:checkout_product_type_id,
               :amount,
               :from,
               :to)

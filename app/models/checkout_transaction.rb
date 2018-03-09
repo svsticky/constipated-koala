@@ -5,6 +5,11 @@ class CheckoutTransaction < ApplicationRecord
   belongs_to :checkout_card, optional: true
   belongs_to :checkout_balance
 
+  has_many :checkout_transaction_items
+  has_many :contained_products, through: :checkout_transaction_items, source: :checkout_product_type # Working title TODO
+
+  after_save :items_to_link_table # Before commit
+
   attr_accessor :skip_liquor_time_validation
 
   serialize :items, Array
@@ -13,9 +18,11 @@ class CheckoutTransaction < ApplicationRecord
   self.i18n_error_scope = %i[activerecord errors models checkout_transaction attributes]
 
   before_validation do
+    @checkout_product_type_cache = self.items.map { |i| CheckoutProductType.find(i) }
     # add items for a price
-    unless items.blank?
-      self.price = -items.reduce(0) { |total, item_id| total + CheckoutProduct.find(item_id).price }
+    self.price ||= 0
+    unless @checkout_product_type_cache.none?
+      self.price = -@checkout_product_type_cache.reduce(0) { |total, item| total + item.price }
     end
 
     if checkout_balance.nil?
@@ -24,7 +31,7 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   after_validation do
-    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{self.price}, updated_at = NOW()")
+    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{self.price}, updated_at = NOW()") # XXX Nee
   end
 
   after_commit :update_product_stock
@@ -34,11 +41,11 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def validate_payment_method
-    errors.add(:payment_method, I18n.t('payment_method.blank', scope: i18n_error_scope)) if payment_method.blank? && items.blank?
+    errors.add(:payment_method, I18n.t('payment_method.blank', scope: i18n_error_scope)) if payment_method.blank? && items.none?
   end
 
   def validate_liquor_items
-    return unless items.any? {|item| CheckoutProduct.find(item).liquor?}
+    return unless contained_products.any? {|item| item.liquor?}
 
     # only place you should use now, because liquor_time is without zone
     errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
@@ -50,20 +57,18 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def update_product_stock
-    items.each do |item_id|
-      item = CheckoutProduct.find(item_id)
+    contained_products.each do |item|
       item.decrement!(:chamber_stock)
       item.save
     end
   end
 
   def products
-    return '-' if items.empty?
+    return '-' if contained_products.none?
 
-    counts = {}
-    items.each do |item|
-      counts[CheckoutProduct.find_by_id(item).name] = 0 unless counts.key?(CheckoutProduct.find_by_id(item).name)
-      counts[CheckoutProduct.find_by_id(item).name] += 1
+    counts = Hash.new 0 # Non-existent keys will be zero
+    contained_products.each do |item|
+      counts[item.name] += 1
     end
 
     strings = counts.map do |item, count|
@@ -75,5 +80,25 @@ class CheckoutTransaction < ApplicationRecord
     end
 
     strings.join(', ')
+  end
+
+  def items_to_link_table
+    if items
+      CheckoutTransactionItem.transaction do
+        # Clear all existing CheckoutTransactionItems just to be sure
+        old_ctis = CheckoutTransactionItem.where(checkout_transaction: self)
+        old_ctis.each(&:destroy!)
+
+        # Save all items in `items` as separate `CheckoutTransactionItems`.
+        @checkout_product_type_cache.each do |cpt|
+          cti = CheckoutTransactionItem.new(
+            checkout_product_type: cpt,
+            checkout_transaction: self,
+            price: cpt.price
+          )
+          cti.save!
+        end
+      end
+    end
   end
 end

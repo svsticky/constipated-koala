@@ -8,7 +8,7 @@
         .row
           .col-md-8
             = label(:stocky_transaction, :checkout_product_id)
-            = f.text_field :checkout_product_id, :value => @stocky_transaction.checkout_product_id, :class => 'form-control'
+            = f.text_field :checkout_product_type_id, :value => @stocky_transaction.checkout_product_type_id, :class => 'form-control'
           .col-md-4
             = label(:stocky_transaction, :amount)
             = f.text_field :amount, :value => @stocky_transaction.amount, :class => 'form-control'

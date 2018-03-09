@@ -3,31 +3,31 @@ class Admin::CheckoutProductsController < ApplicationController
   respond_to :json, only: [ :activate_card, :change_funds ]
 
   def index
-    @products = CheckoutProduct.order(:category, :name).last_version
+    @products = CheckoutProductType.order(:category, :name)
     @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
-    @new = CheckoutProduct.new
+    @new = CheckoutProductType.new
 
     render 'admin/apps/products'
   end
 
   def show
-    @products = CheckoutProduct.order(:category, :name).last_version
+    @products = CheckoutProductType.order(:category, :name)
     @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
-    @product = CheckoutProduct.find_by_id( params[:id] )
+    @product = CheckoutProductType.find params[:id]
     @total = @product.sales( params['year'] ).map{ |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+)
 
     render 'admin/apps/products'
   end
 
   def create
-    @new = CheckoutProduct.new product_post_params
+    @new = CheckoutProductType.new product_post_params
 
     if @new.save
       redirect_to checkout_product_path(@new)
     else
-      @products = CheckoutProduct.order(:category, :name).last_version
+      @products = CheckoutProductType.order(:category, :name)
       @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
 
       render 'admin/apps/products'
@@ -35,16 +35,14 @@ class Admin::CheckoutProductsController < ApplicationController
   end
 
   def update
-    @product = CheckoutProduct.find_by_id params[:id]
+    @product = CheckoutProductType.find params[:id]
 
     if @product.update(product_post_params)
-      # if a new product is created redirect to it
-      product = CheckoutProduct.find_by_parent(@product.id)
-
       redirect_to checkout_product_path( product || @product.id )
+
     else
       @years = (2015 .. Date.today.study_year ).map{ |year| ["#{year}-#{year +1}", year] }.reverse
-      @products = CheckoutProduct.order(:category, :name).last_version
+      @products = CheckoutProductTypes.order(:category, :name)
 
       render 'admin/apps/products'
     end

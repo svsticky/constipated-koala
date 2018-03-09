@@ -9,7 +9,7 @@ class Api::CheckoutController < ApplicationController
   respond_to :json
 
   def products
-    @products = CheckoutProduct.where(active: true)
+    @products = CheckoutProductType.where(active: true)
   end
 
   def info
