@@ -10,6 +10,12 @@ class CalendarsController < ActionController::Base
         render plain: @Calendar.to_ical
         puts @Calendar.to_ical
       end
+      format.html do
+        render html:
+          "<strong>Not available as html page</strong>
+          <br>Go <a href='webcal://koala.svsticky.nl/calendarfeed.ics'>here</a>
+          to subscribe to activities".html_safe
+      end
     end
   end
 
