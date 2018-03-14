@@ -19,6 +19,8 @@
      - [x] checkout
      - [x] devise
      - [ ] participants
+       - [x] enrolled
+       - [ ] inform
    - [x] members
    - [x] public
    

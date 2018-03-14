@@ -470,3 +470,9 @@ nl:
         notification: Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuw account aan te maken.
         button_instructions: Klik op onderstaande knop om een nieuw wachtwoord aan te maken of negeer deze mail om je huidige wachtwoord te behouden.
         reset_password: Reset wachtwoord
+    participants:
+      enrolled:
+        free_spot: Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>#{activity.name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
+        activity_start_html: "De activiteit begint op <strong>#{activity_start}</strong> en kost #{price}. Tot dan!"
+        button_instructions_html: "Je kunt je tot <strong>#{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit."
+        to_the_activity: Naar de activiteit

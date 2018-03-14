@@ -466,3 +466,9 @@ en:
         notification: A new password has been requested for your Sticky account, or you tried to create a new one.
         button_instructions: Click the button below to enter a new password or ignore this e-mail to keep your current one.
         reset_password: Reset password
+    participants:
+      enrolled:
+        free_spot: Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list.
+        activity_start_html: "The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!"
+        button_instructions_html: "You can unenroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
+        to_the_activity: To the activity
