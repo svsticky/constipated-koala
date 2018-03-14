@@ -22,6 +22,22 @@ class Admin::StocksController < ApplicationController
 
     @purchases = @results[@offset,@limit]
 
+    @transactions = StockyTransaction.where(from: "shop")
+
+    @product_ids = @transactions.pluck(:checkout_product_id).uniq
+
+    @products = CheckoutProduct.where(id: @product_ids)
+
+    @chart_data = @transactions.pluck(:checkout_product_id).uniq.map{ |i| {
+      name: CheckoutProduct.find(i).name,
+      data: @transactions.where(checkout_product_id: i).pluck('DATE(created_at)', :amount),
+      library: {
+        spanGaps: true,
+        lineTension: 0.0,
+        pointHoverBorderWidth: 10
+      }
+    }}
+
     render 'admin/apps/stocky/purchases'
   end
 

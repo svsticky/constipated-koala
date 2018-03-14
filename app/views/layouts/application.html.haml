@@ -11,15 +11,16 @@
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no, minimal-ui", name: "viewport"}
     %meta{content: "yes", name:"apple-mobile-web-app-capable"}
-
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
-
+    = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
     %link{:href => asset_path('apple-icon-koala-144.png'), :rel => "apple-touch-icon"}
     %link{:href => asset_path('apple-icon-koala-114.png'), :rel => "apple-touch-icon"}
     %link{:href => asset_path('apple-icon-koala-72.png'), :rel => "apple-touch-icon"}
     %link{:href => asset_path('apple-icon-koala-57.png'), :rel => "apple-touch-icon"}
-
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"
+    
     %template#alert
       .toast{:class => "toast-{1}"}
         %button.toast-close-button

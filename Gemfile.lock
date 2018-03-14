@@ -77,6 +77,7 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
+    chartkick (2.3.2)
     climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -99,6 +100,8 @@ GEM
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    groupdate (4.0.0)
+      activesupport (>= 4.2)
     haml (5.0.1)
       temple (>= 0.8.0)
       tilt
@@ -240,11 +243,13 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (>= 2.0)
   byebug
+  chartkick
   coffee-rails
   devise!
   doorkeeper
   faker (>= 1.8.4)
   fuzzily!
+  groupdate
   haml
   impressionist!
   listen
@@ -264,4 +269,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.16.1

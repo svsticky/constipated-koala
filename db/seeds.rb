@@ -242,11 +242,25 @@ end
 # Create stocky purchases
 puts 'Creating stocky purchases'
 20.times do
+  date = Faker::Date.between(4.months.ago, 1.day.ago)
   StockyTransaction.create!(
     checkout_product: CheckoutProduct.all.sample,
     amount:           Faker::Number.between(-10, 100),
     from:             "shop",
-    to:               "basement"
+    to:               "basement",
+    created_at:       date
+  )
+end
+
+puts 'Creating Stocky Transactions'
+20.times do
+  date = Faker::Date.between(4.months.ago, 1.day.ago)
+  StockyTransaction.create!(
+    checkout_product: CheckoutProduct.all.sample,
+    amount:           Faker::Number.between(-10,100),
+    from:             ["shop", "basement", "mongoose"].sample,
+    to:               ["basement", "mongoose"].sample,
+    created_at:       date
   )
 end
 
