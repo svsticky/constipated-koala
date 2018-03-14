@@ -16,6 +16,9 @@
    - [x] doorkeeper
    - [x] layouts
    - [ ] mailings
+     - [x] checkout
+     - [ ] devise
+     - [ ] participants
    - [x] members
    - [x] public
    

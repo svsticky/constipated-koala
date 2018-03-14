@@ -434,3 +434,11 @@ nl:
             reservist_unenroll: Uitschrijven van reservelijst
     navigation:
       edit_profile: "Gegevens bewerken"
+
+  mailings:
+    greeting: Hoi
+    best_regards: "Met vriendelijke groet,"
+    signature: "Het bestuur"
+    checkout:
+      confirmation_instructions: "Bevestig je kaart voor je Checkout account bij Studievereniging Sticky door op de onderstaande knop te klikken!"
+      confirm_card: Kaart bevestigen

@@ -429,3 +429,11 @@ en:
             reservist_unenroll: Unenroll from spares list
     navigation:
       edit_profile: "Edit profile"
+
+  mailings:
+    greeting: Hoi
+    best_regards: "Best regards,"
+    signature: "The board"
+    checkout:
+      confirmation_instructions: "Confirm your card for your Checkout account with Study association Sticky by clicking the following button:"
+      confirm_card: Confirm card
