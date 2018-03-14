@@ -18,6 +18,9 @@
    - [ ] mailings
      - [x] checkout
      - [ ] devise
+       - [x] activation_instructions
+       - [ ] confirmation_instructions
+       - [ ] reset_passwords_instructions
      - [ ] participants
    - [x] members
    - [x] public
