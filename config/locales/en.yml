@@ -459,3 +459,6 @@ en:
         account_activation_instructions: Activate your account by clicking the button below
         activate_account: Activate account
         see_you_soon: See you soon!
+      confirmation_instructions:
+        button_instructions: Confirm your e-mail address for your Sticky account by clicking the button below!
+        confirm_account: Confirm account

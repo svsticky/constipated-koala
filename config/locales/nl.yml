@@ -463,3 +463,6 @@ nl:
         account_activation_instructions: 'Activeer je account door op onderstaande knop te klikken:'
         activate_account: Activeer account
         see_you_soon: Tot snel!
+      confirmation_instructions:
+        button_instructions:  Bevestig je e-mailadres voor je account bij Studievereniging Sticky door op de onderstaande knop te klikken!
+        confirm_account: Account bevestigen
