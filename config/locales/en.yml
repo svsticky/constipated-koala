@@ -462,3 +462,7 @@ en:
       confirmation_instructions:
         button_instructions: Confirm your e-mail address for your Sticky account by clicking the button below!
         confirm_account: Confirm account
+      reset_passwords_instructions:
+        notification: A new password has been requested for your Sticky account, or you tried to create a new one.
+        button_instructions: Click the button below to enter a new password or ignore this e-mail to keep your current one.
+        reset_password: Reset password

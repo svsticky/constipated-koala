@@ -17,10 +17,7 @@
    - [x] layouts
    - [ ] mailings
      - [x] checkout
-     - [ ] devise
-       - [x] activation_instructions
-       - [x] confirmation_instructions
-       - [ ] reset_passwords_instructions
+     - [x] devise
      - [ ] participants
    - [x] members
    - [x] public
