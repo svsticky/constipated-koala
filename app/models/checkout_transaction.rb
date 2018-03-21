@@ -45,10 +45,14 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def validate_liquor_items
-    return unless contained_products.any? {|item| item.liquor?}
+    return unless @checkout_product_type_cache.any? {|item| item.liquor?}
 
     # only place you should use now, because liquor_time is without zone
-    errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
+    errors.add(
+      :items,
+      I18n.t('items.not_liquor_time', scope: i18n_error_scope, liquor_time: Settings.liquor_time)
+    ) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
+
     errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
   end
 
