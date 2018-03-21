@@ -9,15 +9,6 @@
   = line_chart @chart_data
 
   .page
-    .row
-      .col-lg-12
-        %select.selectpicker{:multiple => true, :title => "Selecteer Producten"}
-          - @products.each do |product|
-            %option
-              = product.name
-
-
-  .page
     = render 'admin/apps/stocky/partials/stocknav'
     .row
       .col-lg-12

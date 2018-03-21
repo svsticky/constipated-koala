@@ -7,6 +7,8 @@ class Admin::StocksController < ApplicationController
              .where(:to   => ['basement', 'mongoose',
                               'activity', 'waste'])
 
+    @chart_data = @products.map{ |i| [i.name, i.chamber_stock + i.storage_stock]}
+
     render 'admin/apps/stocky/stock'
   end
 
