@@ -198,9 +198,9 @@ puts 'Creating checkout transactions'
 Member.all.each do |member|
   member.checkout_cards.each do |checkout_card|
     Faker::Number.between(0, 10).times do
-      checkout_products = CheckoutProductType.all
+      checkout_products = CheckoutProductType.all.to_a
       if member.is_underage?
-        checkout_products.reject { |product| product.liquor? }
+        checkout_products.reject!{ |product| product.liquor? }
       end
       ct = CheckoutTransaction.new(
         checkout_card_id: checkout_card.id,
@@ -245,11 +245,11 @@ puts 'Creating stocky purchases'
 20.times do
   date = Faker::Date.between(4.months.ago, 1.day.ago)
   StockyTransaction.create!(
-    checkout_product: CheckoutProduct.all.sample,
-    amount:           Faker::Number.between(1, 100),
-    from:             "shop",
-    to:               "basement",
-    created_at:       date
+    checkout_product_type: CheckoutProductType.all.sample,
+    amount:                Faker::Number.between(1, 100),
+    from:                  "shop",
+    to:                    "basement",
+    created_at:            date
   )
 end
 
@@ -259,9 +259,9 @@ puts 'Creating Stocky Transactions'
   StockyTransaction.create!(
     checkout_product_type: CheckoutProductType.all.sample,
     amount:                Faker::Number.between(1, 100),
-    from:             ["shop", "basement", "mongoose"].sample,
-    to:               ["basement", "mongoose"].sample,
-    created_at:       date
+    from:                  ["shop", "basement", "mongoose"].sample,
+    to:                    ["basement", "mongoose"].sample,
+    created_at:            date
   )
 end
 
