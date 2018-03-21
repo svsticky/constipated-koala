@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116090956) do
+ActiveRecord::Schema.define(version: 20180309095146) do
 
   create_table "activities", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name"
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20180116090956) do
     t.string "location"
     t.date "unenroll_date"
     t.string "notes"
-    t.boolean "is_viewable"
     t.boolean "notes_mandatory"
     t.boolean "notes_public"
+    t.boolean "is_viewable"
     t.boolean "is_masters"
     t.boolean "is_freshmans"
   end
@@ -79,10 +79,12 @@ ActiveRecord::Schema.define(version: 20180116090956) do
     t.index ["uuid"], name: "index_checkout_cards_on_uuid", unique: true
   end
 
-  create_table "checkout_product_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "checkout_product_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "category"
     t.boolean "active", default: true
+    t.integer "storage_stock", default: 0
+    t.integer "chamber_stock", default: 0
     t.decimal "price", precision: 6, scale: 2
     t.string "image_file_name"
     t.string "image_content_type"
@@ -106,6 +108,16 @@ ActiveRecord::Schema.define(version: 20180116090956) do
     t.datetime "updated_at"
     t.integer "storage_stock", default: 0
     t.integer "chamber_stock", default: 0
+    t.bigint "checkout_product_type_id"
+    t.index ["checkout_product_type_id"], name: "index_checkout_products_on_checkout_product_type_id"
+  end
+
+  create_table "checkout_transaction_items", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "checkout_transaction_id"
+    t.bigint "checkout_product_type_id"
+    t.decimal "price", precision: 6, scale: 2
+    t.index ["checkout_product_type_id"], name: "index_checkout_transaction_items_on_checkout_product_type_id"
+    t.index ["checkout_transaction_id"], name: "index_checkout_transaction_items_on_checkout_transaction_id"
   end
 
   create_table "checkout_transactions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -155,8 +167,8 @@ ActiveRecord::Schema.define(version: 20180116090956) do
     t.string "transaction_type"
     t.string "transaction_id"
     t.string "redirect_uri"
-    t.string "token", limit: 64
     t.string "trxid"
+    t.string "token", limit: 64
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["token"], name: "index_ideal_transactions_on_token", unique: true
@@ -275,9 +287,9 @@ ActiveRecord::Schema.define(version: 20180116090956) do
     t.string "to", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "checkout_product_id"
+    t.bigint "checkout_product_type_id"
     t.decimal "price", precision: 10
-    t.index ["checkout_product_id"], name: "index_stocky_transactions_on_checkout_product_id"
+    t.index ["checkout_product_type_id"], name: "index_stocky_transactions_on_checkout_product_type_id"
   end
 
   create_table "studies", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

@@ -9,7 +9,7 @@ class Api::CheckoutController < ApplicationController
   respond_to :json
 
   def products
-    @products = CheckoutProduct.where(active: true)
+    @products = CheckoutProductType.where(active: true)
   end
 
   def info
@@ -36,7 +36,7 @@ class Api::CheckoutController < ApplicationController
       }
     else
       i18n_scope = %i[activerecord errors models checkout_transaction attributes]
-      not_liquor_time_translation = I18n.t('items.not_liquor_time', scope: i18n_scope)
+      not_liquor_time_translation = I18n.t('items.not_liquor_time', scope: i18n_scope, liquor_time: Settings.liquor_time)
       insufficient_credit_translation = I18n.t('price.insufficient_credit', scope: i18n_scope)
       case transaction.errors
       when transaction.errors[:items].includes(not_liquor_time_translation)

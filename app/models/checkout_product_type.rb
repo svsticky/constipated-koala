@@ -4,6 +4,8 @@ class CheckoutProductType < ApplicationRecord
   validates :price, presence: true
   validate :valid_image, unless: :skip_image_validation
 
+  has_many :checkout_products
+
   attr_accessor :skip_image_validation
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
@@ -30,12 +32,13 @@ class CheckoutProductType < ApplicationRecord
   def sales(year = nil)
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date(year), Date.to_date(year + 1)).group(:items).count.map { |k, v| { k => v } }
+    sales = CheckoutTransactionItem
+      .where(checkout_product_type: self)
+      .joins(:checkout_product_type)
+      .where('created_at >= ? AND created_at < ?', Date.to_date(year), Date.to_date(year + 1))
+      .count
 
-    count = sales.map { |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
-
-    return [{ self => count }] if self.parent.nil?
-    return [{ self => count }] + CheckoutProduct.find_by_id(self.parent).sales(year)
+    return [{ self => sales }]
   end
 
   private

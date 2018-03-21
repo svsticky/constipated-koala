@@ -1,6 +1,6 @@
 class Admin::StocksController < ApplicationController
   def stock
-    @products = CheckoutProduct.order(:category, :name)
+    @products = CheckoutProductType.order(:category, :name)
     @stocky_transaction      = StockyTransaction.new
     @moves = StockyTransaction
              .where(:from => ['basement', 'mongoose'])
@@ -27,13 +27,13 @@ class Admin::StocksController < ApplicationController
 
     @transactions = StockyTransaction.where(from: "shop")
 
-    @product_ids = @transactions.pluck(:checkout_product_id).uniq
+    @product_ids = @transactions.pluck(:checkout_product_type_id).uniq
 
-    @products = CheckoutProduct.where(id: @product_ids)
+    @products = CheckoutProductType.where(id: @product_ids)
 
-    @chart_data = @transactions.pluck(:checkout_product_id).uniq.map{ |i| {
-      name: CheckoutProduct.find(i).name,
-      data: @transactions.where(checkout_product_id: i).pluck('DATE(created_at)', :amount),
+    @chart_data = @transactions.pluck(:checkout_product_type_id).uniq.map{ |i| {
+      name: CheckoutProductType.find(i).name,
+      data: @transactions.where(checkout_product_type_id: i).pluck('DATE(created_at)', :amount),
       library: {
         spanGaps: true,
         lineTension: 0.0,
@@ -82,14 +82,14 @@ class Admin::StocksController < ApplicationController
   private
   def stocky_purchase_transaction_post_params
     params.require(:stocky_transaction)
-      .permit(:checkout_product_id,
+      .permit(:checkout_product_type_id,
               :amount)
   end
 
   private
   def stocky_transaction_post_params
     params.require(:stocky_transaction)
-      .permit(:checkout_product_id,
+      .permit(:checkout_product_type_id,
               :amount,
               :from,
               :to)
