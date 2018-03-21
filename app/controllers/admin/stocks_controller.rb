@@ -6,6 +6,7 @@ class Admin::StocksController < ApplicationController
              .where(:from => ['basement', 'mongoose'])
              .where(:to   => ['basement', 'mongoose',
                               'activity', 'waste'])
+             .order(created_at: :desc)
 
     @chart_data = @products.map{ |i| [i.name, i.chamber_stock + i.storage_stock]}
 
