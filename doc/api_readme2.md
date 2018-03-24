@@ -23,13 +23,13 @@ Content-Type → application/json; charset=utf-8
     "name": "Bord- en Kaartspellenavond",
     "start_date": "2016-02-08",
     "end_date": null,
-    "poster": "https://sticky-posters.s3.amazonaws.com/activities/195/medium/Poster_%281%29.png?1453461841"
+    "poster": "https://koala.svsticky.nl/images/activities/195/medium.png?1453461841"
   },
   {
     "name": "Git Workshop",
     "start_date": "2016-02-16",
     "end_date": "2016-02-19",
-    "poster": "https://sticky-posters.s3.amazonaws.com/activities/196/medium/gitgud-poster.png?1453679092"
+    "poster": "https://koala.svsticky.nl/images/activities/196/medium.png?1453679092"
   }
 ]
 ```
@@ -46,7 +46,7 @@ Content-Type → application/json; charset=utf-8
 
 [
   {
-    "poster": "https://sticky-posters.s3.amazonaws.com/activities/199/medium/conferentie.png?1453823170"
+    "poster": "https://koala.svsticky.nl/images/activities/199/medium.png?1453823170"
   }
 ]
 ```
@@ -82,14 +82,14 @@ Content-Type → application/json; charset=utf-8
     "name": "7up",
     "category": 1,
     "price": "0.4",
-    "image": "https://sticky-posters.s3.amazonaws.com/checkout_products/7?1433681363"
+    "image": "https://koala.svsticky.nl/images/checkout_products/7/original.png?1433681363"
   },
   {
     "id": 100,
     "name": "Coca Cola regular",
     "category": 1,
     "price": "0.53",
-    "image": "https://sticky-posters.s3.amazonaws.com/checkout_products/1?1433681225"
+    "image": "https://koala.svsticky.nl/images/checkout_products/1/original.png?1433681225"
   }
 ]
 ```
