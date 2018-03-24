@@ -65,7 +65,7 @@ Rails.application.configure do
     :storage => :filesystem,
     :path => ':rails_root/public/images/:class/:id/:style.:extension',
     :url => 'http://koala.rails.local:3000/images/:class/:id/:style.:extension',
-    :default_url => ':rails_root/public/images/default.png'
+    :default_url => 'http://koala.rails.local:3000/poster_placeholder.svg'
   }
 
   # for development only, debugging with test environment of radio
