@@ -11,7 +11,7 @@ class Member < ApplicationRecord
   validates :postal_code, presence: true
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
-  validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /[A-Za-z0-9.+-_]+@(?![A-Za-z]*\.?uu\.nl)([A-Za-z0-9.+-_]+\.[A-Za-z.]+)/ }
+  validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
   validates :gender, presence: true, inclusion: { in: %w(m f) }
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
