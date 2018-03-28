@@ -230,6 +230,9 @@ en:
           unpaid: participant hasn't paid
           price: price for participant has been updated
 
+      checkout_transaction:
+        change_funds: Tegoed bijgewerkt
+
       checkoutproduct:
         change_funds: funds added
         activate_card: card activated

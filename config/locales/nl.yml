@@ -230,6 +230,9 @@ nl:
             unpaid: deelnemer heeft niet betaald
             price: prijs is veranderd voor deelnemer
 
+        checkout_transaction:
+          change_funds: Tegoed bijgewerkt
+
         checkoutproduct:
           change_funds: tegoed opgewaardeerd
           activate_card: kaart geactiveerd
