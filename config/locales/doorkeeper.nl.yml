@@ -1,131 +1,114 @@
+---
 nl:
   activeredord:
     attributes:
       doorkeeper/application:
-        name: 'Naam'
-        redirect_uri: 'Redirect URI'
+        name: Naam
+        redirect_uri: "Redirect URI"
     errors:
       models:
         doorkeeper/application:
           attributes:
             redirect_uri:
-              fragment_present: 'kan geen fragment bevatten.'
-              invalid_uri: 'moet een geldige URI zijn.'
-              relative_uri: 'moet een absolute URI zijn.'
-              secured_uri: 'moet een HTTPS/SSL URI zijn.'
-
+              fragment_present: "kan geen fragment bevatten."
+              invalid_uri: "moet een geldige URI zijn."
+              relative_uri: "moet een absolute URI zijn."
+              secured_uri: "moet een HTTPS/SSL URI zijn."
   doorkeeper:
     applications:
+      buttons:
+        authorize: Authoriseren
+        cancel: Annuleren
+        destroy: Verwijder
+        edit: Wijzig
+        submit: Opslaan
       confirmations:
-        destroy: 'Weet je het zeker?'
-      buttons:
-        edit: 'Wijzig'
-        destroy: 'Verwijder'
-        submit: 'Opslaan'
-        cancel: 'Annuleren'
-        authorize: 'Authoriseren'
-      form:
-        error: 'Oeps! Check je form voor mogelijke fouten'
-      help:
-        redirect_uri: 'Gebruik een regel per URI'
-        native_redirect_uri: 'Gebruik %{native_redirect_uri} voor locale testen'
-        scopes: 'Scheidt scopes met spaties. Laat leeg om default scope te gebruiken.'
+        destroy: "Weet je het zeker?"
       edit:
-        title: 'Verander applicatie'
+        title: "Verander applicatie"
+      form:
+        error: "Oeps! Check je form voor mogelijke fouten"
+      help:
+        native_redirect_uri: "Gebruik %{native_redirect_uri} voor locale testen"
+        redirect_uri: "Gebruik een regel per URI"
+        scopes: "Scheidt scopes met spaties. Laat leeg om default scope te gebruiken."
       index:
-        title: 'Uw applicatie'
-        new: 'Nieuwe Applicatie'
-        name: 'Naam'
-        callback_url: 'Callback URL'
+        callback_url: "Callback URL"
+        name: Naam
+        new: "Nieuwe Applicatie"
+        title: "Uw applicatie"
       new:
-        title: 'Nieuwe Applicatie'
+        title: "Nieuwe Applicatie"
       show:
-        title: 'Applicatie: %{name}'
-        application_id: 'Applicatie id'
-        secret: 'Geheim'
-        scopes: 'Scopes'
-        callback_urls: 'Callback urls'
-        actions: 'Acties'
-
-    scopes:
-      member-read: 'uw naam, adres, en contactgegevens lezen'
-      activity-read: 'activiteiten bekijken'
-      group-read: 'uw commissies en andere groepen inzien'
-
-      participant-read: 'deelgenomen activiteiten bekijken'
-      participant-write: 'inschrijven voor een activiteit'
-
+        actions: Acties
+        application_id: "Applicatie id"
+        callback_urls: "Callback urls"
+        scopes: Scopes
+        secret: Geheim
+        title: "Applicatie: %{name}"
     authorizations:
-      buttons:
-        authorize: 'toestaan'
-        deny: 'annuleren'
-      error:
-        title: 'Er is een fout opgetreden'
-      new:
-        title: 'Aanmelden vereist'
-        prompt: '%{client_name} toestaan uw account te gebruiken?'
-        able_to: 'Deze applicatie kan de volgende acties ondernemen'
-      show:
-        title: 'Authorisatie code'
-
       authorized_applications:
-        confirmations:
-          revoke: 'Weet u het zeker?'
         buttons:
-          revoke: 'Intrekken'
+          revoke: Intrekken
+        confirmations:
+          revoke: "Weet u het zeker?"
         index:
-          title: 'Uw geauthoriseerde applicaties'
-          application: 'Applicatie'
-          created_at: 'Gemaakt op'
-          date_format: '%Y-%m-%d %H:%M:%S'
-
+          application: Applicatie
+          created_at: "Gemaakt op"
+          date_format: "%Y-%m-%d %H:%M:%S"
+          title: "Uw geauthoriseerde applicaties"
+      buttons:
+        authorize: toestaan
+        deny: annuleren
+      error:
+        title: "Er is een fout opgetreden"
       errors:
         messages:
-          # Common error messages
-          invalid_request: 'Het verzoek mist een verplichte parameter, bevat een niet ondersteunde parameter waarde, of is anders misvormd.'
-          invalid_redirect_uri: 'De meegeleverde redirect uri is niet geldig.'
-          unauthorized_client: 'De client is niet geauthoriseerd om dit verzoek uit te voeren met deze methode.'
-          access_denied: 'De resource eigenaar of authorisatie server heeft het verzoek afgewezen.'
-          invalid_scope: 'De gevraagde scope is niet geldig, niet bekend, of misvormd.'
-          server_error: 'De authorisatie server ondervond een niet verwachtte conditie welke het vervullen van het verzoek verhinderde.'
-          temporarily_unavailable: 'De authorisatie server is momenteen niet in staat het verzoek te behandelen vanwege een tijdelijke overbelasting of onderhoud van de server.'
-
-          #configuration error messages
-          credential_flow_not_configured: 'Resource Owner Password Credentials flow mislukte omdat Doorkeeper.configure.resource_owner_from_credentials niet is geconfigureerd.'
-          resource_owner_authenticator_not_configured: 'Resource Owner find mislukte omdat to Doorkeeper.configure.resource_owner_authenticator niet is geconfigureerd.'
-
-          # Access grant errors
-          unsupported_response_type: 'De authorisatie server ondersteund dit response type niet.'
-
-          # Access token errors
-          invalid_client: 'Client authenticatie mislukte vanwege een niet bekende client, geen meegeleverde client authenticatie, of neit ondersteunde authenticatie methode.'
-          invalid_grant: 'De geleverde authorisatie grant is niet geldig, verlopen, teruggetrokken, komt niet overeen met de redirection URI gebruikt in het authorisatie verzoek, of was uitgegeven aan een andere client.'
-          unsupported_grant_type: 'Het authorisation grant type is niet ondersteund door de authorisatie server.'
-
-          # Password Access token errors
-          invalid_resource_owner: 'De geleverde resource owner credentials zijn niet geldig, of resource owner kan niet worden gevonden.'
-
+          access_denied: "De resource eigenaar of authorisatie server heeft het verzoek afgewezen."
+          credential_flow_not_configured: "Resource Owner Password Credentials flow mislukte omdat Doorkeeper.configure.resource_owner_from_credentials niet is geconfigureerd."
+          invalid_client: "Client authenticatie mislukte vanwege een niet bekende client, geen meegeleverde client authenticatie, of neit ondersteunde authenticatie methode."
+          invalid_grant: "De geleverde authorisatie grant is niet geldig, verlopen, teruggetrokken, komt niet overeen met de redirection URI gebruikt in het authorisatie verzoek, of was uitgegeven aan een andere client."
+          invalid_redirect_uri: "De meegeleverde redirect uri is niet geldig."
+          invalid_request: "Het verzoek mist een verplichte parameter, bevat een niet ondersteunde parameter waarde, of is anders misvormd."
+          invalid_resource_owner: "De geleverde resource owner credentials zijn niet geldig, of resource owner kan niet worden gevonden."
+          invalid_scope: "De gevraagde scope is niet geldig, niet bekend, of misvormd."
           invalid_token:
-            revoked: "De toegangstoken was teruggetrokken"
             expired: "De toegangstoken is verlopen"
+            revoked: "De toegangstoken was teruggetrokken"
             unknown: "De toegangstoken is niet geldig"
-
+          resource_owner_authenticator_not_configured: "Resource Owner find mislukte omdat to Doorkeeper.configure.resource_owner_authenticator niet is geconfigureerd."
+          server_error: "De authorisatie server ondervond een niet verwachtte conditie welke het vervullen van het verzoek verhinderde."
+          temporarily_unavailable: "De authorisatie server is momenteen niet in staat het verzoek te behandelen vanwege een tijdelijke overbelasting of onderhoud van de server."
+          unauthorized_client: "De client is niet geauthoriseerd om dit verzoek uit te voeren met deze methode."
+          unsupported_grant_type: "Het authorisation grant type is niet ondersteund door de authorisatie server."
+          unsupported_response_type: "De authorisatie server ondersteund dit response type niet."
       flash:
         applications:
           create:
-            notice: 'Applicatie gemaakt.'
+            notice: "Applicatie gemaakt."
           destroy:
-            notice: 'Applicatie verwijderd.'
+            notice: "Applicatie verwijderd."
           update:
-            notice: 'Applicatie aangepast.'
+            notice: "Applicatie aangepast."
         authorized_applications:
           destroy:
-            notice: 'Applicatie teruggetrokken.'
-
+            notice: "Applicatie teruggetrokken."
       layouts:
         admin:
           nav:
-            oauth2_provider: 'OAuth2 Provider'
-            applications: 'Applicaties'
+            applications: Applicaties
+            oauth2_provider: "OAuth2 Provider"
         application:
-          title: 'OAuth authorisatie verplicht'
+          title: "OAuth authorisatie verplicht"
+      new:
+        able_to: "Deze applicatie kan de volgende acties ondernemen"
+        prompt: "%{client_name} toestaan uw account te gebruiken?"
+        title: "Aanmelden vereist"
+      show:
+        title: "Authorisatie code"
+    scopes:
+      activity-read: "activiteiten bekijken"
+      group-read: "uw commissies en andere groepen inzien"
+      member-read: "uw naam, adres, en contactgegevens lezen"
+      participant-read: "deelgenomen activiteiten bekijken"
+      participant-write: "inschrijven voor een activiteit"
