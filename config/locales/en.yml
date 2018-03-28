@@ -431,47 +431,46 @@ en:
       edit_profile: "Edit profile"
 
   mailings:
-    greeting: Hoi
     best_regards: "Best regards,"
-    signature: "The board"
     checkout:
+      confirm_card: "Confirm card"
       confirmation_instructions: "Confirm your card for your Checkout account with Study association Sticky by clicking the following button:"
-      confirm_card: Confirm card
     devise:
       activation_instructions:
-        welcome: Wecome to Sticky!
-        reception_justification: You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your accountha in our members portal. You could also skip this gorgeous introduction talk en scroll down immediatly. We won't see that anyway (or will we?).
-        about_sticky: You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability.
-        activity_updates_html: Do you always want to stay informed about these activities? Join the %{facebook_group} and like %{face_book}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site}.
+        about_sticky: "You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability."
+        account_activation_instructions: "Activate your account by clicking the button below"
+        activate_account: "Activate account"
+        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group} and like %{face_book}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site}."
+        and_now: "And now?"
         corner_stones:
-          education:
-            name: Education
-            description_html: We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page}!
           business:
+            description_html: "To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, inhouse days and drinks with these companies. These activities offer besides information about the company in question, also a nice oppotunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page}."
             name: Business
-            description_html: Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via %{job_offer_page}.
-            description_html: To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, inhouse days and drinks with these companies. These activities offer besides information about the company in question, also a nice oppotunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page}.
+          education:
+            description_html: "We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page}!"
+            name: Education
           sociability:
+            description: "Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!"
             name: Sociability
-            description: Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!
-        and_now: And now?
-        wrap_up: Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks.
-        account_activation_instructions: Activate your account by clicking the button below
-        activate_account: Activate account
-        see_you_soon: See you soon!
+        reception_justification: "You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your accountha in our members portal. You could also skip this gorgeous introduction talk en scroll down immediatly. We won't see that anyway (or will we?)."
+        see_you_soon: "See you soon!"
+        welcome: "Wecome to Sticky!"
+        wrap_up: "Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks."
       confirmation_instructions:
-        button_instructions: Confirm your e-mail address for your Sticky account by clicking the button below!
-        confirm_account: Confirm account
+        button_instructions: "Confirm your e-mail address for your Sticky account by clicking the button below!"
+        confirm_account: "Confirm account"
       reset_passwords_instructions:
-        notification: A new password has been requested for your Sticky account, or you tried to create a new one.
-        button_instructions: Click the button below to enter a new password or ignore this e-mail to keep your current one.
-        reset_password: Reset password
+        button_instructions: "Click the button below to enter a new password or ignore this e-mail to keep your current one."
+        notification: "A new password has been requested for your Sticky account, or you tried to create a new one."
+        reset_password: "Reset password"
+    greeting: Hoi
     participants:
       enrolled:
-        free_spot: Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list.
         activity_start_html: "The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!"
         button_instructions_html: "You can unenroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
-        to_the_activity: To the activity
+        free_spot: "Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list."
+        to_the_activity: "To the activity"
       inform:
         activity_visited_html: "You visited <strong> #{subject} </strong>, this activity cost #{price}."
         payment_instructions_html: "Would you please transfer this amount to NL61INGB0002877106 t.n.v. Studievereniging Sticky citing <i>'#{ subject } #{name}'</i>?"
+    signature: "The board"
