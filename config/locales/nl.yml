@@ -326,6 +326,10 @@ nl:
       new:
         instruction: "Vul hier jouw e-mailadres in om een nieuw wachtwoord aan te vragen."
         submit: Versturen
+    placeholders:
+      email: e-mailadres
+      password: wachtwoord
+      repeat_password: wachtwoord herhalen
     registrations:
       login: Inloggen
       new:

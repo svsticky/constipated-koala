@@ -322,6 +322,10 @@ en:
       new:
         instruction: "Enter your email address to obtain a new password."
         submit: Submit
+    placeholders:
+      email: e-mail address
+      password: password
+      repeat_password: repeat password
     registrations:
       login: "Sign in"
       new:
