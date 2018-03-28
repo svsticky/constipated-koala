@@ -472,3 +472,6 @@ en:
         activity_start_html: "The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!"
         button_instructions_html: "You can unenroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
         to_the_activity: To the activity
+      inform:
+        activity_visited_html: "You visited <strong> #{subject} </strong>, this activity cost #{price}."
+        payment_instructions_html: "Would you please transfer this amount to NL61INGB0002877106 t.n.v. Studievereniging Sticky citing <i>'#{ subject } #{name}'</i>?"

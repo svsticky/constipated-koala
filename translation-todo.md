@@ -15,12 +15,7 @@
    - [x] devise
    - [x] doorkeeper
    - [x] layouts
-   - [ ] mailings
-     - [x] checkout
-     - [x] devise
-     - [ ] participants
-       - [x] enrolled
-       - [ ] inform
+   - [x] mailings
    - [x] members
    - [x] public
    

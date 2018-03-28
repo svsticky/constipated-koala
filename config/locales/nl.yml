@@ -476,3 +476,6 @@ nl:
         activity_start_html: "De activiteit begint op <strong>#{activity_start}</strong> en kost #{price}. Tot dan!"
         button_instructions_html: "Je kunt je tot <strong>#{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit."
         to_the_activity: Naar de activiteit
+      inform:
+        activity_visited_html: "Je bent meegeweest naar <strong> #{subject} </strong>, deze activiteit kostte #{price}."
+        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'#{ subject } #{name}'</i>?"
