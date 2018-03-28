@@ -46,5 +46,12 @@ module ConstipatedKoala
       'ActiveRecord::RecordInvalid'                 => :bad_request,
       'ActiveRecord::RecordNotUnique'               => :conflict
     }
+
+    config.paperclip_defaults = {
+      :storage => :filesystem,
+      :path => ':rails_root/public/images/:class/:id/:style.:extension',
+      :url => '/images/:class/:id/:style.:extension',
+      :default_url => '/poster_placeholder.svg'
+    }
   end
 end

@@ -94,11 +94,4 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
-  config.paperclip_defaults = {
-    :storage => :filesystem,
-    :path => ':rails_root/public/images/:class/:id/:style.:extension',
-    :url => 'https://koala.dev.svsticky.nl/images/:class/:id/:style.:extension',
-    :default_url => '/poster_placeholder.svg'
-  }
 end
