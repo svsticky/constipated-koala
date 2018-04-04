@@ -22,7 +22,7 @@
         - if current_user.present?
           %h2
             =I18n.t("layouts.doorkeeper.hi")
-            %b #{current_user.credentials.first_name},
+            %b= current_user.credentials.first_name
             = I18n.t("layouts.doorkeeper.identity_confirmation", name: current_user.credentials.name)
             = link_to destroy_user_session_path, 'data-method' => :delete do
               = I18n.t("layouts.doorkeeper.click_here")
