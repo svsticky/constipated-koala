@@ -384,7 +384,7 @@ en:
         about_sticky: "You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability."
         account_activation_instructions: "Activate your account by clicking the button below"
         activate_account: "Activate account"
-        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group} and like %{face_book}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site}."
+        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group} and like %{facebook_page}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site}."
         and_now: "And now?"
         corner_stones:
           business:
