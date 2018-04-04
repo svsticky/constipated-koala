@@ -357,7 +357,7 @@ nl:
       identity_confirmation: "Bent u niet %{name}?"
     mailer:
       alerts: "Waarschuwingen, bijvoorbeeld: Dichtbij je limiet"
-      footer_html: "Kijk voor meer informatie op %{site_address} of mail naar %{secretaris_mail} voor vragen."
+      footer_html: "Kijk voor meer informatie op %{site_address} of mail naar %{secretary_mail} voor vragen."
     partials:
       editor:
         large: groot
