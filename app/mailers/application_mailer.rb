@@ -32,7 +32,8 @@ class ApplicationMailer < ActionMailer::Base
 
                            :subject => subject,
                            :html => html.to_str,
-                           :text => text
+                           :text => text,
+                           'o:testmode' => Rails.env == 'development' ? "true" : "false"
   end
 
   def mails(variables, sender, subject, html, text)
@@ -46,6 +47,7 @@ class ApplicationMailer < ActionMailer::Base
 
                            :subject => subject,
                            :html => html.to_str,
-                           :text => text
+                           :text => text,
+                           'o:testmode' => Rails.env == 'development' ? "true" : "false"
   end
 end
