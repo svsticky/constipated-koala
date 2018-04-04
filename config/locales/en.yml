@@ -412,7 +412,7 @@ en:
       enrolled:
         activity_start_html: "The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!"
         button_instructions_html: "You can unenroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
-        free_spot: "Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list."
+        free_spot_html: "Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list."
         to_the_activity: "To the activity"
       inform:
         activity_visited_html: "You visited <strong> %{subject} </strong>, this activity cost %{price}."
