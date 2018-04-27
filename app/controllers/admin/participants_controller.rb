@@ -9,7 +9,7 @@ class Admin::ParticipantsController < ApplicationController
     )
 
     new_record = @participant.new_record?
-    status = if new_record then :created else :conflict end
+    status = new_record ? :created : :conflict
 
     if @participant.save
       impressionist(@participant) if new_record
