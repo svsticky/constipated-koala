@@ -184,6 +184,7 @@ en:
       models:
         activity:
           enrolled: You are enrolled for %{activity}
+          already_enrolled: You are already enrolled for this activity.
           unenrolled: You have been unenrolled for %{activity}
           backup_enrolled: You have been added to the spares list of %{activity}
           activity_ended: This activity is not or no longer available. Go back.

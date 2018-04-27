@@ -218,6 +218,7 @@ nl:
       models:
         activity:
           enrolled: Je bent ingeschreven voor %{activity}
+          already_enrolled: Je bent al ingeschreven voor deze activiteit.
           unenrolled: Je bent uitgeschreven voor %{activity}
           backup_enrolled: Je bent op de reservelijst gezet van %{activity}
           activity_ended: Deze activiteit is (niet) meer beschikbaar. Ga terug.
