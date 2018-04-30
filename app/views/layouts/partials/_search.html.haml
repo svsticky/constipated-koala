@@ -18,13 +18,13 @@
 
           %ul.dropdown-menu{ :name => 'states' }
             %li
-              %a{ :data => { :name => 'actief' }} actief
+              %a{ :data => { :name => 'I18n.t("layouts.partials.search.actief")' }}= I18n.t("layouts.partials.search.active")
             %li
-              %a{ :data => { :name => 'studerend' }} studerend
+              %a{ :data => { :name => 'I18n.t("layouts.partials.search.studerend")' }}= I18n.t("layouts.partials.search.studying")
             %li
-              %a{ :data => { :name => 'alumni' }} alumni
+              %a{ :data => { :name => 'I18n.t("layouts.partials.search.alumni")' }}= I18n.t("layouts.partials.search.alumni")
             %li
-              %a{ :data => { :name => 'iedereen' }} iedereen
+              %a{ :data => { :name => 'I18n.t("layouts.partials.search.iedereen")' }}= I18n.t("layouts.partials.search.anybody")
 
           %span.input-group-btn
             %button.btn.btn-primary{ type: 'submit', style: 'padding: 7px 20px; height: 34px;' }

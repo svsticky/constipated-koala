@@ -21,62 +21,61 @@
               %i.fa.fa-fw.fa-user
               Algemene gegevens
             .panel-body
-
               .form-group
                 .row
                   .col-md-5
-                    %label{for: ''} Voornaam
+                    = f.label(:first_name)
                     = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
                   .col-md-2
-                    %label{for: ''} Tussenvoegsel
+                    = f.label(:infix)
                     = f.text_field :infix, :value => @member.infix, :class => 'form-control'
                   .col-md-5
-                    %label{for: ''} Achternaam
+                    = f.label(:last_name)
                     = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
 
               .form-group
                 .row
                   .col-md-6
-                    %label{for: ''} Geslacht
+                    = f.label(:gender)
                     .ui-select
                       = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
                   .col-md-6
-                    %label{for: ''} Geboortedatum
+                    = f.label(:birth_date)
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
 
               .form-group
                 .row
                   .col-md-8
-                    %label{for: ''} Adres
+                    = f.label(:address)
                     = f.text_field :address, :value => @member.address, :class => 'form-control'
                   .col-md-4
-                    %label{for: ''} Huisnummer
+                    = f.label(:house_number)
                     = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
 
               .form-group
                 .row
                   .col-md-6
-                    %label{for: ''} Postcode
+                    = f.label(:postal_code)
                     = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
                   .col-md-6
-                    %label{for: ''} Woonplaats
+                    = f.label(:city)
                     = f.text_field :city, :value => @member.city, :class => 'form-control'
 
               .form-group
-                %label{for: ''} Telefoonnummer
+                = f.label(:phone_number)
                 = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
 
               .form-group
-                %label{for: ''} E-mailadres
+                = f.label(:email)
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
                 .help-block Dit kan niet een uu email zijn!
 
               .form-group
-                %label{for: ''} Tags
+                = f.label(:tags)
                 = f.select :tags, options_for_select( Tag.names.map{ |tag, id| [I18n.t( tag, scope: 'activerecord.attributes.tag.names' ), tag] }, @member.tags.collect{ |tag| tag.name }), { :include_blank => true }, :multiple => true, :name => 'member[tags_names][]', :class => 'form-control'
 
               .form-group
-                %label{for: ''} Comments
+                = f.label(:comments)
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
 
         .col-md-6
@@ -94,18 +93,17 @@
               %i.fa.fa-fw.fa-graduation-cap
               Studiegegevens
             .panel-body
-
               .form-group
-                %label{for: ''} Studentnummer
+                = f.label(:student_id)
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
 
               .form-group
-                %label{for: ''} Lidmaatschap
+                = f.label(:join_date)
                 = f.date_field :join_date, :value => @member.join_date, :class => 'form-control'
 
               .form-group
-                %label{for: ''}
-                  Studie
+                %label{for: 'member_educations'}
+                  = I18n.t('activerecord.attributes.member.educations')
                   %a.close{ :type => 'button' } +
                 - @member.educations.each do |education|
                   = f.fields_for 'educations_attributes[]', education do |fs|

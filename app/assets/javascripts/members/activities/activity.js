@@ -406,8 +406,8 @@ Object.defineProperties(Activity.prototype,
 var Enrollment_stati = {
   un_enrolled: new Enrollment_status('btn-success', 'Inschrijven'),
   enrolled: new Enrollment_status('btn-danger', 'Uitschrijven'),
-  reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst'),
-  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
+  reservist: new Enrollment_status('btn-warning', 'Uitschrijven van reservelijst'),
+  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven op reservelijst')
 };
 
 function Enrollment_status(classes, buttonText) {

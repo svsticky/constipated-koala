@@ -1,38 +1,30 @@
+---
 en:
-  title: Sticky Introduction
-
-  lead: Sticky is a young and enthusiastic study association for information sciences, computing sciences and gametechnology students. We offer our members fun and study-related activities.
-  callout: Welcome to Sticky; the greatest time of your life!
-
-  membership: Membership
-
-  headers:
-    home: Home
-    about: About Sticky
-    activities: What does Sticky do?
-    subscribe: Sign up
-    contact: Contact
-    sticky: Studievereniging Sticky
-
-  form:
-    general: General data
-    study: Study information
-    payment: Payment method
-    bank: Bank
-
-  gezelligheid:
-    title: Gezelligheid
-    text: In our room in the BBG you can always hop in to get some coffee, cookies and authentic gezelligheid! You can also visit us for a game of Mario Kart or to have a good conversation.
-
-
   activities:
+    text: "From paintball to movie nights, and from LANs to visiting breweries: you’ll never be bored again!"
     title: Activities
-    text: 'From paintball to movie nights, and from LANs to visiting breweries: you’ll never be bored again!'
-
-  orientation:
-    title: Job orientation
-    text: We organise talks, workshops, inhouse days, and more. This way you can already decide what you’d like to do after your studies!
-
+  callout: "Welcome to Sticky; the greatest time of your life!"
   drinks:
+    text: "With free weekly drinks and regular themed drinks, there’ll be enough opportunities to get to know your fellow students!"
     title: Drinks
-    text: With free weekly drinks and regular themed drinks, there’ll be enough opportunities to get to know your fellow students!
+  form:
+    bank: Bank
+    general: "General data"
+    payment: "Payment method"
+    study: "Study information"
+  gezelligheid:
+    text: "In our room in the BBG you can always hop in to get some coffee, cookies and authentic gezelligheid! You can also visit us for a game of Mario Kart or to have a good conversation."
+    title: Gezelligheid
+  headers:
+    about: "About Sticky"
+    activities: "What does Sticky do?"
+    contact: Contact
+    home: Home
+    sticky: "Studievereniging Sticky"
+    subscribe: "Sign up"
+  lead: "Sticky is a young and enthusiastic study association for information sciences, computing sciences and gametechnology students. We offer our members fun and study-related activities."
+  membership: Membership
+  orientation:
+    text: "We organise talks, workshops, inhouse days, and more. This way you can already decide what you’d like to do after your studies!"
+    title: "Job orientation"
+  title: "Sticky Introduction"
