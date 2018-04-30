@@ -2,16 +2,17 @@
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      = t('mailings.greeting')
-      %strong ,%recipient.first_name%,
+      Hey %recipient.first_name%,
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      = t('mailings.participants.inform.activity_visited_html', subject: subject, price: recipient.price)
+      Je bent meegeweest naar
+      %strong #{ subject },
+      deze activiteit kostte %recipient.price%.
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      = t('mailings.participants.inform.payment_instructions_html', subject: subject, name: recipient.name)
+      Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'#{ subject } %recipient.name%'</i>?
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}

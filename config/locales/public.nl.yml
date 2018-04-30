@@ -1,30 +1,37 @@
----
 nl:
-  activities:
-    text: "Van paintball tot filmavonden en van LANs tot het bezoeken van een brouwerij: je hoeft je nooit meer te vervelen!"
-    title: Activiteiten
-  callout: "Welkom in je studententijd; de mooiste tijd van je leven!"
-  drinks:
-    text: "Met gratis wekelijkse borrels en regelmatige thema-borrels, is er genoeg ruimte om je medestudenten te leren kennen!"
-    title: Borrels
-  form:
-    bank: Bank
-    general: "Algemene gegevens"
-    payment: Betaalmethode
-    study: Studiegegevens
-  gezelligheid:
-    text: "In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht."
-    title: Gezelligheid
-  headers:
-    about: "Over Sticky"
-    activities: "Wat doet Sticky?"
-    contact: Contact
-    home: Home
-    sticky: "Studievereniging Sticky"
-    subscribe: Inschrijven
-  lead: "Sticky is een jonge en enthousiaste studievereniging voor informatica, informatiekunde en gametechnologie. Wij bieden onze leden leuke en studie-inhoudelijke activiteiten."
+  title: Sticky Introductie
+
+  lead: Sticky is een jonge en enthousiaste studievereniging voor informatica, informatiekunde en gametechnologie. Wij bieden onze leden leuke en studie-inhoudelijke activiteiten.
+  callout: Welkom in je studententijd; de mooiste tijd van je leven!
+
   membership: Lidmaatschap
+
+  headers:
+    home: Home
+    about: Over Sticky
+    activities: Wat doet Sticky?
+    subscribe: Inschrijven
+    contact: Contact
+    sticky: Studievereniging Sticky
+
+  form:
+    general: Algemene gegevens
+    study: Studiegegevens
+    payment: Betaalmethode
+    bank: Bank
+
+  gezelligheid:
+    title: Gezelligheid
+    text: In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.
+
+  activities:
+    title: Activiteiten
+    text: 'Van paintball tot filmavonden en van LANs tot het bezoeken van een brouwerij: je hoeft je nooit meer te vervelen!'
+
   orientation:
-    text: "Lezingen, workshops, inhousedagen, en meer. Zo kun je ook alvast bedenken wat je na je studie wil gaan doen!"
     title: Arbeidsmarktoriëntatie
-  title: "Sticky Introductie"
+    text: Lezingen, workshops, inhousedagen, en meer. Zo kun je ook alvast bedenken wat je na je studie wil gaan doen!
+
+  drinks:
+    title: Borrels
+    text: Met gratis wekelijkse borrels en regelmatige thema-borrels, is er genoeg ruimte om je medestudenten te leren kennen!

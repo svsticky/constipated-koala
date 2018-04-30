@@ -2,7 +2,7 @@
   - if @activity.errors.any?
     .alert.alert-danger
       %button.close{ type: "button" } ×
-      %span= I18n.t('admin.activities.partials.edit.invalid_values')
+      %span Oeps, niet alles is goed ingevuld;
       %ul
       - @activity.errors.full_messages.each do |msg|
         %li= msg
@@ -36,16 +36,16 @@
 
               .input-group-btn
                 %div.btn.btn-primary.file-input-wrapper
-                  %span = I18n.t('files.upload')
+                  %span uploaden
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
                 %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' if @activity.poster_file_name.nil? ) }
                   %span.caret
                 %ul.dropdown-menu
                   %li
-                    = link_to I18n.t('files.download'), @activity.poster.url(:medium), :download => ''
+                    = link_to 'download', @activity.poster.url(:medium), :download => ''
                   %li.divider
                   %li
-                    = link_to I18n.t('files.delete'), '#', :class => 'remove'
+                    = link_to 'verwijder', '#', :class => 'remove'
 
             = f.hidden_field :_destroy, :class => 'remove_poster'
 
@@ -127,9 +127,9 @@
             = label(:activity, :participant_limit)
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 
-      %button.btn.btn-success.wait{type: 'submit'}= I18n.t("editing.save")
+      %button.btn.btn-success.wait{type: 'submit'} Opslaan
       - if (@activity.id)
-        = link_to I18n.t("navigation.back"), :back, { :class => 'button btn btn-default' }
-        = link_to I18n.t("editing.delete"), activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+        = link_to 'Back', :back, { :class => 'button btn btn-default' }
+        = link_to 'Verwijderen', activity_path(@activity.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
       - else
-        = link_to I18n.t("editing.cancel"), activities_path, { :class => 'button btn btn-default' }
+        = link_to 'Annuleren', activities_path, { :class => 'button btn btn-default' }

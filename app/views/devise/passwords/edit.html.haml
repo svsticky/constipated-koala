@@ -20,25 +20,25 @@
     = f.hidden_field :reset_password_token
 
     %fieldset
-      %h4= I18n.t 'devise.passwords.edit.instruction'
+      %h4= I18n.t :edit, scope: 'devise.passwords'
 
       .form-group
         .input-group
           %span.input-group-addon
             %i.fa.fa-lock
-          = f.password_field :password, autocomplete: 'off', placeholder: t('devise.placeholders.password'), :class => 'form-control'
+          = f.password_field :password, autocomplete: 'off', placeholder: 'wachtwoord', :class => 'form-control'
 
       .form-group
         .input-group
           %span.input-group-addon
             %i.fa.fa-lock
-          = f.password_field :password_confirmation, autocomplete: 'off', placeholder: t('devise.placeholders.repeat_password'), :class => 'form-control'
+          = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'wachtwoord herhalen', :class => 'form-control'
 
       .form-group
-        = f.submit I18n.t('devise.passwords.edit.change_password'), :class => 'btn btn-primary btn-block'
+        = f.submit 'Verander wachtwoord', :class => 'btn btn-primary btn-block'
 
 .row
   .text-center
-    = link_to (I18n.t'devise.registrations.password_recovery'), new_user_password_path
+    = link_to (I18n.t'devise.registrations.passwordrecovery'), new_user_password_path
     |
-    = link_to (I18n.t'devise.registrations.sign_up'), new_registration_path
+    = link_to (I18n.t'devise.registrations.signup'), new_registration_path
