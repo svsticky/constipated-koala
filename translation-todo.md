@@ -20,3 +20,4 @@
    - [x] public
    
 - [x] placeholders don't seem to be detected by i15r
+- [ ] use _html on translations instead of passing in a raw() argument
