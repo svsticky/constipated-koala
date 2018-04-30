@@ -234,24 +234,7 @@ nl:
       incomplete: "Oh snap, niet alles is goed ingevuld"
       models:
         activity:
-          enrolled: Je bent ingeschreven voor %{activity}
-          already_enrolled: Je bent al ingeschreven voor deze activiteit.
-          unenrolled: Je bent uitgeschreven voor %{activity}
-          backup_enrolled: Je bent op de reservelijst gezet van %{activity}
-          activity_ended: Deze activiteit is (niet) meer beschikbaar. Ga terug.
-          participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky
-          participant_no_masters: Je bent geen masters student. Deze activiteit is een masters-activiteit.
-          participant_no_freshman: Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit.
-          participant_no_student: Je bent niet ingeschreven bij een studie. Deze activiteit is alleen voor studenten
-          participant_limit_reached: '%{activity} zit vol!'
-          participant_underage: Deze activiteit is alleen voor grote mensen ;) ;) ;)
-          participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voor dat je je inschrijft
-          participant_notes_updated: Informatie bijgewerkt
-          not_enrollable: Activiteit niet inschrijfbaar
-          not_unenrollable: Activiteit niet uitschrijfbaar
-          blank: kan niet leeg zijn
-          blank_and_start_time: kan niet leeg zijn als er een starttijd is
-          blank_and_end_time: kan niet leeg zijn als er een eindtijd is
+          activity_ended: "Deze activiteit is (niet) meer beschikbaar. Ga terug."
           attributes:
             end_date:
               before_start_date: "kan niet voor de startdatum zijn"

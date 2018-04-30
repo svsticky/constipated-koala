@@ -14,7 +14,7 @@ module ConstipatedKoala
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    VERSION = '1.7.10'
+    VERSION = '1.7.9'
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -50,8 +50,8 @@ module ConstipatedKoala
     config.paperclip_defaults = {
       :storage => :filesystem,
       :path => ':rails_root/public/images/:class/:id/:style.:extension',
-      :url => "#{ ENV['KOALA_DOMAIN'] }/images/:class/:id/:style.:extension",
-      :default_url => "#{ ENV['KOALA_DOMAIN'] }/poster_placeholder.svg"
+      :url => '/images/:class/:id/:style.:extension',
+      :default_url => '/poster_placeholder.svg'
     }
   end
 end

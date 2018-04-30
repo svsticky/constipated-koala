@@ -23,14 +23,6 @@ class Members::ParticipantsController < MembersController
       return
     end
 
-    # Deny if already enrolled
-    if Participant.exists?(activity: @activity, member: @member)
-      render status: :conflict, json: {
-        message: I18n.t(:already_enrolled, scope: @activity_errors_scope)
-      }
-      return
-    end
-
     # Deny members that don't study, except if they tagged
     unless @member.may_enroll?
       render status: :failed_dependency, json: {
