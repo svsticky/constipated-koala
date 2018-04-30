@@ -139,7 +139,23 @@ en:
       incomplete: "Oh snap, you forgot some things"
       models:
         activity:
-          activity_ended: "This activity is not or no longer available. Go back."
+          enrolled: You are enrolled for %{activity}
+          already_enrolled: You are already enrolled for this activity.
+          unenrolled: You have been unenrolled for %{activity}
+          backup_enrolled: You have been added to the spares list of %{activity}
+          activity_ended: This activity is not or no longer available. Go back.
+          participant_suspended: You have been suspended. Contact the board of Sticky
+          participant_no_masters: You are not a masters student. This is a masters-only activity.
+          participant_no_freshman: You are not a freshman student. This is a freshmans-only activity.
+          participant_no_student: You are not enrolled in a study. This activity is for students only
+          participant_limit_reached: '%{activity} is full!'
+          participant_underage: This activity is for adults only ;) ;) ;)
+          participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
+          participant_notes_updated: Information updated
+          not_enrollable: Activity not enrollable
+          not_unenrollable: Activity not unenrollable
+          blank_and_start_time: can't be blank if the start time is set
+          blank_and_end_time: can't be blank if the end time is set
           attributes:
             end_date:
               before_start_date: "can't be before the start date"
