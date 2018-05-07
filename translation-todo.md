@@ -21,5 +21,5 @@
    
 - [x] placeholders don't seem to be detected by i15r
 - [x] translate inner link texts
-- [ ] fix password reset page
+- [x] fix association name on sign in page
 - [ ] fix typo's by looking for squiggly lines
