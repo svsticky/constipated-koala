@@ -24,7 +24,7 @@ en:
         price: Price
         start_date: Startdate
         start_time: Starttime
-        unenroll_date: "Unenroll date"
+        unenroll_date: "Un-enroll date"
       checkout_product:
         active: Active
         categories:
@@ -99,7 +99,7 @@ en:
           description: "The start of next study year. On this date a new year will be automatically started."
           name: "Study year"
         intro_activities:
-          description: "Activitities during the introduction period for which new members can enroll at the introduction form."
+          description: "Activities during the introduction period for which new members can enroll at the introduction form."
           name: "Introduction activities"
         intro_membership:
           description: "The activity for enrolling at Sticky, automatically generated."
@@ -153,16 +153,16 @@ en:
           blank_and_start_time: "can't be blank if the start time is set"
           enrolled: "You are enrolled for %{activity}"
           not_enrollable: "Activity not enrollable"
-          not_unenrollable: "Activity not unenrollable"
+          not_unenrollable: "Activity not un-enrollable"
           participant_limit_reached: "%{activity} is full!"
-          participant_no_freshman: "You are not a freshman student. This is a freshmans-only activity."
+          participant_no_freshman: "You are not a freshman student. This is a freshmen-only activity."
           participant_no_masters: "You are not a masters student. This is a masters-only activity."
           participant_no_student: "You are not enrolled in a study. This activity is for students only"
           participant_notes_not_filled: "This activity requires extra information, please fill this in before enrolling"
           participant_notes_updated: "Information updated"
           participant_suspended: "You have been suspended. Contact the board of Sticky"
           participant_underage: "This activity is for adults only ;) ;) ;)"
-          unenrolled: "You have been unenrolled for %{activity}"
+          unenrolled: "You have been un-enrolled for %{activity}"
         checkout_product:
           blank: "can't be blank"
         checkout_transaction:
@@ -219,7 +219,7 @@ en:
     impression:
       activity:
         create: "activity created"
-        mail: "paymentmail sent"
+        mail: "payment mail sent"
         update: "activity updated"
       checkout_transaction:
         change_funds: "Tegoed bijgewerkt"
@@ -254,8 +254,8 @@ en:
         unpaid: "%{name} has not paid for %{activity}"
     models:
       activity: Activities
-      checkout_balance: "Mongoose tegoed"
-      checkout_transactions: "Mongoose transacties"
+      checkout_balance: "Mongoose credit"
+      checkout_transactions: "Mongoose transactions"
       group: Groups
       ideal_transaction: "iDEAL transaction"
       impressions: Logs
@@ -313,7 +313,7 @@ en:
     confirmations:
       activate_account: "Activate account"
       new:
-        instruction: "Confirm the email adress for your sticky account"
+        instruction: "Confirm the email address for your sticky account"
         submit: Submit
     passwords:
       edit:
@@ -348,9 +348,9 @@ en:
     upload: Upload
   layouts:
     doorkeeper:
-      click_here: "Klik dan hier"
+      click_here: "Click here"
       hi: Hoi
-      identity_confirmation: "Bent u niet %{name}?"
+      identity_confirmation: "Are you not %{name}?"
     mailer:
       alerts: "Alerts e.g. approaching your limit"
       footer_html: "For more information, visit %{koala_link_start} koala.svsticky.nl %{link_end} or mail to %{secretary_mail_start} secretaris@svsticky.nl %{link_end} for questions."
@@ -368,7 +368,7 @@ en:
         subject: Subject
       poster_modal:
         close: Sluiten
-        more_info: "Meer info"
+        more_info: "More info"
       search:
         active: active
         alumni: alumni
@@ -384,11 +384,11 @@ en:
         about_sticky: "You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability."
         account_activation_instructions: "Activate your account by clicking the button below"
         activate_account: "Activate account"
-        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}."
+        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all information that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}."
         and_now: "And now?"
         corner_stones:
           business:
-            description_html: "To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, inhouse days and drinks with these companies. These activities offer besides information about the company in question, also a nice oppotunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}."
+            description_html: "To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, in-house days and drinks with these companies. These activities offer besides information about the company in question, also a nice opportunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}."
             name: Business
           education:
             description_html: "We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken %{link_end}!"
@@ -396,9 +396,9 @@ en:
           sociability:
             description: "Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!"
             name: Sociability
-        reception_justification: "You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your accountha in our members portal. You could also skip this gorgeous introduction talk en scroll down immediatly. We won't see that anyway (or will we?)."
+        reception_justification: "You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your account in our members portal. You could also skip this gorgeous introduction talk en scroll down immediately. We won't see that anyway (or will we?)."
         see_you_soon: "See you soon!"
-        welcome: "Wecome to Sticky!"
+        welcome: "Welcome to Sticky!"
         wrap_up: "Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks."
       confirmation_instructions:
         button_instructions: "Confirm your e-mail address for your Sticky account by clicking the button below!"
@@ -411,12 +411,12 @@ en:
     participants:
       enrolled:
         activity_start_html: "The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!"
-        button_instructions_html: "You can unenroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
+        button_instructions_html: "You can un-enroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
         free_spot_html: "Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list."
         to_the_activity: "To the activity"
       inform:
         activity_visited_html: "You visited <strong> %{subject} </strong>, this activity cost %recipient.price%."
-        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Studievereniging Sticky citing <i>'%{ subject } %recipient.name%'</i>?"
+        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>'%{ subject } %recipient.name%'</i>?"
     signature: "The board"
   members:
     activities:
@@ -428,7 +428,7 @@ en:
           actions:
             enroll: Enroll
             reservist_enroll: "Enroll to spares list"
-            reservist_unenroll: "Unenroll from spares list"
+            reservist_unenroll: "Un-enroll from spares list"
             unenroll: Uitschrijven
             update_info: "Update info"
           more_info: "More info"
