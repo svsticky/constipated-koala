@@ -353,7 +353,7 @@ en:
       identity_confirmation: "Bent u niet %{name}?"
     mailer:
       alerts: "Alerts e.g. approaching your limit"
-      footer_html: "For more information, visit %{site_address} or mail to %{secretary_mail} for questions."
+      footer_html: "For more information, visit %{koala_link_start} koala.svsticky.nl %{link_end} or mail to %{secretary_mail_start} secretaris@svsticky.nl %{link_end} for questions."
     partials:
       editor:
         large: large
@@ -384,14 +384,14 @@ en:
         about_sticky: "You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability."
         account_activation_instructions: "Activate your account by clicking the button below"
         activate_account: "Activate account"
-        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group} and like %{facebook_page}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site}."
+        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all informations that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}."
         and_now: "And now?"
         corner_stones:
           business:
-            description_html: "To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, inhouse days and drinks with these companies. These activities offer besides information about the company in question, also a nice oppotunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page}."
+            description_html: "To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, inhouse days and drinks with these companies. These activities offer besides information about the company in question, also a nice oppotunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}."
             name: Business
           education:
-            description_html: "We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page}!"
+            description_html: "We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken %{link_end}!"
             name: Education
           sociability:
             description: "Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!"

@@ -16,21 +16,24 @@
       = t('mailings.devise.activation_instructions.about_sticky')
 
       = t('mailings.devise.activation_instructions.activity_updates_html',
-          facebook_group: raw("<a href=\"https://www.facebook.com/groups/814759978565158\">Sticky-leden Facebookgroep</a>"),
-          facebook_page: raw("<a href=\"https://www.facebook.com/stickyutrecht\">onze pagina</a>"),
-          sticky_site: raw("<a href=\"https://svsticky.nl\">svsticky.nl</a>"))
+          facebook_group_link_start: raw("<a href=\"https://www.facebook.com/groups/814759978565158\">"),
+          facebook_page_link_start: raw("<a href=\"https://www.facebook.com/stickyutrecht\">"),
+          sticky_site_link_start: raw("<a href=\"https://svsticky.nl\">"),
+          link_end: raw("</a>"))
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
       %h2
         = t('mailings.devise.activation_instructions.corner_stones.education.name')
       = t('mailings.devise.activation_instructions.corner_stones.education.description_html',
-          books_page: raw('<a href="https://svsticky.nl/boeken">svsticky.nl/boeken</a>'))
+          books_page_link_start: raw('<a href="https://svsticky.nl/boeken">'),
+          link_end: raw("</a>"))
 
       %h2
         = t('mailings.devise.activation_instructions.corner_stones.business.name')
       = t('mailings.devise.activation_instructions.corner_stones.business.description_html',
-          job_offer_page: raw('<a href="https://svsticky.nl/partners/vacatures">svsticky.nl/partners/vacatures</a>'))
+          job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
+          link_end: raw("</a>"))
 
       %h2
         = t('mailings.devise.activation_instructions.corner_stones.sociability.name')

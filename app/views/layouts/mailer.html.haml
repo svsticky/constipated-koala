@@ -73,6 +73,7 @@
                 %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
                   %td.aligncenter.content-block{:align => "center", :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;", :valign => "top"}
                     = t('layouts.mailer.footer_html',
-                        site_address: raw("<a href='https://koala.svsticky.nl' style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;\">koala.svsticky.nl</a>"),
-                        secretary_mail: raw("<a href='mailto:secretaris@svsticky.nl' style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;\">secretaris@svsticky.nl</a>"));
+                        koala_link_start: raw("<a href='https://koala.svsticky.nl' style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;\">"),
+                        secretary_mail_start: raw("<a href='mailto:secretaris@svsticky.nl' style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;\">"),
+                        link_end: raw("</a>"))
         %td{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;", :valign => "top"}

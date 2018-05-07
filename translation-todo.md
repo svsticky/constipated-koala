@@ -20,4 +20,6 @@
    - [x] public
    
 - [x] placeholders don't seem to be detected by i15r
-- [ ] use _html on translations instead of passing in a raw() argument
+- [x] translate inner link texts
+- [ ] fix password reset page
+- [ ] fix typo's by looking for squiggly lines
