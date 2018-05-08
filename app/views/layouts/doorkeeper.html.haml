@@ -17,7 +17,8 @@
   %body
     .container
       .row
-        %h1 Studievereniging Sticky
+        %h1
+          = I18n.t :association_name
 
         - if current_user.present?
           %h2
