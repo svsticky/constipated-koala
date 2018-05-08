@@ -1,6 +1,8 @@
 class Admin::StocksController < ApplicationController
   def stock
     @products = CheckoutProductType.order(:category, :name)
+                .paginate(page: params[:page],
+                          per_page: params[:limit])
     @stocky_transaction      = StockyTransaction.new
     @moves = StockyTransaction
              .where(:from => ['basement', 'mongoose'])

@@ -40,6 +40,10 @@ gem 'paperclip'
 gem 'chartkick'
 gem 'groupdate'
 
+# Pagination
+gem 'will_paginate', '~> 3.1.0'
+gem 'bootstrap-will_paginate'
+
 group :production, :staging do
   gem 'unicorn'
   gem 'aws-sdk', '>= 2.0'

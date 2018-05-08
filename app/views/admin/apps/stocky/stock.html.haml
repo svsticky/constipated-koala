@@ -32,11 +32,12 @@
               - @products.each do |product|
                 %tr
                   %td
-                    =product.name
+                    = product.name
                   %td
                     = product.storage_stock
                   %td
                     = product.chamber_stock
+          = will_paginate @products
     .row
       .col-lg-12
         = render 'admin/apps/stocky/partials/new_move',
