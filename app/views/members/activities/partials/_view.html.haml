@@ -73,7 +73,7 @@
           -else
             = link_to "Meer info", "/activities/#{activity.id}", class: "btn btn-default more-info"
         -else
-          =link_to "Terug", "/activities/", class: "btn btn-default more-info"
+          = link_to "Terug", "/activities/", class: "btn btn-default"
 
         - if !activity.notes.blank? && view == 'show'
           %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @member.confirmed_activities.ids.include? activity.id || (@member.reservist_activities.ids.include? activity.id))}
