@@ -106,7 +106,7 @@ test_member = Member.create(
   email:        Faker::Internet.safe_email('Sticky' + '.' + 'Tester'),
   gender:       ['m', 'f'].sample,
   student_id:   "F#{ Faker::Number.number(6) }",
-  birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
+  birth_date:   Faker::Date.between(28.years.ago, 18.years.ago),
   join_date:    Faker::Date.between(6.years.ago, Date.today),
   comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
 )
