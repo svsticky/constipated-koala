@@ -21,7 +21,7 @@ var AlertTitles = {
 
 /**
  * Activity constructor
- * @param activity_panel The panel frim which to create the activity
+ * @param activity_panel The panel from which to create the activity
  * @constructor
  */
 function Activity(activity_panel) {
