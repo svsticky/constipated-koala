@@ -1,5 +1,5 @@
 -#
-  @param {participant} participant Participant for this row of the table
+  @param {participant} participant  - Participant for this row of the table
 
 %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id || '{0}', :'data-activities-id' => @activity.id, :email => participant.member.email || '{3}' }  }
   %td
