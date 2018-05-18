@@ -16,7 +16,7 @@ development:
 test:
   adapter: mysql2
   database: koala-test
-  host: localhost
+  host: 127.0.0.1
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   pool: 5
