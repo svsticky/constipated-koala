@@ -7,31 +7,20 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 2
-Lint/DuplicateMethods:
-  Exclude:
-    - 'app/models/member.rb'
-
-# Offense count: 2
 Lint/IneffectiveAccessModifier:
   Exclude:
-    - 'app/models/member.rb'
-    - 'config/initializers/helpers.rb'
 
-# Offense count: 1
-Lint/ParenthesesAsGroupedExpression:
-  Exclude:
-    - 'app/controllers/admin/settings_controller.rb'
+    - 'config/initializers/helpers.rb'
 
 # Offense count: 2
 Style/RescueStandardError:
   Exclude:
-    - 'app/controllers/api/checkout_controller.rb'
+
     - 'config/initializers/helpers.rb'
 
 # Offense count: 5
 Lint/ShadowingOuterLocalVariable:
   Exclude:
-    - 'app/models/member.rb'
     - 'lib/tasks/studystatus.rake'
 
 # Offense count: 1
@@ -44,10 +33,6 @@ Lint/UnderscorePrefixedVariableName:
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
 Lint/UnusedBlockArgument:
   Exclude:
-    - 'app/controllers/admin/home_controller.rb'
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/controllers/api_controller.rb'
-    - 'app/controllers/public_controller.rb'
     - 'config/initializers/helpers.rb'
     - 'config/unicorn.rb'
     - 'lib/request.rb'
@@ -101,27 +86,11 @@ Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Performance/Casecmp:
-  Exclude:
-    - 'app/models/ideal_transaction.rb'
-    - 'app/models/member.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Performance/RegexpMatch:
   Exclude:
     - 'config/initializers/helpers.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
-Performance/StringReplacement:
-  Exclude:
-    - 'app/models/checkout_product.rb'
-    - 'app/models/member.rb'
-    - 'app/models/participant.rb'
 
 # Offense count: 19
 # Cop supports --auto-correct.
@@ -129,14 +98,6 @@ Performance/StringReplacement:
 # SupportedStyles: always, conditionals
 Style/AndOr:
   Exclude:
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'app/controllers/admin/settings_controller.rb'
-    - 'app/controllers/api/activities_controller.rb'
-    - 'app/controllers/api/groups_controller.rb'
-    - 'app/controllers/api/participants_controller.rb'
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/models/member.rb'
-    - 'app/models/user.rb'
     - 'db/seeds.rb'
 
 # Offense count: 4
@@ -148,7 +109,6 @@ Style/AndOr:
 # IgnoredMethods: lambda, proc, it
 Style/BlockDelimiters:
   Exclude:
-    - 'app/controllers/admin/payments_controller.rb'
     - 'config/initializers/searchable.rb'
 
 # Offense count: 6
@@ -157,7 +117,6 @@ Style/BlockDelimiters:
 # SupportedStyles: braces, no_braces, context_dependent
 Style/BracesAroundHashParameters:
   Exclude:
-    - 'app/models/ideal_transaction.rb'
     - 'config/environments/development.rb'
     - 'config/initializers/paperclip.rb'
     - 'lib/tasks/devise.rake'
@@ -169,22 +128,15 @@ Style/BracesAroundHashParameters:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Exclude:
-    - 'app/models/member.rb'
-
 # Offense count: 7
 # Cop supports --auto-correct.
 # Configuration parameters: Keywords.
 # Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
 Style/CommentAnnotation:
   Exclude:
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/controllers/api/groups_controller.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
+
+
+
     - 'config/initializers/paperclip.rb'
 
 # Offense count: 3
@@ -193,9 +145,9 @@ Style/CommentAnnotation:
 # SupportedStyles: assign_to_condition, assign_inside_condition
 Style/ConditionalAssignment:
   Exclude:
-    - 'app/controllers/admin/payments_controller.rb'
+
     - 'app/mailers/mailings/participants.rb'
-    - 'app/models/group.rb'
+
 
 # Offense count: 99
 Style/Documentation:
@@ -206,16 +158,7 @@ Style/Documentation:
 Style/EmptyLiteral:
   Exclude:
     - 'app/mailers/mailings/participants.rb'
-    - 'app/models/member.rb'
     - 'config/initializers/helpers.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'app/controllers/api/participants_controller.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -226,14 +169,6 @@ Style/Encoding:
     - 'app/mailers/mailings/checkout.rb'
     - 'app/mailers/mailings/devise.rb'
     - 'app/mailers/mailings/participants.rb'
-    - 'app/models/member.rb'
-
-# Offense count: 2
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: for, each
-Style/For:
-  Exclude:
-    - 'app/models/member.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -260,12 +195,11 @@ Style/FrozenStringLiteralComment:
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/controllers/api/checkout_controller.rb'
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-    - 'app/models/member.rb'
+
+
+
+
+
     - 'config/initializers/helpers.rb'
 
 # Offense count: 377
@@ -275,32 +209,19 @@ Style/GuardClause:
 Style/HashSyntax:
   Enabled: false
 
-# Offense count: 4
-Style/IdenticalConditionalBranches:
-  Exclude:
-    - 'app/controllers/admin/checkout_products_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
   Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/controllers/admin/settings_controller.rb'
-    - 'app/controllers/api/activities_controller.rb'
-    - 'app/controllers/members/home_controller.rb'
+
+
+
+
+
     - 'app/views/api/activities/show.rabl'
     - 'config/initializers/paperclip.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: InverseMethods, InverseBlocks.
-Style/InverseMethods:
-  Exclude:
-    - 'app/controllers/api/activities_controller.rb'
-    - 'app/models/checkout_product.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -310,10 +231,6 @@ Style/MethodDefParentheses:
   Exclude:
     - 'lib/paperclip/ghostscript.rb'
 
-# Offense count: 1
-Style/MultilineBlockChain:
-  Exclude:
-    - 'app/controllers/admin/payments_controller.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -327,26 +244,16 @@ Style/MutableConstant:
 # SupportedStyles: both, prefix, postfix
 Style/NegatedIf:
   Exclude:
-    - 'app/controllers/admin/participants_controller.rb'
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/models/member.rb'
+
+
     - 'db/seeds.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Whitelist.
-# Whitelist: be, be_a, be_an, be_between, be_falsey, be_kind_of, be_instance_of, be_truthy, be_within, eq, eql, end_with, include, match, raise_error, respond_to, start_with
-Style/NestedParenthesizedCalls:
-  Exclude:
-    - 'app/controllers/public_controller.rb'
 
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/Not:
   Exclude:
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/models/member.rb'
-    - 'app/models/user.rb'
+
     - 'db/seeds.rb'
 
 # Offense count: 3
@@ -360,7 +267,6 @@ Style/NumericLiterals:
 # Configuration parameters: AllowSafeAssignment.
 Style/ParenthesesAroundCondition:
   Exclude:
-    - 'app/models/member.rb'
     - 'config/initializers/searchable.rb'
 
 # Offense count: 6
@@ -368,18 +274,9 @@ Style/ParenthesesAroundCondition:
 # Configuration parameters: PreferredDelimiters.
 Style/PercentLiteralDelimiters:
   Exclude:
-    - 'app/models/member.rb'
     - 'config/initializers/assets.rb'
     - 'config/initializers/doorkeeper.rb'
     - 'config/spring.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: short, verbose
-Style/PreferredHashMethods:
-  Exclude:
-    - 'app/models/member.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -394,7 +291,7 @@ Style/RaiseArgs:
 # Cop supports --auto-correct.
 Style/RedundantBegin:
   Exclude:
-    - 'app/controllers/users/sessions_controller.rb'
+
     - 'config/initializers/helpers.rb'
     - 'config/initializers/paperclip.rb'
 
@@ -421,15 +318,6 @@ Style/RedundantReturn:
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Exclude:
-    - 'app/models/checkout_card.rb'
-    - 'app/models/checkout_product.rb'
-    - 'app/models/checkout_transaction.rb'
-    - 'app/models/education.rb'
-    - 'app/models/group.rb'
-    - 'app/models/ideal_transaction.rb'
-    - 'app/models/member.rb'
-    - 'app/models/participant.rb'
-    - 'app/models/user.rb'
     - 'config/initializers/helpers.rb'
     - 'config/initializers/searchable.rb'
 
@@ -477,12 +365,11 @@ Style/SymbolArray:
 # IgnoredMethods: respond_to, define_method
 Style/SymbolProc:
   Exclude:
-    - 'app/controllers/admin/members_controller.rb'
-    - 'app/controllers/admin/payments_controller.rb'
-    - 'app/controllers/admin/settings_controller.rb'
-    - 'app/controllers/public_controller.rb'
-    - 'app/models/group.rb'
-    - 'app/models/member.rb'
+
+
+
+
+
     - 'app/views/api/checkout/products.rabl'
     - 'config/initializers/helpers.rb'
     - 'db/seeds.rb'

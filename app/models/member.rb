@@ -22,7 +22,6 @@ class Member < ApplicationRecord
   validates :birth_date, presence: true
   validates :join_date, presence: true
 
-  attr_accessor :tags_names
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
 
@@ -357,10 +356,7 @@ class Member < ApplicationRecord
       )', Date.today).distinct
   end
 
-  # Private function cannot be called from outside this class
-
-  private
-
+  private_class_method :filter
   def self.filter(query)
     records = self
     study = query.match(/(studie|study):([A-Za-z-]+)/)
@@ -372,15 +368,12 @@ class Member < ApplicationRecord
 
       # Lookup using full names
       if code.nil?
-        study_name = Study.all.map { |study| { I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names').downcase => study.code.downcase } }.find { |hash| hash.keys[0] == study[2].downcase.gsub('-', ' ') }
+        study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == s[2].downcase.gsub('-', ' ') }
         code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
       end
 
       records = Member.none if code.nil? # TODO add active to the selector if status is not in the query
       records = records.where(:id => Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
-
-      # for later purposes
-      study = code
     end
 
     tag = query.match(/tag:([A-Za-z-]+)/)
@@ -388,7 +381,7 @@ class Member < ApplicationRecord
     unless tag.nil?
       query.gsub!(/tag:([A-Za-z-]+)/, '')
 
-      tag_name = Tag.names.map { |tag| { I18n.t(tag[0], scope: 'activerecord.attributes.tag.names').downcase => tag[1] } }.find { |hash| hash.keys[0] == tag[1].downcase.gsub('-', ' ') }
+      tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == name[1].downcase.gsub('-', ' ') }
 
       records = Member.none if tag_name.nil?
       records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
@@ -410,7 +403,7 @@ class Member < ApplicationRecord
         if code.present?
           records.where(:id => (Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map { |education| education.member_id }))
         else
-          records.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |tag| tag.member_id }))
+          records.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |t| t.member_id }))
         end
 
       elsif status[2].downcase == 'alumni'
@@ -427,6 +420,7 @@ class Member < ApplicationRecord
   end
 
   # Perform an elfproef to verify the student_id
+  private_class_method :valid_student_id
   def valid_student_id
     # on the intro website student_id is required
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
