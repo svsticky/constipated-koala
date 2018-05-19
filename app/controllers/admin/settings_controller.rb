@@ -34,7 +34,7 @@ class Admin::SettingsController < ApplicationController
 
     elsif ['liquor_time'].include? params[:setting]
       logger.debug params[:value].inspect
-      logger.debug (params[:value] =~ /\d{2}:\d{2}/).inspect
+      logger.debug((params[:value] =~ /\d{2}:\d{2}/).inspect)
 
       head :bad_request and return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
       Settings[params[:setting]] = params[:value]

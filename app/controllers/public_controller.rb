@@ -21,7 +21,7 @@ class PublicController < ApplicationController
     @member.require_student_id = true
     @member.create_account = true
 
-    activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |id, participant| participant['id'].to_i })
+    activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |_, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |_, participant| participant['id'].to_i })
     total = 0
 
     # if bank is empty report and test model for additional errors

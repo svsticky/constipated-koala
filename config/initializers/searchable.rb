@@ -5,14 +5,14 @@ require 'ostruct'
 Fuzzily::Searchable::ClassMethods.module_eval do
   private
 
-  def _find_by_fuzzy(_o, pattern, options = {})
+  def _find_by_fuzzy(o, pattern, options = {})
     options[:limit] ||= 10
     options[:offset] ||= 0
 
-    trigrams = _o.trigram_class_name.constantize
+    trigrams = o.trigram_class_name.constantize
                  .offset(options[:offset])
                  .for_model(self.name)
-                 .for_field(_o.field.to_s)
+                 .for_field(o.field.to_s)
                  .matches_for(pattern)
 
     records = _load_for_ids(trigrams.map(&:owner_id), options[:limit])

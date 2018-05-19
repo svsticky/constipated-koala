@@ -356,7 +356,6 @@ class Member < ApplicationRecord
       )', Date.today).distinct
   end
 
-  private_class_method :filter
   def self.filter(query)
     records = self
     study = query.match(/(studie|study):([A-Za-z-]+)/)
@@ -418,9 +417,10 @@ class Member < ApplicationRecord
 
     return records
   end
+  private_class_method :filter
 
   # Perform an elfproef to verify the student_id
-  private_class_method :valid_student_id
+  private
   def valid_student_id
     # on the intro website student_id is required
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?

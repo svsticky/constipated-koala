@@ -6,62 +6,32 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-Lint/IneffectiveAccessModifier:
-  Exclude:
-
-    - 'config/initializers/helpers.rb'
-
-# Offense count: 2
-Style/RescueStandardError:
-  Exclude:
-
-    - 'config/initializers/helpers.rb'
 
 # Offense count: 5
 Lint/ShadowingOuterLocalVariable:
   Exclude:
     - 'lib/tasks/studystatus.rake'
 
-# Offense count: 1
-Lint/UnderscorePrefixedVariableName:
-  Exclude:
-    - 'config/initializers/searchable.rb'
-
 # Offense count: 26
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
 Lint/UnusedBlockArgument:
   Exclude:
-    - 'config/initializers/helpers.rb'
-    - 'config/unicorn.rb'
     - 'lib/request.rb'
     - 'lib/tasks/admin.rake'
     - 'lib/tasks/doorkeeper.rake'
     - 'lib/tasks/studystatus.rake'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'app/mailers/mailings/devise.rb'
 
 # Offense count: 1
 Lint/UriEscapeUnescape:
   Exclude:
     - 'lib/tasks/doorkeeper.rake'
 
-# Offense count: 1
-# Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
-Lint/UselessAccessModifier:
-  Exclude:
-    - 'config/initializers/helpers.rb'
 
 # Offense count: 4
 Lint/UselessAssignment:
   Exclude:
-    - 'app/mailers/application_mailer.rb'
     - 'lib/paperclip/ghostscript.rb'
 
 # Offense count: 10
@@ -86,39 +56,12 @@ Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Performance/RegexpMatch:
-  Exclude:
-    - 'config/initializers/helpers.rb'
-
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'db/seeds.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# IgnoredMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Exclude:
-    - 'config/initializers/searchable.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: braces, no_braces, context_dependent
 Style/BracesAroundHashParameters:
   Exclude:
-    - 'config/environments/development.rb'
-    - 'config/initializers/paperclip.rb'
     - 'lib/tasks/devise.rake'
     - 'lib/tasks/doorkeeper.rake'
 
@@ -128,55 +71,6 @@ Style/BracesAroundHashParameters:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
-Style/CommentAnnotation:
-  Exclude:
-
-
-
-    - 'config/initializers/paperclip.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-
-    - 'app/mailers/mailings/participants.rb'
-
-
-# Offense count: 99
-Style/Documentation:
-  Enabled: false
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'app/mailers/mailings/participants.rb'
-    - 'config/initializers/helpers.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AutoCorrectEncodingComment.
-# SupportedStyles: when_needed, always, never
-Style/Encoding:
-  Exclude:
-    - 'app/mailers/mailings/checkout.rb'
-    - 'app/mailers/mailings/devise.rb'
-    - 'app/mailers/mailings/participants.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'app/mailers/mailings/participants.rb'
 
 # Offense count: 1
 # Configuration parameters: SupportedStyles.
@@ -191,16 +85,7 @@ Style/FormatStringToken:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 8
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
 
-
-
-
-
-    - 'config/initializers/helpers.rb'
 
 # Offense count: 377
 # Cop supports --auto-correct.
@@ -208,19 +93,6 @@ Style/GuardClause:
 # SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
 Style/HashSyntax:
   Enabled: false
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
-  Exclude:
-
-
-
-
-
-    - 'app/views/api/activities/show.rabl'
-    - 'config/initializers/paperclip.rb'
 
 
 # Offense count: 1
@@ -232,30 +104,6 @@ Style/MethodDefParentheses:
     - 'lib/paperclip/ghostscript.rb'
 
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'config/application.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-
-
-    - 'db/seeds.rb'
-
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-
-    - 'db/seeds.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: Strict.
@@ -264,70 +112,18 @@ Style/NumericLiterals:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'config/initializers/searchable.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'config/initializers/assets.rb'
-    - 'config/initializers/doorkeeper.rb'
-    - 'config/spring.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: compact, exploded
 Style/RaiseArgs:
   Exclude:
-    - 'config/initializers/helpers.rb'
     - 'lib/request.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/RedundantBegin:
-  Exclude:
-
-    - 'config/initializers/helpers.rb'
-    - 'config/initializers/paperclip.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantConditional:
-  Exclude:
-    - 'db/seeds.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'config/initializers/helpers.rb'
-    - 'db/seeds.rb'
 
 # Offense count: 45
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
 Style/RedundantReturn:
   Enabled: false
-
-# Offense count: 98
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'config/initializers/helpers.rb'
-    - 'config/initializers/searchable.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'app/mailers/application_mailer.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -343,13 +139,6 @@ Style/SpecialGlobalVars:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'config/initializers/paperclip.rb'
 
 # Offense count: 57
 # Cop supports --auto-correct.
@@ -358,29 +147,6 @@ Style/StringLiteralsInInterpolation:
 Style/SymbolArray:
   EnforcedStyle: percent
   MinSize: 7
-
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Exclude:
-
-
-
-
-
-    - 'app/views/api/checkout/products.rabl'
-    - 'config/initializers/helpers.rb'
-    - 'db/seeds.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStylesForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInLiteral:
-  Exclude:
-    - 'config/initializers/doorkeeper.rb'
 
 # Offense count: 22
 # Cop supports --auto-correct.
