@@ -23,7 +23,7 @@ Lint/ParenthesesAsGroupedExpression:
     - 'app/controllers/admin/settings_controller.rb'
 
 # Offense count: 2
-Lint/RescueWithoutErrorClass:
+Style/RescueStandardError:
   Exclude:
     - 'app/controllers/api/checkout_controller.rb'
     - 'config/initializers/helpers.rb'
