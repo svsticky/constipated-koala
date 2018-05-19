@@ -19,7 +19,10 @@ jobs:
     steps:
 
       # install javascript runtime environment
-      - run: sudo apt-get update && sudo apt-get install nodejs
+      - run: curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+      - run: echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+      - run: sudo apt-get update && sudo apt-get install nodejs yarn
+
 
       - checkout
 
@@ -42,7 +45,7 @@ jobs:
       - run: bundle exec rake assets:precompile --trace
 
       # execute rubocop 2.5.1 not supported
-      # - run: bundle exec rubocop app lib db config
+      - run: bundle exec rubocop app lib db config
 
       # cache libraries
       - type: cache-save

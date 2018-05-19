@@ -56,6 +56,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rubocop', '~> 0.50.0'
+  gem 'rubocop'
   gem 'spring'
 end
