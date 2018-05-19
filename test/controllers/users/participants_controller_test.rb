@@ -23,7 +23,7 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     p1 = participants(:underpant_first)
 
     m = members(:dannypanny)
-    p2 = Participant.create!(
+    Participant.create!(
       member: m,
       activity: a,
       reservist: true
@@ -50,7 +50,7 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     assert_counts(a, [1,1,0])
 
     m = members(:dannypanny)
-    p2 = Participant.create!(
+    Participant.create!(
       member: m,
       activity: a,
       reservist: true
@@ -72,7 +72,8 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     m2 = members(:thecreator) #adult
     assert m1.underage?, "Expected member being underage, but this member has grown up quite a bit"
     assert m2.adult?, "Expected member being 18+, but this member hasn't left puberty yet"
-    p1 = Participant.create!(
+
+    Participant.create!(
       member: m1,
       activity: a,
       reservist: false

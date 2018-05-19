@@ -21,7 +21,6 @@ require 'optparse'
 require 'set'
 
 # Global variables
-# rubocop:disable Style/GlobalVars
 $log = Logger.new(STDOUT)
 
 $study_cache = Study.all.map { |s| [s.code, s] }.to_h
