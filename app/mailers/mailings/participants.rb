@@ -17,11 +17,8 @@ module Mailings
         }
       end
 
-      # NOTE view is rendered in form for editing _mail
-      text = strip_html(html.clone)
-      html = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: subject }
-
-      return mails(variables, sender, subject, html, text)
+      view = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: subject }
+      return mails(variables, sender, subject, view, text || strip_html(html.clone))
     end
 
     def enrolled(participant)
