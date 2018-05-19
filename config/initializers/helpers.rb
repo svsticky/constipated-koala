@@ -46,8 +46,6 @@ class Date
     return years.join('. ')
   end
 
-  private
-
   def self.find_consecutive_year(years, year)
     # return same year if no succesive year
     return year unless years.include? 1 + year
@@ -55,6 +53,7 @@ class Date
     # take next year and try further
     return Date.find_consecutive_year(years, 1 + year)
   end
+  private_class_method :find_consecutive_year
 end
 
 class Time
@@ -74,14 +73,14 @@ end
 
 class Hash
   def compact
-    delete_if { |k, v| v.nil? }
+    delete_if { |_, v| v.nil? }
   end
 end
 
 class Array
   def only(*keys)
     map do |hash|
-      hash.select do |key, value|
+      hash.select do |key, _|
         keys.map { |symbol| symbol.to_s }.include? key.to_s
       end
     end

@@ -27,7 +27,7 @@ module ConstipatedKoala
     def post(path, body = {})
       request = Net::HTTP::Post.new(path.chomp('/'))
 
-      body.delete_if { |k, v| v.nil? }
+      body.delete_if { |_, v| v.nil? }
       request.body = URI.encode_www_form(body)
 
       request['Accept'] = 'application/json'

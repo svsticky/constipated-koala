@@ -16,10 +16,10 @@ namespace :studystatus do
   end
 
   desc "Finds study progress for a member and updates the DB"
-  task :update, [:username, :password, :student_id] => :environment do |t, args|
+  task :update, [:username, :password, :student_id] => :environment do |_, args|
     Open3.popen3(ENV['STUDY_SCRIPT'],
                  "--username", args[:username],
-                 "--password", args[:password]) do |i, o, e, t|
+                 "--password", args[:password]) do |i, o, _, _|
 
       member = Member.find_by_student_id(args[:student_id])
 
@@ -30,11 +30,11 @@ namespace :studystatus do
   end
 
   desc "Finds study progress for all members and updates the DB"
-  task :update_all, [:username, :password] => :environment do |t, args|
-    # TODO: handle empty username and password
+  task :update_all, [:username, :password] => :environment do |_, args|
+
     Open3.popen3(ENV['STUDY_SCRIPT'],
                  "--username", args[:username],
-                 "--password", args[:password]) do |i, o, e, t|
+                 "--password", args[:password]) do |i, o, _, _|
 
       Member.where.not(:student_id => nil).each do |member|
         i.puts member.student_id
