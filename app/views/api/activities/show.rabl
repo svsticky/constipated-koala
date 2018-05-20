@@ -38,7 +38,7 @@ glue :group do
 end
 
 node :poster do |activity|
-  activity.poster.url(:medium) unless activity.poster_updated_at.nil?
+  activity.poster.representation(resize: 'x1080') if activity.poster.attached?
 end
 
 node :enrollable do |activity|
