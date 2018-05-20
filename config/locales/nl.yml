@@ -387,8 +387,8 @@ nl:
         free_spot_html: "Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>%{activity.name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst."
         to_the_activity: "Naar de activiteit"
       inform:
-        activity_visited_html: "Je bent meegeweest naar <strong> %{subject} </strong>, deze activiteit kostte %recipient.price%."
-        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>'%{ subject } %recipient.name%'</i>?"
+        activity_visited_html: "Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%."
+        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} %recipient.name%\"</i>?"
     signature: "Het bestuur"
   members:
     activities:
