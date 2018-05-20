@@ -417,7 +417,6 @@ class Member < ApplicationRecord
 
     return records
   end
-  private_class_method :filter
 
   # Perform an elfproef to verify the student_id
   private

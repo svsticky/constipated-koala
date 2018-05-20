@@ -53,7 +53,6 @@ class Date
     # take next year and try further
     return Date.find_consecutive_year(years, 1 + year)
   end
-  private_class_method :find_consecutive_year
 end
 
 class Time
