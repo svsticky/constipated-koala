@@ -22,13 +22,13 @@ GC.respond_to?(:copy_on_write_friendly=) &&
   GC.copy_on_write_friendly = true
 
 # If using ActiveRecord, disconnect (from the database) before forking.
-before_fork do 
+before_fork do |_server, _worker|
   defined?(ApplicationRecord) &&
     ApplicationRecord.connection.disconnect!
 end
 
 # After forking, restore your ActiveRecord connection.
-after_fork do
+after_fork do |_server, _worker|
   defined?(ApplicationRecord) &&
     ApplicationRecord.establish_connection
 end
