@@ -14,6 +14,8 @@ tmp/
 public/assets/
 public/images/
 
+storage/
+
 .vagrant/
 cookbooks/
 

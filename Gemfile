@@ -37,6 +37,8 @@ gem 'rails-settings-cached'
 gem 'paperclip'
 gem 'cocaine', '0.3.2'
 
+gem 'image_processing'
+
 group :production, :staging do
   gem 'sentry-raven'
   gem 'unicorn'

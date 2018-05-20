@@ -62,7 +62,10 @@ Rails.application.configure do
 
   # for development only, debugging with test environment of radio
   config.action_dispatch.default_headers.merge!({
-                                                  'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
-                                                  'Access-Control-Request-Method' => '*'
-                                                })
+    'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
+    'Access-Control-Request-Method' => '*'
+  })
+
+  # Store files locally.
+  config.active_storage.service = :local
 end

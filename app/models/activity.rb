@@ -23,19 +23,7 @@ class Activity < ApplicationRecord
 
   after_update :enroll_reservists, if: proc { |a| a.saved_change_to_participant_limit }
 
-  has_attached_file :poster,
-                    :styles => {
-                      :thumb => ['180', :png],
-                      :medium => ['x1080', :png]
-                    },
-                    :processors => [:ghostscript, :thumbnail],
-                    :validate_media_type => false,
-                    :convert_options => {
-                      :all => '-colorspace CMYK -flatten -quality 100 -density 8'
-                    }
-
-  validates_attachment_content_type :poster, :content_type => 'application/pdf'
-
+  has_one_attached :poster
   has_one :group, :as => :organized_by
 
   has_many :participants, :dependent => :destroy

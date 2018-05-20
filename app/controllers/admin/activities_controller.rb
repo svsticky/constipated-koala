@@ -32,6 +32,7 @@ class Admin::ActivitiesController < ApplicationController
     end
   end
 
+  # TODO refactor
   def update
     @activity = Activity.find_by_id params[:id]
     params = activity_post_params
@@ -39,7 +40,7 @@ class Admin::ActivitiesController < ApplicationController
     # removing the images from the S3 storage
     if params[:_destroy] == 'true'
       logger.debug 'remove poster from activity'
-      params[:poster] = nil
+      @activity.poster.purge
     end
 
     if @activity.update(params.except(:_destroy))

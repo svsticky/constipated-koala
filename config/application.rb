@@ -53,5 +53,8 @@ module ConstipatedKoala
       :url => '/images/:class/:id/:style.:extension',
       :default_url => '/poster_placeholder.svg'
     }
+
+    # Store files locally.
+    config.active_storage.service = :local
   end
 end

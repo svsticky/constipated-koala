@@ -97,6 +97,9 @@ GEM
       domain_name (~> 0.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    image_processing (1.2.0)
+      mini_magick (~> 4.0)
+      ruby-vips (>= 2.0.10, < 3)
     impressionist (1.6.1)
       nokogiri (~> 1)
     kgio (2.11.2)
@@ -116,6 +119,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
+    mini_magick (4.8.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -189,6 +193,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.9.0)
+    ruby-vips (2.0.12)
+      ffi (~> 1.9)
     ruby_dep (1.5.0)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
@@ -252,6 +258,7 @@ DEPENDENCIES
   faker (>= 1.8.4)
   fuzzily!
   haml
+  image_processing
   impressionist
   listen
   mysql2
