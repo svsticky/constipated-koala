@@ -367,7 +367,7 @@ class Member < ApplicationRecord
 
       # Lookup using full names
       if code.nil?
-        study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == s[2].downcase.gsub('-', ' ') }
+        study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == study[2].downcase.gsub('-', ' ') }
         code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
       end
 
