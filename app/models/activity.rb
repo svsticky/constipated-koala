@@ -5,14 +5,21 @@ class Activity < ApplicationRecord
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
   validate :unenroll_before_start, unless: proc { |a| a.unenroll_date.nil? }
+
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
     allow_nil: true
   }
+
   validates :price, numericality: {
     greater_than_or_equal_to: 0
   }
+
+  validate :content_type
+  def content_type
+    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) unless poster.attached? && poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
+  end
 
   # Disabled validations
   # validates :end_date

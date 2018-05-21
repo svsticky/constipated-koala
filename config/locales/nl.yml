@@ -208,6 +208,7 @@ nl:
       default: Er is iets fout gegaan
       incomplete: Oh snap, niet alles is goed ingevuld
       no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
+      unsupported_content_type: Het bestand type %{type} is niet toegestaan. (%{allowed})
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
