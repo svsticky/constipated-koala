@@ -13,7 +13,7 @@
   .panel-body
     .media-left.poster-thumbnail
       %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
-        =image_tag activity.poster.url(:thumb), class: "small-poster"
+        =image_tag activity.poster.representation(resize: '180'), class: "small-poster"
     .media-body
       - if activity.start_date != activity.end_date
         %strong Wanneer:

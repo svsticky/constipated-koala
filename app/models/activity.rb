@@ -18,7 +18,8 @@ class Activity < ApplicationRecord
 
   validate :content_type
   def content_type
-    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) unless poster.attached? && poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
+    # NOTE required to be an pdf, jpg or png but file can also be empty
+    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) unless poster.attached? || poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
   end
 
   # Disabled validations
