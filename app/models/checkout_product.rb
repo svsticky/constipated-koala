@@ -33,7 +33,7 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def url
-    return self.image.representation(resize: '128x128') if self.image.attached?
+    return self.image.representation(gravity: 'center', resize: '128x128') if self.image.attached?
     return nil if self.parent.nil?
     return CheckoutProduct.find_by_id(self.parent).url
   end
