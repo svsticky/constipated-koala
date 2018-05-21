@@ -27,5 +27,5 @@ if Authorization._client.include?('activity-read')
 end
 
 node :poster do |activity|
-  url_for activity.poster.representation(resize: 'x1080') if activity.poster.attached?
+  activity_image_url(activity) if activity.poster.attached?
 end

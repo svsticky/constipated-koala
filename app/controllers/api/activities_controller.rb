@@ -1,4 +1,5 @@
 class Api::ActivitiesController < ApiController
+  include ActionController::Live
   before_action :authorize, only: [:show]
 
   def index
@@ -14,6 +15,19 @@ class Api::ActivitiesController < ApiController
 
   def show
     @activity = Activity.find_by_id! params[:id]
+  end
+
+  def image
+    @blob = Activity.find_by_id!(params[:activity_id]).poster.representation(resize: 'x1080')
+
+    response.headers["Content-Type"] = @blob.blob.content_type || DEFAULT_SEND_FILE_TYPE
+    response.headers["Content-Disposition"] = 'inline' || DEFAULT_SEND_FILE_DISPOSITION
+
+    ActiveStorage::Blob.service.download @blob.key do |chunk|
+      response.stream.write chunk
+    end
+  ensure
+    response.stream.close
   end
 
   def advertisements
