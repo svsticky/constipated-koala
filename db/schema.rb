@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_20_134705) do
+ActiveRecord::Schema.define(version: 2018_05_21_064840) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -69,10 +69,6 @@ ActiveRecord::Schema.define(version: 2018_05_20_134705) do
 
   create_table "advertisements", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.string "poster_file_name"
-    t.string "poster_content_type"
-    t.integer "poster_file_size"
-    t.datetime "poster_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -102,10 +98,6 @@ ActiveRecord::Schema.define(version: 2018_05_20_134705) do
     t.integer "parent"
     t.boolean "active", default: true
     t.decimal "price", precision: 6, scale: 2
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
