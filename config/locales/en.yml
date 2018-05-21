@@ -231,7 +231,7 @@ en:
       default: Some has gone wrong
       incomplete: Oh snap, you forgot some things
       no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
-      unsupported_content_type: File type %{type} is now allowed. (%{allowed})
+      unsupported_content_type: File type %{type} is not allowed. (%{allowed})
 
       messages:
         blank: can't be blank
