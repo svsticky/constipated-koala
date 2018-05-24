@@ -10,7 +10,7 @@
           .col-md-12
             .alert.alert-danger
               %button.close{ type: "button" } ×
-              %span Oh snap, niet alles is goed ingevuld;
+              %span= I18n.t('activerecord.errors.incomplete')
               %ul
               - @member.errors.full_messages.each do |msg|
                 %li= msg
@@ -19,7 +19,7 @@
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-user
-              Algemene gegevens
+              = I18n.t('members.home.edit.general_data')
             .panel-body
               .form-group
                 .row
