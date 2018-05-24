@@ -13,7 +13,7 @@
         .panel-heading
           %i.fa.fa-fw.fa-user
           %span#attendees-count.number= @activity.attendees.count
-          deelnemers
+          = I18n.t("activerecord.models.participants.attendees", count: @activity.attendees.count)
 
         %table#attendees_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
           %tbody
@@ -26,7 +26,7 @@
         .panel-heading
           %i.fa.fa-fw.fa-user
           %span#reservists-count.number= @reservists.count
-          op reservelijst
+          = I18n.t("activerecord.models.participants.reservists", count: @activity.reservists.count)
 
         %table#reservists_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
           %tbody
@@ -35,6 +35,6 @@
 
 = link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
   %i.fa.fa-bug
-  BUG!
+  = I18n.t 'members.activities.bug_report'
 
 = render 'layouts/partials/poster_modal', view: 'show'

@@ -1,15 +1,18 @@
+---
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 nl:
   devise:
     confirmations:
+      activate: "Activeer je Sticky-account en kies een wachtwoord"
       confirmed: "Je account is bevestigd, je kunt nu inloggen."
       send_instructions: "Je zult een e-mail met instructies ontvangen over hoe je jouw account moet bevestigen over een paar minuten."
       send_paranoid_instructions: "Als je e-mail bestaat in onze database, zul je een e-mail met instructies ontvangen over hoe je jouw account moet bevestigen over een paar minuten."
-      activate: "Activeer je Sticky-account en kies een wachtwoord"
     failure:
       already_authenticated: "Je bent al ingelogd."
       inactive: "Je account is nog niet geactiveerd."
       invalid: "Ongeldig e-mail of wachtwoord."
       invalid_token: "Ongeldig authenticiteit token."
+      last_attempt: "Je hebt nog een poging voor je account wordt vergrendeld."
       locked: "Je account is vergrendeld."
       not_found_in_database: "Ongeldig e-mail of wachtwoord."
       timeout: "Je sessie is verlopen, log alsjeblieft opnieuw in om verder te gaan."
@@ -17,7 +20,7 @@ nl:
       unconfirmed: "Je moet eerst je account bevestigen, voordat je verder kunt gaan"
     mailer:
       confirmation_instructions:
-        subject: "Bevestigingsinstructies"
+        subject: Bevestigingsinstructies
       reset_password_instructions:
         subject: "Reset wachtwoord instructies"
       unlock_instructions:
@@ -32,8 +35,8 @@ nl:
       updated: "Je wachtwoord is succesvol veranderd, je bent nu ingelogd."
       updated_not_active: "Je wachtwoord is succesvol veranderd."
     registrations:
-      not_found_in_database: "Onbekend e-mailadres."
       destroyed: "Tot ziens! Je account is succesvol verwijderd."
+      not_found_in_database: "Onbekend e-mailadres."
       signed_up: "Welkom, u bent succesvol ingelogd"
       signed_up_but_inactive: "Je account is nog niet geactiveerd."
       signed_up_but_locked: "Je bent succesvol ingelogd, echter kunnen we nog niet inloggen, omdat je account is geblokeerd."

@@ -1,8 +1,8 @@
 .panel.panel-default
   .panel-body
-    %form.form-horizontal#mail{ :data => { 'id' => id }, :action => mail_activity_participants_path( :activity_id => id ), :method => :post }
+    %form.form-horizontal#mail{ :data => { :id => id }, :action => mail_activity_participants_path( :activity_id => id ), :method => :post }
       .form-group
-        %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Geadresseerden
+        %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'}= I18n.t("layouts.partials.mail.addressees")
         .col-md-10.col-xs-12
           .row#recipients
             .col-md-8
@@ -10,10 +10,10 @@
             .col-md-4
               .ui-select
                 %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
-                  %option{ :value => 'all' } ALLE DEELNEMERS
-                  %option{ :value => 'debtors', :selected => 'selected' } NOG BETALERS
+                  %option{ :value => 'all' }= I18n.t("layouts.partials.mail.all_participants")
+                  %option{ :value => 'debtors', :selected => 'selected' }= I18n.t("layouts.partials.mail.non_payers")
       .form-group
-        %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'} Onderwerp
+        %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'}= I18n.t("layouts.partials.mail.subject")
         .col-md-10.col-xs-12
           %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "Studievereniging Sticky | #{subject}" }
 
@@ -28,5 +28,5 @@
           = render :template => "mailings/#{mail}", :locals => { subject: subject }
 
       .mail-actions
-        %button.btn.btn-primary{ type: 'submit' } Verstuur
-        .btn.btn-default.disabled{ :disabled => 'disabled' } Draft
+        %button.btn.btn-primary{ type: 'submit' }= I18n.t("layouts.partials.mail.send")
+        .btn.btn-default.disabled{ :disabled => 'disabled' }= I18n.t("layouts.partials.mail.draft")
