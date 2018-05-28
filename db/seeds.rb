@@ -182,7 +182,7 @@ Member.all.each do |member|
 
       Education.create(
         member_id:  member.id,
-        study_id:   Study.all.sample,
+        study_id:   Study.all.sample.id,
         start_date: start_date,
         end_date:   end_date,
         status:     status
