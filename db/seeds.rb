@@ -166,7 +166,7 @@ Member.all.each do |member|
     Faker::Number.between(1, 2).times do
       CheckoutCard.create(
           uuid:                Faker::Number.hexadecimal(8),
-          active:              1,
+          active:              Faker::Boolean.boolean(0.9),
           member_id:           member.id,
           checkout_balance_id: checkout_balance.id
       )
