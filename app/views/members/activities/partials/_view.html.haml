@@ -2,18 +2,16 @@
   .panel-heading.text-right
     %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
-    = activity.participant_counter
+    .fullness
+      = activity.fullness
     .clearfix
   .panel-body
     .media-left.poster-thumbnail
       %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
-        - if activity.poster_updated_at.nil?
-          =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster"
-        - else
-          =image_tag activity.poster.url(:thumb), class: "small-poster"
+        =image_tag activity.poster.url(:thumb), class: "small-poster"
     .media-body
       - if activity.start_date != activity.end_date
-        %strong Wanneer:
+        %strong= I18n.t("activerecord.labels.activities.when")
         = activity.start_date.strftime("%d/%m/%Y")
         - if !activity.start_time.nil?
           = activity.start_time.strftime("%H:%M")
@@ -22,42 +20,42 @@
         - if !activity.end_time.nil?
           = activity.end_time.strftime("%H:%M")
       - else
-        %strong Datum:
+        %strong= I18n.t("activerecord.labels.activities.date")
         = activity.start_date.strftime("%d/%m/%Y")
         - if !activity.start_time.nil?
           <br/>
-          %strong Tijd:
+          %strong= I18n.t("activerecord.labels.activities.time")
           = activity.start_time.strftime("%H:%M")
         - if !activity.end_time.nil?
           \-
           = activity.end_time.strftime("%H:%M")
       <br/>
-      %strong Prijs:
+      %strong= I18n.t("activerecord.attributes.activity.price")
       - if !activity.price.nil? and activity.price != 0
         &euro;
         = number_with_precision(activity.price, :precision => 2)
         <br/>
       - else
-        Gratis
+        = I18n.t("activerecord.missing_value_placeholders.activity.free")
         <br/>
       - if !activity.location.nil? && activity.location != ''
-        %strong Locatie:
+        %strong= I18n.t("activerecord.attributes.activity.location")
         = activity.location
         <br/>
-      - if !activity.unenroll_date.nil?
-        %strong Uitschrijfdeadline:
+      - if !activity.unenroll_date.nil? && activity.is_enrollable?
+        %strong= I18n.t("activerecord.attributes.activity.unenroll_date")
         %span.activity-unenroll
           = activity.unenroll_date.strftime("%d/%m/%Y")
       <br/>
       - if view == 'index'
         - if activity.notes_mandatory
-          %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'} Vereist extra info!
+          %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'}= I18n.t("members.activities.partials.view.notes_mandatory")
   - if view =='show'
     .panel-body.show-activity-topborder
-      %strong Omschrijving:
+      %strong= I18n.t("activerecord.attributes.activity.description")
       <br/>
       - if activity.description.blank?
-        Geen beschrijving beschikbaar :(
+        = I18n.t("activerecord.missing_value_placeholders.activity.description")
       - else
         = simple_format(activity.description)
     - if !activity.notes.blank?
@@ -71,29 +69,29 @@
       .btn-group
         - if view == 'index'
           -if !activity.notes.blank?
-            = link_to raw("Meer info&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-default more-info"
+            = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-default more-info"
           -else
-            = link_to "Meer info", "/activities/#{activity.id}", class: "btn btn-default more-info"
+            = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-default more-info"
         -else
-          =link_to "Terug", "/activities/", class: "btn btn-default more-info"
+          = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-default"
 
         - if !activity.notes.blank? && view == 'show'
           %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @member.confirmed_activities.ids.include? activity.id || (@member.reservist_activities.ids.include? activity.id))}
-            Update info
+            = I18n.t("members.activities.partials.view.actions.update_info")
         - if activity.is_enrollable
           - if @member.confirmed_activities.ids.include? activity.id
-            - button_text = 'Uitschrijven'
+            - button_text = I18n.t("members.activities.partials.view.actions.unenroll")
             - button_class = 'btn-danger'
             - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
               - button_class += ' disabled'
           - elsif @member.reservist_activities.ids.include? activity.id
-            - button_text = 'Uitschrijven Reservelijst'
+            - button_text = I18n.t("members.activities.partials.view.actions.reservist_unenroll")
             - button_class = 'btn-warning'
           - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
-            - button_text = 'Inschrijven Reservelijst'
+            - button_text = I18n.t("members.activities.partials.view.actions.reservist_enroll")
             - button_class = 'btn-warning-sat'
           - else
-            - button_text = 'Inschrijven'
+            - button_text = I18n.t("members.activities.partials.view.actions.enroll")
             - button_class = 'btn-success'
           %button.btn.enrollment{ :class => button_class}
             = button_text

@@ -9,6 +9,8 @@ class CheckoutTransaction < ApplicationRecord
 
   serialize :items, Array
 
+  is_impressionable
+
   class_attribute :i18n_error_scope
   self.i18n_error_scope = %i[activerecord errors models checkout_transaction attributes]
 
@@ -22,7 +24,7 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   after_validation do
-    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{price}, updated_at = NOW()")
+    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{ price }, updated_at = NOW()")
   end
 
   def validate_sufficient_credit
@@ -38,11 +40,12 @@ class CheckoutTransaction < ApplicationRecord
 
     # only place you should use now, because liquor_time is without zone
     errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
-    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
+    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.underage?
   end
 
   def calculate_price
-    self.price = -items.reduce(0) do |total, item|
+    self.price = -items.reduce(0) do |total, item_id|
+      item = CheckoutProduct.find(item_id)
       total + item.price
     end
     price
@@ -63,7 +66,7 @@ class CheckoutTransaction < ApplicationRecord
 
     strings = counts.map do |item, count|
       if count > 1
-        "#{count}x #{item}"
+        "#{ count }x #{ item }"
       else
         item.to_s
       end

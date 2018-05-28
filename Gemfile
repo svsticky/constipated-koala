@@ -21,8 +21,7 @@ gem 'coffee-rails'
 gem 'devise', :github => 'plataformatec/devise'
 gem 'doorkeeper'
 
-# logging, using master for rails 5 support
-gem 'impressionist', :github => 'charlotte-ruby/impressionist'
+gem 'impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
@@ -37,17 +36,13 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload to S3
 gem 'paperclip'
 
-group :production do
+group :production, :staging do
+  gem 'sentry-raven'
   gem 'unicorn'
-  gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 end
 
-group :staging do
-  gem 'unicorn'
-  gem 'aws-sdk', '>= 2.0'
-  gem 'uglifier'
-
+group :development, :test, :staging do
   gem 'faker', '>= 1.8.4'
 end
 
@@ -57,12 +52,12 @@ group :development do
 
   gem 'web-console'
   gem 'byebug', platform: :mri
+end
 
-  gem 'faker', '>= 1.8.4'
+group :development, :test do
+  gem 'rubocop', '~> 0.50.0'
   gem 'spring'
 end
 
-group :test do
-  gem 'spring'
-  gem 'faker', '>= 1.8.4'
-end
+# Added at 2018-01-12 12:01:35 +0100 by cdfa:
+gem "i15r", "~> 0.5.5"

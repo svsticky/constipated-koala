@@ -17,11 +17,7 @@ MOLLIE_DOMAIN=https://api.mollie.nl
 MOLLIE_VERSION=v1
 MOLLIE_TOKEN=
 
-# AWS credentials
-AWS_ACCESS=
-AWS_SECRET=
-AWS_REGION=
-AWS_BUCKET=
-
 # Number of threads to run
 RAILS_MAX_THREADS=4
+
+SENTRY_DSN=http://public:secret@example.com/project-id

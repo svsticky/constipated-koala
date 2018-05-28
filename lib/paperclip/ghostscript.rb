@@ -1,6 +1,5 @@
 module Paperclip
   class Ghostscript < Processor
-
     attr_accessor :current_geometry, :target_geometry, :format, :whiny, :convert_options, :source_file_options
 
     def initialize file, options = {}, attachment = nil
@@ -14,7 +13,7 @@ module Paperclip
 
     def make
       src = @file
-      dst = Tempfile.new([@basename, @format ? ".#{@format}" : ''])
+      dst = Tempfile.new([@basename, @format ? ".#{ @format }" : ''])
       dst.binmode
 
       begin
@@ -25,9 +24,9 @@ module Paperclip
 
         parameters = parameters.flatten.compact.join(' ').strip.squeeze(' ')
 
-        success = Paperclip.run('gs', parameters, :source => "#{File.expand_path(src.path)}", :dest => File.expand_path(dst.path))
+        success = Paperclip.run('gs', parameters, :source => File.expand_path(src.path), :dest => File.expand_path(dst.path))
       rescue PaperclipCommandLineError => e
-        raise PaperclipError, "There was an error processing the thumbnail for #{@basename}" if @whiny
+        raise PaperclipError, "There was an error processing the thumbnail for #{ @basename }" if @whiny
       end
       dst
     end

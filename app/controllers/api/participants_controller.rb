@@ -4,11 +4,11 @@ class Api::ParticipantsController < ApiController
 
   def index
     if params[:activity_id].present?
-      @participants = Participant.where( :activity => Activity.find_by_id(params[:activity_id])).includes( :activity, :member )
+      @participants = Participant.where(:activity => Activity.find_by_id(params[:activity_id])).includes(:activity, :member)
 
     elsif params[:member_id].present?
       head :unauthorized and return unless Authorization._member.id == params[:member_id].to_i
-      @participants = Participant.where( :member => Authorization._member ).includes( :activity, :member )
+      @participants = Participant.where(:member => Authorization._member).includes(:activity, :member)
 
     else
       head :bad_request
@@ -17,7 +17,7 @@ class Api::ParticipantsController < ApiController
   end
 
   def create
-    @participant = Participant.new( :member => Authorization._member, :activity => Activity.find_by_id!(params[:activity_id]))
+    @participant = Participant.new(:member => Authorization._member, :activity => Activity.find_by_id!(params[:activity_id]))
     head :bad_request and return unless @participant.save
     render :status => :created
   end

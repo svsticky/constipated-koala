@@ -1,3 +1,5 @@
+require "test_helper"
+
 class ParticipantsControllerTest < ActionDispatch::IntegrationTest
   def assert_counts(activity, expected_counts)
     # Assert that an activity's participant counts match the given values.
@@ -68,8 +70,8 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     a = activities(:test_activities_3)
     m1 = members(:m8eld) #underage
     m2 = members(:thecreator) #adult
-    assert m1.is_underage?, "Expected member being underage, but this member has grown up quite a bit"
-    assert m2.is_adult?, "Expected member being 18+, but this member hasn't left puberty yet"
+    assert m1.underage?, "Expected member being underage, but this member has grown up quite a bit"
+    assert m2.adult?, "Expected member being 18+, but this member hasn't left puberty yet"
     p1 = Participant.create!(
       member: m1,
       activity: a,
@@ -77,5 +79,21 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
     )
     a.reload
     #assert_not p1.save!, "Expected m1 not being able to enroll, but she did"
+  end
+
+  test "luckypeople selection for master's activities not broken" do
+    a = activities(:test_luckypeople_masters)
+    a.enroll_reservists
+
+    assert_counts(a, [3, 1, 2])
+    assert_equal a.attendees.first.member, members(:masterboy030man)
+  end
+
+  test "luckypeople selection for freshman's activities not broken" do
+    a = activities(:test_luckypeople_freshmen)
+    a.enroll_reservists
+
+    assert_counts(a, [3, 1, 2])
+    assert_equal a.attendees.first.member, members(:feutemeteut)
   end
 end

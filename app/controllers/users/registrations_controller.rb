@@ -56,7 +56,7 @@ class Users::RegistrationsController < ApplicationController
   end
 
   # Ensure the confirmation_token is valid, retrieve user if it is, else redirect with error.
-  def get_user_from_token
+  def get_user_from_token # rubocop:disable AccessorMethodName
     token = params[:confirmation_token]
     if not token and params[:user]
       token = params[:user][:confirmation_token] # Or doesn't work if :user == nil
@@ -73,12 +73,13 @@ class Users::RegistrationsController < ApplicationController
       flash[:alert] = I18n.t 'devise.failure.invalid_token'
       redirect_to :new_user_session
     elsif @user.confirmed?
-      flash[:notice] = "#{@user.email} #{I18n.t 'errors.messages.already_confirmed'}"
+      flash[:notice] = "#{ @user.email } #{ I18n.t 'errors.messages.already_confirmed' }"
       redirect_to :new_user_session
     end
   end
 
   private
+
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end

@@ -6,15 +6,17 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 class Members::ActivitiesController < MembersController
+  before_action :set_activity!, except: [:index]
 
   # [GET] /activities
   # Renders the overview of all future activities that are enrollable.
   def index
-    @member = Member.find(current_user.credentials_id)
-    @activities = Activity.where(
-      '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-        Date.today, Date.today
-      ).where(is_viewable: true).order(:start_date)
+    @activities = Activity
+                  .where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
+                         Date.today, Date.today)
+                  .where(is_viewable: true)
+                  .order(:start_date, :start_time)
+    @activities = @activities.reject(&:ended?)
   end
 
   # [GET] /activities/:id
@@ -22,18 +24,10 @@ class Members::ActivitiesController < MembersController
   # activity, the list of enrolled people and reservists, and the notes entry
   # field.
   def show
-    @activity = Activity.find(params[:id])
-    @member = Member.find(current_user.credentials_id)
-
-    # Don't allow activities for old activities
-    if @activity.ended?
-      render :status => :gone, :plain => I18n.t(:activity_ended, scope: 'activerecord.errors.models.activity')
-      return
-    end
-
     @enrollment = Participant.find_by(
-        member_id: current_user.credentials_id,
-        activity_id: @activity.id)
+      member_id: @member.id,
+      activity_id: @activity.id
+    )
 
     @attendees = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists

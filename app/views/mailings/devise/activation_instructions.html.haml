@@ -2,62 +2,56 @@
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Hoi
+      = I18n.t("mailings.greeting")
       %strong #{name},
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
       %h2
-        Welkom bij Sticky!
-      Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
+        = t('mailings.devise.activation_instructions.welcome')
+      = t('mailings.devise.activation_instructions.reception_justification')
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.
+      = t('mailings.devise.activation_instructions.about_sticky')
 
-      Altijd op de hoogte blijven van deze activiteiten? Word lid van de
-      = succeed ' ' do
-        %a{href: 'https://www.facebook.com/groups/814759978565158'} Sticky-leden Facebookgroep
-      en like
-      = succeed '!' do
-        %a{href: 'https://www.facebook.com/stickyutrecht'} onze pagina
-      Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website:
-      = succeed '.' do
-        %a{href: 'https://svsticky.nl'} svsticky.nl
+      = t('mailings.devise.activation_instructions.activity_updates_html',
+          facebook_group_link_start: raw("<a href=\"https://www.facebook.com/groups/814759978565158\">"),
+          facebook_page_link_start: raw("<a href=\"https://www.facebook.com/stickyutrecht\">"),
+          sticky_site_link_start: raw("<a href=\"https://svsticky.nl\">"),
+          link_end: raw("</a>"))
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
       %h2
-        Onderwijs
-      Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via:
-      = succeed '!' do
-        %a{href: 'https://svsticky.nl/boeken'} svsticky.nl/boeken
+        = t('mailings.devise.activation_instructions.corner_stones.education.name')
+      = t('mailings.devise.activation_instructions.corner_stones.education.description_html',
+          books_page_link_start: raw('<a href="https://svsticky.nl/boeken">'),
+          link_end: raw("</a>"))
 
       %h2
-        Bedrijfsleven
-
-      Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via
-      = succeed '!' do
-        %a{href: 'https://svsticky.nl/partners/vacatures'} svsticky.nl/partners/vacatures
-
-      %h2
-        Gezelligheid
-
-      Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiseren we ook veel simpelweg gezellige activiteiten. Daarnaast is er wekelijks een gratis borrel!
+        = t('mailings.devise.activation_instructions.corner_stones.business.name')
+      = t('mailings.devise.activation_instructions.corner_stones.business.description_html',
+          job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
+          link_end: raw("</a>"))
 
       %h2
-        En nu?
+        = t('mailings.devise.activation_instructions.corner_stones.sociability.name')
+      = t('mailings.devise.activation_instructions.corner_stones.sociability.description')
 
-      Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
+      %h2
+        = t('mailings.devise.activation_instructions.and_now')
+      = t('mailings.devise.activation_instructions.wrap_up')
 
-      Activeer je account door op onderstaande knop te klikken:
+      = t('mailings.devise.activation_instructions.account_activation_instructions')
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block.aligncenter{:align => "center", :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      %a.btn-primary{:href => activation_url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;"} account activeren
+      %a.btn-primary{:href => activation_url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;"}
+        = t('mailings.devise.activation_instructions.activate_account')
 
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Tot snel!
+      = t('mailings.devise.activation_instructions.see_you_soon')
       %br
-      Het bestuur
+      = t('mailings.signature')

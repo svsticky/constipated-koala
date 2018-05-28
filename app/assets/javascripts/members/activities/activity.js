@@ -21,7 +21,7 @@ var AlertTitles = {
 
 /**
  * Activity constructor
- * @param activity_panel The panel frim which to create the activity
+ * @param activity_panel The panel from which to create the activity
  * @constructor
  */
 function Activity(activity_panel) {
@@ -378,7 +378,7 @@ Object.defineProperties(Activity.prototype,
      * The span that displays this activity's fullness
      */
     fullness_display: function () {
-      return this.panel.find('.activity-count');
+      return this.panel.find('.fullness');
     },
 
     attendees_table_body: function () {
@@ -406,8 +406,8 @@ Object.defineProperties(Activity.prototype,
 var Enrollment_stati = {
   un_enrolled: new Enrollment_status('btn-success', 'Inschrijven'),
   enrolled: new Enrollment_status('btn-danger', 'Uitschrijven'),
-  reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst'),
-  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
+  reservist: new Enrollment_status('btn-warning', 'Uitschrijven van reservelijst'),
+  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven op reservelijst')
 };
 
 function Enrollment_status(classes, buttonText) {

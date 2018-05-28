@@ -7,9 +7,9 @@ class Admin < ApplicationRecord
   attr_accessor :skip_confirmation
 
   def name
-    return "#{first_name} #{last_name}" if infix.blank?
+    return "#{ first_name } #{ last_name }" if infix.blank?
 
-    "#{first_name} #{infix} #{last_name}"
+    "#{ first_name } #{ infix } #{ last_name }"
   end
 
   after_create do

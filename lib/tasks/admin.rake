@@ -1,5 +1,4 @@
 namespace :admin do
-
   desc 'Create a new admin user'
   task :create, [:email, :password] => :environment do |t, args|
     admin = Admin.new(
@@ -9,7 +8,7 @@ namespace :admin do
     )
 
     if admin.save!
-      puts "#{args[:email]} created!"
+      puts "#{ args[:email] } created!"
     else
       puts 'admin not created, does the password meet the requirements?'
     end
@@ -17,18 +16,17 @@ namespace :admin do
 
   desc 'Delete a normal user, that is it\'s login access'
   task :remove, [:email] => :environment do |t, args|
-
     user = User.find_by_email args[:email]
 
     if user.nil?
-      puts "#{args[:email]} not found"
+      puts "#{ args[:email] } not found"
       exit
     elsif user.admin?
-      puts "#{args[:email]} is an admin account and its login access can not be removed"
+      puts "#{ args[:email] } is an admin account and its login access can not be removed"
       exit
     end
 
-    puts "#{args[:email]} removed" if user.destroy
+    puts "#{ args[:email] } removed" if user.destroy
   end
 
   desc 'Delete an admin account and user'
@@ -36,11 +34,11 @@ namespace :admin do
     user = User.find_by_email args[:email]
 
     if user.nil? || !user.admin?
-      puts "#{args[:email]} not found"
+      puts "#{ args[:email] } not found"
       exit
     end
 
-    puts "#{args[:email]} removed" if user.credentials.destroy
+    puts "#{ args[:email] } removed" if user.credentials.destroy
   end
 
   desc 'Reindex fuzzily for all members'
@@ -52,9 +50,8 @@ namespace :admin do
 
   desc 'Start a new year, create a new membership activity if given and set in config'
   task :start_year, [:membership, :price] => :environment do |t, args|
-
     # remove activities from settings if passed
-    Activity.find( Settings['intro.activities'] ).each do |activity|
+    Activity.find(Settings['intro.activities']).each do |activity|
       next unless activity.start_date < Date.today
       Settings['intro.activities'] -= [activity.id]
     end

@@ -109,6 +109,11 @@ $(document).on('ready page:load turbolinks:load', function () {
     }).fail(function (data) {
       inputAmount.prop('disabled', false);
 
+      if(!data.responseJSON){
+        alert('Fout: ' + data.status + ': ' + data.statusText, 'error');
+        return;
+      }
+
       let errors = data.responseJSON.errors;
       let text = "";
       for(let attribute in errors){

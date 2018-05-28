@@ -60,17 +60,9 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # store images in public folder for testing purposes
-  config.paperclip_defaults = {
-    :storage => :filesystem,
-    :path => ':rails_root/public/images/:class/:id/:style.:extension',
-    :url => 'http://koala.rails.local:3000/images/:class/:id/:style.:extension',
-    :default_url => ':rails_root/public/images/default.png'
-  }
-
   # for development only, debugging with test environment of radio
   config.action_dispatch.default_headers.merge!({
-    'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
-    'Access-Control-Request-Method' => '*'
-  })
+                                                  'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
+                                                  'Access-Control-Request-Method' => '*'
+                                                })
 end

@@ -13,10 +13,10 @@ class Admin::SettingsController < ApplicationController
 
   def create
     if ['additional_positions.moot', 'additional_positions.committee'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].downcase.split(',').each{ |position| position.strip! }
+      Settings[params[:setting]] = params[:value].downcase.split(',').each { |position| position.strip! }
 
-    elsif ['intro.membership','intro.activities'].include? params[:setting]
-      Settings[params[:setting]] = Activity.where( id: params[:value].split(',').map(&:to_i) ).collect(&:id)
+    elsif ['intro.membership', 'intro.activities'].include? params[:setting]
+      Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
 
       render :status => :ok, :json => {
         activities: Settings[params[:setting]],
@@ -26,7 +26,7 @@ class Admin::SettingsController < ApplicationController
 
     elsif ['mongoose_ideal_costs'].include? params[:setting]
       head :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
-      Settings[params[:setting]] = params[:value].sub(',','.').to_f
+      Settings[params[:setting]] = params[:value].sub(',', '.').to_f
 
     elsif ['begin_study_year'].include? params[:setting]
       head :bad_request and return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
@@ -80,11 +80,12 @@ class Admin::SettingsController < ApplicationController
     @limit = params[:limit] ? params[:limit].to_i : 50
     @offset = params[:offset] ? params[:offset].to_i : 0
 
-    @impressions = Impression.all.order( created_at: :desc ).limit(@limit).offset(@offset)
+    @impressions = Impression.all.order(created_at: :desc).limit(@limit).offset(@offset)
     @total_log_items = Impression.count
   end
 
   private
+
   def member_post_params
     params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
   end

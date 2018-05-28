@@ -1,265 +1,454 @@
+---
 en:
-  date:
-    formats:
-      default: "%d-%m-%Y"
-      day_month: "%d %B"
-      short: "%Y"
-
-    day_names: [~, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
-    month_names: [~, January, February, March, April, May, June, July, August, September, Oktober, November, December]
-
-  time:
-    formats:
-      default: "%d-%m-%Y %H:%M"
-      short: "%H:%M"
-
   activerecord:
-    models:
-      ideal_transaction: iDEAL transaction
-      activities: Activities
-      study: Study/Studies
-
-    attributes:
+    annotations:
       member:
-        first_name: First name
-        infix: Prefix
-        last_name: Surname
-
-        birth_date: Date of birth
-        gender: Gender
-        male: Male
-        female: Female
-
-        address: Address
-        house_number: Number
-        postal_code: Postal code
-        city: City
-        phone_number: Phone number
-        email: Email
-        student_id: Student ID
-
-        comments: Comments
-
-      user:
-        email: e-mailaddress
-        password: password
-        password_confirmation: Repeat password
-
+        email: "Can't be a UU email address"
+    attributes:
       activity:
-        name: Name
-        price: Price
+        comments: "Comments (private)"
         description: Description
-        start_date: Startdate
-        start_time: Starttime
         end_date: Enddate
         end_time: Endtime
-        unenroll_date: Unenroll date
-        comments: Comments (private)
-        organized_by: Organisator
-        notes: Extra notes
-        notes_mandatory: Mandatory
-        notes_public: Public
-        location: Location
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
         is_masters: Masters
-        participant_limit: Participant limit
-
-      group:
-        name: Group name
+        is_viewable: Viewable
+        location: Location
+        name: Name
+        notes: "Extra notes"
+        notes_mandatory: Mandatory
+        notes_public: Public
+        organized_by: Organisator
+        participant_limit: "Participant limit"
+        price: Price
+        start_date: Startdate
+        start_time: Starttime
+        unenroll_date: "Un-enroll date"
+      checkout_product:
+        active: Active
+        categories:
+          additional: Additional
+          beverage: Drinks
+          chocolate: Chocolate
+          liquor: Liquor
+          savory: Savory
         category: Category
-        comments: Comments
-
+        image: Image
+        name: Name
+        price: Price
+      education:
+        status:
+          active: Studying
+          graduated: Graduated
+          stopped: Stopped
+      group:
         categories:
           board: Board
           committee: Committee
           moot: Moot
           other: Other
-
+        category: Category
+        comments: Comments
+        members:
+          board: "Board members"
+          committee: "Committee members"
+          moot: "Moot members"
+          other: Members
+        name: "Group name"
         positions:
+          board: "Board member"
           chairman: Chairman
+          education: Education
+          external: "External affairs"
+          internal: "Internal affairs"
           secretary: Secretary
           treasurer: Treasurer
-          internal: Internal affairs
-          external: External affairs
-          education: Education
-          board: Board member
-
-        members:
-          board: Board members
-          committee: Committee members
-          moot: Moot members
-          other: Members
-
-      checkout_product:
-        name: Name
-        price: Price
-        image: Image
-        category: Category
-        active: Active
-
-        categories:
-          beverage: Drinks
-          chocolate: Chocolate
-          savory: Savory
-          additional: Additional
-          liquor: Liquor
-
-      tag:
-        names:
-          pardon: Pardon
-          merit: Merit
-          honorary: Honorary
-          donator: Donator
-          suspended: Suspended
-
+      member:
+        address: Address
+        birth_date: "Date of birth"
+        city: City
+        comments: Comments
+        educations: Study
+        email: Email
+        female: Female
+        first_name: "First name"
+        gender: Gender
+        house_number: Number
+        infix: Prefix
+        last_name: Surname
+        male: Male
+        phone_number: "Phone number"
+        postal_code: "Postal code"
+        student_id: "Student ID"
+        tags: Tags
+      participant:
+        paid:
+          ? "false"
+          : "Not payed"
+          ? "true"
+          : Paid
+      settings:
+        additional_committee_positions:
+          description: "Roles besides chairman, treasurer and board member that will be added to the committees."
+          name: "Additional committee roles"
+        additional_moot_positions:
+          description: "Roles besides chairman, treasurer and board member that will be added to the moots."
+          name: "Additional moot roles"
+        begin_study_year:
+          description: "The start of next study year. On this date a new year will be automatically started."
+          name: "Study year"
+        intro_activities:
+          description: "Activities during the introduction period for which new members can enroll at the introduction form."
+          name: "Introduction activities"
+        intro_membership:
+          description: "The activity for enrolling at Sticky, automatically generated."
+          name: "Introduction membership"
+        liquor_time:
+          description: "Time at which the purchase of liquor is allowed in Checkout. Till that time, an error will be display."
+          name: "Time at which the purchase of liquor is allowed"
+        mongoose_ideal_costs:
+          description: "The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way."
+          name: "IDeal transaction costs"
       study:
         names:
-          inca: Computer Science
-          inku: Information Science
+          acsc: "Advanced Computing Science"
+          ainm: "Artificial Intelligence"
+          atec: "Technical Artificial Intelligence"
+          ckem: "Content & Knowledge Engineering"
+          cosc: "Computing Science"
+          gmte: "Game and Media Technology"
           gt: Gametechnology
+          inca: "Computer Science"
+          inku: "Information Science"
+          mbim: "Business Informatics"
           wisk: Mathematics
-
-          cosc: Computing Science
-          mbim: Business Informatics
-          gmte: Game and Media Technology
-          ainm: Artificial Intelligence
-
-          atec: Technical Artificial Intelligence
-          acsc: Advanced Computing Science
-          ckem: Content & Knowledge Engineering
-
-      education:
-        status:
-          active: Studying
-          stopped: Stopped
-          graduated: Graduated
-
-      settings:
-        begin_study_year:
-          name: Study year
-          description: The start of next study year. On this date a new year will be automatically started.
-
-        mongoose_ideal_costs:
-          name: IDeal transaction costs
-          description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
-        liquor_time:
-          name: Time at which the purchase of liquor is allowed
-          description: Time at which the purchase of liquor is allowed in Checkout. Till that time, an error will be display.
-
-        intro_membership:
-          name: Introduction membership
-          description: The activity for enrolling at Sticky, automatically generated.
-        intro_activities:
-          name: Introduction activities
-          description: Activitities during the introduction period for which new members can enroll at the introduction form.
-
-        additional_committee_positions:
-          name: Additional committee roles
-          description: Roles besides chairman, treasurer and board member that will be added to the committees.
-        additional_moot_positions:
-          name: Additional moot roles
-          description: Roles besides chairman, treasurer and board member that will be added to the moots.
-
-    annotations:
-      member:
-        email: Can't be a UU email address
-
+      tag:
+        names:
+          donator: Donator
+          honorary: Honorary
+          merit: Merit
+          pardon: Pardon
+          suspended: Suspended
+      user:
+        email: e-mailaddress
+        password: password
+        password_confirmation: "Repeat password"
     errors:
-      default: Some has gone wrong
-      incomplete: Oh snap, you forgot some things
-      no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
-
-      messages:
-        blank: can't be blank
-
-      subscribe:
-        failed: Your payment has failed, but you have been enrolled!
-        success: Your payment has been received and you are enrolled!
-        no_bank_provided: Bank can't be empty when paying with iDEAL.
-        success_without_payment: You have been enrolled!
-
-
+      default: "Some has gone wrong"
+      incomplete: "Oh snap, you forgot some things"
       models:
         activity:
-          enrolled: You are enrolled for %{activity}
-          unenrolled: You have been unenrolled for %{activity}
-          backup_enrolled: You have been added to the spares list of %{activity}
-          activity_ended: This activity has already ended
-          participant_suspended: You have been suspended. Contact the board of Sticky
-          participant_no_masters: You are not a masters student. This is a masters-only activity.
-          participant_no_freshman: You are not a freshman student. This is a freshmans-only activity.
-          participant_limit_reached: '%{activity} is full!'
-          participant_underage: This activity is for adults only ;)
-          participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
-          participant_notes_updated: Information updated
-          not_enrollable: Activity not enrollable
-          not_unenrollable: Activity not unenrollable
-          blank_and_start_time: can't be blank if the start time is set
-          blank_and_end_time: can't be blank if the end time is set
+          activity_ended: "This activity is not or no longer available. Go back."
           attributes:
             end_date:
-              before_start_date: can't be before the start date
+              before_start_date: "can't be before the start date"
             end_time:
-              before_start_time: can't be before the start time
+              before_start_time: "can't be before the start time"
             unenroll_date:
-              after_start_date: can't be after the start date
-
+              after_start_date: "can't be after the start date"
+          backup_enrolled: "You have been added to the spares list of %{activity}"
+          blank: "can't be blank"
+          blank_and_end_time: "can't be blank if the end time is set"
+          blank_and_start_time: "can't be blank if the start time is set"
+          enrolled: "You are enrolled for %{activity}"
+          not_enrollable: "Activity not enrollable"
+          not_unenrollable: "Activity not un-enrollable"
+          participant_limit_reached: "%{activity} is full!"
+          participant_no_freshman: "You are not a freshman student. This is a freshmen-only activity."
+          participant_no_masters: "You are not a masters student. This is a masters-only activity."
+          participant_no_student: "You are not enrolled in a study. This activity is for students only"
+          participant_notes_not_filled: "This activity requires extra information, please fill this in before enrolling"
+          participant_notes_updated: "Information updated"
+          participant_suspended: "You have been suspended. Contact the board of Sticky"
+          participant_underage: "This activity is for adults only ;) ;) ;)"
+          unenrolled: "You have been un-enrolled for %{activity}"
+        checkout_product:
+          blank: "can't be blank"
+        checkout_transaction:
+          attributes:
+            items:
+              member_under_age: "You're legally not allowed to buy alcohol yet"
+              not_liquor_time: "Buying alcohol is not allowed until %{Settings.liquor_time}"
+            payment_method:
+              blank: "The payment method was not specified"
+            price:
+              blank: "The price was not specified"
+              insufficient_credit: "Insufficient credit"
+              other_than: "The upgrade can't be 0"
+        ideal_transaction:
+          attributes:
+            checkout: "Mongoose credit"
+            fees: "iDEAL fee"
+          blank: "can't be blank"
+          failed: "has not been processed"
+          processed: "has already been processed"
+          success: "has been processed!"
         member:
-        attributes:
-          phone_number:
-            invalid: consists of 10 digits
-          email:
-            taken: is already registered
-            invalid: is not a valid mail address
-          student_id:
-            taken: is already reigstered
-            invalid: is not valid
-            elfproef: is not valid
-
+          attributes:
+            email:
+              invalid: "is not a valid mail address"
+              taken: "is already registered"
+            phone_number:
+              invalid: "consists of 10 digits"
+            student_id:
+              elfproef: "is not valid"
+              invalid: "is not valid"
+              taken: "is already registered"
+          blank: "can't be blank"
+        unpermitted: "is not permitted"
         user:
           attributes:
             email:
-              invalid: is not a valid email address
-              taken: already exists in the database
+              blank: "can't be blank"
+              invalid: "is not a valid email address"
+              taken: "already exists in the database"
             password:
-              too_short: should be at least 8 characters long
-              invalid: isn't valid
+              invalid: "isn't valid"
+              too_short: "should be at least 8 characters long"
             password_confirmation:
-              confirmation: isn't repeated correctly
-
-        checkout_transaction:
-          attributes:
-            price:
-              blank: The price was not specified
-              other_than: The upgrade can't be 0
-              insufficient_credit: Insufficient credit
-            payment_method:
-              blank: The payment method was not specified
-            items:
-              not_liquor_time: 'Buying alcohol is not allowed until %{Settings.liquor_time}'
-              member_under_age: You're legally not allowed to buy alcohol yet
-
-        ideal_transaction:
-        processed: is already processed
-        attributes:
-          checkout: Mongoose credit
-          fees: iDEAL fee
-
-        unpermitted: is not permitted
-
+              confirmation: "isn't repeated correctly"
+          blank: "can't be blank"
+      no_connection: "No connection available with %{url}, not all %{name} are complete and will be shown!"
+      record_invalid: "Error! The data is invalid."
+      subscribe:
+        failed: "Your payment has failed, but you have been enrolled!"
+        no_bank_provided: "Bank can't be empty when paying with iDEAL."
+        success: "Your payment has been received and you are enrolled!"
+        success_without_payment: "You have been enrolled!"
+    impression:
+      activity:
+        create: "activity created"
+        mail: "payment mail sent"
+        update: "activity updated"
+      checkout_transaction:
+        change_funds: "Tegoed bijgewerkt"
+      checkoutproduct:
+        activate_card: "card activated"
+        change_funds: "funds added"
+      group:
+        create: "group created"
+        update: "group updated"
+      groupmember:
+        create: "%{name} added"
+        update: "%{name} updated"
+      member:
+        create: "member created"
+        destroy: "member deleted"
+        update: "member updated"
+      participant:
+        create: "participant added"
+        update:
+          paid: "participant has paid"
+          price: "price for participant has been updated"
+          unpaid: "participant hasn't paid"
+    labels:
+      activities:
+        date: Datum
+        time: Tijd
+        when: Wanneer
+    messages:
+      participant:
+        paid: "%{name} has paid for %{activity}"
+        price: "%{activity} has been changed for %{name}"
+        unpaid: "%{name} has not paid for %{activity}"
+    models:
+      activity: Activities
+      checkout_balance: "Mongoose credit"
+      checkout_transactions: "Mongoose transactions"
+      group: Groups
+      ideal_transaction: "iDEAL transaction"
+      impressions: Logs
+      member: Members
+      participants:
+        attendees:
+          one: Deelnemer
+          other: Deelnemers
+        reservists:
+          one: Reserve
+          other: Reserves
+      settings: Settings
+      study: Study/Studies
+  admin:
+    activities:
+      partials:
+        edit:
+          invalid_values: "Oops, not everything was filled in correctly"
+    navigation:
+      apps: Apps
+      checkout: Checkout
+      general: General
+      ideal: iDeal
+      payments: Payments
+  association_name: "Study association Sticky"
+  date:
+    day_names:
+      - ~
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+    formats:
+      day_month: "%d %B"
+      default: "%d-%m-%Y"
+      short: "%Y"
+    month_names:
+      - ~
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - Oktober
+      - November
+      - December
   devise:
-    registrations:
-      new: Create a Sticky account with the mail address you have provided us.
-      signup: Sign up
-      passwordrecovery: Forgot password
-      login: Sign in
-
-    passwords:
-      new: Enter your email address to obtain a new password.
-      edit: Enter the password you want to use for your Sticky-account.
-
     confirmations:
-      new: Confirm your email address
-
-  association_name: Study association Sticky
+      activate_account: "Activate account"
+      new:
+        instruction: "Confirm the email address for your sticky account"
+        submit: Submit
+    passwords:
+      edit:
+        change_password: "Change password"
+        instruction: "Enter the password you want to use for your Sticky-account."
+      new:
+        instruction: "Enter your email address to obtain a new password."
+        submit: Submit
+    placeholders:
+      email: e-mail address
+      password: password
+      repeat_password: repeat password
+    registrations:
+      login: "Sign in"
+      new:
+        instruction: "Create a Sticky account"
+        submit: "Create account"
+      password_recovery: "Forgot password"
+      sign_up: "Sign up"
+    sessions:
+      new:
+        remember_me: "Remember me"
+        sign_in: "Log in"
+        sign_out: "Sign out"
+  editing:
+    cancel: Cancel
+    delete: Delete
+    save: Save
+  files:
+    delete: Remove
+    download: Download
+    upload: Upload
+  layouts:
+    doorkeeper:
+      click_here: "Click here"
+      hi: Hoi
+      identity_confirmation: "Are you not %{name}?"
+    mailer:
+      alerts: "Alerts e.g. approaching your limit"
+      footer_html: "For more information, visit %{koala_link_start} koala.svsticky.nl %{link_end} or mail to %{secretary_mail_start} secretaris@svsticky.nl %{link_end} for questions."
+    partials:
+      editor:
+        large: large
+        small: small
+        standard: standard
+      mail:
+        addressees: Addressees
+        all_participants: ALL_PARTICIPANTS
+        draft: Draft
+        non_payers: NON_PAYERS
+        send: Send
+        subject: Subject
+      poster_modal:
+        close: Sluiten
+        more_info: "More info"
+      search:
+        active: active
+        alumni: alumni
+        anybody: anybody
+        studying: studying
+  mailings:
+    best_regards: "Best regards,"
+    checkout:
+      confirm_card: "Confirm card"
+      confirmation_instructions: "Confirm your card for your Checkout account with Study association Sticky by clicking the following button:"
+    devise:
+      activation_instructions:
+        about_sticky: "You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability."
+        account_activation_instructions: "Activate your account by clicking the button below"
+        activate_account: "Activate account"
+        activity_updates_html: "Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all information that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}."
+        and_now: "And now?"
+        corner_stones:
+          business:
+            description_html: "To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, in-house days and drinks with these companies. These activities offer besides information about the company in question, also a nice opportunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}."
+            name: Business
+          education:
+            description_html: "We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken %{link_end}!"
+            name: Education
+          sociability:
+            description: "Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!"
+            name: Sociability
+        reception_justification: "You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your account in our members portal. You could also skip this gorgeous introduction talk en scroll down immediately. We won't see that anyway (or will we?)."
+        see_you_soon: "See you soon!"
+        welcome: "Welcome to Sticky!"
+        wrap_up: "Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks."
+      confirmation_instructions:
+        button_instructions: "Confirm your e-mail address for your Sticky account by clicking the button below!"
+        confirm_account: "Confirm account"
+      reset_passwords_instructions:
+        button_instructions: "Click the button below to enter a new password or ignore this e-mail to keep your current one."
+        notification: "A new password has been requested for your Sticky account, or you tried to create a new one."
+        reset_password: "Reset password"
+    greeting: Hoi
+    participants:
+      enrolled:
+        activity_start_html: "The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!"
+        button_instructions_html: "You can un-enroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page."
+        free_spot_html: "Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list."
+        to_the_activity: "To the activity"
+      inform:
+        activity_visited_html: "You visited <strong>%{subject}</strong>, this activity cost %recipient.price%."
+        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>\"%{subject} %recipient.name%\"</i>?"
+    signature: "The board"
+  members:
+    activities:
+      bug_report: BUG!
+      index:
+        no_activities: "There are no activities for which you can enroll at the moment"
+      partials:
+        view:
+          actions:
+            enroll: Enroll
+            reservist_enroll: "Enroll to spares list"
+            reservist_unenroll: "Un-enroll from spares list"
+            unenroll: Uitschrijven
+            update_info: "Update info"
+          more_info: "More info"
+          notes_mandatory: "Extra info required!"
+    genders:
+      female: FEMALE
+      male: MALE
+    home:
+      edit:
+        general_data: General
+      index:
+        edit_profile: "Edit profile"
+        outstanding_payments: "Outstanding payments"
+        upgrade: Upgrade
+    navigation:
+      edit_profile: "Edit profile"
+  navigation:
+    back: Back
+    home: Home
+  time:
+    formats:
+      default: "%d-%m-%Y %H:%M"
+      short: "%H:%M"
