@@ -50,8 +50,8 @@ module ConstipatedKoala
     config.paperclip_defaults = {
       :storage => :filesystem,
       :path => ':rails_root/public/images/:class/:id/:style.:extension',
-      :url => '/images/:class/:id/:style.:extension',
-      :default_url => '/poster_placeholder.svg'
+      :url => "#{ ENV['KOALA_DOMAIN'] }/images/:class/:id/:style.:extension",
+      :default_url => "#{ ENV['KOALA_DOMAIN'] }/poster_placeholder.svg"
     }
   end
 end

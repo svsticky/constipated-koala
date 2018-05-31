@@ -140,6 +140,7 @@ en:
       models:
         activity:
           activity_ended: "This activity is not or no longer available. Go back."
+          already_enrolled: "You are already enrolled for this activity."
           attributes:
             end_date:
               before_start_date: "can't be before the start date"
@@ -162,8 +163,8 @@ en:
           participant_notes_updated: "Information updated"
           participant_suspended: "You have been suspended. Contact the board of Sticky"
           participant_underage: "This activity is for adults only ;) ;) ;)"
-          unenrolled: "You have been un-enrolled for %{activity}"
-          unenrolled: "The un-enrollment deadline has passed."
+          unenrolled: "You have been un-enrolled for %{activity}."
+          unenroll_date_passed: "The un-enrollment deadline has passed."
         checkout_product:
           blank: "can't be blank"
         checkout_transaction:

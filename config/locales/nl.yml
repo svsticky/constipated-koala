@@ -235,6 +235,7 @@ nl:
       models:
         activity:
           activity_ended: "Deze activiteit is (niet) meer beschikbaar. Ga terug."
+          already_enrolled: "Je bent al ingeschreven voor deze activiteit."
           attributes:
             end_date:
               before_start_date: "kan niet voor de startdatum zijn"
@@ -242,20 +243,20 @@ nl:
               before_start_time: "kan niet voor de starttijd zijn"
             unenroll_date:
               after_start_date: "kan niet na de startdatum zijn"
-          backup_enrolled: "Je bent op de reservelijst gezet van %{activity}"
+          backup_enrolled: "Je bent op de reservelijst gezet van %{activity}."
           blank: "kan niet leeg zijn"
           blank_and_end_time: "kan niet leeg zijn als er een eindtijd is"
           blank_and_start_time: "kan niet leeg zijn als er een starttijd is"
-          enrolled: "Je bent ingeschreven voor %{activity}"
-          not_enrollable: "Activiteit niet inschrijfbaar"
-          not_unenrollable: "Activiteit niet uitschrijfbaar"
+          enrolled: "Je bent ingeschreven voor %{activity}."
+          not_enrollable: "Activiteit niet inschrijfbaar."
+          not_unenrollable: "Activiteit niet uitschrijfbaar."
           participant_limit_reached: "%{activity} zit vol!"
           participant_no_freshman: "Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit."
           participant_no_masters: "Je bent geen masters student. Deze activiteit is een masters-activiteit."
-          participant_no_student: "Je bent niet ingeschreven bij een studie. Deze activiteit is alleen voor studenten"
-          participant_notes_not_filled: "Deze activiteit vereist extra informatie, vul dit in voor dat je je inschrijft"
-          participant_notes_updated: "Informatie bijgewerkt"
-          participant_suspended: "Je bent geschorst. Neem contact op met het bestuur van Sticky"
+          participant_no_student: "Je bent niet ingeschreven bij een studie. Deze activiteit is alleen voor studenten."
+          participant_notes_not_filled: "Deze activiteit vereist extra informatie, vul dit in voordat je je inschrijft."
+          participant_notes_updated: "Informatie bijgewerkt."
+          participant_suspended: "Je bent geschorst. Neem contact op met het bestuur van Sticky."
           participant_underage: "Deze activiteit is alleen voor grote mensen ;) ;) ;)"
           unenrolled: "Je bent uitgeschreven voor %{activity}."
           unenroll_date_passed: "De uitschrijfdeadline is verstreken."
@@ -264,7 +265,7 @@ nl:
         checkout_transaction:
           attributes:
             items:
-              member_under_age: "Je bent nog niet out genoeg om alcohol te kopen"
+              member_under_age: "Je bent nog niet oud genoeg om alcohol te kopen"
               not_liquor_time: "Het kopen van alcohol is pas toegestaan om %{Settings.liquor_time}"
             payment_method:
               blank: "De betaalmethode moet gespecificeerd zijn"
