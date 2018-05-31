@@ -36,7 +36,8 @@
 
               .input-group-btn
                 %div.btn.btn-primary.file-input-wrapper
-                  %span = I18n.t('files.upload')
+                  %span
+                    = I18n.t('files.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
                 %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' if @activity.poster_file_name.nil? ) }
                   %span.caret
