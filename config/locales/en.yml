@@ -163,6 +163,7 @@ en:
           participant_suspended: "You have been suspended. Contact the board of Sticky"
           participant_underage: "This activity is for adults only ;) ;) ;)"
           unenrolled: "You have been un-enrolled for %{activity}"
+          unenrolled: "The un-enrollment deadline has passed."
         checkout_product:
           blank: "can't be blank"
         checkout_transaction:

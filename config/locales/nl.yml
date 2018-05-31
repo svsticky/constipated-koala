@@ -257,7 +257,8 @@ nl:
           participant_notes_updated: "Informatie bijgewerkt"
           participant_suspended: "Je bent geschorst. Neem contact op met het bestuur van Sticky"
           participant_underage: "Deze activiteit is alleen voor grote mensen ;) ;) ;)"
-          unenrolled: "Je bent uitgeschreven voor %{activity}"
+          unenrolled: "Je bent uitgeschreven voor %{activity}."
+          unenroll_date_passed: "De uitschrijfdeadline is verstreken."
         checkout_product:
           blank: "kan niet leeg zijn"
         checkout_transaction:

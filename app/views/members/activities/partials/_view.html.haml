@@ -1,4 +1,4 @@
-.panel.panel-default.panel-activity{ :data => {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory }}
+.panel.panel-default.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
   .panel-heading.text-right
     %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
@@ -46,6 +46,7 @@
         %strong= I18n.t("activerecord.attributes.activity.unenroll_date")
         %span.activity-unenroll
           = activity.unenroll_date.strftime("%d/%m/%Y")
+          23:59
       <br/>
       - if view == 'index'
         - if activity.notes_mandatory

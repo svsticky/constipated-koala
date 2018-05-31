@@ -178,14 +178,20 @@ class Members::ParticipantsController < MembersController
   def destroy
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
-    if !@activity.is_enrollable? ||
-       (@activity.unenroll_date&.end_of_day && @activity.unenroll_date.end_of_day < DateTime.now)
+    not_enrollable = !@activity.is_enrollable?
+    deadline_passed = @activity.unenroll_date&.end_of_day &&
+                      @activity.unenroll_date.end_of_day < DateTime.now
+    if not_enrollable || deadline_passed
+      message = I18n.t(:not_unenrollable, scope: @activity_errors_scope)
+
+      if not_enrollable
+        message = I18n.t(:not_enrollable, scope: @activity_errors_scope)
+      elsif deadline_passed
+        message = I18n.t(:unenroll_date_passed, scope: @activity_errors_scope)
+      end
+
       render status: :locked, json: {
-        message: I18n.t(
-          :not_unenrollable,
-          scope: @activity_errors_scope,
-          activity: @activity.name
-        ),
+        message: message,
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
