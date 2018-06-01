@@ -11,11 +11,11 @@
         %br
         - if view == 'index'
           %button.btn.btn-info.more-info{"data-dismiss" => "modal"}
-            Meer info
+            = I18n.t("layouts.partials.poster_modal.more_info")
       .modal-footer
         .col-md-1
           %button.btn.btn-default.prev-activity <
         .col-md-6.col-md-offset-2
-          %button.btn.btn-default.full-width{"data-dismiss" => "modal"} Sluiten
+          %button.btn.btn-default.full-width{"data-dismiss" => "modal"}= I18n.t("layouts.partials.poster_modal.close")
         .col-md-1.col-md-offset-2
           %button.btn.btn-default.next-activity >

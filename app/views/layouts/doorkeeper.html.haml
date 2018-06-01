@@ -22,11 +22,11 @@
 
         - if current_user.present?
           %h2
-            Hoi
-            %b #{current_user.credentials.first_name},
-            bent u niet #{current_user.credentials.name}?
+            =I18n.t("layouts.doorkeeper.hi")
+            %b= current_user.credentials.first_name
+            = I18n.t("layouts.doorkeeper.identity_confirmation", name: current_user.credentials.name)
             = link_to destroy_user_session_path, 'data-method' => :delete do
-              klik dan hier
+              = I18n.t("layouts.doorkeeper.click_here")
 
       = yield
 

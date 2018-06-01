@@ -3,17 +3,23 @@ class Admin::ParticipantsController < ApplicationController
 
   def create
     @activity = Activity.find_by_id params[:activity_id]
-    @participant = Participant.new(:member => Member.find(params[:member]), :activity => @activity)
+    @participant = Participant.find_or_initialize_by(
+      member: Member.find(params[:member]),
+      activity: @activity
+    )
+
+    new_record = @participant.new_record?
+    status = new_record ? :created : :conflict
 
     if @participant.save
-      impressionist(@participant)
+      impressionist(@participant) if new_record
       @response = @participant.attributes # TODO refactor, very old code
       @response['price'] = @activity.price
       @response['email'] = @participant.member.email
       @response['name'] = @participant.member.name
       @response['notes'] = @participant.notes
 
-      render :status => :created, :json => @response.to_json
+      render status: status, :json => @response.to_json
     end
   end
 

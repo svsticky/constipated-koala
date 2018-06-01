@@ -1,0 +1,2 @@
+#!/bin/bash
+bundle exec i15r -n > .i15r-cache

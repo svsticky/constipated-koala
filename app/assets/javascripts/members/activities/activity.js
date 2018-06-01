@@ -105,7 +105,7 @@ Activity.prototype = {
   },
 
   has_un_enroll_date_passed: function () {
-    return typeof this.un_enroll_date !== 'undefined' && $.now() > this.un_enroll_date;
+    return typeof this.un_enroll_date !== 'undefined' && new Date() > this.un_enroll_date;
   },
 
   is_enrollable: function () {
@@ -331,10 +331,10 @@ Object.defineProperties(Activity.prototype,
     },
 
     un_enroll_date: function () {
-      var date_unsplit = this.panel.find('.activity-unenroll')[0];
-      if (typeof date_unsplit !== "undefined") {
-        var date_split = date_unsplit.innerText.split("/");
-        return new Date(date_split[2], date_split[1] - 1, date_split[0]);
+      if (typeof this.panel[0].dataset.unenrollDate !== "undefined") {
+        var timestamp = Number(this.panel[0].dataset.unenrollDate);
+        var result = new Date(timestamp * 1000); // * 1000 is for milliseconds
+        return result;
       }
     },
 
@@ -406,8 +406,8 @@ Object.defineProperties(Activity.prototype,
 var Enrollment_stati = {
   un_enrolled: new Enrollment_status('btn-success', 'Inschrijven'),
   enrolled: new Enrollment_status('btn-danger', 'Uitschrijven'),
-  reservist: new Enrollment_status('btn-warning', 'Uitschrijven Reservelijst'),
-  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven Reservelijst')
+  reservist: new Enrollment_status('btn-warning', 'Uitschrijven van reservelijst'),
+  reservistable: new Enrollment_status('btn-warning-sat', 'Inschrijven op reservelijst')
 };
 
 function Enrollment_status(classes, buttonText) {
