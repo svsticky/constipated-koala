@@ -102,11 +102,9 @@ class Members::HomeController < MembersController
 
     if ideal.save
       redirect_to ideal.mollie_uri
-      return
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
       redirect_to members_home_path
-      return
     end
   end
 

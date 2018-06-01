@@ -1,5 +1,6 @@
 #:nodoc:
 module Paperclip
+  #:nodoc:
   class Ghostscript < Processor
     attr_accessor :current_geometry, :target_geometry, :format, :whiny, :convert_options, :source_file_options
 

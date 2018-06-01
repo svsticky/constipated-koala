@@ -66,6 +66,14 @@ Style/NumericLiterals:
 Style/RedundantReturn:
   Enabled: false
 
+Style/GlobalVars:
+  Exclude:
+    - 'bin/*.rb'
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/*'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.

@@ -6,6 +6,7 @@ require 'uri'
 
 #:nodoc:
 module ConstipatedKoala
+  #:nodoc:
   class Request
     def initialize(domain)
       @uri = URI.parse domain
