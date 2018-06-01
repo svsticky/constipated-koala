@@ -1,3 +1,4 @@
+#:nodoc:
 class String
   def is_number? # rubocop:disable PredicateName
     return true if Float(self)
@@ -13,6 +14,7 @@ class String
   end
 end
 
+#:nodoc:
 class Date
   # Return the first year of a study year, hence 2014 means the year 2014-2015
   def study_year
@@ -53,6 +55,7 @@ class Date
   end
 end
 
+#:nodoc:
 class Time
   def before(time)
     return Time.zone.parse(time).to_i > to_i
@@ -68,12 +71,14 @@ class Time
   end
 end
 
+#:nodoc:
 class Hash
   def compact
     delete_if { |_, v| v.nil? }
   end
 end
 
+#:nodoc:
 class Array
   def only(*keys)
     map do |hash|

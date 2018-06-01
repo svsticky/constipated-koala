@@ -4,6 +4,7 @@ require 'ostruct'
 require 'net/http'
 require 'uri'
 
+#:nodoc:
 module ConstipatedKoala
   class Request
     def initialize(domain)

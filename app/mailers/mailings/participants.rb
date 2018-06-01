@@ -1,3 +1,4 @@
+#:nodoc:
 module Mailings
   class Participants < ApplicationMailer
     def inform(activity, recipients, sender, subject, html, text = nil)

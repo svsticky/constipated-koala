@@ -5,6 +5,7 @@ require 'rails/all'
 # you've limited to :test, :development, :staging or :production.
 Bundler.require(*Rails.groups)
 
+#:nodoc:
 module ConstipatedKoala
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
