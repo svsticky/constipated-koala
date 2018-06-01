@@ -1,5 +1,6 @@
 #:nodoc:
 module Mailings
+  #:nodoc:
   class Participants < ApplicationMailer
     def inform(activity, recipients, sender, subject, html, text = nil)
       participants = activity.participants.joins(:member).where('members.email' => recipients)

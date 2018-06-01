@@ -112,11 +112,11 @@ class Activity < ApplicationRecord
   end
 
   # Prevents duplication in hiding information in the API if notes_public is false.
-  def participant_filter(ps)
+  def participant_filter(participants)
     if notes_public
-      ps.map { |p| { name: p.member.name, notes: p.notes } }
+      participants.map { |p| { name: p.member.name, notes: p.notes } }
     else
-      ps.map { |p| { name: p.member.name } }
+      participants.map { |p| { name: p.member.name } }
     end
   end
 
@@ -147,9 +147,9 @@ class Activity < ApplicationRecord
     write_attribute(:price, nil) if price == 0
   end
 
-  def self.combine_dt(d, t)
-    return Time.zone.local(d.year, d.month, d.day, t.hour, t.min, t.sec) if t
-    return Time.zone.local(d.year, d.month, d.day) if d
+  def self.combine_dt(date, time)
+    return Time.zone.local(date.year, date.month, date.day, time.hour, time.min, time.sec) if time
+    return Time.zone.local(date.year, date.month, date.day) if date
 
     return nil
   end

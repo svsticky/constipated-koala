@@ -169,14 +169,13 @@ class Member < ApplicationRecord
   after_commit :create_user, on: :create
 
   def create_user
-    if @create_account
-      user = User.new
-      user.skip_confirmation_notification!
-      user.email = email
-      user.credentials = self
-      user.require_activation!
-      user.save
-    end
+    return unless @create_account
+    user = User.new
+    user.skip_confirmation_notification!
+    user.email = email
+    user.credentials = self
+    user.require_activation!
+    user.save
   end
 
   # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
@@ -248,7 +247,7 @@ class Member < ApplicationRecord
       return
     end
 
-    for study in studies do
+    studies.each do |study|
       code, year, status, end_date = study.split(/, /)
 
       if Study.find_by_code(code).nil?
@@ -288,7 +287,7 @@ class Member < ApplicationRecord
     end
 
     # remove studies no longer present
-    for education in educations do
+    educations.each do |education|
       check = "#{ education.study.code } | #{ education.start_date.year }"
       check = "INCA | #{ education.start_date.year }" if education.study.code == 'GT' # NOTE dirty fix for gametechers
 

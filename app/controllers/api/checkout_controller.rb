@@ -116,7 +116,9 @@ class Api::CheckoutController < ApplicationController
     end
   end
 
-  private # TODO: implement for OAuth client credentials
+  # TODO: implement for OAuth client credentials
+
+  private
 
   def authenticate_checkout
     if params[:token] != ENV['CHECKOUT_TOKEN']

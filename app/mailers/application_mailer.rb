@@ -1,3 +1,4 @@
+# :nodoc:
 class ApplicationMailer < ActionMailer::Base
   default from: 'no-reply@svsticky.nl'
   layout 'mailer'

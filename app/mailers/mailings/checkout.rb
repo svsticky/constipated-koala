@@ -1,5 +1,6 @@
 #:nodoc:
 module Mailings
+  #:nodoc:
   class Checkout < ApplicationMailer
     def confirmation_instructions(card, confirmation_url)
       return if ENV['MAILGUN_TOKEN'].blank?

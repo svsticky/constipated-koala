@@ -1,5 +1,6 @@
 #:nodoc:
 module Mailings
+  #:nodoc:
   class Devise < ApplicationMailer
     include ::Devise::Controllers::UrlHelpers
 
