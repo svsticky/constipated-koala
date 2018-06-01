@@ -1,3 +1,4 @@
+#:nodoc:
 class ChangeIdealTable < ActiveRecord::Migration[4.2]
   def change
     add_column :ideal_transactions, :description, :string, after: :uuid
