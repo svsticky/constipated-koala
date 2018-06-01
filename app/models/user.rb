@@ -1,3 +1,4 @@
+#:nodoc:
 class User < ApplicationRecord
   is_impressionable
 

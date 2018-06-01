@@ -1,3 +1,4 @@
+#:nodoc:
 class CheckoutTransaction < ApplicationRecord
   validates :price, presence: true, numericality: { other_than: 0 }
   validate :validate_sufficient_credit, :validate_payment_method, :validate_liquor_items

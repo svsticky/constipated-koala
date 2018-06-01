@@ -1,6 +1,7 @@
 # By default, a class begins with a number of validations. student_id is
 # special because in the intro website it cannot be empty. However, an admin can
 # make it empty.
+#:nodoc:
 class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true

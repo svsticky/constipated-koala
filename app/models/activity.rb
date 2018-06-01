@@ -1,4 +1,5 @@
 # Represents an activity in the database.
+#:nodoc:
 class Activity < ApplicationRecord
   validates :name, presence: true
 

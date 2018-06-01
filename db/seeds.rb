@@ -244,7 +244,7 @@ end
 puts 'Creating activities'
 start_dates = []
 20.times do
-  start_dates.push(Faker::Date.between(DateTime.now, 3.months.from_now))
+  start_dates.push(Faker::Date.between(Time.now, 3.months.from_now))
 end
 
 40.times do

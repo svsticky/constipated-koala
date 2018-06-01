@@ -1,3 +1,4 @@
+#:nodoc:
 class Group < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true

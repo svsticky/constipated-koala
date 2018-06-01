@@ -1,3 +1,4 @@
+#:nodoc:
 class IdealTransaction < ApplicationRecord
   require 'request'
 

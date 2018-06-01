@@ -1,3 +1,4 @@
+#:nodoc:
 class CheckoutBalance < ApplicationRecord
   validates :balance, presence: true
   validates :member, presence: true

@@ -1,3 +1,4 @@
+#:nodoc:
 class Advertisement < ApplicationRecord
   validates :name, presence: true
 

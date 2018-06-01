@@ -1,5 +1,4 @@
-# NOTE don't destroy records we want to preserve even after destroying the object
-#:nodoc:
+#:nodoc: NOTE don't destroy records we want to preserve even after destroying the object
 module Impressionist
   module IsImpressionable
     extend ActiveSupport::Concern

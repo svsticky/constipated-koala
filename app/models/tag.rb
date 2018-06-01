@@ -1,3 +1,4 @@
+#:nodoc:
 class Tag < ApplicationRecord
   enum name: { pardon: 1, merit: 2, honorary: 3, donator: 4, suspended: 5 }
 

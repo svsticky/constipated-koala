@@ -1,3 +1,4 @@
+#:nodoc:
 class CheckoutCard < ApplicationRecord
   validates :uuid, presence: true
   validates :member, presence: true
