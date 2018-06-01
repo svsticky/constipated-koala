@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::GroupMembersController < ApplicationController
   respond_to :json, only: [:create, :update, :destroy]
 

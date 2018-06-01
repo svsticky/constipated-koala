@@ -1,3 +1,4 @@
+#:nodoc:
 class Api::ActivitiesController < ApiController
   include ActionController::Live
   before_action :authorize, only: [:show]
@@ -9,7 +10,7 @@ class Api::ActivitiesController < ApiController
     else
       @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today).order(:start_date).where(is_viewable: true)
       @activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
-      @activities = @activities.select { |act| !act.ended? }
+      @activities = @activities.reject(&:ended?)
     end
   end
 
@@ -39,9 +40,7 @@ class Api::ActivitiesController < ApiController
     # This replicates the content of the doorkeeper_authorize! before_action.
     @_doorkeeper_scopes = Doorkeeper.configuration.default_scopes
 
-    if valid_doorkeeper_token? or user_signed_in?
-      return
-    end
+    return if valid_doorkeeper_token? || user_signed_in?
 
     head :unauthorized
   end

@@ -1,3 +1,4 @@
+#:nodoc:
 class Api::MembersController < ApiController
   before_action -> { doorkeeper_authorize! 'member-read' }, only: [:index, :show]
 

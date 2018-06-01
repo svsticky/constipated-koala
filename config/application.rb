@@ -5,7 +5,9 @@ require 'rails/all'
 # you've limited to :test, :development, :staging or :production.
 Bundler.require(*Rails.groups)
 
+#:nodoc:
 module ConstipatedKoala
+  #:nodoc:
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
@@ -14,7 +16,7 @@ module ConstipatedKoala
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    VERSION = '1.7.11'
+    VERSION = '1.7.12'.freeze
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

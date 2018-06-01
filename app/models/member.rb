@@ -1,8 +1,7 @@
-# encoding: utf-8
-
 # By default, a class begins with a number of validations. student_id is
 # special because in the intro website it cannot be empty. However, an admin can
 # make it empty.
+#:nodoc:
 class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -12,7 +11,7 @@ class Member < ApplicationRecord
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
-  validates :gender, presence: true, inclusion: { in: %w(m f) }
+  validates :gender, presence: true, inclusion: { in: %w[m f] }
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
@@ -97,7 +96,7 @@ class Member < ApplicationRecord
 
   # remove spaces in postal_code
   def postal_code=(postal_code)
-    write_attribute(:postal_code, postal_code.upcase.gsub(' ', ''))
+    write_attribute(:postal_code, postal_code.upcase.delete(' '))
   end
 
   def student_id=(student_id)
@@ -110,14 +109,14 @@ class Member < ApplicationRecord
 
   def create_account=(value)
     v = value
-    if not (value.is_a? FalseClass or value.is_a? TrueClass)
+    unless value.is_a?(FalseClass) || value.is_a?(TrueClass)
       v = value.to_b # to_b does not exist for booleans, required for handling truthy "0" and "1" from forms.
     end
     @create_account = v
   end
 
   def tags_names
-    self.tags.pluck(:name)
+    tags.pluck(:name)
   end
 
   def tags_names=(tags)
@@ -133,26 +132,26 @@ class Member < ApplicationRecord
 
   # Some other function can improve your life a lot, for example the name function
   def name
-    return "#{ self.first_name } #{ self.last_name }" if infix.blank?
-    return "#{ self.first_name } #{ self.infix } #{ self.last_name }"
+    return "#{ first_name } #{ last_name }" if infix.blank?
+    return "#{ first_name } #{ infix } #{ last_name }"
   end
 
   # create hash for gravatar
   def gravatar
-    return Digest::MD5.hexencode(self.email)
+    return Digest::MD5.hexencode(email)
   end
 
   def groups
-    groups = Hash.new
+    groups = {}
 
     group_members.order(year: :desc).each do |group_member|
-      if groups.has_key?(group_member.group.id)
+      if groups.key?(group_member.group.id)
         groups[group_member.group.id][:years].push(group_member.year)
 
         groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
       end
 
-      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [group_member.year], :positions => [group_member.position => group_member.year] }) unless groups.has_key?(group_member.group.id)
+      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [group_member.year], :positions => [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
     end
 
     return groups.values
@@ -162,24 +161,21 @@ class Member < ApplicationRecord
   # We also check for a duplicate study, and discard the duplicate if found.
   # (Not doing this would lead to a database constraint violation.)
   before_create do
-    self.join_date = Time.new if self.join_date.blank?
+    self.join_date = Time.new if join_date.blank?
 
-    if self.educations.length > 1 and self.educations[0].study_id == self.educations[1].study_id
-      self.educations[1].destroy
-    end
+    educations[1].destroy if (educations.length > 1) && (educations[0].study_id == educations[1].study_id)
   end
 
   after_commit :create_user, on: :create
 
   def create_user
-    if @create_account
-      user = User.new
-      user.skip_confirmation_notification!
-      user.email = self.email
-      user.credentials = self
-      user.require_activation!
-      user.save
-    end
+    return unless @create_account
+    user = User.new
+    user.skip_confirmation_notification!
+    user.email = email
+    user.credentials = self
+    user.require_activation!
+    user.save
   end
 
   # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
@@ -187,17 +183,17 @@ class Member < ApplicationRecord
     if email_changed?
 
       # abort if email is already used for another account, abort is the only method to brake in future versions
-      if User.taken?(self.email)
+      if User.taken?(email)
         errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
         raise ActiveRecord::Rollback
       end
 
       # find user by old email
-      credentials = User.find_by_email(Member.find(self.id).email)
+      credentials = User.find_by_email(Member.find(id).email)
 
-      if !credentials.nil?
+      unless credentials.nil?
         # update_attribute has no validation so it should be done manually
-        credentials.update_attribute('email', self.email)
+        credentials.update_attribute('email', email)
         credentials.save
       end
     end
@@ -205,31 +201,31 @@ class Member < ApplicationRecord
 
   # destroy account on removal of member
   before_destroy do
-    logger.debug self.inspect
+    logger.debug inspect
 
-    user = User.find_by_email(self.email)
+    user = User.find_by_email(email)
     user.delete if user.present?
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
     student_id = query.match(/^\F?\d{6,7}$/i)
-    return self.where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
+    return where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
 
     phone_number = query.match(/^(?:\+\d{2}|00\d{2}|0)(\d{9})$/)
-    return self.where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
+    return where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
-    return self.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |tag| tag.member_id })) if query.blank?
+    return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
 
-    records = self.filter(query)
+    records = filter(query)
     return records.find_by_fuzzy_query(query) unless query.blank?
     return records
   end
 
   # Query for fuzzy search, this string is used for building indexes for searching
   def query
-    "#{ self.name } #{ self.email }"
+    "#{ name } #{ email }"
   end
 
   def query_changed?
@@ -239,9 +235,9 @@ class Member < ApplicationRecord
   # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less
   def update_studies(studystatus_output)
     result_id, *studies = studystatus_output.split(/; /)
-    puts "#{ self.student_id } returns empty result;" if result_id.blank?
+    puts "#{ student_id } returns empty result;" if result_id.blank?
 
-    if self.student_id != result_id
+    if student_id != result_id
       logger.error 'Student id received from studystatus is different'
       return
     end
@@ -251,7 +247,7 @@ class Member < ApplicationRecord
       return
     end
 
-    for study in studies do
+    studies.each do |study|
       code, year, status, end_date = study.split(/, /)
 
       if Study.find_by_code(code).nil?
@@ -259,11 +255,11 @@ class Member < ApplicationRecord
         next
       end
 
-      education = self.educations.find_by_year_and_study_code(year, code)
+      education = educations.find_by_year_and_study_code(year, code)
 
       # If not found as informatica, we can try for gametech. This only works if the student filled in GT from the subscribtion
       if education.nil? && code == 'INCA'
-        education = self.educations.find_by_year_and_study_code(year, 'GT')
+        education = educations.find_by_year_and_study_code(year, 'GT')
         code = 'GT'
       end
 
@@ -284,14 +280,14 @@ class Member < ApplicationRecord
         next
       end
 
-      # TODO check if student joined this year, has no studies, and study is a bachelor
+      # TODO: check if student joined this year, has no studies, and study is a bachelor
 
-      education.update_attribute('end_date', Date::parse(end_date.split(' ')[1])) if status != 'actief' && end_date.present? && end_date.split(' ')[1].present?
+      education.update_attribute('end_date', Date.parse(end_date.split(' ')[1])) if status != 'actief' && end_date.present? && end_date.split(' ')[1].present?
       education.save
     end
 
     # remove studies no longer present
-    for education in self.educations do
+    educations.each do |education|
       check = "#{ education.study.code } | #{ education.start_date.year }"
       check = "INCA | #{ education.start_date.year }" if education.study.code == 'GT' # NOTE dirty fix for gametechers
 
@@ -303,11 +299,11 @@ class Member < ApplicationRecord
   end
 
   def underage?
-    !self.adult?
+    !adult?
   end
 
   def masters?
-    !self.educations.empty? && self.educations.any? { |education| Study.find(education.study_id).masters }
+    !educations.empty? && educations.any? { |education| Study.find(education.study_id).masters }
   end
 
   def freshman?
@@ -317,7 +313,7 @@ class Member < ApplicationRecord
   end
 
   def adult?
-    return 18.years.ago >= self.birth_date
+    return 18.years.ago >= birth_date
   end
 
   def enrolled_in_study?
@@ -331,7 +327,7 @@ class Member < ApplicationRecord
 
   def unpaid_activities
     # All participants who will receive payment reminders
-    self.participants.joins(:activity).where('
+    participants.joins(:activity).where('
       activities.start_date <= ?
       AND
       participants.reservist IS FALSE
@@ -367,11 +363,11 @@ class Member < ApplicationRecord
 
       # Lookup using full names
       if code.nil?
-        study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == study[2].downcase.gsub('-', ' ') }
+        study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == study[2].downcase.tr('-', ' ') }
         code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
       end
 
-      records = Member.none if code.nil? # TODO add active to the selector if status is not in the query
+      records = Member.none if code.nil? # TODO: add active to the selector if status is not in the query
       records = records.where(:id => Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
     end
 
@@ -380,7 +376,7 @@ class Member < ApplicationRecord
     unless tag.nil?
       query.gsub!(/tag:([A-Za-z-]+)/, '')
 
-      tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == name[1].downcase.gsub('-', ' ') }
+      tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == name[1].downcase.tr('-', ' ') }
 
       records = Member.none if tag_name.nil?
       records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
@@ -397,19 +393,19 @@ class Member < ApplicationRecord
     query.gsub!(/(status|state):([A-Za-z]+)/, '')
 
     records =
-      if status.nil? || status[2].downcase == 'actief'
+      if status.nil? || status[2].casecmp('actief').zero?
         # if already filtered on study, that particular study should be active
         if code.present?
-          records.where(:id => (Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map { |education| education.member_id }))
+          records.where(:id => Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map(&:member_id))
         else
-          records.where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |t| t.member_id }))
+          records.where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id)))
         end
 
-      elsif status[2].downcase == 'alumni'
-        records.where.not(:id => Education.select(:member_id).where('status = 0').map { |education| education.member_id })
-      elsif status[2].downcase == 'studerend'
-        records.where(:id => Education.select(:member_id).where('status = 0').map { |education| education.member_id })
-      elsif status[2].downcase == 'iedereen'
+      elsif status[2].casecmp('alumni').zero?
+        records.where.not(:id => Education.select(:member_id).where('status = 0').map(&:member_id))
+      elsif status[2].casecmp('studerend').zero?
+        records.where(:id => Education.select(:member_id).where('status = 0').map(&:member_id))
+      elsif status[2].casecmp('iedereen').zero?
         Member.all
       else
         Member.none
@@ -419,13 +415,15 @@ class Member < ApplicationRecord
   end
 
   # Perform an elfproef to verify the student_id
+
   private
+
   def valid_student_id
     # on the intro website student_id is required
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
 
     # do not do the elfproef if a foreign student
-    return if (student_id =~ /\F\d{6}/)
+    return if student_id =~ /\F\d{6}/
     return if student_id.blank?
 
     numbers = student_id.split("").map(&:to_i).reverse

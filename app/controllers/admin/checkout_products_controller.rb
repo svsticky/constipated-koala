@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::CheckoutProductsController < ApplicationController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :activate_card, :change_funds ]

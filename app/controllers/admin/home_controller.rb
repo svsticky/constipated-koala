@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::HomeController < ApplicationController
   def index
     @members = Education.where('status = 0').distinct.count(:member_id) + Tag.joins(:member, member: :educations).where('status != 0').distinct.count(:member_id)

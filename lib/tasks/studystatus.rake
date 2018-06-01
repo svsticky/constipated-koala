@@ -31,7 +31,6 @@ namespace :studystatus do
 
   desc "Finds study progress for all members and updates the DB"
   task :update_all, [:username, :password] => :environment do |_, args|
-
     Open3.popen3(ENV['STUDY_SCRIPT'],
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, _, _|

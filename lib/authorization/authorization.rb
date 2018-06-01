@@ -1,3 +1,4 @@
+#:nodoc:
 module Authorization
   # Controller-independent method for retrieving the current user.
   # Needed for model/view security where the current controller is not available.

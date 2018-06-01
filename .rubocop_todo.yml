@@ -66,6 +66,20 @@ Style/NumericLiterals:
 Style/RedundantReturn:
   Enabled: false
 
+Style/GlobalVars:
+  Exclude:
+    - 'bin/*.rb'
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/*'
+
+Style/GuardClause:
+  Exclude:
+    - 'app/controllers/application_controller.rb'
+    - 'app/controllers/admin/participants_controller.rb'
+    - 'app/controllers/api/checkout_controller.rb'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.

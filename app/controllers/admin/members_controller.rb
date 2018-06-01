@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::MembersController < ApplicationController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update ]
@@ -19,12 +20,10 @@ class Admin::MembersController < ApplicationController
       @members = Member.none if @members.nil?
       @search = params[:search]
 
-      if @members.size == 1 && @offset == 0 && @limit > 1
-        redirect_to @members.first
-      end
+      redirect_to @members.first if @members.size == 1 && @offset == 0 && @limit > 1
 
     else
-      @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map { |education| education.member_id } + Tag.select(:member_id).where(:name => Tag.active_by_tag).map { |tag| tag.member_id })).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
+      @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
       @pages = (Member.count / @limit.to_f).ceil
     end
   end
@@ -71,9 +70,7 @@ class Admin::MembersController < ApplicationController
     else
 
       # If the member hasn't filled in a study, again show an empty field
-      if @member.educations.empty?
-        @member.educations.build(:id => '-1')
-      end
+      @member.educations.build(:id => '-1') if @member.educations.empty?
 
       render 'new'
     end
@@ -82,9 +79,7 @@ class Admin::MembersController < ApplicationController
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
 
-    if @member.educations.empty?
-      @member.educations.build(:id => '-1')
-    end
+    @member.educations.build(:id => '-1') if @member.educations.empty?
   end
 
   def update

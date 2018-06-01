@@ -1,16 +1,17 @@
+#:nodoc:
 class Admin::PaymentsController < ApplicationController
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
-    @last_impressions = Activity.debtors.map { |activity|
+    @last_impressions = Activity.debtors.map do |activity|
       impression = Impression.where(impressionable_type: Activity).where(impressionable_id: activity.id).where(message: "mail").where('created_at > ?', activity.start).last
 
-      if impression
-        days = Integer(Date.today - impression.created_at.to_date)
-      else
-        days = "-"
-      end
+      days = if impression
+               Integer(Date.today - impression.created_at.to_date)
+             else
+               "-"
+             end
       [activity, days]
-    }
+    end
 
     # Get checkout transactions that were purchased by pin of yesterday
     @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = "Gepind"', 1.days.ago).order(created_at: :desc)
@@ -19,16 +20,16 @@ class Admin::PaymentsController < ApplicationController
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
     @late_activities = Activity.debtors.select { |activity| activity.impressionist_count(message: "mail", start_date: activity.start) >= 4 }
     @late_payments =
-      @late_activities.map { |activity|
-        activity.attendees.select { |participant|
+      @late_activities.map do |activity|
+        activity.attendees.select do |participant|
           participant.paid == false &&
             (
               (participant.price && participant.price > 0) ||
               (participant.price.nil? &&
                activity.price && activity.price > 0)
             )
-        }.map { |p| p.member }
-      }.flatten.uniq
+        end.map(&:member)
+      end.flatten.uniq
   end
 
   def update_transactions

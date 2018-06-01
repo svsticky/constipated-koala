@@ -4,7 +4,9 @@ require 'ostruct'
 require 'net/http'
 require 'uri'
 
+#:nodoc:
 module ConstipatedKoala
+  #:nodoc:
   class Request
     def initialize(domain)
       @uri = URI.parse domain
@@ -56,7 +58,7 @@ module ConstipatedKoala
         {}
       else
         Rails.logger.debug @client.inspect
-        raise ArgumentError.new(response.code.to_i)
+        raise ArgumentError, response.code.to_i
       end
     end
   end

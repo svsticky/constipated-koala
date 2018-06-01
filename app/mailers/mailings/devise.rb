@@ -1,6 +1,6 @@
-# encoding: utf-8
-
+#:nodoc:
 module Mailings
+  #:nodoc:
   class Devise < ApplicationMailer
     include ::Devise::Controllers::UrlHelpers
 

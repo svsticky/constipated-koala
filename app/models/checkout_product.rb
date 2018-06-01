@@ -1,3 +1,4 @@
+#:nodoc:
 class CheckoutProduct < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true
@@ -14,19 +15,19 @@ class CheckoutProduct < ApplicationRecord
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
   def price=(price)
-    write_attribute(:price, price.to_s.gsub(',', '.').to_f)
+    write_attribute(:price, price.to_s.tr(',', '.').to_f)
   end
 
   before_update do
     if name_changed? || category_changed? || price_changed?
       record          = CheckoutProduct.new
-      record.name     = self.name
-      record.category = self.category
-      record.price    = self.price
-      record.parent   = self.id
+      record.name     = name
+      record.category = category
+      record.price    = price
+      record.parent   = id
 
-      self.reload
-      self.update_columns(:active => false)
+      reload
+      update_columns(:active => false)
 
       record.save
     end
@@ -39,33 +40,33 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def children?
-    return true unless CheckoutProduct.find_by_parent(self.id).nil?
+    return true unless CheckoutProduct.find_by_parent(id).nil?
     return false
   end
 
   def parents
-    return [] if self.parent.nil?
-    return CheckoutProduct.where(:id => self.parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(self.parent).parents
+    return [] if parent.nil?
+    return CheckoutProduct.where(:id => parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(parent).parents
   end
 
   def sales(year = nil)
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ self.id }\n%'", Date.to_date(year), Date.to_date(year + 1)).group(:items).count.map { |k, v| { k => v } }
+    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ id }\n%'", Date.to_date(year), Date.to_date(year + 1)).group(:items).count.map { |k, v| { k => v } }
 
-    count = sales.map { |hash| hash.keys.first.count(self.id) * hash.values.first }.inject(:+) unless sales.nil?
+    count = sales.map { |hash| hash.keys.first.count(id) * hash.values.first }.inject(:+) unless sales.nil?
 
-    return [{ self => count }] if self.parent.nil?
-    return [{ self => count }] + CheckoutProduct.find_by_id(self.parent).sales(year)
+    return [{ self => count }] if parent.nil?
+    return [{ self => count }] + CheckoutProduct.find_by_id(parent).sales(year)
   end
 
   def self.last_version
-    self.select { |product| !product.children? }
+    reject(&:children?)
   end
 
   private
 
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless self.image.present? || parent.present?
+    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless image.present? || parent.present?
   end
 end

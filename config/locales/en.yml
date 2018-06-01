@@ -1,65 +1,15 @@
+---
 en:
-  date:
-    formats:
-      default: "%d-%m-%Y"
-      day_month: "%d %B"
-      short: "%Y"
-
-    day_names: [~, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
-    month_names: [~, January, February, March, April, May, June, July, August, September, Oktober, November, December]
-
-  time:
-    formats:
-      default: "%d-%m-%Y %H:%M"
-      short: "%H:%M"
-
   activerecord:
-    models:
-      ideal_transaction: iDEAL transaction
-      activities: Activities
-      study: Study/Studies
-
-    attributes:
+    annotations:
       member:
-        first_name: First name
-        infix: Prefix
-        last_name: Surname
-
-        birth_date: Date of birth
-        gender: Gender
-        male: Male
-        female: Female
-
-        address: Address
-        house_number: Number
-        postal_code: Postal code
-        city: City
-        phone_number: Phone number
-        email: Email
-        student_id: Student ID
-
-        comments: Comments
-
-      user:
-        email: e-mailaddress
-        password: password
-        password_confirmation: Repeat password
-
+        email: "Can't be a UU email address"
+    attributes:
       activity:
-        name: Name
-        price: Price
+        comments: "Comments (private)"
         description: Description
-        start_date: Startdate
-        start_time: Starttime
         end_date: Enddate
         end_time: Endtime
-        unenroll_date: Unenroll date
-        comments: Comments (private)
-        organized_by: Organisator
-        notes: Extra notes
-        notes_mandatory: Mandatory
-        notes_public: Public
-        location: Location
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
         is_masters: Masters
@@ -93,18 +43,25 @@ en:
           graduated: Graduated
           stopped: Stopped
       group:
-        name: Group name
-        category: Category
-        comments: Comments
-
         categories:
           board: Board
           committee: Committee
           moot: Moot
           other: Other
-
+        category: Category
+        comments: Comments
+        members:
+          board: "Board members"
+          committee: "Committee members"
+          moot: "Moot members"
+          other: Members
+        name: "Group name"
         positions:
+          board: "Board member"
           chairman: Chairman
+          education: Education
+          external: "External affairs"
+          internal: "Internal affairs"
           secretary: Secretary
           treasurer: Treasurer
       member:
@@ -168,65 +125,15 @@ en:
           wisk: Mathematics
       tag:
         names:
-          pardon: Pardon
-          merit: Merit
-          honorary: Honorary
           donator: Donator
+          honorary: Honorary
+          merit: Merit
+          pardon: Pardon
           suspended: Suspended
-
-      study:
-        names:
-          inca: Computer Science
-          inku: Information Science
-          gt: Gametechnology
-          wisk: Mathematics
-
-          cosc: Computing Science
-          mbim: Business Informatics
-          gmte: Game and Media Technology
-          ainm: Artificial Intelligence
-
-          atec: Technical Artificial Intelligence
-          acsc: Advanced Computing Science
-          ckem: Content & Knowledge Engineering
-
-      education:
-        status:
-          active: Studying
-          stopped: Stopped
-          graduated: Graduated
-          inactive: Not studying
-
-      settings:
-        begin_study_year:
-          name: Study year
-          description: The start of next study year. On this date a new year will be automatically started.
-
-        mongoose_ideal_costs:
-          name: IDeal transaction costs
-          description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
-        liquor_time:
-          name: Time at which the purchase of liquor is allowed
-          description: Time at which the purchase of liquor is allowed in Checkout. Till that time, an error will be display.
-
-        intro_membership:
-          name: Introduction membership
-          description: The activity for enrolling at Sticky, automatically generated.
-        intro_activities:
-          name: Introduction activities
-          description: Activitities during the introduction period for which new members can enroll at the introduction form.
-
-        additional_committee_positions:
-          name: Additional committee roles
-          description: Roles besides chairman, treasurer and board member that will be added to the committees.
-        additional_moot_positions:
-          name: Additional moot roles
-          description: Roles besides chairman, treasurer and board member that will be added to the moots.
-
-    annotations:
-      member:
-        email: Can't be a UU email address
-
+      user:
+        email: e-mailaddress
+        password: password
+        password_confirmation: "Repeat password"
     errors:
       default: Some has gone wrong
       incomplete: Oh snap, you forgot some things
@@ -245,27 +152,13 @@ en:
 
       models:
         activity:
-          enrolled: You are enrolled for %{activity}
-          unenrolled: You have been unenrolled for %{activity}
-          backup_enrolled: You have been added to the spares list of %{activity}
-          activity_ended: This activity is not or no longer available. Go back.
-          participant_suspended: You have been suspended. Contact the board of Sticky
-          participant_no_masters: You are not a masters student. This is a masters-only activity.
-          participant_no_freshman: You are not a freshman student. This is a freshmans-only activity.
-          participant_no_student: You are not enrolled in a study. This activity is for students only
-          participant_limit_reached: '%{activity} is full!'
-          participant_underage: This activity is for adults only ;) ;) ;)
-          participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
-          participant_notes_updated: Information updated
-          not_enrollable: Activity not enrollable
-          not_unenrollable: Activity not unenrollable
-          blank_and_start_time: can't be blank if the start time is set
-          blank_and_end_time: can't be blank if the end time is set
+          activity_ended: "This activity is not or no longer available. Go back."
+          already_enrolled: "You are already enrolled for this activity."
           attributes:
             end_date:
-              before_start_date: can't be before the start date
+              before_start_date: "can't be before the start date"
             end_time:
-              before_start_time: can't be before the start time
+              before_start_time: "can't be before the start time"
             unenroll_date:
               after_start_date: "can't be after the start date"
           backup_enrolled: "You have been added to the spares list of %{activity}"
@@ -283,7 +176,8 @@ en:
           participant_notes_updated: "Information updated"
           participant_suspended: "You have been suspended. Contact the board of Sticky"
           participant_underage: "This activity is for adults only ;) ;) ;)"
-          unenrolled: "You have been un-enrolled for %{activity}"
+          unenrolled: "You have been un-enrolled for %{activity}."
+          unenroll_date_passed: "The un-enrollment deadline has passed."
         checkout_product:
           blank: "can't be blank"
         checkout_transaction:
@@ -307,24 +201,26 @@ en:
           success: "has been processed!"
         member:
           attributes:
-            phone_number:
-              invalid: consists of 10 digits
             email:
-              taken: is already registered
-              invalid: is not a valid mail address
+              invalid: "is not a valid mail address"
+              taken: "is already registered"
+            phone_number:
+              invalid: "consists of 10 digits"
             student_id:
-              taken: is already reigstered
-              invalid: is not valid
-              elfproef: is not valid
-
+              elfproef: "is not valid"
+              invalid: "is not valid"
+              taken: "is already registered"
+          blank: "can't be blank"
+        unpermitted: "is not permitted"
         user:
           attributes:
             email:
-              invalid: is not a valid email address
-              taken: already exists in the database
+              blank: "can't be blank"
+              invalid: "is not a valid email address"
+              taken: "already exists in the database"
             password:
-              too_short: should be at least 8 characters long
-              invalid: isn't valid
+              invalid: "isn't valid"
+              too_short: "should be at least 8 characters long"
             password_confirmation:
               confirmation: "isn't repeated correctly"
           blank: "can't be blank"
@@ -534,8 +430,8 @@ en:
         free_spot_html: "Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list."
         to_the_activity: "To the activity"
       inform:
-        activity_visited_html: "You visited <strong> %{subject} </strong>, this activity cost %recipient.price%."
-        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>'%{ subject } %recipient.name%'</i>?"
+        activity_visited_html: "You visited <strong>%{subject}</strong>, this activity cost %recipient.price%."
+        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>\"%{subject} %recipient.name%\"</i>?"
     signature: "The board"
   members:
     activities:
@@ -571,12 +467,3 @@ en:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
-
-    passwords:
-      new: Enter your email address to obtain a new password.
-      edit: Enter the password you want to use for your Sticky-account.
-
-    confirmations:
-      new: Confirm your email address
-
-  association_name: Study association Sticky

@@ -1,3 +1,4 @@
+#:nodoc:
 class Api::WebhookController < ApiController
   def mollie_redirect
     transaction = IdealTransaction.find_by_token!(params[:token])

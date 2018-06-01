@@ -1,3 +1,4 @@
+#:nodoc:
 class CreateConfigurations < ActiveRecord::Migration[4.2]
   def change
     create_table :user_configurations, :id => false do |t|

@@ -45,7 +45,7 @@ jobs:
       - run: bundle exec rake assets:precompile --trace
 
       # execute rubocop 2.5.1 not supported
-      - run: bundle exec rubocop --fail-level warning
+      - run: bundle exec rubocop
 
       # cache libraries
       - type: cache-save

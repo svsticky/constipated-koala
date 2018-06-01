@@ -1,3 +1,4 @@
+#:nodoc:
 class AddProductsToCheckoutTransactions < ActiveRecord::Migration[4.2]
   def change
     create_table :checkout_products do |t|

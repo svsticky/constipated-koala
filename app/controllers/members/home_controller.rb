@@ -1,3 +1,4 @@
+#:nodoc:
 class Members::HomeController < MembersController
   skip_before_action :authenticate_user!, only: [:confirm_add_funds]
 
@@ -48,9 +49,7 @@ class Members::HomeController < MembersController
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
     @applications = Doorkeeper::Application.authorized_for(current_user)
 
-    if @member.educations.empty?
-      @member.educations.build(:id => '-1')
-    end
+    @member.educations.build(:id => '-1') if @member.educations.empty?
   end
 
   def revoke
@@ -103,11 +102,9 @@ class Members::HomeController < MembersController
 
     if ideal.save
       redirect_to ideal.mollie_uri
-      return
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
       redirect_to members_home_path
-      return
     end
   end
 

@@ -1,6 +1,6 @@
 collection @activities
 
-attribute :name, :location, :participant_counter
+attribute :name, :location, :fullness
 
 node :start_date do |activity|
   if activity.start_time.nil?
@@ -22,9 +22,7 @@ node :end_date do |activity|
   end
 end
 
-if Authorization._client.include?('activity-read')
-  attributes :id, :description, :price
-end
+attributes :id, :description, :price if Authorization._client.include?('activity-read')
 
 node :poster do |activity|
   activity_image_url(activity) if activity.poster.attached?

@@ -1,3 +1,4 @@
+#:nodoc:
 class IdealTransaction < ApplicationRecord
   require 'request'
 
@@ -18,23 +19,22 @@ class IdealTransaction < ApplicationRecord
 
   after_validation(on: :create) do
     http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
-    self.token = Digest::SHA256.hexdigest("#{ self.member.id }#{ Time.now.to_f }#{ self.redirect_uri }")
+    self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
 
-    request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments", {
-                          :amount => self.amount,
-                          :description => self.description,
+    request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
+                        :amount => amount,
+                        :description => description,
 
-                          :method => 'ideal',
-                          :issuer => self.issuer,
+                        :method => 'ideal',
+                        :issuer => issuer,
 
-                          :metadata => {
-                            :member => member.name,
-                            :transaction_type => transaction_type,
-                            :transaction_id => transaction_id
-                          },
+                        :metadata => {
+                          :member => member.name,
+                          :transaction_type => transaction_type,
+                          :transaction_id => transaction_id
+                        },
 
-                          :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => self.token)
-                        })
+                        :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => token))
 
     request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
     response = http.send! request
@@ -60,14 +60,14 @@ class IdealTransaction < ApplicationRecord
 
   def update!
     http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
-    @status = self.status
+    @status = status
 
-    request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ self.trxid }")
+    request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ trxid }")
     request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
     response = http.send! request
     self.status = response.status
-    self.save!
+    save!
 
     # first time paid as a response
     return true if status == 'paid' && @status != 'paid'
@@ -82,8 +82,8 @@ class IdealTransaction < ApplicationRecord
     when 'activity'
 
       # loop thru activities and mark one as paid
-      self.transaction_id.each do |activity|
-        participant = Participant.where("member_id = ? AND activity_id = ?", self.member.id, activity)
+      transaction_id.each do |activity|
+        participant = Participant.where("member_id = ? AND activity_id = ?", member.id, activity)
         participant.first.paid = true
         participant.first.save
       end
@@ -92,14 +92,14 @@ class IdealTransaction < ApplicationRecord
 
     when 'checkouttransaction'
       # additional check if not already added checkout funds
-      return unless self.transaction_id.empty?
+      return unless transaction_id.empty?
 
       # create a single transaction to update the checkoutbalance and mark the ideal transaction as processed
       IdealTransaction.transaction do
-        transaction = CheckoutTransaction.create!(:price => (self.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(self.member), :payment_method => "iDeal")
+        transaction = CheckoutTransaction.create!(:price => (amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(member), :payment_method => "iDeal")
 
         self.transaction_id = [transaction.id]
-        self.save!
+        save!
 
         self.message = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')
       end
@@ -107,6 +107,6 @@ class IdealTransaction < ApplicationRecord
   end
 
   def activities
-    Activity.find(transaction_id) if transaction_type.downcase == 'activity'
+    Activity.find(transaction_id) if transaction_type.casecmp('activity').zero?
   end
 end

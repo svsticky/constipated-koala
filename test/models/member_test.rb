@@ -36,11 +36,11 @@ class MemberTest < ActiveSupport::TestCase
 
     minimal_required_attributes.each do |attribute, emptyvalue|
       temp = m.attributes[attribute]
-      m.assign_attributes({attribute => emptyvalue })
+      m.assign_attributes(attribute => emptyvalue)
 
-      assert_not m.save, "#{attribute} is not required"
+      assert_not m.save, "#{ attribute } is not required"
 
-      m.assign_attributes({attribute => temp})
+      m.assign_attributes(attribute => temp)
     end
   end
 

@@ -1,3 +1,4 @@
+#:nodoc:
 class CheckoutCard < ApplicationRecord
   validates :uuid, presence: true
   validates :member, presence: true
@@ -11,7 +12,7 @@ class CheckoutCard < ApplicationRecord
 
   before_validation(on: :create) do
     # find balance otherwise create a new one
-    balance = CheckoutBalance.find_or_create_by!(member: self.member)
+    balance = CheckoutBalance.find_or_create_by!(member: member)
 
     if balance.save
       self.checkout_balance = balance

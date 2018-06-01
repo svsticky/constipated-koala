@@ -1,12 +1,12 @@
-# encoding: utf-8
-
+#:nodoc:
 module Mailings
+  #:nodoc:
   class Participants < ApplicationMailer
     def inform(activity, recipients, sender, subject, html, text = nil)
       participants = activity.participants.joins(:member).where('members.email' => recipients)
 
       # hash for mailgun with recipient-variables
-      variables = Hash.new
+      variables = {}
 
       participants.each do |participant|
         variables[participant.member.email] = {
@@ -29,16 +29,14 @@ module Mailings
       url = activity_url activity.id
 
       starts_at = I18n.l activity.start_date, format: :day_month
-      if activity.start_time
-        starts_at += ", om #{ I18n.l activity.start_time, format: :short }"
-      end
+      starts_at += ", om #{ I18n.l activity.start_time, format: :short }" if activity.start_time
 
       price = activity.price
-      if price > 0
-        price = "kost €#{ '%.02f' % price }"
-      else
-        price = "is gratis"
-      end
+      price = if price > 0
+                "kost €#{ format('%.02f', price) }"
+              else
+                "is gratis"
+              end
 
       subject = "Studievereniging Sticky | Je bent ingeschreven voor #{ activity.name }"
 

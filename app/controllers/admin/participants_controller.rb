@@ -1,37 +1,42 @@
+#:nodoc:
 class Admin::ParticipantsController < ApplicationController
   respond_to :json
 
   def create
     @activity = Activity.find_by_id params[:activity_id]
-    @participant = Participant.new(:member => Member.find(params[:member]), :activity => @activity)
+    @participant = Participant.find_or_initialize_by(
+      member: Member.find(params[:member]),
+      activity: @activity
+    )
+
+    new_record = @participant.new_record?
+    status = new_record ? :created : :conflict
 
     if @participant.save
-      impressionist(@participant)
-      @response = @participant.attributes # TODO refactor, very old code
+      impressionist(@participant) if new_record
+      @response = @participant.attributes # TODO: refactor, very old code
       @response['price'] = @activity.price
       @response['email'] = @participant.member.email
       @response['name'] = @participant.member.name
       @response['notes'] = @participant.notes
 
-      render :status => :created, :json => @response.to_json
+      render status: status, :json => @response.to_json
     end
   end
 
   def update
     participant = Participant.find(params[:id])
 
-    if !params[:reservist].nil?
+    unless params[:reservist].nil?
       message = params[:reservist].to_b ? 'reservist' : 'participant'
       participant.update_attributes(:reservist => params[:reservist])
     end
 
     if !params[:paid].nil?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
-      participant.update_attribute(:paid, params[:paid]) if !participant.currency.nil?
+      participant.update_attribute(:paid, params[:paid]) unless participant.currency.nil?
     elsif !params[:price].nil?
-      if !params[:price].is_number?
-        raise 'not a number'
-      end
+      raise 'not a number' unless params[:price].is_number?
 
       message = 'price'
       participant.update_attributes(:price => params[:price])
