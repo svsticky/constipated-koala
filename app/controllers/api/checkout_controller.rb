@@ -78,9 +78,7 @@ class Api::CheckoutController < ApplicationController
 
     # Save token to card & mail confirmation link
     card.confirmation_token = token
-    if card.save
-      Mailings::Checkout.confirmation_instructions(card, confirmation_url(confirmation_token: token)).deliver_now
-    end
+    Mailings::Checkout.confirmation_instructions(card, confirmation_url(confirmation_token: token)).deliver_now if card.save
 
     nil
   end
@@ -112,7 +110,7 @@ class Api::CheckoutController < ApplicationController
     begin
       return Array.new(1, obj.to_i) if obj.is_number?
       return JSON.parse(obj)
-    rescue
+    rescue StandardError
       return []
     end
   end

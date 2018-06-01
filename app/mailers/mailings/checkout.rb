@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Mailings
   class Checkout < ApplicationMailer
     def confirmation_instructions(card, confirmation_url)

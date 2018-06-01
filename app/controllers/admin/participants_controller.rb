@@ -13,7 +13,7 @@ class Admin::ParticipantsController < ApplicationController
 
     if @participant.save
       impressionist(@participant) if new_record
-      @response = @participant.attributes # TODO refactor, very old code
+      @response = @participant.attributes # TODO: refactor, very old code
       @response['price'] = @activity.price
       @response['email'] = @participant.member.email
       @response['name'] = @participant.member.name
@@ -26,18 +26,16 @@ class Admin::ParticipantsController < ApplicationController
   def update
     participant = Participant.find(params[:id])
 
-    if !params[:reservist].nil?
+    unless params[:reservist].nil?
       message = params[:reservist].to_b ? 'reservist' : 'participant'
       participant.update_attributes(:reservist => params[:reservist])
     end
 
     if !params[:paid].nil?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
-      participant.update_attribute(:paid, params[:paid]) if !participant.currency.nil?
+      participant.update_attribute(:paid, params[:paid]) unless participant.currency.nil?
     elsif !params[:price].nil?
-      if !params[:price].is_number?
-        raise 'not a number'
-      end
+      raise 'not a number' unless params[:price].is_number?
 
       message = 'price'
       participant.update_attributes(:price => params[:price])

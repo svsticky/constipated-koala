@@ -17,7 +17,7 @@ class Education < ApplicationRecord
   end
 
   before_validation do
-    self.start_date = Time.new if self.start_date.nil?
-    self.status = :active if self.status.nil?
+    self.start_date = Time.new if start_date.nil?
+    self.status = :active if status.nil?
   end
 end

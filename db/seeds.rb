@@ -131,7 +131,7 @@ puts 'Creating members'
   last_name  = Faker::Name.last_name
 
   Member.transaction do
-    (member = Member.create(
+    ((member = Member.create(
       first_name:   first_name,
       infix:        (Faker::Number.between(1, 10) > 7 ? Faker::Name.tussenvoegsel : ' '),
       last_name:    last_name,
@@ -146,7 +146,7 @@ puts 'Creating members'
       birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
       join_date:    Faker::Date.between(6.years.ago, Date.today),
       comments:     (Faker::Boolean.boolean(0.3) ? Faker::Hacker.say_something_smart : nil)
-    ) and puts "   -> #{ member.name } (#{ member.student_id })")
+    )) && puts("   -> #{ member.name } (#{ member.student_id })"))
   end
 end
 
@@ -308,23 +308,11 @@ start_dates.each do |start_date|
 
   eligible_members = Member.all
 
-  if is_freshmans
-    eligible_members = eligible_members.select do |member|
-      member.freshman?
-    end
-  end
+  eligible_members = eligible_members.select(&:freshman?) if is_freshmans
 
-  if is_masters
-    eligible_members = eligible_members.select do |member|
-      member.masters?
-    end
-  end
+  eligible_members = eligible_members.select(&:masters?) if is_masters
 
-  if is_alcoholic
-    eligible_members = eligible_members.select do |member|
-      member.adult?
-    end
-  end
+  eligible_members = eligible_members.select(&:adult?) if is_alcoholic
 
   participant_count = Faker::Number.between(0, 20)
   members           = eligible_members.sample(participant_count)
@@ -332,9 +320,7 @@ start_dates.each do |start_date|
     reservist = enrollable && !participant_limit.nil? && (activity.participants.count >= participant_limit)
 
     notes = nil
-    if !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3))
-      notes = Faker::Lorem.words(Faker::Number.between(1, 3)).join(' ')
-    end
+    notes = Faker::Lorem.words(Faker::Number.between(1, 3)).join(' ') if !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3))
 
     Participant.create(
       member:    member,

@@ -13,7 +13,7 @@ class Admin::SettingsController < ApplicationController
 
   def create
     if ['additional_positions.moot', 'additional_positions.committee'].include? params[:setting]
-      Settings[params[:setting]] = params[:value].downcase.split(',').each { |position| position.strip! }
+      Settings[params[:setting]] = params[:value].downcase.split(',').each(&:strip!)
 
     elsif ['intro.membership', 'intro.activities'].include? params[:setting]
       Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
@@ -25,18 +25,18 @@ class Admin::SettingsController < ApplicationController
       return
 
     elsif ['mongoose_ideal_costs'].include? params[:setting]
-      head :bad_request and return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+      head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
 
     elsif ['begin_study_year'].include? params[:setting]
-      head :bad_request and return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
+      head(:bad_request) && return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
       Settings[params[:setting]] = Date.parse(params[:value])
 
     elsif ['liquor_time'].include? params[:setting]
       logger.debug params[:value].inspect
       logger.debug((params[:value] =~ /\d{2}:\d{2}/).inspect)
 
-      head :bad_request and return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
+      head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
       Settings[params[:setting]] = params[:value]
     end
 
@@ -68,9 +68,7 @@ class Admin::SettingsController < ApplicationController
   end
 
   def destroy_advertisement
-    if params[:id].blank?
-      render :status => :bad_request, :json => 'no id given'
-    end
+    render :status => :bad_request, :json => 'no id given' if params[:id].blank?
 
     Advertisement.destroy(params[:id])
     head :no_content

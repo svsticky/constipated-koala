@@ -9,16 +9,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   def admin?
-    return true if credentials_type.downcase == 'admin'
+    return true if credentials_type.casecmp('admin').zero?
     return false
   end
 
   def gravatar
-    return Digest::MD5.hexdigest(self.email)
+    return Digest::MD5.hexdigest(email)
   end
 
   def sender
-    "#{ credentials.name } <#{ self.email }>"
+    "#{ credentials.name } <#{ email }>"
   end
 
   def self.taken?(email)
@@ -27,21 +27,21 @@ class User < ApplicationRecord
 
   # Admins must always re-enter their password.
   def remember_me?(token, generated_at)
-    not self.admin? and super
+    !admin? && super
   end
 
   # Clear the accounts password, and send a customized 'welcome to Sticky!'-mail if not confirmed already
   def require_activation!
-    return if self.confirmed?
-    self.generate_confirmation_token!
-    self.skip_confirmation_notification!
+    return if confirmed?
+    generate_confirmation_token!
+    skip_confirmation_notification!
 
     pw = Devise.friendly_token 128
     self.password = pw
     self.password_confirmation = pw
 
     self.confirmation_sent_at = Time.now
-    self.save
+    save
     send_devise_notification(:activation_instructions, @raw_confirmation_token, {})
   end
 end

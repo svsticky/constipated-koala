@@ -9,7 +9,7 @@ class Participant < ApplicationRecord
   is_impressionable
 
   def price=(price)
-    write_attribute(:price, price.to_s.gsub(',', '.').to_f) unless price.blank?
+    write_attribute(:price, price.to_s.tr(',', '.').to_f) unless price.blank?
     write_attribute(:price, nil) if price.blank?
   end
 
@@ -19,11 +19,11 @@ class Participant < ApplicationRecord
   end
 
   before_validation do
-    self.paid = false if self.price_changed?
+    self.paid = false if price_changed?
     write_attribute(:price, nil) if activity.price == self.price
   end
 
   def enroll_reservist
-    self.activity.enroll_reservists
+    activity.enroll_reservists
   end
 end

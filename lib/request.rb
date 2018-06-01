@@ -56,7 +56,7 @@ module ConstipatedKoala
         {}
       else
         Rails.logger.debug @client.inspect
-        raise ArgumentError.new(response.code.to_i)
+        raise ArgumentError, response.code.to_i
       end
     end
   end

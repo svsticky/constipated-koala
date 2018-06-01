@@ -13,11 +13,11 @@ class PublicController < ApplicationController
     @membership = Activity.find Settings['intro.membership']
     @activities = Activity.find Settings['intro.activities']
 
-    @participate = @activities.map { |activity| activity.id }
+    @participate = @activities.map(&:id)
   end
 
   def create
-    @member = Member.new(public_post_params.except :participant_attributes)
+    @member = Member.new(public_post_params.except(:participant_attributes))
     @member.require_student_id = true
     @member.create_account = true
 
@@ -52,7 +52,7 @@ class PublicController < ApplicationController
           :issuer => params[:bank],
           :member => @member,
 
-          :transaction_id => activities.map { |activity| activity.id },
+          :transaction_id => activities.map(&:id),
           :transaction_type => 'Activity',
 
           :redirect_uri => public_url
@@ -111,10 +111,8 @@ class PublicController < ApplicationController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-
                                    :method,
                                    :bank,
-
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
   end
