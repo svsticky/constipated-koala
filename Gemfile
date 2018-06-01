@@ -44,7 +44,7 @@ group :production, :staging do
 end
 
 group :development, :test, :staging do
-  gem 'faker', '>= 1.8.4'
+  gem 'faker'
 end
 
 group :development do
@@ -56,7 +56,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rubocop', '~> 0.52.0'
+  gem 'rubocop'
   gem 'spring'
 end
 
