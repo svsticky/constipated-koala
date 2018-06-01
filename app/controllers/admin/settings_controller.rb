@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::SettingsController < ApplicationController
   respond_to :json, only: [:create, :destroy]
 

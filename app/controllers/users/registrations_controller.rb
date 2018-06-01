@@ -1,3 +1,4 @@
+#:nodoc:
 class Users::RegistrationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
   skip_before_action :authenticate_admin!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]

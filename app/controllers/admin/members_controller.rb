@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::MembersController < ApplicationController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update ]

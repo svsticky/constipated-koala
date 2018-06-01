@@ -1,3 +1,4 @@
+#:nodoc:
 class Api::ActivitiesController < ApiController
   before_action :authorize, only: [:show]
 

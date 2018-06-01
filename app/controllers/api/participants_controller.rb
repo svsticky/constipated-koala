@@ -1,3 +1,4 @@
+#:nodoc:
 class Api::ParticipantsController < ApiController
   before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
   before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy, :update]

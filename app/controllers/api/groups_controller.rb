@@ -1,3 +1,4 @@
+#:nodoc:
 class Api::GroupsController < ApiController
   before_action -> { doorkeeper_authorize! 'group-read' }, only: [:index, :show]
 

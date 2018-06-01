@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::ParticipantsController < ApplicationController
   respond_to :json
 

@@ -5,6 +5,7 @@
 # admin view. Note that the :id parameters here correspond to Activity ids, and
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
+#:nodoc:
 class Members::ParticipantsController < MembersController
   before_action :set_activity!
 

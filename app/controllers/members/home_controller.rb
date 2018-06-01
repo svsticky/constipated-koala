@@ -1,3 +1,4 @@
+#:nodoc:
 class Members::HomeController < MembersController
   skip_before_action :authenticate_user!, only: [:confirm_add_funds]
 
