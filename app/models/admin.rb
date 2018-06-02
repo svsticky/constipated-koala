@@ -21,6 +21,7 @@ class Admin < ApplicationRecord
 
       credentials: self
     )
+    # TODO: is this safe?
     user.skip_confirmation! if skip_confirmation
     user.save!
   end
