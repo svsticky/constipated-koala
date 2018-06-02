@@ -1,0 +1,6 @@
+martijn:
+  credentials: martijn (Admin)
+  email: martijn@svsticky.nl
+
+  encrypted_password: <%= User.new.send(:password_digest, 'sticky123') %>
+  confirmed_at: <%= Time.now %>
