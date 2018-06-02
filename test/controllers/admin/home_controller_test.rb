@@ -8,9 +8,6 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     host! 'koala.rails.local'
   end
 
-  teardown do
-  end
-
   test 'should load admin_home' do
     sign_in users(:martijn)
 
@@ -18,7 +15,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should redirect to ' do
+  test 'should redirect to sign_in without session' do
     # goto any url without session
     get members_url
     assert_response :redirect
@@ -27,5 +24,17 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     # gets redirected to login page
     follow_redirect!
     assert_response :success
+  end
+
+  test 'should logout and redirect to sign_in' do
+    sign_in users(:martijn)
+    get root_url
+
+    # mimic sign_out button
+    delete destroy_user_session_url
+
+    # follow root to sign_in
+    follow_redirect!
+    assert_redirected_to new_user_session_url
   end
 end
