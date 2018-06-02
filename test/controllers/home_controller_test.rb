@@ -9,7 +9,6 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-
   end
 
   test 'should load admin_home' do
@@ -20,7 +19,6 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect to ' do
-
     # goto any url without session
     get members_url
     assert_response :redirect
@@ -30,5 +28,4 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
   end
-
 end
