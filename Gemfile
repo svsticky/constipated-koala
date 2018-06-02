@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?("/")
+  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?('/')
   "https://github.com/#{ repo_name }.git"
 end
 
@@ -55,7 +55,7 @@ group :development do
   gem 'web-console'
 
   # Added at 2018-01-12 12:01:35 +0100 by cdfa:
-  gem "i15r", "~> 0.5.5"
+  gem 'i15r', '~> 0.5.5'
 end
 
 group :development, :test do
