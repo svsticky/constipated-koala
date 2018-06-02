@@ -18,7 +18,7 @@ gem 'coffee-rails'
 gem 'sass-rails'
 
 # authentication gems
-gem 'devise', :github => 'plataformatec/devise'
+gem 'devise'
 gem 'doorkeeper'
 
 gem 'impressionist'
