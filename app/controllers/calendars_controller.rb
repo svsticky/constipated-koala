@@ -2,12 +2,12 @@ class CalendarsController < ActionController::Base
   def show
     respond_to do |format|
       format.ics do
-        @Calendar = Icalendar::Calendar.new
-        @Calendar.x_wr_calname = 'Sticky Activities'
+        @calendar = Icalendar::Calendar.new
+        @calendar.x_wr_calname = 'Sticky Activities'
 
-        update_calendar(@Calendar)
+        update_calendar(@calendar)
 
-        render plain: @Calendar.to_ical
+        render plain: @calendar.to_ical
       end
       format.html do
         render html:
@@ -21,11 +21,11 @@ class CalendarsController < ActionController::Base
   def update_calendar(calendar)
     @activities = Activity.where(
       '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-        Date.today, Date.today
-      ).where(is_viewable: true).order(:start_date)
+      Date.today, Date.today
+    ).where(is_viewable: true).order(:start_date)
 
     @activities.each do |a|
-      create_event(a, @Calendar)
+      create_event(a, @calendar)
     end
 
     calendar.publish
