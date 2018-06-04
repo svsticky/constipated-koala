@@ -11,9 +11,9 @@ class CalendarsController < ActionController::Base
       end
       format.html do
         render html:
-          "<strong>Not available as html page</strong>
-          <br>Go <a href='webcal://koala.svsticky.nl/calendarfeed.ics'>here</a>
-          to subscribe to activities".html_safe
+          "<strong>Niet beschikbaar als html pagina</strong>
+          <br>Klik <a href='webcal://koala.svsticky.nl/calendarfeed.ics'>hier</a>
+          om je te abonneren op de activiteiten".html_safe
       end
     end
   end
