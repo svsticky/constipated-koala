@@ -1,0 +1,55 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/svsticky/constipated-koala
+    parallelism: 1
+
+    docker:
+      - image: circleci/ruby:2.5.1
+        environment:
+          RAILS_ENV: test
+          DATABASE_USER: root
+
+          RAILS_SECRET: b927c15a539afff8813a7674cc4a1b475dbebba4caa7f0c39c85f3b3075603904cf5c9a532dcf75d3aadab7ea59e6737574032909b3a0c8748130b70220774b9
+          DEVISE_SECRET: dcc7dd40dec4d3f61d32abd741253b89761a7dc53976e1134ae6ff257843d5d00951b72bf19971889ec4d9d1448812b723f344a9f1ee0d37dc504aead8bbac5b
+
+      - image: circleci/mysql:5.7
+
+    steps:
+
+      # install javascript runtime environment
+      - run: curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+      - run: echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+      - run: sudo apt-get update && sudo apt-get install nodejs yarn
+
+
+      - checkout
+
+      # install dependencies when not already installed
+      - type: cache-restore
+        name: Restore bundle cache
+        key: constipated-koala-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install --without=production development
+
+      # wait for database, create and setup
+      - run: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run: bundle exec rake db:create --trace
+      - run: bundle exec rake db:setup --trace
+
+      # run the tests
+      - run: bundle exec rake
+
+      # precompile assets
+      - run: bundle exec rake assets:clobber --trace
+      - run: bundle exec rake assets:precompile --trace
+
+      # execute rubocop 2.5.1 not supported
+      - run: bundle exec rubocop
+
+      # cache libraries
+      - type: cache-save
+        name: Store bundle cache
+        key: constipated-koala-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle

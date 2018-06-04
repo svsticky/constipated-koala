@@ -1,3 +1,4 @@
+#:nodoc:
 class AddStatusToEducation < ActiveRecord::Migration[4.2]
   def change
     change_table :studies do |t|

@@ -1,5 +1,5 @@
 # set path to application
-app_dir = File.expand_path("../..", __FILE__)
+app_dir = File.expand_path('..', __dir__)
 working_directory app_dir
 
 # Set unicorn options
@@ -22,13 +22,13 @@ GC.respond_to?(:copy_on_write_friendly=) &&
   GC.copy_on_write_friendly = true
 
 # If using ActiveRecord, disconnect (from the database) before forking.
-before_fork do |server, worker|
+before_fork do |_server, _worker|
   defined?(ApplicationRecord) &&
     ApplicationRecord.connection.disconnect!
 end
 
 # After forking, restore your ActiveRecord connection.
-after_fork do |server, worker|
+after_fork do |_server, _worker|
   defined?(ApplicationRecord) &&
     ApplicationRecord.establish_connection
 end

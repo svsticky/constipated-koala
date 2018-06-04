@@ -1,3 +1,4 @@
+#:nodoc:
 class Admin::AppsController < ApplicationController
   def checkout
     @limit = params[:limit] ? params[:limit].to_i : 50

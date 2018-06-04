@@ -1,8 +1,10 @@
+#:nodoc:
 module Paperclip
+  #:nodoc:
   class Ghostscript < Processor
     attr_accessor :current_geometry, :target_geometry, :format, :whiny, :convert_options, :source_file_options
 
-    def initialize file, options = {}, attachment = nil
+    def initialize(file, options = {}, attachment = nil)
       super
       @file                = file
       @format              = options[:format]
@@ -24,9 +26,10 @@ module Paperclip
 
         parameters = parameters.flatten.compact.join(' ').strip.squeeze(' ')
 
-        success = Paperclip.run('gs', parameters, :source => File.expand_path(src.path), :dest => File.expand_path(dst.path))
+        Rails.logger.debug Paperclip.run('gs', parameters, :source => File.expand_path(src.path), :dest => File.expand_path(dst.path))
       rescue PaperclipCommandLineError => e
         raise PaperclipError, "There was an error processing the thumbnail for #{ @basename }" if @whiny
+        Rails.logger.debug e.inspect
       end
       dst
     end

@@ -26,6 +26,10 @@ Please make sure to write a descriptive commit message. [Here][commit-messages] 
 can find some tips for better commit messages.
 
  [commit-messages]:http://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
+ 
+### Git hooks
+We have some git hooks for checking for missing translations with [I15r](https://github.com/balinterdi/i15r) and running [Rubocop](https://github.com/bbatsov/rubocop).
+These hooks are located in the .hooks directory and should activate them by running `git config --local core.hooksPath .hooks`
 
 ### Example contributing flow
 ```bash

@@ -4,7 +4,9 @@ require 'ostruct'
 require 'net/http'
 require 'uri'
 
+#:nodoc:
 module ConstipatedKoala
+  #:nodoc:
   class Request
     def initialize(domain)
       @uri = URI.parse domain
@@ -27,7 +29,7 @@ module ConstipatedKoala
     def post(path, body = {})
       request = Net::HTTP::Post.new(path.chomp('/'))
 
-      body.delete_if { |k, v| v.nil? }
+      body.delete_if { |_, v| v.nil? }
       request.body = URI.encode_www_form(body)
 
       request['Accept'] = 'application/json'
@@ -56,7 +58,7 @@ module ConstipatedKoala
         {}
       else
         Rails.logger.debug @client.inspect
-        raise ArgumentError.new(response.code.to_i)
+        raise ArgumentError, response.code.to_i
       end
     end
   end

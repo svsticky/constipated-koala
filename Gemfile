@@ -1,24 +1,24 @@
-# encoding: UTF-8
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
+  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?('/')
+  "https://github.com/#{ repo_name }.git"
 end
 
-gem 'rails'
 gem 'mysql2'
+gem 'rails'
 
 # use of Haml and rabl
 gem 'haml'
 gem 'rabl'
 
 # assets and stuff
-gem 'sass-rails'
 gem 'coffee-rails'
+gem 'sass-rails'
 
 # authentication gems
-gem 'devise', :github => 'plataformatec/devise'
+gem 'devise'
 gem 'doorkeeper'
 
 gem 'impressionist'
@@ -34,30 +34,31 @@ gem 'responders'
 gem 'rails-settings-cached'
 
 # Paperclip easy file upload to S3
+gem 'cocaine', '0.3.2'
 gem 'paperclip'
 
 group :production, :staging do
   gem 'sentry-raven'
-  gem 'unicorn'
   gem 'uglifier'
+  gem 'unicorn'
 end
 
 group :development, :test, :staging do
-  gem 'faker', '>= 1.8.4'
+  gem 'faker'
 end
 
 group :development do
-  gem 'puma'
   gem 'listen'
+  gem 'puma'
 
-  gem 'web-console'
   gem 'byebug', platform: :mri
+  gem 'web-console'
+
+  # Added at 2018-01-12 12:01:35 +0100 by cdfa:
+  gem 'i15r', '~> 0.5.5'
 end
 
 group :development, :test do
-  gem 'rubocop', '~> 0.50.0'
+  gem 'rubocop'
   gem 'spring'
 end
-
-# Added at 2018-01-12 12:01:35 +0100 by cdfa:
-gem "i15r", "~> 0.5.5"

@@ -5,6 +5,7 @@
 # admin view. Note that the :id parameters here correspond to Activity ids, and
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
+#:nodoc:
 class Members::ParticipantsController < MembersController
   before_action :set_activity!
 
@@ -188,7 +189,7 @@ class Members::ParticipantsController < MembersController
     # users, or if the unenroll date has passed.
     not_enrollable = !@activity.is_enrollable?
     deadline_passed = @activity.unenroll_date&.end_of_day &&
-                      @activity.unenroll_date.end_of_day < DateTime.now
+                      @activity.unenroll_date.end_of_day < Time.now
     if not_enrollable || deadline_passed
       message = I18n.t(:not_unenrollable, scope: @activity_errors_scope)
 

@@ -1,3 +1,4 @@
+# :nodoc:
 class ApplicationMailer < ActionMailer::Base
   default from: 'no-reply@svsticky.nl'
   layout 'mailer'
@@ -27,7 +28,7 @@ class ApplicationMailer < ActionMailer::Base
     raise ArgumentError if html.blank? && text.blank?
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
-                           :from => sender ||= ::Devise.mailer_sender,
+                           :from => sender || ::Devise.mailer_sender,
                            :to => recipient,
 
                            :subject => subject,
@@ -40,7 +41,7 @@ class ApplicationMailer < ActionMailer::Base
     raise ArgumentError if html.blank? && text.blank? || variables.blank?
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
-                           :from => sender ||= ::Devise.mailer_sender,
+                           :from => sender || ::Devise.mailer_sender,
                            :to => variables.map { |email, item| "#{ item['name'] } <#{ email }>" },
 
                            'recipient-variables' => variables.to_json,

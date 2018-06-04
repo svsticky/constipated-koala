@@ -1,3 +1,9 @@
+
+-#
+  @param {activity} activity
+  @param {?} @enrollment
+  @param {member} @member
+
 .panel.panel-default.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
   .panel-heading.text-right
     %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}

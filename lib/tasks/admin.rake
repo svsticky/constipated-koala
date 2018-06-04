@@ -1,6 +1,6 @@
 namespace :admin do
   desc 'Create a new admin user'
-  task :create, [:email, :password] => :environment do |t, args|
+  task :create, [:email, :password] => :environment do |_, args|
     admin = Admin.new(
       email:                  args[:email],
       password:               args[:password],
@@ -15,7 +15,7 @@ namespace :admin do
   end
 
   desc 'Delete a normal user, that is it\'s login access'
-  task :remove, [:email] => :environment do |t, args|
+  task :remove, [:email] => :environment do |_, args|
     user = User.find_by_email args[:email]
 
     if user.nil?
@@ -30,7 +30,7 @@ namespace :admin do
   end
 
   desc 'Delete an admin account and user'
-  task :delete, [:email] => :environment do |t, args|
+  task :delete, [:email] => :environment do |_, args|
     user = User.find_by_email args[:email]
 
     if user.nil? || !user.admin?
@@ -42,14 +42,14 @@ namespace :admin do
   end
 
   desc 'Reindex fuzzily for all members'
-  task :reindex_members => :environment do |t|
+  task :reindex_members => :environment do
     puts 'reindex members..'
     Member.bulk_update_fuzzy_query
     puts 'reindex done!'
   end
 
   desc 'Start a new year, create a new membership activity if given and set in config'
-  task :start_year, [:membership, :price] => :environment do |t, args|
+  task :start_year, [:membership, :price] => :environment do |_, args|
     # remove activities from settings if passed
     Activity.find(Settings['intro.activities']).each do |activity|
       next unless activity.start_date < Date.today

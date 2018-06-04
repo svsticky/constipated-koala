@@ -1,3 +1,4 @@
+#:nodoc:
 class PublicController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :create, :confirm]
   skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
@@ -13,15 +14,15 @@ class PublicController < ApplicationController
     @membership = Activity.find Settings['intro.membership']
     @activities = Activity.find Settings['intro.activities']
 
-    @participate = @activities.map { |activity| activity.id }
+    @participate = @activities.map(&:id)
   end
 
   def create
-    @member = Member.new(public_post_params.except :participant_attributes)
+    @member = Member.new(public_post_params.except(:participant_attributes))
     @member.require_student_id = true
     @member.create_account = true
 
-    activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |id, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |id, participant| participant['id'].to_i })
+    activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |_, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |_, participant| participant['id'].to_i })
     total = 0
 
     # if bank is empty report and test model for additional errors
@@ -52,7 +53,7 @@ class PublicController < ApplicationController
           :issuer => params[:bank],
           :member => @member,
 
-          :transaction_id => activities.map { |activity| activity.id },
+          :transaction_id => activities.map(&:id),
           :transaction_type => 'Activity',
 
           :redirect_uri => public_url
@@ -111,10 +112,8 @@ class PublicController < ApplicationController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-
                                    :method,
                                    :bank,
-
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
   end

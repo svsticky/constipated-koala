@@ -1,3 +1,4 @@
+#:nodoc:
 class CreateSettings < ActiveRecord::Migration[4.2]
   def self.up
     create_table :settings do |t|

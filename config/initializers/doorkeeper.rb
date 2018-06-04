@@ -6,7 +6,7 @@ Doorkeeper::OAuth::TokenResponse.class_eval do
       'expires_in'    => token.expires_in_seconds,
       'refresh_token' => token.refresh_token,
       'scope'         => token.scopes_string,
-      'created_at'    => token.created_at.to_i,
+      'created_at'    => token.created_at.to_i
     }
 
     # added some information about the user that is loggedin
@@ -130,7 +130,7 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.2
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
-  grant_flows %w(authorization_code client_credentials)
+  grant_flows %w[authorization_code client_credentials]
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.

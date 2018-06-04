@@ -1,3 +1,4 @@
+#:nodoc:
 class AddAttachmentPosterToActivities < ActiveRecord::Migration[4.2]
   def self.up
     change_table :activities do |t|

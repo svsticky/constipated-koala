@@ -22,9 +22,7 @@ node :end_date do |activity|
   end
 end
 
-if Authorization._client.include?('activity-read')
-  attributes :id, :description, :price
-end
+attributes :id, :description, :price if Authorization._client.include?('activity-read')
 
 node :poster do |activity|
   activity.poster.url(:medium) unless activity.poster_updated_at.nil?

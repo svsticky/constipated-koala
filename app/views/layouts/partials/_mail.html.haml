@@ -1,3 +1,9 @@
+-#
+  @param {integer}  id            - Id of the activity
+  @param {?}        recipients    - List of members for name and email
+  @param {string}   subject
+  @param {string}   mail          - Name of the template used in this mail
+
 .panel.panel-default
   .panel-body
     %form.form-horizontal#mail{ :data => { :id => id }, :action => mail_activity_participants_path( :activity_id => id ), :method => :post }

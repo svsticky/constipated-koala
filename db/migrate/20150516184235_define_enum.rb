@@ -1,3 +1,4 @@
+#:nodoc:
 class DefineEnum < ActiveRecord::Migration[4.2]
   def change
     rename_column :tags, :name_id, :name

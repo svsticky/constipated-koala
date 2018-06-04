@@ -28,6 +28,10 @@ Style/NumericPredicate:
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: space
 
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
+  AllowInnerSlashes: true
+
 # Ignore auto-generated whitespace errors
 Layout/EmptyLinesAroundBlockBody:
   Exclude:

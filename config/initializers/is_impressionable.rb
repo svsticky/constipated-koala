@@ -1,8 +1,10 @@
-# NOTE don't destroy records we want to preserve even after destroying the object
+#:nodoc: NOTE don't destroy records we want to preserve even after destroying the object
 module Impressionist
+  #:nodoc:
   module IsImpressionable
     extend ActiveSupport::Concern
 
+    #:nodoc:
     module ClassMethods
       def is_impressionable(options = {}) # rubocop:disable PredicateName
         define_association options.delete(:dependent)
