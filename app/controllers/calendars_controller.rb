@@ -27,39 +27,31 @@ class CalendarsController < ActionController::Base
   end
 
   def create_event(activity, calendar)
-    st = activity.start_time
-    sd = activity.start_date
-    et = activity.end_time
-    ed = activity.end_date
-
-    if st
-      @sdt = DateTime.new(sd.year, sd.month, sd.day, st.hour, st.min, st.sec, st.zone)
-      @edt = DateTime.new(ed.year, ed.month, ed.day, et.hour, et.min, et.sec, et.zone)
-    else
-      @sdt = Date.new(sd.year, sd.month, sd.day)
-      if ed.day == sd.day
-        @edt = Date.new(ed.year, ed.month, ed.day + 1)
-      else
-        @edt = Date.new(ed.year, ed.month, ed.day)
-      end
-    end
-
     event = Icalendar::Event.new
-    event.dtstart = @sdt
-    event.dtend = @edt
+    event.dtstart = activity.start
+    event.dtend = activity.end
     event.summary = activity.name
     event.url = activity_url(activity)
+
     unless activity.description.nil?
       event.description = activity.description + '\n'
     end
+
     event.location = activity.location
+
     unless activity.price.nil? || activity.price == 0
-      event.description += "Price: €" + activity.price.to_s
+      if activity.description.nil?
+        event.description = "Price: €" + activity.price.to_s
+      else
+        event.description += "Price: €" + activity.price.to_s
+      end
     end
+
     event.alarm do |a|
       a.trigger = "-PT2H"
       a.summary = activity.description
     end
+
     calendar.add_event(event)
   end
 end
