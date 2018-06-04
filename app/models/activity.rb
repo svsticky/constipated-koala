@@ -196,8 +196,8 @@ class Activity < ApplicationRecord
     # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
     return unless is_enrollable &&
-
-    unenroll_date.end_of_day >= Time.now
+                  unenroll_date.end_of_day >= Time.now
+    
     return unless reservists.count > 0
 
     spots = 0
