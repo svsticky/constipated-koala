@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     # No double controllers
     get     'admin/home',   to: redirect('/')
     get     'members/home',   to: redirect('/')
+    
     # Devise routes
     devise_for :users, :path => '', :skip => [ :registrations ], :controllers => {
       sessions:       'users/sessions'
