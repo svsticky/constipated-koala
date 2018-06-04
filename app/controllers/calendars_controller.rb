@@ -8,7 +8,6 @@ class CalendarsController < ActionController::Base
         update_calendar(@Calendar)
 
         render plain: @Calendar.to_ical
-        puts @Calendar.to_ical
       end
     end
   end
