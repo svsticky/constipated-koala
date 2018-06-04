@@ -197,7 +197,7 @@ class Activity < ApplicationRecord
     # enrolled, ignore at your own risk.
     return unless is_enrollable &&
                   unenroll_date.end_of_day >= Time.now
-    
+
     return unless reservists.count > 0
 
     spots = 0
