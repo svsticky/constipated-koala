@@ -2,29 +2,31 @@
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Hey #{name},
+      = t('mailings.greeting')
+      %strong #{name},
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>#{activity.name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
+      = t('mailings.participants.enrolled.free_spot_html', activity_name: activity.name)
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      De activiteit begint op <strong>#{starts_at}</strong> en #{price}. Tot dan!
+      = t('mailings.participants.enrolled.activity_start_html', activity_start: starts_at, price: price)
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Je kunt je tot <strong>#{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
+      = t('mailings.participants.enrolled.button_instructions_html', unenroll_date: unenroll_date)
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; text-align: center; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      %a.btn-primary{:href => url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #CE2027; border-color: #CE2027; border-style: solid; border-width: 2px 111px;"} Naar de activiteit
+      %a.btn-primary{:href => url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #CE2027; border-color: #CE2027; border-style: solid; border-width: 2px 111px;"}
+        = t('mailings.participants.enrolled.to_the_activity')
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Met vriendelijke groet,
+      = I18n.t("mailings.best_regards")
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      Het bestuur
+      = I18n.t("mailings.signature")
 

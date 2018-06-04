@@ -18,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def sender
-    "#{credentials.name} <#{self.email}>"
+    "#{ credentials.name } <#{ self.email }>"
   end
 
   def self.taken?(email)

@@ -40,8 +40,8 @@ gem 'paperclip'
 gem 'icalendar'
 
 group :production, :staging do
+  gem 'sentry-raven'
   gem 'unicorn'
-  gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 end
 
@@ -55,10 +55,12 @@ group :development do
 
   gem 'web-console'
   gem 'byebug', platform: :mri
-
-  gem 'rubocop', '~> 0.50.0', require: false
 end
 
 group :development, :test do
+  gem 'rubocop', '~> 0.50.0'
   gem 'spring'
 end
+
+# Added at 2018-01-12 12:01:35 +0100 by cdfa:
+gem "i15r", "~> 0.5.5"

@@ -50,7 +50,7 @@ Rails.application.configure do
   config.log_level = :error
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -94,21 +94,4 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => ENV['AWS_BUCKET'],
-      :access_key_id => ENV['AWS_ACCESS'],
-      :secret_access_key => ENV['AWS_SECRET']
-    },
-    :path => '/:class/:id/:style.:extension',
-    :s3_protocol => 'https',
-    :url => ':s3_domain_url',
-    :s3_region => ENV['AWS_REGION'],
-    :s3_permissions => {
-      :original => :private
-    }
-  }
-
 end

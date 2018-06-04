@@ -22,3 +22,6 @@ vendor/cache/
 
 node_modules/
 .sass-cache/
+
+.i15r-cache
+.i15r-output
