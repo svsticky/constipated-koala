@@ -93,6 +93,7 @@ GEM
     i15r (0.5.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    icalendar (2.4.1)
     impressionist (1.6.1)
       nokogiri (~> 1)
     kgio (2.11.2)
@@ -249,6 +250,7 @@ DEPENDENCIES
   fuzzily!
   haml
   i15r (~> 0.5.5)
+  icalendar
   impressionist
   listen
   mysql2

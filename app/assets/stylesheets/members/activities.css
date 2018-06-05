@@ -12,6 +12,10 @@ div.container.col-md-9 {
     width: 76px;
   }
 
+  .btn.subscribe {
+    width: 150px;
+  }
+
   .btn-group {
     width: 100%;
   }
@@ -176,6 +180,12 @@ div.container.col-md-9 {
   position: fixed;
   bottom: 10px;
   right: 10px;
+}
+
+.subscribe {
+  position: fixed;
+  bottom: 10px;
+  right: 96px;
 }
 
 .show-activity-topborder {

@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.string "location"
     t.date "unenroll_date"
     t.string "notes"
+    t.boolean "is_viewable"
     t.boolean "notes_mandatory"
     t.boolean "notes_public"
-    t.boolean "is_viewable"
     t.boolean "is_masters"
     t.boolean "is_freshmans"
   end
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(version: 20170919145334) do
     t.string "transaction_type"
     t.string "transaction_id"
     t.string "redirect_uri"
-    t.string "trxid"
     t.string "token", limit: 64
+    t.string "trxid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["token"], name: "index_ideal_transactions_on_token", unique: true

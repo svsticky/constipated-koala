@@ -37,6 +37,9 @@ gem 'rails-settings-cached'
 gem 'cocaine', '0.3.2'
 gem 'paperclip'
 
+# Icalendar for calendar integration
+gem 'icalendar'
+
 group :production, :staging do
   gem 'sentry-raven'
   gem 'uglifier'
