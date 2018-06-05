@@ -67,7 +67,7 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def self.last_version
-    reject(&:children?)
+    self.select { |product| !product.children? }
   end
 
   private
