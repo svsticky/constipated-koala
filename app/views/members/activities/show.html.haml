@@ -39,6 +39,6 @@
 
 = link_to calendarfeed_url(protocol: :webcal, format: :ics), class: 'btn btn-success subscribe' do
   %i.fa.fa-calendar
-  Subscribe!
+  = I18n.t 'members.activities.subscribe'
 
 = render 'layouts/partials/poster_modal', view: 'show'

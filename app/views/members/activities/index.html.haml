@@ -11,10 +11,10 @@
 
 = link_to 'mailto:pleasedotheneedful@svsticky.nl' , class: 'btn btn-danger helpme' do
   %i.fa.fa-bug
-  BUG!
+  = I18n.t 'members.activities.bug_report'
 
 = link_to calendarfeed_url(protocol: :webcal, format: :ics), class: 'btn btn-success subscribe' do
   %i.fa.fa-calendar
-  Subscribe!
+  = I18n.t 'members.activities.subscribe'
 
 = render 'layouts/partials/poster_modal', view: 'index'
