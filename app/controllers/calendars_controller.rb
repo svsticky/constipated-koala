@@ -1,3 +1,4 @@
+# :nodoc:
 class CalendarsController < ActionController::Base
   def show
     respond_to do |format|
@@ -38,10 +39,7 @@ class CalendarsController < ActionController::Base
     event.summary = activity.name
     event.url = activity_url(activity)
 
-    unless activity.description.nil?
-      event.description = activity.description + '\n'
-    end
-
+    event.description = activity.description + '\n' unless activity.description.blank?
     event.location = activity.location
 
     unless activity.price.nil? || activity.price == 0

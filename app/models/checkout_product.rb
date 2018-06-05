@@ -67,7 +67,7 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def self.last_version
-    self.select { |product| !product.children? }
+    self.reject { |product| !product.children? } # rubocop:disable Style/InverseMethods,Style/RedundantSelf
   end
 
   private
