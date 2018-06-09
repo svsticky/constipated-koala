@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?("/")
+  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?('/')
   "https://github.com/#{ repo_name }.git"
 end
 
@@ -18,7 +18,7 @@ gem 'coffee-rails'
 gem 'sass-rails'
 
 # authentication gems
-gem 'devise', :github => 'plataformatec/devise'
+gem 'devise'
 gem 'doorkeeper'
 
 gem 'impressionist'
@@ -34,6 +34,9 @@ gem 'responders'
 gem 'rails-settings-cached'
 
 gem 'image_processing'
+
+# Icalendar for calendar integration
+gem 'icalendar'
 
 group :production, :staging do
   gem 'sentry-raven'
@@ -51,12 +54,12 @@ group :development do
 
   gem 'byebug', platform: :mri
   gem 'web-console'
+
+  # Added at 2018-01-12 12:01:35 +0100 by cdfa:
+  gem 'i15r', '~> 0.5.5'
 end
 
 group :development, :test do
   gem 'rubocop'
   gem 'spring'
 end
-
-# Added at 2018-01-12 12:01:35 +0100 by cdfa:
-gem "i15r", "~> 0.5.5"

@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 2018_05_21_064840) do
     t.string "transaction_type"
     t.string "transaction_id"
     t.string "redirect_uri"
-    t.string "trxid"
     t.string "token", limit: 64
+    t.string "trxid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["token"], name: "index_ideal_transactions_on_token", unique: true

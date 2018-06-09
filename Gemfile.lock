@@ -1,15 +1,4 @@
 GIT
-  remote: https://github.com/plataformatec/devise.git
-  revision: 715192a7709a4c02127afb067e66230061b82cf2
-  specs:
-    devise (4.4.3)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 6.0)
-      responders
-      warden (~> 1.2.3)
-
-GIT
   remote: https://github.com/svsticky/fuzzily.git
   revision: 9deddd48a79892ff19aff09bc2efafdfe4552b2e
   specs:
@@ -75,6 +64,12 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    devise (4.4.3)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 6.0)
+      responders
+      warden (~> 1.2.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     doorkeeper (4.3.2)
@@ -96,6 +91,7 @@ GEM
     i15r (0.5.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    icalendar (2.4.1)
     image_processing (1.2.0)
       mini_magick (~> 4.0)
       ruby-vips (>= 2.0.10, < 3)
@@ -243,12 +239,13 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails
-  devise!
+  devise
   doorkeeper
   faker
   fuzzily!
   haml
   i15r (~> 0.5.5)
+  icalendar
   image_processing
   impressionist
   listen

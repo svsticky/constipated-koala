@@ -438,6 +438,7 @@ en:
       bug_report: BUG!
       index:
         no_activities: "There are no activities for which you can enroll at the moment"
+      subscribe: Subscribe!
       partials:
         view:
           actions:

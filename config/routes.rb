@@ -35,6 +35,8 @@ Rails.application.routes.draw do
       sessions:       'users/sessions'
     }
 
+    get     'calendarfeed', to: 'calendars#show'
+
     get     'sign_up',      to: 'users/registrations#new', as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
     get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
