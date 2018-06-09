@@ -105,11 +105,11 @@ Rails.application.routes.draw do
         resources :groups, only: [:index, :show]
 
         resources :activities, only: [:index, :show] do
-          get 'image',    to: 'activities#image'
+          get 'image', to: 'activities#image'
 
           resources :participants, only: [:index, :create] do
             collection do
-              delete '',  to: 'participants#destroy'
+              delete '', to: 'participants#destroy'
             end
           end
         end

@@ -33,7 +33,7 @@ class Admin::ActivitiesController < ApplicationController
     end
   end
 
-  # TODO refactor
+  # TODO: refactor
   def update
     @activity = Activity.find_by_id params[:id]
     params = activity_post_params
