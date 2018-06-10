@@ -16,7 +16,7 @@ puts '-- Creating members'
       phone_number: Faker::Base.numerify('+316########'),
       email:        Faker::Internet.safe_email(first_name + '.' + last_name),
       gender:       ['m', 'f'].sample,
-      student_id:   "F#{ Faker::Number.number(6) }", # TODO: also normal student ids
+      student_id:   "F#{ Faker::Number.number(6) }",
       birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
       join_date:    Faker::Date.between(6.years.ago, Date.today),
       comments:     (Faker::Boolean.boolean(0.3) ? Faker::Hacker.say_something_smart : nil)

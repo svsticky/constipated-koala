@@ -3,14 +3,24 @@ puts '-- Creating users'
 User.transaction do
   Admin.create(
     email:      'dev@svsticky.nl',
-    password:   'sticky123',
-    skip_confirmation: true
+    password:   'sticky123'
   )
   puts '   -> dev@sticky.nl (admin)'
 
-  Member.all.sample(6).each do |member|
+  Admin.create(
+    email:      'martijn@svsticky.nl',
+    password:   'sticky123',
+
+    first_name: 'Martijn',
+    last_name:  'Casteel',
+    signature:  'Martijn'
+  )
+  puts '   -> martijn@sticky.nl (admin)'
+
+  # create actual members, but give the first member test@svsticky.nl
+  Member.all.sample(6).each_with_index do |member, id|
     user = User.new(
-      email:       member.email,
+      email:       id == 0 ? 'test@svsticky.nl' : member.email,
       password:    'sticky123',
       credentials: member
     )

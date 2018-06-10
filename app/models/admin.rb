@@ -5,7 +5,6 @@ class Admin < ApplicationRecord
   attr_accessor :email
   attr_accessor :password
   attr_accessor :password_confirmation
-  attr_accessor :skip_confirmation
 
   def name
     return "#{ first_name } #{ last_name }" if infix.blank?
@@ -21,7 +20,7 @@ class Admin < ApplicationRecord
 
       credentials: self
     )
-    user.skip_confirmation! if skip_confirmation && (Rails.env.development? || Rails.env.staging?)
+    user.skip_confirmation! if Rails.env.development? || Rails.env.staging?
     user.save!
   end
 end

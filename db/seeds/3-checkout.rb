@@ -10,6 +10,16 @@ Member.all.sample(30).each do |member|
   end
 end
 
+puts '-- Giving away free money'
+CheckoutCard.all.each do |card|
+  CheckoutTransaction.create(
+    checkout_card_id:            card.id,
+    price:                       9.00,
+    payment_method:              %w[Gepind Contant].sample,
+    created_at:                  Faker::Time.between(Time.now - 1.days, card.member.join_date)
+  )
+end
+
 puts '-- Creating products'
 5.times do
   # Create a few food products
@@ -28,16 +38,6 @@ end
     category:              5,
     price:                 Faker::Number.between(1.0, 3.0),
     skip_image_validation: true
-  )
-end
-
-puts '-- Giving away free money'
-CheckoutCard.all.each do |card|
-  CheckoutTransaction.create(
-    checkout_card_id:            card.id,
-    price:                       9.00,
-    payment_method:              %w[Gepind Contant].sample,
-    created_at:                  Faker::Time.between(Time.now - 1.days, card.member.join_date)
   )
 end
 
