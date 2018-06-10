@@ -1,4 +1,5 @@
 # Create 20 activities and the participants
+# TODO: refactor
 puts '-- Creating activities'
 start_dates = []
 20.times do
