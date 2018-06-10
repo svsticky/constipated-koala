@@ -1,7 +1,7 @@
 # Creating login accounts
 puts '-- Creating users'
 User.transaction do
-  admin = Admin.create(
+  Admin.create(
     email:      'dev@svsticky.nl',
     password:   'sticky123',
     skip_confirmation: true
@@ -18,6 +18,6 @@ User.transaction do
     user.skip_confirmation!
     user.save!
 
-    puts "   -> #{user.email} (member)"
+    puts "   -> #{ user.email } (member)"
   end
 end

@@ -62,7 +62,7 @@ start_dates.each do |start_date|
     is_freshmans:      is_freshmans
   )
 
-  puts("   -> #{ activity.name } (#{activity.start_date})")
+  puts("   -> #{ activity.name } (#{ activity.start_date })")
 
   next unless enrollable
 

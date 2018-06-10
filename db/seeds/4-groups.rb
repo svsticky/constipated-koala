@@ -16,5 +16,5 @@ puts '-- Creating committees'
     )
   end
 
-  puts("   -> #{ group.name } (#{group.created_at.study_year}-#{Date.today.study_year})")
+  puts("   -> #{ group.name } (#{ group.created_at.study_year }-#{ Date.today.study_year })")
 end
