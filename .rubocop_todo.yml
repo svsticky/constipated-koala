@@ -80,6 +80,11 @@ Style/GuardClause:
     - 'app/controllers/admin/participants_controller.rb'
     - 'app/controllers/api/checkout_controller.rb'
 
+Layout/EmptyLines:
+  Exclude:
+    - 'db/seeds.rb'
+    - 'db/seeds/*.rb'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.

@@ -21,7 +21,7 @@ class Admin < ApplicationRecord
 
       credentials: self
     )
-    user.skip_confirmation! if skip_confirmation
+    user.skip_confirmation! if skip_confirmation && (Rails.env.development? || Rails.env.staging?)
     user.save!
   end
 end
