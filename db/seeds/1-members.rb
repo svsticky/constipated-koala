@@ -26,7 +26,6 @@ puts '-- Creating members'
   end
 end
 
-
 puts '-- Creating educations'
 Member.all.each do |member|
   Faker::Number.between(1, 3).times do
