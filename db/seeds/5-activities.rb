@@ -63,7 +63,7 @@ dates.each do |start_date|
   eligible = eligible.select(&:freshman?) if activity.is_freshmans
   eligible = eligible.select(&:masters?) if activity.is_masters
 
-  response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3)) ? Faker::Lorem.words(Faker::Measurement.height) : nil
+  response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3)) ? Faker::Measurement.height : nil
 
   eligible.sample(Faker::Number.between(20, 20)).each do |member|
     Participant.create(
