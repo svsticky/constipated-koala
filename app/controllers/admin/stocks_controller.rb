@@ -16,7 +16,7 @@ class Admin::StocksController < ApplicationController
   end
 
   def purchases
-    @results = StockyTransaction.where(from: "shop").order(:created_at)
+    @results = StockyTransaction.where(from: "shop").order(created_at: :desc)
     @stocky_transaction      = StockyTransaction.new
 
     @limit = params[:limit] ? params[:limit].to_i : 20
@@ -67,7 +67,7 @@ class Admin::StocksController < ApplicationController
   end
 
   def sales
-    @results = StockyTransaction.where(from: "mongoose").order(:created_at)
+    @results = StockyTransaction.where(from: "mongoose").order(created_at: :desc)
     @stocky_transaction = StockyTransaction.new
 
     @limit  = params[:limit]  ? params[:limit] .to_i : 20
