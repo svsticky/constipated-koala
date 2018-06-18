@@ -11,7 +11,7 @@ class CheckoutProductType < ApplicationRecord
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
 
   def price=(price)
-    write_attribute(:price, price.to_s.gsub(',', '.').to_f)
+    write_attribute(:price, price.to_s.tr(',', '.').to_f)
   end
 
   has_attached_file :image,
@@ -26,17 +26,17 @@ class CheckoutProductType < ApplicationRecord
                                     :content_type => ['image/jpeg', 'image/png']
 
   def url
-    self.image.url(:original) if self.image.exists?
+    image.url(:original) if image.exists?
   end
 
   def sales(year = nil)
     year = year.blank? ? Date.today.study_year : year.to_i
 
     sales = CheckoutTransactionItem
-      .where(checkout_product_type: self)
-      .joins(:checkout_product_type)
-      .where('created_at >= ? AND created_at < ?', Date.to_date(year), Date.to_date(year + 1))
-      .count
+            .where(checkout_product_type: self)
+            .joins(:checkout_product_type)
+            .where('created_at >= ? AND created_at < ?', Date.to_date(year), Date.to_date(year + 1))
+            .count
 
     return [{ self => sales }]
   end
@@ -44,6 +44,6 @@ class CheckoutProductType < ApplicationRecord
   private
 
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless self.image.present?
+    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless image.present?
   end
 end

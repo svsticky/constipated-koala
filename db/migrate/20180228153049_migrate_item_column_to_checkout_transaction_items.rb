@@ -4,9 +4,9 @@ class MigrateItemColumnToCheckoutTransactionItems < ActiveRecord::Migration[5.1]
     puts '--- Beginning conversion of `items` column to CheckoutTransactionItem'
 
     ts = CheckoutTransaction
-      .where.not(items: nil)
+         .where.not(items: nil)
 
-    puts "Migrating #{ts.count} transactions."
+    puts "Migrating #{ ts.count } transactions."
 
     ts.each do |t|
       # Boom yo Big Shaq voor elk item maken we een CheckoutTransactionItem aan

@@ -11,10 +11,10 @@ Rails.application.config.assets.precompile << /\.(?:svg|woff|woff2|ttf)\z/
 # non-JS/CSS in the app/assets folder are already added.
 
 # Assets for member part of koala
-Rails.application.config.assets.precompile += %w( members.css members.js )
+Rails.application.config.assets.precompile += %w(members.css members.js)
 
 # Assets for login pages and doorkeeper pages
-Rails.application.config.assets.precompile += %w( doorkeeper.css doorkeeper.js )
+Rails.application.config.assets.precompile += %w(doorkeeper.css doorkeeper.js)
 
 # Assets for intro website
-Rails.application.config.assets.precompile += %w( public.css public.js )
+Rails.application.config.assets.precompile += %w(public.css public.js)

@@ -4,6 +4,7 @@ class Admin::StocksController < ApplicationController
                 .paginate(page: params[:page],
                           per_page: params[:limit])
     @stocky_transaction      = StockyTransaction.new
+
     @moves = StockyTransaction
              .where(:from => ['basement', 'mongoose'])
              .where(:to   => ['basement', 'mongoose',
@@ -25,7 +26,7 @@ class Admin::StocksController < ApplicationController
     @page = @offset / @limit
     @pages = (@results.count / @limit.to_f).ceil
 
-    @purchases = @results[@offset,@limit]
+    @purchases = @results[@offset, @limit]
 
     @transactions = StockyTransaction.where(from: "shop")
 
@@ -47,8 +48,9 @@ class Admin::StocksController < ApplicationController
   end
 
   def create
-    @stocky_transaction      = StockyTransaction.new(
-      stocky_transaction_post_params)
+    @stocky_transaction = StockyTransaction.new(
+      stocky_transaction_post_params
+    )
 
     @stocky_transaction.save
 
@@ -56,8 +58,9 @@ class Admin::StocksController < ApplicationController
   end
 
   def create_purchase
-    @stocky_transaction      = StockyTransaction.new(
-      stocky_purchase_transaction_post_params)
+    @stocky_transaction = StockyTransaction.new(
+      stocky_purchase_transaction_post_params
+    )
     @stocky_transaction.from = "shop"
     @stocky_transaction.to   = "basement"
 
@@ -76,24 +79,24 @@ class Admin::StocksController < ApplicationController
     @page  = @offset / @limit
     @pages = (@results.count / @limit.to_f).ceil
 
-    @sales = @results[@offset,@limit]
+    @sales = @results[@offset, @limit]
 
     render 'admin/apps/stocky/sales'
   end
 
   private
+
   def stocky_purchase_transaction_post_params
     params.require(:stocky_transaction)
-      .permit(:checkout_product_type_id,
-              :amount)
+          .permit(:checkout_product_type_id,
+                  :amount)
   end
 
-  private
   def stocky_transaction_post_params
     params.require(:stocky_transaction)
-      .permit(:checkout_product_type_id,
-              :amount,
-              :from,
-              :to)
+          .permit(:checkout_product_type_id,
+                  :amount,
+                  :from,
+                  :to)
   end
 end

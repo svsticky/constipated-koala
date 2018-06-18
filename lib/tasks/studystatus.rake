@@ -10,14 +10,13 @@ namespace :studystatus do
       if !member.nil?
         member.update_studies(line)
       else
-        puts "#{line.split(/; /).first} is not found in the database"
+        puts "#{ line.split(/; /).first } is not found in the database"
       end
     end
   end
 
   desc "Finds study progress for a member and updates the DB"
   task :update, [:username, :password, :student_id] => :environment do |t, args|
-
     Open3.popen3(ENV['STUDY_SCRIPT'],
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, e, t|
@@ -27,7 +26,6 @@ namespace :studystatus do
       i.puts member.student_id
       member.update_studies(o.gets ||= '')
       i.close
-
     end
   end
 
@@ -38,7 +36,7 @@ namespace :studystatus do
                  "--username", args[:username],
                  "--password", args[:password]) do |i, o, e, t|
 
-      Member.where.not( :student_id => nil ).each do |member|
+      Member.where.not(:student_id => nil).each do |member|
         i.puts member.student_id
         member.update_studies(o.gets ||= '')
       end

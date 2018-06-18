@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/charlotte-ruby/impressionist.git
-  revision: 529f9d494d375bf50ed85d41d6095b654bb26658
-  specs:
-    impressionist (1.5.2)
-      nokogiri (~> 1)
-
-GIT
   remote: https://github.com/plataformatec/devise.git
   revision: ee01bac8b0b828b3da0d79c46115ba65c433d6c8
   specs:
@@ -65,21 +58,13 @@ GEM
       tzinfo (~> 1.1)
     arel (8.0.0)
     ast (2.3.0)
-    aws-sdk (2.9.16)
-      aws-sdk-resources (= 2.9.16)
-    aws-sdk-core (2.9.16)
-      aws-sigv4 (~> 1.0)
-      jmespath (~> 1.0)
-    aws-sdk-resources (2.9.16)
-      aws-sdk-core (= 2.9.16)
-    aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
     bootstrap-will_paginate (1.0.0)
       will_paginate
     builder (3.2.3)
     byebug (9.0.6)
-    chartkick (2.3.2)
+    chartkick (2.3.4)
     climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -99,10 +84,12 @@ GEM
     execjs (2.7.0)
     faker (1.8.4)
       i18n (~> 0.5)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    groupdate (4.0.0)
+    groupdate (4.0.1)
       activesupport (>= 4.2)
     haml (5.0.1)
       temple (>= 0.8.0)
@@ -110,7 +97,8 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.1)
-    jmespath (1.3.1)
+    impressionist (1.6.0)
+      nokogiri (~> 1)
     kgio (2.11.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -127,6 +115,7 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.10.2)
+    multipart-post (2.0.0)
     mysql2 (0.4.6)
     netrc (0.11.0)
     nio4r (2.0.0)
@@ -204,6 +193,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sentry-raven (2.7.1)
+      faraday (>= 0.7.6, < 1.0)
     spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -244,7 +235,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk (>= 2.0)
   bootstrap-will_paginate
   byebug
   chartkick
@@ -255,7 +245,7 @@ DEPENDENCIES
   fuzzily!
   groupdate
   haml
-  impressionist!
+  impressionist
   listen
   mysql2
   paperclip
@@ -267,6 +257,7 @@ DEPENDENCIES
   rest-client
   rubocop (~> 0.50.0)
   sass-rails
+  sentry-raven
   spring
   uglifier
   unicorn

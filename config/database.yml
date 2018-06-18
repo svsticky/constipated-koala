@@ -9,7 +9,7 @@ development:
   socket: <%= ENV['DATABASE_SOCKET'] %>
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4
 
 # test
 # Version used by circleci
@@ -22,7 +22,7 @@ test:
   socket: <%= ENV['DATABASE_SOCKET'] %>
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4
 
 # Production
 # Version for public use running on svsticky.nl
@@ -35,7 +35,7 @@ production:
   socket: /var/run/mysqld/mysqld.sock
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4
 
 # Staging
 # Version for QA running on dev.svsticky.nl
@@ -48,4 +48,4 @@ staging:
   socket: /var/run/mysqld/mysqld.sock
   pool: 5
   timeout: 5000
-  encoding: utf8
+  encoding: utf8mb4

@@ -10,7 +10,7 @@ class CreateSettings < ActiveRecord::Migration[4.2]
 
     drop_table :user_configurations
 
-    add_index :settings, [ :thing_type, :thing_id, :var ], :unique => true
+    add_index :settings, [:thing_type, :thing_id, :var], :unique => true
   end
 
   def self.down

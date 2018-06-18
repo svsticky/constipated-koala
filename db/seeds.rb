@@ -54,10 +54,15 @@ Group.create(
 )
 
 puts 'Creating membership activity'
-activity = Activity.create(
-  name:       'Lidmaatschap',
-  price:      7.5,
-  start_date: Faker::Date.between(30.days.ago, 7.days.ago)
+Activity.create(
+  name:          'Lidmaatschap',
+  price:         7.5,
+  start_date:    Faker::Date.between(30.days.ago, 7.days.ago),
+  is_enrollable: false,
+  is_masters:    false,
+  is_viewable:   false,
+  is_alcoholic:  false,
+  is_freshmans:  false
 )
 
 # Seeds not working on CI
@@ -94,8 +99,8 @@ end
 
 puts 'Creating admin: dev@svsticky.nl, sticky123'
 Admin.create!(
-  email: 'dev@svsticky.nl',
-  password: 'sticky123',
+  email:             'dev@svsticky.nl',
+  password:          'sticky123',
   skip_confirmation: true
 )
 
@@ -110,18 +115,24 @@ test_member = Member.create(
   phone_number: Faker::Base.numerify('+316########'),
   email:        Faker::Internet.safe_email('Sticky' + '.' + 'Tester'),
   gender:       ['m', 'f'].sample,
-  student_id:   "F#{Faker::Number.number(6)}",
+  student_id:   "F#{ Faker::Number.number(6) }",
   birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
   join_date:    Faker::Date.between(6.years.ago, Date.today),
   comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
 )
 test_user = User.new(
-  email: 'test@svsticky.nl',
-  password: 'sticky123',
+  email:       'test@svsticky.nl',
+  password:    'sticky123',
   credentials: test_member
 )
 test_user.skip_confirmation!
 test_user.save!
+
+puts 'Create Education for test user'
+Education.create(
+  study: Study.first,
+  member: test_member
+)
 
 # Create 60 members and their studies
 puts 'Creating members'
@@ -130,7 +141,7 @@ puts 'Creating members'
   last_name  = Faker::Name.last_name
 
   Member.transaction do
-    member = Member.create(
+    (member = Member.create(
       first_name:   first_name,
       infix:        (Faker::Number.between(1, 10) > 7 ? Faker::Name.tussenvoegsel : ' '),
       last_name:    last_name,
@@ -141,11 +152,11 @@ puts 'Creating members'
       phone_number: Faker::Base.numerify('+316########'),
       email:        Faker::Internet.safe_email(first_name + '.' + last_name),
       gender:       ['m', 'f'].sample,
-      student_id:   "F#{Faker::Number.number(6)}",
+      student_id:   "F#{ Faker::Number.number(6) }",
       birth_date:   Faker::Date.between(28.years.ago, 16.years.ago),
       join_date:    Faker::Date.between(6.years.ago, Date.today),
-      comments:     (Faker::Number.between(1, 10) < 3 ? Faker::Hacker.say_something_smart : nil)
-    ) and puts "   -> #{member.name} (#{member.student_id})"
+      comments:     (Faker::Boolean.boolean(0.3) ? Faker::Hacker.say_something_smart : nil)
+    ) and puts "   -> #{ member.name } (#{ member.student_id })")
   end
 end
 
@@ -157,7 +168,6 @@ Member.all.each do |member|
   checkout_balance = nil
   CheckoutBalance.transaction do
     checkout_balance = CheckoutBalance.create(
-      balance:   Faker::Number.between(130.00, 150.00),
       member_id: member.id
     )
   end
@@ -182,7 +192,7 @@ Member.all.each do |member|
 
       Education.create(
         member_id:  member.id,
-        study_id:   Faker::Number.between(1, Study.count),
+        study_id:   Study.all.sample,
         start_date: start_date,
         end_date:   end_date,
         status:     status
@@ -197,18 +207,18 @@ CheckoutCard.connection.commit_db_transaction
 puts 'Creating checkout transactions'
 Member.all.each do |member|
   member.checkout_cards.each do |checkout_card|
+    checkout_transactions = []
     Faker::Number.between(0, 10).times do
-      checkout_products = CheckoutProductType.all.to_a
-      if member.is_underage?
-        checkout_products.reject!{ |product| product.liquor? }
-      end
+      checkout_products = CheckoutProductType.all
+      checkout_products.reject(&:liquor?) if member.underage?
       ct = CheckoutTransaction.new(
         checkout_card_id: checkout_card.id,
         items:            checkout_products.sample(Faker::Number.between(1, 3)).map(&:id),
         payment_method:   %w[Gepind Contant Verkoop].sample,
-        created_at:       Faker::Date.backward,
+        created_at:       Faker::Date.backward(365 * (Date.today - member.join_date)),
         skip_liquor_time_validation: true
       )
+      checkout_transactions.push ct
       ct.save!
     end
   end
@@ -224,8 +234,8 @@ puts 'Creating committees'
   )
 
   8.times do
-    member   = Member.find_by_id(Faker::Number.between(1, Member.count))
-    position = (Faker::Number.between(1, 10) < 5 ? group.positions[Faker::Number.between(1, group.positions.count)] : nil)
+    member   = Member.all.sample
+    position = Faker::Boolean.boolean(0.5) ? group.positions.sample : nil
 
     next if member.nil?
 
@@ -267,12 +277,16 @@ end
 
 # Create 20 activities and the participants
 puts 'Creating activities'
-15.times do
-  start_date = Faker::Date.between(2.years.ago, 1.years.from_now)
-  start_time = nil
-  end_date   = nil
-  end_time   = nil
+start_dates = []
+20.times do
+  start_dates.push(Faker::Date.between(DateTime.now, 3.months.from_now))
+end
 
+40.times do
+  start_dates << Faker::Date.between(2.years.ago, Date.today)
+end
+
+start_dates.each do |start_date|
   # We generate four types of activities:
   # 1: Multiple days, all day
   # 2: Single day, all day
@@ -280,50 +294,89 @@ puts 'Creating activities'
   # 4: Multiple days, with start and end time
   multiday   = Faker::Boolean.boolean
   all_day    = Faker::Boolean.boolean
-  enrollable = Faker::Boolean.boolean(0.3)
+  enrollable = Faker::Boolean.boolean(0.5)
 
-  participant_limit = nil
-  if enrollable
-    if Faker::Boolean.boolean(0.5)
-      participant_limit = Faker::Number.between(2, 18)
-    end
+  participant_limit = enrollable && Faker::Boolean.boolean(0.5) ? Faker::Number.between(2, 18) : nil
+
+  end_date = multiday ? Faker::Date.between(start_date + 1.day, start_date + 7.days) : nil
+
+  if all_day
+    start_time, end_time = nil
+  else
+    start_time = Faker::Time.between(start_date, start_date)
+    end_time = if end_date.nil?
+                 rand(start_time..(start_date + 1.day).to_time)
+               else
+                 rand(end_date..(end_date + 1.day))
+               end
   end
 
-  end_date = Faker::Date.between(start_date, 1.years.from_now) if multiday
+  notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.words(Faker::Number.between(1, 5)).join(' ') : nil
 
-  if not all_day
-    start_sec  = Faker::Number.between(0, 86400)
-    start_time = Time.at(start_sec)
-    end_time   = Time.at(Faker::Number.between(start_sec, 86400))
-  end
+  is_freshmans = Faker::Boolean.boolean(0.2)
+  is_masters = Faker::Boolean.boolean(0.2)
+  is_alcoholic = Faker::Boolean.boolean(0.2)
 
   activity = Activity.create(
-    name:          Faker::Hacker.ingverb.capitalize,
-    price:         Faker::Commerce.price/5,
-    start_date:    start_date,
-    start_time:    start_time,
-    end_date:      end_date,
-    end_time:      end_time,
-    organized_by:  (Faker::Number.between(1, 10) < 4 ? Group.find_by_id(Faker::Number.between(1, Group.count)) : nil),
-    is_enrollable: enrollable,
-    is_masters:    (Faker::Boolean.boolean(0.3))
+    name:              Faker::Hacker.ingverb.capitalize,
+    price:             Faker::Commerce.price / 5,
+    start_date:        start_date,
+    start_time:        start_time,
+    end_date:          end_date,
+    end_time:          end_time,
+    organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
+    description:       Faker::Lorem.paragraph(5),
+    is_enrollable:     enrollable,
+    is_masters:        is_masters,
+    is_viewable:       Faker::Boolean.boolean(0.9),
+    is_alcoholic:      is_alcoholic,
+    participant_limit: participant_limit,
+    location:          Faker::Lorem.words(Faker::Number.between(1, 3)).join(' '),
+    notes:             notes,
+    notes_mandatory:   notes.nil? ? Faker::Boolean.boolean(0.2) : false,
+    notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true,
+    is_freshmans:      is_freshmans
   )
 
-  20.times do
-    reservist = false
-    if enrollable
-      reservist = true if participant_limit and activity.participants.count > participant_limit
+  next unless enrollable
+
+  eligible_members = Member.all
+
+  if is_freshmans
+    eligible_members = eligible_members.select do |member|
+      member.freshman?
+    end
+  end
+
+  if is_masters
+    eligible_members = eligible_members.select do |member|
+      member.masters?
+    end
+  end
+
+  if is_alcoholic
+    eligible_members = eligible_members.select do |member|
+      member.adult?
+    end
+  end
+
+  participant_count = Faker::Number.between(0, 20)
+  members = eligible_members.sample(participant_count)
+  members.each do |member|
+    reservist = enrollable && !participant_limit.nil? && (activity.participants.count >= participant_limit)
+
+    notes = nil
+    if !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3))
+      notes = Faker::Lorem.words(Faker::Number.between(1, 3)).join(' ')
     end
 
-    # because of the [member, activity] key this also conflicts often
-    suppress(ActiveRecord::RecordNotUnique) do
-      Participant.create(
-        member:    Member.find_by_id(Faker::Number.between(1, Member.count)),
-        reservist: reservist,
-        activity:  activity,
-        price:     (Faker::Number.between(1, 10) < 2 ? Faker::Commerce.price/5 : nil),
-        paid:      (Faker::Number.between(1, 10) < 4 ? true : false) # if price is 0 than the paid attribute is not used
-      )
-    end
+    Participant.create(
+      member:    member,
+      reservist: reservist,
+      activity:  activity,
+      price:     (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
+      paid:      Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
+      notes: notes
+    )
   end
 end

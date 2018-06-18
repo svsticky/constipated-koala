@@ -3,15 +3,15 @@ class Admin::ParticipantsController < ApplicationController
 
   def create
     @activity = Activity.find_by_id params[:activity_id]
-    @participant = Participant.new( :member => Member.find(params[:member]), :activity => @activity)
+    @participant = Participant.new(:member => Member.find(params[:member]), :activity => @activity)
 
     if @participant.save
       impressionist(@participant)
-      @response = @participant.attributes #TODO refactor, very old code
-      @response[ 'price' ] = @activity.price
-      @response[ 'email' ] = @participant.member.email
-      @response[ 'name'  ] = @participant.member.name
-      @response[ 'notes' ] = @participant.notes
+      @response = @participant.attributes # TODO refactor, very old code
+      @response['price'] = @activity.price
+      @response['email'] = @participant.member.email
+      @response['name'] = @participant.member.name
+      @response['notes'] = @participant.notes
 
       render :status => :created, :json => @response.to_json
     end
@@ -39,8 +39,10 @@ class Admin::ParticipantsController < ApplicationController
 
     if participant.save
       impressionist(participant, message)
-      render :status => :ok, :json => I18n.t(message, scope: 'activerecord.messages.participant',
-        :name => participant.member.name, :activity => participant.activity.name).to_json
+      render :status => :ok,
+             :json => I18n.t(message, scope: 'activerecord.messages.participant',
+                                      name: participant.member.name,
+                                      activity: participant.activity.name).to_json
       return
     else
       respond_with participant.errors.full_messages
@@ -73,7 +75,7 @@ class Admin::ParticipantsController < ApplicationController
     logger.debug params[:recipients].inspect
 
     @activity = Activity.find_by_id!(params[:activity_id])
-    render :json => Mailings::Participants.inform( @activity, params[:recipients].permit!.to_h.map{ | id, item | item['email'] }, current_user.sender, params[:subject], params[:html] ).deliver_later
+    render :json => Mailings::Participants.inform(@activity, params[:recipients].permit!.to_h.map { |id, item| item['email'] }, current_user.sender, params[:subject], params[:html]).deliver_later
     impressionist(@activity, "mail")
   end
 end

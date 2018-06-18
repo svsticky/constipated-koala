@@ -2,15 +2,13 @@
   .panel-heading.text-right
     %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
-    = activity.participant_counter
+    .fullness
+      = activity.fullness
     .clearfix
   .panel-body
     .media-left.poster-thumbnail
       %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
-        - if activity.poster_updated_at.nil?
-          =image_tag "https://koala-images.s3.amazonaws.com/geen_poster_placeholder.svg", class: "small-poster"
-        - else
-          =image_tag activity.poster.url(:thumb), class: "small-poster"
+        =image_tag activity.poster.url(:thumb), class: "small-poster"
     .media-body
       - if activity.start_date != activity.end_date
         %strong Wanneer:
@@ -44,7 +42,7 @@
         %strong Locatie:
         = activity.location
         <br/>
-      - if !activity.unenroll_date.nil?
+      - if !activity.unenroll_date.nil? && activity.is_enrollable?
         %strong Uitschrijfdeadline:
         %span.activity-unenroll
           = activity.unenroll_date.strftime("%d/%m/%Y")

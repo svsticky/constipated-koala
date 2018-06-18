@@ -9,10 +9,12 @@ class CheckoutTransaction < ApplicationRecord
   has_many :contained_products, through: :checkout_transaction_items, source: :checkout_product_type # Working title TODO
 
   after_save :items_to_link_table # Before commit
+  after_save :create_stocky_transaction
 
   attr_accessor :skip_liquor_time_validation
+  attr_accessor :items
 
-  serialize :items, Array
+  is_impressionable
 
   class_attribute :i18n_error_scope
   self.i18n_error_scope = %i[activerecord errors models checkout_transaction attributes]
@@ -31,10 +33,8 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   after_validation do
-    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{self.price}, updated_at = NOW()") # XXX Nee
+    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{ price }, updated_at = NOW()") # XXX Nee
   end
-
-  after_commit :update_product_stock
 
   def validate_sufficient_credit
     errors.add(:price, I18n.t('price.insufficient_credit', scope: i18n_error_scope)) if price + checkout_balance.balance < 0
@@ -45,26 +45,21 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def validate_liquor_items
-    return unless @checkout_product_type_cache.any? {|item| item.liquor?}
+    return unless @checkout_product_type_cache.any?(&:liquor?)
 
     # only place you should use now, because liquor_time is without zone
-    errors.add(
-      :items,
-      I18n.t('items.not_liquor_time', scope: i18n_error_scope, liquor_time: Settings.liquor_time)
-    ) if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
+    if Time.now.before(Settings.liquor_time) && !skip_liquor_time_validation
+      errors.add(
+        :items,
+        I18n.t('items.not_liquor_time', scope: i18n_error_scope, liquor_time: Settings.liquor_time)
+      )
+    end
 
-    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.is_underage?
+    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.underage?
   end
 
   def price=(price)
     write_attribute(:price, price.to_s.tr(',', '.').to_f)
-  end
-
-  def update_product_stock
-    contained_products.each do |item|
-      item.decrement!(:chamber_stock)
-      item.save
-    end
   end
 
   def products
@@ -77,7 +72,7 @@ class CheckoutTransaction < ApplicationRecord
 
     strings = counts.map do |item, count|
       if count > 1
-        "#{count}x #{item}"
+        "#{ count }x #{ item }"
       else
         item.to_s
       end
@@ -87,22 +82,37 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   def items_to_link_table
-    if items
-      CheckoutTransactionItem.transaction do
-        # Clear all existing CheckoutTransactionItems just to be sure
-        old_ctis = CheckoutTransactionItem.where(checkout_transaction: self)
-        old_ctis.each(&:destroy!)
+    return unless items
+    CheckoutTransactionItem.transaction do
+      # Clear all existing CheckoutTransactionItems just to be sure
+      old_ctis = CheckoutTransactionItem.where(checkout_transaction: self)
+      old_ctis.each(&:destroy!)
 
-        # Save all items in `items` as separate `CheckoutTransactionItems`.
-        @checkout_product_type_cache.each do |cpt|
-          cti = CheckoutTransactionItem.new(
-            checkout_product_type: cpt,
-            checkout_transaction: self,
-            price: cpt.price
-          )
-          cti.save!
-        end
+      # Save all items in `items` as separate `CheckoutTransactionItems`.
+      @checkout_product_type_cache.each do |cpt|
+        cti = CheckoutTransactionItem.new(
+          checkout_product_type: cpt,
+          checkout_transaction: self,
+          price: cpt.price
+        )
+        cti.save!
       end
+    end
+  end
+
+  # Create a StockyTransaction for each item
+  def create_stocky_transaction
+    return unless items
+
+    counts = contained_products.group(:id).count
+
+    counts.each do |product_id, count|
+      StockyTransaction.create!(
+        from: 'mongoose',
+        to: 'member',
+        checkout_product_type_id: product_id,
+        amount: count
+      )
     end
   end
 end

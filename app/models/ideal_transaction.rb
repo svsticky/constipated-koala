@@ -5,11 +5,11 @@ class IdealTransaction < ApplicationRecord
 
   attr_accessor :issuer, :mollie_uri, :message
   validates :description, presence: true
-  validates :amount, presence: true
+  validates :amount, presence: true, numericality: true
   validates :status, presence: true
 
   belongs_to :member
-  #validates :member, presence: true
+  # validates :member, presence: true
 
   validates :transaction_type, presence: true
   serialize :transaction_id, Array
@@ -18,25 +18,25 @@ class IdealTransaction < ApplicationRecord
 
   after_validation(on: :create) do
     http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
-    self.token = Digest::SHA256.hexdigest("#{self.member.id}#{Time.now.to_f}#{self.redirect_uri}")
+    self.token = Digest::SHA256.hexdigest("#{ self.member.id }#{ Time.now.to_f }#{ self.redirect_uri }")
 
-    request = http.post("/#{ENV['MOLLIE_VERSION']}/payments", {
-      :amount => self.amount,
-      :description => self.description,
+    request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments", {
+                          :amount => self.amount,
+                          :description => self.description,
 
-      :method => 'ideal',
-      :issuer => self.issuer,
+                          :method => 'ideal',
+                          :issuer => self.issuer,
 
-      :metadata => {
-        :member => member.name,
-        :transaction_type => transaction_type,
-        :transaction_id => transaction_id
-      },
+                          :metadata => {
+                            :member => member.name,
+                            :transaction_type => transaction_type,
+                            :transaction_id => transaction_id
+                          },
 
-      :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => self.token)
-    })
+                          :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => self.token)
+                        })
 
-    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+    request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
     response = http.send! request
 
     self.trxid = response.id
@@ -50,11 +50,11 @@ class IdealTransaction < ApplicationRecord
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
       http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
 
-      request = http.get("/#{ENV['MOLLIE_VERSION']}/issuers")
-      request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+      request = http.get("/#{ ENV['MOLLIE_VERSION'] }/issuers")
+      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
       response = http.send! request
-      response.data.map{ |issuer| [issuer.name, issuer.id]}
+      response.data.map { |issuer| [issuer.name, issuer.id] }
     end
   end
 
@@ -62,8 +62,8 @@ class IdealTransaction < ApplicationRecord
     http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
     @status = self.status
 
-    request = http.get("/#{ENV['MOLLIE_VERSION']}/payments/#{self.trxid}")
-    request['Authorization'] = "Bearer #{ENV['MOLLIE_TOKEN']}"
+    request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ self.trxid }")
+    request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
     response = http.send! request
     self.status = response.status
@@ -96,9 +96,9 @@ class IdealTransaction < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the ideal transaction as processed
       IdealTransaction.transaction do
-        transaction = CheckoutTransaction.create!( :price => (self.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(self.member), :payment_method => "iDeal" )
+        transaction = CheckoutTransaction.create!(:price => (self.amount - Settings.mongoose_ideal_costs), :checkout_balance => CheckoutBalance.find_by_member_id!(self.member), :payment_method => "iDeal")
 
-        self.transaction_id = [ transaction.id ]
+        self.transaction_id = [transaction.id]
         self.save!
 
         self.message = I18n.t('success', scope: 'activerecord.errors.models.ideal_transaction')

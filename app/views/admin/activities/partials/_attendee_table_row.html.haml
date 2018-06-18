@@ -1,7 +1,7 @@
 %tr{ :class => ('red' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id || '{0}', :'data-activities-id' => @activity.id, :email => participant.member.email || '{3}' }  }
   %td
     - if participant.member.name.blank?
-      %a{:href => 'members/{1}'}
+      %a{:href => '/members/{1}'}
         {2}
     - else
       = link_to "#{participant.member.name}", participant.member

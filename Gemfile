@@ -21,8 +21,7 @@ gem 'coffee-rails'
 gem 'devise', :github => 'plataformatec/devise'
 gem 'doorkeeper'
 
-# logging, using master for rails 5 support
-gem 'impressionist', :github => 'charlotte-ruby/impressionist'
+gem 'impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
@@ -45,8 +44,8 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate'
 
 group :production, :staging do
+  gem 'sentry-raven'
   gem 'unicorn'
-  gem 'aws-sdk', '>= 2.0'
   gem 'uglifier'
 end
 
@@ -60,10 +59,9 @@ group :development do
 
   gem 'web-console'
   gem 'byebug', platform: :mri
-
-  gem 'rubocop', '~> 0.50.0', require: false
 end
 
 group :development, :test do
+  gem 'rubocop', '~> 0.50.0'
   gem 'spring'
 end

@@ -378,7 +378,7 @@ Object.defineProperties(Activity.prototype,
      * The span that displays this activity's fullness
      */
     fullness_display: function () {
-      return this.panel.find('.activity-count');
+      return this.panel.find('.fullness');
     },
 
     attendees_table_body: function () {
