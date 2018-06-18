@@ -39,7 +39,7 @@ class Admin::CheckoutProductsController < ApplicationController
     @product = CheckoutProductType.find params[:id]
 
     if @product.update(product_post_params)
-      redirect_to checkout_product_path(product || @product.id)
+      redirect_to checkout_product_path(@product || @product.id)
 
     else
       @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse

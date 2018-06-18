@@ -24,5 +24,4 @@ class StockyTransaction < ApplicationRecord
 
     checkout_product_type.save
   end
-
 end

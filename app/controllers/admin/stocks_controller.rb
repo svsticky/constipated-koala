@@ -1,9 +1,9 @@
 class Admin::StocksController < ApplicationController
   def stock
     @products = CheckoutProductType.order(:category, :name)
-                .paginate(page: params[:page],
-                          per_page: params[:limit])
-    @stocky_transaction      = StockyTransaction.new
+                                   .paginate(page: params[:page],
+                                             per_page: params[:limit])
+    @stocky_transaction = StockyTransaction.new
 
     @moves = StockyTransaction
              .where(:from => ['basement', 'mongoose'])
@@ -11,14 +11,14 @@ class Admin::StocksController < ApplicationController
                               'activity', 'waste'])
              .order(created_at: :desc)
 
-    @chart_data = @products.map{ |i| [i.name, i.chamber_stock + i.storage_stock]}
+    @chart_data = @products.map { |i| [i.name, i.chamber_stock + i.storage_stock] }
 
     render 'admin/apps/stocky/stock'
   end
 
   def purchases
     @results = StockyTransaction.where(from: "shop").order(created_at: :desc)
-    @stocky_transaction      = StockyTransaction.new
+    @stocky_transaction = StockyTransaction.new
 
     @limit = params[:limit] ? params[:limit].to_i : 20
     @offset = params[:offset] ? params[:offset].to_i : 0
@@ -34,15 +34,17 @@ class Admin::StocksController < ApplicationController
 
     @products = CheckoutProductType.where(id: @product_ids)
 
-    @chart_data = @transactions.pluck(:checkout_product_type_id).uniq.map{ |i| {
-      name: CheckoutProductType.find(i).name,
-      data: @transactions.where(checkout_product_type_id: i).pluck('DATE(created_at)', :amount),
-      library: {
-        spanGaps: true,
-        lineTension: 0.0,
-        pointHoverBorderWidth: 10
+    @chart_data = @transactions.pluck(:checkout_product_type_id).uniq.map do |i|
+      {
+        name: CheckoutProductType.find(i).name,
+        data: @transactions.where(checkout_product_type_id: i).pluck('DATE(created_at)', :amount),
+        library: {
+          spanGaps: true,
+          lineTension: 0.0,
+          pointHoverBorderWidth: 10
+        }
       }
-    }}
+    end
 
     render 'admin/apps/stocky/purchases'
   end
