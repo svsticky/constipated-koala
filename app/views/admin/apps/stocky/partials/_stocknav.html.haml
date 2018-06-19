@@ -1,10 +1,10 @@
 .btn-group{style: "margin-left: 20px;"}
   = link_to :stocky_stock do
     %button.btn.btn-primary{type: "button"}
-      Voorraad
+      = I18n.t 'admin.stocky.stock.title'
   = link_to :stocky_purchases do
     %button.btn.btn-primary{type: "button"}
-      Inkoop
+      = I18n.t 'admin.stocky.purchases.title'
   = link_to :stocky_sales do
     %button.btn.btn-primary{type: "button"}
-      Verkoop
+      = I18n.t 'admin.stocky.sales.title'

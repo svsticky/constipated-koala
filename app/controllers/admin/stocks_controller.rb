@@ -2,7 +2,7 @@ class Admin::StocksController < ApplicationController
   def stock
     @products = CheckoutProductType.order(:category, :name)
                                    .paginate(page: params[:page],
-                                             per_page: params[:limit])
+                                             per_page: 20)
     @stocky_transaction = StockyTransaction.new
 
     @moves = StockyTransaction
@@ -10,6 +10,7 @@ class Admin::StocksController < ApplicationController
              .where(:to   => ['basement', 'mongoose',
                               'activity', 'waste'])
              .order(created_at: :desc)
+             .paginate(page: params[:page], per_page: 20)
 
     @chart_data = @products.map { |i| [i.name, i.chamber_stock + i.storage_stock] }
 
@@ -17,16 +18,9 @@ class Admin::StocksController < ApplicationController
   end
 
   def purchases
-    @results = StockyTransaction.where(from: "shop").order(created_at: :desc)
+    @purchases = StockyTransaction.where(from: "shop").order(created_at: :desc).paginate(page: params[:page],
+              per_page: 20)
     @stocky_transaction = StockyTransaction.new
-
-    @limit = params[:limit] ? params[:limit].to_i : 20
-    @offset = params[:offset] ? params[:offset].to_i : 0
-
-    @page = @offset / @limit
-    @pages = (@results.count / @limit.to_f).ceil
-
-    @purchases = @results[@offset, @limit]
 
     @transactions = StockyTransaction.where(from: "shop")
 
@@ -72,16 +66,12 @@ class Admin::StocksController < ApplicationController
   end
 
   def sales
-    @results = StockyTransaction.where(from: "mongoose").order(created_at: :desc)
+    @sales = StockyTransaction
+             .where(from: "mongoose")
+             .order(created_at: :desc)
+             .paginate(page: params[:page],
+                       per_page: 20)
     @stocky_transaction = StockyTransaction.new
-
-    @limit  = params[:limit]  ? params[:limit] .to_i : 20
-    @offset = params[:offset] ? params[:offset].to_i :  0
-
-    @page  = @offset / @limit
-    @pages = (@results.count / @limit.to_f).ceil
-
-    @sales = @results[@offset, @limit]
 
     render 'admin/apps/stocky/sales'
   end

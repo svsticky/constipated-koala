@@ -297,6 +297,25 @@ nl:
 
         unpermitted: is niet geldig
 
+  admin:
+    stocky:
+      stock:
+        title: Voorraad
+        storage: Kelder
+        chamber: Kamer
+        moves: Verplaatsingen
+        new_move: Nieuwe verplaatsing
+      purchases:
+        title: Inkoop
+        new: Nieuwe inkoop
+      sales:
+        title: Verkoop
+      product: Product
+      from: Van
+      to: Naar
+      amount: Aantal
+      date: Datum
+
   devise:
     registrations:
       new: Maak een Sticky account aan met het e-mailadres dat bekend is bij ons.

@@ -22,13 +22,13 @@
                 %tr
                   %th
                     .th
-                      Product
+                      = I18n.t 'admin.stocky.product'
                   %th
                     .th
-                      Kelder
+                      = I18n.t 'admin.stocky.stock.storage'
                   %th
                     .th
-                      Kamer
+                      = I18n.t 'admin.stocky.stock.chamber'
               - @products.each do |product|
                 %tr
                   %td
@@ -37,7 +37,10 @@
                     = product.storage_stock
                   %td
                     = product.chamber_stock
-          = will_paginate @products
+          %footer.table-footer
+            .row
+              .col-md-12.text-right
+                = will_paginate @products
     .row
       .col-lg-12
         = render 'admin/apps/stocky/partials/new_move',
@@ -47,26 +50,26 @@
       .col-lg-12
         %section.panel.panel-default.table-dynamic
           .panel-heading
-            Verplaatsingen
+            = I18n.t 'admin.stocky.stock.moves'
           .table-responsive
             %table.table.table-bordered.table-striped.table-linked
               %thead
                 %tr
                   %th
                     .th
-                      Product
+                      = I18n.t 'admin.stocky.product'
                   %th
                     .th
-                      From
+                      = I18n.t 'admin.stocky.from'
                   %th
                     .th
-                      To
+                      = I18n.t 'admin.stocky.to'
                   %th
                     .th
-                      Amount
+                      = I18n.t 'admin.stocky.amount'
                   %th
                     .th
-                      Date
+                      = I18n.t 'admin.stocky.date'
               - @moves.each do |transaction|
                 %tr
                   %td
@@ -79,3 +82,7 @@
                     = transaction.amount
                   %td
                     = transaction.created_at
+          %footer.table-footer
+            .row
+              .col-md-12.text-right
+                = will_paginate @moves

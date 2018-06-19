@@ -253,6 +253,25 @@ en:
 
         unpermitted: is not permitted
 
+  admin:
+    stocky:
+      stock:
+        title: Stock
+        storage: Storage
+        chamber: Chamber
+        moves: Moves
+        new_move: New move
+      purchases:
+        title: Purchases
+        new_purchase: New purchase
+      sales:
+        title: Sales
+      product: Product
+      from: From
+      to: To
+      amount: Amount
+      date: Date
+
   devise:
     registrations:
       new: Create a Sticky account with the mail address you have provided us.
