@@ -18,8 +18,11 @@ class Admin::StocksController < ApplicationController
   end
 
   def purchases
-    @purchases = StockyTransaction.where(from: "shop").order(created_at: :desc).paginate(page: params[:page],
-              per_page: 20)
+    @purchases = StockyTransaction
+                 .where(from: "shop")
+                 .order(created_at: :desc)
+                 .paginate(page: params[:page],
+                           per_page: 20)
     @stocky_transaction = StockyTransaction.new
 
     @transactions = StockyTransaction.where(from: "shop")
