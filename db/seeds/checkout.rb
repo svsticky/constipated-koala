@@ -1,3 +1,5 @@
+require Rails.root.join('db', 'seeds', 'members.rb')
+
 # Create checkout cards will automatically create balances
 puts '-- Creating checkout balances and cards'
 Member.all.sample(30).each do |member|

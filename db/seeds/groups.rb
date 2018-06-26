@@ -1,3 +1,5 @@
+require Rails.root.join('db', 'seeds', 'members.rb')
+
 # Create committees
 puts '-- Creating committees'
 8.times do

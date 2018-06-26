@@ -1,3 +1,5 @@
+require Rails.root.join('db', 'seeds', 'members.rb')
+
 # Creating login accounts
 puts '-- Creating users'
 User.transaction do

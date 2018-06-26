@@ -1,3 +1,5 @@
+require Rails.root.join('db', 'seeds', 'members.rb')
+
 # Create 20 activities and the participants
 puts '-- Creating activities'
 
