@@ -1,4 +1,4 @@
-# :nodoc:
+# Public API creating an ical file which can be downloaded
 class Api::CalendarsController < ApiController
   def show
     respond_to do |format|
@@ -11,18 +11,12 @@ class Api::CalendarsController < ApiController
 
         render plain: @calendar.to_ical
       end
-
-      #  do
-      #   render html:
-      #     "<strong>Niet beschikbaar als html pagina</strong>
-      #     <br>Klik <a href='webcal://koala.svsticky.nl/calendarfeed.ics'>hier</a>
-      #     om je te abonneren op de activiteiten".html_safe
-      # end
     end
   end
 
   private
 
+  # TODO: dry this up, move logic to the model
   def update_calendar(calendar)
     @activities = Activity.where(
       '(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
@@ -36,6 +30,7 @@ class Api::CalendarsController < ApiController
     calendar.publish
   end
 
+  # TODO: move this to model, as a method on the instance.
   def create_event(activity, calendar)
     event = Icalendar::Event.new
     event.dtstart = activity.start

@@ -23,6 +23,7 @@ class Api::ParticipantsController < ApiController
     render :status => :created
   end
 
+  # TODO: no longer used? Mollie is implemented
   def hook
     transaction = IdealTransaction.find_by_uuid! params[:uuid]
 
@@ -39,6 +40,7 @@ class Api::ParticipantsController < ApiController
 
   def update; end
 
+  # TODO: even if allowed to write also allowed to destroy?
   def destroy
     participant = Participant.find_by_member_id_and_activity_id! Authorization._member.id, params[:activity_id]
 

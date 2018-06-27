@@ -1,7 +1,9 @@
-#:nodoc:
+# Controller used for checkout before oauth was implemented
+# @deprecated controller, base controller is application controller and should be replaced with oauth
 class Api::CheckoutController < ApplicationController
   protect_from_forgery except: %i[info purchase create products]
 
+  # NOTE: this is nescessary because ApplicationController is used
   skip_before_action :authenticate_user!, only: %i[info purchase create products confirm]
   skip_before_action :authenticate_admin!, only: %i[info purchase create products confirm]
 
