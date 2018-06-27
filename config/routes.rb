@@ -35,8 +35,6 @@ Rails.application.routes.draw do
       sessions:       'users/sessions'
     }
 
-    get     'calendarfeed', to: 'calendars#show'
-
     get     'sign_up',      to: 'users/registrations#new', as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
     get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
@@ -111,6 +109,8 @@ Rails.application.routes.draw do
             end
           end
         end
+
+        get 'calendar', to: 'calendars#show'
 
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
