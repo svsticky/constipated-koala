@@ -1,4 +1,5 @@
 #:nodoc:
+# TODO: use DeviseController instead?
 class Users::RegistrationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
   skip_before_action :authenticate_admin!, only: [:new, :create, :new_member_confirmation, :new_member_confirm]
@@ -56,6 +57,8 @@ class Users::RegistrationsController < ApplicationController
     end
   end
 
+  private
+
   # Ensure the confirmation_token is valid, retrieve user if it is, else redirect with error.
   def get_user_from_token # rubocop:disable AccessorMethodName
     token = params[:confirmation_token]
@@ -78,8 +81,6 @@ class Users::RegistrationsController < ApplicationController
       redirect_to :new_user_session
     end
   end
-
-  private
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation)

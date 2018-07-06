@@ -86,7 +86,8 @@ class Member < ApplicationRecord
 
   # lowercase on email
   def email=(email)
-    write_attribute(:email, email.downcase)
+    user.update(email: email.downcase) if user.present?
+    write_attribute(:email, email.downcase) if user.nil?
   end
 
   def address=(address)
@@ -101,6 +102,10 @@ class Member < ApplicationRecord
   def student_id=(student_id)
     write_attribute(:student_id, student_id.upcase)
     write_attribute(:student_id, nil) if student_id.blank?
+  end
+
+  def user
+    User.find_by_credentials self
   end
 
   # If set to true, a User is created after committing
@@ -162,7 +167,6 @@ class Member < ApplicationRecord
   # (Not doing this would lead to a database constraint violation.)
   before_create do
     self.join_date = Time.new if join_date.blank?
-
     educations[1].destroy if (educations.length > 1) && (educations[0].study_id == educations[1].study_id)
   end
 
@@ -178,31 +182,18 @@ class Member < ApplicationRecord
     user.save
   end
 
-  # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
   before_update do
     if email_changed?
-
-      # abort if email is already used for another account, abort is the only method to brake in future versions
-      if User.taken?(email)
+      # abort email change if email is already used for another account
+      if User.exists?(email: email.downcase) || User.exists?(unconfirmed_email: email.downcase)
         errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
         raise ActiveRecord::Rollback
-      end
-
-      # find user by old email
-      credentials = User.find_by_email(Member.find(id).email)
-
-      unless credentials.nil?
-        # update_attribute has no validation so it should be done manually
-        credentials.update_attribute('email', email)
-        credentials.save
       end
     end
   end
 
   # destroy account on removal of member
   before_destroy do
-    logger.debug inspect
-
     user = User.find_by_email(email)
     user.delete if user.present?
   end

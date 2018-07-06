@@ -32,11 +32,14 @@ Rails.application.routes.draw do
 
     # Devise routes
     devise_for :users, :path => '', :skip => [:registrations], :controllers => {
+
+      confirmations:  'users/confirmations',
       sessions:       'users/sessions'
     }
 
     get     'calendarfeed', to: 'calendars#show'
 
+    # TODO: use confirmation controller?
     get     'sign_up',      to: 'users/registrations#new', as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
     get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
