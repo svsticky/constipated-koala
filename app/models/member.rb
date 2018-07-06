@@ -108,17 +108,6 @@ class Member < ApplicationRecord
     User.find_by_credentials self
   end
 
-  # If set to true, a User is created after committing
-  attr_reader :create_account
-
-  def create_account=(value)
-    v = value
-    unless value.is_a?(FalseClass) || value.is_a?(TrueClass)
-      v = value.to_b # to_b does not exist for booleans, required for handling truthy "0" and "1" from forms.
-    end
-    @create_account = v
-  end
-
   def tags_names
     tags.pluck(:name)
   end
@@ -168,18 +157,6 @@ class Member < ApplicationRecord
   before_create do
     self.join_date = Time.new if join_date.blank?
     educations[1].destroy if (educations.length > 1) && (educations[0].study_id == educations[1].study_id)
-  end
-
-  after_commit :create_user, on: :create
-
-  def create_user
-    return unless @create_account
-    user = User.new
-    user.skip_confirmation_notification!
-    user.email = email
-    user.credentials = self
-    user.require_activation!
-    user.save
   end
 
   before_update do

@@ -27,19 +27,25 @@ class User < ApplicationRecord
     !admin? && super
   end
 
-  # Clear the accounts password, and send a customized 'welcome to Sticky!'-mail if not confirmed already
-  def require_activation!
-    return if confirmed?
+  def resend_confirmation!(template = :confirmation_instructions)
     generate_confirmation_token!
-    skip_confirmation_notification!
+    send_devise_notification(template, @raw_confirmation_token, {})
+  end
 
-    pw = Devise.friendly_token 128
-    self.password = pw
-    self.password_confirmation = pw
+  def self.create_on_member_enrollment!(member)
+    password = Devise.friendly_token 128
 
-    self.confirmation_sent_at = Time.now
-    save
-    send_devise_notification(:activation_instructions, @raw_confirmation_token, {})
+    user = User.new(
+      credentials:  member,
+      email:        member.email,
+
+      password:               password,
+      password_confirmation:  password
+    )
+
+    user.skip_confirmation_notification!
+    user.save
+    user
   end
 
   def self.find_by_credentials(object)
