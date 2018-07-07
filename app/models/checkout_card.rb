@@ -20,4 +20,13 @@ class CheckoutCard < ApplicationRecord
       throw :abort
     end
   end
+
+  def send_confirmation!
+    # Generate token
+    digest = OpenSSL::Digest.new('sha1')
+    token  = OpenSSL::HMAC.hexdigest(digest, ENV['CHECKOUT_TOKEN'], uuid)
+
+    # Save token to card & mail confirmation link
+    Mailings::Checkout.confirmation_instructions(self, Rails.application.routes.url_helpers. confirmation_url(confirmation_token: token)).deliver_now if update(confirmation_token: token)
+  end
 end

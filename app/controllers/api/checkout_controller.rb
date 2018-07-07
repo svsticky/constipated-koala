@@ -1,12 +1,7 @@
 # Controller used for checkout before oauth was implemented
-# @deprecated controller, base controller is application controller and should be replaced with oauth
-class Api::CheckoutController < ApplicationController
+# @deprecated controller, base controller should be replaced with oauth
+class Api::CheckoutController < ActionController::Base
   protect_from_forgery except: %i[info purchase create products]
-
-  # NOTE: this is nescessary because ApplicationController is used
-  skip_before_action :authenticate_user!, only: %i[info purchase create products confirm]
-  skip_before_action :authenticate_admin!, only: %i[info purchase create products confirm]
-
   before_action :authenticate_checkout, only: %i[info purchase create products]
 
   respond_to :json
@@ -39,8 +34,10 @@ class Api::CheckoutController < ApplicationController
       }
     else
       i18n_scope = %i[activerecord errors models checkout_transaction attributes]
+
       not_liquor_time_translation = I18n.t('items.not_liquor_time', scope: i18n_scope)
       insufficient_credit_translation = I18n.t('price.insufficient_credit', scope: i18n_scope)
+
       case transaction.errors
       when transaction.errors[:items].includes(not_liquor_time_translation)
         render status: :not_acceptable, json: {
@@ -67,45 +64,35 @@ class Api::CheckoutController < ApplicationController
     card = CheckoutCard.new(uuid: params[:uuid], member: Member.find_by_student_id!(params[:student]), description: params[:description])
 
     if card.save
-      send_confirmation(card)
+      card.send_confirmation!
       render status: :created, json: CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
     else
       head :conflict
     end
   end
 
-  def send_confirmation(card)
-    # Generate token
-    digest = OpenSSL::Digest.new('sha1')
-    token  = OpenSSL::HMAC.hexdigest(digest, ENV['CHECKOUT_TOKEN'], card.uuid)
-
-    # Save token to card & mail confirmation link
-    card.confirmation_token = token
-    Mailings::Checkout.confirmation_instructions(card, confirmation_url(confirmation_token: token)).deliver_now if card.save
-
-    nil
-  end
-
   def confirm
     card = CheckoutCard.where(['confirmation_token = ?', params['confirmation_token']]).first
-    if card
-      if !card.active
-        card.active = true
-        if card.save
-          flash[:notice] = 'Kaart geactiveerd!'
+    redirect_to :new_user_session
 
-        else
-          flash[:alert] = 'Kaart kon niet worden geactiveerd!'
-        end
-      else
-        flash[:alert] = 'Kaart is al geactiveerd!'
-      end
-    else
+    if card.nil?
       flash[:alert] = 'Bevestigingstoken is ongeldig!'
+      return
     end
 
-    redirect_to :new_user_session
+    if card.active
+      flash[:alert] = 'Kaart is al geactiveerd!'
+      return
+    end
+
+    if card.update(active: true)
+      flash[:notice] = 'Kaart geactiveerd!'
+    else
+      flash[:alert] = 'Kaart kon niet worden geactiveerd!'
+    end
   end
+
+  private
 
   def ahelper(obj)
     return [] if obj.empty?
@@ -119,9 +106,6 @@ class Api::CheckoutController < ApplicationController
   end
 
   # TODO: implement for OAuth client credentials
-
-  private
-
   def authenticate_checkout
     if params[:token] != ENV['CHECKOUT_TOKEN']
       head :forbidden
