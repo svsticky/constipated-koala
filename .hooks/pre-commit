@@ -22,7 +22,7 @@ else
 fi
 
 echo "Running rubocop..."
-rubocop app lib db config
+rubocop
 
 if [ $? -ne 0 ]; then
 	echo "Rubocop failed!"

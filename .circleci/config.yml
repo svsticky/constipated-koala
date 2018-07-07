@@ -37,12 +37,12 @@ jobs:
       - run: bundle exec rake db:create --trace
       - run: bundle exec rake db:setup --trace
 
-      # run the tests
-      - run: bundle exec rake
-
       # precompile assets
       - run: bundle exec rake assets:clobber --trace
       - run: bundle exec rake assets:precompile --trace
+
+      # run the tests
+      - run: bundle exec rake
 
       # execute rubocop 2.5.1 not supported
       - run: bundle exec rubocop
