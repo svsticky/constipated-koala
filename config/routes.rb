@@ -42,8 +42,8 @@ Rails.application.routes.draw do
     post    'sign_up',      to: 'users/registrations#create'
 
     # update account with password after receiving invite
-    get     'activate',     to: 'users/confirmations#edit', as: :new_member_confirmation
-    post    'activate',     to: 'users/confirmations#update', as: :new_member_confirm
+    get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
+    post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
 
     scope module: 'admin' do
       resources :members do
