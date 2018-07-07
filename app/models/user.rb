@@ -32,6 +32,14 @@ class User < ApplicationRecord
     send_devise_notification(template, @raw_confirmation_token, {})
   end
 
+  def force_confirm_email!
+    return if admin?
+    confirm
+
+    credentials.update_column(:email, email)
+    credentials.update_fuzzy_query!
+  end
+
   def self.create_on_member_enrollment!(member)
     password = Devise.friendly_token 128
 

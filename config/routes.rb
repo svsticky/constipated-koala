@@ -47,7 +47,9 @@ Rails.application.routes.draw do
 
     scope module: 'admin' do
       resources :members do
-        get 'payment_whatsapp'
+        get   'payment_whatsapp'
+        patch 'force_email_change'
+
         collection do
           get 'search'
         end

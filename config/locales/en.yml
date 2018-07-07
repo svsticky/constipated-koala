@@ -250,6 +250,8 @@ en:
         time: Tijd
         when: Wanneer
     messages:
+      member:
+        unconfirmed_email: "A confirmation mail is send to <b>%{email}</b>, once confirmed the e-mailadress will be updated. Or <a data-method='patch' href='%{link}'>force</a> the change here."
       participant:
         paid: "%{name} has paid for %{activity}"
         price: "%{activity} has been changed for %{name}"

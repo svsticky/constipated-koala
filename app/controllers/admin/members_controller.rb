@@ -78,7 +78,6 @@ class Admin::MembersController < ApplicationController
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
-
     @member.educations.build(:id => '-1') if @member.educations.empty?
   end
 
@@ -91,6 +90,15 @@ class Admin::MembersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def force_email_change
+    @member = Member.find(params[:member_id])
+
+    Mailings::Devise.forced_confirm_email(@member, current_user.sender).deliver_later
+    @member.user.force_confirm_email!
+
+    redirect_to @member
   end
 
   def destroy

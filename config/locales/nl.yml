@@ -319,6 +319,8 @@ nl:
         time: Tijd
         when: Wanneer
     messages:
+      member:
+        unconfirmed_email: "Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze wordt bevestigd wordt het e-mailadres aangepast. Of <a data-method='patch' href='%{link}'>forceer</a> de wijziging."
       participant:
         paid: "%{name} heeft betaald voor %{activity}"
         price: "%{activity} is veranderd voor %{name}"

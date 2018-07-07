@@ -97,5 +97,27 @@ module Mailings
 
       return mail(record.email, nil, 'Sticky wachtwoord opnieuw instellen', html, text)
     end
+
+    def forced_confirm_email(record, current_user, _opts = {})
+      puts "#{ record.user.unconfirmed_email } is forcefully confirmed" if Rails.env.development?
+      return if ENV['MAILGUN_TOKEN'].blank?
+
+      html = render_to_string :locals => {
+        name: record.name,
+        email: record.user.unconfirmed_email,
+        subject: 'Studievereniging Sticky | e-mailadres gewijzigd'
+      }
+
+      text = <<~PLAINTEXT
+        Hoi #{ record.name },
+
+        Uw e-mailadres is gewijzigd naar #{ record.user.unconfirmed_email }. Heeft u deze wijziging niet aangevraagd, neem zo snel mogelijk contact op door te antwoorden op deze mail.
+
+        Met vriendelijke groet,
+        #{ current_user.credentials.name }
+      PLAINTEXT
+
+      return mail([record.email, record.unconfirmed_email], current_user.sender, 'Studievereniging Sticky | e-mailadres gewijzigd', html, text)
+    end
   end
 end

@@ -68,7 +68,10 @@
               .form-group
                 = f.label(:email)
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-                .help-block Dit kan niet een uu email zijn!
+
+              - if @member.user && @member.user.unconfirmed_email
+                .callout.callout-warning
+                  = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email, link: member_force_email_change_path(@member) ) 
 
               .form-group
                 = f.label(:tags)
