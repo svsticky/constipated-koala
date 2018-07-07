@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
         post 'mongoose', to: 'home#add_funds'
 
+        # TODO: should this be moved to nginx or
+        # @deprated these old routes
         get 'enrollments',                      to: redirect('/activities')
         get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
 

@@ -1,7 +1,5 @@
 #:nodoc:
 class Api::ActivitiesController < ApiController
-  # TODO: this is a diffenent approach then the other controllers, is this being used?
-  # before_action :authorize, only: [:show]
   before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:show]
 
   def index

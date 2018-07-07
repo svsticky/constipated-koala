@@ -1,5 +1,6 @@
 # Public API creating an ical file which can be downloaded
 class Api::CalendarsController < ApiController
+  # TODO: these response formats can also be added to api/activities_controller#index
   def show
     respond_to do |format|
       format.html
