@@ -10,6 +10,8 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Max: 275
+  Exclude:
+    - 'db/schema.rb'
 
 Metrics/ClassLength:
   Max: 500
@@ -34,5 +36,9 @@ Style/RegexpLiteral:
 
 # Ignore auto-generated whitespace errors
 Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'db/schema.rb'
+
+Style/NumericLiterals:
   Exclude:
     - 'db/schema.rb'

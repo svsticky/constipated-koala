@@ -25,5 +25,5 @@ end
 attributes :id, :description, :price if Authorization._client.include?('activity-read')
 
 node :poster do |activity|
-  activity_image_url(activity) if activity.poster.attached?
+  url_for activity.poster.representation(resize: 'x1080') if activity.poster.attached?
 end
