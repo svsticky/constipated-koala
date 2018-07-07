@@ -5,8 +5,6 @@ class Users::SessionsController < Devise::SessionsController
   # NOTE overwrite create method, once a user is authenticated we can verify
   # it has worked, othersie we can create a fatal log rule.
   def create
-    # TODO: if account not confirmed, resend confirmation mail
-
     # perform default create from devise sessioncontroller
     super
   ensure

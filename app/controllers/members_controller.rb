@@ -15,10 +15,12 @@ class MembersController < ActionController::Base
     I18n.locale = session['locale']
   end
 
+  # TODO: is dit nodig voor elke pagina?, hoe weet je dat dit beschikbaar is in de andere controllers?
   def set_member!
     @member = Member.find(current_user.credentials_id)
   end
 
+  # TODO: deze lijkt me sowieso hier niet te moeten
   def set_activity!
     activity_id = params[:activity_id] || params[:id]
     @activity = Activity.find(activity_id)
