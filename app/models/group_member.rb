@@ -3,8 +3,6 @@ class GroupMember < ApplicationRecord
   belongs_to :member
   belongs_to :group
 
-  validates :year, presence: true
-
   is_impressionable
 
   def position=(position)

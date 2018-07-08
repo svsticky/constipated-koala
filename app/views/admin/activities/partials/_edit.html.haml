@@ -88,7 +88,7 @@
           .col-md-12
             = label(:activity, :organized_by)
             .ui-select
-              = f.select :organized_by, options_for_select(Group.has_members.order(:category, :name).map{ |group| [group.name, group.id] }, @activity.organized_by), :include_blank => '-'
+              = f.select :organized_by, options_for_select(Group.order(:category, :name).map{ |group| [group.name, group.id] }, @activity.organized_by), :include_blank => '-'
 
       .form-group
         .row

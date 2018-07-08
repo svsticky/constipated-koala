@@ -142,19 +142,19 @@ class Member < ApplicationRecord
   end
 
   def groups
-    groups = {}
-
-    group_members.order(year: :desc).each do |group_member|
-      if groups.key?(group_member.group.id)
-        groups[group_member.group.id][:years].push(group_member.year)
-
-        groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
-      end
-
-      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [group_member.year], :positions => [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
-    end
-
-    return groups.values
+    # groups = {}
+    #
+    # group_members.order(year: :desc).each do |group_member|
+    #   if groups.key?(group_member.group.id)
+    #     groups[group_member.group.id][:years].push(group_member.year)
+    #
+    #     groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
+    #   end
+    #
+    #   groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [group_member.year], :positions => [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
+    # end
+    #
+    # return groups.values
   end
 
   # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member

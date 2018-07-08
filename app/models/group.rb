@@ -14,30 +14,25 @@ class Group < ApplicationRecord
 
   is_impressionable
 
+  # TODO: refactor
   def years
-    # TODO: remove years without members
-    years_in_existence = if created_at.nil?
-                           [Date.today.year]
-                         else
-                           (created_at.study_year..Date.today.study_year)
-                         end
-    years_in_existence.map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    # years_in_existence = if created_at.nil?
+    #                        [Date.today.year]
+    #                      else
+    #                        (created_at.study_year..Date.today.study_year)
+    #                      end
+    # years_in_existence.map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
   end
 
   def positions
     return ['chairman', 'secretary', 'treasurer', 'internal', 'external', 'education'] if board?
-
     return (['chairman', 'treasurer', 'board'] + Settings['additional_positions.committee'] + group_members.select(:position).order(:position).uniq.map(&:position)).compact.uniq if committee?
-
     return (['chairman', 'secretary', 'treasurer'] + Settings['additional_positions.moot'] + group_members.select(:position).order(:position).uniq.map(&:position)).compact.uniq if moot?
-
     return ['chairman', 'treasurer']
   end
 
-  def members(year = nil)
-    year = year.nil? ? Date.today.study_year : year.to_i
-
-    group_members.where(:year => year).sort do |a, b|
+  def members
+    group_members.sort do |a, b|
       if positions.index(a.position).nil? && positions.index(b.position).nil?
         a.name <=> b.name
       elsif positions.index(b.position).nil?
@@ -50,9 +45,5 @@ class Group < ApplicationRecord
         positions.index(a.position) <=> positions.index(b.position)
       end
     end
-  end
-
-  def self.has_members # rubocop:disable PredicateName
-    joins(:group_members).select('`groups`.*, COUNT( `groups`.`id` ) as members').group('`groups`.`id`').having('members > 0')
   end
 end
