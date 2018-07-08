@@ -1,3 +1,4 @@
+#:nodoc:
 class AddHistoryToGroups < ActiveRecord::Migration[5.2]
   def up
     # return
@@ -6,7 +7,7 @@ class AddHistoryToGroups < ActiveRecord::Migration[5.2]
     if ActiveRecord::Base.connection.column_exists?(:group_members, :year)
       # list the groups that should be created
       groups = GroupMember.pluck(:group_id, :year).uniq.map do |group, year|
-        {id: group, year: year, group_members: GroupMember.where(:group => group, :year => year).pluck(:id)}
+        { id: group, year: year, group_members: GroupMember.where(:group => group, :year => year).pluck(:id) }
       end
     end
 
@@ -30,10 +31,10 @@ class AddHistoryToGroups < ActiveRecord::Migration[5.2]
 
         GroupMember.where(:id => item[:group_members]).update(group_id: group.id)
       end
-
-      remove_column :group_members, :year
-      add_index :group_members, [:member_id, :group_id], unique: true
     end
+
+    remove_column :group_members, :year
+    add_index :group_members, [:member_id, :group_id], unique: true
   end
 
   def down
