@@ -2,6 +2,7 @@
 class Group < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true
+  validates :year, presence: true
 
   enum category: { board: 1, committee: 2, moot: 3, other: 4 }
 

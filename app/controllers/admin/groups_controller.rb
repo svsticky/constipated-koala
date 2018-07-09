@@ -4,13 +4,13 @@ class Admin::GroupsController < ApplicationController
   # impressionist :actions => [ :create, :update ]
 
   def index
-    @groups = Group.all.order(:category, :name)
+    @groups = Group.where(year: params[:year] || Time.now.study_year).order(:category, :name)
     @group = Group.new
   end
 
   def show
-    @groups = Group.all.order(:category, :name)
     @group = Group.find_by_id params[:id]
+    @groups = Group.where(year: @group.year).order(:category, :name)
   end
 
   def create
@@ -20,7 +20,7 @@ class Admin::GroupsController < ApplicationController
       impressionist @group
       redirect_to @group
     else
-      @groups = Group.where(year: params[:year] || Time.now.study_year).order(:category, :name)
+      @groups = Group.where(year: @group.year || Time.now.study_year).order(:category, :name)
       render 'show'
     end
   end
@@ -32,7 +32,7 @@ class Admin::GroupsController < ApplicationController
       impressionist @group
       redirect_to @group
     else
-      @groups = Group.all.order(:category, :name)
+      @groups = Group.where(year: @group.year).order(:category, :name)
       render 'show'
     end
   end
