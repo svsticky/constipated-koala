@@ -15,16 +15,6 @@ class Group < ApplicationRecord
 
   is_impressionable
 
-  # TODO: refactor
-  def years
-    # years_in_existence = if created_at.nil?
-    #                        [Date.today.year]
-    #                      else
-    #                        (created_at.study_year..Date.today.study_year)
-    #                      end
-    # years_in_existence.map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
-  end
-
   def positions
     return ['chairman', 'secretary', 'treasurer', 'internal', 'external', 'education'] if board?
     return (['chairman', 'treasurer', 'board'] + Settings['additional_positions.committee'] + group_members.select(:position).order(:position).uniq.map(&:position)).compact.uniq if committee?

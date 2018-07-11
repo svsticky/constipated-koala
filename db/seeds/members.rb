@@ -10,7 +10,7 @@ puts '-- Creating members'
     last_name:    last_name,
     address:      Faker::Address.street_name,
     house_number: Faker::Address.building_number,
-    postal_code:  Faker::Address.postcode,
+    postal_code:  Faker::Address.postcode[0,6],
     city:         Faker::Address.city,
     phone_number: Faker::Base.numerify('+316########'),
     email:        Faker::Internet.safe_email(first_name + '.' + last_name),

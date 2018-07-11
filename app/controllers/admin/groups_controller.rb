@@ -4,7 +4,7 @@ class Admin::GroupsController < ApplicationController
   # impressionist :actions => [ :create, :update ]
 
   def index
-    @groups = Group.where(year: params[:year] || Time.now.study_year).order(:category, :name)
+    @groups = Group.all.order(:category, :name)
     @group = Group.new
   end
 

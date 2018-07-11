@@ -134,17 +134,14 @@
               Groepen
             %table.table.table-striped
               %tbody
-                - @member.groups.each do |group|
+                - @member.groups.order(year: :desc).each do |group|
                   %tr
-                    %td= link_to group[ :name ], group_path( group[ :id ] )
-                    %td= Date.years( group[ :years ].sort )
+                    %td= link_to group.name, group
+                    %td= group.year
 
                     %td.hidden-xs
-                      - group[ :positions ].each do | position |
-                        - position.each do | position, year |
-                          - unless position.nil?
-                            = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
-
+                      - if group.group_members.find_by_member_id(@member.id).position.present?
+                        = link_to I18n.t(group.group_members.find_by_member_id(@member.id).position, scope: 'activerecord.attributes.group.positions', default: group.group_members.find_by_member_id(@member.id).position.capitalize ), group, :class => 'inline'
 
           .panel.panel-default
             .panel-heading.year

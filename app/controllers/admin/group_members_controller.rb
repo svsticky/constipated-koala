@@ -3,9 +3,7 @@ class Admin::GroupMembersController < ApplicationController
   respond_to :json, only: [:create, :update, :destroy]
 
   def create
-    logger.debug params.inspect
-
-    @member = GroupMember.new(:member => Member.find_by_id(params[:member]), :group => Group.find_by_id(params[:group_id]), :year => params[:year])
+    @member = GroupMember.new(:member => Member.find_by_id(params[:member]), :group => Group.find_by_id(params[:group_id]))
 
     if @member.save
       impressionist @member
