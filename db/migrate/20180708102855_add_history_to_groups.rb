@@ -1,10 +1,8 @@
 #:nodoc:
 class AddHistoryToGroups < ActiveRecord::Migration[5.2]
   def up
-    # return
-
-    # create file for migration
     if ActiveRecord::Base.connection.column_exists?(:group_members, :year)
+      r
       # list the groups that should be created
       groups = GroupMember.pluck(:group_id, :year).uniq.map do |group, year|
         { id: group, year: year, group_members: GroupMember.where(:group => group, :year => year).pluck(:id) }
@@ -21,7 +19,7 @@ class AddHistoryToGroups < ActiveRecord::Migration[5.2]
 
         # reuse this group if not yet done
         if group.year.nil?
-          group.update(year: item[:year], group_name: group.name)
+          group.update(year: item[:year], group_name: group.name.upcase)
           next
         end
 

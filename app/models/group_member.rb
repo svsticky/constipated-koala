@@ -13,4 +13,8 @@ class GroupMember < ApplicationRecord
   def name
     member.name
   end
+
+  def group_name(group_name)
+    write_attribute(:group_name, group_name.upcase)
+  end
 end

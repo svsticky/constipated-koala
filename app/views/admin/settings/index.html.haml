@@ -75,6 +75,14 @@
                 .col-md-6
                   %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_positions.moot', :value => Settings['additional_positions.moot'].join(', '), :placeholder => 'gescheiden met komma\'s' }
 
+              %li.list-group-item
+                .col-md-6
+                  %b= I18n.t 'committees_group_names.name', scope: 'activerecord.attributes.settings'
+                  %p= I18n.t 'committees_group_names.description', scope: 'activerecord.attributes.settings'
+
+                .col-md-6
+                  %input.form-control{ :id => 'committees_group_names', :name => 'committees_group_names', :value => Settings['committees_group_names'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+
 
       .col-md-6
         = form_for :admin, :url => profile_settings_path, method: :patch, :html => { :class => 'form-validation signature' } do |f|

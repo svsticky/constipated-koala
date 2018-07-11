@@ -37,4 +37,8 @@ class Group < ApplicationRecord
       end
     end
   end
+
+  def self.years
+    Group.pluck(:year).uniq.map { |year| ["#{ year } - #{ 1 + year }", year] }.to_h
+  end
 end

@@ -118,13 +118,16 @@ aside a[href='#'] {
 }
 
 .panel-heading.year .ui-select {
+  position: absolute;
+  right: 20px;
+
   width: 110px;
-  margin-left: 5px;
 }
 
 .panel-heading.year .ui-select select {
   font-size: 14px;
   line-height: 14px;
+  min-width: 50px;
 }
 
 @media (min-width: 768px) {

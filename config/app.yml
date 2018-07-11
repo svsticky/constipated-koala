@@ -10,8 +10,14 @@ defaults: &defaults
     activities: []
 
   additional_positions:
-    committee: ['fotograaf','pr']
+    committee:
+      - fotograaf
+      - pr
     moot: []
+
+  committees_group_names:
+    - ATTAC
+    - COMMIT
 
 development:
   <<: *defaults

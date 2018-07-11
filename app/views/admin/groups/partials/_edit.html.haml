@@ -28,13 +28,12 @@
             = label(:group, I18n.t( :category, scope: 'activerecord.attributes.group' ))
             .ui-select
               = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: group.category, disabled: ['board'] )
-        
-          .col-md-8
-            = f.label I18n.t( :group_name, scope: 'activerecord.attributes.group' )
-            = f.text_field :group_name, :value => group.group_name, :class => 'form-control'
+
+        .row{ :data => { :category => 'committee' }}
           .col-md-4
-            = label(:group, I18n.t( :year, scope: 'activerecord.attributes.group' ))
-            = f.text_field :year, :value => group.year, :class => 'form-control'
+            = f.label I18n.t( :group_name, scope: 'activerecord.attributes.group' )
+            .ui-select
+              = f.select :group_name, options_for_select( Settings['committees_group_names'], @group.group_name)
 
 
         .form-group

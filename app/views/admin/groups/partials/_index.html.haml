@@ -2,9 +2,13 @@
   @param {groups} groups    - List of groups
 
 .panel.panel-default.table-dynamic
-  .panel-heading
+
+  .panel-heading.year
     %i.fa.fa-fw.fa-fw.fa-users
     Groepen
+
+    .ui-select
+      = select_tag :year, options_for_select( Group.years, params['year'] )
 
   %table.table.table-striped.table-linked
     %tbody
