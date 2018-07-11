@@ -10,7 +10,6 @@ class Admin::GroupsController < ApplicationController
 
   def show
     @group = Group.find_by_id params[:id]
-    @groups = Group.where(year: @group.year).order(:category, :name)
   end
 
   def create

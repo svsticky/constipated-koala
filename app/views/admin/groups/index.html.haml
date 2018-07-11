@@ -6,8 +6,61 @@
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
-      .col-md-6{ :class => ('hidden-xs' unless @group.nil?) }
-        = render 'admin/groups/partials/index', group: @group, groups: @groups
+      .col-md-6
+        .panel.panel-default.table-dynamic
+
+          .panel-heading.year
+            %i.fa.fa-fw.fa-fw.fa-users
+            Groepen
+
+            .ui-select
+              = select_tag :year, options_for_select( Group.years, params['year'] )
+
+          %table.table.table-striped.table-linked
+            %tbody
+              - @groups.each do |group|
+                %tr
+                  %td= link_to "#{group.name}", group
+                  %td.hidden-sm= group.members.map{ |member| member.name }.join(', ')
 
       .col-md-6
-        = render 'admin/groups/partials/edit', group: @group
+        = form_for :group, :url => groups_path, :method => :post, :class => 'form-validation' do |f|
+          - if @group.errors.any?
+            .alert.alert-danger
+              %button.close{ type: "button" } ×
+              %span Oeps, niet alles is goed ingevuld;
+              %ul
+              - @group.errors.full_messages.each do |msg|
+                %li= msg
+          .panel.panel-default
+            .panel-heading
+              %i.fa.fa-fw.fa-users
+              - if @group.category.nil?
+                Nieuwe groep
+              - else
+                Bewerk
+                = I18n.t(@group.category, scope: 'activerecord.attributes.group.categories')
+            .panel-body
+
+              .form-group
+                .row
+                  .col-md-8
+                    = f.label I18n.t( :name, scope: 'activerecord.attributes.group' )
+                    = f.text_field :name, :value => @group.name, :class => 'form-control'
+                  .col-md-4
+                    = label(:group, I18n.t( :category, scope: 'activerecord.attributes.group' ))
+                    .ui-select
+                      = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: @group.category, disabled: ['board'] )
+
+                .row
+                  .col-md-4{ :data => { :category => 'committee' }}
+                    = f.label I18n.t( :group_name, scope: 'activerecord.attributes.group' )
+                    .ui-select
+                      = f.select :group_name, options_for_select( Settings['committees_group_names'], @group.group_name)
+
+
+                .form-group
+                  = label(:group, I18n.t( :comments, scope: 'activerecord.attributes.group' ))
+                  = f.text_area :comments, :value => @group.comments, :class => 'form-control', :rows => 5
+
+              %button.btn.btn-success.wait{ type: 'submit' } Opslaan

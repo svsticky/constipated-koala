@@ -38,7 +38,11 @@ class Group < ApplicationRecord
     end
   end
 
+  def history
+    Group.where(group_name: group_name).order(year: :desc)
+  end
+
   def self.years
-    Group.pluck(:year).uniq.map { |year| ["#{ year } - #{ 1 + year }", year] }.to_h
+    Group.pluck(:year).uniq.map { |year| [year.to_study_year, year] }.to_h
   end
 end

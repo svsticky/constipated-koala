@@ -188,6 +188,9 @@ $(document).on('ready page:load turbolinks:load', function(){
   });
 
   $('.year .ui-select select').on('change', function(){
-    location.href = '/groups?year=' + $(this).val()
+    var params = {};
+
+    params.year = $(this).val();
+    location.search = $.param(params);
   });
 });

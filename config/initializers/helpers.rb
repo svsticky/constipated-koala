@@ -15,6 +15,13 @@ class String
 end
 
 #:nodoc:
+class Integer
+  def to_study_year
+    "#{ self } - #{ self + 1 }"
+  end
+end
+
+#:nodoc:
 class Date
   # Return the first year of a study year, hence 2014 means the year 2014-2015
   def study_year
