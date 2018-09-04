@@ -67,7 +67,7 @@
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
 
-          - if @member.checkout_cards.length > 0
+          - if @transactions.length > 0
             .panel.panel-default
               .panel-heading.input
                 %i.fa.fa-fw.fa-shopping-cart
@@ -76,7 +76,7 @@
                 .input-group#credit{ :data => { 'member_id' => @member.id }}
                   .input-symbol
                     %span &euro;
-                    %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_cards.first.checkout_balance.balance, :unit => '') }
+                    %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => '') }
 
                   <!-- Containing this selector in a div fixes an
                   overflow in Firefox, that doesn't occur in
