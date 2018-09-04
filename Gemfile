@@ -32,7 +32,7 @@ gem 'responders'
 # settings cached in rails environment
 gem 'rails-settings-cached'
 
-# Paperclip easy file upload to S3
+# Paperclip easy file upload
 gem 'cocaine', '0.3.2'
 gem 'paperclip'
 
