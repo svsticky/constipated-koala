@@ -32,6 +32,7 @@ gem 'responders'
 # settings cached in rails environment
 gem 'rails-settings-cached'
 
+gem 'cocaine'
 gem 'paperclip'
 
 # Icalendar for calendar integration
