@@ -110,6 +110,7 @@ class Api::CheckoutController < ApplicationController
 
     begin
       return Array.new(1, obj.to_i) if obj.is_number?
+
       return JSON.parse(obj)
     rescue StandardError
       return []

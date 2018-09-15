@@ -53,6 +53,7 @@ namespace :admin do
     # remove activities from settings if passed
     Activity.find(Settings['intro.activities']).each do |activity|
       next unless activity.start_date < Date.today
+
       Settings['intro.activities'] -= [activity.id]
     end
 

@@ -29,6 +29,7 @@ module Paperclip
         Rails.logger.debug Paperclip.run('gs', parameters, :source => File.expand_path(src.path), :dest => File.expand_path(dst.path))
       rescue PaperclipCommandLineError => e
         raise PaperclipError, "There was an error processing the thumbnail for #{ @basename }" if @whiny
+
         Rails.logger.debug e.inspect
       end
       dst
