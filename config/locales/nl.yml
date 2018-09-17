@@ -56,17 +56,6 @@ nl:
           moot: Dispuutsleden
           other: Leden
         name: Naam
-        price: Prijs
-        image: Afbeelding
-        category: Categorie
-        active: Actief
-
-        categories:
-          beverage: Drinken
-          chocolate: Chocolade
-          savory: Hartig
-          additional: Overig
-          liquor: Alcohol
 
       tag:
         names:
