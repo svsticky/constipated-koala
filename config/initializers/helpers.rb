@@ -19,6 +19,7 @@ class Date
   # Return the first year of a study year, hence 2014 means the year 2014-2015
   def study_year
     return (year.to_i - 1) if month < 8
+
     return year
   end
 
@@ -61,6 +62,7 @@ class Time
   # Return the first year of a study year using time, hence 2014 means the year 2014-2015
   def study_year
     return (year.to_i - 1) if month < 8
+
     return year
   end
 end

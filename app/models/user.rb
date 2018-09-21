@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   def admin?
     return true if credentials_type.casecmp('admin').zero?
+
     return false
   end
 
@@ -34,6 +35,7 @@ class User < ApplicationRecord
   # Clear the accounts password, and send a customized 'welcome to Sticky!'-mail if not confirmed already
   def require_activation!
     return if confirmed?
+
     generate_confirmation_token!
     skip_confirmation_notification!
 
