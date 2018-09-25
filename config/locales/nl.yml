@@ -467,6 +467,7 @@ nl:
       confirmation_instructions:
         button_instructions: "Bevestig je e-mailadres voor je account bij Studievereniging Sticky door op de onderstaande knop te klikken!"
         confirm_account: "Account bevestigen"
+        confirm_email: "E-mailadres bevestigen"
       reset_passwords_instructions:
         button_instructions: "Klik op onderstaande knop om een nieuw wachtwoord aan te maken of negeer deze mail om je huidige wachtwoord te behouden."
         notification: "Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuw account aan te maken."

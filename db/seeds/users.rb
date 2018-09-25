@@ -20,8 +20,10 @@ puts '   -> martijn@sticky.nl (admin)'
 
 # create actual members, but give the first member test@svsticky.nl
 Member.all.sample(6).each_with_index do |member, id|
+  member.update(email: 'test@svsticky.nl') if id == 0
+
   user = User.new(
-    email:       id == 0 ? 'test@svsticky.nl' : member.email,
+    email:       member.email,
     password:    'sticky123',
     credentials: member
   )
