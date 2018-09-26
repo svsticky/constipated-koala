@@ -19,6 +19,7 @@ class Admin::ParticipantsController < ApplicationController
       @response['email'] = @participant.member.email
       @response['name'] = @participant.member.name
       @response['notes'] = @participant.notes
+      @response['fullness'] = @activity.fullness
 
       render status: status, :json => @response.to_json
     end
@@ -56,24 +57,23 @@ class Admin::ParticipantsController < ApplicationController
 
   def destroy
     ghost_participant = Participant.destroy(params[:id])
+    @response = {
+      magic_reservists: [],
+      fullness: ghost_participant.activity.fullness,
+      reservist_count: ghost_participant.activity.reservists.count
+    }
 
-    if ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists)
-      @response = []
+    ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists)&.each do |peep|
+      item = peep.attributes
+      item['price'] = peep.activity.price
+      item['email'] = peep.member.email
+      item['name']  = peep.member.name
+      item['notes'] = peep.notes
 
-      ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists).each do |peep|
-        item = peep.attributes
-        item['price'] = peep.activity.price
-        item['email'] = peep.member.email
-        item['name']  = peep.member.name
-        item['notes'] = peep.notes
-
-        @response << item
-      end
-
-      render :status => :ok, :json => @response.to_json
-    else
-      head :no_content
+      @response.magic_reservists << item
     end
+
+    render :status => :ok, :json => @response.to_json
   end
 
   def mail

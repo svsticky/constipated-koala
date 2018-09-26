@@ -29,15 +29,6 @@ function bind_activities(){
  * Participant namespace containing all participant related functions
  */
 var participant = {
-  //Update counts in the table headers
-  updateCounts : function(){
-    attendees = $('#participants-table tbody tr').length - 1; //-1 because of of the header
-    reservists = $('#reservists-table tbody tr').length - 1; //-1 because of the header
-
-    $('#attendeecount').html(attendees);
-    $('#reservistcount').html(reservists);
-  },
-
   //Admin adds a new participant to the activity
   add : function(data){
     var template = $('template#attendee-table-row').html();
@@ -50,7 +41,7 @@ var participant = {
     else
       $(added).find( 'button.paid' ).addClass( 'hidden' );
 
-    participant.updateCounts();
+    $('#attendeecount').html(data.fullness);
     bind_activities();
 
     // trigger #mail client to add recipient
@@ -79,15 +70,17 @@ var participant = {
       $(row).remove();
 
       //Move reservist to attendees if applicable
-      if (typeof data !== "undefined") {
+      if (data.magic_reservists.length > 0) {
         data.forEach(
           function(item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();
             participant.add(item, item.name);
           });
       } else {
-        participant.updateCounts(); //Already executed in participant.add
+        $('#attendeecount').html(data.fullness); // Already done in participant.add above
       }
+
+      $('#resservistcount').html(data.reservist_count);
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
