@@ -11,7 +11,7 @@ Doorkeeper::OAuth::TokenResponse.class_eval do
 
     # added some information about the user that is loggedin
     user = User.find_by_id(token.resource_owner_id)
-    response = response.merge(user.hash) unless user.nil?
+    response = response.merge(user.as_json.reject{|k,v| k == "id"}) unless user.nil?
 
     return response.reject { |_, value| value.blank? }
   end
