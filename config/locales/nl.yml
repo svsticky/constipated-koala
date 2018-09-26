@@ -127,6 +127,7 @@ nl:
           create: "activiteit aangemaakt"
           mail: "betalingsmail gestuurd"
           update: "activiteit bewerkt"
+          destroy: "activiteit verwijderd"
         checkout_transaction:
           change_funds: "Tegoed bijgewerkt"
         checkoutproduct:
