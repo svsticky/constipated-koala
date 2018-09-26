@@ -31,7 +31,7 @@ function bind_activities(){
 var participant = {
   //Update counts in the table headers
   updateCounts : function(){
-    attendees = $('#participants-table tbody tr').length - 2; //-2 because of the add_participant row and of the header
+    attendees = $('#participants-table tbody tr').length - 1; //-1 because of of the header
     reservists = $('#reservists-table tbody tr').length - 1; //-1 because of the header
 
     $('#attendeecount').html(attendees);
