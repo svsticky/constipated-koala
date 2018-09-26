@@ -79,7 +79,7 @@ var participant = {
       $(row).remove();
 
       //Move reservist to attendees if applicable
-      if (data !== null) {
+      if (typeof data !== "undefined") {
         data.forEach(
           function(item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();
