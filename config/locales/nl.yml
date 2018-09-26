@@ -277,10 +277,10 @@ nl:
           attributes:
             checkout: Mongoose-tegoed
             fees: iDEAL-kosten
-          blank: "kan niet leeg zijn"
-          failed: "is nog niet verwerkt."
-          processed: "is al verwerkt."
-          success: "is verwerkt!"
+          blank: "Transactie kan niet leeg zijn"
+          failed: "Transactie is nog niet verwerkt."
+          processed: "Transactie is al verwerkt."
+          success: "Transactie is verwerkt!"
         member:
           attributes:
             email:

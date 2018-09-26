@@ -182,10 +182,10 @@ en:
           attributes:
             checkout: "Mongoose credit"
             fees: "iDEAL fee"
-          blank: "can't be blank"
-          failed: "has not been processed"
-          processed: "has already been processed"
-          success: "has been processed!"
+          blank: "Transaction can't be blank"
+          failed: "Transaction has not been processed"
+          processed: "Transaction has already been processed"
+          success: "Transaction has been processed!"
         member:
           attributes:
             email:
