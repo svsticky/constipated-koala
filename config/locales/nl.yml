@@ -88,6 +88,7 @@ nl:
           create: activiteit aangemaakt
           mail: betalingsmail gestuurd
           update: activiteit bewerkt
+          destroy: "activiteit verwijderd"
         checkoutcard:
           activate_card: kaart geactiveerd
         checkouttransaction:
