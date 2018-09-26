@@ -251,6 +251,7 @@ en:
         create: "activity created"
         mail: "payment mail sent"
         update: "activity updated"
+        destroy: "activity deleted"
       checkout_transaction:
         change_funds: "Credit updated"
       checkoutproduct:
