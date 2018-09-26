@@ -46,7 +46,7 @@ var participant = {
     $('.number').html( +$('.number').html() +1 );
 
     if(data.price > 0)
-      $(added).addClass( 'red' );
+      $(added).addClass('in-debt');
     else
       $(added).find( 'button.paid' ).addClass( 'hidden' );
 
@@ -151,6 +151,8 @@ var participant = {
         .addClass( 'unpaid btn-primary' )
         .append( '<i class="fa fa-fw fa-check"></i>' );
 
+      $(row).removeClass('in-debt');
+
       $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
       $( 'input#search' ).select();
@@ -182,6 +184,8 @@ var participant = {
         .addClass( 'paid btn-warning red' )
         .removeClass( 'unpaid btn-primary' )
         .append( '<i class="fa fa-fw fa-times"></i>' );
+
+      $(row).addClass('in-debt');
 
       $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -219,10 +223,10 @@ var participant = {
     }).done(function( data ){
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('hidden unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
       $(row).find('button.paid').removeClass('hidden');
-      $(row).removeClass( 'red' );
+      $(row).removeClass('in-debt');
 
       if(price > 0){
-        $(row).addClass( 'red' );
+        $(row).addClass('in-debt');
 
         $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }else{
