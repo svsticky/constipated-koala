@@ -1,6 +1,6 @@
 #:nodoc:
 class Admin::ActivitiesController < ApplicationController
-  impressionist :actions => [ :create, :update, :destroy ]
+  impressionist :actions => [:create, :update, :destroy]
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
