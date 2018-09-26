@@ -1,7 +1,6 @@
 #:nodoc:
 class Admin::ActivitiesController < ApplicationController
-  # replaced with calls in each of the methods
-  # impressionist :actions => [ :create, :update, :destroy ]
+  impressionist :actions => [ :create, :update, :destroy ]
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
@@ -21,7 +20,6 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.new(activity_post_params.except(:_destroy))
 
     if @activity.save
-      impressionist @activity
       redirect_to @activity
     else
       @activities = Activity.all.order(start_date: :desc)
@@ -45,7 +43,6 @@ class Admin::ActivitiesController < ApplicationController
     end
 
     if @activity.update(params.except(:_destroy))
-      impressionist @activity
       redirect_to @activity
     else
       @recipients = @activity.payment_mail_recipients
@@ -58,7 +55,6 @@ class Admin::ActivitiesController < ApplicationController
   def destroy
     @activity = Activity.find params[:id]
     @activity.destroy
-    impressionist @activity
 
     redirect_to activities_path
   end
