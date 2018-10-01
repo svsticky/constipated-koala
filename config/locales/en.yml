@@ -84,10 +84,8 @@ en:
         tags: Tags
       participant:
         paid:
-          ? "false"
-          : "Not payed"
-          ? "true"
-          : Paid
+          ? "false": "Not payed"
+          ? "true": Paid
       settings:
         additional_committee_positions:
           description: "Roles besides chairman, treasurer and board member that will be added to the committees."
@@ -285,32 +283,32 @@ en:
   association_name: "Study association Sticky"
   date:
     day_names:
-      - ~
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
-      - Sunday
+    - ~
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-      - ~
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - Oktober
-      - November
-      - December
+    - ~
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - Oktober
+    - November
+    - December
   devise:
     confirmations:
       activate_account: "Activate account"
