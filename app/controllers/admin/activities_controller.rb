@@ -20,7 +20,7 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.new(activity_post_params.except(:_destroy))
 
     if @activity.save
-      #manual call to impressionist, because otherwise the activity doesn't have an id yet
+      # manual call to impressionist, because otherwise the activity doesn't have an id yet
       impressionist(@activity)
       redirect_to @activity
     else
