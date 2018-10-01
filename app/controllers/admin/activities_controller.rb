@@ -1,6 +1,6 @@
 #:nodoc:
 class Admin::ActivitiesController < ApplicationController
-  impressionist :actions => [:create, :update, :destroy]
+  impressionist :actions => [:update, :destroy]
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
@@ -20,6 +20,8 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.new(activity_post_params.except(:_destroy))
 
     if @activity.save
+      #manual call to impressionist, because otherwise the activity doesn't have an id yet
+      impressionist(@activity)
       redirect_to @activity
     else
       @activities = Activity.all.order(start_date: :desc)
