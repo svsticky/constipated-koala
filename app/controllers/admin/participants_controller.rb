@@ -49,7 +49,7 @@ class Admin::ParticipantsController < ApplicationController
 
   def destroy
     ghost_participant = Participant.destroy(params[:id])
-    @response = {
+    response = {
       magic_reservists: [],
       activity: {
         fullness: ghost_participant.activity.fullness,
@@ -59,17 +59,11 @@ class Admin::ParticipantsController < ApplicationController
       }
     }
 
-    ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists)&.each do |peep|
-      item = peep.attributes
-      item['price'] = peep.activity.price
-      item['email'] = peep.member.email
-      item['name']  = peep.member.name
-      item['notes'] = peep.notes
-
-      @response.magic_reservists << item
+    ghost_participant.activity.magic_enrolled_reservists&.each do |peep|
+      response[:magic_reservists] << new_attendee_response_data(peep)
     end
 
-    render :status => :ok, :json => @response.to_json
+    render :status => :ok, :json => response.to_json
   end
 
   def mail

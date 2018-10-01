@@ -42,6 +42,8 @@ class Activity < ApplicationRecord
   has_many :participants, :dependent => :destroy
   has_many :members, :through => :participants
 
+  attr_accessor :magic_enrolled_reservists
+
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
