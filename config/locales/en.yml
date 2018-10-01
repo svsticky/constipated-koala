@@ -224,7 +224,7 @@ en:
         mail: "payment mail sent"
         update: "activity updated"
       checkout_transaction:
-        change_funds: "Tegoed bijgewerkt"
+        change_funds: "Credit updated"
       checkoutproduct:
         activate_card: "card activated"
         change_funds: "funds added"
