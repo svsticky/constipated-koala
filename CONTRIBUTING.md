@@ -11,6 +11,9 @@ From this point on we are going to use the **[semantic versioning](http://semver
 We have some git hooks for checking for missing translations with [I15r](https://github.com/balinterdi/i15r) and running [Rubocop](https://github.com/bbatsov/rubocop).
 These hooks are located in the .hooks directory and should activate them by running `git config --local core.hooksPath .hooks`
 
+### New page template
+A template for new pages can be found at app/views/layouts/_blank.html.haml.
+
 ### Branching strategy
 The history of this project includes a lot of unnecessary merge commits, which aren't
 that pretty. Currently we have a contributing procedure that needs to be followed.
