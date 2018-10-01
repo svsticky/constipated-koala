@@ -33,6 +33,9 @@ class Activity < ApplicationRecord
   # validates :unenroll_date
 
   is_impressionable
+  has_many(:impressions,
+           :as => :impressionable,
+           :dependent => :nullify)
 
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
 
