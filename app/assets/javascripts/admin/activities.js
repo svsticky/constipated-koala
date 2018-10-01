@@ -94,7 +94,7 @@ var participant = {
         participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
       }
 
-      $('#resservistcount').html(data.activity.reservist_count);
+      $('#reservistcount').html(data.activity.reservist_count);
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
