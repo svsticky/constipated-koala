@@ -108,8 +108,6 @@ Rails.application.routes.draw do
           resources :participants
         end
 
-        get 'calendar', to: 'calendars#show'
-
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
           post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
