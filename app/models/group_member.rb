@@ -5,7 +5,7 @@ class GroupMember < ApplicationRecord
 
   validates :year, presence: true
 
-  is_impressionable
+  is_impressionable dependent: :nullify
 
   def position=(position)
     write_attribute(:position, position)

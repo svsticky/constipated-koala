@@ -1,8 +1,5 @@
 #:nodoc:
 class Admin::GroupsController < ApplicationController
-  # replaced with calls in each of the methods
-  # impressionist :actions => [ :create, :update ]
-
   def index
     @groups = Group.all.order(:category, :name)
     @group = Group.new
@@ -17,6 +14,7 @@ class Admin::GroupsController < ApplicationController
     @group = Group.new group_params
 
     if @group.save
+      # manual impressionist call, otherwise the group has no id yet
       impressionist @group
       redirect_to @group
     else
@@ -42,6 +40,7 @@ class Admin::GroupsController < ApplicationController
 
     if @group.category != "board"
       @group.destroy
+      impressionist @group
       redirect_to groups_path
     else
       redirect_to group_path

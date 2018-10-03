@@ -1,7 +1,7 @@
 #:nodoc:
 class Admin::MembersController < ApplicationController
-  # replaced with calls in each of the methods
-  # impressionist :actions => [ :create, :update ]
+  impressionist :actions => [:update]
+  respond_to :json, only: [:search]
 
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -93,6 +93,7 @@ class Admin::MembersController < ApplicationController
       @member.tags_names = params[:member][:tags_names]
 
       # impressionist is the logging system
+      # manual impressionist call, otherwise the member doesn't have an id yet
       impressionist(@member, 'nieuwe lid')
       redirect_to @member
     else
@@ -113,7 +114,6 @@ class Admin::MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     if @member.update(member_post_params)
-      impressionist @member
       redirect_to @member
     else
       render 'edit'
@@ -132,10 +132,10 @@ class Admin::MembersController < ApplicationController
   def destroy
     @member = Member.includes(:checkout_balance).find(params[:id])
 
-    impressionist @member
     flash[:notice] = []
 
     if @member.destroy
+      impressionist @member
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
 

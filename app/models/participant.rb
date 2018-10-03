@@ -5,7 +5,7 @@ class Participant < ApplicationRecord
 
   validates :notes, length: { maximum: 30 }
 
-  is_impressionable
+  is_impressionable dependent: :nullify
 
   def price=(price)
     write_attribute(:price, price.to_s.tr(',', '.').to_f) unless price.blank?

@@ -12,7 +12,7 @@ class Group < ApplicationRecord
   has_many :members,
            :through => :group_members
 
-  is_impressionable
+  is_impressionable dependent: :nullify
 
   def years
     # TODO: remove years without members

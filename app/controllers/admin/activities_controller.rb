@@ -1,7 +1,7 @@
 #:nodoc:
 class Admin::ActivitiesController < ApplicationController
   # replaced with calls in each of the methods
-  # impressionist :actions => [ :create, :update, :destroy ]
+  impressionist :actions => [:destroy]
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
@@ -58,7 +58,6 @@ class Admin::ActivitiesController < ApplicationController
   def destroy
     @activity = Activity.find params[:id]
     @activity.destroy
-    impressionist @activity
 
     redirect_to activities_path
   end

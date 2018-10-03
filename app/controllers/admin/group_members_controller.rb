@@ -1,5 +1,7 @@
 #:nodoc:
 class Admin::GroupMembersController < ApplicationController
+  impressionist :actions => [:destroy]
+
   def create
     @member = GroupMember.new(:member => Member.find_by_id(params[:member]), :group => Group.find_by_id(params[:group_id]), :year => params[:year])
 

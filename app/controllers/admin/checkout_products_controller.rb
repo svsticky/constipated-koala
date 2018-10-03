@@ -1,7 +1,7 @@
 #:nodoc:
 class Admin::CheckoutProductsController < ApplicationController
   # replaced with calls in each of the methods
-  # impressionist :actions => [ :activate_card, :change_funds ]
+  impressionist :actions => [:activate_card]
   respond_to :json, only: [:activate_card, :change_funds]
 
   def index
@@ -94,7 +94,6 @@ class Admin::CheckoutProductsController < ApplicationController
     card.update_attribute(:active, true)
 
     if card.save
-      impressionist card
       render :status => :ok, :json => card.to_json
     else
       render :status => :bad_request, :json => card.errors.full_messages

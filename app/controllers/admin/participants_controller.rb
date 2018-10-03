@@ -1,5 +1,7 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
+  impressionist :actions => [:destroy]
+
   def create
     @participant = Participant.new(
       member: Member.find_by_id(params[:member]),
