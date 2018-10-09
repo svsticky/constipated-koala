@@ -505,6 +505,7 @@ nl:
     home:
       edit:
         general_data: "Algemene gegevens"
+        gdpr_rights: "Yo rechten en shit je weet toch"
       index:
         edit_profile: "Gegevens bewerken"
         outstanding_payments: "Openstaande betalingen"

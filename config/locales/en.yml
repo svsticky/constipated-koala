@@ -443,6 +443,7 @@ en:
     home:
       edit:
         general_data: General
+        gdpr_rights: "Yo rights and shit you know it"
       index:
         edit_profile: "Edit profile"
         outstanding_payments: "Outstanding payments"
