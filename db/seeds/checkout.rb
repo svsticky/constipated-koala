@@ -3,7 +3,7 @@ require Rails.root.join('db', 'seeds', 'members.rb')
 # Create checkout cards will automatically create balances
 puts '-- Creating checkout balances and cards'
 Member.all.sample(30).each do |member|
-  Faker::Number.between(1, 2).times do
+  Faker::Number.between(0, 2).times do
     CheckoutCard.create(
       uuid:                Faker::Number.hexadecimal(8),
       active:              Faker::Boolean.boolean(0.9),

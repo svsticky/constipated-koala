@@ -67,7 +67,7 @@
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
 
-          - if @transactions.length > 0
+          - if @transactions.length > 0 || @member.checkout_cards.length > 0
             .panel.panel-default
               .panel-heading.input
                 %i.fa.fa-fw.fa-shopping-cart
