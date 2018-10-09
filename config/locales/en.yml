@@ -84,7 +84,7 @@ en:
         tags: Tags
       participant:
         paid:
-          ? "false": "Not payed"
+          ? "false": "Not paid"
           ? "true": Paid
       settings:
         additional_committee_positions:
