@@ -1,6 +1,7 @@
 # By default, a class begins with a number of validations. student_id is
 # special because in the intro website it cannot be empty. However, an admin can
 # make it empty.
+# The emergency phone number is only required if the member is not an adult
 #:nodoc:
 class Member < ApplicationRecord
   validates :first_name, presence: true
@@ -10,6 +11,9 @@ class Member < ApplicationRecord
   validates :postal_code, presence: true
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
+  validates :emergency_phone_number, presence: false, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true },
+                                     if: :underage?
+  validate  :require_emergency_phone_number
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
   validates :gender, presence: true, inclusion: { in: %w[m f] }
 
@@ -83,6 +87,16 @@ class Member < ApplicationRecord
   # remove nonnumbers and change + to 00
   def phone_number=(phone_number)
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
+  end
+
+  def emergency_phone_number=(emergency_phone_number)
+    write_attribute(:emergency_phone_number, emergency_phone_number.sub('+', '00').gsub(/\D/, ''))
+  end
+
+  def require_emergency_phone_number
+    return unless :emergency_phone_number.blank?
+
+    errors.add :emergency_phone_number, I18n.t('activerecord.errors.models.member.attributes.emergency_phone_number.not_provided') if underage? || birth_date.blank?
   end
 
   # lowercase on email

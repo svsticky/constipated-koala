@@ -107,6 +107,7 @@ class PublicController < ApplicationController
                                    :postal_code,
                                    :city,
                                    :phone_number,
+                                   :emergency_phone_number,
                                    :email,
                                    :gender,
                                    :student_id,

@@ -79,6 +79,7 @@ en:
         last_name: Surname
         male: Male
         phone_number: "Phone number"
+        emergency_phone_number: "Phone number for emergencies"
         postal_code: "Postal code"
         student_id: "Student ID"
         tags: Tags
@@ -193,6 +194,9 @@ en:
               taken: "is already registered"
             phone_number:
               invalid: "consists of 10 digits"
+            emergency_phone_number:
+              invalid: "consists of 10 digits"
+              not_provided: "is required under 18 years old"
             student_id:
               elfproef: "is not valid"
               invalid: "is not valid"
