@@ -96,7 +96,7 @@ class Member < ApplicationRecord
   def require_emergency_phone_number
     return unless :emergency_phone_number.blank?
 
-    errors.add :emergency_phone_number, I18n.t('activerecord.errors.models.member.attributes.emergency_phone_number.not_provided') if underage? || birth_date.blank?
+    errors.add :emergency_phone_number, I18n.t('activerecord.errors.models.member.attributes.emergency_phone_number.not_provided') if underage?
   end
 
   # lowercase on email
@@ -327,6 +327,8 @@ class Member < ApplicationRecord
   end
 
   def adult?
+    # return default value if birth date is blank, required for form validation
+    return false if birth_date.blank?
     return 18.years.ago >= birth_date
   end
 
