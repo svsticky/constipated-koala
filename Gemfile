@@ -19,6 +19,7 @@ gem 'sass-rails'
 # authentication gems
 gem 'devise'
 gem 'doorkeeper'
+gem 'doorkeeper-openid_connect'
 
 gem 'impressionist'
 

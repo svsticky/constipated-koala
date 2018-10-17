@@ -80,6 +80,14 @@
     };
     version = "5.2.1";
   };
+  aes_key_wrap = {
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0li86k0g812jkzrppb2fvqngvzp09nygywjpn81nx90s01wxqw07";
+      type = "gem";
+    };
+    version = "1.0.1";
+  };
   arel = {
     source = {
       remotes = ["https://rubygems.org"];
@@ -103,6 +111,14 @@
       type = "gem";
     };
     version = "3.1.12";
+  };
+  bindata = {
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0kz42nvxnk1j9cj0i8lcnhprcgdqsqska92g6l19ziadydfk2gqy";
+      type = "gem";
+    };
+    version = "2.4.4";
   };
   bindex = {
     source = {
@@ -213,6 +229,15 @@
       type = "gem";
     };
     version = "5.0.0";
+  };
+  doorkeeper-openid_connect = {
+    dependencies = ["doorkeeper" "json-jwt"];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0a4yvl37kknykf02n2a880irrlqazscy29n0m0g1l3k9c72v8axn";
+      type = "gem";
+    };
+    version = "1.5.2";
   };
   erubi = {
     source = {
@@ -344,6 +369,15 @@
       type = "gem";
     };
     version = "1.5.1";
+  };
+  json-jwt = {
+    dependencies = ["activesupport" "aes_key_wrap" "bindata"];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "065k7vffdki73f4nz89lxi6wxmcw5dlf593831pgvlbralll6x3r";
+      type = "gem";
+    };
+    version = "1.9.4";
   };
   kgio = {
     source = {
