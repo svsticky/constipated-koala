@@ -94,7 +94,7 @@ Rails.application.routes.draw do
 
     scope 'api' do
       use_doorkeeper do
-        skip_controllers :token_info, :applications, :authorized_applications
+        # skip_controllers :token_info, :applications, :authorized_applications
       end
 
       scope module: 'api' do
