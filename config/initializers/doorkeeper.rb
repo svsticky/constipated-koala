@@ -120,6 +120,7 @@ Doorkeeper.configure do
   # "implicit"           => Implicit Grant Flow
   # "password"           => Resource Owner Password Credentials Grant Flow
   # "client_credentials" => Client Credentials Grant Flow
+  # "implicit_oidc"      => Requiredi f you want to use the `id_token` or `id_token token` response types (https://github.com/doorkeeper-gem/doorkeeper-openid_connect#configuration)
   #
   # If not specified, Doorkeeper enables authorization_code and
   # client_credentials.
@@ -129,7 +130,7 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.2
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
-  grant_flows %w[authorization_code client_credentials]
+  grant_flows %w[authorization_code client_credentials implicit_oidc]
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
