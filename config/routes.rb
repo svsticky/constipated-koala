@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper_openid_connect
   constraints :subdomain => ['intro', 'intro.dev'] do
     get  '/', to: 'public#index', as: 'public'
     post '/', to: 'public#create'

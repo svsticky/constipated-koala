@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_215716) do
+ActiveRecord::Schema.define(version: 2018_10_17_222539) do
 
   create_table "activities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -233,6 +233,12 @@ ActiveRecord::Schema.define(version: 2018_10_17_215716) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "oauth_openid_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "access_grant_id", null: false
+    t.string "nonce", null: false
+    t.index ["access_grant_id"], name: "fk_rails_77114b3b09"
+  end
+
   create_table "participants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "member_id"
     t.integer "activity_id"
@@ -304,4 +310,5 @@ ActiveRecord::Schema.define(version: 2018_10_17_215716) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "oauth_openid_requests", "oauth_access_grants", column: "access_grant_id"
 end
