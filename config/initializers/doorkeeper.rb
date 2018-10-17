@@ -45,6 +45,7 @@ Doorkeeper.configure do
     current_user || begin
       session[:user_return_to] = request.fullpath
       redirect_to new_user_session_url
+      nil
     end
   end
 
