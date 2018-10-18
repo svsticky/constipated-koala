@@ -32,7 +32,7 @@ Style/RegexpLiteral:
   EnforcedStyle: slashes
   AllowInnerSlashes: true
 
-# Ignore auto-generated whitespace errors
-Layout/EmptyLinesAroundBlockBody:
+AllCops:
   Exclude:
-    - 'db/schema.rb'
+    - 'db/**/*'
+    - 'config/initializers/*'
