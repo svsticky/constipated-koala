@@ -86,7 +86,7 @@ Doorkeeper.configure do
   # For more information go to
   # https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
   default_scopes  :'member-read', :'activity-read'
-  optional_scopes :'activity-read', :'group-read', :'participant-read', :'participant-write', :'checkout-read', :'checkout-write'
+  optional_scopes :'activity-read', :'group-read', :'participant-read', :'participant-write', :'checkout-read', :'checkout-write', :openid, :email, :profile
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then

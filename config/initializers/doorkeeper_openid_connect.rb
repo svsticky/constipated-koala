@@ -59,10 +59,15 @@ EOL
   # protocol do
   #   :https
   # end
-
+  #
   # Expiration time on or after which the ID Token MUST NOT be accepted for processing. (default 120 seconds).
   # expiration 600
 
+  claims do
+    claim :email, response: [:id_token, :user_info] do |resource_owner|
+      resource_owner.email
+    end
+  end
   # Example claims:
   # claims do
   #   normal_claim :_foo_ do |resource_owner|
