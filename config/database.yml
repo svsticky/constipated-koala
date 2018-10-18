@@ -6,6 +6,7 @@ development:
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: <%= ENV['DATABASE_SOCKET'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -15,6 +16,7 @@ development:
 test:
   adapter: mysql2
   database: koala-test
+  host:  127.0.0.1
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   pool: 5
@@ -29,6 +31,7 @@ production:
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
+  host: localhost
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -41,6 +44,7 @@ staging:
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
+  host: localhost
   pool: 5
   timeout: 5000
   encoding: utf8

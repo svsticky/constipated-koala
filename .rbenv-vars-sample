@@ -1,7 +1,9 @@
-# Database credentials
+# Database credentials: choose either SOCKET or  (HOST,USER,PASSWORD)
+DATABASE_SOCKET=
+
+DATABASE_HOST=
 DATABASE_USER=
 DATABASE_PASSWORD=
-DATABASE_SOCKET=
 
 # Secrets
 SECRET_KEY_BASE=
