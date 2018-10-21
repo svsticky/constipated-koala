@@ -137,9 +137,9 @@ class Member < ApplicationRecord
     return "#{ first_name } #{ infix } #{ last_name }"
   end
 
-  # create hash for gravatar
+  # create hash for gravatar and mailchimp
   def gravatar
-    return Digest::MD5.hexencode(email)
+    return Digest::MD5.hexdigest(email.downcase)
   end
 
   def groups
@@ -415,6 +415,10 @@ class Member < ApplicationRecord
       end
 
     return records
+  end
+
+  def mailchimp(*args)
+    MailchimpJob.perform_later self, args
   end
 
   # Perform an elfproef to verify the student_id

@@ -39,6 +39,8 @@ module ConstipatedKoala
       Doorkeeper::AuthorizationsController.layout 'doorkeeper'
     end
 
+    config.active_job.queue_adapter = :sidekiq
+
     # Custom configuration
     config.mailgun = ENV['MAILGUN_TOKEN']
     config.checkout = ENV['CHECKOUT_TOKEN']

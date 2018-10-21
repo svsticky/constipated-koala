@@ -13,6 +13,18 @@ defaults: &defaults
     committee: ['fotograaf','pr']
     moot: []
 
+  mailchimp:
+    # interests are subsection of the mail list
+    interests:
+      alv: 6b83e19129
+      business: 9361be78b3
+      mmm: 413462d8c2
+
+    # tags that should be synced using koala, other tags will be ignored
+    tags:
+      - gratie
+      - alumni
+
 development:
   <<: *defaults
 

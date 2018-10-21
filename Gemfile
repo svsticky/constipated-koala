@@ -39,6 +39,8 @@ gem 'paperclip'
 # Icalendar for calendar integration
 gem 'icalendar'
 
+gem 'sidekiq'
+
 group :production, :staging do
   gem 'sentry-raven'
   gem 'uglifier'

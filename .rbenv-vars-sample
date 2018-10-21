@@ -12,6 +12,10 @@ MAILGUN_DOMAIN=
 MAILGUN_TOKEN=
 CHECKOUT_TOKEN=
 
+MAILCHIMP_TOKEN=
+MAILCHIMP_DATACENTER=
+MAILCHIMP_LIST_ID=
+
 # Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
 KOALA_DOMAIN=
 
