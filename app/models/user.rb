@@ -35,6 +35,7 @@ class User < ApplicationRecord
 
   def force_confirm_email!
     return if admin?
+
     confirm
 
     credentials.update_column(:email, email)
