@@ -11,8 +11,6 @@
 # Because I didn't want to wait for Mailchimp to perform my task this is build
 # as an asynchronous task using redis. There are also other platform that can
 # be configured in config/application.rb
-
-# rubocop:disable Style/BracesAroundHashParameters
 class MailchimpJob < ApplicationJob
   queue_as :default
 
@@ -35,14 +33,14 @@ class MailchimpJob < ApplicationJob
       RestClient.put(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
         request.to_json,
-        { Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala' }
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala'
       )
 
     else
       RestClient.patch(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
         request.to_json,
-        { Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala' }
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala'
       )
     end
 
@@ -55,7 +53,7 @@ class MailchimpJob < ApplicationJob
     RestClient.post(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }/tags",
       { tags: Settings['mailchimp.tags'].map { |i| { name: i, status: (tags.include?(i) ? 'active' : 'inactive') } } }.to_json,
-      { Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala' }
+      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala'
     )
 
     Rails.cache.write("members/#{ member.id }/mailchimp/tags", tags)
@@ -66,6 +64,4 @@ class MailchimpJob < ApplicationJob
     logger.debug 'record not found'
     raise error
   end
-
-  # rubocop:enable Style/BracesAroundHashParameters
 end
