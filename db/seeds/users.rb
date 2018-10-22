@@ -19,15 +19,16 @@ Admin.create(
 puts '   -> martijn@sticky.nl (admin)'
 
 # create actual members, but give the first member test@svsticky.nl
-Member.all.sample(6).each_with_index do |member, id|
-  user = User.new(
-    email:       id == 0 ? 'test@svsticky.nl' : member.email,
-    password:    'sticky123',
-    credentials: member
-  )
+member = Member.joins(:educations).where(educations: { status: 0 }).first
+member.update(email: 'test@svsticky.nl')
 
-  user.skip_confirmation!
-  user.save!
+user = User.new(
+  email:       member.email,
+  password:    'sticky123',
+  credentials: member
+)
 
-  puts "   -> #{ user.email } (member)"
-end
+user.skip_confirmation!
+user.save!
+
+puts "   -> #{ user.email } (member)"

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
         post 'mongoose', to: 'home#add_funds'
 
+        # TODO: should this be moved to nginx or
+        # @deprated these old routes
         get 'enrollments',                      to: redirect('/activities')
         get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
 
@@ -103,19 +105,17 @@ Rails.application.routes.draw do
       end
 
       scope module: 'api' do
-        resources :members, only: [:index, :show] do
+        resources :members, only: [:index, :show, :create] do
           resources :participants, only: :index
         end
 
         resources :groups, only: [:index, :show]
 
         resources :activities, only: [:index, :show] do
-          resources :participants, only: [:index, :create] do
-            collection do
-              delete '', to: 'participants#destroy'
-            end
-          end
+          resources :participants
         end
+
+        get 'calendar', to: 'calendars#show'
 
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
@@ -124,11 +124,11 @@ Rails.application.routes.draw do
 
         # NOTE legacy implementation for checkout without oauth
         scope 'checkout' do
-          get 'card',           to: 'checkout#info'
+          get  'card',          to: 'checkout#info'
           post 'card',          to: 'checkout#create'
-          get 'confirmation',   to: 'checkout#confirm'
+          get  'confirmation',  to: 'checkout#confirm'
 
-          get 'products',       to: 'checkout#products'
+          get  'products',      to: 'checkout#products'
           post 'transaction',   to: 'checkout#purchase'
         end
 

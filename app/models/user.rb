@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   def admin?
     return true if credentials_type.casecmp('admin').zero?
+
     return false
   end
 

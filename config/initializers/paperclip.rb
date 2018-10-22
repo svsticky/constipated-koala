@@ -1,4 +1,3 @@
-# TODO: resize images on amazon
 Paperclip::GeometryDetector.module_eval do
   private
 
@@ -26,7 +25,6 @@ Paperclip::GeometryDetector.module_eval do
   end
 end
 
-# TODO: image resizing on amazon
 Cocaine::CommandLine.module_eval do
   def run(interpolations = {})
     @exit_status = nil

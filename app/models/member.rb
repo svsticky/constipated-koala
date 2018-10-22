@@ -126,6 +126,7 @@ class Member < ApplicationRecord
   # Some other function can improve your life a lot, for example the name function
   def name
     return "#{ first_name } #{ last_name }" if infix.blank?
+
     return "#{ first_name } #{ infix } #{ last_name }"
   end
 
@@ -188,6 +189,7 @@ class Member < ApplicationRecord
 
     records = filter(query)
     return records.find_by_fuzzy_query(query) unless query.blank?
+
     return records
   end
 

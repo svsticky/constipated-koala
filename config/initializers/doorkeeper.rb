@@ -11,7 +11,8 @@ Doorkeeper::OAuth::TokenResponse.class_eval do
 
     # added some information about the user that is loggedin
     user = User.find_by_id(token.resource_owner_id)
-    response = response.merge(user.hash) unless user.nil?
+    response = response.merge(user.as_json.reject { |k, _v| k == "id" }) unless user.nil?
+    response['id_token'] = user.email unless user.nil?
 
     return response.reject { |_, value| value.blank? }
   end
@@ -86,7 +87,7 @@ Doorkeeper.configure do
   # Define access token scopes for your provider
   # For more information go to
   # https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
-  default_scopes  :'member-read'
+  default_scopes  :'member-read', :'activity-read'
   optional_scopes :'activity-read', :'group-read', :'participant-read', :'participant-write', :'checkout-read', :'checkout-write'
 
   # Change the way client credentials are retrieved from the request object.

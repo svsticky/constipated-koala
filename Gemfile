@@ -32,8 +32,8 @@ gem 'responders'
 # settings cached in rails environment
 gem 'rails-settings-cached'
 
-# Paperclip easy file upload to S3
-gem 'cocaine', '0.3.2'
+# Paperclip easy file upload
+gem 'cocaine'
 gem 'paperclip'
 
 # Icalendar for calendar integration

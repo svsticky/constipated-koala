@@ -84,10 +84,8 @@ en:
         tags: Tags
       participant:
         paid:
-          ? "false"
-          : "Not payed"
-          ? "true"
-          : Paid
+          ? "false": "Not paid"
+          ? "true": Paid
       settings:
         additional_committee_positions:
           description: "Roles besides chairman, treasurer and board member that will be added to the committees."
@@ -224,7 +222,7 @@ en:
         mail: "payment mail sent"
         update: "activity updated"
       checkout_transaction:
-        change_funds: "Tegoed bijgewerkt"
+        change_funds: "Credit updated"
       checkoutproduct:
         activate_card: "card activated"
         change_funds: "funds added"
@@ -288,32 +286,32 @@ en:
   association_name: "Study association Sticky"
   date:
     day_names:
-      - ~
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
-      - Sunday
+    - ~
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-      - ~
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - Oktober
-      - November
-      - December
+    - ~
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - Oktober
+    - November
+    - December
   devise:
     confirmations:
       activate_account: "Activate account"
@@ -408,6 +406,7 @@ en:
       confirmation_instructions:
         button_instructions: "Confirm your e-mail address for your Sticky account by clicking the button below!"
         confirm_account: "Confirm account"
+        confirm_email: "Confirm e-mail address"
       reset_passwords_instructions:
         button_instructions: "Click the button below to enter a new password or ignore this e-mail to keep your current one."
         notification: "A new password has been requested for your Sticky account, or you tried to create a new one."
