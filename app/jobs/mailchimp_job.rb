@@ -21,9 +21,10 @@ class MailchimpJob < ApplicationJob
 
       merge_fields: {
         FIRSTNAME: member.first_name,
+        LASTNAME: member.last_name,
         STUDIES: member.studies.pluck(:code).join(' ')
       }
-    }
+    } # TODO: is this all required every time? What if an email is changed in mailchimp
 
     # set required create attribute and set interests from mailchimp.interests (MMM/ALV/..)
     request[:status_if_new] = mailchimp_status if create_on_missing

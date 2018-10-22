@@ -124,6 +124,7 @@ class Admin::MembersController < ApplicationController
                                    :join_date,
                                    :comments,
                                    :tags_names => [],
+                                   :mailchimp_interests => [],
                                    educations_attributes: [:id, :study_id, :status, :start_date, :end_date, :_destroy])
   end
 end

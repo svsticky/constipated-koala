@@ -418,7 +418,7 @@ class Member < ApplicationRecord
   end
 
   def mailchimp_interests
-    Rails.cache.fetch("members/#{ self.id }/mailchimp/interests", expires_in: 30.days) do
+    Rails.cache.fetch("members/#{ id }/mailchimp/interests", expires_in: 30.days) do
       response = RestClient.get(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }?fields=interests",
         Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
@@ -427,6 +427,10 @@ class Member < ApplicationRecord
 
       return JSON.parse(response.body)['interests']
     end
+  end
+
+  def mailchimp_interests=(interests)
+    MailchimpJob.perform_later self, interests.reject(&:blank?)
   end
 
   # Perform an elfproef to verify the student_id

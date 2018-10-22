@@ -128,6 +128,13 @@
                       %a.btn.btn-default.destroy{ :type => 'button' }
                         %span.fa.fa-trash-o
 
+
+                - unless Settings['mailchimp.interests'].empty?
+                  .form-group
+                    = f.label(:mailchimp_interests)
+                    = f.select :mailchimp_interests, options_for_select( Settings['mailchimp.interests'] , @member.mailchimp_interests.select{ |_,v| v == true}.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
+
+
         .col-md-12
           .panel.panel-default
             .panel-body
