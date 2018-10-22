@@ -113,6 +113,8 @@ Rails.application.routes.draw do
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
           post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
+
+          post 'mailchimp',     to: 'webhook#mailchimp',          as: 'mailchimp'
         end
 
         # NOTE legacy implementation for checkout without oauth

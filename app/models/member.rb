@@ -430,8 +430,6 @@ class Member < ApplicationRecord
   end
 
   def mailchimp_interests=(interests)
-    # small bonus, due the post of the member edit page tags are also synced when this method is called
-    # if this is not desired, MailchimpJob should be split into two jobs
     MailchimpJob.perform_later self, interests.reject(&:blank?)
   end
 

@@ -60,7 +60,6 @@ class MailchimpJob < ApplicationJob
       'User-Agent': 'constipated-koala'
     )
 
-    Rails.cache.write("members/#{ member.id }/mailchimp/tags", tags, expires_in: 30.days)
   rescue RestClient::BadRequest => error
     logger.debug JSON.parse(error.response.body)
     raise error

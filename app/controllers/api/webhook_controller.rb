@@ -18,4 +18,27 @@ class Api::WebhookController < ApiController
 
     head :ok
   end
+
+  # update cache with new information
+  def mailchimp
+    head :unauthorized and return unless params[:secret] == ENV['MAILCHIMP_SECRET']
+    head :precondition_failed and return unless params[:data][:list_id] == ENV['MAILCHIMP_LIST_ID']
+    head :method_not_allowed and return unless ['subscribe', 'unsubscribe', 'profile', 'cleaned'].include? params[:type]
+
+    member = Member.find_by_email! params[:data][:email]
+
+    case params[:type]
+    when 'subscribe', 'profile'
+      Rails.cache.write(
+        "members/#{ member.id }/mailchimp/interests",
+        Settings['mailchimp.interests'].map { |k,v| { v => params[:data][:merges][:INTERESTS].split(',').include?(k) } }.reduce(&:merge),
+        expires_in: 30.days)
+
+    when 'unsubscribe', 'cleaned'
+      Rails.cache.write("members/#{ member.id }/mailchimp/interests", [], expires_in: 30.days)
+
+    end
+
+    head :no_content
+  end
 end
