@@ -33,18 +33,20 @@ class MailchimpJob < ApplicationJob
       RestClient.put(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
         request.to_json,
-        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala'
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
       )
 
     else
       RestClient.patch(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
         request.to_json,
-        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala'
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
       )
     end
 
-    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests]) # TODO: check of dit werkt
+    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days)
 
     tags = []
     tags.push('alumni') unless member.educations.any? { |s| ['active'].include? s.status }
@@ -53,10 +55,11 @@ class MailchimpJob < ApplicationJob
     RestClient.post(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }/tags",
       { tags: Settings['mailchimp.tags'].map { |i| { name: i, status: (tags.include?(i) ? 'active' : 'inactive') } } }.to_json,
-      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }", 'User-Agent': 'constipated-koala'
+      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+      'User-Agent': 'constipated-koala'
     )
 
-    Rails.cache.write("members/#{ member.id }/mailchimp/tags", tags)
+    Rails.cache.write("members/#{ member.id }/mailchimp/tags", tags, expires_in: 30.days)
   rescue RestClient::BadRequest => error
     logger.debug JSON.parse(error.response.body)
     raise error

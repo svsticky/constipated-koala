@@ -137,7 +137,7 @@ class Member < ApplicationRecord
     return "#{ first_name } #{ infix } #{ last_name }"
   end
 
-  # create hash for gravatar and mailchimp
+  # create hash for gravatar
   def gravatar
     return Digest::MD5.hexdigest(email.downcase)
   end
@@ -417,8 +417,16 @@ class Member < ApplicationRecord
     return records
   end
 
-  def mailchimp(*args)
-    MailchimpJob.perform_later self, args
+  def mailchimp_interests
+    Rails.cache.fetch("members/#{ self.id }/mailchimp/interests", expires_in: 30.days) do
+      response = RestClient.get(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }?fields=interests",
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+
+      return JSON.parse(response.body)['interests']
+    end
   end
 
   # Perform an elfproef to verify the student_id

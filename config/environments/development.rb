@@ -65,4 +65,13 @@ Rails.application.configure do
     'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
     'Access-Control-Request-Method' => '*'
   )
+
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.static_cache_control = "public, max-age=172800"
+    config.cache_store = :file_store, Rails.root.join('tmp/cache')
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
 end
