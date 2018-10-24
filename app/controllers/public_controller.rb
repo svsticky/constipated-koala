@@ -18,7 +18,7 @@ class PublicController < ApplicationController
   end
 
   def create
-    @member = Member.new(public_post_params.except(:participant_attributes))
+    @member = Member.new(public_post_params.except(:participant_attributes, :mailchimp_interests))
     @member.require_student_id = true
     @member.create_account = true
 
@@ -33,6 +33,9 @@ class PublicController < ApplicationController
     if flash[:error].nil? && @member.save
       impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
+
+      # TODO: add interests to view, or set default interests
+      # MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?), true
 
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }
@@ -114,6 +117,7 @@ class PublicController < ApplicationController
                                    :join_date,
                                    :method,
                                    :bank,
+                                   :mailchimp_interests => [],
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
   end

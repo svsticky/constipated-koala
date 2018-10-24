@@ -60,9 +60,10 @@ class Admin::MembersController < ApplicationController
   end
 
   def create
-    @member = Member.new(member_post_params)
+    @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
+      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?), true
 
       # impressionist is the logging system
       impressionist(@member, 'nieuwe lid')
@@ -85,11 +86,10 @@ class Admin::MembersController < ApplicationController
   def update
     @member = Member.find(params[:id])
 
-    if @member.update(member_post_params)
-      impressionist @member
-
+    if @member.update member_post_params.except 'mailchimp_interests'
       MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?)
 
+      impressionist @member
       redirect_to @member
     else
       render 'edit'
