@@ -5,12 +5,20 @@
 # To distinct students from eachother we will add some custom meta data such
 # as studies. Furthermore we can create groups where the member itself can
 # subscribe of unsubscribe from i.e. MMM and ALV.
+# @see https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members
 
 # For an initial setup all users should be updated using following function.
 
 # Because I didn't want to wait for Mailchimp to perform my task this is build
 # as an asynchronous task using redis. There are also other platform that can
 # be configured in config/application.rb
+
+# @param [member] member affected using this job
+# @param [interests] contains a number of interst ids listed in app.yaml, NIL will not change the interests
+# @param [create_on_missing] create a new Mailchimp account using member.email
+# @param [mailchimp_status] Mailchimp status for maillings
+#
+# Job used Redis/sidekiq
 class MailchimpJob < ApplicationJob
   queue_as :default
 
@@ -21,14 +29,16 @@ class MailchimpJob < ApplicationJob
 
       merge_fields: {
         FIRSTNAME: member.first_name,
-        LASTNAME: member.last_name,
+        LASTNAME: (infix.blank? ? member.last_name : "#{ member.infix } #{ member.last_name }"),
         STUDIES: member.studies.pluck(:code).join(' ')
       }
-    } # TODO: is this all required every time? What if an email is changed in mailchimp
+    }
 
     # set required create attribute and set interests from mailchimp.interests (MMM/ALV/..)
     request[:status_if_new] = mailchimp_status if create_on_missing
-    request[:interests] = Settings['mailchimp.interests'].values.map { |i| { i => interests.include?(i) } }.reduce(&:merge)
+    request[:interests] = Settings['mailchimp.interests'].values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
+
+    logger.debug request.inspect
 
     if create_on_missing
       RestClient.put(
@@ -47,7 +57,7 @@ class MailchimpJob < ApplicationJob
       )
     end
 
-    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days)
+    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless intersts.nil?
 
     tags = []
     tags.push('alumni') unless member.educations.any? { |s| ['active'].include? s.status }
