@@ -27,7 +27,7 @@ class MailchimpJob < ApplicationJob
 
       merge_fields: {
         FIRSTNAME: member.first_name,
-        LASTNAME: (infix.blank? ? member.last_name : "#{ member.infix } #{ member.last_name }"),
+        LASTNAME: (member.infix.blank? ? member.last_name : "#{ member.infix } #{ member.last_name }"),
         STUDIES: member.studies.pluck(:code).join(' ')
       }
     }
@@ -55,7 +55,7 @@ class MailchimpJob < ApplicationJob
       )
     end
 
-    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless intersts.nil?
+    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless interests.nil?
 
     tags = []
     tags.push('alumni') unless member.educations.any? { |s| ['active'].include? s.status }

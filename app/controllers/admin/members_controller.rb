@@ -87,6 +87,9 @@ class Admin::MembersController < ApplicationController
 
     if @member.update(member_post_params)
       impressionist @member
+
+      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?)
+
       redirect_to @member
     else
       render 'edit'

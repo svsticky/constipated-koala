@@ -430,7 +430,7 @@ class Member < ApplicationRecord
   end
 
   def mailchimp_interests=(interests)
-    MailchimpJob.perform_later self, interests.reject(&:blank?)
+  #   MailchimpJob.perform_later self, interests.reject(&:blank?)
   end
 
   # Perform an elfproef to verify the student_id
