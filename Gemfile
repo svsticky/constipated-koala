@@ -33,7 +33,7 @@ gem 'responders'
 gem 'rails-settings-cached'
 
 # Paperclip easy file upload
-gem 'cocaine'
+gem 'terrapin'
 gem 'paperclip'
 
 # Icalendar for calendar integration
