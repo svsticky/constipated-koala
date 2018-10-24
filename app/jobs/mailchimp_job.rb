@@ -23,6 +23,8 @@ class MailchimpJob < ApplicationJob
   queue_as :default
 
   def perform(member, interests = Settings['mailchimp.interests'].values, create_on_missing = false, mailchimp_status = 'subscribed')
+    return if Rails.env.test?
+
     request = {
       email_address: member.email,
       status: mailchimp_status,
