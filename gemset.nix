@@ -705,10 +705,10 @@
     dependencies = ["jaro_winkler" "parallel" "parser" "powerpack" "rainbow" "ruby-progressbar" "unicode-display_width"];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "10yirqk9di3v2kbrgx17rzb0fkwl1856d13aqkalh2cl4vq9fma5";
+      sha256 = "0110r4yqi6nn97bp2myah76plv6a7daxnm9k04k64n1y4zpqm256";
       type = "gem";
     };
-    version = "0.59.0";
+    version = "0.59.2";
   };
   ruby-progressbar = {
     source = {
