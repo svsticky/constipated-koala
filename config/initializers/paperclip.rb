@@ -16,16 +16,16 @@ Paperclip::GeometryDetector.module_eval do
 
     Rails.logger.debug "output #{ response.inspect }"
     return response
-  rescue Cocaine::ExitStatusError => e
+  rescue Terrapin::ExitStatusError => e
     Rails.logger.fatal "ExitStatus #{ e.inspect }"
     ""
-  rescue Cocaine::CommandNotFoundError => e
+  rescue Terrapin::CommandNotFoundError => e
     Rails.logger.fatal "CommandNotFound #{ e.inspect }"
     raise_because_imagemagick_missing
   end
 end
 
-Cocaine::CommandLine.module_eval do
+Terrapin::CommandLine.module_eval do
   def run(interpolations = {})
     @exit_status = nil
     begin
@@ -33,12 +33,12 @@ Cocaine::CommandLine.module_eval do
       log("#{ colored('Command') } :: #{ full_command }")
       @output = execute(full_command)
     rescue Errno::ENOENT => e
-      raise Cocaine::CommandNotFoundError, e.message
+      raise Terrapin::CommandNotFoundError, e.message
     ensure
       @exit_status = $?.respond_to?(:exitstatus) ? $?.exitstatus : 0
     end
 
-    raise Cocaine::CommandNotFoundError if @exit_status == 127
+    raise Terrapin::CommandNotFoundError if @exit_status == 127
 
     unless @expected_outcodes.include?(@exit_status)
       message = [
@@ -46,7 +46,7 @@ Cocaine::CommandLine.module_eval do
         "Here is the command output: STDOUT:\n", command_output,
         "\nSTDERR:\n", command_error_output
       ].join("\n")
-      raise Cocaine::ExitStatusError, message
+      raise Terrapin::ExitStatusError, message
     end
 
     command_output
