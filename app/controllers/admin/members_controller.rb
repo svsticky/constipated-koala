@@ -45,11 +45,34 @@ class Admin::MembersController < ApplicationController
                   .joins(:participants).distinct
                   .where("participants.reservist = ?", false)
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    @member_user = User.find_by credentials: @member
 
     # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
     @limit = params[:limit] ? params[:limit].to_i : 10
     @offset = params[:offset] ? params[:offset].to_i : 0
     @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(@limit).offset(@offset)
+  end
+
+  # Send appropriate email to user for account access, either password reset, user creation, or activation mail.
+  def send_user_email
+    @member = Member.find(params[:member_id])
+
+    @member_user = User.find_by credentials: @member
+
+    if !@member_user
+      # Send create
+      @member.create_account = true
+      @member.create_user
+    elsif !@member_user.confirmed_at
+      # Send activate
+      @member_user.resend_confirmation_instructions
+    else
+      # Send password reset
+      @member_user.send_reset_password_instructions
+    end
+
+    flash[:success] = I18n.t 'admin.member_account_status.email_sent'
+    redirect_to member_path @member
   end
 
   def new

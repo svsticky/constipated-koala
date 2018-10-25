@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       resources :members do
         get   'payment_whatsapp'
         patch 'force_email_change'
+        post 'send_user_email'
 
         collection do
           get 'search'
