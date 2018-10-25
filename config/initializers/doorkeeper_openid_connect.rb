@@ -1,5 +1,5 @@
 Doorkeeper::OpenidConnect.configure do
-  issuer 'http://koala.rails.local:3000'
+  issuer ENV['KOALA_DOMAIN']
 
   signing_key (File.read(ENV['OIDC_SIGNING_KEY']))
 
