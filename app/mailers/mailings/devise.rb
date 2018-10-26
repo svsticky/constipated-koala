@@ -105,6 +105,7 @@ module Mailings
       html = render_to_string :locals => {
         name: record.name,
         email: record.user.unconfirmed_email,
+        sendername: current_user.credentials.name,
         subject: 'Studievereniging Sticky | e-mailadres gewijzigd'
       }
 
@@ -117,7 +118,7 @@ module Mailings
         #{ current_user.credentials.name }
       PLAINTEXT
 
-      return mail([record.email, record.unconfirmed_email], current_user.sender, 'Studievereniging Sticky | e-mailadres gewijzigd', html, text)
+      return mail([record.user.email, record.user.unconfirmed_email], current_user.sender, 'Studievereniging Sticky | e-mailadres gewijzigd', html, text)
     end
   end
 end

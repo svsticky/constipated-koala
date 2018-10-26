@@ -95,7 +95,7 @@ class Admin::MembersController < ApplicationController
   def force_email_change
     @member = Member.find(params[:member_id])
 
-    Mailings::Devise.forced_confirm_email(@member, current_user.sender).deliver_later
+    Mailings::Devise.forced_confirm_email(@member, current_user).deliver_later
     @member.user.force_confirm_email!
 
     redirect_to @member
