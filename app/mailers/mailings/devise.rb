@@ -111,7 +111,7 @@ module Mailings
       text = <<~PLAINTEXT
         Hoi #{ record.name },
 
-        Uw e-mailadres is gewijzigd naar #{ record.user.unconfirmed_email }. Heeft u deze wijziging niet aangevraagd, neem zo snel mogelijk contact op door te antwoorden op deze mail.
+        Je e-mailadres is gewijzigd naar #{ record.user.unconfirmed_email }. Neem zo snel mogelijk contact op (door te antwoorden op deze mail) als je deze wijziging niet hebt aangevraagd.
 
         Met vriendelijke groet,
         #{ current_user.credentials.name }
