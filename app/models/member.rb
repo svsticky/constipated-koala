@@ -93,7 +93,7 @@ class Member < ApplicationRecord
   end
 
   def require_emergency_phone_number
-    return unless :emergency_phone_number.blank?
+    return unless emergency_phone_number.blank?
 
     errors.add :emergency_phone_number, I18n.t('activerecord.errors.models.member.attributes.emergency_phone_number.not_provided') if underage?
   end
