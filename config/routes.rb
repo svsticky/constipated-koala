@@ -36,7 +36,8 @@ Rails.application.routes.draw do
     # Devise routes
     devise_for :users, :path => '', :skip => [:registrations], :controllers => {
       confirmations:  'users/confirmations',
-      sessions:       'users/sessions'
+      sessions:       'users/sessions',
+      passwords:      'users/passwords'
     }
 
     # create account using a member's email

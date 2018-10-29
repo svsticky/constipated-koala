@@ -11,9 +11,16 @@ class Users::RegistrationsController < ActionController::Base
   end
 
   def create
-    if User.find_by_email sign_up_params[:email]
-      User.send_reset_password_instructions(sign_up_params.slice(:email))
-      flash[:alert] = I18n.t :signed_up_but_unconfirmed, scope: 'devise.registrations'
+    @user = User.find_by email: sign_up_params[:email]
+    if @user && !@user.confirmed_at
+      @user.resend_confirmation! :confirmation_instructions
+      flash[:notice] = I18n.t 'devise.registrations.already_signed_up_unconfirmed'
+
+      redirect_to :new_user_session
+      return
+    elsif @user&.confirmed_at
+      @user.send_reset_password_instructions
+      flash[:notice] = I18n.t 'devise.passwords.send_instructions'
 
       redirect_to :new_user_session
       return
