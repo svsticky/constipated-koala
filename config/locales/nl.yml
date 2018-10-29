@@ -4,6 +4,7 @@ nl:
     annotations:
       member:
         email: "E-mailadres kan geen adres van de UU zijn"
+        emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
     attributes:
       activity:
         comments: "Opmerkingen (privé)"
@@ -154,6 +155,7 @@ nl:
         last_name: Achternaam
         male: Man
         phone_number: Telefoonnummer
+        emergency_phone_number: Telefoonnummer voor calamiteiten
         postal_code: Postcode
         student_id: Studentnummer
         tags: Tags
@@ -226,6 +228,9 @@ nl:
               taken: "is al geregistreerd"
             phone_number:
               invalid: "bestaat niet uit 10 cijfers"
+            emergency_phone_number:
+              invalid: "bestaat niet uit 10 cijfers"
+              not_provided: "is verplicht onder 18 jaar"
             student_id:
               elfproef: "is niet geldig"
               invalid: "is niet geldig"

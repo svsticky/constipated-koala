@@ -33,6 +33,8 @@
               %p
                 #{@member.phone_number}
                 %br
+                #{@member.emergency_phone_number}
+                %br
                 #{@member.email}
               - if current_user.admin?
                 %p= @member.comments
