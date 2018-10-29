@@ -33,6 +33,7 @@ class Members::HomeController < MembersController
     #      .sort_by(&:start_date)
     #      .reverse!
 
+    @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
     @participants =
       @member.activities
              .study_year(params['year'])

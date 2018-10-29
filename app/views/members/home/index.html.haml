@@ -54,12 +54,14 @@
                           = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
 
 .col-md-6.col-xs-12.pull-right
-  .panel.panel-default.table-dynamic
+  .panel.panel-default
     .panel-heading
-      %i.fa.fa-fw.fa-fw.fa-ticket
-      = I18n.t("activerecord.models.activity")
+      %span
+        %i.fa.fa-fw.fa-fw.fa-ticket
+        = I18n.t("activerecord.models.activity")
+        = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
 
-    %table.table.table-striped.table-linked
+    %table.table.table-striped.table-linked.table-dynamic
       %tbody
         - @participants.each do |activity|
           %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
