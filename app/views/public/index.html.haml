@@ -124,6 +124,20 @@
               %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
               = f.email_field :email, :value => @member.email, :class => 'form-control'
               .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
+            .form-group
+              %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+              .row
+                .col-md-6
+                  %label.ui-checkbox
+                    = f.check_box :mmm_subscribe, :checked => false
+                    %span= I18n.t('mmm.name', scope: 'activerecord.annotations.member')
+                    .help-block= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
+              .row
+                .col-md-6
+                  %label.ui-checkbox
+                    = f.check_box :business_subscribe, :checked => false
+                    %span= I18n.t('business.name', scope: 'activerecord.annotations.member')
+                    .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
 
           .row
             .col-md-5

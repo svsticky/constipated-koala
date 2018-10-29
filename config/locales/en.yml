@@ -4,6 +4,13 @@ en:
     annotations:
       member:
         email: "Can't be a UU email address"
+        mailinglists: "Mailinglists"
+        mmm:
+          name: "MaandagMorgenMail"
+          description: "Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer."
+        business:
+          name: "Bedrijfsmailing"
+          description: "Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails."
     attributes:
       activity:
         comments: "Comments (private)"
