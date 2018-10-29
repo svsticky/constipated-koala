@@ -4,6 +4,7 @@ en:
     annotations:
       member:
         email: "Can't be a UU email address"
+        emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
     attributes:
       activity:
         comments: "Comments (private)"

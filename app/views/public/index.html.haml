@@ -123,6 +123,7 @@
             .form-group
               %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
               = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+              .help-block= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
             .form-group
               %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
               = f.email_field :email, :value => @member.email, :class => 'form-control'

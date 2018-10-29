@@ -4,6 +4,7 @@ nl:
     annotations:
       member:
         email: "E-mailadres kan geen adres van de UU zijn"
+        emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
     attributes:
       activity:
         comments: "Opmerkingen (privé)"
