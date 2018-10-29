@@ -298,9 +298,9 @@ nl:
       payments: Betalingen
     member_account_status:
       no_user: "Dit lid heeft geen account."
-      send_create_email: "Verstuur aanmaakmail"
+      send_create_email: "Stuur account-aanmaakmail"
       user_not_activated: "Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd."
-      resend_confirmation: "Her-verstuur activatiemail"
+      resend_confirmation: "Her-verstuur account-activatiemail"
       active_user: "Dit lid heeft een actief account (%{email})."
       send_password_reset: "Verstuur password-reset-email"
       email_sent: "Email verstuurd!"
