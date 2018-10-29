@@ -47,6 +47,15 @@ class Admin::MembersController < ApplicationController
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
     @member_user = User.find_by credentials: @member
 
+    @account_button_text =
+      if @member_user&.confirmed?
+        then I18n.t 'admin.member_account_status.send_password_reset'
+      elsif @member_user && !@member_user.confirmed?
+        then I18n.t 'admin.member_account_status.resend_confirmation'
+      else
+        I18n.t 'admin.member_account_status.send_create_email'
+      end
+
     # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
     @limit = params[:limit] ? params[:limit].to_i : 10
     @offset = params[:offset] ? params[:offset].to_i : 0

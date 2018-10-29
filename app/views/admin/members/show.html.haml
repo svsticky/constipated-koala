@@ -39,27 +39,14 @@
 
               %strong
                 - if @member_user
-                  - if @member_user.confirmed_at
+                  - if @member_user.confirmed?
                     = I18n.t 'admin.member_account_status.active_user', email: @member.email
-                    %br
-                    = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
-                      %i.fa.fa-paper-plane
-                      = t 'admin.member_account_status.send_password_reset'
 
                   - else
                     = I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
-                    %br
-                    = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
-                      %i.fa.fa-paper-plane
-                      = t 'admin.member_account_status.send_create_email'
 
                 - else
                   = I18n.t 'admin.member_account_status.no_user'
-                  %br
-                  = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
-                    %i.fa.fa-paper-plane
-                    = t 'admin.member_account_status.send_create_email'
-
 
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
@@ -98,6 +85,9 @@
             .panel-body
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+              = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
+                %i.fa.fa-paper-plane
+                = @account_button_text
 
           - if @transactions.length > 0 || @member.checkout_cards.length > 0
             .panel.panel-default
