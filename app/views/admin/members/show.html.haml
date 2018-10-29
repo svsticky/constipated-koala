@@ -18,7 +18,10 @@
               %i.fa.fa-fw.fa-user
               Algemene gegevens
             .panel-body
-              %p
+              - if flash[:success].present?
+                %p.alert.alert-success{ :style => 'margin: 0px;'}
+                  = flash[:success]
+
                 %strong #{@member.name} (#{@member.gender})
                 %br
                 - if !@member.birth_date.nil?
@@ -33,6 +36,16 @@
                 #{@member.email}
               - if current_user.admin?
                 %p= @member.comments
+
+              - if @member_user
+                - if @member_user.confirmed?
+                  %p= I18n.t 'admin.member_account_status.active_user', email: @member.email
+
+                - else
+                  %strong= I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
+
+              - else
+                %p= I18n.t 'admin.member_account_status.no_user'
 
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
@@ -71,6 +84,9 @@
             .panel-body
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
+              = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
+                %i.fa.fa-paper-plane
+                = @account_button_text
 
           - if @transactions.length > 0 || @member.checkout_cards.length > 0
             .panel.panel-default

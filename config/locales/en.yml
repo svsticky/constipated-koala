@@ -283,6 +283,14 @@ en:
       general: General
       ideal: iDeal
       payments: Payments
+    member_account_status:
+      no_user: "This member has no account."
+      send_create_email: "Send account creation email."
+      user_not_activated: "This member has an account (%{email}), but the account has not yet been activated."
+      resend_confirmation: "Re-send activation mail"
+      active_user: "This member has an active account(%{email})."
+      send_password_reset: "Send password reset email"
+      email_sent: "Email sent!"
   association_name: "Study association Sticky"
   date:
     day_names:
