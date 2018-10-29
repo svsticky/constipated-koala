@@ -11,7 +11,7 @@ class Member < ApplicationRecord
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :emergency_phone_number, :allow_blank => true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
-  validate  :emergency_phone_number, presence: true, if: :underage?
+  validates :emergency_phone_number, presence: true, if: :underage?
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
   validates :gender, presence: true, inclusion: { in: %w[m f] }
 
