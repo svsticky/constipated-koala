@@ -1,7 +1,7 @@
 Doorkeeper::OpenidConnect.configure do
   issuer ENV['KOALA_DOMAIN']
 
-  signing_key (File.read(ENV['OIDC_SIGNING_KEY']))
+  signing_key (File.read(ENV['OIDC_SIGNING_KEY'] || '.circleci/test-signing-key.pem'))
 
   subject_types_supported [:public]
 
