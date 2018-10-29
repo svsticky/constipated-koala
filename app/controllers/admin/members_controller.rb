@@ -61,11 +61,11 @@ class Admin::MembersController < ApplicationController
 
     if !@member_user
       # Send create
-      @member.create_account = true
-      @member.create_user
-    elsif !@member_user.confirmed_at
+      user = User.create_on_member_enrollment! @member
+      user.resend_confirmation! :activation_instructions
+    elsif !@member_user.confirmed?
       # Send activate
-      @member_user.resend_confirmation_instructions
+      @member_user.resend_confirmation! :confirmation_instructions
     else
       # Send password reset
       @member_user.send_reset_password_instructions
