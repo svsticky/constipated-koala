@@ -226,6 +226,7 @@ class Member < ApplicationRecord
   def adult?
     # return default value if birth date is blank, required for form validation
     return false if birth_date.blank?
+
     return 18.years.ago >= birth_date
   end
 
