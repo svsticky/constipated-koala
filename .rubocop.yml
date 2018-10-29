@@ -5,7 +5,8 @@ inherit_from: '.rubocop_todo.yml'
 AllCops:
   DisplayStyleGuide: true
   Exclude:
-    - 'db/schema.rb'
+    - 'db/**/*'
+    - 'config/initializers/*'
 
 # Longer class length
 Metrics/AbcSize:

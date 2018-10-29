@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO: why is this here?!
   def member_information
     @member = Member.find(current_user.credentials_id)
 

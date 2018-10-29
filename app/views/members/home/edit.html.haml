@@ -71,6 +71,10 @@
           = f.email_field :email, :value => @member.email, :class => 'form-control'
           .help-block= I18n.t('activerecord.annotations.member.email')
 
+        - if @member.user && @member.user.unconfirmed_email
+          .callout.callout-warning
+            = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
+
         %button.btn.btn-success{type: 'submit'}= I18n.t("editing.save")
         = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
 

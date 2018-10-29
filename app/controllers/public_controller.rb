@@ -20,7 +20,6 @@ class PublicController < ApplicationController
   def create
     @member = Member.new(public_post_params.except(:participant_attributes))
     @member.require_student_id = true
-    @member.create_account = true
 
     activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |_, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |_, participant| participant['id'].to_i })
     total = 0
@@ -31,6 +30,11 @@ class PublicController < ApplicationController
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save
+
+      # create account and send welcome email
+      user = User.create_on_member_enrollment! @member
+      user.resend_confirmation! :activation_instructions
+
       impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 

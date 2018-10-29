@@ -19,6 +19,7 @@ gem 'sass-rails'
 # authentication gems
 gem 'devise'
 gem 'doorkeeper'
+gem 'doorkeeper-openid_connect'
 
 gem 'impressionist'
 
@@ -33,8 +34,8 @@ gem 'responders'
 gem 'rails-settings-cached'
 
 # Paperclip easy file upload
-gem 'cocaine', '0.3.2'
 gem 'paperclip'
+gem 'terrapin'
 
 # Icalendar for calendar integration
 gem 'icalendar'

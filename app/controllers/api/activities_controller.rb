@@ -1,6 +1,6 @@
 #:nodoc:
 class Api::ActivitiesController < ApiController
-  before_action :authorize, only: [:show]
+  before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:show]
 
   def index
     if params[:date].present?
@@ -19,15 +19,5 @@ class Api::ActivitiesController < ApiController
 
   def advertisements
     @advertisements = Advertisement.all
-  end
-
-  def authorize
-    # Either being logged in, or having a valid doorkeeper token is sufficient.
-    # This replicates the content of the doorkeeper_authorize! before_action.
-    @_doorkeeper_scopes = Doorkeeper.configuration.default_scopes
-
-    return if valid_doorkeeper_token? || user_signed_in?
-
-    head :unauthorized
   end
 end
