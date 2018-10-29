@@ -37,16 +37,15 @@
               - if current_user.admin?
                 %p= @member.comments
 
-              %strong
-                - if @member_user
-                  - if @member_user.confirmed?
-                    = I18n.t 'admin.member_account_status.active_user', email: @member.email
-
-                  - else
-                    = I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
+              - if @member_user
+                - if @member_user.confirmed?
+                  %p= I18n.t 'admin.member_account_status.active_user', email: @member.email
 
                 - else
-                  = I18n.t 'admin.member_account_status.no_user'
+                  %strong= I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
+
+              - else
+                %p= I18n.t 'admin.member_account_status.no_user'
 
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
