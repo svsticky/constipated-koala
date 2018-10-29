@@ -63,8 +63,8 @@
       %tbody
         - @participants.each do |activity|
           %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
-            - if activity.end_date >= Date.today
-              %td= link_to activity.name, "/activities/#{activity.id}"
+            - if !activity.ended?
+              %td= link_to activity.name, activity_path(activity)
             - else
               %td= activity.name
 
