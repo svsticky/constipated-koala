@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper_openid_connect
   constraints :subdomain => ['intro', 'intro.dev'] do
     get  '/', to: 'public#index', as: 'public'
     post '/', to: 'public#create'
@@ -102,7 +103,7 @@ Rails.application.routes.draw do
 
     scope 'api' do
       use_doorkeeper do
-        skip_controllers :token_info, :applications, :authorized_applications
+        # skip_controllers :token_info, :applications, :authorized_applications
       end
 
       scope module: 'api' do
