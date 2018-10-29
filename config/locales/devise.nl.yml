@@ -32,6 +32,7 @@ nl:
       no_token: "Je kunt deze pagina niet bereiken als je geen e-mail hebt ontvangen met wachtwoord reset instructies. Mocht je dit wel hebben ontvangen kijk dan het URL na in je mail of vraag de instructies opnieuw aan."
       send_instructions: "Je zult een e-mail met instructies ontvangen over hoe je jouw wachtwoord moet resetten over een paar minuten."
       send_paranoid_instructions: "Als je e-mail bestaat in onze database, zul je een e-mail met instructies ontvangen over hoe je jouw wachtwoord moet resetten over een paar minuten."
+      account_not_confirmed_resent: "We zien dat je al een nog niet geactiveerd account hebt met dit e-mailadres. We hebben opnieuw de activatiemail verstuurd, klik op de link in deze e-mail en vraag hierna opnieuw een wachtwoordreset aan als je je wachtwoord niet meer weet."
       updated: "Je wachtwoord is succesvol veranderd, je bent nu ingelogd."
       updated_not_active: "Je wachtwoord is succesvol veranderd."
     registrations:
@@ -40,7 +41,8 @@ nl:
       signed_up: "Welkom, u bent succesvol ingelogd"
       signed_up_but_inactive: "Je account is nog niet geactiveerd."
       signed_up_but_locked: "Je bent succesvol ingelogd, echter kunnen we nog niet inloggen, omdat je account is geblokeerd."
-      signed_up_but_unconfirmed: "Een e-mail met een bevestigings URL is verstuurd. Gebruik de URL om je account te activeren."
+      signed_up_but_unconfirmed: "Een e-mail met een bevestigingslink is verstuurd. Gebruik deze link om je account te activeren."
+      already_signed_up_unconfirmed: "We zien dat je al een account hebt met dit e-mailadres, en dat dit account nog niet is geactiveerd. We hebben opnieuw de activatiemail verstuurd, klik op de link in deze e-mail om je account te bevestigen. Het wachtwoord dat je hebt ingevoerd is NIET opgeslagen, vraag wanneer je account is bevestigd een wachtwoordreset aan als je dit wilt wijzigen."
       update_needs_confirmation: "Je account is succesvol gewijzigd, echter moet je nog wel je e-mail adres verifiëren."
       updated: "Je account is succesvol gewijzigd"
     sessions:

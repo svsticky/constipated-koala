@@ -8,6 +8,11 @@
     .row
       %div
         .col-md-6
+          - if @member.user && @member.user.unconfirmed_email
+            .callout.callout-warning
+              = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email ) 
+              = raw I18n.t( :force_unconfirmed_email, scope: 'activerecord.messages.member', link: member_force_email_change_path(@member) )
+
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-user

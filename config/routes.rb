@@ -31,20 +31,28 @@ Rails.application.routes.draw do
     # No double controllers
     get     'admin/home',   to: redirect('/')
     get     'members/home', to: redirect('/')
+    get     'calendarfeed', to: 'calendars#show'
 
     # Devise routes
     devise_for :users, :path => '', :skip => [:registrations], :controllers => {
-      sessions:       'users/sessions'
+      confirmations:  'users/confirmations',
+      sessions:       'users/sessions',
+      passwords:      'users/passwords'
     }
 
+    # create account using a member's email
     get     'sign_up',      to: 'users/registrations#new', as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
-    get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
-    post    'activate',     to: 'users/registrations#new_member_confirm', as: :new_member_confirm
+
+    # update account with password after receiving invite
+    get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
+    post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
 
     scope module: 'admin' do
       resources :members do
-        get 'payment_whatsapp'
+        get   'payment_whatsapp'
+        patch 'force_email_change'
+
         collection do
           get 'search'
         end

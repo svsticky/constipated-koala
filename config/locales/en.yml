@@ -180,10 +180,10 @@ en:
           attributes:
             checkout: "Mongoose credit"
             fees: "iDEAL fee"
-          blank: "can't be blank"
-          failed: "has not been processed"
-          processed: "has already been processed"
-          success: "has been processed!"
+          blank: "Transaction can't be blank"
+          failed: "Transaction has not been processed"
+          processed: "Transaction has already been processed"
+          success: "Transaction has been processed!"
         member:
           attributes:
             email:
@@ -248,6 +248,9 @@ en:
         time: Tijd
         when: Wanneer
     messages:
+      member:
+        unconfirmed_email: "A confirmation mail is send to <b>%{email}</b>, once confirmed the e-mailadress will be updated. "
+        force_unconfirmed_email: "Or <a data-method='patch' href='%{link}'>force</a> the change here."
       participant:
         paid: "%{name} has paid for %{activity}"
         price: "%{activity} has been changed for %{name}"
