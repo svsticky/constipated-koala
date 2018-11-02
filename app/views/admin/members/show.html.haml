@@ -10,7 +10,7 @@
         .col-md-6
           - if @member.user && @member.user.unconfirmed_email
             .callout.callout-warning
-              = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email ) 
+              = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
               = raw I18n.t( :force_unconfirmed_email, scope: 'activerecord.messages.member', link: member_force_email_change_path(@member) )
 
           .panel.panel-default
@@ -22,6 +22,7 @@
                 %p.alert.alert-success{ :style => 'margin: 0px;'}
                   = flash[:success]
 
+              %p
                 %strong #{@member.name} (#{@member.gender})
                 %br
                 - if !@member.birth_date.nil?
