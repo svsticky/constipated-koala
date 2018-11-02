@@ -18,7 +18,7 @@ class PublicController < ApplicationController
   end
 
   def create
-    @member = Member.new(public_post_params.except(:participant_attributes, :mmm_subscribe, :business_subscribe, :mailchimp_interests))
+    @member = Member.new(public_post_params.except(:participant_attributes, :mmm_subscribe, :business_subscribe))
     @member.require_student_id = true
     @member.create_account = true
 
@@ -123,7 +123,6 @@ class PublicController < ApplicationController
                                    :bank,
                                    :mmm_subscribe,
                                    :business_subscribe,
-                                   :mailchimp_interests => [],
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
   end
