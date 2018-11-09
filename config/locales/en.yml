@@ -15,6 +15,7 @@ en:
         is_enrollable: Enrollable
         is_masters: Masters
         is_viewable: Viewable
+        show_on_website: On website
         location: Location
         name: Name
         notes: "Extra notes"
