@@ -61,6 +61,18 @@ $(document).on('ready page:load turbolinks:load', function () {
     return sum % 11 === 0;
   }, "Studentnummer is niet geldig");
 
+  jQuery.validator.addMethod("required_if_minor", function(value, element) {
+    // get max birth date to be 18 years old, ignoring time
+    var maxDate = new Date()
+    maxDate.setUTCHours(0, 0, 0, 0)
+    maxDate.setFullYear(maxDate.getFullYear() - 18)
+
+    var birthDate = new Date($("#member_birth_date").val())
+
+    // field is valid if member is 18 years or if it's not empty
+    return (birthDate < maxDate || value)
+  }, "Telefoonnummer voor calamiteiten is verplicht onder 18 jaar");
+
   $('form').validate({
     rules: {
       'member[first_name]': 'required',
@@ -71,6 +83,9 @@ $(document).on('ready page:load turbolinks:load', function () {
       'member[postal_code]': 'required',
       'member[city]': 'required',
       'member[phone_number]': 'required',
+      'member[emergency_phone_number]': {
+        required_if_minor: true
+      },
       'member[email]': {
         required: true,
         email: true

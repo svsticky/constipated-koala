@@ -1,6 +1,8 @@
 collection @activities
 
-attribute :name, :location, :fullness
+attribute :id, :name, :location, :price
+
+node :participant_counter, &:fullness
 
 node :start_date do |activity|
   if activity.start_time.nil?
@@ -22,7 +24,7 @@ node :end_date do |activity|
   end
 end
 
-attributes :id, :description, :price if Authorization._client.include?('activity-read')
+attributes :description if Authorization._client.include?('activity-read')
 
 node :poster do |activity|
   activity.poster.url(:medium) unless activity.poster_updated_at.nil?

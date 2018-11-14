@@ -1,7 +1,7 @@
 # By default, a class begins with a number of validations. student_id is
 # special because in the intro website it cannot be empty. However, an admin can
 # make it empty.
-#:nodoc:
+# The emergency phone number is only required if the member is not an adult
 class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -10,6 +10,8 @@ class Member < ApplicationRecord
   validates :postal_code, presence: true
   validates :city, presence: true
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
+  validates :emergency_phone_number, :allow_blank => true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
+  validates :emergency_phone_number, presence: true, if: :underage?
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
   validates :gender, presence: true, inclusion: { in: %w[m f] }
 
@@ -85,9 +87,14 @@ class Member < ApplicationRecord
     write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
   end
 
+  def emergency_phone_number=(emergency_phone_number)
+    write_attribute(:emergency_phone_number, emergency_phone_number.sub('+', '00'))
+  end
+
   # lowercase on email
   def email=(email)
-    write_attribute(:email, email.downcase)
+    user.update(email: email.downcase) if user.present?
+    write_attribute(:email, email.downcase) if user.nil?
   end
 
   def address=(address)
@@ -104,15 +111,8 @@ class Member < ApplicationRecord
     write_attribute(:student_id, nil) if student_id.blank?
   end
 
-  # If set to true, a User is created after committing
-  attr_reader :create_account
-
-  def create_account=(value)
-    v = value
-    unless value.is_a?(FalseClass) || value.is_a?(TrueClass)
-      v = value.to_b # to_b does not exist for booleans, required for handling truthy "0" and "1" from forms.
-    end
-    @create_account = v
+  def user
+    User.find_by_credentials self
   end
 
   def tags_names
@@ -142,6 +142,7 @@ class Member < ApplicationRecord
     return Digest::MD5.hexencode(email)
   end
 
+  # TODO: refactor
   def groups
     groups = {}
 
@@ -163,48 +164,21 @@ class Member < ApplicationRecord
   # (Not doing this would lead to a database constraint violation.)
   before_create do
     self.join_date = Time.new if join_date.blank?
-
     educations[1].destroy if (educations.length > 1) && (educations[0].study_id == educations[1].study_id)
   end
 
-  after_commit :create_user, on: :create
-
-  def create_user
-    return unless @create_account
-
-    user = User.new
-    user.skip_confirmation_notification!
-    user.email = email
-    user.credentials = self
-    user.require_activation!
-    user.save
-  end
-
-  # Devise uses e-mails for login, and this is the only redundant value in the database. The e-mail, so if someone chooses the change their e-mail the e-mail should also be changed in the user table if they have a login
   before_update do
     if email_changed?
-
-      # abort if email is already used for another account, abort is the only method to brake in future versions
-      if User.taken?(email)
+      # abort email change if email is already used for another account
+      if User.exists?(email: email.downcase) || User.exists?(unconfirmed_email: email.downcase)
         errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
         raise ActiveRecord::Rollback
-      end
-
-      # find user by old email
-      credentials = User.find_by_email(Member.find(id).email)
-
-      unless credentials.nil?
-        # update_attribute has no validation so it should be done manually
-        credentials.update_attribute('email', email)
-        credentials.save
       end
     end
   end
 
   # destroy account on removal of member
   before_destroy do
-    logger.debug inspect
-
     user = User.find_by_email(email)
     user.delete if user.present?
   end
@@ -235,72 +209,6 @@ class Member < ApplicationRecord
     saved_change_to_first_name? || saved_change_to_infix? || saved_change_to_last_name? || saved_change_to_email?
   end
 
-  # Update studies based on studystatus output, the only way to run this function is by the rake task, and it updates the study status of a person, nothing more, nothing less
-  def update_studies(studystatus_output)
-    result_id, *studies = studystatus_output.split(/; /)
-    puts "#{ student_id } returns empty result;" if result_id.blank?
-
-    if student_id != result_id
-      logger.error 'Student id received from studystatus is different'
-      return
-    end
-
-    if studies == 'NOT FOUND'
-      puts "#{ student_id } not found"
-      return
-    end
-
-    studies.each do |study|
-      code, year, status, end_date = study.split(/, /)
-
-      if Study.find_by_code(code).nil?
-        puts "#{ code } is not found as a study in the database"
-        next
-      end
-
-      education = educations.find_by_year_and_study_code(year, code)
-
-      # If not found as informatica, we can try for gametech. This only works if the student filled in GT from the subscribtion
-      if education.nil? && code == 'INCA'
-        education = educations.find_by_year_and_study_code(year, 'GT')
-        code = 'GT'
-      end
-
-      if education.nil?
-        education = Education.new(:member => self, :study => Study.find_by_code(code), :start_date => Date.new(year.to_i, 9, 1))
-        puts " + #{ code } (#{ status })"
-      else
-        puts " ± #{ code } (#{ status })"
-      end
-
-      if status.eql?('gestopt')
-        education.update_attribute('status', 'stopped')
-      elsif status.eql?('afgestudeerd')
-        education.update_attribute('status', 'graduated')
-      elsif status.eql?('actief')
-        education.update_attribute('status', 'active')
-      else
-        next
-      end
-
-      # TODO: check if student joined this year, has no studies, and study is a bachelor
-
-      education.update_attribute('end_date', Date.parse(end_date.split(' ')[1])) if status != 'actief' && end_date.present? && end_date.split(' ')[1].present?
-      education.save
-    end
-
-    # remove studies no longer present
-    educations.each do |education|
-      check = "#{ education.study.code } | #{ education.start_date.year }"
-      check = "INCA | #{ education.start_date.year }" if education.study.code == 'GT' # NOTE dirty fix for gametechers
-
-      unless studies.map { |string| "#{ string.split(/, /)[0] } | #{ string.split(/, /)[1] }" }.include?(check)
-        puts " - #{ education.study.code }"
-        education.destroy
-      end
-    end
-  end
-
   def underage?
     !adult?
   end
@@ -316,6 +224,9 @@ class Member < ApplicationRecord
   end
 
   def adult?
+    # return default value if birth date is blank, required for form validation
+    return false if birth_date.blank?
+
     return 18.years.ago >= birth_date
   end
 
@@ -355,6 +266,7 @@ class Member < ApplicationRecord
       )', Date.today).distinct
   end
 
+  # TODO: move search related methods to lib?
   def self.filter(query)
     records = self
     study = query.match(/(studie|study):([A-Za-z-]+)/)
@@ -417,10 +329,9 @@ class Member < ApplicationRecord
     return records
   end
 
-  # Perform an elfproef to verify the student_id
-
   private
 
+  # Perform an elfproef to verify the student_id
   def valid_student_id
     # on the intro website student_id is required
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
