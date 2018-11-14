@@ -16,10 +16,15 @@ module Impressionist
       private
 
       def define_association(dependent = nil)
-        # Don't remove the logs recarding if it is destroyed
-        if dependent == :ignore
+        # Don't remove the logs recording if it is destroyed
+        case dependent
+        when :ignore then
           has_many(:impressions,
                    :as => :impressionable)
+        when :nullify then
+          has_many(:impressions,
+                   :as => :impressionable,
+                   :dependent => :nullify)
         else
           has_many(:impressions,
                    :as => :impressionable,
