@@ -32,6 +32,7 @@ class Activity < ApplicationRecord
   # validates :description
   # validates :unenroll_date
 
+  before_destroy :rewrite_logs_before_delete, prepend: true
   is_impressionable
   has_many(:impressions,
            :as => :impressionable,
@@ -271,5 +272,10 @@ class Activity < ApplicationRecord
     else
       poster.representation(resize: '254x360!')
     end
+  end
+
+  # Add a message containing the Activity's id and name to the logs before deleting the activity.
+  def rewrite_logs_before_delete
+    impressions.update_all(message: "#{self.name} (#{self.id})")
   end
 end
