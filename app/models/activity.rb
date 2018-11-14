@@ -262,6 +262,6 @@ class Activity < ApplicationRecord
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
   def rewrite_logs_before_delete
-    impressions.update_all(message: "#{self.name} (#{self.id})")
+    impressions.update_all(message: "#{ name } (#{ id })")
   end
 end
