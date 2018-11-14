@@ -296,7 +296,6 @@ nl:
               confirmation: "is niet goed herhaald"
           blank: "kan niet leeg zijn"
       no_connection: "Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!"
-      record_invalid: "Fout! Gegevens niet geldig."
       subscribe:
         failed: "Je betaling is niet gelukt, je bent wel ingeschreven!"
         no_bank_provided: "Bank kan niet leeg zijn als je met iDEAL betaalt"
@@ -308,6 +307,7 @@ nl:
         time: Tijd
         when: Wanneer
     messages:
+      record_invalid: "Fout! Gegevens niet geldig."
       participant:
         paid: "%{name} heeft betaald voor %{activity}"
         price: "%{activity} is veranderd voor %{name}"
