@@ -35,7 +35,7 @@ class PublicController < ApplicationController
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # add user to mailchimp
-      interests = []
+      interests = [Settings['mailchimp.interests.alv']]
       interests.push Settings['mailchimp.interests.mmm'] if params[:member][:mmm_subscribe] == "1"
       interests.push Settings['mailchimp.interests.business'] if params[:member][:business_subscribe] == "1"
 
