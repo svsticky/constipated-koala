@@ -41,6 +41,9 @@ jobs:
       - run: bundle exec rake db:create --trace
       - run: bundle exec rake db:setup --trace
 
+      # clear cache for mailchimp_interests
+      - run: bundle exec rake tmp:cache:clear
+
       # precompile assets
       - run: bundle exec rake assets:clobber --trace
       - run: bundle exec rake assets:precompile --trace
