@@ -4,6 +4,7 @@ nl:
     annotations:
       member:
         email: "E-mailadres kan geen adres van de UU zijn"
+        emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
         mailinglists: "Mailinglijsten"
         mmm:
           name: "MaandagMorgenMail"
@@ -164,6 +165,7 @@ nl:
         last_name: Achternaam
         male: Man
         phone_number: Telefoonnummer
+        emergency_phone_number: Telefoonnummer voor calamiteiten
         postal_code: Postcode
         student_id: Studentnummer
         tags: Tags
@@ -225,10 +227,10 @@ nl:
           attributes:
             checkout: Mongoose-tegoed
             fees: iDEAL-kosten
-          blank: "kan niet leeg zijn"
-          failed: "is nog niet verwerkt."
-          processed: "is al verwerkt."
-          success: "is verwerkt!"
+          blank: "Transactie kan niet leeg zijn"
+          failed: "Transactie is nog niet verwerkt."
+          processed: "Transactie is al verwerkt."
+          success: "Transactie is verwerkt!"
         member:
           attributes:
             email:
@@ -236,6 +238,9 @@ nl:
               taken: "is al geregistreerd"
             phone_number:
               invalid: "bestaat niet uit 10 cijfers"
+            emergency_phone_number:
+              invalid: "bestaat niet uit 10 cijfers"
+              not_provided: "is verplicht onder 18 jaar"
             student_id:
               elfproef: "is niet geldig"
               invalid: "is niet geldig"
@@ -267,6 +272,9 @@ nl:
         time: Tijd
         when: Wanneer
     messages:
+      member:
+        unconfirmed_email: "Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze wordt bevestigd wordt het e-mailadres aangepast."
+        force_unconfirmed_email: "Of <a data-method='patch' href='%{link}'>forceer</a> de wijziging."
       participant:
         paid: "%{name} heeft betaald voor %{activity}"
         price: "%{activity} is veranderd voor %{name}"
@@ -303,6 +311,15 @@ nl:
       general: Algemeen
       ideal: iDeal
       payments: Betalingen
+    member_account_status:
+      no_user: "Dit lid heeft geen account."
+      send_create_email: "Stuur account-aanmaakmail"
+      user_not_activated: "Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd."
+      resend_confirmation: "Her-verstuur account-activatiemail"
+      active_user: "Dit lid heeft een actief account (%{email})."
+      send_password_reset: "Verstuur password-reset-email"
+      email_sent: "Email verstuurd!"
+
   association_name: "Studievereniging Sticky"
   date:
     day_names:

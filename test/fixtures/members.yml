@@ -7,6 +7,7 @@ martyparty:
   house_number: 123
   postal_code: 1337 LT
   phone_number: 0612345678
+  emergency_phone_number: 0612345678
   email: martyparty@maartenberg.nl
   gender: m
   birth_date: <%= Date.today %>
@@ -21,6 +22,7 @@ dannypanny:
   house_number: 420
   postal_code: 1337 DM
   phone_number: 0301337420
+  emergency_phone_number: 0301337420
   email: danoontjepower@maartenberg.nl
   gender: m
   birth_date: <%= Date.today %>
@@ -34,6 +36,7 @@ captain_underpants:
   city: Testdorp
   postal_code: 1234 TS
   phone_number: 0612345678
+  emergency_phone_number: 0612345678
   email: kapiteinonderbroek@maartenberg.nl
   gender: m
   birth_date: <%= 19.years.ago %>
@@ -47,6 +50,7 @@ yorici:
   city: El Dorado
   postal_code: 7311 YZ
   phone_number: 0611001100
+  emergency_phone_number: 0611001100
   email: moneymoneymoney@maartenberg.nl
   gender: m
   birth_date: <%= 20.years.ago %>
@@ -61,6 +65,7 @@ m8eld:
   city: Spijkernisse
   postal_code: 1888 MH
   phone_number: 0183172737
+  emergency_phone_number: 0183172737
   email: mevrouwmetdehamer@maartenberg.nl
   gender: f
   birth_date: <%= 17.years.ago %>
@@ -74,6 +79,7 @@ glenniepennie:
   city: Ratterdam
   postal_code: 3690 GS
   phone_number: 0612324444
+  emergency_phone_number: 0612324444
   email: stewartlittle@maartenberg.nl
   gender: m
   birth_date: <%= 20.years.ago %>
@@ -88,6 +94,7 @@ roosje:
   city: Doorndrecht
   postal_code: 1234 CR
   phone_number: 0049624575821
+  emergency_phone_number: 0049624575821
   email: slapendeschone@maartenberg.nl
   gender: m
   birth_date: <%= 19.years.ago %>
@@ -101,6 +108,7 @@ meneerdeveurzitter:
   city: Groot-Ammers
   postal_code: 3925 ER
   phone_number: 0613480485
+  emergency_phone_number: 0613480485
   email: veurzitter@maartenberg.nl
   gender: m
   birth_date: <%= 29.years.ago %>
@@ -114,6 +122,7 @@ needfuldoer:
   city: Bombay
   postal_code: 3241 RP
   phone_number: 0134913431
+  emergency_phone_number: 0134913431
   email: indianguywhodoesneedful@maartenberg.nl
   gender: m
   birth_date: <%= 40.years.ago %>
@@ -127,6 +136,7 @@ thecreator:
   city: Ridderkerk
   postal_code: 0989 MC
   phone_number: 0134913431
+  emergency_phone_number: 0134913431
   email: inthebeginninghecreatedkoala@maartenberg.nl
   gender: m
   birth_date: <%= 20.years.ago %>
@@ -140,6 +150,7 @@ masterboy030man:
   city: DasterMorp
   postal_code: 4444 MS
   phone_number: 0611223344
+  emergency_phone_number: 0611223344
   email: masterboy030man@maartenberg.nl
   gender: m
   birth_date: <%= 25.years.ago %>
@@ -154,6 +165,7 @@ feutemeteut:
   city: Ouderdorp
   postal_code: 1111 BB
   phone_number: 0643214321
+  emergency_phone_number: 0643214321
   email: eenofanderverschrikkelijkadres@maartenberg.nl
   gender: m
   birth_date: <%= 18.years.ago %>

@@ -118,6 +118,7 @@ class Members::HomeController < MembersController
                                    :postal_code,
                                    :city,
                                    :phone_number,
+                                   :emergency_phone_number,
                                    :email,
                                    :gender,
                                    :mailchimp_interests => [])

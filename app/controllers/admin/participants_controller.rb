@@ -4,21 +4,17 @@ class Admin::ParticipantsController < ApplicationController
 
   def create
     @activity = Activity.find_by_id params[:activity_id]
-    @participant = Participant.find_or_initialize_by(
+    participant = Participant.find_or_initialize_by(
       member: Member.find(params[:member]),
       activity: @activity
     )
 
-    new_record = @participant.new_record?
+    new_record = participant.new_record?
     status = new_record ? :created : :conflict
 
-    if @participant.save
-      impressionist(@participant) if new_record
-      @response = @participant.attributes # TODO: refactor, very old code
-      @response['price'] = @activity.price
-      @response['email'] = @participant.member.email
-      @response['name'] = @participant.member.name
-      @response['notes'] = @participant.notes
+    if participant.save
+      impressionist(participant) if new_record
+      @response = new_attendee_response_data(participant)
 
       render status: status, :json => @response.to_json
     end
@@ -45,10 +41,7 @@ class Admin::ParticipantsController < ApplicationController
     if participant.save
       impressionist(participant, message)
       render :status => :ok,
-             :json => I18n.t(message, scope: 'activerecord.messages.participant',
-                                      name: participant.member.name,
-                                      activity: participant.activity.name).to_json
-      return
+             :json => new_attendee_response_data(participant).to_json
     else
       respond_with participant.errors.full_messages
     end
@@ -56,24 +49,21 @@ class Admin::ParticipantsController < ApplicationController
 
   def destroy
     ghost_participant = Participant.destroy(params[:id])
+    response = {
+      magic_reservists: [],
+      activity: {
+        fullness: ghost_participant.activity.fullness,
+        reservist_count: ghost_participant.activity.reservists.count,
+        paid_sum: ghost_participant.activity.paid_sum,
+        price_sum: ghost_participant.activity.price_sum
+      }
+    }
 
-    if ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists)
-      @response = []
-
-      ghost_participant.activity.instance_variable_get(:@magic_enrolled_reservists).each do |peep|
-        item = peep.attributes
-        item['price'] = peep.activity.price
-        item['email'] = peep.member.email
-        item['name']  = peep.member.name
-        item['notes'] = peep.notes
-
-        @response << item
-      end
-
-      render :status => :ok, :json => @response.to_json
-    else
-      head :no_content
+    ghost_participant.activity.magic_enrolled_reservists&.each do |peep|
+      response[:magic_reservists] << new_attendee_response_data(peep)
     end
+
+    render :status => :ok, :json => response.to_json
   end
 
   def mail
@@ -82,5 +72,29 @@ class Admin::ParticipantsController < ApplicationController
     @activity = Activity.find_by_id!(params[:activity_id])
     render :json => Mailings::Participants.inform(@activity, params[:recipients].permit!.to_h.map { |_, item| item['email'] }, current_user.sender, params[:subject], params[:html]).deliver_later
     impressionist(@activity, "mail")
+  end
+
+  private
+
+  def new_attendee_response_data(participant)
+    activity = participant.activity
+    member = participant.member
+    {
+      participant: {
+        id: participant.id,
+        notes: participant.notes,
+        member: {
+          id: member.id,
+          name: member.name,
+          email: member.email
+        }
+      },
+      activity: {
+        price: activity.price,
+        fullness: activity.fullness,
+        paid_sum: activity.paid_sum,
+        price_sum: activity.price_sum
+      }
+    }
   end
 end

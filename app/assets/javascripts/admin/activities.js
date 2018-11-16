@@ -29,32 +29,35 @@ function bind_activities(){
  * Participant namespace containing all participant related functions
  */
 var participant = {
-  //Update counts in the table headers
-  updateCounts : function(){
-    attendees = $('#participants-table tbody tr').length - 2; //-2 because of the add_participant row and of the header
-    reservists = $('#reservists-table tbody tr').length - 1; //-1 because of the header
-
-    $('#attendeecount').html(attendees);
-    $('#reservistcount').html(reservists);
+  update_debt_header: function (paidSum, priceSum) {
+    $('#paidsum').html('€' + parseFloat(paidSum).toFixed(2));
+    $('#pricesum').html('/ €' + parseFloat(priceSum).toFixed(2));
   },
 
   //Admin adds a new participant to the activity
   add : function(data){
     var template = $('template#attendee-table-row').html();
-    var activity = template.format(data.id, data.member_id, data.name, data.email);
-    var added = $(activity).insertBefore('#participants-table tr:last');
+    var formattedTemplate = template.format(
+        data.participant.id,
+        data.participant.member.id,
+        data.participant.member.name,
+        data.participant.member.email
+    );
+
+    var added = $(formattedTemplate).insertBefore('#participants-table tr:last');
     $('.number').html( +$('.number').html() +1 );
 
-    if(data.price > 0)
-      $(added).addClass( 'red' );
+    if(data.activity.price > 0)
+      $(added).addClass('in-debt');
     else
       $(added).find( 'button.paid' ).addClass( 'hidden' );
 
-    participant.updateCounts();
+    $('#attendeecount').html(data.activity.fullness);
+    participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
     bind_activities();
 
     // trigger #mail client to add recipient
-    $('#mail').trigger('recipient_added', [ data.id, name, data.email, data.price ]);
+    $('#mail').trigger('recipient_added', [ data.participant.id, name, data.participant.member.email, data.activity.price ]);
 
     $( '#participants .form-group input#participants' ).focus();
   },
@@ -79,15 +82,19 @@ var participant = {
       $(row).remove();
 
       //Move reservist to attendees if applicable
-      if (data !== null) {
-        data.forEach(
+      if (data.magic_reservists.length > 0) {
+        data.magic_reservists.forEach(
           function(item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();
             participant.add(item, item.name);
           });
       } else {
-        participant.updateCounts(); //Already executed in participant.add
+          // Not already done in participant.add above
+        $('#attendeecount').html(data.activity.fullness);
+        participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
       }
+
+      $('#reservistcount').html(data.activity.reservist_count);
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -110,16 +117,8 @@ var participant = {
         reservist: false
       }
     }).done(function(data){
-      var name = $(row).find('a').html();
-      alert(name + ' is op de deelnemerslijst geplaatst', 'success');
-
-      var rowdata = {
-        id: $(row).data('id'),
-        email: $(row).data('email'),
-        name: name,
-        notes: $(row).find('.notes-td')[0].innerHTML,
-      };
-      participant.add(rowdata);
+      alert(data.participant.member.name + ' is op de deelnemerslijst geplaatst', 'success');
+      participant.add(data);
 
       $(row).remove();
 
@@ -141,8 +140,8 @@ var participant = {
         authenticity_token: token,
         paid: true
       }
-    }).done(function(){
-      alert($(row).find('a').html() + ' heeft betaald', 'success');
+    }).done(function(data){
+      alert(data.participant.member.name + ' heeft betaald', 'success');
 
       $(row)
         .find( 'button.paid' )
@@ -150,6 +149,9 @@ var participant = {
         .removeClass( 'paid btn-warning red' )
         .addClass( 'unpaid btn-primary' )
         .append( '<i class="fa fa-fw fa-check"></i>' );
+
+      $(row).removeClass('in-debt');
+      participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
       $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -173,7 +175,7 @@ var participant = {
         authenticity_token: token,
         paid: false
       }
-    }).done(function(){
+    }).done(function(data){
       alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
 
       $(row)
@@ -182,6 +184,9 @@ var participant = {
         .addClass( 'paid btn-warning red' )
         .removeClass( 'unpaid btn-primary' )
         .append( '<i class="fa fa-fw fa-times"></i>' );
+
+      $(row).addClass('in-debt');
+      participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
       $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -219,10 +224,10 @@ var participant = {
     }).done(function( data ){
       $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('hidden unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
       $(row).find('button.paid').removeClass('hidden');
-      $(row).removeClass( 'red' );
+      $(row).removeClass('in-debt');
 
       if(price > 0){
-        $(row).addClass( 'red' );
+        $(row).addClass('in-debt');
 
         $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }else{
@@ -230,6 +235,8 @@ var participant = {
 
         $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }
+
+      participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
       alert( 'het deelname bedrag is veranderd' );
     }).fail(function( data ){

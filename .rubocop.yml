@@ -1,8 +1,12 @@
 inherit_from: '.rubocop_todo.yml'
 
 # Display reason and how to do it better.
+# Ignore auto-generated schema file
 AllCops:
   DisplayStyleGuide: true
+  Exclude:
+    - 'db/**/*'
+    - 'config/initializers/*'
 
 # Longer class length
 Metrics/AbcSize:
@@ -31,8 +35,3 @@ Layout/SpaceInsideStringInterpolation:
 Style/RegexpLiteral:
   EnforcedStyle: slashes
   AllowInnerSlashes: true
-
-# Ignore auto-generated whitespace errors
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'db/schema.rb'

@@ -21,7 +21,6 @@
               - fullness = "#{@activity.attendees.count}/#{@activity.participant_limit}"
             %span#attendeecount
               = fullness
-            deelnemers
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
 

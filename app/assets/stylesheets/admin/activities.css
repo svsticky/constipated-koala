@@ -12,6 +12,10 @@
   vertical-align: middle;
 }
 
+#participants .in-debt, #participants .in-debt a {
+    color: #e94b3b;
+}
+
 #participants tr > td > a {
   line-height: 36px;
   height: 36px;
