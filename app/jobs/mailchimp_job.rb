@@ -20,12 +20,24 @@
 class MailchimpJob < ApplicationJob
   queue_as :default
 
-  def perform(member, interests = Settings['mailchimp.interests'].values, create_on_missing = false, mailchimp_status = 'subscribed')
+  def perform(member, interests = Settings['mailchimp.interests'].values, mailchimp_status = 'subscribed')
     return if ENV['MAILCHIMP_DATACENTER'].nil?
+
+    # delete user if no interests are listed
+    if interests.empty?
+      RestClient.delete(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+
+      return
+    end
 
     request = {
       email_address: member.email,
       status: mailchimp_status,
+      status_if_new: mailchimp_status,
 
       merge_fields: {
         FIRSTNAME: member.first_name,
@@ -34,28 +46,17 @@ class MailchimpJob < ApplicationJob
       }
     }
 
-    # set required create attribute and set interests from mailchimp.interests (MMM/ALV/..)
-    request[:status_if_new] = mailchimp_status if create_on_missing
+    # set interests from mailchimp.interests (MMM/ALV/..)
     request[:interests] = Settings['mailchimp.interests'].values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
 
     logger.debug request.inspect
 
-    if create_on_missing
-      RestClient.put(
-        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
-        request.to_json,
-        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
-        'User-Agent': 'constipated-koala'
-      )
-
-    else
-      RestClient.patch(
-        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
-        request.to_json,
-        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
-        'User-Agent': 'constipated-koala'
-      )
-    end
+    RestClient.put(
+      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
+      request.to_json,
+      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+      'User-Agent': 'constipated-koala'
+    )
 
     Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless interests.nil?
 

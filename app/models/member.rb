@@ -208,13 +208,7 @@ class Member < ApplicationRecord
     user = User.find_by_email(email)
     user.delete if user.present?
 
-    return if ENV['MAILCHIMP_DATACENTER'].nil?
-
-    RestClient.delete(
-      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }",
-      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
-      'User-Agent': 'constipated-koala'
-    )
+    MailchimpJob.perform_now self, []
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query

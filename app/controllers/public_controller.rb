@@ -39,7 +39,7 @@ class PublicController < ApplicationController
       interests.push Settings['mailchimp.interests.mmm'] if params[:member][:mmm_subscribe] == "1"
       interests.push Settings['mailchimp.interests.business'] if params[:member][:business_subscribe] == "1"
 
-      MailchimpJob.perform_later @member, interests, true
+      MailchimpJob.perform_later @member, interests
 
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }

@@ -63,7 +63,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
-      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?), true
+      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?)
 
       # impressionist is the logging system
       impressionist(@member, 'nieuwe lid')
