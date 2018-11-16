@@ -60,7 +60,9 @@ class Members::HomeController < MembersController
   def update
     @member = Member.find(current_user.credentials_id)
 
-    if @member.update(member_post_params)
+    if @member.update member_post_params.except 'mailchimp_interests'
+      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject{ |_, val| val != '1'}.keys, true
+
       impressionist(@member, 'lid bewerkt')
 
       redirect_to users_root_path
@@ -117,7 +119,8 @@ class Members::HomeController < MembersController
                                    :city,
                                    :phone_number,
                                    :email,
-                                   :gender)
+                                   :gender,
+                                   :mailchimp_interests => [])
   end
 
   def ideal_transaction_params

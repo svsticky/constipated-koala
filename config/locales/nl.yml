@@ -11,6 +11,9 @@ nl:
         business:
           name: "Bedrijfsmailing"
           description: "Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails."
+        alv:
+          name: "Algemene leden vergaderingen"
+          description: "Binnen de vereniging zijn er een aantal vergaderingen georganiseerd door het bestuur waar ze de voortgang presenteren."
     attributes:
       activity:
         comments: "Opmerkingen (privé)"

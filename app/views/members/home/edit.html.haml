@@ -67,6 +67,37 @@
           = f.email_field :email, :value => @member.email, :class => 'form-control'
           .help-block= I18n.t('activerecord.annotations.member.email')
 
+  .col-md-9
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-fw.fa-envelope
+        %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+      .panel-body
+
+        .form-group
+          .row
+            .col-md-12
+              %label.ui-checkbox
+                = f.check_box "mailchimp_interests[#{Settings['mailchimp.interests.mmm']}]", :checked => @member.mailchimp_interests[Settings['mailchimp.interests.mmm']]
+                %span= I18n.t('mmm.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
+          .row
+            .col-md-12
+              %label.ui-checkbox
+                = f.check_box "mailchimp_interests[#{Settings['mailchimp.interests.business']}]", :checked => @member.mailchimp_interests[Settings['mailchimp.interests.business']]
+                %span= I18n.t('business.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
+
+          .row
+            .col-md-12
+              %label.ui-checkbox
+                = f.check_box "mailchimp_interests[#{Settings['mailchimp.interests.alv']}]", :checked => @member.mailchimp_interests[Settings['mailchimp.interests.alv']]
+                %span= I18n.t('alv.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('alv.description', scope: 'activerecord.annotations.member')
+
+  .col-md-9
+    .panel.panel-default
+      .panel-body
         %button.btn.btn-success{type: 'submit'}= I18n.t("editing.save")
         = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
 
