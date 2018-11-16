@@ -201,12 +201,14 @@ class Member < ApplicationRecord
     end
   end
 
-  # destroy account on removal of member
+  # destroy account on removal of member and unsubscribe from mailchimp
   before_destroy do
     logger.debug inspect
 
     user = User.find_by_email(email)
     user.delete if user.present?
+
+    MailchimpJob.perform_now self, [], false, 'unsubscribed'
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
