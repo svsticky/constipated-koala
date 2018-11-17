@@ -31,8 +31,8 @@ gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
 # settings cached in rails environment
-gem 'rails-settings-cached'
 gem 'image_processing'
+gem 'rails-settings-cached'
 
 # Icalendar for calendar integration
 gem 'icalendar'
