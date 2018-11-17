@@ -65,7 +65,4 @@ Rails.application.configure do
     'Access-Control-Allow-Origin' => 'http://radio.rails.local:3001',
     'Access-Control-Request-Method' => '*'
   )
-
-  # Store files locally.
-  config.active_storage.service = :local
 end
