@@ -22,7 +22,7 @@ Koala has an [api](/app/views/api), it is used by RADIO and Checkout at the mome
 ## Starting with koala
 **An extensive tutorial on [how to install koala](/INSTALLING.md) on your laptop or on a production server is available.**.
 
-There are a few *strange* things happening in koala. For one, Mollie is used as the ideal provider. Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will not work. Secondly it uses amazon for storing posters and images of mongoose products. In development this also work on the local machine.
+There are a few *strange* things happening in koala. For one, Mollie is used as the ideal provider. Without proper setting the [.rbenv-vars](.rbenv-vars-sample) it will not work.
 
 And a regretful thing; Fuzzily is hacked into to ensure filtering first with a `where` and then perform a search on the subset just created. Both of them are defined in `config/initializers`. Currently I made a fuzzily-fork to fix some problems, I will try to move these changes to the fork.
 

@@ -3,6 +3,7 @@ module Mailings
   #:nodoc:
   class Checkout < ApplicationMailer
     def confirmation_instructions(card, confirmation_url)
+      puts confirmation_url if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string(:layout => 'mailer', :locals => {

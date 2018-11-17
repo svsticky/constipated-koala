@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper_openid_connect
   constraints :subdomain => ['intro', 'intro.dev'] do
     get  '/', to: 'public#index', as: 'public'
     post '/', to: 'public#create'
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
 
         post 'mongoose', to: 'home#add_funds'
 
+        # TODO: should this be moved to nginx or
+        # @deprated these old routes
         get 'enrollments',                      to: redirect('/activities')
         get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
 
@@ -29,22 +32,29 @@ Rails.application.routes.draw do
     # No double controllers
     get     'admin/home',   to: redirect('/')
     get     'members/home', to: redirect('/')
+    get     'calendarfeed', to: 'calendars#show'
 
     # Devise routes
     devise_for :users, :path => '', :skip => [:registrations], :controllers => {
-      sessions:       'users/sessions'
+      confirmations:  'users/confirmations',
+      sessions:       'users/sessions',
+      passwords:      'users/passwords'
     }
 
-    get     'calendarfeed', to: 'calendars#show'
-
+    # create account using a member's email
     get     'sign_up',      to: 'users/registrations#new', as: :new_registration
     post    'sign_up',      to: 'users/registrations#create'
-    get     'activate',     to: 'users/registrations#new_member_confirmation', as: :new_member_confirmation
-    post    'activate',     to: 'users/registrations#new_member_confirm', as: :new_member_confirm
+
+    # update account with password after receiving invite
+    get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
+    post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
 
     scope module: 'admin' do
       resources :members do
-        get 'payment_whatsapp'
+        get   'payment_whatsapp'
+        patch 'force_email_change'
+        post 'send_user_email'
+
         collection do
           get 'search'
         end
@@ -94,23 +104,21 @@ Rails.application.routes.draw do
 
     scope 'api' do
       use_doorkeeper do
-        skip_controllers :token_info, :applications, :authorized_applications
+        # skip_controllers :token_info, :applications, :authorized_applications
       end
 
       scope module: 'api' do
-        resources :members, only: [:index, :show] do
+        resources :members, only: [:index, :show, :create] do
           resources :participants, only: :index
         end
 
         resources :groups, only: [:index, :show]
 
         resources :activities, only: [:index, :show] do
-          resources :participants, only: [:index, :create] do
-            collection do
-              delete '', to: 'participants#destroy'
-            end
-          end
+          resources :participants
         end
+
+        get 'calendar', to: 'calendars#show'
 
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
@@ -119,11 +127,11 @@ Rails.application.routes.draw do
 
         # NOTE legacy implementation for checkout without oauth
         scope 'checkout' do
-          get 'card',           to: 'checkout#info'
+          get  'card',          to: 'checkout#info'
           post 'card',          to: 'checkout#create'
-          get 'confirmation',   to: 'checkout#confirm'
+          get  'confirmation',  to: 'checkout#confirm'
 
-          get 'products',       to: 'checkout#products'
+          get  'products',      to: 'checkout#products'
           post 'transaction',   to: 'checkout#purchase'
         end
 

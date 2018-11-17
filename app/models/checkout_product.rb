@@ -36,16 +36,19 @@ class CheckoutProduct < ApplicationRecord
   def url
     return image.representation(gravity: 'center', resize: '128x128') if image.attached?
     return nil if parent.nil?
+
     return CheckoutProduct.find_by_id(parent).url
   end
 
   def children?
     return true unless CheckoutProduct.find_by_parent(id).nil?
+
     return false
   end
 
   def parents
     return [] if parent.nil?
+
     return CheckoutProduct.where(:id => parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(parent).parents
   end
 
@@ -57,6 +60,7 @@ class CheckoutProduct < ApplicationRecord
     count = sales.map { |hash| hash.keys.first.count(id) * hash.values.first }.inject(:+) unless sales.nil?
 
     return [{ self => count }] if parent.nil?
+
     return [{ self => count }] + CheckoutProduct.find_by_id(parent).sales(year)
   end
 

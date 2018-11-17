@@ -1,7 +1,7 @@
 #:nodoc:
 class Api::ParticipantsController < ApiController
   before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
-  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :destroy, :update]
+  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :update, :destroy]
 
   def index
     if params[:activity_id].present?
@@ -23,22 +23,11 @@ class Api::ParticipantsController < ApiController
     render :status => :created
   end
 
-  def hook
-    transaction = IdealTransaction.find_by_uuid! params[:uuid]
-
-    head(:bad_request) && return unless transaction.type == 'ACTIVITIES'
-    redirect_to(transaction.redirect_uri) && return unless transaction.status == 'SUCCESS'
-
-    transaction.transaction_id.each do |activity|
-      participant = Participant.find_by_member_id_and_activity_id transaction.member.id, activity
-      participant.update_attributes :paid => true
-    end
-
-    redirect_to transaction.redirect_uri
+  def update
+    raise NotImplementedError
   end
 
-  def update; end
-
+  # TODO: uitschrijfdeadline hierin meenemen
   def destroy
     participant = Participant.find_by_member_id_and_activity_id! Authorization._member.id, params[:activity_id]
 

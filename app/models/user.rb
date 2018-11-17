@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   def admin?
     return true if credentials_type.casecmp('admin').zero?
+
     return false
   end
 
@@ -22,27 +23,42 @@ class User < ApplicationRecord
     "#{ credentials.name } <#{ email }>"
   end
 
-  def self.taken?(email)
-    User.exists?(email: email) || User.exists?(unconfirmed_email: email)
-  end
-
   # Admins must always re-enter their password.
   def remember_me?(token, generated_at)
     !admin? && super
   end
 
-  # Clear the accounts password, and send a customized 'welcome to Sticky!'-mail if not confirmed already
-  def require_activation!
-    return if confirmed?
+  def resend_confirmation!(template = :confirmation_instructions)
     generate_confirmation_token!
-    skip_confirmation_notification!
+    send_devise_notification(template, @raw_confirmation_token, {})
+  end
 
-    pw = Devise.friendly_token 128
-    self.password = pw
-    self.password_confirmation = pw
+  def force_confirm_email!
+    return if admin?
 
-    self.confirmation_sent_at = Time.now
-    save
-    send_devise_notification(:activation_instructions, @raw_confirmation_token, {})
+    confirm
+
+    credentials.update_column(:email, email)
+    credentials.update_fuzzy_query!
+  end
+
+  def self.create_on_member_enrollment!(member)
+    password = Devise.friendly_token 128
+
+    user = User.new(
+      credentials:  member,
+      email:        member.email,
+
+      password:               password,
+      password_confirmation:  password
+    )
+
+    user.skip_confirmation_notification!
+    user.save
+    user
+  end
+
+  def self.find_by_credentials(object)
+    User.where(credentials_type: object.class.name, credentials_id: object.id).first
   end
 end

@@ -39,6 +39,8 @@ class Activity < ApplicationRecord
   has_many :participants, :dependent => :destroy
   has_many :members, :through => :participants
 
+  attr_accessor :magic_enrolled_reservists
+
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
@@ -135,6 +137,7 @@ class Activity < ApplicationRecord
 
   def price
     return 0 if read_attribute(:price).nil?
+
     return read_attribute(:price)
   end
 
@@ -142,6 +145,38 @@ class Activity < ApplicationRecord
     price = price.to_s.tr(',', '.').to_f
     write_attribute(:price, price)
     write_attribute(:price, nil) if price == 0
+  end
+
+  def ical
+    event = Icalendar::Event.new
+    event.summary = name
+    event.url = Rails.application.routes.url_helpers.activity_url(self)
+    event.location = location
+
+    event.dtstart = Activity.combine_dt(start_date, start_time)
+    event.dtend = Activity.combine_dt(end_date, end_time)
+
+    event.description = description + '\n' unless description.blank?
+    event.description += "Price: €" + price.to_s if price.present? && price > 0
+
+    event.alarm do |a|
+      a.trigger = "-PT2H"
+      a.summary = description
+    end
+
+    return event
+  end
+
+  def self.calendar(activities)
+    calendar = Icalendar::Calendar.new
+    calendar.x_wr_calname = 'Sticky Activities'
+
+    activities.each do |activity|
+      calendar.add_event(activity.ical)
+    end
+
+    calendar.publish
+    return calendar.to_ical
   end
 
   def self.combine_dt(date, time)
@@ -233,6 +268,7 @@ class Activity < ApplicationRecord
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if participant_limit
       return 'VOL!' if attendees.count >= participant_limit
+
       return "#{ attendees.count }/#{ participant_limit }"
     end
 

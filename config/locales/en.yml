@@ -4,6 +4,7 @@ en:
     annotations:
       member:
         email: "Can't be a UU email address"
+        emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
     attributes:
       activity:
         comments: "Comments (private)"
@@ -79,15 +80,14 @@ en:
         last_name: Surname
         male: Male
         phone_number: "Phone number"
+        emergency_phone_number: "Phone number for emergencies"
         postal_code: "Postal code"
         student_id: "Student ID"
         tags: Tags
       participant:
         paid:
-          ? "false"
-          : "Not payed"
-          ? "true"
-          : Paid
+          ? "false": "Not paid"
+          ? "true": Paid
       settings:
         additional_committee_positions:
           description: "Roles besides chairman, treasurer and board member that will be added to the committees."
@@ -195,10 +195,10 @@ en:
           attributes:
             checkout: "Mongoose credit"
             fees: "iDEAL fee"
-          blank: "can't be blank"
-          failed: "has not been processed"
-          processed: "has already been processed"
-          success: "has been processed!"
+          blank: "Transaction can't be blank"
+          failed: "Transaction has not been processed"
+          processed: "Transaction has already been processed"
+          success: "Transaction has been processed!"
         member:
           attributes:
             email:
@@ -206,6 +206,9 @@ en:
               taken: "is already registered"
             phone_number:
               invalid: "consists of 10 digits"
+            emergency_phone_number:
+              invalid: "consists of 10 digits"
+              not_provided: "is required under 18 years old"
             student_id:
               elfproef: "is not valid"
               invalid: "is not valid"
@@ -237,7 +240,7 @@ en:
         mail: "payment mail sent"
         update: "activity updated"
       checkout_transaction:
-        change_funds: "Tegoed bijgewerkt"
+        change_funds: "Credit updated"
       checkoutproduct:
         activate_card: "card activated"
         change_funds: "funds added"
@@ -263,6 +266,9 @@ en:
         time: Tijd
         when: Wanneer
     messages:
+      member:
+        unconfirmed_email: "A confirmation mail is send to <b>%{email}</b>, once confirmed the e-mailadress will be updated. "
+        force_unconfirmed_email: "Or <a data-method='patch' href='%{link}'>force</a> the change here."
       participant:
         paid: "%{name} has paid for %{activity}"
         price: "%{activity} has been changed for %{name}"
@@ -295,35 +301,43 @@ en:
       general: General
       ideal: iDeal
       payments: Payments
+    member_account_status:
+      no_user: "This member has no account."
+      send_create_email: "Send account creation email."
+      user_not_activated: "This member has an account (%{email}), but the account has not yet been activated."
+      resend_confirmation: "Re-send activation mail"
+      active_user: "This member has an active account(%{email})."
+      send_password_reset: "Send password reset email"
+      email_sent: "Email sent!"
   association_name: "Study association Sticky"
   date:
     day_names:
-      - ~
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
-      - Sunday
+    - ~
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-      - ~
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - Oktober
-      - November
-      - December
+    - ~
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - Oktober
+    - November
+    - December
   devise:
     confirmations:
       activate_account: "Activate account"
@@ -418,6 +432,7 @@ en:
       confirmation_instructions:
         button_instructions: "Confirm your e-mail address for your Sticky account by clicking the button below!"
         confirm_account: "Confirm account"
+        confirm_email: "Confirm e-mail address"
       reset_passwords_instructions:
         button_instructions: "Click the button below to enter a new password or ignore this e-mail to keep your current one."
         notification: "A new password has been requested for your Sticky account, or you tried to create a new one."

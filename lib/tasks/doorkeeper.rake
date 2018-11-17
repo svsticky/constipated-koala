@@ -4,7 +4,7 @@ namespace :doorkeeper do
   task :create, [:name, :redirect_uri, :scopes] => :environment do |_, args|
     app = Doorkeeper::Application.new(
       :name => args[:name],
-      :redirect_uri => URI.encode_www_form_component(args[:redirect_uri]),
+      :redirect_uri => args[:redirect_uri],
       :scopes => args[:scopes] ||= nil
     )
 

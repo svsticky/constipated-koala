@@ -62,6 +62,11 @@ Deploying koala or any Ruby on Rails application for that matter is not that har
 # Copy example config file and fill in
 $ cp .rbenv-vars-sample .rbenv-vars && vim .rbenv-vars
 
+# Generate a private key for the signing key of API
+openssl genrsa -out key.pem 2048
+
+# Make sure that in .rben-vars you have OIDC_SIGNING_KEY=key.pem
+
 # Finally install our package manager
 $ gem install bundler
 $ rbenv rehash
@@ -88,6 +93,7 @@ So now you have a functioning ruby on rails application, now what?! Exactly a wa
 In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.local:3000](http://koala.rails.local:3000).
 
 ```shell
+
 # Add hosts for different subdomains on your own computer
 $ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
 

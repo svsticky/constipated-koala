@@ -4,6 +4,7 @@ nl:
     annotations:
       member:
         email: "E-mailadres kan geen adres van de UU zijn"
+        emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
     attributes:
       activity:
         comments: "Opmerkingen (privé)"
@@ -37,11 +38,6 @@ nl:
         image: Afbeelding
         name: Naam
         price: Prijs
-      education:
-        status:
-          active: Studerend
-          graduated: Afgestudeerd
-          stopped: Gestopt
       group:
         categories:
           board: bestuur
@@ -56,18 +52,6 @@ nl:
           moot: Dispuutsleden
           other: Leden
         name: Naam
-        price: Prijs
-        image: Afbeelding
-        category: Categorie
-        active: Actief
-
-        categories:
-          beverage: Drinken
-          chocolate: Chocolade
-          savory: Hartig
-          additional: Overig
-          liquor: Alcohol
-
       tag:
         names:
           pardon: Gratie
@@ -75,7 +59,6 @@ nl:
           honorary: Erelid
           donator: Begunstiger
           suspended: Geschorst
-
       study:
         names:
           inca: Informatica
@@ -91,14 +74,12 @@ nl:
           atec: Technical Artificial Intelligence
           acsc: Advanced Computing Science
           ckem: Content & Knowledge Engineering
-
       education:
         status:
           active: Studerend
           stopped: Gestopt
           graduated: Afgestudeerd
           inactive: Niet studerend
-
       settings:
         begin_study_year:
           name: Studiejaar
@@ -174,6 +155,7 @@ nl:
         last_name: Achternaam
         male: Man
         phone_number: Telefoonnummer
+        emergency_phone_number: Telefoonnummer voor calamiteiten
         postal_code: Postcode
         student_id: Studentnummer
         tags: Tags
@@ -183,48 +165,6 @@ nl:
           : "Niet betaald"
           ? "true"
           : Betaald
-      settings:
-        additional_committee_positions:
-          description: "Rollen die naast voorzitter, penningmeester, en bestuurslid worden toegevoegd aan alle commissies."
-          name: "Extra commissierollen"
-        additional_moot_positions:
-          description: "Rollen die naast voorzitter, secretaris, en penningmeester worden toegevoegd aan alle disputen."
-          name: "Extra dispuutrollen"
-        begin_study_year:
-          description: "Het begin van het volgende studiejaar. Op deze datum wordt er automatisch een nieuw jaar gestart."
-          name: Studiejaar
-        intro_activities:
-          description: "Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in het inschrijfformulier kunnen inschrijven."
-          name: "Introductie activiteiten"
-        intro_membership:
-          description: "De activiteit voor het inschrijven bij Sticky, automatisch gegenereerd."
-          name: "Introductie lidmaatschap"
-        liquor_time:
-          description: "Het tijdstip vanaf wanneer leden alcohol kunnen kopen in Checkout. Tot die tijd wordt een foutmelding gepresenteerd."
-          name: "Tijdstip vanaf wanneer alcohol verkocht wordt"
-        mongoose_ideal_costs:
-          description: "De kosten van een iDEAL-transactie, zodat deze apart kunnen worden berekend in het iDEAL-overzicht."
-          name: "IDeal transactie kosten"
-      study:
-        names:
-          acsc: "Advanced Computing Science"
-          ainm: "Artificial Intelligence"
-          atec: "Technical Artificial Intelligence"
-          ckem: "Content & Knowledge Engineering"
-          cosc: "Computing Science"
-          gmte: "Game and Media Technology"
-          gt: Gametechnologie
-          inca: Informatica
-          inku: Informatiekunde
-          mbim: "Business Informatics"
-          wisk: Wiskunde
-      tag:
-        names:
-          donator: Begunstiger
-          honorary: Erelid
-          merit: "Lid van Verdienste"
-          pardon: Gratie
-          suspended: Geschorst
       user:
         email: E-mailadres
         password: Wachtwoord
@@ -286,10 +226,10 @@ nl:
           attributes:
             checkout: Mongoose-tegoed
             fees: iDEAL-kosten
-          blank: "kan niet leeg zijn"
-          failed: "is nog niet verwerkt."
-          processed: "is al verwerkt."
-          success: "is verwerkt!"
+          blank: "Transactie kan niet leeg zijn"
+          failed: "Transactie is nog niet verwerkt."
+          processed: "Transactie is al verwerkt."
+          success: "Transactie is verwerkt!"
         member:
           attributes:
             email:
@@ -297,6 +237,9 @@ nl:
               taken: "is al geregistreerd"
             phone_number:
               invalid: "bestaat niet uit 10 cijfers"
+            emergency_phone_number:
+              invalid: "bestaat niet uit 10 cijfers"
+              not_provided: "is verplicht onder 18 jaar"
             student_id:
               elfproef: "is niet geldig"
               invalid: "is niet geldig"
@@ -328,6 +271,9 @@ nl:
         time: Tijd
         when: Wanneer
     messages:
+      member:
+        unconfirmed_email: "Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze wordt bevestigd wordt het e-mailadres aangepast."
+        force_unconfirmed_email: "Of <a data-method='patch' href='%{link}'>forceer</a> de wijziging."
       participant:
         paid: "%{name} heeft betaald voor %{activity}"
         price: "%{activity} is veranderd voor %{name}"
@@ -364,6 +310,15 @@ nl:
       general: Algemeen
       ideal: iDeal
       payments: Betalingen
+    member_account_status:
+      no_user: "Dit lid heeft geen account."
+      send_create_email: "Stuur account-aanmaakmail"
+      user_not_activated: "Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd."
+      resend_confirmation: "Her-verstuur account-activatiemail"
+      active_user: "Dit lid heeft een actief account (%{email})."
+      send_password_reset: "Verstuur password-reset-email"
+      email_sent: "Email verstuurd!"
+
   association_name: "Studievereniging Sticky"
   date:
     day_names:
@@ -487,6 +442,7 @@ nl:
       confirmation_instructions:
         button_instructions: "Bevestig je e-mailadres voor je account bij Studievereniging Sticky door op de onderstaande knop te klikken!"
         confirm_account: "Account bevestigen"
+        confirm_email: "E-mailadres bevestigen"
       reset_passwords_instructions:
         button_instructions: "Klik op onderstaande knop om een nieuw wachtwoord aan te maken of negeer deze mail om je huidige wachtwoord te behouden."
         notification: "Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuw account aan te maken."

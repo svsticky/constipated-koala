@@ -19,6 +19,7 @@ gem 'sass-rails'
 # authentication gems
 gem 'devise'
 gem 'doorkeeper'
+gem 'doorkeeper-openid_connect'
 
 gem 'impressionist'
 
@@ -31,7 +32,6 @@ gem 'responders'
 
 # settings cached in rails environment
 gem 'rails-settings-cached'
-
 gem 'image_processing'
 
 # Icalendar for calendar integration

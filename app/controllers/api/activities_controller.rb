@@ -1,6 +1,6 @@
 #:nodoc:
 class Api::ActivitiesController < ApiController
-  include ActionController::Live
+  before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:show]
 
   def index
     if params[:date].present?
