@@ -15,7 +15,6 @@
 
 # @param [member] member affected using this job
 # @param [interests] contains a number of interst ids listed in app.yaml, NIL will not change the interests
-# @param [create_on_missing] create a new Mailchimp account using member.email
 # @param [mailchimp_status] Mailchimp status for maillings
 class MailchimpJob < ApplicationJob
   queue_as :default
@@ -23,8 +22,8 @@ class MailchimpJob < ApplicationJob
   def perform(member, interests = Settings['mailchimp.interests'].values, mailchimp_status = 'subscribed')
     return if ENV['MAILCHIMP_DATACENTER'].nil?
 
-    # delete user if no interests are listed
-    if interests.empty?
+    # delete user without interests, update member information and tags if interests is nil
+    if !interests.nil? && interests.empty?
       RestClient.delete(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
         Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
@@ -37,7 +36,6 @@ class MailchimpJob < ApplicationJob
     request = {
       email_address: member.email,
       status: mailchimp_status,
-      status_if_new: mailchimp_status,
 
       merge_fields: {
         FIRSTNAME: member.first_name,
@@ -46,7 +44,10 @@ class MailchimpJob < ApplicationJob
       }
     }
 
-    # set interests from mailchimp.interests (MMM/ALV/..)
+    # just update existing users if lists are not given
+    request[:status_if_new] = mailchimp_status unless interests.nil?
+
+    # set interests from mailchimp.interests (MMM/ALV/..) if interests not nil
     request[:interests] = Settings['mailchimp.interests'].values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
 
     logger.debug request.inspect
