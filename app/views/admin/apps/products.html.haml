@@ -76,7 +76,7 @@
 
                 %span.thumb.hidden-xs
                   - if !@product.url.nil?
-                    =image_tag @product.url
+                    =image_tag @product.image.representation( combine_options: {thumbnail: '128x128^', gravity: 'center', extent: '128x128'})
 
                 %button.btn.btn-success.wait{ type: 'submit', disabled: @product.children? } Opslaan
                 = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
