@@ -56,7 +56,7 @@
 
       %span.poster.hidden-xs
         - if @activity.poster.attached?
-          = image_tag @activity.poster.representation(resize: '180x255')
+          = image_tag @activity.poster.representation(resize: '180x255^')
 
       .form-group
         .row
