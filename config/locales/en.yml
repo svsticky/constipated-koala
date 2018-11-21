@@ -290,6 +290,7 @@ en:
       general: General
       ideal: iDeal
       payments: Payments
+      stocky: Stocky
     member_account_status:
       no_user: "This member has no account."
       send_create_email: "Send account creation email."
@@ -298,6 +299,24 @@ en:
       active_user: "This member has an active account(%{email})."
       send_password_reset: "Send password reset email"
       email_sent: "Email sent!"
+    stocky:
+      stock:
+        title: Stock
+        storage: Storage
+        chamber: Chamber
+        moves: Moves
+        new_move: New move
+      purchases:
+        title: Purchases
+        new_purchase: New purchase
+      sales:
+        title: Sales
+      product: Product
+      from: From
+      to: To
+      amount: Amount
+      date: Date
+
   association_name: "Study association Sticky"
   date:
     day_names:

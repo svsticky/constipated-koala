@@ -305,6 +305,7 @@ nl:
     navigation:
       apps: Apps
       checkout: Checkout
+      stocky: Stocky
       general: Algemeen
       ideal: iDeal
       payments: Betalingen
@@ -316,6 +317,23 @@ nl:
       active_user: "Dit lid heeft een actief account (%{email})."
       send_password_reset: "Verstuur password-reset-email"
       email_sent: "Email verstuurd!"
+    stocky:
+      stock:
+        title: Voorraad
+        storage: Kelder
+        chamber: Kamer
+        moves: Verplaatsingen
+        new_move: Nieuwe verplaatsing
+      purchases:
+        title: Inkoop
+        new: Nieuwe inkoop
+      sales:
+        title: Verkoop
+      product: Product
+      from: Van
+      to: Naar
+      amount: Aantal
+      date: Datum
 
   association_name: "Studievereniging Sticky"
   date:
