@@ -97,9 +97,6 @@ GEM
     i15r (0.5.5)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
-    icalendar (2.5.0)
-      ice_cube (~> 0.16)
-    ice_cube (0.16.3)
     impressionist (1.6.1)
       nokogiri (~> 1)
     jaro_winkler (1.5.1)
@@ -262,7 +259,6 @@ DEPENDENCIES
   fuzzily!
   haml
   i15r (~> 0.5.5)
-  icalendar
   impressionist
   listen
   mysql2
