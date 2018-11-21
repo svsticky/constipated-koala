@@ -15,6 +15,7 @@ nl:
         is_enrollable: Inschrijfbaar
         is_masters: Masters
         is_viewable: Zichtbaar
+        show_on_website: Op website
         location: Locatie
         name: Naam
         notes: "Extra specificatie"
