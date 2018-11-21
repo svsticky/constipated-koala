@@ -17,3 +17,8 @@
  *= require_self
  *= require_tree ./members
  */
+
+.panel-activity > .panel-body {
+  height: 230px;
+  overflow: hidden;
+}
