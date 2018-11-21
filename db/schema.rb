@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_222539) do
     t.boolean "notes_public"
     t.boolean "is_masters"
     t.boolean "is_freshmans"
+    t.boolean "show_on_website", default: false, null: false
   end
 
   create_table "admins", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

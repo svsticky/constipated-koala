@@ -3,7 +3,8 @@ en:
   activerecord:
     annotations:
       member:
-        email: "Can't be a UU email address"
+        email: "Can't be a UU email address. Address is used for communication between you and Sticky."
+        study: "This is required to check if you are allowed to be a member of Sticky."
         emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
     attributes:
       activity:
@@ -15,6 +16,7 @@ en:
         is_enrollable: Enrollable
         is_masters: Masters
         is_viewable: Viewable
+        show_on_website: On website
         location: Location
         name: Name
         notes: "Extra notes"

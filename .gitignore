@@ -28,3 +28,5 @@ node_modules/
 .i15r-cache
 .i15r-output
 signing-key.pem
+
+.idea

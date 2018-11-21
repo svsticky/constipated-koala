@@ -118,6 +118,9 @@
             = label(:activity, :is_viewable)
             = f.check_box :is_viewable, checked: @activity.is_viewable || @activity.name.nil?, data: {original: @activity.is_viewable}, id: "is_viewable"
           .col-md-2
+            = label(:activity, :show_on_website)
+            = f.check_box :show_on_website, checked: @activity.show_on_website, data: {original: @activity.show_on_website}, id: "show_on_website"
+          .col-md-2
             = label(:activity, :is_enrollable)
             = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}, id: "is_enrollable"
           .col-md-2

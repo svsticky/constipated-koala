@@ -34,9 +34,6 @@ gem 'responders'
 gem 'image_processing'
 gem 'rails-settings-cached'
 
-# Icalendar for calendar integration
-gem 'icalendar'
-
 group :production, :staging do
   gem 'sentry-raven'
   gem 'uglifier'
