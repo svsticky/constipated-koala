@@ -41,6 +41,10 @@
             = link_to :ideal do
               %i.fa.fa-caret-right
               %span= I18n.t("admin.navigation.ideal")
+          %li{ :class => ('active' if yield(:subpage) == 'stocky') }
+            = link_to :stocky do
+              %i.fa.fa-caret-right
+              %span= I18n.t("admin.navigation.stocky")
 
       %li{ :class => ('active' if yield(:page) == 'settings') }
         = link_to '' do
