@@ -27,9 +27,9 @@ class Admin::StocksController < ApplicationController
 
     @transactions = StockyTransaction.where(from: "shop")
 
-    @product_ids = @transactions.pluck(:checkout_product_id).uniq
+    @product_ids = @transactions.pluck(:checkout_product_type_id).uniq
 
-    @products = CheckoutProduct.where(id: @product_ids)
+    @products = CheckoutProductType.where(id: @product_ids)
 
     @chart_data = @transactions.pluck(:checkout_product_type_id).uniq.map do |i|
       {
