@@ -18,10 +18,7 @@ class CheckoutProductType < ApplicationRecord
   has_attached_file :image,
                     :styles              => { :original => ['128x128', :png] },
                     :validate_media_type => false,
-                    :convert_options     => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' },
-                    :s3_permissions      => {
-                      :original => :'public-read'
-                    }
+                    :convert_options     => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' }
 
   validates_attachment_content_type :image,
                                     :content_type => ['image/jpeg', 'image/png']
