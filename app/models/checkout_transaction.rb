@@ -21,6 +21,7 @@ class CheckoutTransaction < ApplicationRecord
   self.i18n_error_scope = %i[activerecord errors models checkout_transaction attributes]
 
   before_validation do
+    self.items ||= []
     @checkout_product_type_cache = self.items.map { |i| CheckoutProductType.find(i) }
     # add items for a price
     self.price ||= 0
