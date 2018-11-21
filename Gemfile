@@ -41,13 +41,13 @@ gem 'chartkick'
 gem 'groupdate'
 
 # Pagination
-gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate'
+gem 'will_paginate', '~> 3.1.0'
 
 group :production, :staging do
   gem 'sentry-raven'
-  gem 'unicorn'
   gem 'uglifier'
+  gem 'unicorn'
 end
 
 group :development, :test, :staging do
