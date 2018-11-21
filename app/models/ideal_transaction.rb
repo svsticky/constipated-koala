@@ -96,10 +96,11 @@ class IdealTransaction < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the ideal transaction as processed
       IdealTransaction.transaction do
-
         self.transaction_id = [transaction.id]
         save!
+      end
 
-    Activity.find(transaction_id) if transaction_type.casecmp('activity').zero?
+      Activity.find(transaction_id) if transaction_type.casecmp('activity').zero?
+    end
   end
 end

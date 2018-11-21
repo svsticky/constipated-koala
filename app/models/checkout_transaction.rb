@@ -25,13 +25,9 @@ class CheckoutTransaction < ApplicationRecord
     @checkout_product_type_cache = self.items.map { |i| CheckoutProductType.find(i) }
     # add items for a price
     self.price ||= 0
-    unless @checkout_product_type_cache.none?
-      self.price = -@checkout_product_type_cache.reduce(0) { |total, item| total + item.price }
-    end
+    self.price = -@checkout_product_type_cache.reduce(0) { |total, item| total + item.price } unless @checkout_product_type_cache.none?
 
-    if checkout_balance.nil?
-      self.checkout_balance = checkout_card.checkout_balance
-    end
+    self.checkout_balance = checkout_card.checkout_balance if checkout_balance.nil?
   end
 
   after_validation do
@@ -85,6 +81,7 @@ class CheckoutTransaction < ApplicationRecord
 
   def items_to_link_table
     return unless items
+
     CheckoutTransactionItem.transaction do
       # Clear all existing CheckoutTransactionItems just to be sure
       old_ctis = CheckoutTransactionItem.where(checkout_transaction: self)

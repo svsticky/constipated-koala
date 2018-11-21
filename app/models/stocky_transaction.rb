@@ -1,3 +1,4 @@
+# :nodoc:
 class StockyTransaction < ApplicationRecord
   LOCATIONS = %w[shop basement mongoose waste member activity].freeze
   NOT_VALID_MESSAGE = "%{value} is not a valid location".freeze

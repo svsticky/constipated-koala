@@ -1,3 +1,4 @@
+# :nodoc:
 class CheckoutProductType < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true

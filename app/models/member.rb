@@ -227,25 +227,16 @@ class Member < ApplicationRecord
     # return default value if birth date is blank, required for form validation
     return false if birth_date.blank?
 
-    return 18.years.ago >= birth_date
+    18.years.ago >= birth_date
   end
 
   def enrolled_in_study?
-    return Education.exists?(member: self, status: Education.statuses[:active])
+    Education.exists?(member: self, status: Education.statuses[:active])
   end
 
   # Member may enroll when currently enrolled in study, or tagged with one of the whitelisting tags.
   def may_enroll?
-    return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
-  end
-
-  def enrolled_in_study?
-    return Education.exists?(member: self, status: Education.statuses[:active])
-  end
-
-  # Member may enroll when currently enrolled in study, or tagged with one of the whitelisting tags.
-  def may_enroll?
-    return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
+    enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
   end
 
   def unpaid_activities

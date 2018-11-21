@@ -1,3 +1,4 @@
+# :nodoc:
 class Admin::StocksController < ApplicationController
   def stock
     @products = CheckoutProductType.order(:category, :name)
