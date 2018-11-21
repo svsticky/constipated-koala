@@ -37,7 +37,7 @@ end
 
 2.times do
   # Create a few alcoholic products
-  CheckoutProduct.create(
+  CheckoutProductType.create(
     name:                  Faker::Beer.name,
     category:              5,
     price:                 Faker::Number.between(1.0, 3.0),
@@ -75,7 +75,7 @@ end
 puts '-- Creating checkout transactions'
 CheckoutCard.all.each do |card|
   Faker::Number.between(0, 10).times do
-    checkout_products = CheckoutProduct.all
+    checkout_products = CheckoutProductType.all
     checkout_products.reject(&:liquor?) if card.member.underage?
 
     CheckoutTransaction.create(
