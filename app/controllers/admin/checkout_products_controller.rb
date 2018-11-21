@@ -92,7 +92,6 @@ class Admin::CheckoutProductsController < ApplicationController
     card.update_attribute(:active, true)
 
     if card.save
-      impressionist card
       render :status => :ok, :json => card.to_json
     else
       render :status => :bad_request, :json => card.errors.full_messages

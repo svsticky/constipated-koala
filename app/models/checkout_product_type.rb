@@ -45,6 +45,6 @@ class CheckoutProductType < ApplicationRecord
   private
 
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless image.present?
+    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless image.present? || !Rails.env.production?
   end
 end

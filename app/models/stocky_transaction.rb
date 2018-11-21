@@ -23,6 +23,6 @@ class StockyTransaction < ApplicationRecord
       checkout_product_type.chamber_stock += amount
     end
 
-    checkout_product_type.save
+    checkout_product_type.save!
   end
 end
