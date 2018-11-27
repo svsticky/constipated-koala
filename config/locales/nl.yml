@@ -449,7 +449,7 @@ nl:
         to_the_activity: "Naar de activiteit"
       inform:
         activity_visited_html: "Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%."
-        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} %recipient.name%\"</i>?"
+        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} - %recipient.name%\"</i>?"
     signature: "Het bestuur"
   members:
     activities:
