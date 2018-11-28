@@ -120,6 +120,8 @@ class Member < ApplicationRecord
   end
 
   def tags_names=(tags)
+    return if id.nil?
+
     inversetagnames = Tag.names.keys - tags
     self.tags.where(name: inversetagnames).delete_all
 
