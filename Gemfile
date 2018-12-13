@@ -36,6 +36,7 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload
 gem 'paperclip'
 gem 'terrapin'
+
 gem 'sidekiq'
 
 group :production, :staging do

@@ -14,9 +14,9 @@ class Admin < ApplicationRecord
 
   after_create do
     user = User.new(
-      email:                  email,
-      password:               password,
-      password_confirmation:  password_confirmation,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation,
 
       credentials: self
     )
