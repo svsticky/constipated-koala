@@ -3,7 +3,8 @@ nl:
   activerecord:
     annotations:
       member:
-        email: "E-mailadres kan geen adres van de UU zijn"
+        email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou."
+        study: "Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap."
         emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
         mailinglists: "Mailinglijsten"
         mmm:
@@ -25,6 +26,7 @@ nl:
         is_enrollable: Inschrijfbaar
         is_masters: Masters
         is_viewable: Zichtbaar
+        show_on_website: Op website
         location: Locatie
         name: Naam
         notes: "Extra specificatie"
@@ -260,7 +262,6 @@ nl:
               confirmation: "is niet goed herhaald"
           blank: "kan niet leeg zijn"
       no_connection: "Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!"
-      record_invalid: "Fout! Gegevens niet geldig."
       subscribe:
         failed: "Je betaling is niet gelukt, je bent wel ingeschreven!"
         no_bank_provided: "Bank kan niet leeg zijn als je met iDEAL betaalt"
@@ -272,6 +273,7 @@ nl:
         time: Tijd
         when: Wanneer
     messages:
+      record_invalid: "Fout! Gegevens niet geldig."
       member:
         unconfirmed_email: "Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze wordt bevestigd wordt het e-mailadres aangepast."
         force_unconfirmed_email: "Of <a data-method='patch' href='%{link}'>forceer</a> de wijziging."
@@ -457,7 +459,7 @@ nl:
         to_the_activity: "Naar de activiteit"
       inform:
         activity_visited_html: "Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%."
-        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} %recipient.name%\"</i>?"
+        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} - %recipient.name%\"</i>?"
     signature: "Het bestuur"
   members:
     activities:

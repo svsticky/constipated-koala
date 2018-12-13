@@ -150,38 +150,6 @@ class Activity < ApplicationRecord
     write_attribute(:price, nil) if price == 0
   end
 
-  def ical
-    event = Icalendar::Event.new
-    event.summary = name
-    event.url = Rails.application.routes.url_helpers.activity_url(self)
-    event.location = location
-
-    event.dtstart = Activity.combine_dt(start_date, start_time)
-    event.dtend = Activity.combine_dt(end_date, end_time)
-
-    event.description = description + '\n' unless description.blank?
-    event.description += "Price: €" + price.to_s if price.present? && price > 0
-
-    event.alarm do |a|
-      a.trigger = "-PT2H"
-      a.summary = description
-    end
-
-    return event
-  end
-
-  def self.calendar(activities)
-    calendar = Icalendar::Calendar.new
-    calendar.x_wr_calname = 'Sticky Activities'
-
-    activities.each do |activity|
-      calendar.add_event(activity.ical)
-    end
-
-    calendar.publish
-    return calendar.to_ical
-  end
-
   def self.combine_dt(date, time)
     return Time.zone.local(date.year, date.month, date.day, time.hour, time.min, time.sec) if time
     return Time.zone.local(date.year, date.month, date.day) if date

@@ -36,10 +36,6 @@ gem 'rails-settings-cached'
 # Paperclip easy file upload
 gem 'paperclip'
 gem 'terrapin'
-
-# Icalendar for calendar integration
-gem 'icalendar'
-
 gem 'sidekiq'
 
 group :production, :staging do

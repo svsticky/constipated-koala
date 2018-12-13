@@ -30,7 +30,7 @@ production:
   database: koala
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: /var/run/mysqld/mysqld.sock
+  socket: <%= ENV['DATABASE_SOCKET'] %>
   host: localhost
   pool: 5
   timeout: 5000
@@ -43,7 +43,7 @@ staging:
   database: koala
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: /var/run/mysqld/mysqld.sock
+  socket: <%= ENV['DATABASE_SOCKET'] %>
   host: localhost
   pool: 5
   timeout: 5000

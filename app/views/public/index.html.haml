@@ -148,6 +148,7 @@
               %h4
                 %i.fa.fa-graduation-cap
                 = I18n.t(:study, scope: 'form')
+                .help-block= I18n.t(:study, scope: 'activerecord.annotations.member')
 
               .form-group
                 %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
@@ -164,7 +165,6 @@
                         .col-md-12
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
-
             .col-md-5.activities
               %h4
                 %i.fa.fa-ticket
