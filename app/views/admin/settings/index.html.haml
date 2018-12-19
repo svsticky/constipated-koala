@@ -127,7 +127,7 @@
                 %tr{ :data => { 'id' => advertisement.id }}
                   %td
                     = advertisement.name
-                    = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '1553x1080^'), :download => ''
+                    = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '764x1080!'), :download => ''
                   %td.buttons
                     .btn-group
                       %button.btn.btn-default.destroy

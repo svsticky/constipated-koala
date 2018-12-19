@@ -6,7 +6,7 @@ class Advertisement < ApplicationRecord
   validate :content_type
 
   def url
-    poster.representation(resize: '1553x1080^') if poster.attached?
+    poster.representation(resize: '764x1080!') if poster.attached?
   end
 
   private

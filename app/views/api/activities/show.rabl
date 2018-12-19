@@ -38,7 +38,7 @@ glue :group do
 end
 
 node :poster do |activity|
-  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '1553x1080^') }" if activity.poster.attached?
+  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '764x1080!') }" if activity.poster.attached?
 end
 
 node :enrollable do |activity|
