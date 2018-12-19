@@ -29,3 +29,7 @@ attributes :description if Authorization._client.include?('activity-read')
 node :poster do |activity|
   "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '764x1080!') }" if activity.poster.attached?
 end
+
+node :thumbnail do |activity|
+  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '254x360!') }" if activity.poster.attached?
+end
