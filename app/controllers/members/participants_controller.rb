@@ -73,7 +73,7 @@ class Members::ParticipantsController < MembersController
     end
 
     # Check if notes are present and deny if absent and required.
-    if @activity.notes_mandatory && params[:par_notes].blank?
+    if @activity.notes.present? && @activity.notes_mandatory && params[:par_notes].blank?
       # Notify that notes are required
       render status: :precondition_failed, json: {
         message: I18n.t(
