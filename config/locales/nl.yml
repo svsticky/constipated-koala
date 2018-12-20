@@ -12,11 +12,12 @@ nl:
         description: Beschrijving
         end_date: Einddatum
         end_time: Eindtijd
-        is_alcoholic: Alcohol(18+)
+        is_alcoholic: Alcohol (18+)
         is_enrollable: Inschrijfbaar
         is_masters: Masters
-        is_viewable: Zichtbaar
-        show_on_website: Op website
+        is_viewable: Toon in Koala
+        is_freshmans: Eerstejaars
+        show_on_website: Toon op website
         location: Locatie
         name: Naam
         notes: "Extra specificatie"

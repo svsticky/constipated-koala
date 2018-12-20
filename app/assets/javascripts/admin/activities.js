@@ -271,23 +271,26 @@ $(document).on( 'ready page:load turbolinks:load', function(){
   $('form#mail').mail();
 
   // 'Enrollable' checkbox toggled
-  $('#is_enrollable').on('click', function() {
+  $('#activity_is_enrollable').on('click', function() {
       $('#participant_limit')[0].disabled = !this.checked;
   });
 
-  $('#is_viewable').on('click', function() {
-      $('#is_enrollable')[0].disabled = !this.checked;
+  $('#activity_is_viewable').on('click', function() {
+      $('#activity_is_enrollable')[0].disabled = !this.checked;
+      $('#activity_show_on_website')[0].disabled = !this.checked;
       if(!this.checked)
       {
-          $('#is_enrollable')[0].checked = this.checked;
+          $('#activity_show_on_website')[0].checked = this.checked;
+          $('#activity_is_enrollable')[0].checked = this.checked;
           $('#participant_limit')[0].disabled = !this.checked;
       }
   });
 
-    if($('#is_viewable').length > 0 && $('#is_viewable')[0].checked)
-    {
-        $('#is_enrollable')[0].disabled = false;
-    }
+  if($('#activity_is_viewable').length > 0 && $('#activity_is_viewable')[0].checked)
+  {
+      $('#activity_is_enrollable')[0].disabled = false;
+      $('#activity_show_on_website')[0].disabled = false;
+  }
 
   // Add confirmation dialog only when changing participants limit
   $('#participant_limit').on('change', function() {
