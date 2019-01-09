@@ -1,8 +1,8 @@
 namespace :pxl do
   desc 'Create/update PXL application according to environment variables'
   task :create_application => :environment do
-    unless ENV['PXL_UID'] && ENV['PXL_SECRET']
-      puts 'Secrets absent, no action taken.'
+    unless ENV['PXL_UID'] && ENV['PXL_SECRET'] && ENV['PXL_REDIRECT_URI']
+      puts 'Secrets incomplete, no action taken.'
       return
     end
 
@@ -10,11 +10,7 @@ namespace :pxl do
     pxl.assign_attributes(
       name: "Sticky PXL",
       secret: ENV['PXL_SECRET'],
-      redirect_uri: if Rails.env.production?
-                      "https://pxl.svsticky.nl/oauth2/callback"
-                    else
-                      "https://pxl.dev.svsticky.nl/oauth2/callback"
-                    end,
+      redirect_uri: ENV['PXL_REDIRECT_URI'],
       scopes: "openid member-read email profile",
       confidential: true
     )
