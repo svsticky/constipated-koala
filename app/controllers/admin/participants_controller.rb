@@ -1,6 +1,5 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
-  # respond_to :json
 
   def create
     @participant = Participant.new(
@@ -45,6 +44,7 @@ class Admin::ParticipantsController < ApplicationController
   def mail
     logger.debug params[:recipients].inspect
 
+    # TODO: it looks like the http post response is returned to the user, if that is the case it should be changed to `head :ok`
     @activity = Activity.find_by_id!(params[:activity_id])
     render :json => Mailings::Participants.inform(@activity, params[:recipients].permit!.to_h.map { |_, item| item['email'] }, current_user.sender, params[:subject], params[:html]).deliver_later
     impressionist(@activity, "mail")
