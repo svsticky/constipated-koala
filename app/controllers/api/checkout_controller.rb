@@ -27,9 +27,9 @@ class Api::CheckoutController < ActionController::Base
 
     if transaction.save!
       render status: :created, json: {
-        uuid:       card.uuid,
+        uuid: card.uuid,
         first_name: card.member.first_name,
-        balance:    card.checkout_balance.balance,
+        balance: card.checkout_balance.balance,
         created_at: transaction.created_at
       }
     else
@@ -47,8 +47,8 @@ class Api::CheckoutController < ActionController::Base
         render status: :payload_too_large, json: {
           message: I18n.t(insufficient_credit_translation, scope: i18n_scope),
           balance: card.checkout_balance.balance,
-          items:   ahelper(params[:items]),
-          costs:   transaction.price
+          items: ahelper(params[:items]),
+          costs: transaction.price
         }
       else
         render status: :bad_request, json: {

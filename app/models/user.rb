@@ -46,11 +46,11 @@ class User < ApplicationRecord
     password = Devise.friendly_token 128
 
     user = User.new(
-      credentials:  member,
-      email:        member.email,
+      credentials: member,
+      email: member.email,
 
-      password:               password,
-      password_confirmation:  password
+      password: password,
+      password_confirmation: password
     )
 
     user.skip_confirmation_notification!

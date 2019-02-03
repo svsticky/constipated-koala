@@ -1,6 +1,5 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
-
   def create
     @participant = Participant.new(
       member: Member.find_by_id(params[:member]),

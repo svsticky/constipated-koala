@@ -2,9 +2,9 @@ namespace :admin do
   desc 'Create a new admin user'
   task :create, [:email, :password] => :environment do |_, args|
     admin = Admin.new(
-      email:                  args[:email],
-      password:               args[:password],
-      password_confirmation:  args[:password]
+      email: args[:email],
+      password: args[:password],
+      password_confirmation: args[:password]
     )
 
     if admin.save!
@@ -61,10 +61,10 @@ namespace :admin do
 
     # create new activity if it is time
     activity = Activity.create(
-      name:                 args[:membership] ||= 'Lidmaatschap',
-      price:                args[:price] ||= 7.5,
-      start_date:           Settings.begin_study_year,
-      description:          'automatisch gegenereerde activiteit'
+      name: args[:membership] ||= 'Lidmaatschap',
+      price: args[:price] ||= 7.5,
+      start_date: Settings.begin_study_year,
+      description: 'automatisch gegenereerde activiteit'
     )
 
     # set next date for new activity

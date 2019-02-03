@@ -14,9 +14,9 @@ class CheckoutProduct < ApplicationRecord
   end
 
   has_attached_file :image,
-                    :styles              => { :original => ['128x128', :png] },
+                    :styles => { :original => ['128x128', :png] },
                     :validate_media_type => false,
-                    :convert_options     => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' }
+                    :convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' }
 
   validates_attachment_content_type :image,
                                     :content_type => ['image/jpeg', 'image/png']
