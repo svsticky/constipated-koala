@@ -206,8 +206,7 @@ class Activity < ApplicationRecord
     spots = 0
     spots = reservists.count if participant_limit.nil?
 
-    spots = participant_limit - attendees.count if attendees.count <
-                                                   participant_limit
+    spots = participant_limit - attendees.count if attendees.present? && attendees.count < participant_limit
 
     reservistpool = reservists.to_a # to_a because in-place `select!`
 
