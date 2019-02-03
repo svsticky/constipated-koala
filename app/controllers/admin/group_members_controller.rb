@@ -1,17 +1,12 @@
 #:nodoc:
 class Admin::GroupMembersController < ApplicationController
-  respond_to :json, only: [:create, :update, :destroy]
 
   def create
-    logger.debug params.inspect
-
     @member = GroupMember.new(:member => Member.find_by_id(params[:member]), :group => Group.find_by_id(params[:group_id]), :year => params[:year])
 
     if @member.save
       impressionist @member
-      respond_with @member, :location => groups_url
-    else
-      respond_with @member.errors.full_messages
+      render :status => :created
     end
   end
 
@@ -20,13 +15,13 @@ class Admin::GroupMembersController < ApplicationController
 
     if @member.update(:position => params[:position])
       impressionist @member
-      respond_with @member, :location => groups_url
-    else
-      respond_with @member.errors.full_messages
+      head :no_content
     end
   end
 
   def destroy
-    respond_with GroupMember.destroy(params[:id])
+    if GroupMember.destroy(params[:id])
+      head :no_content
+    end
   end
 end
