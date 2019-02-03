@@ -21,12 +21,10 @@ jobs:
     steps:
 
       # install javascript runtime environment
+      - run: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
       - run: curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       - run: echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-      - run: sudo apt-get update && sudo apt-get install nodejs yarn
-      - run: node --version
-      - run: yarn --version
-
+      - run: sudo apt-get update && sudo apt-get install -y nodejs yarn
 
       - checkout
 
