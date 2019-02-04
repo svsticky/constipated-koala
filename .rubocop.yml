@@ -6,6 +6,7 @@ AllCops:
   DisplayStyleGuide: true
   Exclude:
     - 'db/**/*'
+    - 'vendor/**/*'
     - 'config/initializers/*'
 
 # Longer class length

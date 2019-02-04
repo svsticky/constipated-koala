@@ -44,9 +44,9 @@ module ConstipatedKoala
     config.checkout = ENV['CHECKOUT_TOKEN']
 
     config.action_dispatch.rescue_responses = {
-      'ActiveRecord::RecordNotFound'                => :not_found,
-      'ActiveRecord::RecordInvalid'                 => :bad_request,
-      'ActiveRecord::RecordNotUnique'               => :conflict
+      'ActiveRecord::RecordNotFound' => :not_found,
+      'ActiveRecord::RecordInvalid' => :bad_request,
+      'ActiveRecord::RecordNotUnique' => :conflict
     }
 
     config.paperclip_defaults = {
