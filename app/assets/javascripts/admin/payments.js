@@ -57,7 +57,7 @@ function getWhatsappText (url) {
 
 //Requests all checkout transactions for a given date
 function getCheckoutTransactions (button) {
-  var start_date = $( button ).parent().prev().val();
+  var start_date = $('#pin-total-date').val();
 
   $.ajax({
     url: '/payments/transactions',
@@ -67,7 +67,8 @@ function getCheckoutTransactions (button) {
     }
   }).done(function( data, status ){
     //Find and clear table
-    var table = $("#transactions").find('tbody')
+    var table = $("#transactions").find('tbody');
+    var total = 0.0;
     $(table).find("tr").remove();
 
     // Bind json data to copy button
@@ -82,12 +83,15 @@ function getCheckoutTransactions (button) {
     }
     else {
       $.each(data, function(key, t) {
-        t.price = '€' + parseFloat(t.price).toFixed(2);
+        let value = parseFloat(t.price);
+        total += value;
+        t.price = '€' + value.toFixed(2);
         if (t.price.indexOf('-') > 0) t.price = "-€" + t.price.substring(2);
         table.append('<tr style="height: 36px; line-height: 36px;"><td><a href="/members/' + t.member_id + '">' + t.name + '</a></td><td>' + t.price + '</td><td>' + t.date + '</td></tr>')
       });
       alert( 'Transacties gevonden', 'success' );
     }
+    $("#pin-total-result").text("€" + total.toFixed(2));
   }).fail(function(){
     alert( 'Kon niet updaten', 'error' );
   });
