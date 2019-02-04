@@ -6,7 +6,7 @@ jobs:
     parallelism: 1
 
     docker:
-      - image: circleci/ruby:2.5.3
+      - image: circleci/ruby:2.5.3-node
         environment:
           RAILS_ENV: test
           DATABASE_USER: root
