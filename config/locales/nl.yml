@@ -394,9 +394,11 @@ nl:
         standard: standaard
       mail:
         addressees: Geadresseerden
-        all_participants: "ALLE DEELNEMERS"
+        all_participants: "ALLE DEELNEMERS (inclusief reservisten)"
+        attendees: "ALLE AANWEZIGEN (geen reservisten)"
         draft: Concept
         non_payers: "NOG BETALERS"
+        reservists: "RESERVISTEN"
         send: Verstuur
         subject: Onderwerp
       poster_modal:
