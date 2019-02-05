@@ -57,8 +57,7 @@ var participant = {
     bind_activities();
 
     // trigger #mail client to add recipient
-    $('#mail').trigger('recipient_added', [ data.id, name, data.member.email, data.activity.price ]);
-
+    $('#mail').trigger('recipient_added', [ data.id, data.member.name, data.member.email, data.activity.price ]);
     $( '#participants .form-group input#participants' ).focus();
   },
 

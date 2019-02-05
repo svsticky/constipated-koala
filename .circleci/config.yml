@@ -6,7 +6,7 @@ jobs:
     parallelism: 1
 
     docker:
-      - image: circleci/ruby:2.5.1
+      - image: circleci/ruby:2.5.3-node
         environment:
           RAILS_ENV: test
           DATABASE_USER: root
@@ -21,10 +21,10 @@ jobs:
     steps:
 
       # install javascript runtime environment
-      - run: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
       - run: curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       - run: echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-      - run: sudo apt-get update && sudo apt-get install -y nodejs yarn
+      - run: sudo apt-get update && sudo apt-get install nodejs yarn
+
 
       - checkout
 
@@ -32,9 +32,9 @@ jobs:
       - type: cache-restore
         name: Restore bundle cache
         key: constipated-koala-{{ checksum "Gemfile.lock" }}
-      - run: bundle check || bundle install --without=production development
+      - run: bundle check || bundle install --deployment --without=production development
 
-      # execute rubocop 2.5.1 not supported
+      # codestyle check
       - run: bundle exec rubocop
 
       # wait for database, create and setup

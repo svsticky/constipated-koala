@@ -379,9 +379,11 @@ en:
         standard: standard
       mail:
         addressees: Addressees
-        all_participants: ALL_PARTICIPANTS
+        all_participants: ALL PARTICIPANTS (including reservists)
+        attendees: ALL ATTENDEES (no reservists)
         draft: Draft
-        non_payers: NON_PAYERS
+        non_payers: NON-PAYERS
+        reservists: RESERVISTS
         send: Send
         subject: Subject
       poster_modal:
