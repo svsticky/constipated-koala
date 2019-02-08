@@ -96,6 +96,8 @@ class Admin::MembersController < ApplicationController
 
     if @member.save
 
+      @member.tags_names = params[:member][:tags_names]
+
       # impressionist is the logging system
       impressionist(@member, 'nieuwe lid')
       redirect_to @member

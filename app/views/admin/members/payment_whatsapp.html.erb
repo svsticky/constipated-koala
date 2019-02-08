@@ -1,10 +1,10 @@
-Hey! Robert van Sticky hier :)
+Hey! <%= current_user.credentials.first_name %> van Sticky hier :)
 
 De volgende activiteiten staan open:
 <% @member.unpaid_activities.each do |participant| %>
 - <%= participant.activity.name %> - <%= number_to_currency(participant.currency, unit: '€') %>
 <% end %>
 
-Dit geeft een totaal van *<%= number_to_currency(@member.unpaid_activities.map{|a| a.currency}.sum, unit: '€') %>*
+Dit geeft een totaal van *<%= number_to_currency(@member.unpaid_activities.map(&:currency).sum, unit: '€') %>*
 
 Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand <%= @member.name %>_?

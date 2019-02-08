@@ -21,6 +21,7 @@
               - fullness = "#{@activity.attendees.count}/#{@activity.participant_limit}"
             %span#attendeecount
               = fullness
+            = t 'activerecord.models.participants.attendees.other'
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
 
@@ -61,7 +62,7 @@
             Reserves
 
           %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
-            %tbody
+            %thead
               %tr
                 %td
                   Naam
@@ -70,10 +71,11 @@
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes
-
                 %td.buttons
+
+            %tbody
               - @reservists.each do |participant|
-                %tr{:data => { :id => participant.id, :'data-activities-id' => @activity.id, :email => participant.member.email, :member_id => participant.member.id }  }
+                %tr{data: { id: participant.id, :'data-activities-id' => @activity.id, email: participant.member.email, member_id: participant.member.id, reservist: "true" }  }
                   %td= link_to "#{participant.member.name}", participant.member
                   %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
                     %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}

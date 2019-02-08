@@ -1,6 +1,6 @@
 collection @activities
 
-attribute :id, :name, :location, :price, :show_on_website
+attribute :id, :name, :location, :price, :show_on_website, :description
 
 node :participant_counter, &:fullness
 
@@ -23,8 +23,6 @@ node :end_date do |activity|
     Time.zone.local(d.year, d.month, d.day, t.hour, t.min, 0).iso8601
   end
 end
-
-attributes :description if Authorization._client.include?('activity-read')
 
 node :poster do |activity|
   "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '764x1080!') }" if activity.poster.attached?

@@ -12,11 +12,12 @@ nl:
         description: Beschrijving
         end_date: Einddatum
         end_time: Eindtijd
-        is_alcoholic: Alcohol(18+)
+        is_alcoholic: Alcohol (18+)
         is_enrollable: Inschrijfbaar
         is_masters: Masters
-        is_viewable: Zichtbaar
-        show_on_website: Op website
+        is_viewable: Toon in Koala
+        is_freshmans: Eerstejaars
+        show_on_website: Toon op website
         location: Locatie
         name: Naam
         notes: "Extra specificatie"
@@ -402,9 +403,11 @@ nl:
         standard: standaard
       mail:
         addressees: Geadresseerden
-        all_participants: "ALLE DEELNEMERS"
+        all_participants: "ALLE DEELNEMERS (inclusief reservisten)"
+        attendees: "ALLE AANWEZIGEN (geen reservisten)"
         draft: Concept
         non_payers: "NOG BETALERS"
+        reservists: "RESERVISTEN"
         send: Verstuur
         subject: Onderwerp
       poster_modal:
@@ -458,7 +461,7 @@ nl:
         to_the_activity: "Naar de activiteit"
       inform:
         activity_visited_html: "Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%."
-        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} %recipient.name%\"</i>?"
+        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} - %recipient.name%\"</i>?"
     signature: "Het bestuur"
   members:
     activities:

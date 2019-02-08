@@ -11,7 +11,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def show
-    @activity = Activity.find_by_id params[:id]
+    @activity = Activity.find params[:id]
     @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
@@ -35,7 +35,7 @@ class Admin::ActivitiesController < ApplicationController
 
   # TODO: refactor
   def update
-    @activity = Activity.find_by_id params[:id]
+    @activity = Activity.find params[:id]
     params = activity_post_params
 
     # removing the images from disk
@@ -56,7 +56,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find_by_id params[:id]
+    @activity = Activity.find params[:id]
     @activity.destroy
     impressionist @activity
 
@@ -84,6 +84,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :is_alcoholic,
                                      :is_enrollable,
                                      :is_viewable,
+                                     :show_on_website,
                                      :is_masters,
                                      :is_freshmans,
                                      :participant_limit,
