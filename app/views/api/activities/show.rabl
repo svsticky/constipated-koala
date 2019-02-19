@@ -46,9 +46,9 @@ node :location do |activity|
 end
 
 node :poster do |a|
-    full_url_for a.poster_representation
+  full_url_for a.poster_representation
 end
 
 node :thumbnail do |a|
-    full_url_for a.thumbnail_representation
+  full_url_for a.thumbnail_representation
 end
