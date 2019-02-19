@@ -56,7 +56,7 @@ dates.each do |start_date|
 
   puts("   -> #{ activity.name } (#{ start_date })")
 
-  open('https://martijncasteel.com/share/poster-example.pdf') do |file|
+  open('public/poster-example.pdf') do |file|
     activity.poster.attach(io: file, filename: 'poster-example.pdf')
   end
 
