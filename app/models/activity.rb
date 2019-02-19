@@ -248,4 +248,12 @@ class Activity < ApplicationRecord
     (end_time && self.end < Time.zone.now) ||
       (end_time.nil? && start < Time.zone.now)
   end
+
+  def poster_representation
+    poster.representation(resize: '764x1080!') if poster.attached?
+  end
+
+  def thumbnail_representation
+    poster.representation(resize: '254x360!') if poster.attached?
+  end
 end

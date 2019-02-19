@@ -24,10 +24,10 @@ node :end_date do |activity|
   end
 end
 
-node :poster do |activity|
-  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '764x1080!') }" if activity.poster.attached?
+node :poster do |a|
+    full_url_for a.poster_representation
 end
 
-node :thumbnail do |activity|
-  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '254x360!') }" if activity.poster.attached?
+node :thumbnail do |a|
+    full_url_for a.thumbnail_representation
 end

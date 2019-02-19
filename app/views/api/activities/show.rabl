@@ -37,18 +37,18 @@ glue :group do
   attribute :name => :group
 end
 
-node :poster do |activity|
-  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '764x1080!') }" if activity.poster.attached?
-end
-
-node :thumbnail do |activity|
-  "#{ ENV['KOALA_DOMAIN'] }#{ url_for activity.poster.representation(resize: '254x360!') }" if activity.poster.attached?
-end
-
 node :enrollable do |activity|
   !activity.participant_limit.nil? && activity.attendees.count < activity.participant_limit
 end
 
 node :location do |activity|
   activity.location unless activity.location.nil?
+end
+
+node :poster do |a|
+    full_url_for a.poster_representation
+end
+
+node :thumbnail do |a|
+    full_url_for a.thumbnail_representation
 end
