@@ -9,7 +9,9 @@ class CheckoutProduct < ApplicationRecord
   attr_accessor :skip_image_validation
 
   def content_type
-    errors.add(:image, I18n.t('activerecord.errors.unsupported_content_type', :type => image.content_type.to_s, :allowed => 'image/jpeg image/png')) unless image.attached? && image.content_type.in?(['image/jpeg', 'image/png'])
+    return if !image.attached? || image.content_type.in?(['image/jpeg', 'image/png'])
+
+    errors.add(:image, I18n.t('activerecord.errors.unsupported_content_type', :type => image.content_type.to_s, :allowed => 'image/jpeg image/png'))
   end
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
@@ -35,6 +37,7 @@ class CheckoutProduct < ApplicationRecord
 
   def url
     return image.representation(combine_options: { thumbnail: '128x128^', gravity: 'center', extent: '128x128' }) if image.attached?
+
     return nil if parent.nil?
 
     return CheckoutProduct.find_by_id(parent).url
