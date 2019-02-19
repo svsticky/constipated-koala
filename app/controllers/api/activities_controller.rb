@@ -13,6 +13,16 @@ class Api::ActivitiesController < ApiController
     end
   end
 
+  def poster
+    @activity = Activity.find params[:activity_id]
+    redirect_to url_for @activity.poster_representation
+  end
+
+  def thumbnail
+    @activity = Activity.find params[:activity_id]
+    redirect_to url_for @activity.thumbnail_representation
+  end
+
   def show
     @activity = Activity.find_by_id! params[:id]
   end
