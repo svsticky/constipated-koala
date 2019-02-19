@@ -6,14 +6,24 @@ class Activity < ApplicationRecord
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
   validate :unenroll_before_start, unless: proc { |a| a.unenroll_date.nil? }
+
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
     allow_nil: true
   }
+
   validates :price, numericality: {
     greater_than_or_equal_to: 0
   }
+
+  validate :content_type
+  def content_type
+    # NOTE required to be an pdf, jpg or png but file can also be empty
+    return unless poster.attached?
+
+    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
+  end
 
   # Disabled validations
   # validates :end_date
@@ -24,19 +34,7 @@ class Activity < ApplicationRecord
 
   after_update :enroll_reservists, if: proc { |a| a.saved_change_to_participant_limit }
 
-  has_attached_file :poster,
-                    :styles => {
-                      :thumb => ['180', :png],
-                      :medium => ['x1080', :png]
-                    },
-                    :processors => [:ghostscript, :thumbnail],
-                    :validate_media_type => false,
-                    :convert_options => {
-                      :all => '-colorspace CMYK -flatten -quality 100 -density 8'
-                    }
-
-  validates_attachment_content_type :poster, :content_type => 'application/pdf'
-
+  has_one_attached :poster
   has_one :group, :as => :organized_by
 
   has_many :participants, :dependent => :destroy
@@ -249,5 +247,13 @@ class Activity < ApplicationRecord
   def ended?
     (end_time && self.end < Time.zone.now) ||
       (end_time.nil? && start < Time.zone.now)
+  end
+
+  def poster_representation
+    poster.representation(resize: '764x1080!') if poster.attached?
+  end
+
+  def thumbnail_representation
+    poster.representation(resize: '254x360!') if poster.attached?
   end
 end

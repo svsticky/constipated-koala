@@ -2,12 +2,16 @@
 class Advertisement < ApplicationRecord
   validates :name, presence: true
 
-  has_attached_file :poster,
-                    :styles => { :original => ['x1080', :png] },
-                    :processors => [:ghostscript, :thumbnail],
-                    :validate_media_type => false,
-                    :convert_options => { :all => '-colorspace CMYK -quality 100 -density 8' }
+  has_one_attached :poster
+  validate :content_type
 
-  validates_attachment_content_type :poster,
-                                    :content_type => ['application/pdf', 'image/jpeg', 'image/png']
+  def url
+    poster.representation(resize: '764x1080!') if poster.attached?
+  end
+
+  private
+
+  def content_type
+    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) unless poster.attached? && poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
+  end
 end

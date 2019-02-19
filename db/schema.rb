@@ -12,6 +12,27 @@
 
 ActiveRecord::Schema.define(version: 2018_11_09_124436) do
 
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
   create_table "activities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.date "start_date"
@@ -22,10 +43,6 @@ ActiveRecord::Schema.define(version: 2018_11_09_124436) do
     t.text "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "poster_file_name"
-    t.string "poster_content_type"
-    t.bigint "poster_file_size"
-    t.datetime "poster_updated_at"
     t.text "description"
     t.integer "organized_by"
     t.boolean "is_enrollable"
@@ -53,10 +70,6 @@ ActiveRecord::Schema.define(version: 2018_11_09_124436) do
 
   create_table "advertisements", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.string "poster_file_name"
-    t.string "poster_content_type"
-    t.bigint "poster_file_size"
-    t.datetime "poster_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -86,10 +99,6 @@ ActiveRecord::Schema.define(version: 2018_11_09_124436) do
     t.integer "parent"
     t.boolean "active", default: true
     t.decimal "price", precision: 6, scale: 2
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.bigint "image_file_size"
-    t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
