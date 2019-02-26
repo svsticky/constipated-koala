@@ -10,8 +10,7 @@ Poster_modal.prototype = {
     this.current_activity = activity;
 
     //Load the poster of the panel activity in the modal
-    this.img.attr('src',
-      activity.poster_source.replace('thumb', 'medium'));
+    this.img.attr('src', '/api/activities/' + activity.id + '/poster');
 
     //set the more info href
     if(!inMoreInfoView())

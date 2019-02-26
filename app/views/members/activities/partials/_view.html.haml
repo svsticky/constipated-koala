@@ -15,7 +15,7 @@
     - if activity.poster.attached?
       .media-left.poster-thumbnail
         %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
-          =image_tag activity.poster.representation(resize: '764x1080!'), class: "small-poster"
+          =image_tag activity.thumbnail_representation, class: "small-poster"
     .media-body
       - if activity.start_date != activity.end_date
         %strong= I18n.t("activerecord.labels.activities.when")
