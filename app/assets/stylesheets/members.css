@@ -18,7 +18,8 @@
  *= require_tree ./members
  */
 
-.panel-activity > .panel-body {
+.panel-activity > .panel-body:nth-child(2) {
   height: 230px;
   overflow: hidden;
+  display: flex;
 }
