@@ -20,7 +20,7 @@
             %tbody
               - @activities.each do |activity|
                 %tr
-                  %td= link_to activity.name, activity
+                  %td{ :style => 'max-width:20vw;' }= link_to activity.name, activity, :style => 'overflow:hidden; text-overflow:ellipsis; white-space:nowrap;'
 
                   - if !activity.group.nil?
                     %td.hidden-sm
