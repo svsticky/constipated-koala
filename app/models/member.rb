@@ -5,15 +5,18 @@
 class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
+
   validates :address, presence: true
   validates :house_number, presence: true
   validates :postal_code, presence: true
   validates :city, presence: true
+
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :emergency_phone_number, :allow_blank => true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :emergency_phone_number, presence: true, if: :underage?
+
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
-  validates :gender, presence: true, inclusion: { in: %w[m f] }
+  validates :gender, inclusion: { in: %w[m f] }
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
@@ -27,32 +30,20 @@ class Member < ApplicationRecord
   is_impressionable :dependent => :ignore
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
-  has_many :tags,
-           :dependent => :destroy,
-           :autosave => true
+  has_many :tags, :dependent => :destroy, :autosave => true
+  accepts_nested_attributes_for :tags, :reject_if => :all_blank, :allow_destroy => true
 
-  accepts_nested_attributes_for :tags,
-                                :reject_if => :all_blank,
-                                :allow_destroy => true
+  has_many :checkout_cards, :dependent => :destroy
+  has_one :checkout_balance, :dependent => :nullify
 
-  has_many :checkout_cards,
-           :dependent => :destroy
-  has_one :checkout_balance,
-          :dependent => :destroy
-
-  has_many :educations,
-           :dependent => :destroy
-  has_many :studies,
-           :through => :educations
-
+  has_many :educations, :dependent => :nullify
+  has_many :studies, :through => :educations
   accepts_nested_attributes_for :educations,
                                 :reject_if => proc { |attributes| attributes['study_id'].blank? },
                                 :allow_destroy => true
 
-  has_many :participants,
-           :dependent => :destroy
-  has_many :activities,
-           :through => :participants
+  has_many :participants, :dependent => :nullify
+  has_many :activities, :through => :participants
 
   has_many :confirmed_activities,
            -> { where(participants: { reservist: false }) },
@@ -62,11 +53,39 @@ class Member < ApplicationRecord
            -> { where(participants: { reservist: true }) },
            :through => :participants,
            :source => :activity
+  # has_many :unpaid_activities, TODO
+  #           -> { where(participants: {})}
+  #           def unpaid_activities
+  #             # All participants who will receive payment reminders
+  #             participants.joins(:activity).where('
+  #               activities.start_date <= ?
+  #               AND
+  #               participants.reservist IS FALSE
+  #               AND
+  #                (
+  #                 (activities.price IS NOT NULL
+  #                  AND
+  #                  participants.paid IS FALSE
+  #                  AND
+  #                  (participants.price IS NULL
+  #                   OR
+  #                   participants.price > 0)
+  #                 )
+  #                 OR
+  #                 (
+  #                  activities.price IS NULL
+  #                  AND
+  #                  participants.paid IS FALSE
+  #                  AND
+  #                  participants.price IS NOT NULL
+  #                 )
+  #               )', Date.today).distinct
+  #           end
 
-  has_many :group_members,
-           :dependent => :destroy
-  has_many :groups,
-           :through => :group_members
+  has_many :group_members, :dependent => :nullify
+  has_many :groups, :through => :group_members
+
+  has_one :user, as: :credentials, :dependent => :destroy
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
@@ -111,9 +130,9 @@ class Member < ApplicationRecord
     write_attribute(:student_id, nil) if student_id.blank?
   end
 
-  def user
-    User.find_by_credentials self
-  end
+  # def user
+  #   User.find_by_credentials self
+  # end
 
   def tags_names
     tags.pluck(:name)
