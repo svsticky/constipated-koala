@@ -53,34 +53,10 @@ class Member < ApplicationRecord
            -> { where(participants: { reservist: true }) },
            :through => :participants,
            :source => :activity
-  # has_many :unpaid_activities, TODO
-  #           -> { where(participants: {})}
-  #           def unpaid_activities
-  #             # All participants who will receive payment reminders
-  #             participants.joins(:activity).where('
-  #               activities.start_date <= ?
-  #               AND
-  #               participants.reservist IS FALSE
-  #               AND
-  #                (
-  #                 (activities.price IS NOT NULL
-  #                  AND
-  #                  participants.paid IS FALSE
-  #                  AND
-  #                  (participants.price IS NULL
-  #                   OR
-  #                   participants.price > 0)
-  #                 )
-  #                 OR
-  #                 (
-  #                  activities.price IS NULL
-  #                  AND
-  #                  participants.paid IS FALSE
-  #                  AND
-  #                  participants.price IS NOT NULL
-  #                 )
-  #               )', Date.today).distinct
-  #           end
+  has_many :unpaid_activities,
+           -> { where('participants.reservist IS FALSE AND ( (activities.price IS NOT NULL AND participants.paid IS FALSE AND (participants.price IS NULL OR participants.price > 0) ) OR ( activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))')},
+           :through => :participants,
+           :source => :activity
 
   has_many :group_members, :dependent => :nullify
   has_many :groups, :through => :group_members
@@ -129,10 +105,6 @@ class Member < ApplicationRecord
     write_attribute(:student_id, student_id.upcase)
     write_attribute(:student_id, nil) if student_id.blank?
   end
-
-  # def user
-  #   User.find_by_credentials self
-  # end
 
   def tags_names
     tags.pluck(:name)
@@ -198,10 +170,21 @@ class Member < ApplicationRecord
     end
   end
 
-  # destroy account on removal of member
   before_destroy do
-    user = User.find_by_email(email)
-    user.delete if user.present?
+    # check if all activities are paid
+    if unpaid_activities.count > 0 # TODO: unpaid_activities is not what is seems...
+      errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
+      raise ActiveRecord::Rollback
+    end
+
+    errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
+    raise ActiveRecord::Rollback
+
+    # create transaction for emptying checkout_balance
+    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'contant') if checkout_balance.present? && checkout_balance.balance != 0
+
+    # user = User.find_by_email(email)
+    # user.delete if user.present?
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
@@ -258,33 +241,6 @@ class Member < ApplicationRecord
   # Member may enroll when currently enrolled in study, or tagged with one of the whitelisting tags.
   def may_enroll?
     return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
-  end
-
-  def unpaid_activities
-    # All participants who will receive payment reminders
-    participants.joins(:activity).where('
-      activities.start_date <= ?
-      AND
-      participants.reservist IS FALSE
-      AND
-       (
-        (activities.price IS NOT NULL
-         AND
-         participants.paid IS FALSE
-         AND
-         (participants.price IS NULL
-          OR
-          participants.price > 0)
-        )
-        OR
-        (
-         activities.price IS NULL
-         AND
-         participants.paid IS FALSE
-         AND
-         participants.price IS NOT NULL
-        )
-      )', Date.today).distinct
   end
 
   # TODO: move search related methods to lib?

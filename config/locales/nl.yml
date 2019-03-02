@@ -177,6 +177,7 @@ nl:
       incomplete: Oh snap, niet alles is goed ingevuld
       no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
       unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
+      info: Het is gelukt
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
@@ -247,6 +248,11 @@ nl:
               elfproef: "is niet geldig"
               invalid: "is niet geldig"
               taken: "is al geregistreerd"
+            participants:
+              unpaid_activities: "Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en probeer daarna nogmaals te verwijderen."
+          destroy:
+            info: "%{name} is no longer stored in this database, bye!"
+            checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
           blank: "kan niet leeg zijn"
         unpermitted: "is niet geldig"
         user:
