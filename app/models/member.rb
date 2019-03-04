@@ -171,14 +171,16 @@ class Member < ApplicationRecord
   end
 
   before_destroy do
+    puts unpaid_activities.count
+
     # check if all activities are paid
-    if unpaid_activities.count > 0 # TODO: unpaid_activities is not what is seems...
+    if unpaid_activities.count > 0
       errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
       raise ActiveRecord::Rollback
     end
 
-    errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
-    raise ActiveRecord::Rollback
+    # remove participants for free activities in the future TODO
+    # Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'contant') if checkout_balance.present? && checkout_balance.balance != 0
