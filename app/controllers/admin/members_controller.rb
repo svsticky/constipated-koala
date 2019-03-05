@@ -141,12 +141,12 @@ class Admin::MembersController < ApplicationController
     flash[:notice] = []
 
     if @member.destroy
-      # impressionist(@member, @member.name)
+      # impressionist(@member, @member.name) TODO
 
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
 
-      # TODO: this should not be required
+      # TODO: this should not be required?
       @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(50).offset(0)
       redirect_to members_path
     else
