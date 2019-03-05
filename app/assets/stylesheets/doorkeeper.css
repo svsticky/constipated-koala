@@ -12,18 +12,26 @@
  *
  *= require font-awesome
  *= require bootstrap/dist/css/bootstrap
+ *= require yeti
  */
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-html, body {
+html,
+body {
   display: block;
   position: relative;
   height: 100%;
   width: 100%;
 }
 
-h1, h2, h3, h4, p, a, .text-center {
-  font-family: 'Roboto', sans-serif;
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+.text-center {
+  font-family: "Roboto", sans-serif;
 }
 
 a {
@@ -35,14 +43,15 @@ span.input-group-addon {
 }
 
 div.container {
-  background-color: #F34541;
+  background-color: #f34541;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-div.container h1, div.container h2 {
+div.container h1,
+div.container h2 {
   position: absolute;
   bottom: 30px;
   width: 100%;
@@ -83,7 +92,7 @@ div.container .text-center {
 div.container .row {
   position: relative;
   display: block;
-  background-color: #F34541;
+  background-color: #f34541;
   text-align: center;
   vertical-align: middle;
   width: 100%;
@@ -100,9 +109,9 @@ div.container .row:nth-child(1):after {
   left: 50%;
   bottom: -20px;
   margin-left: -4px;
-  content: '';
-  border-left: 8px solid #F34541;
-  border-right: 8px solid #F34541;
+  content: "";
+  border-left: 8px solid #f34541;
+  border-right: 8px solid #f34541;
   border-bottom: 10px solid white;
   background-color: white;
 }
@@ -112,7 +121,8 @@ div.container .row:nth-child(2) {
   margin: 20px 0;
 }
 
-div.container .row > form, div.container .row > div {
+div.container .row > form,
+div.container .row > div {
   display: block;
   background-color: white;
   margin: 50px auto;
@@ -120,7 +130,7 @@ div.container .row > form, div.container .row > div {
 }
 
 div.container .row > div.text-center {
-  background-color: #F34541;
+  background-color: #f34541;
   color: white;
 }
 
@@ -144,11 +154,11 @@ div.container .row > div li {
 }
 
 div.container .row > div li:after {
-  content: ',';
+  content: ",";
 }
 
 div.container .row > div li:last-child:after {
-  content: '.';
+  content: ".";
 }
 
 div.container .row form div.alert {
@@ -165,13 +175,15 @@ div.container .row .actions form input {
 }
 
 @media (min-width: 768px) {
-  div.container .row > form, div.container .row > div {
+  div.container .row > form,
+  div.container .row > div {
     width: 50%;
   }
 }
 
 @media (min-width: 992px) {
-  div.container .row > form, div.container .row > div {
+  div.container .row > form,
+  div.container .row > div {
     width: 30%;
   }
 }
@@ -190,12 +202,12 @@ span.version {
     display: block;
     right: 10px;
     bottom: 2px;
-    color: rgb(255,255,255); /* Fallback color */
+    color: rgb(255, 255, 255); /* Fallback color */
     color: rgba(255, 255, 255, 0.8);
   }
 
   span.version::before {
-    content: 'v';
+    content: "v";
   }
 }
 
@@ -203,5 +215,5 @@ span.version {
   position: relative;
   vertical-align: middle;
   bottom: 1px;
-  font-weight: normal
+  font-weight: normal;
 }
