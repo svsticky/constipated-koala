@@ -26,7 +26,7 @@ table.table#members tr td {
   width: 50%;
 }
 
-table.table#members tr td a {
+table.table#members tr td a, table.table#members tr td span {
   height: 34px;
   line-height: 34px;
   margin: 2px;
