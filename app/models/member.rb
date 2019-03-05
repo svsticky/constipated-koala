@@ -213,8 +213,8 @@ class Member < ApplicationRecord
     end
   end
 
+  # NOTE: return default value if birth date is blank, required for form validation
   def adult?
-    # return default value if birth date is blank, required for form validation
     return false if birth_date.blank?
 
     return 18.years.ago >= birth_date
@@ -294,25 +294,22 @@ class Member < ApplicationRecord
 
   private
 
-  # NOTE this doesn't work in a block without prepend:true relations are destroyed before this callback but keep it here as wells
+  # NOTE: this doesn't work in a block without prepend:true relations are destroyed before this callback but keep it here as wells
   def before_destroy
-
     # check if all activities are paid
     unless unpaid_activities.empty?
       errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
       raise ActiveRecord::Rollback
     end
 
-    # remove participants for free activities in the future TODO
-    # Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
+    # remove participants of this member for free activities in the future
+    Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 
-    # remove all participant notes TODO
+    # remove all participant notes where member_id is nil
+    Participant.where(:member_id => nil).update_all(notes: nil)
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'contant') if checkout_balance.present? && checkout_balance.balance != 0
-
-    # user = User.find_by_email(email)
-    # user.delete if user.present?
   end
 
   # Perform an elfproef to verify the student_id
@@ -320,7 +317,7 @@ class Member < ApplicationRecord
     # on the intro website student_id is required
     errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
 
-    # do not do the elfproef if a foreign student
+    # do not do the elfproef on a foreign student
     return if student_id =~ /\F\d{6}/
     return if student_id.blank?
 
