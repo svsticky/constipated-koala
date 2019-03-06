@@ -62,7 +62,7 @@ class Admin::MembersController < ApplicationController
   # Send appropriate email to user for account access, either password reset, user creation, or activation mail.
   def send_user_email
     @member = Member.find(params[:member_id])
-    
+
     if !@member.user
       # Send create
       user = User.create_on_member_enrollment! @member
