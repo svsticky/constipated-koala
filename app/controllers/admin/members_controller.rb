@@ -41,7 +41,6 @@ class Admin::MembersController < ApplicationController
     @activities = (@member.activities.study_year(params['year']).order(start_date: :desc).joins(:participants).distinct.where("participants.reservist = ?", false) +
                   @member.unpaid_activities.order(start_date: :desc).where('start_date < ?', Date.to_date(Date.today.study_year))).uniq
 
-
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
     @member_user = User.find_by credentials: @member
 
