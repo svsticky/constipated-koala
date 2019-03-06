@@ -4,15 +4,6 @@
 %section#content
   = render 'layouts/partials/search'
 
-  - if flash['notice'].present?
-    .col-md-12
-      .alert.alert-info
-        %button.close{ type: "button" } ×
-        %span= I18n.t('activerecord.errors.info')
-        %ul
-        - flash['notice'].each do |msg|
-          %li= msg
-
   .page.page-table
     %section.panel.panel-default.table-dynamic
       .panel-heading
