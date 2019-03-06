@@ -24,21 +24,24 @@
 
       .form-group
         .input-group
-          %span.input-group-addon
-            %i.fa.fa-envelope-o
+          .input-group-prepend
+            %span.input-group-text
+              %i.fa.fa-envelope-o
           %label.form-control.form-control-disabled
             = @user.email
 
       .form-group
         .input-group
-          %span.input-group-addon
-            %i.fa.fa-lock
+          .input-group-prepend
+            %span.input-group-text
+              %i.fa.fa-lock
           = f.password_field :password, autocomplete: 'off', placeholder: t('activerecord.attributes.user.password'), :class => 'form-control'
 
       .form-group
         .input-group
-          %span.input-group-addon
-            %i.fa.fa-lock
+          .input-group-prepend
+            %span.input-group-text
+              %i.fa.fa-lock
           = f.password_field :password_confirmation, autocomplete: 'off', placeholder: t('activerecord.attributes.user.password_confirmation'), :class => 'form-control'
       .form-group
         = f.hidden_field :confirmation_token, value: @user.confirmation_token
