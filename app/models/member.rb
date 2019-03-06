@@ -302,6 +302,8 @@ class Member < ApplicationRecord
       raise ActiveRecord::Rollback
     end
 
+    # remove reservist TODO
+
     # remove participants of this member for free activities in the future
     Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 

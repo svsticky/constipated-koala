@@ -43,6 +43,26 @@
               - @attendees.each do |participant|
                 = render 'admin/activities/partials/attendee_table_row', participant: participant
 
+              - if (@activity.end_date || @activity.start_date) > Date.today
+                - @activity.participants.where(:member_id => nil).each do |participant|
+                  %tr{ :class => ('in-debt' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, reservist: 'false' }  }
+                    %td
+                      %span oud-lid
+
+                    %td.price-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                      %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
+                    %td.notes-td
+                    %td.buttons
+                      .btn-group
+                        - if participant.paid
+                          %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 ) }
+                            %i.fa.fa-fw.fa-check
+                        - else
+                          %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0)}
+                            %i.fa.fa-fw.fa-times
+                        %button.btn.btn-default.destroy
+                          %i.fa.fa-fw.fa-trash-o
+
               %tr
                 %td{ :style => 'position: relative;'}
                   %input#participant.col-md-11{ :style => 'margin-left: -3px;', :tabindex => '-1' }

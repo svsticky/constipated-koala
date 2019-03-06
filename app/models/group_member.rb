@@ -14,5 +14,6 @@ class GroupMember < ApplicationRecord
 
   def name
     member&.name || ''
+    # member.name TODO 
   end
 end
