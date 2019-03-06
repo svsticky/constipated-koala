@@ -215,6 +215,11 @@ en:
               elfproef: "is not valid"
               invalid: "is not valid"
               taken: "is already registered"
+            participants:
+              unpaid_activities: "There are unpaid activities, ensure all activities are payed and try again."
+          destroy:
+            info: "%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats."
+            checkout_emptied: "The checkout balance was %{balance}, this has been removed from their account."
           blank: "can't be blank"
         unpermitted: "is not permitted"
         user:

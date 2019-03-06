@@ -251,7 +251,7 @@ nl:
             participants:
               unpaid_activities: "Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en probeer daarna nogmaals te verwijderen."
           destroy:
-            info: "%{name} is no longer stored in this database, bye!"
+            info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
             checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
           blank: "kan niet leeg zijn"
         unpermitted: "is niet geldig"

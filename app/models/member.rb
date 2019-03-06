@@ -33,7 +33,8 @@ class Member < ApplicationRecord
   before_destroy :before_destroy, prepend: true
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
-  has_many :tags, :dependent => :destroy, :autosave => true
+  # `delete_all` is used because there is no primary key, poor choice on my end
+  has_many :tags, :dependent => :delete_all, :autosave => true
   accepts_nested_attributes_for :tags, :reject_if => :all_blank, :allow_destroy => true
 
   has_many :checkout_cards, :dependent => :destroy
@@ -294,7 +295,7 @@ class Member < ApplicationRecord
 
   private
 
-  # NOTE: this doesn't work in a block without prepend:true relations are destroyed before this callback but keep it here as wells
+  # NOTE: this doesn't work in a block without prepend:true relations are destroyed before this callback
   def before_destroy
     # check if all activities are paid
     unless unpaid_activities.empty?
@@ -302,7 +303,8 @@ class Member < ApplicationRecord
       raise ActiveRecord::Rollback
     end
 
-    # remove reservist TODO
+    # remove reservist
+    Participant.where(activity_id: reservist_activities.pluck(:id), member_id: id).destroy_all
 
     # remove participants of this member for free activities in the future
     Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
