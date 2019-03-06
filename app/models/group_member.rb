@@ -13,7 +13,6 @@ class GroupMember < ApplicationRecord
   end
 
   def name
-    member&.name || ''
-    # member.name TODO 
+    member.name
   end
 end
