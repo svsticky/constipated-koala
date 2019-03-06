@@ -50,12 +50,12 @@
               - if current_user.admin?
                 %p= @member.comments
 
-              - if @member_user
-                - if @member_user.confirmed?
-                  %p= I18n.t 'admin.member_account_status.active_user', email: @member.email
+              - if @member.user
+                - if @member.user.confirmed?
+                  %p= I18n.t 'admin.member_account_status.active_user', email: @member.user.email
 
                 - else
-                  %strong= I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
+                  %strong= I18n.t 'admin.member_account_status.user_not_activated', email: @member.user.email
 
               - else
                 %p= I18n.t 'admin.member_account_status.no_user'

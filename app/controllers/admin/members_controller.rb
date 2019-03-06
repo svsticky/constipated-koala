@@ -42,12 +42,12 @@ class Admin::MembersController < ApplicationController
                   @member.unpaid_activities.order(start_date: :desc).where('start_date < ?', Date.to_date(Date.today.study_year))).uniq
 
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
-    @member_user = User.find_by credentials: @member
 
+    # I think this should be in a view TODO
     @account_button_text =
-      if @member_user&.confirmed?
+      if @member.user&.confirmed?
         then I18n.t 'admin.member_account_status.send_password_reset'
-      elsif @member_user && !@member_user.confirmed?
+      elsif @member.user && !@member.user.confirmed?
         then I18n.t 'admin.member_account_status.resend_confirmation'
       else
         I18n.t 'admin.member_account_status.send_create_email'
@@ -62,19 +62,17 @@ class Admin::MembersController < ApplicationController
   # Send appropriate email to user for account access, either password reset, user creation, or activation mail.
   def send_user_email
     @member = Member.find(params[:member_id])
-
-    @member_user = User.find_by credentials: @member
-
-    if !@member_user
+    
+    if !@member.user
       # Send create
       user = User.create_on_member_enrollment! @member
       user.resend_confirmation! :activation_instructions
-    elsif !@member_user.confirmed?
+    elsif !@member.user.confirmed?
       # Send activate
-      @member_user.resend_confirmation! :confirmation_instructions
+      @member.user.resend_confirmation! :confirmation_instructions
     else
       # Send password reset
-      @member_user.send_reset_password_instructions
+      @member.user.send_reset_password_instructions
     end
 
     flash[:success] = I18n.t 'admin.member_account_status.email_sent'
