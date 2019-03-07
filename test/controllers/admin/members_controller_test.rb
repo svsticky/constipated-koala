@@ -29,6 +29,6 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
       delete member_url(@member)
     end
 
-    assert_redirected_to members_url
+    assert_redirected_to root_url
   end
 end
