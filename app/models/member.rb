@@ -16,7 +16,6 @@ class Member < ApplicationRecord
   validates :emergency_phone_number, presence: true, if: :underage?
 
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
-  validates :gender, inclusion: { in: %w[m f] }
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
