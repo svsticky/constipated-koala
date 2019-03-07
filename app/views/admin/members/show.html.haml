@@ -33,7 +33,7 @@
                   = flash[:success]
 
               %p
-                %strong #{@member.name} (#{@member.gender})
+                %strong= @member.name
                 %br
                 - if !@member.birth_date.nil?
                   = I18n.l @member.birth_date

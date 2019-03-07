@@ -118,8 +118,7 @@ class Members::HomeController < MembersController
                                    :city,
                                    :phone_number,
                                    :emergency_phone_number,
-                                   :email,
-                                   :gender)
+                                   :email)
   end
 
   def ideal_transaction_params

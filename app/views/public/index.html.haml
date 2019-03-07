@@ -94,11 +94,7 @@
                   = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
             .form-group
               .row
-                .col-md-6
-                  %label{for: ''}= I18n.t(:gender, scope: 'activerecord.attributes.member')
-                  .ui-select
-                    = f.select :gender, options_for_select([[I18n.t(:male, scope: 'activerecord.attributes.member'), 'm'], [I18n.t(:female, scope: 'activerecord.attributes.member'), 'f']], @member.gender)
-                .col-md-6
+                .col-md-12
                   %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
                   = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
             .form-group

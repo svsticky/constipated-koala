@@ -9,7 +9,6 @@ martyparty:
   phone_number: 0612345678
   emergency_phone_number: 0612345678
   email: martyparty@maartenberg.nl
-  gender: m
   birth_date: <%= Date.today %>
   join_date: <%= Date.today %>
 
@@ -24,7 +23,6 @@ dannypanny:
   phone_number: 0301337420
   emergency_phone_number: 0301337420
   email: danoontjepower@maartenberg.nl
-  gender: m
   birth_date: <%= Date.today %>
   join_date: <%= Date.today %>
 
@@ -38,7 +36,6 @@ captain_underpants:
   phone_number: 0612345678
   emergency_phone_number: 0612345678
   email: kapiteinonderbroek@maartenberg.nl
-  gender: m
   birth_date: <%= 19.years.ago %>
   join_date: <%= 2.weeks.ago %>
 
@@ -52,7 +49,6 @@ yorici:
   phone_number: 0611001100
   emergency_phone_number: 0611001100
   email: moneymoneymoney@maartenberg.nl
-  gender: m
   birth_date: <%= 20.years.ago %>
   join_date: <%= 2.years.ago %>
 
@@ -67,7 +63,6 @@ m8eld:
   phone_number: 0183172737
   emergency_phone_number: 0183172737
   email: mevrouwmetdehamer@maartenberg.nl
-  gender: f
   birth_date: <%= 17.years.ago %>
   join_date: <%= 1.days.ago %>
 
@@ -81,7 +76,6 @@ glenniepennie:
   phone_number: 0612324444
   emergency_phone_number: 0612324444
   email: stewartlittle@maartenberg.nl
-  gender: m
   birth_date: <%= 20.years.ago %>
   join_date: <%= 2.years.ago %>
 
@@ -96,7 +90,6 @@ roosje:
   phone_number: 0049624575821
   emergency_phone_number: 0049624575821
   email: slapendeschone@maartenberg.nl
-  gender: m
   birth_date: <%= 19.years.ago %>
   join_date: <%= 7.weeks.ago %>
 
@@ -110,7 +103,6 @@ meneerdeveurzitter:
   phone_number: 0613480485
   emergency_phone_number: 0613480485
   email: veurzitter@maartenberg.nl
-  gender: m
   birth_date: <%= 29.years.ago %>
   join_date: <%= 1.weeks.ago %>
 
@@ -124,7 +116,6 @@ needfuldoer:
   phone_number: 0134913431
   emergency_phone_number: 0134913431
   email: indianguywhodoesneedful@maartenberg.nl
-  gender: m
   birth_date: <%= 40.years.ago %>
   join_date: <%= 9.weeks.ago %>
 
@@ -138,7 +129,6 @@ thecreator:
   phone_number: 0134913431
   emergency_phone_number: 0134913431
   email: inthebeginninghecreatedkoala@maartenberg.nl
-  gender: m
   birth_date: <%= 20.years.ago %>
   join_date: <%= 19.years.ago %>
 
@@ -152,7 +142,6 @@ masterboy030man:
   phone_number: 0611223344
   emergency_phone_number: 0611223344
   email: masterboy030man@maartenberg.nl
-  gender: m
   birth_date: <%= 25.years.ago %>
   join_date: <%= 19.years.ago %>
 
@@ -167,6 +156,5 @@ feutemeteut:
   phone_number: 0643214321
   emergency_phone_number: 0643214321
   email: eenofanderverschrikkelijkadres@maartenberg.nl
-  gender: m
   birth_date: <%= 18.years.ago %>
   join_date: <%= 17.years.ago %>
