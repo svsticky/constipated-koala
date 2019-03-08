@@ -28,7 +28,6 @@ class CheckoutProduct < ApplicationRecord
   validates_attachment_content_type :image,
                                     :content_type => ['image/jpeg', 'image/png']
 
-
   before_update do
     if name_changed? || category_changed? || price_changed?
       record          = CheckoutProduct.new
