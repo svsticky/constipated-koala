@@ -53,7 +53,7 @@ $ cd ~/.rbenv/plugins
 $ git clone https://github.com/rbenv/rbenv-vars.git
 ```
 
-Now the hardest part; [paperclip](https://github.com/thoughtbot/paperclip#image-processor). Paperclip is a image processor, however we have to add imagemagick to our server. Make sure the `identify` and `convert` are reachable from the path configured [here](../environment.rb). You can find the paths out by using `which convert` on your machine.
+Now the hardest part; [active storage](http://edgeguides.rubyonrails.org/active_storage_overview.html). Active storage uses minimagick as a image processor, we have to add imagemagick to our server. Make sure the `identify` and `convert` are installed. For pdf we also need ghostscript to be installed, which can be tested by using `which gs`. You can find the paths out by using `which convert` on your machine.
 
 ### Running the app
 Deploying koala or any Ruby on Rails application for that matter is not that hard. First we have to clone the repository to a suitable location, we have done that already, usually that would be `/var/www` on any linux server. Then we have to install rbenv-vars, which set environment variables, also check. It sets variables accessible on the entire system, these variables are usually secret so they are not put on Github. To list all environment variables just type `env` and press <kbd>enter</kbd>.

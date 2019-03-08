@@ -144,8 +144,21 @@ en:
         password: password
         password_confirmation: "Repeat password"
     errors:
-      default: "Some has gone wrong"
-      incomplete: "Oh snap, you forgot some things"
+      default: Some has gone wrong
+      incomplete: Oh snap, you forgot some things
+      no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
+      unsupported_content_type: File type %{type} is not allowed. (%{allowed})
+
+      messages:
+        blank: can't be blank
+
+      subscribe:
+        failed: Your payment has failed, but you have been enrolled!
+        success: Your payment has been received and you are enrolled!
+        no_bank_provided: Bank can't be empty when paying with iDEAL.
+        success_without_payment: You have been enrolled!
+
+
       models:
         activity:
           activity_ended: "This activity is not or no longer available. Go back."
@@ -386,9 +399,11 @@ en:
         standard: standard
       mail:
         addressees: Addressees
-        all_participants: ALL_PARTICIPANTS
+        all_participants: ALL PARTICIPANTS (including reservists)
+        attendees: ALL ATTENDEES (no reservists)
         draft: Draft
-        non_payers: NON_PAYERS
+        non_payers: NON-PAYERS
+        reservists: RESERVISTS
         send: Send
         subject: Subject
       poster_modal:

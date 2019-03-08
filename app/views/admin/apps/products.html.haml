@@ -75,7 +75,7 @@
                             = f.file_field :image, { 'data-ui-file-upload' => '' }
 
                 %span.thumb.hidden-xs
-                  - if !@product.url.nil?
+                  - if @product.url.present?
                     =image_tag @product.url
 
                 %button.btn.btn-success.wait{ type: 'submit', disabled: @product.children? } Opslaan

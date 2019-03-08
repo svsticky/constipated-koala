@@ -16,7 +16,9 @@
             .col-md-4
               .ui-select
                 %select.form-control{ :name => 'recipients', :style => 'width: 100%;'}
+                  %option{ :value => 'attendees' }= I18n.t("layouts.partials.mail.attendees")
                   %option{ :value => 'all' }= I18n.t("layouts.partials.mail.all_participants")
+                  %option{ :value => 'reservists' }= I18n.t("layouts.partials.mail.reservists")
                   %option{ :value => 'debtors', :selected => 'selected' }= I18n.t("layouts.partials.mail.non_payers")
       .form-group
         %label.col-md-2.hidden-xs{ :style => 'height: 34px; line-height: 34px;'}= I18n.t("layouts.partials.mail.subject")

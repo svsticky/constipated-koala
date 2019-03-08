@@ -22,11 +22,12 @@ nl:
         description: Beschrijving
         end_date: Einddatum
         end_time: Eindtijd
-        is_alcoholic: Alcohol(18+)
+        is_alcoholic: Alcohol (18+)
         is_enrollable: Inschrijfbaar
         is_masters: Masters
-        is_viewable: Zichtbaar
-        show_on_website: Op website
+        is_viewable: Toon in Koala
+        is_freshmans: Eerstejaars
+        show_on_website: Toon op website
         location: Locatie
         name: Naam
         notes: "Extra specificatie"
@@ -182,8 +183,17 @@ nl:
         password: Wachtwoord
         password_confirmation: "Herhaal wachtwoord"
     errors:
-      default: "Er is iets fout gegaan"
-      incomplete: "Oh snap, niet alles is goed ingevuld"
+      default: Er is iets fout gegaan
+      incomplete: Oh snap, niet alles is goed ingevuld
+      no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
+      unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
+
+      subscribe:
+        failed: Je betaling is niet gelukt, je bent wel ingeschreven!
+        success: Je betaling is ontvangen en je hebt je ingeschreven!
+        no_bank_provided: Bank kan niet leeg zijn als je met iDEAL betaalt
+        success_without_payment: Je hebt je ingeschreven!
+
       models:
         activity:
           activity_ended: "Deze activiteit is (niet) meer beschikbaar. Ga terug."
@@ -403,9 +413,11 @@ nl:
         standard: standaard
       mail:
         addressees: Geadresseerden
-        all_participants: "ALLE DEELNEMERS"
+        all_participants: "ALLE DEELNEMERS (inclusief reservisten)"
+        attendees: "ALLE AANWEZIGEN (geen reservisten)"
         draft: Concept
         non_payers: "NOG BETALERS"
+        reservists: "RESERVISTEN"
         send: Verstuur
         subject: Onderwerp
       poster_modal:

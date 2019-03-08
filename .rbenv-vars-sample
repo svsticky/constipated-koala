@@ -10,6 +10,11 @@ SECRET_KEY_BASE=
 DEVISE_SECRET=
 OIDC_SIGNING_KEY=
 
+# OAuth secrets for PXL proxy
+PXL_UID=
+PXL_SECRET=
+PXL_REDIRECT_URI=https://pxl.svsticky.nl/oauth2/callback
+
 # API tokens
 MAILGUN_DOMAIN=
 MAILGUN_TOKEN=

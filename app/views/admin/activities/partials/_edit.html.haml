@@ -35,18 +35,19 @@
           .col-md-12
             = label(:activity, :poster)
             .input-group
-              %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.url(:medium)}" if !@activity.poster_file_name.nil?) }
+              %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.filename}" if @activity.poster.attached?) }
 
               .input-group-btn
                 %div.btn.btn-primary.file-input-wrapper
                   %span
                     = I18n.t('files.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
-                %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' if @activity.poster_file_name.nil? ) }
+                %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @activity.poster.attached? ) }
                   %span.caret
                 %ul.dropdown-menu
                   %li
-                    = link_to I18n.t('files.download'), @activity.poster.url(:medium), :download => ''
+                    - if @activity.poster.attached?
+                      = link_to 'download', @activity.poster, :download => ''
                   %li.divider
                   %li
                     = link_to I18n.t('files.delete'), '#', :class => 'remove'
@@ -54,8 +55,8 @@
             = f.hidden_field :_destroy, :class => 'remove_poster'
 
       %span.poster.hidden-xs
-        - if !@activity.poster_file_name.nil?
-          =image_tag @activity.poster.url(:thumb)
+        - if @activity.poster.attached?
+          = image_tag @activity.poster.representation(resize: '180x255!')
 
       .form-group
         .row
@@ -93,45 +94,54 @@
       .form-group
         .row
           .col-md-12
-            = label(:activity, :notes)
+            = f.label :notes
+
         .row
-          .col-md-8
+          .col-md-12
             = f.text_field :notes, :value => @activity.notes, :class => 'form-control', id: "activity-notes"
-          .col-md-2
-            = label(:activity, :notes_public)
+
+        .row
+          .col-xs-6
             = f.check_box :notes_public, checked: @activity.notes_public
-          .col-md-2
-            = label(:activity, :notes_mandatory)
+            = f.label :notes_public
+
+          .col-xs-6
             = f.check_box :notes_mandatory, checked: @activity.notes_mandatory
+            = f.label :notes_mandatory
 
       .form-group
         = label(:activity, :comments)
         = f.text_area :comments, :value => @activity.comments, :class => 'form-control'
 
       .form-group
-        .row
-          .col-md-2
-            = label(:activity, :is_alcoholic)
+        .col-sm-4
+          .row
+            = f.check_box :is_viewable, checked: @activity.is_viewable || @activity.name.nil?, data: {original: @activity.is_viewable}
+            = f.label :is_viewable
+          .row
+            = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}
+            = f.label :is_enrollable
+
+        .col-sm-4
+          .row
+            = f.check_box :show_on_website, checked: @activity.show_on_website, disabled: !@activity.is_viewable, data: {original: @activity.show_on_website}
+            = f.label :show_on_website
+          .row
             = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
-          .col-md-2
-            = label(:activity, :is_viewable)
-            = f.check_box :is_viewable, checked: @activity.is_viewable || @activity.name.nil?, data: {original: @activity.is_viewable}, id: "is_viewable"
-          .col-md-2
-            = label(:activity, :show_on_website)
-            = f.check_box :show_on_website, checked: @activity.show_on_website, data: {original: @activity.show_on_website}, id: "show_on_website"
-          .col-md-2
-            = label(:activity, :is_enrollable)
-            = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}, id: "is_enrollable"
-          .col-md-2
-            = label(:activity, :is_masters)
-            = f.check_box :is_masters, checked: @activity.is_masters
-          .col-md-2
-            = label(:activity, :is_freshmans)
+            = f.label :is_alcoholic
+
+        .col-sm-4
+          .row
             = f.check_box :is_freshmans, checked: @activity.is_freshmans
+            = f.label :is_freshmans
+          .row
+            = f.check_box :is_masters, checked: @activity.is_masters
+            = f.label :is_masters
+
       .form-group
         .row
           .col-md-6
-            = label(:activity, :participant_limit)
+            = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 
       %button.btn.btn-success.wait{type: 'submit'}= I18n.t("editing.save")

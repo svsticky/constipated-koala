@@ -1,6 +1,6 @@
 collection @activities
 
-attribute :id, :name, :location, :price, :show_on_website
+attribute :id, :name, :location, :price, :show_on_website, :description
 
 node :participant_counter, &:fullness
 
@@ -24,8 +24,10 @@ node :end_date do |activity|
   end
 end
 
-attributes :description if Authorization._client.include?('activity-read')
+node :poster do |a|
+  full_url_for a.poster_representation
+end
 
-node :poster do |activity|
-  activity.poster.url(:medium) unless activity.poster_updated_at.nil?
+node :thumbnail do |a|
+  full_url_for a.thumbnail_representation
 end

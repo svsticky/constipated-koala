@@ -116,6 +116,8 @@ Rails.application.routes.draw do
 
         resources :activities, only: [:index, :show] do
           resources :participants
+          get 'poster'
+          get 'thumbnail'
         end
 
         scope 'hook' do

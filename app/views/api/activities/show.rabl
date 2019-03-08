@@ -37,14 +37,18 @@ glue :group do
   attribute :name => :group
 end
 
-node :poster do |activity|
-  activity.poster.url(:medium) unless activity.poster_updated_at.nil?
-end
-
 node :enrollable do |activity|
   !activity.participant_limit.nil? && activity.attendees.count < activity.participant_limit
 end
 
 node :location do |activity|
   activity.location unless activity.location.nil?
+end
+
+node :poster do |a|
+  full_url_for a.poster_representation
+end
+
+node :thumbnail do |a|
+  full_url_for a.thumbnail_representation
 end

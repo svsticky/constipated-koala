@@ -31,11 +31,8 @@ gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
 # settings cached in rails environment
+gem 'image_processing'
 gem 'rails-settings-cached'
-
-# Paperclip easy file upload
-gem 'paperclip'
-gem 'terrapin'
 
 gem 'sidekiq'
 
