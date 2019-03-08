@@ -180,14 +180,14 @@
             %table.table.table-striped.table-linked#participants
               %thead
                 %tr
-                  %th{ :style => 'text-align: left' } Activiteit
+                  %th Activiteit
                   %th Prijs
                   %th.hidden-sm.hidden-xs Datum
                   %th.hidden-xs Betaald
               %tbody
                 - @activities.each do |activity|
                   %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
-                    %td{ :style => 'max-width: 20vw;' }= link_to "#{activity.name}", activity, :style => 'text-align: left;'
+                    %td#activity-name= link_to "#{activity.name}", activity
 
                     - if !activity.currency(@member).nil?
                       %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity

@@ -12,6 +12,16 @@
   vertical-align: middle;
 }
 
+#activity-name {
+  max-width: 20vw;
+}
+
+#activity-name a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 #participants .in-debt, #participants .in-debt a {
     color: #e94b3b;
 }
@@ -20,14 +30,15 @@
   text-align: right;
 }
 
+#participants tr td:first-child > a, #participants tr th:first-child {
+  text-align: left;
+}
+
 #participants tr > td > a {
   line-height: 36px;
   height: 36px;
   width: 100%;
   text-align: right;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 #participants .price-input-td {
