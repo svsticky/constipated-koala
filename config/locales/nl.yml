@@ -263,6 +263,7 @@ nl:
           destroy:
             info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
             checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
+            mailchimp_queued: "Mailchimp gegevens worden automatisch verwijderd."
           blank: "kan niet leeg zijn"
         unpermitted: "is niet geldig"
         user:

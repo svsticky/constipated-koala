@@ -329,8 +329,8 @@ class Member < ApplicationRecord
     # remove all participant notes where member_id is nil
     Participant.where(:member_id => nil).update_all(notes: nil)
 
-    # remove from mailchimp
-    MailchimpJob.perform_later self, []
+    # remove from mailchimp using just the email as string
+    MailchimpJob.perform_later email, nil, []
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'contant') if checkout_balance.present? && checkout_balance.balance != 0

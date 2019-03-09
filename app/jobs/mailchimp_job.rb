@@ -13,19 +13,20 @@
 # as an asynchronous task using redis. There are also other platform that can
 # be configured in config/application.rb
 
+# @param [key] unique identifier used in mailchimp (last known email)
 # @param [member] member affected using this job
 # @param [interests] contains a number of interst ids listed in app.yaml, NIL will not change the interests
 # @param [mailchimp_status] Mailchimp status for maillings
 class MailchimpJob < ApplicationJob
   queue_as :default
 
-  def perform(member, interests = Settings['mailchimp.interests'].values, mailchimp_status = 'subscribed')
+  def perform(key, member, interests = Settings['mailchimp.interests'].values, mailchimp_status = 'subscribed')
     return if ENV['MAILCHIMP_DATACENTER'].nil?
 
     # delete user without interests, update member information and tags if interests is nil
     if !interests.nil? && interests.empty?
       RestClient.delete(
-        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }",
         Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
         'User-Agent': 'constipated-koala'
       )
@@ -53,7 +54,7 @@ class MailchimpJob < ApplicationJob
     logger.debug request.inspect
 
     RestClient.put(
-      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }",
+      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }",
       request.to_json,
       Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
       'User-Agent': 'constipated-koala'
@@ -66,16 +67,14 @@ class MailchimpJob < ApplicationJob
     tags.push('gratie') if member.tags.any? { |t| ['merit', 'pardon'].include? t.name }
 
     RestClient.post(
-      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(member.email.downcase) }/tags",
+      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }/tags",
       { tags: Settings['mailchimp.tags'].map { |i| { name: i, status: (tags.include?(i) ? 'active' : 'inactive') } } }.to_json,
       Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
       'User-Agent': 'constipated-koala'
     )
   rescue RestClient::BadRequest => error
     logger.debug JSON.parse(error.response.body)
-    raise error
-  rescue RestClient::NotFound => error
+  rescue RestClient::NotFound
     logger.debug 'record not found'
-    raise error
   end
 end

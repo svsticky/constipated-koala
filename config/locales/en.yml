@@ -227,6 +227,7 @@ en:
           destroy:
             info: "%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats."
             checkout_emptied: "The checkout balance was %{balance}, this has been removed from their account."
+            mailchimp_queued: "Mailchimp account is automatically removed."
           blank: "can't be blank"
         unpermitted: "is not permitted"
         user:

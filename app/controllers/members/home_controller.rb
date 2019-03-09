@@ -62,7 +62,7 @@ class Members::HomeController < MembersController
     @member = Member.find(current_user.credentials_id)
 
     if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys
+      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys
 
       impressionist(@member, 'lid bewerkt')
 

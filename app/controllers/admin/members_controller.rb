@@ -90,7 +90,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
-      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?)
+      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].reject(&:blank?)
 
       @member.tags_names = params[:member][:tags_names]
 
@@ -113,9 +113,10 @@ class Admin::MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
+    email = @member.email
 
     if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later @member, params[:member][:mailchimp_interests].reject(&:blank?)
+      MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?)
 
       impressionist @member
       redirect_to @member
@@ -142,6 +143,7 @@ class Admin::MembersController < ApplicationController
     if @member.destroy
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued') unless @member.mailchimp_interests.nil?
 
       redirect_to root_url
     else
