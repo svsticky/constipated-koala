@@ -1,6 +1,6 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
-  skip_before_action :verify_authenticity_token #TODO REMOVE!
+  skip_before_action :verify_authenticity_token # TODO: REMOVE!
   skip_before_action :authenticate_user!
   skip_before_action :authenticate_admin!
 
@@ -41,6 +41,7 @@ class Admin::ParticipantsController < ApplicationController
     ghost = Participant.destroy params[:id]
 
     @activity = ghost.activity
+    @activity.enroll_reservists!
 
     render :status => :ok
   end

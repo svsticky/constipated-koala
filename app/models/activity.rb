@@ -32,7 +32,7 @@ class Activity < ApplicationRecord
 
   is_impressionable
 
-  after_update :enroll_reservists, if: proc { |a| a.saved_change_to_participant_limit }
+  after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
 
   has_one_attached :poster
   has_one :group, :as => :organized_by
@@ -188,7 +188,7 @@ class Activity < ApplicationRecord
     errors.add(:unenroll_date, :after_start_date) if start_date < unenroll_date
   end
 
-  def enroll_reservists
+  def enroll_reservists!
     # Check whether it is possible to enroll some reservists
     # (participants.count < participant_limit), and then do that.
     #
@@ -196,15 +196,13 @@ class Activity < ApplicationRecord
     #
     # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
-    return unless is_enrollable &&
-                  unenroll_date.end_of_day >= Time.now
+    return unless is_enrollable && unenroll_date.end_of_day >= Time.now
 
     return unless reservists.count > 0
 
     spots = 0
     spots = reservists.count if participant_limit.nil?
-
-    spots = participant_limit - attendees.count if attendees.present? && attendees.count < participant_limit
+    spots = participant_limit - attendees.count if attendees.count < participant_limit
 
     reservistpool = reservists.to_a # to_a because in-place `select!`
 
@@ -216,12 +214,11 @@ class Activity < ApplicationRecord
 
     luckypeople = reservistpool.first(spots)
 
-    luckypeople.each do |peep|
-      peep.update!(reservist: false)
-      Mailings::Participants.enrolled(peep).deliver_later
-    end
+    Participant.where(id: luckypeople.pluck(:id)).update_all(reservist: false)
+    luckypeople.each { |p| Mailings::Participants.enrolled(p).deliver_later }
 
     @magic_enrolled_reservists = luckypeople
+    return luckypeople
   end
 
   def participant_counts

@@ -214,6 +214,7 @@ class Members::ParticipantsController < MembersController
     )
 
     @enrollment.destroy!
+    @activity.enroll_reservists!
 
     render status: 200, json: {
       message: I18n.t(
