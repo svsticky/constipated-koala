@@ -57,7 +57,6 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (10.0.2)
-    climate_control (0.2.0)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -97,6 +96,9 @@ GEM
     i15r (0.5.5)
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
+    image_processing (1.7.1)
+      mini_magick (~> 4.0)
+      ruby-vips (>= 2.0.13, < 3)
     impressionist (1.6.1)
       nokogiri (~> 1)
     jaro_winkler (1.5.2)
@@ -120,7 +122,8 @@ GEM
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
-    mimemagic (0.3.3)
+    mimemagic (0.3.2)
+    mini_magick (4.9.2)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -128,17 +131,11 @@ GEM
     mysql2 (0.5.2)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.8.5)
+      mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
-    parallel (1.13.0)
-    parser (2.6.0.0)
+    parallel (1.12.1)
+    parser (2.5.3.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
     puma (3.12.0)
@@ -195,6 +192,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
     ruby-progressbar (1.10.0)
+    ruby-vips (2.0.13)
+      ffi (~> 1.9)
     ruby_dep (1.5.0)
     sass (3.7.3)
       sass-listen (~> 4.0.0)
@@ -219,8 +218,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     temple (0.8.0)
-    terrapin (0.6.0)
-      climate_control (>= 0.0.3, < 1.0)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -259,10 +256,10 @@ DEPENDENCIES
   fuzzily!
   haml
   i15r (~> 0.5.5)
+  image_processing
   impressionist
   listen
   mysql2
-  paperclip
   puma
   rabl
   rails
@@ -273,7 +270,6 @@ DEPENDENCIES
   sass-rails
   sentry-raven
   spring
-  terrapin
   uglifier
   unicorn
   web-console

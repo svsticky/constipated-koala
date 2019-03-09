@@ -6,7 +6,7 @@ namespace :devise do
     User.where('users.unconfirmed_email IS NOT NULL AND users.confirmation_sent_at < ?', Time.now - User.confirm_within).update_all(:unconfirmed_email => nil, :confirmation_sent_at => nil)
   end
 
-  desc 'Clean users table by removing unconfirmed emails after a set period'
+  desc 'Clean users table by removing reset reset_password_token after a set period'
   task :clean_reset_tokens => :environment do
     puts 'clear reset tokens'
 

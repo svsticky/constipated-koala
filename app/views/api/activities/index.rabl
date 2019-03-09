@@ -24,6 +24,10 @@ node :end_date do |activity|
   end
 end
 
-node :poster do |activity|
-  activity.poster.url(:medium) unless activity.poster_updated_at.nil?
+node :poster do |a|
+  full_url_for a.poster_representation
+end
+
+node :thumbnail do |a|
+  full_url_for a.thumbnail_representation
 end

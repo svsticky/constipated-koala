@@ -35,18 +35,19 @@
           .col-md-12
             = label(:activity, :poster)
             .input-group
-              %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.url(:medium)}" if !@activity.poster_file_name.nil?) }
+              %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.filename}" if @activity.poster.attached?) }
 
               .input-group-btn
                 %div.btn.btn-primary.file-input-wrapper
                   %span
                     = I18n.t('files.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
-                %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' if @activity.poster_file_name.nil? ) }
+                %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @activity.poster.attached? ) }
                   %span.caret
                 %ul.dropdown-menu
                   %li
-                    = link_to I18n.t('files.download'), @activity.poster.url(:medium), :download => ''
+                    - if @activity.poster.attached?
+                      = link_to 'download', @activity.poster, :download => ''
                   %li.divider
                   %li
                     = link_to I18n.t('files.delete'), '#', :class => 'remove'
@@ -54,8 +55,8 @@
             = f.hidden_field :_destroy, :class => 'remove_poster'
 
       %span.poster.hidden-xs
-        - if !@activity.poster_file_name.nil?
-          =image_tag @activity.poster.url(:thumb)
+        - if @activity.poster.attached?
+          = image_tag @activity.poster.representation(resize: '180x255!')
 
       .form-group
         .row

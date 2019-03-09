@@ -311,7 +311,9 @@ function posterHandlers(){
   });
 
   //Handler for removing the poster
-  $('form .input-group-btn a.remove').on('click', function(){
+  $('form .input-group-btn a.remove').on('click', function( e ){
+    e.preventDefault();
+
     $('form .input-group-btn .dropdown-toggle').addClass('disabled');
     $('form .input-group input#output').val('');
     $('form input.remove_poster').val('true');

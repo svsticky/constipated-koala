@@ -1,5 +1,5 @@
 collection @advertisements
 
 node :poster do |advertisement|
-  advertisement.poster.url unless advertisement.poster_updated_at.nil?
+  "#{ ENV['KOALA_DOMAIN'] }#{ url_for advertisement.poster.representation(resize: '764x1080!') }" if advertisement.poster.attached?
 end
