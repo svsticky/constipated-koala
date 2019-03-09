@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_09_124436) do
+ActiveRecord::Schema.define(version: 2019_03_02_075737) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2018_11_09_124436) do
 
   create_table "checkout_balances", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.decimal "balance", precision: 6, scale: 2, default: "0.0"
-    t.integer "member_id", null: false
+    t.integer "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

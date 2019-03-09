@@ -11,4 +11,4 @@
       - groups.each do |group|
         %tr
           %td= link_to "#{group.name}", group
-          %td.hidden-sm= group.members.map{ |member| member.name }.join(', ')
+          %td.hidden-sm= group.members.reject{ |member| member.member.nil? }.map{ |member| member.name }.join(', ')

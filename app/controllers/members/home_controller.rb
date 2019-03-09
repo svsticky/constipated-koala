@@ -121,7 +121,6 @@ class Members::HomeController < MembersController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :gender,
                                    :mailchimp_interests => [])
   end
 
