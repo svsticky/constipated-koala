@@ -16,28 +16,28 @@ class ParticipantsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # test "enrolling reservist through deleting previous participant" do
-  #   a = activities(:test_activities_1)
-  #   p1 = participants(:underpant_first)
-  #
-  #   assert_counts(a, [1, 1, 0])
-  #
-  #   m = members(:dannypanny)
-  #   Participant.create!(
-  #     member: m,
-  #     activity: a,
-  #     reservist: true
-  #   )
-  #
-  #   a.reload
-  #
-  #   assert_counts(a, [2, 1, 1])
-  #
-  #   p1.destroy!
-  #   a.reload
-  #
-  #   assert_counts(a, [1, 1, 0]) # TODO: reservist is not automatically promoted to an attendee
-  # end
+  test "enrolling reservist through deleting previous participant" do
+    a = activities(:test_activities_1)
+    assert_counts(a, [1, 1, 0])
+
+    p1 = participants(:underpant_first)
+
+    m = members(:dannypanny)
+    Participant.create!(
+      member: m,
+      activity: a,
+      reservist: true
+    )
+
+    a.reload
+
+    assert_counts(a, [2, 1, 1])
+
+    p1.destroy!
+    a.reload
+
+    assert_counts(a, [1, 1, 0])
+  end
 
   test "enrolling reservists will not exceed limits" do
     a = activities(:test_activities_3)
@@ -81,19 +81,19 @@ class ParticipantsTest < ActionDispatch::IntegrationTest
     # assert_not p1.save!, "Expected m1 not being able to enroll, but she did"
   end
 
-  # test "luckypeople selection for master's activities not broken" do
-  #   a = activities(:test_luckypeople_masters)
-  #   a.enroll_reservists
-  #
-  #   assert_counts(a, [3, 1, 2]) # TODO [3,0,3]
-  #   assert_equal a.attendees.first.member, members(:masterboy030man)
-  # end
+  test "luckypeople selection for master's activities not broken" do
+    a = activities(:test_luckypeople_masters)
+    a.enroll_reservists
 
-  # test "luckypeople selection for freshman's activities not broken" do
-  #   a = activities(:test_luckypeople_freshmen)
-  #   a.enroll_reservists
-  #
-  #   assert_counts(a, [3, 1, 2]) # TODO: same problem [3,0,3]
-  #   assert_equal a.attendees.first.member, members(:feutemeteut)
-  # end
+    assert_counts(a, [3, 1, 2])
+    assert_equal a.attendees.first.member, members(:masterboy030man)
+  end
+
+  test "luckypeople selection for freshman's activities not broken" do
+    a = activities(:test_luckypeople_freshmen)
+    a.enroll_reservists
+
+    assert_counts(a, [3, 1, 2])
+    assert_equal a.attendees.first.member, members(:feutemeteut)
+  end
 end
