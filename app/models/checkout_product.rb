@@ -20,14 +20,6 @@ class CheckoutProduct < ApplicationRecord
     write_attribute(:price, price.to_s.tr(',', '.').to_f)
   end
 
-  has_attached_file :image,
-                    :styles => { :original => ['128x128', :png] },
-                    :validate_media_type => false,
-                    :convert_options => { :all => '-colorspace CMYK -quality 100 -density 8 -gravity center' }
-
-  validates_attachment_content_type :image,
-                                    :content_type => ['image/jpeg', 'image/png']
-
   before_update do
     if name_changed? || category_changed? || price_changed?
       record          = CheckoutProduct.new
