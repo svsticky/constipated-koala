@@ -234,11 +234,7 @@ class Activity < ApplicationRecord
     return '' unless is_enrollable
 
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
-    if participant_limit
-      return 'VOL!' if attendees.count >= participant_limit
-
-      return "#{ attendees.count }/#{ participant_limit }"
-    end
+    return "#{ attendees.count }/#{ participant_limit }" if participant_limit
 
     return attendees.count.to_s
   end
