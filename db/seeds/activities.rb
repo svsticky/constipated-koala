@@ -6,7 +6,7 @@ puts '-- Creating activities'
 
 dates = []
 
-20.times do
+15.times do
   dates << Faker::Time.between(Time.now, 3.months.from_now, :morning)
   dates << Faker::Time.between(2.years.ago, Date.today, :morning)
 end
@@ -76,9 +76,12 @@ dates.each do |start_date|
     Participant.create(
       member:     member,
       activity:   activity,
+      reservist:  true,
       price:      (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
       paid:       Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
       notes:      response
     )
   end
+
+  activity.enroll_reservists!
 end

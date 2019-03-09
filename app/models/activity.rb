@@ -201,8 +201,11 @@ class Activity < ApplicationRecord
     return unless reservists.count > 0
 
     spots = 0
+
     spots = reservists.count if participant_limit.nil?
-    spots = participant_limit - attendees.count if attendees.count < participant_limit
+    spots = participant_limit - attendees.count if participant_limit.present? && attendees.count < participant_limit
+
+    return if spots == 0
 
     reservistpool = reservists.to_a # to_a because in-place `select!`
 
