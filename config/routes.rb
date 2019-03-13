@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   use_doorkeeper_openid_connect
+
   constraints :subdomain => ['intro', 'intro.dev'] do
     get  '/', to: 'public#index', as: 'public'
     post '/', to: 'public#create'
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
         get   'edit',                           to: 'home#edit', as: :users_edit
         patch 'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
+
+        get 'download', to: 'home#download'
 
         post 'mongoose', to: 'home#add_funds'
 

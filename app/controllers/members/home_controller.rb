@@ -109,6 +109,13 @@ class Members::HomeController < MembersController
     end
   end
 
+  def download
+    @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
+    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc)
+
+    render :layout => false
+  end
+
   private
 
   def member_post_params

@@ -194,7 +194,6 @@ ActiveRecord::Schema.define(version: 2019_03_02_075737) do
     t.string "city"
     t.string "phone_number"
     t.string "email"
-    t.string "gender", limit: 1
     t.string "student_id"
     t.date "birth_date"
     t.date "join_date"

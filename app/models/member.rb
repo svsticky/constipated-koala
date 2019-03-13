@@ -135,7 +135,7 @@ class Member < ApplicationRecord
 
   # create hash for gravatar
   def gravatar
-    return Digest::MD5.hexencode(email)
+    return Digest::MD5.hexdigest(email)
   end
 
   # TODO: refactor
@@ -291,6 +291,20 @@ class Member < ApplicationRecord
 
     return records
   end
+
+  def export
+    export = attributes.except(:comments)
+    export[:educations] = educations.pluck(:id)
+    export[:participants] = participants.pluck(:id)
+    export[:group_members] = group_members.pluck(:id)
+    export[:checkout_balance] = checkout_balance&.id
+
+    export.compact
+
+    yield [export.to_json, Digest::MD5.hexdigest(export.to_s)] if block_given?
+  end
+
+  def self.import(import, checksum); end
 
   private
 
