@@ -115,7 +115,9 @@ class Members::HomeController < MembersController
 
     send_data render_to_string(:layout => false),
               :filename => "#{ @member.name.downcase.tr(' ', '-') }.html",
-              :type => "application/html"
+              :type => 'application/html',
+              :disposition => 'attachment'
+
   end
 
   private
