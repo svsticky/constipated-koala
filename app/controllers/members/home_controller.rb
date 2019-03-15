@@ -113,7 +113,9 @@ class Members::HomeController < MembersController
     @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
     @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc)
 
-    render :layout => false
+    send_data render_to_string(:layout => false),
+              :filename => "#{ @member.name.downcase.tr(' ', '-') }.html",
+              :type => "application/html"
   end
 
   private

@@ -73,6 +73,9 @@
 
         %button.btn.btn-success{type: 'submit'}= I18n.t("editing.save")
         = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
+        = link_to download_path, { :class => 'button btn btn-default pull-right' } do
+          %i.fa.fa-download
+          Download persoonsgegevens
 
   -#
     .col-md-9

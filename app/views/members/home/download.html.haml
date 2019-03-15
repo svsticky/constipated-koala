@@ -79,6 +79,7 @@
 
       .block.warning > p {
         margin-left: 50px;
+        font-size: 0.9em;
       }
 
       dl.no-padding {
@@ -149,6 +150,35 @@
       table thead tr {
         border-bottom: 2px solid #dddddd;
         color: #444;
+      }
+
+      span.footer {
+        font-style: italic;
+        color: #777;
+        font-size: 0.8em;
+      }
+
+      @media print {
+        .container {
+          width: 100%;
+        }
+
+        .block, table {
+          border: 0;
+        }
+
+        table {
+          border-top: 1px solid black;
+        }
+
+        dd span.label {
+          background: white;
+          color: black;
+        }
+
+        .block.warning > p {
+          margin-left: 0;
+        }
       }
 
   %body
@@ -269,5 +299,7 @@
             - @transactions.each do |transaction|
               %tr
                 %td #{I18n.l transaction.created_at}
-                %td= number_to_currency(transaction.price, :unit => '€')
+                %td= number_to_currency(transaction.price, :unit => '€', :negative_format => "%u%n -")
                 %td= transaction.products
+
+      %span.footer Deze pagina is gegenereerd op #{I18n.l Time.now} voor #{@member.name}
