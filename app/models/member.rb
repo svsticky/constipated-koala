@@ -25,6 +25,8 @@ class Member < ApplicationRecord
   validates :birth_date, presence: true
   validates :join_date, presence: true
 
+  enum consent: [ :pending, :revoked, :yearly, :forever ]
+
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
 

@@ -193,14 +193,16 @@ ActiveRecord::Schema.define(version: 2019_03_02_075737) do
     t.string "postal_code"
     t.string "city"
     t.string "phone_number"
+    t.string "emergency_phone_number"
     t.string "email"
     t.string "student_id"
     t.date "birth_date"
     t.date "join_date"
     t.text "comments"
+    t.integer "consent", default: 0
+    t.date "consent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "emergency_phone_number"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["student_id"], name: "index_members_on_student_id", unique: true
   end

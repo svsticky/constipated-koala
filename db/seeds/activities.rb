@@ -1,5 +1,4 @@
 require Rails.root.join('db', 'seeds', 'members.rb')
-require 'open-uri'
 
 # Create 20 activities and the participants
 puts '-- Creating activities'
@@ -56,9 +55,7 @@ dates.each do |start_date|
 
   puts("   -> #{ activity.name } (#{ start_date })")
 
-  open('public/poster-example.pdf') do |file|
-    activity.poster.attach(io: file, filename: 'poster-example.pdf')
-  end
+  # activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
 
   next unless enrollable
 

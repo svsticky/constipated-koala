@@ -117,7 +117,6 @@ class Members::HomeController < MembersController
               :filename => "#{ @member.name.downcase.tr(' ', '-') }.html",
               :type => 'application/html',
               :disposition => 'attachment'
-
   end
 
   private
