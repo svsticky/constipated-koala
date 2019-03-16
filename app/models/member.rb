@@ -30,7 +30,7 @@ class Member < ApplicationRecord
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
 
-  # NOTE: prepend true is required, so that is executed before dependent
+  # NOTE: prepend true is required, so that it is executed before dependent => destroy
   before_destroy :before_destroy, prepend: true
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
