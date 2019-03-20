@@ -4,7 +4,7 @@
 = form_for :member, method: :patch, :class => 'form-validation' do |f|
 
   - if @member.errors.any?
-    .col-md-9
+    .col-md-12
       .alert.alert-danger
         %button.close{ type: "button" } ×
         %span= I18n.t('activerecord.errors.incomplete')
@@ -12,7 +12,7 @@
         - @member.errors.full_messages.each do |msg|
           %li= msg
 
-  .col-md-9
+  .col-md-6
     .panel.panel-default
       .panel-heading
         %i.fa.fa-fw.fa-user
@@ -22,19 +22,37 @@
           .row
             .col-md-5
               = f.label(:first_name)
-              = f.label :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled'
+              = f.text_field :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled', :disabled => true
             .col-md-2
               = f.label(:infix)
-              = f.label :infix, 'value' => @member.infix, :class => 'form-control form-control-disabled'
+              = f.text_field :infix, :value => @member.infix, :class => 'form-control form-control-disabled', :disabled => true
             .col-md-5
               = f.label(:last_name)
-              = f.label :last_name, 'value' => @member.last_name, :class => 'form-control form-control-disabled'
+              = f.text_field :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled', :disabled => true
+
+          .callout.callout-info Sommige gegevens kun je niet zelf wijzigen, neem hiervoor contact op met #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'} of spreek het bestuur hiervoor aan.
+        %hr
 
         .form-group
           .row
-            .col-md-12
+            .col-md-4
               = f.label(:birth_date)
-              = f.label :birth_date, 'value' => @member.birth_date, :class => 'form-control form-control-disabled birthdate'
+              = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
+            .col-md-8
+              = f.label(:email)
+              %span.footnote 1
+              = f.email_field :email, :value => @member.email, :class => 'form-control'
+
+        .form-group
+          .row
+            .col-md-6
+              = f.label(:phone_number)
+              = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+            .col-md-6
+              = f.label(:emergency_phone_number)
+              = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+
+        %hr
 
         .form-group
           .row
@@ -54,31 +72,88 @@
               = f.label(:city)
               = f.text_field :city, :value => @member.city, :class => 'form-control'
 
-        .form-group
-          = f.label(:phone_number)
-          = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+        %hr
 
-        .form-group
-          = f.label(:emergency_phone_number)
-          = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
-
-        .form-group
-          = f.label(:email)
-          = f.email_field :email, :value => @member.email, :class => 'form-control'
+        .footnote
+          %span.footnote 1
           .help-block= I18n.t('activerecord.annotations.member.email')
 
-        - if @member.user && @member.user.unconfirmed_email
-          .callout.callout-warning
-            = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-fw.fa-graduation-cap
+        Studiegegevens
+      .panel-body
+        .form-group
+          .row
+            .col-md-6
+              = f.label(:student_id)
+              = f.text_field :student_id, :value => @member.student_id, :class => 'form-control form-control-disabled', :disabled => true
+            .col-md-6
+              = f.label(:join_date)
+              = f.text_field :join_date, :value => I18n.l(@member.join_date), :class => 'form-control form-control-disabled', :disabled => true
 
-        %button.btn.btn-success{type: 'submit'}= I18n.t("editing.save")
-        = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
-        = link_to download_path, { :class => 'button btn btn-default pull-right' } do
-          %i.fa.fa-download
-          Download persoonsgegevens
+        %hr
 
-  -#
-    .col-md-9
+        .form-group
+          %label{for: 'member_educations'}
+            = I18n.t('activerecord.attributes.member.educations')
+
+        %table.table.table-striped
+          %tbody
+            - @member.educations.each do |education|
+              %tr
+                %td= I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
+                %td= I18n.t(education.status, scope: 'activerecord.attributes.education.status').downcase
+
+                - if @member.educations.any? { |education| education.status == 'active' }
+                  - if education.status == 'active'
+                    %td.dropdown
+                      %i.fa.fa-ellipsis-v
+
+                      %ul.dropdown-menu
+                        %li
+                          %a= I18n.t(:graduated, scope: 'activerecord.attributes.education.status').downcase
+                        %li
+                          %a= I18n.t(:stopped, scope: 'activerecord.attributes.education.status').downcase
+
+        - if @member.educations.any? { |education| education.status == 'active' }
+          .callout.callout-info
+            Voor de vereniging is het belangrijk om inzichtelijk te hebben of je studeert aan de Universiteit Utrecht. Het bijwerken van je studiestatus wordt op prijs gesteld.
+            %br
+            %br
+            Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}.
+
+
+      -#
+        .form-group
+          %label{for: 'member_educations'}
+            = I18n.t('activerecord.attributes.member.educations')
+
+          - @member.educations.each do |education|
+            = f.fields_for 'educations_attributes[]', education do |fs|
+              .form-group
+                - if !education.id.nil? && education.id > 0
+                  = fs.hidden_field :id, :class => 'id'
+                .row
+                  .col-md-6
+                    = I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
+                  -#
+                    .ui-select
+                      = fs.select :study_id, options_for_select(Study.all.map{|s| [I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id]}, education.study_id), :include_blank => "--"
+
+                  .col-md-6
+                    - if education.status == 'active'
+                      test
+
+                  -#
+                    .ui-select
+                      = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
+
+              %hr
+
+  - if @applications.any?
+    .col-md-6
       .panel.panel-default
         .panel-heading
           %i.fa.fa-fw.fa-rocket
@@ -91,3 +166,12 @@
               %td
                 = link_to authorized_applications_path(application), 'data-method' => :delete do
                   = I18n.t("members.home.edit.revoke")
+
+  .col-md-12
+    .panel.panel-default
+      .panel-body
+        %button.btn.btn-success{type: 'submit'} Opslaan
+        = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
+        = link_to download_path, { :class => 'button btn btn-default pull-right' } do
+          %i.fa.fa-download
+          Download persoonsgegevens

@@ -48,9 +48,9 @@ class Members::HomeController < MembersController
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
-    @applications = Doorkeeper::Application.authorized_for(current_user)
+    @applications = [] # TODO Doorkeeper::Application.authorized_for(current_user)
 
-    @member.educations.build(:id => '-1') if @member.educations.empty?
+    @member.educations.build(:id => '-1') if @member.educations.empty? # TODO studies toe laten voegen?
   end
 
   def revoke

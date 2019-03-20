@@ -161,6 +161,7 @@ nl:
         emergency_phone_number: Telefoonnummer voor calamiteiten
         postal_code: Postcode
         student_id: Studentnummer
+        join_date: Inschrijfdatum
         tags: Tags
       participant:
         paid:

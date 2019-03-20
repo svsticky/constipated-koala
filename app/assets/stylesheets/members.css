@@ -23,3 +23,26 @@
   overflow: hidden;
   display: flex;
 }
+
+span.footnote {
+  font-size: 0.8em;
+  vertical-align: super;
+  position: absolute;
+}
+
+.footnote .help-block {
+  margin-left: 10px;
+}
+
+td.dropdown {
+  text-align: center;
+  position: relative;
+}
+
+td.dropdown:hover ul.dropdown-menu {
+  display: inline-block;
+
+  top: 0;
+  left: auto;
+  right: 10px;
+}
