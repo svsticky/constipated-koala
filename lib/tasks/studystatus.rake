@@ -1,46 +1,22 @@
 namespace :studystatus do
-  require 'rest_client'
-  require 'open3'
 
-  desc "Update study progress using a stdin in the same format as given by studystatus"
-  task :update_from_stdin => :environment do
-    STDIN.each do |line|
-      member = Member.find_by_student_id(line.split(/; /).first)
+  desc 'Mail members for updating studystatus'
+  task :mail, [:force] => :environment do |_, args|
 
-      if !member.nil?
-        member.update_studies(line)
-      else
-        puts "#{ line.split(/; /).first } is not found in the database"
-      end
+    # NOTE all members die joined last year, three years ago, or longer that 5 years ago
+    members = Member.where(consent: :studying).where("YEAR(join_date) in (?) OR YEAR(join_date) < ?", [DateTime.now.year - 1,  DateTime.now.year - 3], DateTime.now.year - 5)
+
+    if members.size == 0
+      puts 'No members require an studystatus update'
+      next
     end
-  end
 
-  desc "Finds study progress for a member and updates the DB"
-  task :update, [:username, :password, :student_id] => :environment do |_, args|
-    Open3.popen3(ENV['STUDY_SCRIPT'],
-                 "--username", args[:username],
-                 "--password", args[:password]) do |i, o, _, _|
-
-      member = Member.find_by_student_id(args[:student_id])
-
-      i.puts member.student_id
-      member.update_studies(o.gets ||= '')
-      i.close
+    if !args[:force]&.to_b
+      STDOUT.puts "You'll be sending #{members.size} members an email, continue? (y/n)"
+      next unless STDIN.gets.strip.to_b
     end
-  end
 
-  desc "Finds study progress for all members and updates the DB"
-  task :update_all, [:username, :password] => :environment do |_, args|
-    Open3.popen3(ENV['STUDY_SCRIPT'],
-                 "--username", args[:username],
-                 "--password", args[:password]) do |i, o, _, _|
-
-      Member.where.not(:student_id => nil).each do |member|
-        i.puts member.student_id
-        member.update_studies(o.gets ||= '')
-      end
-
-      i.close
-    end
-  end
+    # todo: members.pluck(:id, :first_name, :email) + studies
+    # logica, eerst bachelor, als die klaar is master. Meerdere bachelors mogelijk
+    Mailings::Studystatus.mail({}).deliver_later
 end
