@@ -19,4 +19,5 @@ namespace :studystatus do
     # todo: members.pluck(:id, :first_name, :email) + studies
     # logica, eerst bachelor, als die klaar is master. Meerdere bachelors mogelijk
     Mailings::Studystatus.mail({}).deliver_later
+  end
 end

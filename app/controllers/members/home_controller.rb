@@ -61,6 +61,13 @@ class Members::HomeController < MembersController
   def update
     @member = Member.find(current_user.credentials_id)
 
+
+    if member_post_params['educations_attributes'].to_h.any?{ |id, education| ['active', 'inactive'].include? education['status'] }
+      flash[:error] = I18n.t(:default, scope: 'activerecord.errors')
+      redirect_to users_edit_path
+      return
+    end
+
     if @member.update(member_post_params)
       impressionist(@member, 'lid bewerkt')
 
@@ -128,7 +135,8 @@ class Members::HomeController < MembersController
                                    :city,
                                    :phone_number,
                                    :emergency_phone_number,
-                                   :email)
+                                   :email,
+                                   educations_attributes: [:id, :status])
   end
 
   def ideal_transaction_params

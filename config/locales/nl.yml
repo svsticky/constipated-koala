@@ -3,7 +3,7 @@ nl:
   activerecord:
     annotations:
       member:
-        email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou."
+        email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou. Je e-mailadres wordt ook gebruikt als login."
         study: "Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap."
         emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
     attributes:

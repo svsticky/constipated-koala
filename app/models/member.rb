@@ -44,7 +44,7 @@ class Member < ApplicationRecord
   has_many :educations, :dependent => :nullify
   has_many :studies, :through => :educations
   accepts_nested_attributes_for :educations,
-                                :reject_if => proc { |attributes| attributes['study_id'].blank? },
+                                :reject_if => proc { |attributes| attributes['study_id'].blank? && attributes['status'].blank? },
                                 :allow_destroy => true
 
   has_many :participants, :dependent => :nullify
