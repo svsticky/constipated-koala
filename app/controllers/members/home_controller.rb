@@ -48,9 +48,9 @@ class Members::HomeController < MembersController
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
-    @applications = [] # TODO Doorkeeper::Application.authorized_for(current_user)
+    @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
-    @member.educations.build(:id => '-1') if @member.educations.empty? # TODO studies toe laten voegen?
+    @member.educations.build(:id => '-1') if @member.educations.empty? # TODO: studies toe laten voegen?
   end
 
   def revoke
@@ -61,8 +61,7 @@ class Members::HomeController < MembersController
   def update
     @member = Member.find(current_user.credentials_id)
 
-
-    if member_post_params['educations_attributes'].to_h.any?{ |id, education| ['active', 'inactive'].include? education['status'] }
+    if member_post_params['educations_attributes'].to_h.any? { |_id, education| ['active', 'inactive'].include? education['status'] }
       flash[:error] = I18n.t(:default, scope: 'activerecord.errors')
       redirect_to users_edit_path
       return
