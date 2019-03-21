@@ -21,4 +21,8 @@ class Education < ApplicationRecord
     self.start_date = Time.new if start_date.nil?
     self.status = :active if status.nil?
   end
+
+  before_update do
+    self.end_date = Time.now if ['stopped', 'graduated'].include?(status) && !end_date_changed?
+  end
 end
