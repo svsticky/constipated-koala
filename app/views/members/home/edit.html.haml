@@ -32,7 +32,7 @@
               = f.label(:last_name)
               = f.text_field :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled', :disabled => true
 
-          .callout.callout-info Sommige gegevens kun je niet zelf wijzigen, neem hiervoor contact op met #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'} of spreek het bestuur aan.
+          .callout.callout-info Sommige gegevens kun je niet zelf wijzigen zoals je naam, geboortedatum en studentennummer, neem hiervoor contact op met #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}.
         %hr
 
         .form-group
@@ -134,7 +134,7 @@
             Voor de vereniging is het belangrijk om inzichtelijk te hebben of je studeert aan de Universiteit Utrecht. Het bijwerken van je studiestatus wordt op prijs gesteld.
             %br
             %br
-            Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}.
+            Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
 
 
   - if @applications.any?
