@@ -1,100 +1,57 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
-  respond_to :json
+  skip_before_action :verify_authenticity_token # TODO: REMOVE!
+  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_admin!
 
   def create
-    @activity = Activity.find_by_id params[:activity_id]
-    participant = Participant.find_or_initialize_by(
-      member: Member.find(params[:member]),
-      activity: @activity
+    @participant = Participant.new(
+      member: Member.find_by_id(params[:member]),
+      activity: Activity.find_by_id(params[:activity_id])
     )
 
-    new_record = participant.new_record?
-    status = new_record ? :created : :conflict
-
-    if participant.save
-      impressionist(participant) if new_record
-      @response = new_attendee_response_data(participant)
-
-      render status: status, :json => @response.to_json
-    end
+    impressionist(@participant) if @participant.save
   end
 
   def update
-    participant = Participant.find(params[:id])
+    @participant = Participant.find(params[:id])
 
-    unless params[:reservist].nil?
+    if params[:reservist].present?
       message = params[:reservist].to_b ? 'reservist' : 'participant'
-      participant.update_attributes(:reservist => params[:reservist])
+      @participant.update_attributes(:reservist => params[:reservist])
     end
 
-    if !params[:paid].nil?
+    if params[:paid].present?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
-      participant.update_attribute(:paid, params[:paid]) unless participant.currency.nil?
-    elsif !params[:price].nil?
+      @participant.update_attribute(:paid, params[:paid]) unless @participant.currency.nil?
+    elsif params[:price].present?
       raise 'not a number' unless params[:price].is_number?
 
       message = 'price'
-      participant.update_attributes(:price => params[:price])
+      @participant.update_attributes(:price => params[:price])
     end
 
-    if participant.save
-      impressionist(participant, message)
-      render :status => :ok,
-             :json => new_attendee_response_data(participant).to_json
-    else
-      respond_with participant.errors.full_messages
+    if @participant.save
+      impressionist(@participant, message)
+      render :status => :ok
     end
   end
 
   def destroy
-    ghost_participant = Participant.destroy(params[:id])
-    response = {
-      magic_reservists: [],
-      activity: {
-        fullness: ghost_participant.activity.fullness,
-        reservist_count: ghost_participant.activity.reservists.count,
-        paid_sum: ghost_participant.activity.paid_sum,
-        price_sum: ghost_participant.activity.price_sum
-      }
-    }
+    ghost = Participant.destroy params[:id]
 
-    ghost_participant.activity.magic_enrolled_reservists&.each do |peep|
-      response[:magic_reservists] << new_attendee_response_data(peep)
-    end
+    @activity = ghost.activity
+    @activity.enroll_reservists!
 
-    render :status => :ok, :json => response.to_json
+    render :status => :ok
   end
 
   def mail
     logger.debug params[:recipients].inspect
 
+    # TODO: it looks like the http post response is returned to the user, if that is the case it should be changed to `head :ok`
     @activity = Activity.find_by_id!(params[:activity_id])
     render :json => Mailings::Participants.inform(@activity, params[:recipients].permit!.to_h.map { |_, item| item['email'] }, current_user.sender, params[:subject], params[:html]).deliver_later
     impressionist(@activity, "mail")
-  end
-
-  private
-
-  def new_attendee_response_data(participant)
-    activity = participant.activity
-    member = participant.member
-    {
-      participant: {
-        id: participant.id,
-        notes: participant.notes,
-        member: {
-          id: member.id,
-          name: member.name,
-          email: member.email
-        }
-      },
-      activity: {
-        price: activity.price,
-        fullness: activity.fullness,
-        paid_sum: activity.paid_sum,
-        price_sum: activity.price_sum
-      }
-    }
   end
 end

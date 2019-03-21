@@ -2,7 +2,6 @@
 class Admin::MembersController < ApplicationController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update ]
-  respond_to :json, only: [:search]
 
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -31,7 +30,6 @@ class Admin::MembersController < ApplicationController
   # As defined above this is an json call only
   def search
     @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
-    respond_with @members
   end
 
   def show

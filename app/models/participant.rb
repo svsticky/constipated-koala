@@ -3,8 +3,6 @@ class Participant < ApplicationRecord
   belongs_to :member
   belongs_to :activity
 
-  after_destroy :enroll_reservist
-
   validates :notes, length: { maximum: 30 }
 
   is_impressionable
@@ -23,9 +21,5 @@ class Participant < ApplicationRecord
   before_validation do
     self.paid = false if price_changed?
     write_attribute(:price, nil) if activity.price == self.price
-  end
-
-  def enroll_reservist
-    activity.enroll_reservists
   end
 end
