@@ -133,6 +133,10 @@ div.clickable > .panel:hover {
   width: 100%;
 }
 
+.panel.mini-box{
+ min-width: 1000px;
+}
+
 .form-control.birthdate {
   font-weight: normal;
 }

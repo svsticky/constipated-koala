@@ -81,6 +81,16 @@ aside a[href='#'] {
   top: 5px;
 }
 
+.panel{
+    margin-bottom: 20px;
+    background-color: #ffff;
+    font-size: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
 .panel-heading.input {
   padding: 3px 15px 2px;
   height: 40px;
@@ -125,6 +135,17 @@ aside a[href='#'] {
 .panel-heading.year .ui-select select {
   font-size: 14px;
   line-height: 14px;
+}
+
+.mini-box{
+    width: 25px;
+}
+
+.form-group label{
+    font-size: 15px;
+}
+.form-group button{
+    font-size: 15px;
 }
 
 @media (min-width: 768px) {
@@ -217,6 +238,10 @@ div.clickable > .panel:hover {
   height: 105px;
   text-decoration: none;
   border-color: #767676;
+}
+
+.table{
+    font-size: 15px;
 }
 
 .table span.fa-sort-asc {
