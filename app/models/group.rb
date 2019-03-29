@@ -37,6 +37,7 @@ class Group < ApplicationRecord
   def members(year = nil)
     year = year.nil? ? Date.today.study_year : year.to_i
 
+    # Sort on position, then name, then fallback to natural occurring order
     group_members.where(:year => year).sort do |a, b|
       if a.position.present? && b.position.present?
         if a.position == b.position

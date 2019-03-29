@@ -36,8 +36,9 @@ class Admin::MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     # Show all activities from the given year + unpaid past activities. And make a list of years starting from the member's join_date until the last activity
-    @activities = (@member.activities.study_year(params['year']).order(start_date: :desc).joins(:participants).distinct.where("participants.reservist = ?", false) +
-                  @member.unpaid_activities.order(start_date: :desc).where('start_date < ?', Date.to_date(Date.today.study_year))).uniq
+    current_year_activities = @member.activities.study_year(params['year']).order(start_date: :desc).joins(:participants).distinct.where("participants.reservist = ?", false)
+    unpaid_old_activities = @member.unpaid_activities.order(start_date: :desc).where('start_date < ?', Date.to_date(Date.today.study_year))
+    @activities = (current_year_activities + unpaid_old_activities).uniq
 
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
