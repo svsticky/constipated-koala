@@ -5,7 +5,7 @@ node :reservist_count do |activity|
   activity.reservists.count
 end
 
-node :magic_reservists do |_activity|
+node :magic_reservists do
   @reservists&.map do |participant|
     partial 'admin/participants/create', object: participant
   end
