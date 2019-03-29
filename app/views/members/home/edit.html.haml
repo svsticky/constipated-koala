@@ -112,22 +112,17 @@
               = f.fields_for 'educations_attributes[]', education do |fs|
                 %tr
                   %td= I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
-                  %td= I18n.t(education.status, scope: 'activerecord.attributes.education.status').downcase
 
-                  - if @member.educations.any? { |education| education.status == 'active' }
+                  %td.dropdown
                     - if education.status == 'active'
-                      %td.dropdown
-                        %i.fa.fa-ellipsis-v
-                        = fs.hidden_field :id
-                        = fs.hidden_field :status, :value => '', :class => 'status'
+                      = fs.hidden_field :id
 
-                        %ul.dropdown-menu
-                          %li{ :'data-status' => 'graduated' }
-                            %a= I18n.t(:graduated, scope: 'activerecord.attributes.education.status').downcase
-                          %li{ :'data-status' => 'stopped' }
-                            %a= I18n.t(:stopped, scope: 'activerecord.attributes.education.status').downcase
-                    - else
-                      %td
+                    .ui-select
+                      - if education.status == 'active'
+                        = fs.select :status, options_for_select( [:active, :graduated, :stopped].map{ |name| [I18n.t(name, scope: 'activerecord.attributes.education.status').downcase, name] }, education.status )
+                      - else
+                        %span
+                          = I18n.t(education.status, scope: 'activerecord.attributes.education.status').downcase
 
         - if @member.educations.any? { |education| education.status == 'active' }
           .callout.callout-info
