@@ -36,7 +36,7 @@ dates.each do |start_date|
     end_date:          @multiple ? Faker::Date.between(start_date + 1.day, start_date + 7.days) : nil,
     end_time:          @part ? Faker::Time.between(start_date, start_date, :evening) : nil,
 
-    location:          Faker::FamilyGuy.location,
+    location:          Faker::TvShows::FamilyGuy.location,
     organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
     description:       Faker::Lorem.paragraph(5),
 

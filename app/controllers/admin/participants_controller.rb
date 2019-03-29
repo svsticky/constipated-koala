@@ -1,9 +1,5 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
-  skip_before_action :verify_authenticity_token # TODO: REMOVE!
-  skip_before_action :authenticate_user!
-  skip_before_action :authenticate_admin!
-
   def create
     @participant = Participant.new(
       member: Member.find_by_id(params[:member]),
