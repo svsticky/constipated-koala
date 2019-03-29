@@ -5,7 +5,7 @@ puts '-- Creating activities'
 
 dates = []
 
-15.times do
+20.times do
   dates << Faker::Time.between(Time.now, 3.months.from_now, :morning)
   dates << Faker::Time.between(2.years.ago, Date.today, :morning)
 end
@@ -22,7 +22,7 @@ dates.each do |start_date|
   @part       = !@entire
 
   viewable   = Faker::Boolean.boolean(0.9)
-  enrollable = viewable ? Faker::Boolean.boolean(0.5) : false
+  enrollable = viewable ? Faker::Boolean.boolean(0.7) : false
   notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.question : nil
 
   activity = Activity.create(
@@ -53,7 +53,7 @@ dates.each do |start_date|
     notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true
   )
 
-  puts("   -> #{ activity.name } (#{ start_date })")
+  puts("   -> #{ activity.name } (#{ start_date })#{'*' if enrollable}" )
 
   activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
 
