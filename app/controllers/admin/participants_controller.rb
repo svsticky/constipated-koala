@@ -37,7 +37,7 @@ class Admin::ParticipantsController < ApplicationController
     ghost = Participant.destroy params[:id]
 
     @activity = ghost.activity
-    @activity.enroll_reservists!
+    @reservists = @activity.enroll_reservists!
 
     render :status => :ok
   end
