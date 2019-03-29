@@ -55,6 +55,7 @@ nl:
           moot: Dispuutsleden
           other: Leden
         name: Naam
+        former: oud-lid
       tag:
         names:
           pardon: Gratie
@@ -268,6 +269,10 @@ nl:
             password_confirmation:
               confirmation: "is niet goed herhaald"
           blank: "kan niet leeg zijn"
+        education:
+          attributes:
+            status:
+              invalid: "Geen correcte waarde ingevuld"
       no_connection: "Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!"
       subscribe:
         failed: "Je betaling is niet gelukt, je bent wel ingeschreven!"

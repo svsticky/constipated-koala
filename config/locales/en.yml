@@ -59,6 +59,7 @@ en:
           moot: "Moot members"
           other: Members
         name: "Group name"
+        former: removed member
         positions:
           board: "Board member"
           chairman: Chairman
@@ -234,6 +235,10 @@ en:
             password_confirmation:
               confirmation: "isn't repeated correctly"
           blank: "can't be blank"
+        education:
+          attributes:
+            status:
+              invalid: The value is not valid
       no_connection: "No connection available with %{url}, not all %{name} are complete and will be shown!"
       record_invalid: "Error! The data is invalid."
       subscribe:

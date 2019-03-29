@@ -62,7 +62,7 @@ class Members::HomeController < MembersController
     @member = Member.find(current_user.credentials_id)
 
     if member_post_params['educations_attributes'].to_h.any? { |_id, education| ['active', 'inactive'].include? education['status'] }
-      flash[:error] = I18n.t(:default, scope: 'activerecord.errors')
+      flash[:error] = I18n.t(:invalid, scope: 'activerecord.errors.models.education.attributes.status')
       redirect_to users_edit_path
       return
     end

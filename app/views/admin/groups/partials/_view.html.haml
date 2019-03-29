@@ -16,7 +16,7 @@
       %tr{:'data-id' => member.id}
         %td
           - if member.member.nil?
-            %span oud-lid
+            %span= I18n.t('former', scope: 'activerecord.attributes.group')
           - else
             = link_to member.name, member.member
 
