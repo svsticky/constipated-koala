@@ -55,7 +55,7 @@ dates.each do |start_date|
 
   puts("   -> #{ activity.name } (#{ start_date })")
 
-  # activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
+  activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
 
   next unless enrollable
 
