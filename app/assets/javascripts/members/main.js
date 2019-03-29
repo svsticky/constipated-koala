@@ -33,11 +33,4 @@ $(document).on('ready page:load turbolinks:load', function(){
     params.year = $(this).val();
     location.search = $.param(params);
   });
-
-  $('td.dropdown li a').on('click', function(event){
-    event.preventDefault();
-
-    $(this).closest('tr').find('input.status').val($(this).closest('li').data('status'))
-    $(this).closest('tr').find('td:nth-child(2)').text($(this).text())
-  });
 });
