@@ -25,7 +25,6 @@ gem 'impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
-gem 'sidekiq'
 
 # search engine
 gem 'fuzzily', :github => 'svsticky/fuzzily'
