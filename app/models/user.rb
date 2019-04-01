@@ -15,10 +15,6 @@ class User < ApplicationRecord
     return false
   end
 
-  def gravatar
-    return Digest::MD5.hexdigest(email)
-  end
-
   def sender
     "#{ credentials.name } <#{ email }>"
   end

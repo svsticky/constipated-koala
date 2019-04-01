@@ -3,7 +3,7 @@ nl:
   activerecord:
     annotations:
       member:
-        email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou."
+        email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou. Je e-mailadres wordt ook gebruikt als login."
         study: "Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap."
         emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
     attributes:
@@ -55,6 +55,7 @@ nl:
           moot: Dispuutsleden
           other: Leden
         name: Naam
+        former: oud-lid
       tag:
         names:
           pardon: Gratie
@@ -161,6 +162,7 @@ nl:
         emergency_phone_number: Telefoonnummer voor calamiteiten
         postal_code: Postcode
         student_id: Studentnummer
+        join_date: Inschrijfdatum
         tags: Tags
       participant:
         paid:
@@ -177,6 +179,7 @@ nl:
       incomplete: Oh snap, niet alles is goed ingevuld
       no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
       unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
+      info: Het is gelukt
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
@@ -247,6 +250,11 @@ nl:
               elfproef: "is niet geldig"
               invalid: "is niet geldig"
               taken: "is al geregistreerd"
+            participants:
+              unpaid_activities: "Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en probeer daarna nogmaals te verwijderen."
+          destroy:
+            info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
+            checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
           blank: "kan niet leeg zijn"
         unpermitted: "is niet geldig"
         user:
@@ -261,6 +269,10 @@ nl:
             password_confirmation:
               confirmation: "is niet goed herhaald"
           blank: "kan niet leeg zijn"
+        education:
+          attributes:
+            status:
+              invalid: "Geen correcte waarde ingevuld"
       no_connection: "Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!"
       subscribe:
         failed: "Je betaling is niet gelukt, je bent wel ingeschreven!"

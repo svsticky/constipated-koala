@@ -113,7 +113,6 @@ class PublicController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :gender,
                                    :student_id,
                                    :birth_date,
                                    :join_date,

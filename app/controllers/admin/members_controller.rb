@@ -2,7 +2,6 @@
 class Admin::MembersController < ApplicationController
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update ]
-  respond_to :json, only: [:search]
 
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
@@ -31,26 +30,23 @@ class Admin::MembersController < ApplicationController
   # As defined above this is an json call only
   def search
     @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
-    respond_with @members
   end
 
   def show
     @member = Member.find(params[:id])
 
-    # Show all activities from the given year. And make a list of years starting from the member's join_date until the last activity
-    @activities = @member
-                  .activities
-                  .study_year(params['year'])
-                  .order(start_date: :desc)
-                  .joins(:participants).distinct
-                  .where("participants.reservist = ?", false)
-    @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
-    @member_user = User.find_by credentials: @member
+    # Show all activities from the given year + unpaid past activities. And make a list of years starting from the member's join_date until the last activity
+    current_year_activities = @member.activities.study_year(params['year']).order(start_date: :desc).joins(:participants).distinct.where("participants.reservist = ?", false)
+    unpaid_old_activities = @member.unpaid_activities.order(start_date: :desc).where('start_date < ?', Date.to_date(Date.today.study_year))
+    @activities = (current_year_activities + unpaid_old_activities).uniq
 
+    @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+
+    # I think this should be in a view TODO
     @account_button_text =
-      if @member_user&.confirmed?
+      if @member.user&.confirmed?
         then I18n.t 'admin.member_account_status.send_password_reset'
-      elsif @member_user && !@member_user.confirmed?
+      elsif @member.user && !@member.user.confirmed?
         then I18n.t 'admin.member_account_status.resend_confirmation'
       else
         I18n.t 'admin.member_account_status.send_create_email'
@@ -66,18 +62,16 @@ class Admin::MembersController < ApplicationController
   def send_user_email
     @member = Member.find(params[:member_id])
 
-    @member_user = User.find_by credentials: @member
-
-    if !@member_user
+    if !@member.user
       # Send create
       user = User.create_on_member_enrollment! @member
       user.resend_confirmation! :activation_instructions
-    elsif !@member_user.confirmed?
+    elsif !@member.user.confirmed?
       # Send activate
-      @member_user.resend_confirmation! :confirmation_instructions
+      @member.user.resend_confirmation! :confirmation_instructions
     else
       # Send password reset
-      @member_user.send_reset_password_instructions
+      @member.user.send_reset_password_instructions
     end
 
     flash[:success] = I18n.t 'admin.member_account_status.email_sent'
@@ -136,11 +130,20 @@ class Admin::MembersController < ApplicationController
   end
 
   def destroy
-    member = Member.find(params[:id])
-    impressionist(member, member.name)
+    @member = Member.includes(:checkout_balance).find(params[:id])
 
-    member.destroy
-    redirect_to members_path
+    impressionist @member
+    flash[:notice] = []
+
+    if @member.destroy
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
+
+      redirect_to root_url
+    else
+      flash[:errors] = @member.errors.messages
+      redirect_to @member
+    end
   end
 
   def payment_whatsapp
@@ -161,7 +164,6 @@ class Admin::MembersController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :gender,
                                    :student_id,
                                    :birth_date,
                                    :join_date,

@@ -7,6 +7,7 @@ class Admin::ApiController < ApplicationController
 
   respond_to :json, only: [:activities, :advertisements]
 
+  # are these functions even used? I can't find them in routes, I suggest moving it the controllers/api
   def activities
     render :status => :ok,
            :json => Activity.list.only(:name, :start_date, :end_date, :poster)

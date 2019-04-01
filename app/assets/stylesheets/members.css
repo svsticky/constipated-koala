@@ -23,3 +23,44 @@
   overflow: hidden;
   display: flex;
 }
+
+span.footnote {
+  font-size: 0.8em;
+  vertical-align: super;
+  position: absolute;
+}
+
+.footnote .help-block {
+  margin-left: 10px;
+}
+
+td.dropdown {
+  text-align: center;
+  position: relative;
+}
+
+td.dropdown:hover ul.dropdown-menu {
+  display: inline-block;
+
+  top: 0;
+  left: auto;
+  right: 10px;
+}
+
+.ui-select > span {
+  display: block;
+  position: relative;
+  padding: 10px 15px 10px 10px;
+  min-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  text-indent: 0.01px;
+  text-overflow: '';
+  text-align: left;
+  cursor: not-allowed;
+}

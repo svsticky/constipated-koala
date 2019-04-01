@@ -29,3 +29,12 @@
           %span.input-group-btn
             %button.btn.btn-primary{ type: 'submit', style: 'padding: 7px 20px; height: 34px;' }
               %i.fa.fa-search
+
+- if flash['notice'].present?
+  .col-md-12
+    .alert.alert-info
+      %button.close{ type: "button" } ×
+      %span= I18n.t('activerecord.errors.info')
+      %ul
+      - Array(flash['notice']).each do |msg|
+        %li= msg
