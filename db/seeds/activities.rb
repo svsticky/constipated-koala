@@ -22,7 +22,7 @@ dates.each do |start_date|
   @part       = !@entire
 
   viewable   = Faker::Boolean.boolean(0.9)
-  enrollable = viewable ? Faker::Boolean.boolean(0.7) : false
+  enrollable = viewable ? Faker::Boolean.boolean(0.9) : false
   notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.question : nil
 
   activity = Activity.create(
