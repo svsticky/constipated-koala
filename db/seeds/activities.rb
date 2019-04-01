@@ -53,7 +53,7 @@ dates.each do |start_date|
     notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true
   )
 
-  puts("   -> #{ activity.name } (#{ start_date })#{'*' if enrollable}" )
+  puts("   -> #{ activity.name } (#{ start_date })#{', enrollable' if enrollable}" )
 
   activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
 
