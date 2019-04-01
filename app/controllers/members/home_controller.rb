@@ -50,7 +50,7 @@ class Members::HomeController < MembersController
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
     @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
-    @member.educations.build(:id => '-1') if @member.educations.empty? # TODO: educations toe laten voegen?
+    @member.educations.build(:id => '-1') if @member.educations.empty?
   end
 
   def revoke
