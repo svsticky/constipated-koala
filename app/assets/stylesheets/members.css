@@ -16,6 +16,7 @@
  *
  *= require_self
  *= require_tree ./members
+ *= require navbar
  */
 
 .panel-activity > .panel-body:nth-child(2) {
@@ -26,6 +27,16 @@
 
 .page {
   padding: 15px;
+}
+
+#content {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 220px;
+  width: auto;
+  overflow-y: auto;
 }
 
 .header {
