@@ -23,3 +23,17 @@
   overflow: hidden;
   display: flex;
 }
+
+.header {
+  height: 50px;
+}
+
+.header .logo {
+  color: white;
+  line-height: 50px;
+  margin-left: 15px;
+}
+
+.header .menu-button {
+  left: 0;
+}

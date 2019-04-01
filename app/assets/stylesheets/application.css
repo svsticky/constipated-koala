@@ -17,3 +17,16 @@
  *= require_self
  *= require_tree ./admin
  */
+
+.header {
+  height: 50px;
+}
+
+.header .logo {
+  color: white;
+  line-height: 50px;
+}
+
+.header .menu-button {
+  left: 0;
+}

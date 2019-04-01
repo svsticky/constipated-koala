@@ -63,8 +63,6 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  margin-left: 15px;
-  margin-right: 15px;
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 0.9375rem;
   font-weight: 400;
@@ -74,10 +72,6 @@ body {
   background-color: #fff;
 }
 
-.top-header{
-  margin-right: 15px;
-
-}
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
