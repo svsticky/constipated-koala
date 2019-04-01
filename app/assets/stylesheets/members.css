@@ -24,6 +24,10 @@
   display: flex;
 }
 
+.page {
+  padding: 15px;
+}
+
 .header {
   height: 50px;
 }

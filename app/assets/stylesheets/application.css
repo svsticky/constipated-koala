@@ -18,6 +18,10 @@
  *= require_tree ./admin
  */
 
+.page {
+  padding: 15px;
+}
+
 .header {
   height: 50px;
 }
