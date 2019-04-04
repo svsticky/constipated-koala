@@ -288,14 +288,6 @@ div.clickable > .panel:hover {
   display: none;
 }
 
-#header .logo {
-  color: white;
-}
-
-#header .menu-button {
-  left: 0;
-}
-
 .is-table-row {
   display: table;
 }

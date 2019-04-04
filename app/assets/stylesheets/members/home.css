@@ -180,14 +180,6 @@ div.clickable > .panel:hover {
   display: none;
 }
 
-#header .logo {
-  color: white;
-}
-
-#header .menu-button {
-  left: 0;
-}
-
 .form-control-disabled {
   cursor: not-allowed;
   background-color: #eeeeee;
