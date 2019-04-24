@@ -16,7 +16,7 @@
  *
  *= require_self
  *= require_tree ./members
- *= require navbar
+ *= require sidebar
  */
 
 .panel-activity > .panel-body:nth-child(2) {
@@ -34,7 +34,7 @@
   top: 50px;
   right: 0;
   bottom: 0;
-  left: 220px;
+  left: 240px;
   width: auto;
   overflow-y: auto;
 }
