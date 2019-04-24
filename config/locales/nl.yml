@@ -177,15 +177,8 @@ nl:
     errors:
       default: Er is iets fout gegaan
       incomplete: Oh snap, niet alles is goed ingevuld
-      no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
       unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
       info: Het is gelukt
-
-      subscribe:
-        failed: Je betaling is niet gelukt, je bent wel ingeschreven!
-        success: Je betaling is ontvangen en je hebt je ingeschreven!
-        no_bank_provided: Bank kan niet leeg zijn als je met iDEAL betaalt
-        success_without_payment: Je hebt je ingeschreven!
 
       models:
         activity:
