@@ -123,7 +123,8 @@ nl:
           create: "activiteit aangemaakt"
           mail: "betalingsmail gestuurd"
           update: "activiteit bewerkt"
-        checkout_transaction:
+          destroy: "activiteit verwijderd"
+        checkouttransaction:
           change_funds: "Tegoed bijgewerkt"
         checkoutproduct:
           activate_card: "kaart geactiveerd"

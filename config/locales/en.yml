@@ -90,9 +90,9 @@ en:
       participant:
         paid:
           ? "false"
-            : "Not paid"
+          : "Not paid"
           ? "true"
-            : Paid
+          : Paid
       settings:
         additional_committee_positions:
           description: "Roles besides chairman, treasurer and board member that will be added to the committees."
@@ -246,6 +246,7 @@ en:
         create: "activity created"
         mail: "payment mail sent"
         update: "activity updated"
+        destroy: "activity deleted"
       checkout_transaction:
         change_funds: "Credit updated"
       checkoutproduct:
