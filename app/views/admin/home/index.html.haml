@@ -5,41 +5,45 @@
 
   .page
     .row
-      .col-lg-3.col-xsm-6.clickable
+      .col-lg-1.col-xsm-3.clickable
         = link_to :members, :class => 'panel mini-box' do
           %span.box-icon.bg-success
-            %i.fa.fa-user
-          .box-info
-            %p.size-h2
-              = @members
-            %p.text-muted Leden
+            %i.fa.fa-homepage.fa-user
+      .col-lg-2.col-xsm-3.clickable
+        .box-info
+          %p.size-h2
+            = @members
+          %p.text-muted Leden
 
-      .col-lg-3.col-xsm-6.clickable
+      .col-lg-1.col-xsm-3.clickable
         = link_to :activities, :class => 'panel mini-box' do
           %span.box-icon.bg-info
-            %i.fa.fa-ticket
-          .box-info
-            %p.size-h2
-              = @activities
-            %p.text-muted Activiteiten
+            %i.fa.fa-homepage.fa-ticket
+      .col-lg-2.col-xsm-3.clickable
+        .box-info
+          %p.size-h2
+            = @activities
+          %p.text-muted Activiteiten
 
-      .col-lg-3.col-xsm-6.clickable
+      .col-lg-1.col-xsm-3.clickable
         = link_to :checkout, :class => 'panel mini-box' do
           %span.box-icon.bg-warning
-            %i.fa.fa-shopping-cart
-          .box-info
-            %p.size-h2
-              = @transactions
-            %p.text-muted Checkout transacties
+            %i.fa.fa-homepage.fa-shopping-cart
+      .col-lg-2.col-xsm-3.clickable
+        .box-info
+          %p.size-h2
+            = @transactions
+          %p.text-muted Checkout transacties
 
-      .col-lg-3.col-xsm-6.clickable
+      .col-lg-1.col-xsm-3.clickable
         = link_to :payments, :class => 'panel mini-box' do
           %span.box-icon.bg-danger
-            %i.fa.fa-eur
-          .box-info
-            %p.size-h2
-              = number_to_currency(@unpayed, :unit => '')
-            %p.text-muted Openstaande betalingen
+            %i.fa.fa-homepage.fa-eur
+      .col-lg-2.col-xsm-3.clickable
+        .box-info
+          %p.size-h2
+            = number_to_currency(@unpayed, :unit => '')
+          %p.text-muted Openstaande betalingen
 
   .page
     .row

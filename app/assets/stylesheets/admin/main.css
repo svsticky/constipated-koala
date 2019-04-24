@@ -297,3 +297,30 @@ div.clickable > .panel:hover {
   display: table-cell;
   vertical-align: top;
 }
+
+i.fa.fa-homepage {
+  display: inline-flex;
+  font-size: 3em;
+}
+
+span.box-icon {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  height: auto;
+}
+
+.box-info .size-h2 {
+  font-size: 2em;  
+  text-align: center;
+}
+
+.box-info .text-muted{
+  font-size: 1.5em;
+  text-align: center;
+}
+/*span.box-icon {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+}*/
