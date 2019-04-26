@@ -65,7 +65,7 @@
 
       %footer.table-footer
         .row
-          .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4, :all => @all } }
+          .col-md-6.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :all => @all } }
             %span
               Toon
               = select_tag 'limit', options_for_select([20,50,100], @limit)

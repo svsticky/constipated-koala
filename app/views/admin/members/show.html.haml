@@ -120,7 +120,7 @@
                   %tr
                     %th Datum
                     %th Prijs
-                    %th.hidden-xs Producten
+                    %th.d-none.d-sm-table-cell Producten
                 %tbody
                   - @transactions.each do |transaction|
                     %tr
@@ -132,11 +132,11 @@
                         - else
                           %span.fa.fa-sort-desc.pull-right
 
-                      %td.hidden-xs
+                      %td.d-none.d-sm-table-cell
                         = transaction.products
               %footer.table-footer
                 .row
-                  .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4 } }
+                  .col-md-6.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4 } }
                     %span
                       Toon
                       = select_tag 'limit', options_for_select([10,20,50], @limit)
@@ -163,7 +163,7 @@
                     %td= link_to group[ :name ], group_path( group[ :id ] )
                     %td= Date.years( group[ :years ].sort )
 
-                    %td.hidden-xs
+                    %td.d-none.d-sm-table-cell
                       - group[ :positions ].each do | position |
                         - position.each do | position, year |
                           - unless position.nil?
@@ -182,8 +182,8 @@
                 %tr
                   %th Activiteit
                   %th Prijs
-                  %th.hidden-sm.hidden-xs Datum
-                  %th.hidden-xs{ :style => 'text-align: center;' } Betaald
+                  %th.d-none.d-md-table-cell Datum
+                  %th.d-none.d-sm-table-cell{ :style => 'text-align: center;' } Betaald
               %tbody
                 - @activities.each do |activity|
                   %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
@@ -196,11 +196,11 @@
 
                     - if !activity.start_date.nil?
                       - if activity.end_date.nil?
-                        %td.hidden-sm.hidden-xs= link_to "#{I18n.l activity.start_date}", activity
+                        %td.d-none.d-md-table-cell= link_to "#{I18n.l activity.start_date}", activity
                       - else
-                        %td.hidden-sm.hidden-xs= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+                        %td.d-none.d-md-table-cell= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
 
-                    %td.hidden-xs.buttons
+                    %td.d-none.d-sm-table-cell.buttons
                       .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
                         - if activity.participants.where(:member => @member).first.paid
                           %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}

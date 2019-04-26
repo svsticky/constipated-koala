@@ -30,9 +30,7 @@
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
               %th
-                .th.hidden-xs
-                  Telefoonnummer
-                .th.visible-xs
+                .th
                   Telefoonnummer
               %th
                 .th
@@ -52,15 +50,15 @@
               %td= link_to "#{member.first_name}", member
               %td= link_to "#{member.infix}", member
               %td= link_to "#{member.last_name}", member
-              %td.hidden-xs= link_to "#{member.phone_number}", member
-              %td.visible-xs= link_to "#{member.phone_number}", "tel:#{member.phone_number}", :style => 'color: darkblue;'
+              %td.d-none.d-sm-table-cell= link_to "#{member.phone_number}", member
+              %td.d-block.d-sm-none= link_to "#{member.phone_number}", "tel:#{member.phone_number}", :style => 'color: darkblue;'
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member
 
       %footer.table-footer
         .row
-          .col-md-6.page-num-info.hidden-xs{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
+          .col-md-6.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
             %span
               Toon
               = select_tag 'limit', options_for_select([20,50,100], @limit)

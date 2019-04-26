@@ -54,7 +54,7 @@
 
             = f.hidden_field :_destroy, :class => 'remove_poster'
 
-      %span.poster.hidden-xs
+      %span.poster.d-none.d-sm-block
         - if @activity.poster.attached?
           = image_tag @activity.poster.representation(resize: '180x255!')
 

@@ -56,7 +56,7 @@
             = link_to :logs_settings do
               %i.fa.fa-caret-right
               %span= I18n.t("activerecord.models.impressions")
-      %li.hidden-sm-up
+      %li.d-sm-none
         = link_to destroy_user_session_path, 'data-method' => :delete do
           %span= I18n.t("devise.sessions.new.sign_out")
           %i.fa.fa-sign-out

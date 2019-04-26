@@ -1,7 +1,7 @@
 - content_for(:page, 'home')
 
 .col-md-6.col-xs-12
-  .widget.visible-xs
+  .widget.d-block.d-sm-none
     .panel
       .list-group
         = link_to activities_path, { class: 'list-group-item' } do
@@ -82,7 +82,7 @@
             - else
               %td
 
-            %td.text-center.hidden-xs
+            %td.text-center.d-none.d-sm-block
               - if !activity.currency(@member).nil? && activity.currency(@member) > 0
                 - if activity.participants.where(:member => @member).first.paid
                   %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
@@ -99,10 +99,10 @@
         %tbody
           - @transactions.each do |transaction|
             %tr
-              %td.visible-xs{ :colspan => 2 }= I18n.l transaction.created_at
-              %td.hidden-xs= I18n.l transaction.created_at
+              %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
+              %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
 
-              %td.hidden-xs= transaction.products
+              %td.d-none.d-sm-table-cell= transaction.products
               %td
                 = number_to_currency(transaction.price, :unit => '€')
                 - if transaction.price > 0

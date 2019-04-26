@@ -47,7 +47,7 @@
 
   .page
     .row
-      %div.col-md-3.hidden-xs
+      %div.col-md-3.d-none.d-sm-block
         .panel.panel-default
           .panel-heading
             %i.fa.fa-fw.fa-graduation-cap
@@ -82,7 +82,7 @@
                       = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
 
 
-                  %td.hidden-sm
+                  %td.d-none.d-md-table-cell
                     = transaction.products
 
               - if @recent.empty?

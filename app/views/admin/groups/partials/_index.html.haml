@@ -11,4 +11,4 @@
       - groups.each do |group|
         %tr
           %td= link_to "#{group.name}", group
-          %td.hidden-sm= group.members.map{ |member| member.name }.join(', ')
+          %td.d-none.d-md-table-cell= group.members.map{ |member| member.name }.join(', ')

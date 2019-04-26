@@ -25,7 +25,7 @@
     %div
       %section.header.bg-dark
         %header.clearfix
-          = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
+          = link_to '#', :class => 'toggle-min d-block d-md-none menu-button' do
             .icon-bar
             .icon-bar
             .icon-bar
@@ -34,10 +34,10 @@
               = t :association_name
 
           .top-nav
-            .email.hidden-xs
+            .email.d-none.d-md-block
               %span= current_user.email
 
-            .hidden-xs
+            .d-none.d-md-block
               = link_to destroy_user_session_path, 'data-method' => :delete do
                 %i.fa.fa-sign-out
 
@@ -56,7 +56,7 @@
               %span= I18n.t("members.navigation.edit_profile")
               %i.fa.fa-user{:class => ('active' if yield(:page) == 'edit')}
                 %span.icon-bg.bg-orange
-            = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action hidden-sm-up' do
+            = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-sm-none' do
               %span= I18n.t("devise.sessions.new.sign_out")
               %i.fa.fa-sign-out
                 %span.icon-bg.bg-danger

@@ -74,7 +74,7 @@
                             %span uploaden
                             = f.file_field :image, { 'data-ui-file-upload' => '' }
 
-                %span.thumb.hidden-xs
+                %span.thumb.d-none.d-sm-block
                   - if @product.url.present?
                     =image_tag @product.url
 

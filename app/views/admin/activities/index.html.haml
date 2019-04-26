@@ -23,7 +23,7 @@
                   %td= link_to activity.name, activity
 
                   - if !activity.group.nil?
-                    %td.hidden-sm
+                    %td.d-none.d-md-table-cell
                       - if activity.group.board?
                         %span.label.label-primary= activity.group.name.upcase
                       - elsif activity.group.committee?
@@ -31,16 +31,16 @@
                       - else
                         %span.label.label-warning= activity.group.name.upcase
                   - else
-                    %td.hidden-sm
+                    %td.d-none.d-md-table-cell
                       %span
 
 
 
-                  %td.hidden-xs= link_to I18n.l(activity.start_date, :format => :day_month), activity
+                  %td.d-none.d-md-block= link_to I18n.l(activity.start_date, :format => :day_month), activity
 
                   - if activity.ended?
-                    %td.hidden-sm
+                    %td.d-none.d-md-block
                       %span.label.label-primary= "Afgelopen"
                   -else
-                    %td.hidden-sm
+                    %td.d-none.d-md-block
                       %span
