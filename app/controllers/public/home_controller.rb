@@ -1,7 +1,5 @@
 #:nodoc:
-class Public::HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :create, :confirm]
-  skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
+class Public::HomeController < PublicController
   before_action :set_locale
 
   layout false

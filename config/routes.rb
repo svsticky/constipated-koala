@@ -30,11 +30,11 @@ Rails.application.routes.draw do
     post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
 
     scope module: 'public' do
-      get   'studies/:token',   to: 'public/studystatus#edit'
-      post  'studies',          to: 'public/studystatus#update'
+      get   'studies/:token',   to: 'studystatus#edit'
+      post  'studies',          to: 'studystatus#update'
 
-      get   'alumni/:token',    to: 'public/gdpr#edit'
-      post  'alumni',           to: 'public/gdpr#update'
+      get   'alumni/:token',    to: 'gdpr#edit'
+      post  'alumni',           to: 'gdpr#update'
     end
 
     authenticate :user, ->(u) { !u.admin? } do

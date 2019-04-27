@@ -1,8 +1,5 @@
 #:nodoc:
-class Public::GdprController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :create, :confirm]
-  skip_before_action :authenticate_admin!, only: [:index, :create, :confirm]
-
+class Public::GdprController < PublicController
   def edit; end
 
   def update; end

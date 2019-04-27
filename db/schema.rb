@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_02_075737) do
+ActiveRecord::Schema.define(version: 2019_04_27_170101) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -285,6 +285,16 @@ ActiveRecord::Schema.define(version: 2019_03_02_075737) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["member_id", "name"], name: "index_tags_on_member_id_and_name", unique: true
+  end
+
+  create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "token", null: false
+    t.string "object_type", null: false
+    t.bigint "object_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "expires_at", null: false
+    t.index ["object_type", "object_id"], name: "index_tokens_on_object_type_and_object_id"
   end
 
   create_table "trigrams", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

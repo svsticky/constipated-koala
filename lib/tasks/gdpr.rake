@@ -18,4 +18,9 @@ namespace :gdpr do
     # NOTE start sending messages
     Mailings::GDPR.consent(members.pluck(:id, :first_name, :email)).deliver_later
   end
+
+  desc 'Delete all expired tokens'
+  task :clean_tokens => :environment do
+    Token.where('expires_at < ?', Time.current).delete_all
+  end
 end
