@@ -25,6 +25,8 @@ class Members::ActivitiesController < MembersController
   # activity, the list of enrolled people and reservists, and the notes entry
   # field.
   def show
+    @member = Member.find(current_user.credentials_id)
+    
     @enrollment = Participant.find_by(
       member_id: @member.id,
       activity_id: @activity.id

@@ -24,6 +24,8 @@ class Members::ParticipantsController < MembersController
       return
     end
 
+    @member = Member.find(current_user.credentials_id)
+
     # Deny if already enrolled
     if Participant.exists?(activity: @activity, member: @member)
       render status: :conflict, json: {
@@ -150,6 +152,8 @@ class Members::ParticipantsController < MembersController
   # [PATCH] /activities/:id/participants
   # Used for updating member notes
   def update
+    @member = Member.find(current_user.credentials_id)
+
     @enrollment = Participant.find_by(
       member_id: @member.id,
       activity_id: @activity.id
@@ -190,6 +194,7 @@ class Members::ParticipantsController < MembersController
     not_enrollable = !@activity.is_enrollable?
     deadline_passed = @activity.unenroll_date&.end_of_day &&
                       @activity.unenroll_date.end_of_day < Time.now
+
     if not_enrollable || deadline_passed
       message = I18n.t(:not_unenrollable, scope: @activity_errors_scope)
 
@@ -207,9 +212,11 @@ class Members::ParticipantsController < MembersController
       return
     end
 
+    @member = Member.find(current_user.credentials_id)
+
     # Raises RecordNotFound if not enrolled
     @enrollment = Participant.find_by!(
-      member_id: current_user.credentials_id,
+      member_id: @member.id,
       activity_id: @activity.id
     )
 

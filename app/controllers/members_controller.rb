@@ -5,7 +5,6 @@ class MembersController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
-  before_action :set_member!
   before_action :set_locale
 
   layout 'members'
@@ -13,11 +12,6 @@ class MembersController < ActionController::Base
   def set_locale
     session['locale'] = params[:l] || session['locale'] || I18n.default_locale
     I18n.locale = session['locale']
-  end
-
-  # TODO: is dit nodig voor elke pagina?, hoe weet je dat dit beschikbaar is in de andere controllers?
-  def set_member!
-    @member = Member.find(current_user.credentials_id)
   end
 
   # TODO: deze lijkt me sowieso hier niet te moeten
