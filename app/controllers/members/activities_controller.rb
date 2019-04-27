@@ -6,12 +6,16 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 #:nodoc:
-class Members::ActivitiesController < MembersController
-  before_action :set_activity!, except: [:index]
+class Members::ActivitiesController < ApplicationController
+  skip_before_action :authenticate_admin!
+
+  layout 'members'
 
   # [GET] /activities
   # Renders the overview of all future activities that are enrollable.
   def index
+    @member = Member.find(current_user.credentials_id)
+
     @activities = Activity
                   .where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
                          Date.today, Date.today)
@@ -26,7 +30,16 @@ class Members::ActivitiesController < MembersController
   # field.
   def show
     @member = Member.find(current_user.credentials_id)
-    
+    @activity = Activity.find(params[:id])
+
+    # Don't allow activities for old activities
+    if @activity.ended? || !@activity.is_viewable? # rubocop:disable Style/GuardClause
+      render :status => :gone,
+             :plain => I18n.t(
+               :activity_ended,
+               scope: 'activerecord.errors.models.activity')
+    end
+
     @enrollment = Participant.find_by(
       member_id: @member.id,
       activity_id: @activity.id

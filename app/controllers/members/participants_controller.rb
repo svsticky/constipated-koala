@@ -6,8 +6,11 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 #:nodoc:
-class Members::ParticipantsController < MembersController
+class Members::ParticipantsController < ApplicationController
+  skip_before_action :authenticate_admin!
   before_action :set_activity!
+
+  layout 'members'
 
   def initialize
     @activity_errors_scope = 'activerecord.errors.models.activity'
@@ -232,5 +235,22 @@ class Members::ParticipantsController < MembersController
       participant_limit: @activity.participant_limit,
       participant_count: @activity.participants.count
     }
+  end
+
+  private
+
+  # TODO: deze lijkt me sowieso hier niet te moeten
+  def set_activity!
+    activity_id = params[:activity_id] || params[:id]
+    @activity = Activity.find(activity_id)
+
+    # Don't allow activities for old activities
+    if @activity.ended? || !@activity.is_viewable? # rubocop:disable Style/GuardClause
+      render :status => :gone,
+             :plain => I18n.t(
+               :activity_ended,
+               scope: 'activerecord.errors.models.activity'
+             )
+    end
   end
 end
