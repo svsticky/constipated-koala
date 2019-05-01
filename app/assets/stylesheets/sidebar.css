@@ -16,7 +16,8 @@
 }
 
 #sidebar-wrapper .list-group {
-  width: 15rem;
+  width: 100%;
+  min-width: 15rem;
 }
 
 @media (min-width: 768px) {
@@ -52,4 +53,12 @@
 #sidebar-wrapper a > i.active {
   color: #fff;
   background-color: #008cba;
+}
+
+.nav-min #sidebar-container {
+  width: 100%;
+}
+
+.nav-min #sidebar-wrapper {
+  margin-left: 0;
 }
