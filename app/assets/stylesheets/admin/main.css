@@ -264,7 +264,7 @@ div.clickable > .panel:hover {
   top: 0;
   display: block;
   height: 50px;
-  font-size: 1.1em;
+  font-size: 1.5em;
   font-weight: 100;
   line-height: 50px;
   color: white;
@@ -301,6 +301,7 @@ div.clickable > .panel:hover {
 i.fa.fa-homepage {
   display: inline-flex;
   font-size: 3em;
+  color: white;
 }
 
 span.box-icon {
@@ -319,6 +320,16 @@ span.box-icon {
   font-size: 1.5em;
   text-align: center;
 }
+
+button.btn.btn-primary {
+  width: 100%;
+}
+
+input#search {
+  width: 103%;
+  height: 100%;
+}
+
 /*span.box-icon {
   width: 100px;
   height: 100px;

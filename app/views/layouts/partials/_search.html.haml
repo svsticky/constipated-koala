@@ -3,29 +3,29 @@
     .panel-body
       = form_tag members_path, :method => 'get' do
         .input-group
+          .col-md-11
+            = search_field_tag :search, params[:search],  placeholder: 'zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]', class: 'form-control', :autocomplete => 'off'
 
-          = search_field_tag :search, params[:search],  placeholder: 'zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]', class: 'form-control', :autocomplete => 'off'
+            %ul.dropdown-menu{ :name => 'studies' }
+              - Study.select( :code ).all.map{ |study| [study.code.downcase, I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names')] }.each do |study|
+                %li
+                  %a{ :data => { :code => study[0], :name => study[1].downcase.gsub( ' ', '-' )} }= study[1]
 
-          %ul.dropdown-menu{ :name => 'studies' }
-            - Study.select( :code ).all.map{ |study| [study.code.downcase, I18n.t(study.code.downcase, scope: 'activerecord.attributes.study.names')] }.each do |study|
+            %ul.dropdown-menu{ :name => 'tags' }
+              - Tag.names.map{ |tag| I18n.t(tag[0], scope: 'activerecord.attributes.tag.names')}.each do |tag|
+                %li
+                  %a{ :data => { :name => tag.downcase.gsub( ' ', '-' )} }= tag
+
+            %ul.dropdown-menu{ :name => 'states' }
               %li
-                %a{ :data => { :code => study[0], :name => study[1].downcase.gsub( ' ', '-' )} }= study[1]
-
-          %ul.dropdown-menu{ :name => 'tags' }
-            - Tag.names.map{ |tag| I18n.t(tag[0], scope: 'activerecord.attributes.tag.names')}.each do |tag|
+                %a{ :data => { :name => I18n.t("layouts.partials.search.active") }}= I18n.t("layouts.partials.search.active")
               %li
-                %a{ :data => { :name => tag.downcase.gsub( ' ', '-' )} }= tag
-
-          %ul.dropdown-menu{ :name => 'states' }
-            %li
-              %a{ :data => { :name => I18n.t("layouts.partials.search.active") }}= I18n.t("layouts.partials.search.active")
-            %li
-              %a{ :data => { :name => I18n.t("layouts.partials.search.studying") }}= I18n.t("layouts.partials.search.studying")
-            %li
-              %a{ :data => { :name => I18n.t("layouts.partials.search.alumni") }}= I18n.t("layouts.partials.search.alumni")
-            %li
-              %a{ :data => { :name => I18n.t("layouts.partials.search.anybody") }}= I18n.t("layouts.partials.search.anybody")
-
-          %span.input-group-btn
-            %button.btn.btn-primary{ type: 'submit', style: 'padding: 7px 20px; height: 34px;' }
-              %i.fa.fa-search
+                %a{ :data => { :name => I18n.t("layouts.partials.search.studying") }}= I18n.t("layouts.partials.search.studying")
+              %li
+                %a{ :data => { :name => I18n.t("layouts.partials.search.alumni") }}= I18n.t("layouts.partials.search.alumni")
+              %li
+                %a{ :data => { :name => I18n.t("layouts.partials.search.anybody") }}= I18n.t("layouts.partials.search.anybody")
+          .col-md-1
+            %span.input-group-btn
+              %button.btn.btn-primary{ type: 'submit', style: 'padding: 7px 20px; height: 34px;' }
+                %i.fa.fa-search
