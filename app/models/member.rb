@@ -323,7 +323,7 @@ class Member < ApplicationRecord
     Participant.where(:member_id => nil).update_all(notes: nil)
 
     # create transaction for emptying checkout_balance
-    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'contant') if checkout_balance.present? && checkout_balance.balance != 0
+    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0
   end
 
   # Perform an elfproef to verify the student_id
