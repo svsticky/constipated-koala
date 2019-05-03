@@ -4,7 +4,7 @@
 = form_for :member, method: :patch, :class => 'form-validation' do |f|
 
   - if @member.errors.any?
-    .col-md-9
+    .col
       .alert.alert-danger
         %button.close{ type: "button" } ×
         %span= I18n.t('activerecord.errors.incomplete')
@@ -12,49 +12,49 @@
         - @member.errors.full_messages.each do |msg|
           %li= msg
 
-  .col-md-9
-    .panel.panel-default
-      .panel-heading
+  .col
+    .card
+      .card-header
         %i.fa.fa-fw.fa-user
         = I18n.t('members.home.edit.general_data')
-      .panel-body
+      .card-body
         .form-group
           .row
-            .col-md-5
+            .col-lg-5
               = f.label(:first_name)
               = f.label :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled'
-            .col-md-2
+            .col-lg-2
               = f.label(:infix)
               = f.label :infix, 'value' => @member.infix, :class => 'form-control form-control-disabled'
-            .col-md-5
+            .col-lg-5
               = f.label(:last_name)
               = f.label :last_name, 'value' => @member.last_name, :class => 'form-control form-control-disabled'
 
         .form-group
           .row
-            .col-md-6
+            .col-lg-6
               = f.label(:gender)
               .ui-select
                 = f.select :gender, options_for_select([[I18n.t('members.genders.male'), "m"], [I18n.t('members.genders.female'), "f"]], @member.gender)
-            .col-md-6
+            .col-lg-6
               = f.label(:birth_date)
               = f.label :birth_date, 'value' => @member.birth_date, :class => 'form-control form-control-disabled birthdate'
 
         .form-group
           .row
-            .col-md-8
+            .col-lg-8
               = f.label(:address)
               = f.text_field :address, :value => @member.address, :class => 'form-control'
-            .col-md-4
+            .col-lg-4
               = f.label(:house_number)
               = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
 
         .form-group
           .row
-            .col-md-6
+            .col-lg-6
               = f.label(:postal_code)
               = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-            .col-md-6
+            .col-lg-6
               = f.label(:city)
               = f.text_field :city, :value => @member.city, :class => 'form-control'
 
@@ -79,7 +79,7 @@
         = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
 
   -#
-    .col-md-9
+    .col-lg-9
       .panel.panel-default
         .panel-heading
           %i.fa.fa-fw.fa-rocket
