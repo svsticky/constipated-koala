@@ -56,7 +56,7 @@
 
 @media (min-width: 768px) {
   .header .logo {
-    margin-left: 15px;
+    padding-left: 15px;
     text-align: left;
   }
 }
