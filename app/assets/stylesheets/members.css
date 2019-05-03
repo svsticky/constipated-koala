@@ -17,6 +17,7 @@
  *= require_self
  *= require_tree ./members
  *= require sidebar
+ *= require cards
  */
 
 .panel-activity > .panel-body:nth-child(2) {

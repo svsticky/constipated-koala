@@ -1,31 +1,33 @@
 - content_for(:page, 'home')
 
-.col-md-6.col-xs-12
+.col-lg-6.col-12
 
   - unless @balance.blank?
-    .panel.panel-box.info-box
-      .panel-left.panel-item.bg-success
-        %i.fa.fa-shopping-cart.fa-5x
-      .panel-right.panel-item.bg-reverse
-        %p.size-h2
-          = number_to_currency( @balance.balance, :unit => '€' )
-        %p.text-muted.text-center= I18n.t('activerecord.models.checkout_balance')
+    .card.card-box
+      .row.no-gutters
+        .col.bg-success.card-body
+          %i.fa.fa-shopping-cart.fa-5x
+        .col.card-body
+          %p.size-h2
+            = number_to_currency( @balance.balance, :unit => '€' )
+          %p.text-muted.text-center= I18n.t('activerecord.models.checkout_balance')
 
-  .panel.panel-box.info-box
-    .panel-left.panel-item.bg-reverse
-      %p.size-h2
-        = number_to_currency( @debt, :unit => '€' )
-      %p.text-muted.text-center= I18n.t('members.home.index.outstanding_payments')
-    .panel-right.panel-item.bg-warning
-      %i.fa.fa-ticket.fa-5x
+  .card.card-box
+    .row.no-gutters
+      .col.card-body
+        %p.size-h2
+          = number_to_currency( @debt, :unit => '€' )
+        %p.text-muted.text-center= I18n.t('members.home.index.outstanding_payments')
+      .col.bg-warning.card-body
+        %i.fa.fa-ticket.fa-5x
 
   - if @member.groups.any?
     .widget
-      .panel.panel-default
-        .panel-heading
+      .card.panel
+        .card-header
           %i.fa.fa-fw.fa-users
           = I18n.t('activerecord.models.group')
-        %table.table.table-striped
+        %table.table.card-body
           %tbody
             - @member.groups.each do |group|
               %tr
@@ -41,15 +43,15 @@
                         - if year == Date.today.study_year
                           = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
 
-.col-md-6.col-xs-12.pull-right
-  .panel.panel-default
-    .panel-heading
+.col-lg-6.col-12.pull-right
+  .card
+    .card-header
       %span
         %i.fa.fa-fw.fa-fw.fa-ticket
         = I18n.t("activerecord.models.activity")
         = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
 
-    %table.table.table-striped.table-linked.table-dynamic
+    %table.table.table-striped
       %tbody
         - @participants.each do |activity|
           %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
@@ -78,12 +80,12 @@
                   %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
 
   = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
-    .panel.panel-default.table-dynamic
-      .panel-heading
+    .card.table-dynamic
+      .card-header
         %i.fa.fa-fw.fa-fw.fa-shopping-cart
         = I18n.t('activerecord.models.checkout_transactions')
 
-      %table.table.table-striped.table-linked
+      %table.table.card-body
         %tbody
           - @transactions.each do |transaction|
             %tr

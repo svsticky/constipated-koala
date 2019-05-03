@@ -1,0 +1,32 @@
+.card {
+  margin-bottom: 1rem;
+}
+
+.card-box {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+  border: none;
+}
+
+.card-box .card-body {
+  display: table-cell;
+  padding: 30px 0;
+  width: 1%;
+  vertical-align: top;
+  border-radius: 0;
+}
+
+.card-box i {
+  line-height: 90px;
+  color: #fff;
+}
+
+.size-h2 {
+  font-size: 30px;
+}
+
+.card .table {
+  margin-bottom: 0;
+}
