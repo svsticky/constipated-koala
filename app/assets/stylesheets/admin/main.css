@@ -234,11 +234,11 @@ div.clickable > .panel {
   margin: 0;
 }
 
-div.clickable > .panel:hover {
+/*div.clickable > .panel:hover {
   height: 105px;
   text-decoration: none;
   border-color: #767676;
-}
+}*/
 
 .table{
     font-size: 15px;
@@ -301,6 +301,7 @@ div.clickable > .panel:hover {
 i.fa.fa-homepage {
   display: inline-flex;
   font-size: 3em;
+  margin-top: 20px;
   color: white;
 }
 
@@ -308,17 +309,18 @@ span.box-icon {
   display: inline-block;
   width: 100%;
   text-align: center;
-  height: auto;
+  height: 100%;
 }
 
 .box-info .size-h2 {
-  font-size: 2em;  
+  font-size: 1em;  
   text-align: center;
 }
 
 .box-info .text-muted{
-  font-size: 1.5em;
+  font-size: 0.9em;
   text-align: center;
+  
 }
 
 button.btn.btn-primary {
@@ -328,6 +330,11 @@ button.btn.btn-primary {
 input#search {
   width: 103%;
   height: 100%;
+}
+
+.box-info{
+
+  margin-top: -20px;
 }
 
 /*span.box-icon {

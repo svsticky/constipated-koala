@@ -28,11 +28,11 @@ div.clickable > .panel {
   margin: 0;
 }
 
-div.clickable > .panel:hover {
+/*div.clickable > .panel:hover {
   height: 105px;
   text-decoration: none;
   border-color: #767676;
-}
+}*/
 
 .widget .widget-header {
   padding: 15px 15px 50px 15px;

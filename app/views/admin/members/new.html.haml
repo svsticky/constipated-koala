@@ -118,10 +118,10 @@
                         .col-md-6
                           = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
                         = fs.hidden_field :_destroy, :class => 'destroy'
-
-
-                      %a.btn.btn-default.destroy{ :type => 'button' }
-                        %span.fa.fa-trash-o
+                      .row
+                        .col-md-6
+                          %a.btn.btn-default.destroy{ :type => 'button' }
+                            %span.fa.fa-trash-o
 
                 .callout.callout-info
                   %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
