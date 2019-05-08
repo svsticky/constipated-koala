@@ -42,6 +42,10 @@ div.container.col-md-9 {
   }
 }
 
+.poster-thumbnail {
+  padding-right: 10px;
+}
+
 .poster-thumbnail img {
   width: 140px;
 }

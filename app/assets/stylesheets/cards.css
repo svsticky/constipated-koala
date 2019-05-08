@@ -30,3 +30,13 @@
 .card .table {
   margin-bottom: 0;
 }
+
+.card-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.card-footer .btn-group {
+  white-space: nowrap;
+}
