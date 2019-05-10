@@ -27,6 +27,7 @@
         %header.clearfix
           = link_to '#', :class => 'toggle-min d-block d-md-none menu-button' do
             %i.fa.fa-bars
+
           = link_to root_path, :class => 'logo' do
             %span
               = t :association_name
@@ -41,23 +42,22 @@
 
       %aside#sidebar-container{role: 'navigation'}
         #sidebar-wrapper
-          %div.list-group.list-group-flush{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
+          .list-group.list-group-flush{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
             = link_to :root, :class => 'list-group-item list-group-item-action' do
               %span= I18n.t("navigation.home")
               %i.fa.fa-desktop{:class => ('active' if yield(:page) == 'home')}
-                %span.icon-bg.bg-dark
+
             = link_to activities_path, :class => 'list-group-item list-group-item-action' do
               %span= I18n.t("activerecord.models.activity")
               %i.fa.fa-ticket{:class => ('active' if yield(:page) == 'activities')}
-                %span.icon-bg.bg-warning
+
             = link_to :users_edit, :class => 'list-group-item list-group-item-action' do
               %span= I18n.t("members.navigation.edit_profile")
               %i.fa.fa-user{:class => ('active' if yield(:page) == 'edit')}
-                %span.icon-bg.bg-orange
-            = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-sm-none' do
+
+            = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-md-none' do
               %span= I18n.t("devise.sessions.new.sign_out")
               %i.fa.fa-sign-out
-                %span.icon-bg.bg-danger
 
       .view-container
         %section

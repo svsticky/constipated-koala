@@ -62,3 +62,7 @@
 .nav-min #sidebar-wrapper {
   margin-left: 0;
 }
+
+.nav-min .view-container {
+  display: none;
+}

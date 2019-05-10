@@ -31,10 +31,9 @@
     %div
       %section.header.bg-dark
         %header.clearfix
-          = link_to '#', :class => 'toggle-min d-block d-sm-none menu-button' do
-            .icon-bar
-            .icon-bar
-            .icon-bar
+          = link_to '#', :class => 'toggle-min d-block d-md-none menu-button' do
+            %i.fa.fa-bars
+
           = link_to root_path, :class => 'logo' do
             - if content_for?(:title)
               %span.d-none.d-md-block

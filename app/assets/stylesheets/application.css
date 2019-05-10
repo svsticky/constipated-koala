@@ -16,22 +16,11 @@
  *
  *= require_self
  *= require_tree ./admin
+ *= require page
+ *= require header
+ *= require sidebar
  */
 
 .page {
   padding: 15px;
-}
-
-.header {
-  height: 50px;
-}
-
-.header .logo {
-  color: white;
-  font-size: 1.5em;
-  line-height: 50px;
-}
-
-.header .menu-button {
-  left: 0;
 }

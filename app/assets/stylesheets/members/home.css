@@ -9,15 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  */
-div#content {
-  left: 0px;
-}
-
-@media (min-width: 768px) {
-  div#content {
-    left: 240px;
-  }
-}
 
 div.clickable {
   overflow: hidden;
@@ -144,40 +135,6 @@ div.clickable > .panel {
 .home_mongoose_form_element {
   width: 33%;
   min-width: 0 !important;
-}
-
-.top-nav img {
-  display: block;
-}
-
-.top-nav .email {
-  position: absolute;
-  right: 60px;
-  top: 0;
-  display: block;
-  height: 50px;
-  font-size: 1.1em;
-  font-weight: 100;
-  line-height: 50px;
-  color: white;
-}
-
-.top-nav a {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
-  height: 50px;
-  width: 50px;
-  font-size: 1.2em;
-  line-height: 50px;
-  text-align: center;
-  background-color: #F34541;
-  color: white;
-}
-
-.nav-min .view-container {
-  display: none;
 }
 
 .form-control-disabled {

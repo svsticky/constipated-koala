@@ -254,40 +254,6 @@ div.clickable > .panel {
   color: red;
 }
 
-.top-nav img {
-  display: block;
-}
-
-.top-nav .email {
-  position: absolute;
-  right: 60px;
-  top: 0;
-  display: block;
-  height: 50px;
-  font-size: 1.5em;
-  font-weight: 100;
-  line-height: 50px;
-  color: white;
-}
-
-.top-nav a {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
-  height: 50px;
-  width: 50px;
-  font-size: 1.2em;
-  line-height: 50px;
-  text-align: center;
-  background-color: #F34541;
-  color: white;
-}
-
-.nav-min .view-container {
-  display: none;
-}
-
 .is-table-row {
   display: table;
 }
@@ -313,14 +279,14 @@ span.box-icon {
 }
 
 .box-info .size-h2 {
-  font-size: 1em;  
+  font-size: 1em;
   text-align: center;
 }
 
 .box-info .text-muted{
   font-size: 0.9em;
   text-align: center;
-  
+
 }
 
 button.btn.btn-primary {
