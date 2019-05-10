@@ -131,9 +131,11 @@ nl:
         group:
           create: "groep aangemaakt"
           update: "groep bewerkt"
+          destroy: groep verwijderd
         group_member:
           create: "%{member_type} toegevoegd: %{position}"
           update: "%{member_type} bewerkt: %{position}"
+          destroy: "%{member_type} verwijderd: %{position}"
         member:
           create: "lid aangemaakt"
           destroy: "lid verwijderd"
@@ -144,6 +146,7 @@ nl:
             paid: "deelnemer heeft betaald"
             price: "prijs is veranderd voor deelnemer"
             unpaid: "deelnemer heeft niet betaald"
+          destroy: deelnemer verwijderd
       member:
         address: Straatnaam
         birth_date: Geboortedatum

@@ -255,9 +255,11 @@ en:
       group:
         create: "group created"
         update: "group updated"
+        destroy: group deleted
       group_member:
         create: "%{member_type} added: %{position}"
         update: "%{member_type} updated: %{position}"
+        destroy: "%{member_type} deleted: %{position}"
       member:
         create: "member created"
         destroy: "member deleted"
@@ -268,6 +270,7 @@ en:
           paid: "participant has paid"
           price: "price for participant has been updated"
           unpaid: "participant hasn't paid"
+        destroy: participant deleted
     labels:
       activities:
         date: Datum
