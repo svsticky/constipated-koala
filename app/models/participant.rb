@@ -5,6 +5,7 @@ class Participant < ApplicationRecord
 
   validates :notes, length: { maximum: 30 }
 
+  before_destroy :rewrite_logs_before_delete!, prepend: true
   is_impressionable dependent: :nullify
 
   def price=(price)
@@ -21,5 +22,22 @@ class Participant < ApplicationRecord
   before_validation do
     self.paid = false if price_changed?
     write_attribute(:price, nil) if activity.price == self.price
+  end
+
+  # Update logs before deleting a Participant to keep what happened
+  def rewrite_logs_before_delete!
+    impressions.each do |i|
+      prefix = "#{ activity.name } (#{ activity.id }) - "
+      message = case i.action_name
+                when "update" then
+                  I18n.t i.message, scope: [:activerecord, :attributes, :impression, i.impressionable_type.downcase, i.action_name]
+                else
+                  I18n.t i.action_name, scope: [:activerecord, :attributes, :impression, i.impressionable_type.downcase]
+                end
+
+      newmessage = prefix + message
+      i.update(message: newmessage)
+      i.update(impressionable_id: nil)
+    end
   end
 end

@@ -30,6 +30,7 @@ class Activity < ApplicationRecord
   # validates :description
   # validates :unenroll_date
 
+  before_destroy :rewrite_logs_before_delete, prepend: true
   is_impressionable dependent: :nullify
 
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
@@ -254,5 +255,10 @@ class Activity < ApplicationRecord
 
   def thumbnail_representation
     poster.representation(resize: '254x360!') if poster.attached?
+  end
+
+  # Add a message containing the Activity's id and name to the logs before deleting the activity.
+  def rewrite_logs_before_delete
+    impressions.update_all(message: "#{ name } (#{ id })")
   end
 end

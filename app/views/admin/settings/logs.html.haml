@@ -46,7 +46,7 @@
                   - elsif !impression.impressionable.nil?
                     = link_to impression.impressionable.name, impression.impressionable
 
-                - elsif 'Participant' == impression.impressionable_type
+                - elsif 'Participant' == impression.impressionable_type && impression.impressionable_id
                   = link_to impression.impressionable.activity.name, impression.impressionable.activity, :class => 'inline'
 
                   - if impression.impressionable.member.present?
@@ -62,11 +62,15 @@
 
               %td
                 - if !impression.message.nil?
-                  - if impression.impressionable_type == 'Participant' && impression.action_name == 'update'
-                    = I18n.t impression.message, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase, impression.action_name]
+                  - if impression.impressionable_type == 'Participant'
+                    - if impression.impressionable_id.nil?
+                      = impression.message
 
-                  - else
-                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], message: impression.message
+                    - elsif impression.action_name == 'update'
+                      = I18n.t impression.message, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase, impression.action_name]
+
+                    - else
+                      = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], message: impression.message
 
                 - else
                   - if impression.impressionable_type == 'Group' && !impression.impressionable.nil?
