@@ -139,6 +139,36 @@ en:
         email: e-mailaddress
         password: password
         password_confirmation: "Repeat password"
+      impression:
+        activity:
+          create: "activity created"
+          mail: "payment mail sent"
+          update: "activity updated"
+          destroy: "activity deleted"
+        checkout_transaction:
+          change_funds: "Credit updated"
+        checkoutproduct:
+          activate_card: "card activated"
+          change_funds: "funds added"
+        group:
+          create: "group created"
+          update: "group updated"
+          destroy: group deleted
+        group_member:
+          create: "%{member_type} added: %{position}"
+          update: "%{member_type} updated: %{position}"
+          destroy: "%{member_type} deleted: %{position}"
+        member:
+          create: "member created"
+          destroy: "member deleted"
+          update: "member updated"
+        participant:
+          create: "participant added"
+          update:
+            paid: "participant has paid"
+            price: "price for participant has been updated"
+            unpaid: "participant hasn't paid"
+          destroy: participant deleted
     errors:
       default: Some has gone wrong
       incomplete: Oh snap, you forgot some things
@@ -241,36 +271,6 @@ en:
         no_bank_provided: "Bank can't be empty when paying with iDEAL."
         success: "Your payment has been received and you are enrolled!"
         success_without_payment: "You have been enrolled!"
-    impression:
-      activity:
-        create: "activity created"
-        mail: "payment mail sent"
-        update: "activity updated"
-        destroy: "activity deleted"
-      checkout_transaction:
-        change_funds: "Credit updated"
-      checkoutproduct:
-        activate_card: "card activated"
-        change_funds: "funds added"
-      group:
-        create: "group created"
-        update: "group updated"
-        destroy: group deleted
-      group_member:
-        create: "%{member_type} added: %{position}"
-        update: "%{member_type} updated: %{position}"
-        destroy: "%{member_type} deleted: %{position}"
-      member:
-        create: "member created"
-        destroy: "member deleted"
-        update: "member updated"
-      participant:
-        create: "participant added"
-        update:
-          paid: "participant has paid"
-          price: "price for participant has been updated"
-          unpaid: "participant hasn't paid"
-        destroy: participant deleted
     labels:
       activities:
         date: Datum
