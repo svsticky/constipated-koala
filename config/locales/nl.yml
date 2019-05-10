@@ -56,6 +56,14 @@ nl:
           other: Leden
         name: Naam
         former: oud-lid
+        positions:
+          board: Bestuurslid
+          chairman: Voorzitter
+          education: "Commissaris onderwijs"
+          external: "Commissaris extern"
+          internal: "Commissaris intern"
+          secretary: Secretaris
+          treasurer: Penningmeester
       tag:
         names:
           pardon: Gratie
@@ -109,15 +117,6 @@ nl:
         additional_moot_positions:
           name: Extra dispuutrollen
           description: Rollen die naast voorzitter, secretaris, en penningmeester worden toegevoegd aan alle disputen.
-
-        positions:
-          board: Bestuurslid
-          chairman: Voorzitter
-          education: "Commissaris onderwijs"
-          external: "Commissaris extern"
-          internal: "Commissaris intern"
-          secretary: Secretaris
-          treasurer: Penningmeester
       impression:
         activity:
           create: "activiteit aangemaakt"
@@ -132,9 +131,9 @@ nl:
         group:
           create: "groep aangemaakt"
           update: "groep bewerkt"
-        groupmember:
-          create: "%{name} toegevoegd"
-          update: "%{name} bewerkt"
+        group_member:
+          create: "%{member_type} toegevoegd: %{position}"
+          update: "%{member_type} bewerkt: %{position}"
         member:
           create: "lid aangemaakt"
           destroy: "lid verwijderd"
@@ -327,6 +326,9 @@ nl:
       active_user: "Dit lid heeft een actief account (%{email})."
       send_password_reset: "Verstuur password-reset-email"
       email_sent: "Email verstuurd!"
+    logs:
+      impressionable:
+        deleted: 'Entiteit is verwijderd.'
 
   association_name: "Studievereniging Sticky"
   date:

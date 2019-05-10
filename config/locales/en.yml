@@ -255,9 +255,9 @@ en:
       group:
         create: "group created"
         update: "group updated"
-      groupmember:
-        create: "%{name} added"
-        update: "%{name} updated"
+      group_member:
+        create: "%{member_type} added: %{position}"
+        update: "%{member_type} updated: %{position}"
       member:
         create: "member created"
         destroy: "member deleted"
@@ -317,6 +317,9 @@ en:
       active_user: "This member has an active account(%{email})."
       send_password_reset: "Send password reset email"
       email_sent: "Email sent!"
+    logs:
+      impressionable:
+        deleted: 'Entiteit is verwijderd.'
   association_name: "Study association Sticky"
   date:
     day_names:

@@ -30,7 +30,7 @@ class Activity < ApplicationRecord
   # validates :description
   # validates :unenroll_date
 
-  before_destroy :rewrite_logs_before_delete, prepend: true
+  before_destroy :rewrite_logs_before_delete!, prepend: true
   is_impressionable dependent: :nullify
 
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }

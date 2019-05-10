@@ -40,44 +40,34 @@
                 - if !impression.user_id.nil?
                   = User.find( impression.user_id ).email
               %td
-                - if ['Member', 'Group', 'Activity'].include? impression.impressionable_type
-                  - if impression.impressionable.nil? && !impression.message.nil?
-                    = impression.message
-                  - elsif !impression.impressionable.nil?
-                    = link_to impression.impressionable.name, impression.impressionable
-
-                - elsif 'Participant' == impression.impressionable_type && impression.impressionable_id
-                  = link_to impression.impressionable.activity.name, impression.impressionable.activity, :class => 'inline'
-
-                  - if impression.impressionable.member.present?
-                    = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
-
-                - elsif 'GroupMember' == impression.impressionable_type
-                  = link_to impression.impressionable.group.name, impression.impressionable.group, :class => 'inline'
-
-                  - if impression.impressionable.member.present?
-                    = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+                - if impression.impressionable.nil?
+                  = impression.impressionable_type
                 - else
-                  = impression.controller_name
+                  - case impression.impressionable_type
+                  - when 'Member', 'Group', 'Activity'
+                    = link_to impression.impressionable.name, impression.impressionable
+                  - when 'Participant'
+                    = link_to impression.impressionable.activity.name, impression.impressionable.activity, :class => 'inline'
+
+                    - if impression.impressionable.member.present?
+                      = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+                  - when 'GroupMember'
+                    = link_to impression.impressionable.group.name, impression.impressionable.group, :class => 'inline'
+
+                    - if impression.impressionable.member.present?
+                      = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+                  - else
+                    = impression.controller_name
 
               %td
-                - if !impression.message.nil?
-                  - if impression.impressionable_type == 'Participant'
-                    - if impression.impressionable_id.nil?
-                      = impression.message
-
-                    - elsif impression.action_name == 'update'
-                      = I18n.t impression.message, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase, impression.action_name]
-
-                    - else
-                      = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], message: impression.message
-
+                - if impression.impressionable.nil?
+                  - if !impression.message.nil?
+                    = impression.message
+                  - else
+                    = I18n.t 'admin.logs.impressionable.deleted'
                 - else
-                  - if impression.impressionable_type == 'Group' && !impression.impressionable.nil?
-                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], category: "#{I18n.t impression.impressionable.category, scope: [ :activerecord, :attributes, :group, :categories]}"
-
-                  - elsif impression.impressionable_type == 'GroupMember'
-                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], name: "#{I18n.t impression.impressionable.group.category, scope: [ :activerecord, :attributes, :group, :members]}".downcase, position: "#{I18n.t impression.impressionable.position, scope: [ :activerecord, :attributes, :group, :positions]}".downcase
+                  - if impression.impressionable_type == 'GroupMember'
+                    = impression.impressionable.log_action(impression.action_name)
                   - else
                     = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase]
 
