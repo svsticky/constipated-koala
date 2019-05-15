@@ -322,7 +322,9 @@ en:
       email_sent: "Email sent!"
     logs:
       impressionable:
-        deleted: 'Entiteit is verwijderd.'
+        create: 'Entity created'
+        update: 'Entity updated'
+        deleted: 'Entity deleted'
   association_name: "Study association Sticky"
   date:
     day_names:

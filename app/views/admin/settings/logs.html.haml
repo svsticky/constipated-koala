@@ -60,16 +60,14 @@
                     = impression.controller_name
 
               %td
-                - if impression.impressionable.nil?
-                  - if !impression.message.nil?
-                    = impression.message
-                  - else
-                    = I18n.t 'admin.logs.impressionable.deleted'
+                - if impression.impressionable.nil? && !impression.message.nil?
+                  = impression.message
+                - elsif !impression.impressionable.nil? && impression.impressionable_type == 'GroupMember'
+                  = impression.impressionable.log_action(impression.action_name)
                 - else
-                  - if impression.impressionable_type == 'GroupMember'
-                    = impression.impressionable.log_action(impression.action_name)
-                  - else
-                    = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase]
+                  = I18n.t impression.action_name,
+                           scope: [:activerecord, :attributes, :impression, impression.impressionable_type.downcase],
+                           :default => I18n.t(impression.action_name, scope: [:admin, :logs, :impressionable])
 
               %td= impression.ip_address
 

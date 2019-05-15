@@ -132,18 +132,18 @@ class Admin::MembersController < ApplicationController
   def destroy
     @member = Member.includes(:checkout_balance).find(params[:id])
 
-    flash[:notice] = []
-
-    if @member.destroy
+    @member.transaction do
       impressionist @member
+      @member.destroy!
+      flash[:notice] = []
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
 
       redirect_to root_url
-    else
-      flash[:errors] = @member.errors.messages
-      redirect_to @member
     end
+  rescue ActiveRecord::RecordNotDestroyed
+    flash[:errors] = @member.errors.messages
+    redirect_to @member
   end
 
   def payment_whatsapp

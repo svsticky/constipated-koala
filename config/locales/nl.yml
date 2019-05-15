@@ -331,6 +331,8 @@ nl:
       email_sent: "Email verstuurd!"
     logs:
       impressionable:
+        create: 'Entiteit aangemaakt'
+        update: 'Entiteit aangepast'
         deleted: 'Entiteit is verwijderd.'
 
   association_name: "Studievereniging Sticky"
