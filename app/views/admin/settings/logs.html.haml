@@ -40,30 +40,31 @@
                 - if !impression.user_id.nil?
                   = User.find( impression.user_id ).email
               %td
-                - if impression.impressionable.nil?
+                - impressionable = impression.impressionable
+                - if impressionable.nil?
                   = impression.impressionable_type
                 - else
                   - case impression.impressionable_type
                   - when 'Member', 'Group', 'Activity'
-                    = link_to impression.impressionable.name, impression.impressionable
+                    = link_to impressionable.name, impressionable
                   - when 'Participant'
-                    = link_to impression.impressionable.activity.name, impression.impressionable.activity, :class => 'inline'
+                    = link_to impressionable.activity.name, impressionable.activity, :class => 'inline'
 
-                    - if impression.impressionable.member.present?
-                      = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+                    - if impressionable.member.present?
+                      = link_to impressionable.member.name, impressionable.member, :class => 'inline'
                   - when 'GroupMember'
-                    = link_to impression.impressionable.group.name, impression.impressionable.group, :class => 'inline'
-
-                    - if impression.impressionable.member.present?
-                      = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+                    = link_to impressionable.group.name, impressionable.group, :class => 'inline'
                   - else
                     = impression.controller_name
 
+                  - if (%w(Participant GroupMember).include? impression.impressionable_type) && impressionable.member.present?
+                    = link_to impressionable.member.name, impressionable.member, :class => 'inline'
+
               %td
-                - if impression.impressionable.nil? && !impression.message.nil?
+                - if impressionable.nil? && !impression.message.nil?
                   = impression.message
-                - elsif !impression.impressionable.nil? && impression.impressionable_type == 'GroupMember'
-                  = impression.impressionable.log_action(impression.action_name)
+                - elsif !impressionable.nil? && impression.impressionable_type == 'GroupMember'
+                  = impressionable.log_action(impression.action_name)
                 - else
                   = I18n.t impression.action_name,
                            scope: [:activerecord, :attributes, :impression, impression.impressionable_type.downcase],
