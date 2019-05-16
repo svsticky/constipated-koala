@@ -3,7 +3,7 @@ namespace :gdpr do
   # or can be forced by using `bundle exec rake gdpr:mail[y]`.
   desc 'Send consent mail to members'
   task :mail, [:force] => :environment do |_, args|
-    members = Member.where(consent: [:pending, :yearly]).where("consent_at IS NULL OR consent_at < ?", Date.current - 1.year)
+    members = Member.alumni.where(consent: [:pending, :yearly]).where("consent_at IS NULL OR consent_at < ?", Date.current - 1.year)
 
     if members.empty?
       puts 'No members require a consent mail'
@@ -21,6 +21,6 @@ namespace :gdpr do
 
   desc 'Delete all expired tokens'
   task :clean_tokens => :environment do
-    Token.where('expires_at < ?', Time.current).delete_all
+    Token.clear!
   end
 end

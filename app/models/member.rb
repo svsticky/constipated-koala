@@ -25,7 +25,7 @@ class Member < ApplicationRecord
   validates :birth_date, presence: true
   validates :join_date, presence: true
 
-  enum consent: [:pending, :studying, :yearly, :indefinite]
+  enum consent: [:pending, :yearly, :indefinite]
 
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
@@ -67,6 +67,9 @@ class Member < ApplicationRecord
   has_many :groups, :through => :group_members
 
   has_one :user, as: :credentials, :dependent => :destroy
+
+  scope :studying, -> { where(id: Education.where(status: :active)) }
+  scope :alumni, -> { where.not(id: Education.where(status: :active)) }
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
@@ -168,6 +171,9 @@ class Member < ApplicationRecord
         raise ActiveRecord::Rollback
       end
     end
+
+    # update consent_at when consent is given
+    self.consent_at = Time.now if consent_changed? && %w(indefinite, yearly).include?(consent.to_s)
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
@@ -302,6 +308,11 @@ class Member < ApplicationRecord
   end
 
   def self.import(import, checksum); end
+
+  def is_destroyable?
+    return false unless unpaid_activities.empty?
+    return true
+  end
 
   private
 

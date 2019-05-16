@@ -1,0 +1,28 @@
+
+.col-md-12
+  .panel.panel-default
+    %p hello
+
+
+= form_for :member, :url => studies_path(:token => @token.token), :class => 'form-validation' do |f|
+  = f.hidden_field :id, :value => @member.id
+
+
+  .col-md-12
+    .panel.panel-default
+
+      - @member.educations.each do |education|
+        = f.fields_for 'educations_attributes[]', education do |fs|
+          .form-group
+            = fs.hidden_field :id, :class => 'id'
+
+            = I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
+
+            .ui-select
+              = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
+
+
+  .col-md-12
+    .panel.panel-default
+      .panel-body
+        %button.btn.btn-success{type: 'submit'} Opslaan

@@ -289,6 +289,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_170101) do
 
   create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "token", null: false
+    t.integer "intent", null: false
     t.string "object_type", null: false
     t.bigint "object_id", null: false
     t.datetime "created_at", null: false

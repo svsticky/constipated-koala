@@ -435,6 +435,9 @@ nl:
     checkout:
       confirm_card: "Kaart bevestigen"
       confirmation_instructions: "Bevestig je kaart voor je Checkout account bij Studievereniging Sticky door op de onderstaande knop te klikken!"
+    gdpr:
+      consent: "Persoonsgegevens beheren"
+      gdpr_instructions: "Op het moment sta je bij Studievereniging ingeschreven maar ben je volgens onze gegevens geen student meer aan de Universiteit Utrecht. Op dit moment hebben we je gegevens nog bewaard, maar het is aan jou om aan te geven of je dit ook wil. Zolang je ingeschreven staat kunnen we je benaderen voor alumni activiteiten en op de hoogte houden van speciale evenementen. Volg onderstaande link om deze toestemming voor onbeperkte tijd te geven of voor een jaar, of verwijder je account en daarmee al je persoonsgegevens bij Studievereniging Sticky."
     devise:
       activation_instructions:
         about_sticky: "Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid."

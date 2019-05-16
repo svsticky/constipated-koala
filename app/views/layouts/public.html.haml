@@ -1,51 +1,51 @@
 !!! 5
 %html
   %head
-    %title
-      = t :association_name
-
-      - if content_for?(:title)
-        |
-        = yield(:title)
+    %title= t :association_name
 
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 
-    = stylesheet_link_tag 'members', media: 'all', 'data-turbolinks-track' => 'reload'
-    = javascript_include_tag 'members', 'data-turbolinks-track' => 'reload'
+    = stylesheet_link_tag 'public', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'public', 'data-turbolinks-track' => 'reload'
 
-    %template#alert
-      .toast{:class => "toast-{1}"}
-        %button.toast-close-button
-          ×
-        .toast-message
-          {0}
     = csrf_meta_tags
-  %body#app
-    %div
-      %section#header.top-header
-        %header.clearfix
-          = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
-            .icon-bar
-            .icon-bar
-            .icon-bar
-          = link_to root_path, :class => 'logo' do
-            %span
+  %body
+    .container.container-narrow
+      .col-md-12
+        .panel.panel-default
+          .panel-body
+            = link_to 'https://svsticky.nl' do
               = t :association_name
 
-          - if current_user.present?
-            .top-nav
-              .email.hidden-xs
-                %span= current_user.email
+      .row
 
-              .hidden-xs
-                = link_to destroy_user_session_path, 'data-method' => :delete do
-                  %i.fa.fa-sign-out
+      = yield
 
-      .view-container
-        %section
-          .page#content
-            .row
-              = yield
+  -#
+    %body#app
+      %div
+        %section#header.top-header
+          %header.clearfix
+            = link_to '#', :class => 'toggle-min visible-xs visible-small menu-button' do
+              .icon-bar
+              .icon-bar
+              .icon-bar
+            = link_to root_path, :class => 'logo' do
+              %span
+                = t :association_name
 
-    #toast-container.toast-bottom-right
+            - if current_user.present?
+              .top-nav
+                .email.hidden-xs
+                  %span= current_user.email
+
+                .hidden-xs
+                  = link_to destroy_user_session_path, 'data-method' => :delete do
+                    %i.fa.fa-sign-out
+
+        .view-container
+          %section
+            .page#content
+              .row
+                = yield
