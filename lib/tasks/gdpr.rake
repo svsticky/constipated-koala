@@ -4,7 +4,7 @@ namespace :gdpr do
   desc 'Send consent mail to members'
   task :mail, [:force] => :environment do |_, args|
     members = Member.alumni.where(consent: [:pending, :yearly]).where("consent_at IS NULL OR consent_at < ?", Date.current - 1.year)
-    
+
     if members.empty?
       puts 'No members require a consent mail'
       next
