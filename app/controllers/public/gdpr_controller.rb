@@ -16,7 +16,7 @@ class Public::GdprController < PublicController
       flash[:error] = 'consent is blank'
       render 'edit'
 
-    elsif @member.update(consent: consent_post_params.select { |_,v| v == '1' }.keys.first)
+    elsif @member.update(consent: consent_post_params.select { |_, v| v == '1' }.keys.first)
       @token.destroy
 
       flash[:notice] << 'success!'

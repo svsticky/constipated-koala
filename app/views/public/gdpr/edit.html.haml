@@ -24,7 +24,7 @@
             = check_box_tag 'indefinite'
             %span Consent forever
 
-    - if @member.is_destroyable? || true
+    - if @member.destroyable?
       .panel.panel-default
         .form-group
           = link_to alumni_path(:token => @token.token), 'data-method' => :delete do

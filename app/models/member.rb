@@ -173,7 +173,7 @@ class Member < ApplicationRecord
     end
 
     # update consent_at when consent is given
-    self.consent_at = Time.now if consent_changed? && %w(indefinite, yearly).include?(consent.to_s)
+    self.consent_at = Time.now if consent_changed? && %w[indefinite yearly].include?(consent.to_s)
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
@@ -309,8 +309,9 @@ class Member < ApplicationRecord
 
   def self.import(import, checksum); end
 
-  def is_destroyable?
+  def destroyable?
     return false unless unpaid_activities.empty?
+
     return true
   end
 

@@ -2,7 +2,6 @@ include Rails.application.routes.url_helpers
 
 #:nodoc:
 module Mailings
-
   # Used for sending an mail to members that should consent
   class GDPR < ApplicationMailer
     def consent(members)
@@ -33,7 +32,7 @@ module Mailings
       return mails(recipients, nil, '', html, text)
     end
 
-    # TODO send export and say bye
+    # TODO: send export and say bye
     def destroy; end
   end
 end
