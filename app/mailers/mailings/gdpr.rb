@@ -29,7 +29,7 @@ module Mailings
         Het bestuur
       PLAINTEXT
 
-      return mails(recipients, nil, '', html, text)
+      return mails(recipients, nil, 'Lidmaatschap Studievereniging Sticky', html, text)
     end
 
     # TODO: send export and say bye
