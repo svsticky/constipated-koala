@@ -273,9 +273,15 @@ i.fa.fa-homepage {
 
 span.box-icon {
   display: inline-block;
-  width: 100%;
   text-align: center;
+  width: 100%;
   height: 100%;
+}
+
+.box-info {
+  position: absolute;
+  left: 100px;
+  right: 0;
 }
 
 .box-info .size-h2 {
@@ -283,10 +289,13 @@ span.box-icon {
   text-align: center;
 }
 
+.box-info p {
+  margin-bottom: 0;
+}
+
 .box-info .text-muted{
   font-size: 0.9em;
   text-align: center;
-
 }
 
 button.btn.btn-primary {
@@ -298,13 +307,14 @@ input#search {
   height: 100%;
 }
 
-.box-info{
-
-  margin-top: -20px;
-}
-
-/*span.box-icon {
+span.box-icon {
   width: 100px;
   height: 100px;
   display: inline-block;
-}*/
+}
+
+.box-icon i {
+  line-height: 100px;
+  vertical-align: middle;
+  margin-top: 0 !important;
+}

@@ -5,55 +5,55 @@
 
   .page
     .row
-      .col-lg-1.col-xsm-3.clickable
-        = link_to :members, :class => 'panel mini-box' do
-          %span.box-icon.bg-success
-            %i.fa.fa-homepage.fa-user
-      .col-lg-2.col-xsm-3.clickable
-        = link_to :payments, :class => 'panel mini-box' do
-          .box-info
-            %p.size-h2
-              = @members
-            %p.text-muted Leden
 
-      .col-lg-1.col-xsm-3.clickable
-        = link_to :activities, :class => 'panel mini-box' do
-          %span.box-icon.bg-info
-            %i.fa.fa-homepage.fa-ticket
-      .col-lg-2.col-xsm-3.clickable
-        = link_to :payments, :class => 'panel mini-box' do
-          .box-info
-            %p.size-h2
-              = @activities
-            %p.text-muted Activiteiten
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :members do
+            .row.no-gutters
+              %span.box-icon.bg-success
+                %i.fa.fa-homepage.fa-user
+              .card-body.box-info
+                %p.size-h2
+                  = @members
+                %p.text-muted Leden
 
-      .col-lg-1.col-xsm-3.clickable
-        = link_to :checkout, :class => 'panel mini-box' do
-          %span.box-icon.bg-warning
-            %i.fa.fa-homepage.fa-shopping-cart
-      .col-lg-2.col-xsm-3.clickable
-        = link_to :payments, :class => 'panel mini-box' do
-          .box-info
-            %p.size-h2
-              = @transactions
-            %p.text-muted Checkout transacties
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :activities do
+            .row.no-gutters
+              %span.box-icon.bg-info
+                %i.fa.fa-homepage.fa-ticket
+              .card-body.box-info
+                %p.size-h2
+                  = @activities
+                %p.text-muted Activiteiten
 
-      .col-lg-1.col-xsm-3.clickable
-        = link_to :payments, :class => 'panel mini-box' do
-          %span.box-icon.bg-danger
-            %i.fa.fa-homepage.fa-eur
-      .col-lg-2.col-xsm-3.clickable
-        = link_to :payments, :class => 'panel mini-box' do
-          .box-info
-            %p.size-h2
-              = number_to_currency(@unpayed, :unit => '')
-            %p.text-muted Openstaande betalingen
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :checkout do
+            .row.no-gutters
+              %span.box-icon.bg-warning
+                %i.fa.fa-homepage.fa-shopping-cart
+              .card-body.box-info
+                %p.size-h2
+                  = @transactions
+                %p.text-muted Checkout transacties
 
-  .page
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :payments do
+            .row.no-gutters
+              %span.box-icon.bg-danger
+                %i.fa.fa-homepage.fa-eur
+              .card-body.box-info
+                %p.size-h2
+                  = number_to_currency(@unpayed, :unit => '')
+                %p.text-muted Openstaande betalingen
+
     .row
-      %div.col-md-3.d-none.d-sm-block
-        .panel.panel-default
-          .panel-heading
+      %div.col-lg-3.d-none.d-sm-block
+        .card
+          .card-header
             %i.fa.fa-fw.fa-graduation-cap
             Studies
 
@@ -64,9 +64,9 @@
                   %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
-      %div.col-md-6
-        .panel.panel-default
-          .panel-heading
+      %div.col-lg-6
+        .card
+          .card-header
             %i.fa.fa-fw.fa-shopping-cart
             Laatste transacties vandaag
           %table.table.table-striped.table-linked
@@ -94,9 +94,9 @@
                   %td.text-center
                     %em geen transacties vandaag
 
-      %div.col-md-3
-        .panel.panel-default
-          .panel-heading
+      %div.col-lg-3
+        .card
+          .card-header
             %i.fa.fa-fw.fa-ticket
             Wanbetalers
           %table.table.table-striped.table-linked
