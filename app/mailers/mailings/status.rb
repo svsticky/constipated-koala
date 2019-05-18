@@ -3,7 +3,8 @@ include Rails.application.routes.url_helpers
 #:nodoc:
 module Mailings
   # Used for sending an mail to members that should consent
-  class GDPR < ApplicationMailer
+  class Status < ApplicationMailer
+    # TODO: implement
     def consent(members)
       recipients = members.map do |id, first_name, email|
         {

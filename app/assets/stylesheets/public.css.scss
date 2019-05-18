@@ -4,25 +4,170 @@
  *= require_self
  */
 html, body {
-  background: #eee;
+  background: white;
+  margin: 0 5px;
+}
+
+
+h1 {
+
+}
+
+h2 {
+  font-size: 20px;
+
+  span {
+    border-bottom: solid 2px #3098CF;
+  }
+}
+
+dt {
+  font-weight: 400;
+}
+
+dd {
+  margin: 5px 0 30px 20px;
+  font-size: 0.95em;
+}
+
+a {
+  color: #337AB8;
 }
 
 @media (min-width: 768px) {
   .container-narrow {
-    max-width: 730px;
+    max-width: 600px;
   }
 }
 
-.col-md-12:first-child {
-  padding-top: 20px;
+.col-md-12 {
+  margin-bottom: 40px;
+  padding: 0 20px;
+
+  &.no-margin {
+    margin: 0;
+  }
+}
+
+.navbar-brand {
+  display: inline-block;
+  width: calc(100% - 10px);
+
+  padding: 20px 0 20px 20px;
+  border-bottom: solid 1px #eee;
+
 
   a {
     font-size: 1.2em;
-    color: #111;
   }
 }
 
-.col-md-12 .form-group,
-.col-md-12 p {
-  padding: 10px 10px 0;
+.form-group .col-md-6 {
+  padding: 10px 15px 10px 10px;
+
+  &.bottom-border {
+    position: relative;
+    height: 34px;
+    top: 10px;
+
+    line-height: 20px;
+    border-bottom: solid 1px #CBD5DD;
+  }
+
+  &.no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.ui-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 34px;
+  border-bottom: 1px solid #CBD5DD;
+  border-radius: 2px;
+}
+
+.ui-select > select {
+  z-index: 99;
+  display: block;
+  position: relative;
+  padding: 10px 15px 10px 10px;
+  min-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 22px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.no-padding .ui-select > select {
+  text-transform: initial;
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.ui-select select::-ms-expand {
+  display: none;
+}
+
+.ui-select:after {
+  z-index: 0;
+  content: "";
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  color: #CBD5DD;
+  width: 0;
+  margin-top: 2px;
+  height: 0;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  pointer-events: none;
+}
+
+.panel-warning {
+  position: relative;
+  border: solid 1px #FF5141;
+  padding: 10px;
+  margin-top: 20px;
+
+  button {
+    display: inline-block;
+    position: absolute;
+    top: 36px;
+    left: 20px;
+  }
+
+  p {
+    margin-left: 220px;
+    margin-top: 2px;
+    padding: 0;
+  }
+}
+
+.buttons {
+  position: relative;
+
+  button {
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    left: 40px;
+  }
+
+  p {
+    margin-left: 120px;
+    font-size: 0.95em;
+  }
 }

@@ -331,8 +331,11 @@ class Member < ApplicationRecord
     # remove participants of this member for free activities in the future
     Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 
-    # remove all participant notes where member_id is nil
-    Participant.where(:member_id => nil).update_all(notes: nil)
+    # remove all participant notes
+    Participant.where(:member_id => id).update_all(notes: nil)
+
+    # set not updated studies to inactive
+    Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0

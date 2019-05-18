@@ -180,6 +180,7 @@ nl:
       no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
       unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
       info: Het is gelukt
+      no_consent: Je bent geen student meer, geef aan wat we met je data mogen doen.
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!

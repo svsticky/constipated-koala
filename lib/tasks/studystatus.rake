@@ -16,7 +16,7 @@ namespace :studystatus do
 
     # TODO: members.pluck(:id, :first_name, :email) + studies
     # logica, eerst bachelor, als die klaar is master. Meerdere bachelors mogelijk
-    Mailings::Studystatus.mail({}).deliver_later
+    Mailings::Studystatus.consent({}).deliver_later
   end
 
   desc 'Delete all expired tokens'

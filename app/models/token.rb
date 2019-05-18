@@ -1,7 +1,7 @@
 #:nodoc:
 class Token < ApplicationRecord
   belongs_to :object, :polymorphic => true
-  enum intent: [:studystatus, :consent]
+  enum intent: [:consent]
 
   after_find do
     raise ActiveRecord::RecordNotFound if expires_at < Time.current
