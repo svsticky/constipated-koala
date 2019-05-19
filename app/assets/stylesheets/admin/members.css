@@ -1,4 +1,4 @@
-.btn-group.dropdown:hover ul.dropdown-menu {
+.btn-group.dropdown:hover ul.dropdown-menu, .btn-group.dropdown:active ul.dropdown-menu {
   display: block;
   top: 30px;
 }
