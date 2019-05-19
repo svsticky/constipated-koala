@@ -334,6 +334,7 @@ nl:
       active_user: "Dit lid heeft een actief account (%{email})."
       send_password_reset: "Verstuur password-reset-email"
       email_sent: "Email verstuurd!"
+      consent_sent: Mail voor studiestatus update verstuurd.
 
   association_name: "Studievereniging Sticky"
   date:

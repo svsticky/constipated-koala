@@ -97,9 +97,32 @@
             .panel-body
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
-              = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
-                %i.fa.fa-paper-plane
-                = @account_button_text
+
+
+              .btn-group.dropdown.pull-right
+                %button.btn.btn-default.dropdown-toggle
+                  %i.fa.fa-paper-plane
+                  verstuur mail
+                  %span.caret
+
+                %ul.dropdown-menu
+                  - if @member.user&.confirmed?
+                    %li
+                      = link_to member_mail_path(@member, 'password_reset'), method: :post do
+                        = I18n.t 'admin.member_account_status.send_password_reset'
+
+                  - elsif @member.user && !@member.user.confirmed?
+                    %li
+                      = link_to member_mail_path(@member, 'resend_confirmation'), method: :post do
+                        = I18n.t 'admin.member_account_status.resend_confirmation'
+                  - else
+                    %li
+                      = link_to member_mail_path(@member, 'create_user'), method: :post do
+                        = I18n.t 'admin.member_account_status.send_create_email'
+
+                  %li
+                    = link_to member_mail_path(@member, 'consent'), method: :post do
+                      Vraag om studiestatus/consent update
 
           - if @transactions.length > 0 || @member.checkout_cards.length > 0
             .panel.panel-default
