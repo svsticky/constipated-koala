@@ -2,17 +2,17 @@ include Rails.application.routes.url_helpers
 
 #:nodoc:
 module Mailings
-  # Used for sending an mail to members that should consent
+  # Used for sending an mail to members that should consent or update their studystatus
   class Status < ApplicationMailer
-    # TODO: implement
     def consent(members)
-      recipients = members.map do |id, first_name, email|
-        {
-          email => {
-            'first_name': first_name,
-            'email': email,
-            'url': alumni_url(:token => Token.create(:object => Member.find_by_id(id), :intent => 'consent').token)
-          }
+      variables = {}
+
+      members.each do |id, first_name, infix, last_name, email|
+        variables[email] = {
+          :first_name => first_name,
+          :name => (infix.blank? ? "#{ first_name } #{ last_name }" : "#{ first_name } #{ infix } #{ last_name }"),
+          :email => email,
+          :url => status_url(:token => Token.create(:object_type => 'Member', :object_id => id, :intent => 'consent').token)
         }
       end
 
@@ -21,7 +21,7 @@ module Mailings
       text = <<~PLAINTEXT
         Hoi %recipient.first_name%,
 
-        Op het moment sta je bij Studievereniging ingeschreven maar ben je volgens onze gegevens geen student meer aan de Universiteit Utrecht. Op dit moment hebben we je gegevens nog bewaard, maar het is aan jou om aan te geven of je dit ook wil. Zolang je ingeschreven staat kunnen we je benaderen voor alumni activiteiten. Volg onderstaande link om deze toestemming voor onbeperkte tijd te geven of voor een jaar, of verwijder je account en daarmee al je persoons gegevens bij Studievereniging Sticky.
+        #{ I18n.t('mailings.gdpr.gdpr_instructions') }
 
         %recipient.url%
 
@@ -30,7 +30,7 @@ module Mailings
         Het bestuur
       PLAINTEXT
 
-      return mails(recipients, nil, 'Lidmaatschap Studievereniging Sticky', html, text)
+      return mails(variables, nil, 'Lidmaatschap Studievereniging Sticky', html, text)
     end
 
     # TODO: send export and say bye
