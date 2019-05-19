@@ -62,7 +62,7 @@ Rails.application.routes.draw do
       resources :members do
         get   'payment_whatsapp'
         patch 'force_email_change'
-        post 'email/:type', to: 'members#send_email', as: 'mail'
+        post 'email/:type', to: 'members#send_email', as: :mail
 
         collection do
           get 'search'
