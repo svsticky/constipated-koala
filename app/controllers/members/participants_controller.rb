@@ -239,7 +239,6 @@ class Members::ParticipantsController < ApplicationController
 
   private
 
-  # TODO: deze lijkt me sowieso hier niet te moeten
   def set_activity!
     activity_id = params[:activity_id] || params[:id]
     @activity = Activity.find(activity_id)

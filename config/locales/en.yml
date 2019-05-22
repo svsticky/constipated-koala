@@ -321,6 +321,10 @@ en:
       active_user: "This member has an active account(%{email})."
       send_password_reset: "Send password reset email"
       email_sent: "Email sent!"
+      consent_sent: Mail for updating studystatus send
+      send_consent_mail: Request updating studystatus
+      send_mail: Send a mail
+
   association_name: "Study association Sticky"
   date:
     day_names:
@@ -497,3 +501,29 @@ en:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
+
+  pages:
+    public:
+      status:
+        hi: Hi
+        description: At the moment you are enrolled at Study association Sticky. Below you will find study information that is known to us, it is important to keep this information. Study association Sticky saves your data during your study but also afterwards, as soon as you are not actively studying more, we ask you below what we can do with your data. For questions please contact %{url}.
+
+        store_info: <span>Store</span> personal data
+        store_description: No student anymore? Study association Sticky saves your data until you indicate that you no longer want this. Below you can indicate what we can do with your data; may we save them, do we have to ask again in a year or do you want to immediately delete all your data. If you still want to delete your data afterwards, you can of course do so via the member page or contact %{url}.
+
+        yearly: Not quite sure what you want, we can ask you the question again in a year.
+        yearly_consent: I give my permission to keep my data for another year.
+
+        indefinite: We may keep all your data until you indicate otherwise, this can be done via %{url}.
+        indefinite_consent: I give permission to keep my data until I indicate otherwise.
+
+        remove_info: <span>Delete</span> personal data
+        remove_description: If you are no longer a student and you have not given permission above to save your data, you can immediately delete your personal data. If you want to become a member again later, you will have to pay a new contribution.
+
+        save: Save
+        save_note: After saving the above data, the used link is unusable, go to koala to view or delete your data.
+
+        destroyable: After deleting you can no longer log in or register for activities, your participation in future activities will be deleted and you will lose your mongoose credit.
+        not_destroyable: Because you still have financial obligations you cannot delete your account. Make sure you pay for the latest activities and delete your account by following this link or in %{url}.
+        warning: You are about to delete all your personal data at Study Association Sticky, are you sure?
+        destroy: Delete your data
