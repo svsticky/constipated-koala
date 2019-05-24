@@ -131,6 +131,15 @@
             %br
             Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
 
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-fw.fa-gavel
+        = I18n.t 'members.home.edit.privacy_panel.header'
+      .panel-body
+        = I18n.t 'members.home.edit.privacy_panel.view'
+        = link_to 'https://svsticky.nl/wp-content/uploads/privacystatement.pdf' do
+          = I18n.t 'members.home.edit.privacy_panel.privacy_statement'
+
 
   - if @applications.any?
     .col-md-6

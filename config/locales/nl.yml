@@ -497,6 +497,10 @@ nl:
     home:
       edit:
         general_data: "Algemene gegevens"
+        privacy_panel:
+          header: 'Privacy'
+          view: 'Bekijk de'
+          privacy_statement: 'privacy statement'
       index:
         edit_profile: "Gegevens bewerken"
         outstanding_payments: "Openstaande betalingen"
