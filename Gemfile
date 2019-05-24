@@ -30,6 +30,10 @@ gem 'rest-client'
 gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
+# pagination
+gem 'will_paginate'
+gem 'will_paginate-bootstrap4'
+
 # settings cached in rails environment
 gem 'image_processing'
 gem 'rails-settings-cached'

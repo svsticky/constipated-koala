@@ -5,26 +5,32 @@ class Admin::MembersController < ApplicationController
   respond_to :json, only: [:search]
 
   def index
+
     @limit = params[:limit] ? params[:limit].to_i : 50
-    @offset = params[:offset] ? params[:offset].to_i : 0
 
-    @page = @offset / @limit
-
-    # If a search query is send, change the limit and offset accordingly. The param all is whether the query should also look into alumni
     if params[:search]
-      @results = Member.search(params[:search].clone)
+      @members = Member.search(params[:search].clone)
+        .paginate(page: param[:page], per_page: params[:limit] ||= 20)
 
-      @pages = (@results.size / @limit.to_f).ceil
-      @members = @results[@offset, @limit]
-
-      @members = Member.none if @members.nil?
       @search = params[:search]
 
-      redirect_to @members.first if @members.size == 1 && @offset == 0 && @limit > 1
+      redirect_to @members.first if @members.size == 1 && params[:page] ||= 1
 
     else
-      @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
-      @pages = (Member.count / @limit.to_f).ceil
+      @members = Member
+        .includes(:educations)
+        .where(:id => (
+          Education.select(:member_id)
+                   .where('status = 0')
+                   .map(&:member_id) +
+        Tag.select(:member_id)
+           .where(:name => Tag.active_by_tag)
+           .map(&:member_id)
+          )
+        )
+        .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
+        .order(:last_name, :first_name)
+        .paginate(page: params[:page], per_page: params[:limit] ||= 20)
     end
   end
 

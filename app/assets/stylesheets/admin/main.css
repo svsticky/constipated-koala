@@ -81,6 +81,7 @@ aside a[href='#'] {
   top: 5px;
 }
 
+/* TODO: panels were removed in bootstrap 4, maybe this should be removed */
 .panel{
     margin-bottom: 20px;
     background-color: #ffff;
