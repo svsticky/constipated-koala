@@ -5,19 +5,19 @@ class Admin::MembersController < ApplicationController
   respond_to :json, only: [:search]
 
   def index
-
     @limit = params[:limit] ? params[:limit].to_i : 50
 
     if params[:search]
       @members = Member.search(params[:search].clone)
-        .paginate(page: param[:page], per_page: params[:limit] ||= 20)
+                       .paginate(page: param[:page], per_page: params[:limit] ||= 20)
 
       @search = params[:search]
 
       redirect_to @members.first if @members.size == 1 && params[:page] ||= 1
 
     else
-      @members = Member
+      @members =
+        Member
         .includes(:educations)
         .where(:id => (
           Education.select(:member_id)
@@ -26,11 +26,11 @@ class Admin::MembersController < ApplicationController
         Tag.select(:member_id)
            .where(:name => Tag.active_by_tag)
            .map(&:member_id)
-          )
-        )
+        ))
         .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
         .order(:last_name, :first_name)
         .paginate(page: params[:page], per_page: params[:limit] ||= 20)
+
     end
   end
 
