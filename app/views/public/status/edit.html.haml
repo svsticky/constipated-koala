@@ -1,4 +1,4 @@
-- @l = [:pages, :public, :status]
+- @scope = [:pages, :public, :status]
 
 .languages
   = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), status_path(:token => @token.token, :l => 'nl'), { :style => 'margin: 10px; float:left; '}
@@ -15,11 +15,11 @@
 
 .col-md-12
   %h2
-    = I18n.t :hi, scope: @l
+    = I18n.t :hi, scope: @scope
     %span #{@member.first_name},
 
 
-  %p= raw I18n.t :description, scope: @l, url: mail_to('bestuur@svsticky.nl')
+  %p= raw I18n.t :description, scope: @scope, url: mail_to('bestuur@svsticky.nl')
 
 
 = form_for :member, :url => status_path(:token => @token.token), :class => 'form-validation', :remote => true, :authenticity_token => true do |f|
@@ -46,38 +46,38 @@
               = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status), :include_blank => education.study.blank?
 
   .col-md-12.consent
-    %h2= raw I18n.t :store_info, scope: @l
-    %p= raw I18n.t :store_description, scope: @l, url: mail_to('bestuur@svsticky.nl')
+    %h2= raw I18n.t :store_info, scope: @scope
+    %p= raw I18n.t :store_description, scope: @scope, url: mail_to('bestuur@svsticky.nl')
 
     %br
 
     .form-group
-      %dt= I18n.t :yearly, scope: @l
+      %dt= I18n.t :yearly, scope: @scope
       %dd
         %label.ui-checkbox
           = check_box_tag 'yearly'
-          %span= I18n.t :yearly_consent, scope: @l
+          %span= I18n.t :yearly_consent, scope: @scope
 
-      %dt= raw I18n.t :indefinite, scope: @l, url: link_to('koala', users_edit_url)
+      %dt= raw I18n.t :indefinite, scope: @scope, url: link_to('koala', users_edit_url)
       %dd
         %label.ui-checkbox
           = check_box_tag 'indefinite'
-          %span= I18n.t :indefinite_consent, scope: @l
+          %span= I18n.t :indefinite_consent, scope: @scope
 
 
   .col-md-12.buttons
-    %button.btn.btn-success{type: 'submit'}= I18n.t :save, scope: @l
+    %button.btn.btn-success{type: 'submit'}= I18n.t :save, scope: @scope
 
-    %p= I18n.t :save_note, scope: @l
+    %p= I18n.t :save_note, scope: @scope
 
 
   .col-md-12
-    %h2= raw I18n.t :remove_info, scope: @l
-    %p= I18n.t :remove_description, scope: @l
+    %h2= raw I18n.t :remove_info, scope: @scope
+    %p= I18n.t :remove_description, scope: @scope
 
     - if @member.destroyable?
       .panel.panel-warning
-        %button.btn.btn-danger{formaction: status_destroy_url(token: params[:token]), type: 'submit', onclick: "return confirm('#{I18n.t :warning, scope: @l}');"}= I18n.t :destroy, scope: @l
-        %p= I18n.t :destroyable, scope: @l
+        %button.btn.btn-danger{formaction: status_destroy_url(token: params[:token]), type: 'submit', onclick: "return confirm('#{I18n.t :warning, scope: @scope}');"}= I18n.t :destroy, scope: @scope
+        %p= I18n.t :destroyable, scope: @scope
     - else
-      %p= raw I18n.t :not_destroyable, scope: @l, url: link_to('koala', users_edit_url)
+      %p= raw I18n.t :not_destroyable, scope: @scope, url: link_to('koala', users_edit_url)
