@@ -25,7 +25,7 @@ class Member < ApplicationRecord
   validates :birth_date, presence: true
   validates :join_date, presence: true
 
-  enum consent: [:pending, :studying, :yearly, :indefinite]
+  enum consent: [:pending, :yearly, :indefinite]
 
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
@@ -67,6 +67,9 @@ class Member < ApplicationRecord
   has_many :groups, :through => :group_members
 
   has_one :user, as: :credentials, :dependent => :destroy
+
+  scope :studying, -> { where(id: Education.where(status: :active)) }
+  scope :alumni, -> { where.not(id: Education.where(status: :active)) }
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
@@ -168,6 +171,9 @@ class Member < ApplicationRecord
         raise ActiveRecord::Rollback
       end
     end
+
+    # update consent_at when consent is given
+    self.consent_at = Time.now if consent_changed? && %w[indefinite yearly].include?(consent.to_s)
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
@@ -303,6 +309,12 @@ class Member < ApplicationRecord
 
   def self.import(import, checksum); end
 
+  def destroyable?
+    return false unless unpaid_activities.empty?
+
+    return true
+  end
+
   private
 
   # NOTE: this doesn't work in a block without prepend:true relations are destroyed before this callback
@@ -319,8 +331,11 @@ class Member < ApplicationRecord
     # remove participants of this member for free activities in the future
     Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 
-    # remove all participant notes where member_id is nil
-    Participant.where(:member_id => nil).update_all(notes: nil)
+    # remove all participant notes
+    Participant.where(:member_id => id).update_all(notes: nil)
+
+    # set not updated studies to inactive
+    Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0

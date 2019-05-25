@@ -180,6 +180,7 @@ nl:
       no_connection: Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!
       unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
       info: Het is gelukt
+      no_consent: Je bent geen student meer, geef aan wat we met je data mogen doen.
 
       subscribe:
         failed: Je betaling is niet gelukt, je bent wel ingeschreven!
@@ -333,6 +334,9 @@ nl:
       active_user: "Dit lid heeft een actief account (%{email})."
       send_password_reset: "Verstuur password-reset-email"
       email_sent: "Email verstuurd!"
+      consent_sent: Mail voor studiestatus update verstuurd.
+      send_consent_mail: Vraag om studiestatus/consent update
+      send_mail: Verstuur mail
 
   association_name: "Studievereniging Sticky"
   date:
@@ -435,6 +439,9 @@ nl:
     checkout:
       confirm_card: "Kaart bevestigen"
       confirmation_instructions: "Bevestig je kaart voor je Checkout account bij Studievereniging Sticky door op de onderstaande knop te klikken!"
+    gdpr:
+      consent: "Persoonsgegevens beheren"
+      gdpr_instructions: Je staat ingeschreven bij Studievereniging Sticky omdat je een studie doet of hebt gedaan bij de Universiteit Utrecht. Het is voor de vereniging belangrijk om je gegevens bij te werken. Op onderstaande link kun je je gegevens bijwerken en als je geen student meer bent aangeven wat we met je data mogen doen.
     devise:
       activation_instructions:
         about_sticky: "Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid."
@@ -510,3 +517,28 @@ nl:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
+  pages:
+    public:
+      status:
+        hi: Hallo
+        description: Op het moment ben je ingeschreven bij Studievereniging Sticky. Hieronder vind je studiegegevens die bij ons bekend zijn, het is belangrijk om deze gegevens bij te houden. Studievereniging Sticky bewaart je gegevens tijdens je studie maar ook erna, zodra je geen actieve studie meer hebt vragen we je hieronder wat we met je gegevens mogen doen. Voor vragen neem contact op met %{url}.
+
+        store_info: <span>Bewaren</span> persoonsgegevens
+        store_description: Geen student meer? Studievereniging Sticky bewaard je gegevens totdat je aangeeft dit niet meer te willen. Hieronder kun je aangeven wat wij met je gegevens mogen doen; mogen we ze bewaren, moeten we het over een jaar nog een keer vragen of wil je meteen al je gegevens verwijderen. Als je achteraf toch je gegevens wil verwijderen dan kan dat natuurlijk via de ledenpagina of neem contact op met %{url}.
+
+        yearly: Nog niet helemaal zeker wat je wil, we kunnen je over een jaar nogmaals de vraag stellen.
+        yearly_consent: Ik geef toestemming mijn gegevens nog één jaar te bewaren.
+
+        indefinite: Wij mogen al je gegevens bewaren totdat jij anders aangeeft, dit kan via %{url}.
+        indefinite_consent: Ik geef toestemming mijn gegevens te bewaren totdat ik anders aangeef.
+
+        remove_info: <span>Verwijderen</span> persoonsgegevens
+        remove_description: Ben je geen student meer en heb je hierboven geen toestemming gegeven om je gegevens te bewaren dan kun je je persoonsgegevens direct verwijderen. Mocht je later weer lid willen worden zal je opnieuw contributie moeten betalen.
+
+        save: Opslaan
+        save_note: Na opslaan van bovenstaande gegevens is de gebruikte link onbruikbaar, ga naar koala om je gegevens te bekijken of verwijderen.
+
+        destroyable: Na verwijderen kan je niet meer inloggen of inschrijven voor activiteiten, je deelname aan toekomstige activiteiten wordt verwijderd en je verliest je mongoose tegoed.
+        not_destroyable: Omdat je nog financiele verplichtingen hebt kun je je account niet verwijderen. Zorg dat je de laatste activiteiten betaald en verwijder je account door deze link te volgen of in %{url}.
+        warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
+        destroy: Verwijderen je gegevens

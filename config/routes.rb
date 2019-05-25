@@ -2,11 +2,39 @@ Rails.application.routes.draw do
   use_doorkeeper_openid_connect
 
   constraints :subdomain => ['intro', 'intro.dev'] do
-    get  '/', to: 'public#index', as: 'public'
-    post '/', to: 'public#create'
+    scope module: 'public' do
+      get  '/', to: 'home#index', as: 'public'
+      post '/', to: 'home#create'
+    end
   end
 
   constraints :subdomain => ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
+    # No double controllers
+    get     'admin/home',   to: redirect('/')
+    get     'members/home', to: redirect('/')
+    get     'calendarfeed', to: 'calendars#show'
+
+    # Devise routes
+    devise_for :users, :path => '', :skip => [:registrations], :controllers => {
+      confirmations: 'users/confirmations',
+      sessions: 'users/sessions',
+      passwords: 'users/passwords'
+    }
+
+    # create account using a member's email
+    get     'sign_up',      to: 'users/registrations#new', as: :new_registration
+    post    'sign_up',      to: 'users/registrations#create'
+
+    # update account with password after receiving invite
+    get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
+    post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
+
+    scope module: 'public' do
+      get   'status(/:token)', to: 'status#edit'
+      post  'status',          to: 'status#update'
+      post  'status/destroy',  to: 'status#destroy'
+    end
+
     authenticate :user, ->(u) { !u.admin? } do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
@@ -30,33 +58,11 @@ Rails.application.routes.draw do
       end
     end
 
-    root 'admin/home#index'
-
-    # No double controllers
-    get     'admin/home',   to: redirect('/')
-    get     'members/home', to: redirect('/')
-    get     'calendarfeed', to: 'calendars#show'
-
-    # Devise routes
-    devise_for :users, :path => '', :skip => [:registrations], :controllers => {
-      confirmations: 'users/confirmations',
-      sessions: 'users/sessions',
-      passwords: 'users/passwords'
-    }
-
-    # create account using a member's email
-    get     'sign_up',      to: 'users/registrations#new', as: :new_registration
-    post    'sign_up',      to: 'users/registrations#create'
-
-    # update account with password after receiving invite
-    get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
-    post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
-
     scope module: 'admin' do
       resources :members do
         get   'payment_whatsapp'
         patch 'force_email_change'
-        post 'send_user_email'
+        post 'email/:type', to: 'members#send_email', as: :mail
 
         collection do
           get 'search'
@@ -141,6 +147,8 @@ Rails.application.routes.draw do
         get 'advertisements', to: 'activities#advertisements'
       end
     end
+
+    root 'admin/home#index'
   end
 
   get '/', to: redirect('/404')

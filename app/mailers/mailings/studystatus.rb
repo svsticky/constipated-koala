@@ -1,8 +1,8 @@
 #:nodoc:
 module Mailings
   # Used for sending an mail to members that should consent
-  class GDPR < ApplicationMailer
-    def consent(members)
+  class Studystatus < ApplicationMailer
+    def update(members)
       return if ENV['MAILGUN_TOKEN'].blank?
 
       recipients = members.map do |member|
@@ -22,7 +22,5 @@ module Mailings
 
       return mails(recipients, nil, '', html, text)
     end
-
-    def destroy; end
   end
 end

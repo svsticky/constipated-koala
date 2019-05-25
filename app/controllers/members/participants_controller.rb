@@ -6,8 +6,11 @@
 # not Participant ids, as this makes linking to the enrollment page for a
 # single activity possible.
 #:nodoc:
-class Members::ParticipantsController < MembersController
+class Members::ParticipantsController < ApplicationController
+  skip_before_action :authenticate_admin!
   before_action :set_activity!
+
+  layout 'members'
 
   def initialize
     @activity_errors_scope = 'activerecord.errors.models.activity'
@@ -23,6 +26,8 @@ class Members::ParticipantsController < MembersController
       }
       return
     end
+
+    @member = Member.find(current_user.credentials_id)
 
     # Deny if already enrolled
     if Participant.exists?(activity: @activity, member: @member)
@@ -150,6 +155,8 @@ class Members::ParticipantsController < MembersController
   # [PATCH] /activities/:id/participants
   # Used for updating member notes
   def update
+    @member = Member.find(current_user.credentials_id)
+
     @enrollment = Participant.find_by(
       member_id: @member.id,
       activity_id: @activity.id
@@ -190,6 +197,7 @@ class Members::ParticipantsController < MembersController
     not_enrollable = !@activity.is_enrollable?
     deadline_passed = @activity.unenroll_date&.end_of_day &&
                       @activity.unenroll_date.end_of_day < Time.now
+
     if not_enrollable || deadline_passed
       message = I18n.t(:not_unenrollable, scope: @activity_errors_scope)
 
@@ -207,9 +215,11 @@ class Members::ParticipantsController < MembersController
       return
     end
 
+    @member = Member.find(current_user.credentials_id)
+
     # Raises RecordNotFound if not enrolled
     @enrollment = Participant.find_by!(
-      member_id: current_user.credentials_id,
+      member_id: @member.id,
       activity_id: @activity.id
     )
 
@@ -225,5 +235,21 @@ class Members::ParticipantsController < MembersController
       participant_limit: @activity.participant_limit,
       participant_count: @activity.participants.count
     }
+  end
+
+  private
+
+  def set_activity!
+    activity_id = params[:activity_id] || params[:id]
+    @activity = Activity.find(activity_id)
+
+    # Don't allow activities for old activities
+    if @activity.ended? || !@activity.is_viewable? # rubocop:disable Style/GuardClause
+      render :status => :gone,
+             :plain => I18n.t(
+               :activity_ended,
+               scope: 'activerecord.errors.models.activity'
+             )
+    end
   end
 end
