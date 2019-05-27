@@ -488,6 +488,10 @@ en:
     home:
       edit:
         general_data: General
+        privacy_panel:
+          header: 'Privacy'
+          view: 'View the'
+          privacy_statement: 'privacy statement'
       index:
         edit_profile: "Edit profile"
         outstanding_payments: "Outstanding payments"
