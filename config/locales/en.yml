@@ -486,7 +486,7 @@ en:
         general_data: General
         privacy_panel:
           header: 'Privacy'
-          view: 'Bekijk de'
+          view: 'View the'
           privacy_statement: 'privacy statement'
       index:
         edit_profile: "Edit profile"
