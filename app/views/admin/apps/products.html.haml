@@ -11,7 +11,7 @@
       .col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-ticket
+            %i.fas.fa-fw.fa-ticket-alt
             Producten
 
           %table.table.table-striped.table-linked#products
@@ -24,11 +24,11 @@
                   %td.col-xs-4
                     - if product.active
                       %button.btn.btn-warning.deactivate
-                        %i.fa.fa-fw.fa-times
+                        %i.fas.fa-fw.fa-times
                         Deactiveer
                     - else
                       %button.btn.btn-primary.activate
-                        %i.fa.fa-fw.fa-check
+                        %i.fas.fa-fw.fa-check
                         Activeer
 
       - unless @product.nil?
@@ -45,7 +45,7 @@
           .col-md-6
             .panel.panel-default
               .panel-heading
-                %i.fa.fa-fw.fa-ticket
+                %i.fas.fa-fw.fa-ticket-alt
                 Bewerk product
               .panel-body
 
@@ -109,7 +109,7 @@
           .col-md-6.pull-right
             .panel.panel-default
               .panel-heading
-                %i.fa.fa-fw.fa-ticket
+                %i.fas.fa-fw.fa-ticket-alt
                 Nieuw product
               .panel-body
 
@@ -145,7 +145,7 @@
         .col-md-6.pull-right
           .panel.panel-default
             .panel-heading.year
-              %i.fa.fa-fw.fa-ticket
+              %i.fas.fa-fw.fa-ticket-alt
               Verkopen
               .ui-select
                 = select_tag :year, options_for_select( @years, params['year'] )

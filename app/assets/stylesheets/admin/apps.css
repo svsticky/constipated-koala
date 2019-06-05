@@ -109,13 +109,13 @@ div#credit.input-group select {
   top: 50px;
 }
 
-.table span.fa-sort-asc {
+.table span.fa-sort-up {
   color: green;
   position: relative;
   top: 6px;
 }
 
-.table span.fa-sort-desc {
+.table span.fa-sort-dowm {
   color: red;
 }
 

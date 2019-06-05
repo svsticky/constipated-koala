@@ -181,13 +181,13 @@ div.form-group.copyable > a.destroy {
   width: 48px;
 }
 
-.table span.fa-sort-asc {
+.table span.fa-sort-up {
   color: green;
   position: relative;
   top: 6px;
 }
 
-.table span.fa-sort-desc {
+.table span.fa-sort-dowm {
   color: red;
 }
 
@@ -219,13 +219,13 @@ div.clickable > .panel:hover {
   border-color: #767676;
 }
 
-.table span.fa-sort-asc {
+.table span.fa-sort-up {
   color: green;
   position: relative;
   top: 6px;
 }
 
-.table span.fa-sort-desc {
+.table span.fa-sort-dowm {
   color: red;
 }
 

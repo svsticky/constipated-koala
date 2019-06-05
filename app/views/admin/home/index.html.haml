@@ -8,7 +8,7 @@
       .col-lg-3.col-xsm-6.clickable
         = link_to :members, :class => 'panel mini-box' do
           %span.box-icon.bg-success
-            %i.fa.fa-user
+            %i.fas.fa-user
           .box-info
             %p.size-h2
               = @members
@@ -17,7 +17,7 @@
       .col-lg-3.col-xsm-6.clickable
         = link_to :activities, :class => 'panel mini-box' do
           %span.box-icon.bg-info
-            %i.fa.fa-ticket
+            %i.fas.fa-ticket-alt
           .box-info
             %p.size-h2
               = @activities
@@ -26,7 +26,7 @@
       .col-lg-3.col-xsm-6.clickable
         = link_to :checkout, :class => 'panel mini-box' do
           %span.box-icon.bg-warning
-            %i.fa.fa-shopping-cart
+            %i.fas.fa-shopping-cart
           .box-info
             %p.size-h2
               = @transactions
@@ -35,7 +35,7 @@
       .col-lg-3.col-xsm-6.clickable
         = link_to :payments, :class => 'panel mini-box' do
           %span.box-icon.bg-danger
-            %i.fa.fa-eur
+            %i.fas.fa-euro-sign
           .box-info
             %p.size-h2
               = number_to_currency(@unpayed, :unit => '')
@@ -46,7 +46,7 @@
       %div.col-md-3.hidden-xs
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-graduation-cap
+            %i.fas.fa-fw.fa-graduation-cap
             Studies
 
           %table.table.table-striped.table-linked
@@ -59,7 +59,7 @@
       %div.col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-shopping-cart
+            %i.fas.fa-fw.fa-shopping-cart
             Laatste transacties vandaag
           %table.table.table-striped.table-linked
             %tbody
@@ -69,9 +69,9 @@
                   %td{ :style => 'min-width: 80px;' }
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
-                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                      %span.fas.fa-sort-up.pull-right{ :style => 'padding-up: 3px;'}
                     - else
-                      %span.fa.fa-sort-desc.pull-right
+                      %span.fas.fa-sort-dowm.pull-right
 
                   %td{ :style => 'white-space: nowrap;' }
                     - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
@@ -89,7 +89,7 @@
       %div.col-md-3
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-ticket
+            %i.fas.fa-fw.fa-ticket-alt
             Wanbetalers
           %table.table.table-striped.table-linked
             %tbody

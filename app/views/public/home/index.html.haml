@@ -43,22 +43,22 @@
         .row
           .col-md-2.col-md-offset-2.text-center
             .service-item
-              %i.service-icon.fa.fa-group
+              %i.service-icon.fas.fa-users
               %h4= I18n.t(:title, scope: 'gezelligheid')
               %p= I18n.t(:text, scope: 'gezelligheid')
           .col-md-2.text-center
             .service-item
-              %i.service-icon.fa.fa-rocket
+              %i.service-icon.fas.fa-rocket
               %h4= I18n.t(:title, scope: 'activities')
               %p= I18n.t(:text, scope: 'activities')
           .col-md-2.text-center
             .service-item
-              %i.service-icon.fa.fa-book
+              %i.service-icon.fas.fa-book
               %h4= I18n.t(:title, scope: 'orientation')
               %p= I18n.t(:text, scope: 'orientation')
           .col-md-2.text-center
             .service-item
-              %i.service-icon.fa.fa-glass
+              %i.service-icon.fas.fa-glass-martini
               %h4= I18n.t(:title, scope: 'drinks')
               %p= I18n.t(:text, scope: 'drinks')
 
@@ -77,7 +77,7 @@
                   %li= flash[:error]
 
             %h4
-              %i.fa.fa-user
+              %i.fas.fa-user
               = I18n.t(:general, scope: 'form')
 
             .form-group
@@ -128,7 +128,7 @@
           .row
             .col-md-5
               %h4
-                %i.fa.fa-graduation-cap
+                %i.fas.fa-graduation-cap
                 = I18n.t(:study, scope: 'form')
                 .help-block= I18n.t(:study, scope: 'activerecord.annotations.member')
 
@@ -149,7 +149,7 @@
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
             .col-md-5.activities
               %h4
-                %i.fa.fa-ticket
+                %i.fas.fa-ticket-alt
                 = I18n.t(:activity, scope: 'activerecord.models')
               .col-md-6
                 .form-group
@@ -189,13 +189,13 @@
             %ul.list-inline
               %li
                 = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
-                  %i.fa.fa-facebook.fa-3x
+                  %i.fab.fa-facebook.fa-3x
               %li
                 = link_to '//twitter.com/StickyUtrecht', :target => '_blank' do
-                  %i.fa.fa-twitter.fa-3x
+                  %i.fab.fa-twitter.fa-3x
               %li
                 =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
-                  %i.fa.fa-linkedin.fa-3x
+                  %i.fab.fa-linkedin-in.fa-3x
 
 - if @member.errors.any? || !flash[:error].nil?
   :javascript

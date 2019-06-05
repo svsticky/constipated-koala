@@ -14,4 +14,4 @@
       = select_tag :position, options_for_select( group.positions.map{ |position| [I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize), position]}, (!(defined? member.position).nil? ? member.position : nil) ), :include_blank => '-', :class => 'position'
   %td.buttons
     %button.btn.btn-default.destroy.pull-right
-      %i.fa.fa-fw.fa-trash-o
+      %i.fas.fa-fw.fa-trash-alt

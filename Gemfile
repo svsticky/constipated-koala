@@ -59,3 +59,5 @@ group :development, :test do
   gem 'rubocop'
   gem 'spring'
 end
+
+gem 'font-awesome-sass'

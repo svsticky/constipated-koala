@@ -10,7 +10,7 @@
       .col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-fw.fa-wrench
+            %i.fas.fa-fw.fa-fw.fa-wrench
             Instellingen
           %ul.list-group#settings
             = form_tag settings_url do
@@ -80,7 +80,7 @@
         = form_for :admin, :url => profile_settings_path, method: :patch, :html => { :class => 'form-validation signature' } do |f|
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-fw.fa-user
+              %i.fas.fa-fw.fa-user
               Admin gegevens
             .panel-body
               = f.hidden_field :id, :value => @admin.id, :class => 'id'
@@ -118,7 +118,7 @@
 
         .panel.panel-default#advertisements
           .panel-heading
-            %i.fa.fa-fw.fa-fw.fa-desktop
+            %i.fas.fa-fw.fa-fw.fa-desktop
             Advertenties
           .table-responsive
             %table.table.table-bordered.table-striped.table-linked
@@ -131,7 +131,7 @@
                   %td.buttons
                     .btn-group
                       %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash-o
+                        %i.fas.fa-fw.fa-trash-alt
 
           = form_for :advertisement, url: advertisement_settings_path, method: :post, :class => 'form-validation' do |f|
             .form-group
@@ -145,7 +145,7 @@
 
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-rocket
+            %i.fas.fa-fw.fa-rocket
             Externe applicaties
           %table.table.table-striped.table-linked
             - @applications.each do |application|

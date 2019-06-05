@@ -11,7 +11,7 @@
  *= require bootstrap/dist/css/bootstrap
  *= require flatify
  *
- *= require font-awesome
+ *= require shared-font-awesome
  *= require lato
  *
  *= require_self

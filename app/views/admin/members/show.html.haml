@@ -25,7 +25,7 @@
 
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-fw.fa-user
+              %i.fas.fa-fw.fa-user
               Algemene gegevens
             .panel-body
               - if flash[:success].present?
@@ -62,12 +62,12 @@
 
               - @member.tags.each do |tag|
                 .btn.btn-xs.btn-primary.disabled
-                  %i.fa.fa-fw.fa-tag
+                  %i.fas.fa-fw.fa-tag
                   = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )
 
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-fw.fa-graduation-cap
+              %i.fas.fa-fw.fa-graduation-cap
               Studiegegevens
             .panel-body
               %dl.dl-horizontal
@@ -98,10 +98,9 @@
               = link_to 'Back', :back, { :class => 'button btn btn-default' }
               = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
 
-
               .btn-group.dropdown.pull-right
                 %button.btn.btn-default.dropdown-toggle
-                  %i.fa.fa-paper-plane
+                  %i.fas.fa-paper-plane
                   = I18n.t 'admin.member_account_status.send_mail'
                   %span.caret
 
@@ -127,7 +126,7 @@
           - if @transactions.length > 0 || @member.checkout_cards.length > 0
             .panel.panel-default
               .panel-heading.input
-                %i.fa.fa-fw.fa-shopping-cart
+                %i.fas.fa-fw.fa-shopping-cart
                 Checkout
 
                 .input-group#credit{ :data => { 'member_id' => @member.id }}
@@ -161,9 +160,9 @@
                       %td
                         = number_to_currency(transaction.price, :unit => '€')
                         - if transaction.price > 0
-                          %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                          %span.fas.fa-sort-up.pull-right{ :style => 'padding-up: 3px;'}
                         - else
-                          %span.fa.fa-sort-desc.pull-right
+                          %span.fas.fa-sort-dowm.pull-right
 
                       %td.hidden-xs
                         = transaction.products
@@ -187,7 +186,7 @@
         .col-md-6
           .panel.panel-default
             .panel-heading
-              %i.fa.fa-fw.fa-users
+              %i.fas.fa-fw.fa-users
               Groepen
             %table.table.table-striped
               %tbody
@@ -205,7 +204,7 @@
 
           .panel.panel-default
             .panel-heading.year
-              %i.fa.fa-fw.fa-ticket
+              %i.fas.fa-fw.fa-ticket-alt
               Activiteiten
               .ui-select
                 = select_tag :year, options_for_select( @years, params['year'] )
@@ -237,9 +236,9 @@
                       .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
                         - if activity.participants.where(:member => @member).first.paid
                           %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                            %i.fa.fa-fw.fa-check
+                            %i.fas.fa-fw.fa-check
                         - else
                           %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                            %i.fa.fa-fw.fa-times
+                            %i.fas.fa-fw.fa-times
                         %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
+                          %i.fas.fa-fw.fa-trash-alt

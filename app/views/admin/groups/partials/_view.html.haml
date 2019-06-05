@@ -4,7 +4,7 @@
 
 .panel.panel-default
   .panel-heading.year
-    %i.fa.fa-fw.fa-user
+    %i.fas.fa-fw.fa-user
     = I18n.t(group.category, scope: 'activerecord.attributes.group.members')
     .ui-select
       = select_tag :year, options_for_select( group.years, params['year'] )
@@ -26,7 +26,7 @@
 
         %td.buttons
           %button.btn.btn-default.destroy.pull-right
-            %i.fa.fa-fw.fa-trash-o
+            %i.fas.fa-fw.fa-trash-alt
 
 
     %tr

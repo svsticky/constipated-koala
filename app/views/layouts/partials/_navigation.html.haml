@@ -4,60 +4,60 @@
       %li{ :class => ('active' if yield(:page) == 'home') }
         = link_to :root do
           %span= I18n.t("navigation.home")
-          %i.fa.fa-desktop
+          %i.fas.fa-desktop
             %span.icon-bg.bg-danger
       %li{ :class => ('active' if yield(:page) == 'members') }
         = link_to :members do
           %span= I18n.t("activerecord.models.member")
-          %i.fa.fa-user
+          %i.fas.fa-user
             %span.icon-bg.bg-orange
       %li{ :class => ('active' if yield(:page) == 'groups') }
         = link_to :groups do
           %span= I18n.t("activerecord.models.group")
-          %i.fa.fa-users
+          %i.fas.fa-users
             %span.icon-bg.bg-warning
       %li{ :class => ('active' if yield(:page) == 'activities') }
         = link_to :activities do
           %span= I18n.t("activerecord.models.activity")
-          %i.fa.fa-ticket
+          %i.fas.fa-ticket-alt
             %span.icon-bg.bg-success
       %li{ :class => ('active' if yield(:page) == 'payments') }
         = link_to :payments do
           %span= I18n.t("admin.navigation.payments")
-          %i.fa.fa-money
+          %i.fas.fa-money-bill-alt
             %span.icon-bg.bg-primary-light
 
       %li{ :class => ('active' if yield(:page) == 'apps') }
         = link_to '' do
           %span= I18n.t("admin.navigation.apps")
-          %i.fa.fa-terminal
+          %i.fas.fa-terminal
             %span.icon-bg.bg-primary
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:subpage) == 'transacties') }
             = link_to :checkout do
-              %i.fa.fa-caret-right
+              %i.fas.fa-caret-right
               %span= I18n.t("admin.navigation.checkout")
           %li{ :class => ('active' if yield(:subpage) == 'ideal') }
             = link_to :ideal do
-              %i.fa.fa-caret-right
+              %i.fas.fa-caret-right
               %span= I18n.t("admin.navigation.ideal")
 
       %li{ :class => ('active' if yield(:page) == 'settings') }
         = link_to '' do
           %span= I18n.t("activerecord.models.settings")
-          %i.fa.fa-gears
+          %i.fas.fa-cogs
             %span.icon-bg.bg-violet
         %ul.sub-nav{style: 'display: none;'}
           %li{ :class => ('active' if yield(:subpage).nil?) }
             = link_to :settings do
-              %i.fa.fa-caret-right
+              %i.fas.fa-caret-right
               %span= I18n.t("admin.navigation.general")
           %li{ :class => ('active' if yield(:subpage) == 'logs') }
             = link_to :logs_settings do
-              %i.fa.fa-caret-right
+              %i.fas.fa-caret-right
               %span= I18n.t("activerecord.models.impressions")
       %li.hidden-sm-up
         = link_to destroy_user_session_path, 'data-method' => :delete do
           %span= I18n.t("devise.sessions.new.sign_out")
-          %i.fa.fa-sign-out
+          %i.fas.fa-sign-out-alt
             %span.icon-bg.bg-danger

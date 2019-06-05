@@ -10,7 +10,7 @@
  *
  *= require_self
  *
- *= require font-awesome
+ *= require shared-font-awesome
  *= require bootstrap/dist/css/bootstrap
  */
 @import url(https://fonts.googleapis.com/css?family=Roboto);

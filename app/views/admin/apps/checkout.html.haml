@@ -11,7 +11,7 @@
       .col-lg-8
         %section.panel.panel-default.table-dynamic
           .panel-heading
-            %i.fa.fa-fw.fa-fw.fa-shopping-cart
+            %i.fas.fa-fw.fa-shopping-cart
             Transacties
           .table-responsive#transactions
             %table.table.table-bordered.table-striped.table-linked
@@ -36,9 +36,9 @@
                   %td
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
-                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                      %span.fas.fa-sort-up.pull-right{ :style => 'padding-up: 3px;'}
                     - else
-                      %span.fa.fa-sort-desc.pull-right
+                      %span.fas.fa-sort-dowm.pull-right
 
                   %td
                     - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
@@ -88,7 +88,7 @@
       .col-lg-4#credit
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-money
+            %i.fas.fa-fw.fa-money-bill-alt
             Opwaarderen
           .panel-body{ :style => 'position: relative;' }
             %form.form-inline
@@ -112,7 +112,7 @@
       .col-lg-4#cards
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-credit-card
+            %i.fas.fa-fw.fa-credit-card
             Niet geactiveerde kaarten
           %ul.list-group
             - @cards.each do |card|
@@ -134,11 +134,11 @@
             %p.text-muted.no-margin
               Mongoose tegoed
           .panel-right.panel-item.bg-warning
-            %i.fa.fa-credit-card.fa-3x
+            %i.fas.fa-credit-card.fa-3x
 
         = link_to checkout_products_path, { :class => 'panel panel-box info-box' } do
           .panel-left.panel-item.bg-primary-light
-            %i.fa.fa-shopping-cart.fa-3x
+            %i.fas.fa-shopping-cart.fa-3x
           .panel-right.panel-item.bg-reverse
             %p.size-h1.no-margin
               = @products

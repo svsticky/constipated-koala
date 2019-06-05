@@ -5,19 +5,19 @@
     .panel
       .list-group
         = link_to activities_path, { class: 'list-group-item' } do
-          %i.fa.fa-ticket
+          %i.fas.fa-ticket-alt
           = I18n.t('activerecord.models.activity')
         = link_to :users_edit, { class: 'list-group-item' } do
-          %i.fa.fa-ticket
+          %i.fas.fa-ticket-alt
           = I18n.t('members.home.index.edit_profile')
         = link_to destroy_user_session_path, { 'data-method' => :delete, class: 'list-group-item' } do
-          %i.fa.fa-sign-out
+          %i.fas.fa-sign-out-alt
           = I18n.t("devise.sessions.new.sign_out")
 
   - unless @balance.blank?
     .panel.panel-box.info-box
       .panel-left.panel-item.bg-success
-        %i.fa.fa-shopping-cart.fa-5x
+        %i.fas.fa-shopping-cart.fa-5x
       .panel-right.panel-item.bg-reverse
         %p.size-h2
           = number_to_currency( @balance.balance, :unit => '€' )
@@ -29,13 +29,13 @@
         = number_to_currency( @debt, :unit => '€' )
       %p.text-muted.text-center= I18n.t('members.home.index.outstanding_payments')
     .panel-right.panel-item.bg-warning
-      %i.fa.fa-ticket.fa-5x
+      %i.fas.fa-ticket-alt.fa-5x
 
   - if @member.groups.any?
     .widget
       .panel.panel-default
         .panel-heading
-          %i.fa.fa-fw.fa-users
+          %i.fas.fa-fw.fa-users
           = I18n.t('activerecord.models.group')
         %table.table.table-striped
           %tbody
@@ -57,7 +57,7 @@
   .panel.panel-default
     .panel-heading
       %span
-        %i.fa.fa-fw.fa-fw.fa-ticket
+        %i.fas.fa-fw.fa-fw.fa-ticket-alt
         = I18n.t("activerecord.models.activity")
         = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
 
@@ -92,7 +92,7 @@
   = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
     .panel.panel-default.table-dynamic
       .panel-heading
-        %i.fa.fa-fw.fa-fw.fa-shopping-cart
+        %i.fas.fa-fw.fa-fw.fa-shopping-cart
         = I18n.t('activerecord.models.checkout_transactions')
 
       %table.table.table-striped.table-linked
@@ -106,9 +106,9 @@
               %td
                 = number_to_currency(transaction.price, :unit => '€')
                 - if transaction.price > 0
-                  %span.fa.fa-sort-asc.pull-right
+                  %span.fas.fa-sort-up.pull-right
                 - else
-                  %span.fa.fa-sort-desc.pull-right
+                  %span.fas.fa-sort-dowm.pull-right
 
           %tr.form
             %td.home_mongoose_form_element

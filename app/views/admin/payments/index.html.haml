@@ -10,7 +10,7 @@
       .col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-ticket
+            %i.fas.fa-fw.fa-ticket-alt
             Niet betaalde activiteiten
 
           .panel-body#participants.filtered-search
@@ -33,17 +33,17 @@
                           .btn-group
                             - if participant.paid
                               %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
-                                %i.fa.fa-fw.fa-check
+                                %i.fas.fa-fw.fa-check
                             - else
                               %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
-                                %i.fa.fa-fw.fa-times
+                                %i.fas.fa-fw.fa-times
                             %button.btn.btn-default.destroy
-                              %i.fa.fa-fw.fa-trash-o
+                              %i.fas.fa-fw.fa-trash-alt
 
       .col-md-6
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-envelope
+            %i.fas.fa-fw.fa-envelope
             Betalingsmails
           .panel-body#paymentmails
             %table.table.table-striped.table-linked
@@ -64,7 +64,7 @@
 
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-whatsapp
+            %i.fab.fa-fw.fa-whatsapp
             Achterstallige betalingen (> 4 mails)
 
           .panel-body#paymentmails
@@ -78,11 +78,11 @@
                   %td= link_to "#{member.name}", member
                   %td
                     %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
-                      %i.fa.fa-fw.fa-whatsapp
+                      %i.fab.fa-fw.fa-whatsapp
 
         .panel.panel-default
           .panel-heading
-            %i.fa.fa-fw.fa-money
+            %i.fas.fa-fw.fa-money-bill-alt
             Checkout transacties (Gepind)
 
           .panel-body
@@ -95,7 +95,7 @@
                 %button.btn.btn-warning Update
               %span.input-group-btn#copy_transactions
                 %button.btn.btn-clipboard{ :"data-clipboard-text" => @dat }
-                  %i.fa.fa-copy
+                  %i.fas.fa-copy
                   Copy
                   
             %table.table.table-striped.table-linked#transactions

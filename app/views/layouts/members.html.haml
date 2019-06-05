@@ -39,7 +39,7 @@
 
             .hidden-xs
               = link_to destroy_user_session_path, 'data-method' => :delete do
-                %i.fa.fa-sign-out
+                %i.fas.fa-sign-out-alt
 
       %aside#nav-container{role: 'navigation'}
         #nav-wrapper.navbar.navbar-default
@@ -47,22 +47,22 @@
             %li{ :class => ('active' if yield(:page) == 'home') }
               = link_to :root do
                 %span= I18n.t("navigation.home")
-                %i.fa.fa-desktop
+                %i.fas.fa-desktop
                   %span.icon-bg.bg-dark
             %li{ :class => ('active' if yield(:page) == 'enrollments') }
               = link_to activities_path do
                 %span= I18n.t("activerecord.models.activity")
-                %i.fa.fa-ticket
+                %i.fas.fa-ticket-alt
                   %span.icon-bg.bg-warning
             %li{ :class => ('active' if yield(:page) == 'edit') }
               = link_to :users_edit do
                 %span= I18n.t("members.navigation.edit_profile")
-                %i.fa.fa-user
+                %i.fas.fa-user
                   %span.icon-bg.bg-orange
             %li.hidden-sm-up
               = link_to destroy_user_session_path, 'data-method' => :delete do
                 %span= I18n.t("devise.sessions.new.sign_out")
-                %i.fa.fa-sign-out
+                %i.fas.fa-sign-out-alt
                   %span.icon-bg.bg-danger
 
       .view-container
