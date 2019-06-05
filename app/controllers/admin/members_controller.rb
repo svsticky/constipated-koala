@@ -9,7 +9,7 @@ class Admin::MembersController < ApplicationController
 
     if params[:search]
       @members = Member.search(params[:search].clone)
-                       .paginate(page: param[:page], per_page: params[:limit] ||= 20)
+                       .paginate(page: param[:page], per_page: params[:limit] ||= 50)
 
       @search = params[:search]
 
@@ -29,7 +29,7 @@ class Admin::MembersController < ApplicationController
         ))
         .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
         .order(:last_name, :first_name)
-        .paginate(page: params[:page], per_page: params[:limit] ||= 20)
+        .paginate(page: params[:page], per_page: params[:limit] ||= 50)
 
     end
   end

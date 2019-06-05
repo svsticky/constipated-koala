@@ -6,7 +6,7 @@
   = render 'layouts/partials/search'
 
   .page.page-table
-    %section.panel.panel-default.table-dynamic
+    %section.card.table-dynamic
       .table-responsive
         %table.table.table-bordered.table-striped
           %thead
@@ -78,16 +78,11 @@
 
       %footer.table-footer
         .row
-          .col-md-6.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
+          .col-lg-3.page-num-info.d-none.d-md-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
             %span
               Toon
               = select_tag 'limit', options_for_select([20,50,100], @limit)
               regels per pagina
 
-          .col-md-6.text-right.pagination-container
-            %ul.pagination-sm.pagination
-              %li{ :class => ( 'disabled' if @offset == 0)}
-                %a{ :data => { :offset => @offset - @limit < 0 ? 0 : @offset - @limit }} vorige
-
-              %li{ :class => ( 'disabled' if @offset + @limit >= @total_log_items )}
-                %a{ :data => { :offset => @offset + @limit }} volgende
+          .col-12.col-lg-6
+            = will_paginate @impressions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer

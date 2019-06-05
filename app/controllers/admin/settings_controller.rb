@@ -77,9 +77,9 @@ class Admin::SettingsController < ApplicationController
 
   def logs
     @limit = params[:limit] ? params[:limit].to_i : 50
-    @offset = params[:offset] ? params[:offset].to_i : 0
 
-    @impressions = Impression.all.order(created_at: :desc).limit(@limit).offset(@offset)
+    @impressions = Impression.all.order(created_at: :desc)
+                             .paginate(page: params[:page], per_page: params[:limit] ||= 50)
     @total_log_items = Impression.count
   end
 
