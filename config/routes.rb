@@ -78,7 +78,8 @@ Rails.application.routes.draw do
       end
 
       scope 'payments' do
-        get 'payments',           to: 'payments#index'
+        get 'payments', to: 'payments#index'
+        get 'whatsapp/:member_id', to: 'payments#whatsapp_redirect', as: 'payment_whatsapp_redirect'
         get 'transactions',       to: 'payments#update_transactions'
       end
 

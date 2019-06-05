@@ -145,6 +145,8 @@ class Admin::MembersController < ApplicationController
 
   def payment_whatsapp
     @member = Member.find(params[:member_id])
+    @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
+    @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
     render layout: false, content_type: "text/plain"
   end
 
