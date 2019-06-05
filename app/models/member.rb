@@ -319,11 +319,9 @@ class Member < ApplicationRecord
   def whatsappable_phone_number
     pn = phone_number.gsub(/\s/, '') # Remove whitespace
 
-    if /^06\d{8}$/.match?(pn) # If it's a Dutch phone number:
-      return pn.sub(/^06/, "316") # Replace "06" with "316"
-    elsif /^(\+|00)?316\d{8}$/.match?(pn) # If it's international notation:
-      return pn.sub(/^+?(00)?/, '') # Replace 00316, +316,
-    end
+    return pn.sub(/^06/, "316") if /^06\d{8}$/.match?(pn) # Replace '06' with '316' if it's a Dutch phone number
+
+    return pn.sub(/^+?(00)?/, '') if /^(\+|00)?316\d{8}$/.match?(pn) # Replace 00316, +316 if it's international notation
 
     nil
   end
