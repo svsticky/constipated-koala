@@ -187,7 +187,7 @@ $(document).on('ready page:load turbolinks:load', function(){
     $('#app').children('div').toggleClass('nav-min');
   });
 
-  $('.year .ui-select select').on('change', function(){
+  $('.year select').on('change', function(){
     var params = {};
 
     params.year = $(this).val();

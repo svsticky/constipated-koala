@@ -6,207 +6,200 @@
 
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
-      %div
-        .col-md-6
-          - if @member.user && @member.user.unconfirmed_email
-            .callout.callout-warning
-              = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
-              = raw I18n.t( :force_unconfirmed_email, scope: 'activerecord.messages.member', link: member_force_email_change_path(@member) )
+      .col-lg-6
+        - if @member.user && @member.user.unconfirmed_email
+          .callout.callout-warning
+            = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
+            = raw I18n.t( :force_unconfirmed_email, scope: 'activerecord.messages.member', link: member_force_email_change_path(@member) )
 
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-user
-              Algemene gegevens
-            .panel-body
-              - if flash[:success].present?
-                %p.alert.alert-success{ :style => 'margin: 0px;'}
-                  = flash[:success]
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-user
+            Algemene gegevens
+          .card-body
+            - if flash[:success].present?
+              %p.alert.alert-success{ :style => 'margin: 0px;'}
+                = flash[:success]
 
-              %p
-                %strong #{@member.name} (#{@member.gender})
-                %br
-                - if !@member.birth_date.nil?
-                  = I18n.l @member.birth_date
-              %p
-                #{@member.address} #{@member.house_number}
-                %br
-                #{@member.postal_code} #{@member.city}
-              %p
-                #{@member.phone_number}
-                %br
-                #{@member.emergency_phone_number}
-                %br
-                #{@member.email}
-              - if current_user.admin?
-                %p= @member.comments
+            %p
+              %strong #{@member.name} (#{@member.gender})
+              %br
+              - if !@member.birth_date.nil?
+                = I18n.l @member.birth_date
+            %p
+              #{@member.address} #{@member.house_number}
+              %br
+              #{@member.postal_code} #{@member.city}
+            %p
+              #{@member.phone_number}
+              %br
+              #{@member.emergency_phone_number}
+              %br
+              #{@member.email}
+            - if current_user.admin?
+              %p= @member.comments
 
-              - if @member_user
-                - if @member_user.confirmed?
-                  %p= I18n.t 'admin.member_account_status.active_user', email: @member.email
-
-                - else
-                  %strong= I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
+            - if @member_user
+              - if @member_user.confirmed?
+                %p= I18n.t 'admin.member_account_status.active_user', email: @member.email
 
               - else
-                %p= I18n.t 'admin.member_account_status.no_user'
+                %strong= I18n.t 'admin.member_account_status.user_not_activated', email: @member.email
 
-              - @member.tags.each do |tag|
-                .btn.btn-xs.btn-primary.disabled
-                  %i.fa.fa-fw.fa-tag
-                  = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )
+            - else
+              %p= I18n.t 'admin.member_account_status.no_user'
 
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-graduation-cap
-              Studiegegevens
-            .panel-body
-              %dl.dl-horizontal
-                %dt Studentnummer
-                %dd= @member.student_id
-                %dt Lid sinds
-                - if !@member.join_date.nil?
-                  %dd= I18n.l @member.join_date
+            - @member.tags.each do |tag|
+              .btn.btn-xs.btn-primary.disabled
+                %i.fa.fa-fw.fa-tag
+                = I18n.t( tag.name, scope: 'activerecord.attributes.tag.names' )
 
-              %dl.dl-horizontal
-                - @member.educations.each do |education|
-                  %dt= I18n.t education.study.code.downcase, scope: 'activerecord.attributes.study.names'
-                  %dd
-                    - if education.end_date.nil?
-                      #{I18n.l education.start_date, :format => :short}
-                    - else
-                      #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-graduation-cap
+            Studiegegevens
+          .card-body
+            %dl.dl-horizontal
+              %dt Studentnummer
+              %dd= @member.student_id
+              %dt Lid sinds
+              - if !@member.join_date.nil?
+                %dd= I18n.l @member.join_date
 
-                    - if education.graduated?
-                      %span.label.label-success geslaagd
-                    - elsif education.stopped?
-                      %span.label.label-warning gestopt
-                    - elsif education.active?
-                      %span.label.label-info studerend
+            %dl.dl-horizontal
+              - @member.educations.each do |education|
+                %dt= I18n.t education.study.code.downcase, scope: 'activerecord.attributes.study.names'
+                %dd
+                  - if education.end_date.nil?
+                    #{I18n.l education.start_date, :format => :short}
+                  - else
+                    #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
 
-          .panel.panel-default
-            .panel-body
-              = link_to 'Back', :back, { :class => 'button btn btn-default' }
-              = link_to 'Edit', edit_member_path(@member.id), { :class => 'button btn btn-warning' }
-              = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
-                %i.fa.fa-paper-plane
-                = @account_button_text
+                  - if education.graduated?
+                    %span.label.label-success geslaagd
+                  - elsif education.stopped?
+                    %span.label.label-warning gestopt
+                  - elsif education.active?
+                    %span.label.label-info studerend
 
-          - if @transactions.length > 0 || @member.checkout_cards.length > 0
-            .panel.panel-default
-              .panel-heading.input
-                %i.fa.fa-fw.fa-shopping-cart
-                Checkout
+        .card
+          .card-body
+            = link_to 'Back', :back, { :class => 'btn btn-primary' }
+            = link_to 'Edit', edit_member_path(@member.id), { :class => 'btn btn-warning' }
+            = link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
+              %i.fa.fa-paper-plane
+              = @account_button_text
 
-                .input-group#credit{ :data => { 'member_id' => @member.id }}
-                  .input-symbol
-                    %span &euro;
-                    %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => '') }
+        - if @transactions.length > 0 || @member.checkout_cards.length > 0
+          .card
+            .card-header.input
+              %i.fa.fa-fw.fa-shopping-cart
+              Checkout
 
-                  <!-- Containing this selector in a div fixes an
-                  overflow in Firefox, that doesn't occur in
-                  Chrome. See #203. -->
-                  #selector-container
-                    %select#payment_method{ :required => true }
-                      %option{:value => "Gepind"}= "Gepind"
-                      %option{:value => "Contant"}= "Contant"
-                      %option{:value => "", :selected => "selected" }= "-"
-                      %option{:value => "Verkoop"}= "Verkoop"
+              .input-group#credit{ :data => { 'member_id' => @member.id }}
+                .input-symbol
+                  %span &euro;
+                  %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => '') }
 
-                  %span.input-group-btn
-                    %button.btn.btn-warning#upgrade-btn opwaarderen
+                <!-- Containing this selector in a div fixes an
+                overflow in Firefox, that doesn't occur in
+                Chrome. See #203. -->
+                #selector-container
+                  %select#payment_method{ :required => true }
+                    %option{:value => "Gepind"}= "Gepind"
+                    %option{:value => "Contant"}= "Contant"
+                    %option{:value => "", :selected => "selected" }= "-"
+                    %option{:value => "Verkoop"}= "Verkoop"
 
-              %table.table.table-striped#transactions
-                %thead
-                  %tr
-                    %th Datum
-                    %th Prijs
-                    %th.d-none.d-sm-table-cell Producten
-                %tbody
-                  - @transactions.each do |transaction|
-                    %tr
-                      %td #{I18n.l transaction.created_at}
-                      %td
-                        = number_to_currency(transaction.price, :unit => '€')
-                        - if transaction.price > 0
-                          %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
-                        - else
-                          %span.fa.fa-sort-desc.pull-right
+                %span.input-group-btn
+                  %button.btn.btn-warning#upgrade-btn opwaarderen
 
-                      %td.d-none.d-sm-table-cell
-                        = transaction.products
-              %footer.table-footer
-                .row
-                  .col-md-6.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4 } }
-                    %span
-                      Toon
-                      = select_tag 'limit', options_for_select([10,20,50], @limit)
-                      transacties per pagina
-
-                  .col-md-6.text-right.pagination-container
-                    %ul.pagination-sm.pagination
-                      %li{ :class => ( 'disabled' if @offset == 0)}
-                        %a{ :data => { :offset => @offset - @limit < 0 ? 0 : @offset - @limit }} vorige
-
-                      %li
-                        %a{ :data => { :offset => @offset + @limit }} volgende
-
-
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %i.fa.fa-fw.fa-users
-              Groepen
-            %table.table.table-striped
-              %tbody
-                - @member.groups.each do |group|
-                  %tr
-                    %td= link_to group[ :name ], group_path( group[ :id ] )
-                    %td= Date.years( group[ :years ].sort )
-
-                    %td.d-none.d-sm-table-cell
-                      - group[ :positions ].each do | position |
-                        - position.each do | position, year |
-                          - unless position.nil?
-                            = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
-
-
-          .panel.panel-default
-            .panel-heading.year
-              %i.fa.fa-fw.fa-ticket
-              Activiteiten
-              .ui-select
-                = select_tag :year, options_for_select( @years, params['year'] )
-
-            %table.table.table-striped.table-linked#participants
+            %table.table.table-striped#transactions
               %thead
                 %tr
-                  %th Activiteit
+                  %th Datum
                   %th Prijs
-                  %th.d-none.d-md-table-cell Datum
-                  %th.d-none.d-sm-table-cell{ :style => 'text-align: center;' } Betaald
+                  %th.d-none.d-sm-table-cell Producten
               %tbody
-                - @activities.each do |activity|
-                  %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
-                    %td= link_to "#{activity.name}", activity
-
-                    - if !activity.currency(@member).nil?
-                      %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
-                    - else
-                      %td= link_to '-', activity, :style => 'text-decoration: none;'
-
-                    - if !activity.start_date.nil?
-                      - if activity.end_date.nil?
-                        %td.d-none.d-md-table-cell= link_to "#{I18n.l activity.start_date}", activity
+                - @transactions.each do |transaction|
+                  %tr
+                    %td #{I18n.l transaction.created_at}
+                    %td
+                      = number_to_currency(transaction.price, :unit => '€')
+                      - if transaction.price > 0
+                        %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
                       - else
-                        %td.d-none.d-md-table-cell= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+                        %span.fa.fa-sort-desc.pull-right
 
-                    %td.d-none.d-sm-table-cell.buttons
-                      .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
-                        - if activity.participants.where(:member => @member).first.paid
-                          %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                            %i.fa.fa-fw.fa-check
-                        - else
-                          %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
-                            %i.fa.fa-fw.fa-times
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
+                    %td.d-none.d-sm-table-cell
+                      = transaction.products
+            %footer.table-footer
+              .row
+                .col-lg-12.page-num-info.d-none.d-md-block{ :data => { :limit => @limit, :pagination => 4 } }
+                  %span
+                    Toon
+                    = select_tag 'limit', options_for_select([10,20,50], @limit)
+                    transacties per pagina
+              .row
+                .col-lg-12
+                  = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+
+
+      .col-lg-6
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-users
+            Groepen
+          %table.table.table-striped
+            %tbody
+              - @member.groups.each do |group|
+                %tr
+                  %td= link_to group[ :name ], group_path( group[ :id ] )
+                  %td= Date.years( group[ :years ].sort )
+
+                  %td.d-none.d-sm-table-cell
+                    - group[ :positions ].each do | position |
+                      - position.each do | position, year |
+                        - unless position.nil?
+                          = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
+
+
+        .card
+          .card-header.year
+            %i.fa.fa-fw.fa-ticket
+            Activiteiten
+            = select_tag :year, options_for_select( @years, params['year'] )
+
+          %table.table.table-striped.table-linked#participants
+            %thead
+              %tr
+                %th Activiteit
+                %th Prijs
+                %th.d-none.d-md-table-cell Datum
+                %th.d-none.d-sm-table-cell{ :style => 'text-align: center;' } Betaald
+            %tbody
+              - @activities.each do |activity|
+                %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
+                  %td= link_to "#{activity.name}", activity
+
+                  - if !activity.currency(@member).nil?
+                    %td= link_to "#{number_to_currency(activity.currency(@member), :unit => '€')}", activity
+                  - else
+                    %td= link_to '-', activity, :style => 'text-decoration: none;'
+
+                  - if !activity.start_date.nil?
+                    - if activity.end_date.nil?
+                      %td.d-none.d-md-table-cell= link_to "#{I18n.l activity.start_date}", activity
+                    - else
+                      %td.d-none.d-md-table-cell= link_to "#{I18n.l activity.start_date} - #{I18n.l activity.end_date}", activity
+
+                  %td.d-none.d-sm-table-cell.buttons
+                    .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
+                      - if activity.participants.where(:member => @member).first.paid
+                        %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                          %i.fa.fa-fw.fa-check
+                      - else
+                        %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                          %i.fa.fa-fw.fa-times
+                      %button.btn.btn-default.destroy
+                        %i.fa.fa-fw.fa-trash-o

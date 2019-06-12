@@ -62,10 +62,14 @@ class Admin::MembersController < ApplicationController
         I18n.t 'admin.member_account_status.send_create_email'
       end
 
-    # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
+    # Pagination for checkout transactions
     @limit = params[:limit] ? params[:limit].to_i : 10
-    @offset = params[:offset] ? params[:offset].to_i : 0
-    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(@limit).offset(@offset)
+
+    @transactions = CheckoutTransaction
+                    .where(:checkout_balance => CheckoutBalance
+                    .find_by_member_id(params[:id]))
+                    .order(created_at: :desc)
+                    .paginate(page: params[:page], per_page: params[:limit] ||= 10)
   end
 
   # Send appropriate email to user for account access, either password reset, user creation, or activation mail.
