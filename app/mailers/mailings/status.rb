@@ -14,8 +14,6 @@ module Mailings
         }
       end
 
-      puts variables.inspect
-
       html = render_to_string :layout => 'mailer', :locals => { subject: 'Lidmaatschap Studievereniging Sticky' }
 
       text = <<~PLAINTEXT
