@@ -9,8 +9,8 @@
       %ul
       - group.errors.full_messages.each do |msg|
         %li= msg
-  .panel.panel-default
-    .panel-heading
+  .card
+    .card-header
       %i.fa.fa-fw.fa-users
       - if group.category.nil?
         Nieuwe groep
@@ -18,7 +18,7 @@
         Bewerk
         = I18n.t(group.category, scope: 'activerecord.attributes.group.categories')
 
-    .panel-body
+    .card-body
 
       .form-group
         .row
