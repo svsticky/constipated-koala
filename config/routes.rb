@@ -9,6 +9,31 @@ Rails.application.routes.draw do
   end
 
   constraints :subdomain => ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
+    authenticate :user, ->(u) { !u.admin? } do
+      scope module: 'members' do
+        root to: 'home#index', as: :users_root
+
+        get   'edit',                           to: 'home#edit', as: :users_edit
+        patch 'edit',                           to: 'home#update'
+        delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
+
+        get 'download', to: 'home#download'
+
+        post 'mongoose', to: 'home#add_funds'
+
+        # TODO: should this be moved to nginx or
+        # @deprated these old routes
+        get 'enrollments',                      to: redirect('/activities')
+        get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
+
+        resources :activities, only: [:index, :show] do
+          resource :participants, only: [:create, :update, :destroy]
+        end
+      end
+    end
+
+    root 'admin/home#index'
+
     # No double controllers
     get     'admin/home',   to: redirect('/')
     get     'members/home', to: redirect('/')
@@ -35,34 +60,11 @@ Rails.application.routes.draw do
       post  'status/destroy',  to: 'status#destroy'
     end
 
-    authenticate :user, ->(u) { !u.admin? } do
-      scope module: 'members' do
-        root to: 'home#index', as: :users_root
-
-        get   'edit',                           to: 'home#edit', as: :users_edit
-        patch 'edit',                           to: 'home#update'
-        delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
-
-        get 'download', to: 'home#download'
-
-        post 'mongoose', to: 'home#add_funds'
-
-        # TODO: should this be moved to nginx or
-        # @deprated these old routes
-        get 'enrollments',                      to: redirect('/activities')
-        get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
-
-        resources :activities, only: [:index, :show] do
-          resource :participants, only: [:create, :update, :destroy]
-        end
-      end
-    end
-
     scope module: 'admin' do
       resources :members do
         get   'payment_whatsapp'
         patch 'force_email_change'
-        post 'email/:type', to: 'members#send_email', as: :mail
+        post  'email/:type', to: 'members#send_email', as: :mail
 
         collection do
           get 'search'
@@ -148,8 +150,6 @@ Rails.application.routes.draw do
         get 'advertisements', to: 'activities#advertisements'
       end
     end
-
-    root 'admin/home#index'
   end
 
   get '/', to: redirect('/404')
