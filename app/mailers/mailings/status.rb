@@ -1,5 +1,3 @@
-include Rails.application.routes.url_helpers
-
 #:nodoc:
 module Mailings
   # Used for sending an mail to members that should consent or update their studystatus
@@ -12,7 +10,7 @@ module Mailings
           :first_name => first_name,
           :name => (infix.blank? ? "#{ first_name } #{ last_name }" : "#{ first_name } #{ infix } #{ last_name }"),
           :email => email,
-          :url => status_url(:token => Token.create(:object_type => 'Member', :object_id => id, :intent => 'consent').token)
+          :url => Rails.application.routes.url_helpers.status_url(:token => Token.create(:object_type => 'Member', :object_id => id, :intent => 'consent').token)
         }
       end
 
