@@ -12,8 +12,8 @@
         = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
-        .panel.panel-default
-          .panel-heading
+        .card
+          .card-header
             %i.fa.fa-fw.fa-user
             -if @activity.participant_limit.nil?
               - fullness = @activity.attendees.count
@@ -55,8 +55,8 @@
                 %td
                 %td
 
-        .panel.panel-default
-          .panel-heading
+        .card
+          .card-header
             %i.fa.fa-fw.fa-user
             %span#reservistcount= @activity.reservists.count
             Reserves
@@ -89,5 +89,5 @@
                     .btn-group
                       %button.btn.btn-success.toparticipant
                         %i.fa.fa-fw.fa-plus
-                      %button.btn.btn-default.destroy
+                      %button.btn.btn-.destroy
                         %i.fa.fa-fw.fa-trash-o

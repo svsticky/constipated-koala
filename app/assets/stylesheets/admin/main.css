@@ -1,13 +1,3 @@
-.panel > .table-striped > tbody > tr:nth-child(even) > td,
-.panel > .table-striped > tbody > tr:nth-child(even) > th {
-  background-color: #f9f9f9;
-}
-
-.panel > .table-striped > tbody > tr:nth-child(even) > td,
-.panel > .table-striped > tbody > tr:nth-child(even) > th {
-  background-color: #fff;
-}
-
 input.invalid, select.invalid, textarea.invalid {
   border: solid red 1px;
 }
@@ -87,63 +77,6 @@ ul.pagination {
   top: 5px;
 }
 
-/* TODO: panels were removed in bootstrap 4, maybe this should be removed */
-.panel{
-    margin-bottom: 20px;
-    background-color: #ffff;
-    font-size: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-
-.panel-heading.input {
-  padding: 3px 15px 2px;
-  height: 40px;
-  line-height: 40px;
-}
-
-.panel-heading.input .input-group {
-  float: right;
-  height: 30px;
-  width: 150px;
-  top: -3px;
-  right: -10px;
-}
-
-.panel-heading.input .input-group span.input-group-addon {
-  display: initial;
-  top: -1px;
-  position: relative;
-  height: 36px;
-}
-
-.panel-heading.input .input-group input {
-  height: 32px;
-  line-height: 23px;
-  width: 120px;
-}
-
-.panel-heading.input .input-group button {
-  height: 32px;
-  line-height: 18px;
-}
-
-.panel-heading.year {
-  padding: 3px 15px 2px;
-}
-
-.panel-heading.year .ui-select {
-  width: 110px;
-  margin-left: 5px;
-}
-
-.panel-heading.year .ui-select select {
-  font-size: 14px;
-  line-height: 14px;
-}
-
 .mini-box{
     width: 25px;
 }
@@ -160,10 +93,6 @@ ul.pagination {
     width: calc(100% - 210px);
     position: relative;
     left: 210px;
-  }
-
-  form .panel-body {
-    position: relative;
   }
 
   form .droparea {
@@ -237,16 +166,6 @@ div.clickable {
   margin-bottom: 10px;
 }
 
-div.clickable > .panel {
-  margin: 0;
-}
-
-/*div.clickable > .panel:hover {
-  height: 105px;
-  text-decoration: none;
-  border-color: #767676;
-}*/
-
 .table{
     font-size: 15px;
 }
@@ -303,10 +222,6 @@ span.box-icon {
 .box-info .text-muted{
   font-size: 0.9em;
   text-align: center;
-}
-
-button.btn.btn-primary {
-  width: 100%;
 }
 
 span.box-icon {

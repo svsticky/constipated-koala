@@ -10,12 +10,11 @@
         = render 'admin/activities/partials/edit', activity_textfield: 'Nieuwe Activiteit', url: activities_path, method: :post
 
       .col-md-6
-        .panel.panel-default
-          .panel-heading.year
+        .card
+          .card-header.year
             %i.fa.fa-fw.fa-ticket
             = I18n.t('activerecord.models.activity')
-            .ui-select
-              = select_tag :year, options_for_select( @years, params['year'] )
+            = select_tag :year, options_for_select( @years, params['year'] )
           %table.table.table-striped.table-linked
             %tbody
               - @activities.each do |activity|

@@ -20,6 +20,6 @@
 //
 //= require clipboard/dist/clipboard.min
 //= require turbolinks/dist/turbolinks
-//= require bootstrap/dist/js/bootstrap
+//= require bootstrap/dist/js/bootstrap.bundle.min.js
 //
 //= require_tree ./admin
