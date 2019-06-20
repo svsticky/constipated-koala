@@ -1,10 +1,19 @@
 - content_for(:page, 'activities')
 - content_for(:title, 'Activiteiten')
 
-#activity-container{:data => {:view => 'index'}}
-  - unless @activities.any?
+.flex-center
+  - if @activities.any?
+    .btn-group{role: "group", 'aria-label': "..."}
+      = link_to 'https://calendar.google.com/calendar/embed?src=stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com&ctz=Europe%2FAmsterdam', class: 'btn btn-info', target: '_blank' do
+        = I18n.t 'members.activities.index.activities_calendar'
+      = link_to 'https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics', class: 'btn btn-default' do
+        ICS
+  - else
     .alert.alert-warning= I18n.t('members.activities.index.no_activities')
 
+%div{:style => "height:15px;"}
+
+#activity-container{:data => {:view => 'index'}}
   - @activities.each do |activity|
     .flexwrap
       = render 'members/activities/partials/view', activity: activity, view: 'index'

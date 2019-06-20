@@ -64,3 +64,8 @@ td.dropdown:hover ul.dropdown-menu {
   text-align: left;
   cursor: not-allowed;
 }
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
