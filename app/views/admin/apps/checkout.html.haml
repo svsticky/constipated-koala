@@ -8,7 +8,7 @@
 
   .page.page-table{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
-      .col-lg-8
+      .col-xl-8
         %section.card.table-dynamic
           .card-header
             %i.fa.fa-fw.fa-fw.fa-shopping-cart
@@ -60,12 +60,12 @@
               .col-12.col-lg-6
                 = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
 
-      .col-lg-4#credit
-        .panel.panel-default
-          .panel-heading
+      .col-xl-4#credit
+        .card
+          .card-header
             %i.fa.fa-fw.fa-money
             Opwaarderen
-          .panel-body{ :style => 'position: relative;' }
+          .card-body{ :style => 'position: relative;' }
             %form.form-inline
               .form-group.col-md-12#search_card
                 %input.form-control#card_holder{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer', :tabindex => '-1' }
@@ -84,9 +84,9 @@
               .form-group.col-md-12{ :style => 'display: none;' }
                 %button.form-control.btn.btn-line-primary opslaan
 
-      .col-lg-4#cards
-        .panel.panel-default
-          .panel-heading
+      .col-xl-4#cards
+        .card
+          .card-header
             %i.fa.fa-fw.fa-credit-card
             Niet geactiveerde kaarten
           %ul.list-group
@@ -102,20 +102,22 @@
                 %p.text-center
                   %em geen kaarten
 
-        .panel.panel-box.info-box
-          .panel-left.panel-item.bg-reverse
-            %p.size-h1.no-margin
-              = number_to_currency @credit, :unit => '€'
-            %p.text-muted.no-margin
-              Mongoose tegoed
-          .panel-right.panel-item.bg-warning
-            %i.fa.fa-credit-card.fa-3x
+        .card.card-box
+          .row.no-gutters
+            .col.card-body
+              %p.size-h2.no-margin
+                = number_to_currency @credit, :unit => '€'
+              %p.text-muted.no-margin
+                Mongoose tegoed
+            .col.bg-warning.card-body
+              %i.fa.fa-credit-card.fa-3x
 
-        = link_to checkout_products_path, { :class => 'panel panel-box info-box' } do
-          .panel-left.panel-item.bg-primary-light
-            %i.fa.fa-shopping-cart.fa-3x
-          .panel-right.panel-item.bg-reverse
-            %p.size-h1.no-margin
-              = @products
-            %p.text-muted.no-margin
-              Producten
+        = link_to checkout_products_path, { :class => 'card card-box' } do
+          .row.no-gutters
+            .col.bg-primary.card-body
+              %i.fa.fa-shopping-cart.fa-3x
+            .col.card-body
+              %p.size-h2.no-margin
+                = @products
+              %p.text-muted.no-margin
+                Producten

@@ -9,8 +9,8 @@
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        .panel.panel-default
-          .panel-heading
+        .card
+          .card-header
             %i.fa.fa-fw.fa-ticket
             Producten
 
@@ -43,11 +43,11 @@
                   %li= msg
 
           .col-md-6
-            .panel.panel-default
-              .panel-heading
+            .card
+              .card-header
                 %i.fa.fa-fw.fa-ticket
                 Bewerk product
-              .panel-body
+              .card-body
 
                 .form-group.thumb
                   .row
@@ -107,11 +107,11 @@
                   %li= msg
 
           .col-md-6.pull-right
-            .panel.panel-default
-              .panel-heading
+            .card
+              .card-header
                 %i.fa.fa-fw.fa-ticket
                 Nieuw product
-              .panel-body
+              .card-body
 
                 .form-group
                   .row
@@ -143,8 +143,8 @@
 
       - unless @product.nil? || @total.nil?
         .col-md-6.pull-right
-          .panel.panel-default
-            .panel-heading.year
+          .card
+            .card-header.year
               %i.fa.fa-fw.fa-ticket
               Verkopen
               .ui-select
