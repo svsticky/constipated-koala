@@ -7,13 +7,13 @@
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
 
-      .col-md-6
-        .panel.panel-default
-          .panel-heading
+      .col-lg-6
+        .card
+          .card-header
             %i.fa.fa-fw.fa-ticket
             Niet betaalde activiteiten
 
-          .panel-body#participants.filtered-search
+          .card-body#participants.filtered-search
             - @detailed.each do |activity|
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
                 %thead
@@ -40,12 +40,12 @@
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
 
-      .col-md-6
-        .panel.panel-default
-          .panel-heading
+      .col-lg-6
+        .card
+          .card-header
             %i.fa.fa-fw.fa-envelope
             Betalingsmails
-          .panel-body#paymentmails
+          .card-body#paymentmails
             %table.table.table-striped.table-linked
               %thead
                 %th Activiteit
@@ -57,18 +57,18 @@
                 %tr{ :style => 'height: 36px; line-height: 36px;' }
                   - if days.is_a? Numeric and days < 7
                     %td=link_to activity.name, activity
-                    %td=days                      
+                    %td=days
                   - else
                     %td=link_to activity.name, activity, { :style => 'color:red'}
                     %td{ :style => 'color:red'}=days
 
-        .panel.panel-default
-          .col-md-12
-            .panel-heading
+        .card
+          .col-lg-12
+            .card-header
               %i.fa.fa-fw.fa-whatsapp
               Achterstallige betalingen (> 4 mails)
 
-            .panel-body#paymentmails
+            .card-body#paymentmails
               %table.table.table-striped.table-linked
                 %thead
                   %th Lid
@@ -81,30 +81,30 @@
                       %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
                         %i.fa.fa-fw.fa-whatsapp
 
-        .panel.panel-default
-          .panel-heading
+        .card
+          .card-header
             %i.fa.fa-fw.fa-money
             Checkout transacties (Gepind)
 
-          .panel-body
+          .card-body
             .input-group#transaction_dates
-              .col-md-3
-              
+              .col-lg-3
+
                 %input#pin-total-date{ :type => 'date', :value =>  1.days.ago.strftime('%Y-%m-%d') }
-              
-              .col-md-3
+
+              .col-lg-3
                 Dagtotaal:
                 %span#pin-total-result
                   = number_to_currency(@checkout_transactions.sum(&:price), unit: '€')
-              .col-md-3  
+              .col-lg-3
                 %span.input-group-btn#update_transactions
                   %button.btn.btn-warning Update
-              .col-md-3  
+              .col-lg-3
                 %span.input-group-btn#copy_transactions
                   %button.btn.btn-clipboard{ :"data-clipboard-text" => @dat }
                     %i.fa.fa-copy
                     Copy
-                  
+
             %table.table.table-striped.table-linked#transactions
               %thead
                 %th Lid
