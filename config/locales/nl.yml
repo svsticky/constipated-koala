@@ -487,7 +487,7 @@ nl:
       bug_report: BUG!
       index:
         no_activities: "Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven"
-        activities_calendar: "Activiteiten kalender"
+        activities_calendar: "Activiteitenkalender"
       subscribe: Abonneer!
       partials:
         view:
