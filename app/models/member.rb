@@ -317,6 +317,8 @@ class Member < ApplicationRecord
 
   # Normalize the Member's phone number for use in payment Whatsapps.
   def whatsappable_phone_number
+    return unless phone_number.present?
+
     pn = phone_number.gsub(/\s/, '') # Remove whitespace
 
     return pn.sub(/^06/, "316") if /^06\d{8}$/.match?(pn) # Replace '06' with '316' if it's a Dutch phone number
