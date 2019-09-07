@@ -36,7 +36,7 @@ gem 'will_paginate-bootstrap4'
 
 # settings cached in rails environment
 gem 'image_processing'
-gem 'rails-settings-cached'
+gem 'rails-settings-cached', '~> 0.7'
 
 group :production, :staging do
   gem 'sentry-raven'

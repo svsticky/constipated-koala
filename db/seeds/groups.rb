@@ -6,15 +6,15 @@ puts '-- Creating committees'
   group = Group.create(
     name:       Faker::Team.unique.name,
     category:   2,
-    created_at: Faker::Date.between(3.years.ago, Date.today - 1.year)
+    created_at: Faker::Date.between(from: 3.years.ago, to: Date.today - 1.year)
   )
 
   Member.all.sample(10).each do |member|
     GroupMember.create(
       member:   member,
       group:    group,
-      year:     Faker::Date.between([member.join_date, group.created_at].max, Date.today).study_year,
-      position: Faker::Boolean.boolean(0.5) ? group.positions.sample : nil
+      year:     Faker::Date.between(from: [member.join_date, group.created_at].max, to: Date.today).study_year,
+      position: Faker::Boolean.boolean(true_ratio: 0.5) ? group.positions.sample : nil
     )
   end
 
