@@ -142,7 +142,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.13.0)
     multipart-post (2.1.1)
-    mysql2 (0.5.2)
+    mysql2 (0.5.1)
     netrc (0.11.0)
     nio4r (2.5.1)
     nokogiri (1.10.5)
@@ -275,7 +275,7 @@ DEPENDENCIES
   image_processing
   impressionist
   listen
-  mysql2
+  mysql2 (= 0.5.1)
   puma
   rabl
   rails

@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{ repo_name }.git"
 end
 
-gem 'mysql2'
+gem 'mysql2', '0.5.1'
 gem 'rails'
 
 # use of Haml and rabl
