@@ -120,28 +120,29 @@
           .card-header
             %i.fa.fa-fw.fa-fw.fa-desktop
             Advertenties
-          .table-responsive
-            %table.table.table-bordered.table-striped.table-linked
+          .card-body
+            .table-responsive
+              %table.table.table-bordered.table-striped.table-linked
 
-              - @advertisements.each do |advertisement|
-                %tr{ :data => { 'id' => advertisement.id }}
-                  %td
-                    = advertisement.name
-                    = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '764x1080!'), :download => ''
-                  %td.buttons
-                    .btn-group
-                      %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash-o
+                - @advertisements.each do |advertisement|
+                  %tr{ :data => { 'id' => advertisement.id }}
+                    %td
+                      = advertisement.name
+                      = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '764x1080!'), :download => ''
+                    %td.buttons
+                      .btn-group
+                        %button.btn.btn-default.destroy
+                          %i.fa.fa-fw.fa-trash-o
 
-          = form_for :advertisement, url: advertisement_settings_path, method: :post, :class => 'form-validation' do |f|
-            .form-group
-              .input-group
-                = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
-                .input-group-btn
-                  %div.btn.btn-primary.file-input-wrapper
-                    %span Uploaden
-                    = f.file_field :poster, { 'data-ui-file-upload' => '' }
-                  %button.btn.btn-success.wait{type: 'submit'} Opslaan
+            = form_for :advertisement, url: advertisement_settings_path, method: :post, :class => 'form-validation' do |f|
+              .form-group
+                .input-group
+                  = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
+              %div{ :style => 'margin-left: 5px;' }
+                %div.btn.btn-primary.file-input-wrapper
+                  %span Uploaden
+                  = f.file_field :poster, { 'data-ui-file-upload' => '' }
+                %button.btn.btn-success.wait{type: 'submit'} Opslaan
 
         .card
           .card-header
