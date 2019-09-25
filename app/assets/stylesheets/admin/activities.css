@@ -44,12 +44,6 @@
   width: calc(60% - 50px);
 }
 
-#participants tr > td:nth-child(2) {
-  width: calc(40% - 50px);
-  padding-right: 5%;
-  text-align: right;
-}
-
 #participants tr > td > .btn-group {
   height: 30px;
   float: right;
