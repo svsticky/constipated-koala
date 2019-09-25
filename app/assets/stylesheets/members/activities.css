@@ -78,6 +78,7 @@ div.container.col-md-9 {
 }
 
 .activity-title {
+  text-overflow: ellipsis;
   overflow: hidden;
   max-width: 80%;
   white-space: nowrap;
