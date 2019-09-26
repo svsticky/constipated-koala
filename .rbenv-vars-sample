@@ -1,16 +1,28 @@
 # Database credentials: choose either SOCKET or  (HOST,USER,PASSWORD)
 DATABASE_SOCKET=
 
-DATABASE_HOST=
-DATABASE_USER=
-DATABASE_PASSWORD=
+# If running in development, use this:
+DATABASE_HOST=127.0.0.1
+DATABASE_USER=root
+DATABASE_PASSWORD=koala123
+DATABASE_PORT=25838
+
+# Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
+KOALA_DOMAIN=
 
 # Secrets
+# Each of these values needs to be set to a random string.
+# You could get them from here:
+# https://www.random.org/strings/?num=3&len=20&digits=on&upperalpha=on&loweralpha=on&unique=off&format=html&rnd=new
 SECRET_KEY_BASE=
 DEVISE_SECRET=
+CHECKOUT_TOKEN=
+
+# All the below values can be left empty/default in development.
 OIDC_SIGNING_KEY=
 
 # OAuth secrets for OAuth proxy
+# Not needed in development.
 OAUTH_PROXY_UID=
 OAUTH_PROXY_SECRET=
 OAUTH_PROXY_REDIRECTS=https://photos.svsticky.nl/oauth2/callback;https://files.svsticky.nl/oauth2/callback
@@ -18,10 +30,6 @@ OAUTH_PROXY_REDIRECTS=https://photos.svsticky.nl/oauth2/callback;https://files.s
 # API tokens
 MAILGUN_DOMAIN=
 MAILGUN_TOKEN=
-CHECKOUT_TOKEN=
-
-# Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
-KOALA_DOMAIN=
 
 # MOLLIE credentials
 MOLLIE_DOMAIN=https://api.mollie.nl
@@ -31,4 +39,4 @@ MOLLIE_TOKEN=
 # Number of threads to run
 RAILS_MAX_THREADS=4
 
-SENTRY_DSN=http://public:secret@example.com/project-id
+SENTRY_DSN=
