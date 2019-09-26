@@ -1,0 +1,6 @@
+[mysqld]
+innodb_file_format=Barracuda
+innodb_large_prefix=1
+innodb_file_per_table=1
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
