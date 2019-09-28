@@ -278,7 +278,7 @@ DEPENDENCIES
   mysql2 (= 0.5.1)
   puma
   rabl
-  rails
+  rails (~> 6.0)
   rails-settings-cached (~> 0.7)
   responders
   rest-client

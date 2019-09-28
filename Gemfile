@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'mysql2', '0.5.1'
-gem 'rails'
+gem 'rails', '~> 6.0'
 
 # use of Haml and rabl
 gem 'haml'

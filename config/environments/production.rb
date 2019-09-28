@@ -92,7 +92,10 @@ Rails.application.configure do
     :protocol => 'https'
   }
 
-  config.hosts << "koala.svsticky.nl"
+  config.hosts << 'koala.svsticky.nl'
+  config.hosts << 'intro.svsticky.nl'
+  config.hosts << 'leden.svsticky.nl'
+  config.hosts << 'members.svsticky.nl'
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
