@@ -1,158 +1,197 @@
-# Constipated koala
+# Development setup for Constipated Koala
 
-Koala is a [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html) application, it uses ruby as language which is quite an easy language running on [rbenv](https://github.com/rbenv/rbenv). Rails is a Model-View-Controller framework denoting an easy to understand file structure. At Sticky we are using [Unicorn](unicorn) to run the application with multiple threads in a rackspace environment on the production server. Unicorn runs the app on `/tmp/unicorn.sock` which in turn is used by [Nginx](koala.svsticky.nl)
- as a proxy. In development and production we use [MariaDB](https://downloads.mariadb.org/mariadb/repositories), it should work with MySQL as well. Finally the package manager called bundler is also required.
+Koala is written using the [Ruby on Rails] framework, which uses the
+programming language [Ruby]. We use [rbenv] to manage the version of Ruby that
+is used, and the package manager [Bundler] to manage dependencies.
+Rails is based on the Model-View-Controller paradigm, and has an easy to
+understand file structure. On the production server, we use [Unicorn] to run
+the application with multiple threads, and [Nginx] as a proxy.
+In both development and production, we use [Mariadb] as the database.
 
- ```shell
- # Let's start; clone the project
- $ git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
- $ cd koala.svsticky.nl
- ```
+[Bundler]: https://bundler.io
+[Mariadb]: https://mariadb.org
+[Ruby on Rails]: https://guides.rubyonrails.org/getting_started.html
+[Ruby]: https://www.ruby-lang.org/
+[Unicorn]: https://bogomips.org/unicorn/
+[rbenv]: https://github.com/rbenv/rbenv
 
-First I will discuss some information on developing on unix and windows. These steps can be skipped if you're already developing rails applications using rbenv.
+## Requirements
+To get started, you will need:
 
-### Windows
-These steps are required for Windows but can be done on any OS if you want a clean install on a virtual machine. First we have to install [Vagrant](http://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
+- A Linux installation (we assume you're using Ubuntu 18.04)
+- Git (`sudo apt install git`)
 
-```shell
-# first install vagrant plugins for virtualbox and chef
-$ vagrant plugin install vagrant-vbguest
-$ vagrant plugin install vagrant-librarian-chef-nochef
+You'll install:
+
+- Dependencies to build Ruby and some extensions,
+- [rbenv], a Ruby version manager,
+- [Ruby] itself,
+- [Yarn], a JavaScript package manager,
+- Koala's dependencies.
+
+
+To start, clone the project:
+
+```console
+$ git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
+$ cd koala.svsticky.nl
 ```
 
-Now we can setup the virtual machine using Vagrant and chef. The virtual machine runs the rails environment from your working directory on the default port. In the virtual machine your project is located at `/vagrant`
+Ruby is a programming language and requires an environment. We can set up the
+environment easily with the help of rbenv and its [tutorial][rbenv-tutorial].
+Follow this tutorial, and also do the optional step of installing ruby-build.
 
-```shell
-# create and install a virtual machine, coffee time!
-$ vagrant up
+[rbenv-tutorial]: https://github.com/rbenv/rbenv#basic-github-checkout
 
-# connect to the virtual machine
-$ vagrant ssh
-$ cd /vagrant
+After installing rbenv, you'll also need the rbenv-vars plugin, which is used
+to read a configuration file. Install it like so:
+
+```console
+$ git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
 ```
 
-Bonus card; _skip to running the app_, the linux steps are all pre-installed on your virtual machine for you!
+Once you've done this, install the dependencies you'll need to build Ruby, and
+then Ruby itself:
 
-### Linux
-Congratulations, you have access to a superior operating system.
-
-Ruby is a language and requires an environment. We are installing that with the help of rbenv and its [tutorial](https://github.com/rbenv/rbenv#basic-github-checkout). At the end of this specific chapter they are telling about [ruby-build](https://github.com/rbenv/ruby-build#installing-as-an-rbenv-plugin-recommended) which makes your life a lot easier by adding commands to install new versions. We'll do that a little bit later on.
-
-Now we have installed ruby on your system, we have to chose which version we will be using. Currently that is `2.4.1`, but we should update regularly. Updating requires you to check if everything is still working properly, obviously.
-
-```shell
-# list all available versions:
-$ rbenv install -l
-
-# The version we are using on the moment
-$ rbenv install 2.4.1
-
-# Installing rbenv-vars in the existing rbenv installation
-$ mkdir -p ~/.rbenv/plugins
-$ cd ~/.rbenv/plugins
-$ git clone https://github.com/rbenv/rbenv-vars.git
+```console
+# These dependencies copied from https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
+$ sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+# Run this step in Koala's source directory, or rbenv won't know which version to install
+$ rbenv install
 ```
 
-Now the hardest part; [active storage](http://edgeguides.rubyonrails.org/active_storage_overview.html). Active storage uses minimagick as a image processor, we have to add imagemagick to our server. Make sure the `identify` and `convert` are installed. For pdf we also need ghostscript to be installed, which can be tested by using `which gs`. You can find the paths out by using `which convert` on your machine.
+Note that installing Ruby will compile it from source, which can take a bit of
+time and will be intensive on your processor. If you're using a laptop, it's
+recommended to connect your charger for this.
 
-### Running the app
-Deploying koala or any Ruby on Rails application for that matter is not that hard. First we have to clone the repository to a suitable location, we have done that already, usually that would be `/var/www` on any linux server. Then we have to install rbenv-vars, which set environment variables, also check. It sets variables accessible on the entire system, these variables are usually secret so they are not put on Github. To list all environment variables just type `env` and press <kbd>enter</kbd>.
+Once this is done, you'll also need some other packages to run Koala itself and
+to build its dependencies. Install these, and then install Koala's Ruby
+dependencies:
 
-```shell
-# Copy example config file and fill in
-$ cp .rbenv-vars-sample .rbenv-vars && vim .rbenv-vars
+```console
+$ sudo apt install curl libmariadbclient-dev imagemagick ghostscript
 
-# Generate a private key for the signing key of API
-openssl genrsa -out key.pem 2048
+# We use an older version of Bundler, as we haven't upgraded to version 2 yet.
+$ gem install bundler -v 1.17.1
 
-# Make sure that in .rben-vars you have OIDC_SIGNING_KEY=key.pem
-
-# Finally install our package manager
-$ gem install bundler
+$ bundle install
 $ rbenv rehash
 ```
 
-In `.rbenv-vars` is a fixed set of variables required for going any further, for example credentials of the database. Create these secrets using `rake secret`. Next we have to install all packages listed in the Gemfile. A package is called a gem and is installed using the package manager bundler. It will output a list of all installed gems. Finally create, migrate, and fill the database with testdata.
+Then follow the instructions on [this page][yarn-install] to install Yarn,
+a package manager for our JavaScript dependencies.
 
-```shell
-# Install ruby dependencies
-$ bundle install
+[yarn-install]: https://yarnpkg.com/en/docs/install#debian-stable
 
-$ bundle exec rake routes
+You should now be able to run the following command:
 
-# Create and populate the database for development
-$ RAILS_ENV=development bundle exec rake db:create db:setup
-```
-This will install the gems, setup the database and create an admin and test user account for you: dev@svsticky.nl and test@svsticky.nl respectively. Password for both is sticky123.
-
-Yarn is a package manager for frontend packages. It's currently used for Bootstrap. Install using the [installation guide](https://yarnpkg.com/en/docs/install). Run command `yarn` to initialise Yarn.
-
-So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
-
-### Development
-In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.local:3000](http://koala.rails.local:3000). For some functionalities you'll need `sidekiq`. `sidekiq` is used to add and execute jobs later on, in this way a user doesn't have to wait for the response of an external API.
-
-```shell
-
-# Add hosts for different subdomains on your own computer
-$ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
-
-# Run the server using webrick
-$ bundle exec rails server
-
-# Run in a different window to execute background jobs
-$ bundle exec sidekiq
+```console
+$ yarn install
+$ rails assets:precompile
 ```
 
-### Production
-Well almost there, before running this app on production it would be smart to secure the connection with an ssl certificate. This can be done by letsencrypt where the webroot should be `/var/www/koala.svsticky.nl/public` and the certificate configured in nginx.
+This will download our JavaScript and CSS dependencies, and confirm that you're
+able to build our CSS and JS bundles.
 
-Koala needs to run some tasks occasionally runned called cronjobs; one to reindex the search table. Sometimes it doesn't work properly, don't know why, probably due to heavy load. And secondly to update the introductory activities, we check daily if a new study year has started.
+If all of this worked, you're ready to run Koala!
 
-```shell
-# Reindex the search table, which can be partial because of the load on introduction day!
-$ 0 0 10 9 * cd /var/www/koala.svsticy.nl && /usr/local/bin/rake RAILS_ENV=production admin:reindex_members
+## Configuring Koala
+To actually run Koala, you'll need a running copy of MariaDB or MySQL. In
+production, we run MariaDB, and to prevent problems we run the same database in
+development as well.
 
-# Start a cronjob daily (at 2:09AM) to create new membership activity and **hide passed intro_activities**
-$ 9 2 * * * cd /var/www/koala.svsticky.nl && /usr/local/bin/rake RAILS_ENV=production admin:start_year['Lidmaatschap',7.5]
+To easily start the database, you can run MariaDB in a container via Docker.
+Follow these steps to install Docker and start the database:
+
+```console
+$ sudo apt install docker.io docker-compose
+$ docker-compose up -d
 ```
 
-There are some files in this folder that should be moved to the appropriate location; `koala.svsticky.nl` is the nginx config that works with the production environment settings and probably should be moved to `/etc/nginx/sites-available/`. Now we can add the init.d script which starts unicorn on every restart of the server and gives you commands like `service unicorn reload` to restart unicorn.
+MariaDB will now set itself up in the background, and will be available in
+a minute or so. You'll need to run the `docker-compose up` command again if you
+reboot your computer to start the database again.
 
-```shell
-# Add the nginx config to the correct location
-$ mv config/development/koala.svsticky.nl /etc/nginx/sites-available/
-$ ln -s /etc/nginx/sites-available/koala.svsticky.nl /etc/nginx/sites-enabled/
-$ nginx -s reload
+If you're already running a copy of MariaDB, you can use this copy to contain
+Koala's files as well. You'll need to create a user with all privileges for the
+databases `koala-development` and `koala-test`, this is out of scope for this
+tutorial.
 
-# Move the unicorn config and set it to start automatically
-$ mv config/deployment/unicorn /etc/init.d/
-$ sudo chmod 755 /etc/init.d/unicorn
-$ sudo update-rc.d /etc/init.d/unicorn defaults
+There is an example file in the root of this repository called
+`.rbenv-vars-sample`. This file is a template for the actual configuration file
+`.rbenv-vars`, which sets some configuration values for Koala. Copy
+`.rbenv-vars-sample` to `.rbenv-vars`, and edit it according to the
+instructions in the file.
+
+Once you're done, you can set up the database with this command:
+
+```console
+$ rails db:setup
 ```
 
-Now run `sudo service unicorn start`, congratulations you are running a rails application! :)
+This creates the database for you and fills it with fake test data.
+It generates two users that you can use:
 
-For the background jobs, `sidekiq` is used, in development `bundle exec sidekiq` can be used. However in production a more sustainable method is desired. Adding a [service](https://github.com/mperham/sidekiq/tree/master/examples) could resolve this running sidekiq in the background. 
+- `dev@svsticky.nl`, an admin user (password is `sticky123`),
+- `test@svsticky.nl`, a member user (same password).
 
-### A note on databases
-There used to be a section here telling you to be a bit fearful of running the
-`db:migrate` rake task. This was misinformed. For more information on this historical
-perspective you can check out issue 53.
+## Running Koala
+You can run Koala itself by running this command:
 
-Here are the rake tasks that you will need to use in order to effectively contribute
-to this project:
+```console
+$ rails server
+# This works as well:
+$ rails s
+```
 
- - When starting out, `rake db:create` will set you up with a nice development
-   database. It won't, however fill it with any tables.
- - To create the relevant tables and seed them you can use `rake db:setup`.
- - When there are pending migrations (database changes), `rake db:migrate` will do
-   the job nicely. Use this when you create migrations yourself or when the
-   `rake db:setup` task fails due to pending migrations (in this latter case notify
-   the maintainer and complain about bad code review).
- - Messed something up? Run the task `db:reset`. This will drop the database, create
-   it and set it back up again.
+This will start a server that listens until you press Ctrl-C in the window
+where it's running.
 
-`schema.rb` is a file that describes the database schema of this application. Any
-changes to it are critical, therefore it is paramount that you check this file into
-version control.
+The server will listen for connections from localhost, which means that it's
+only accessible from the computer where you're running the server.
+In order to have the server actually work, you'll need to run this command once:
+
+```console
+$ echo "127.0.0.1    koala.rails.local members.rails.local leden.rails.local intro.rails.local" | sudo tee -a /etc/hosts
+```
+
+After this, when the server is running, you can open
+http://koala.rails.local:3000 in your browser, and you should get Koala's login
+screen.
+
+Happy hacking!
+
+## Production
+The development setup is set up to consume less resources, and to allow rapid
+development by automatically loading changed code. In production, we use
+a different setup to be able to handle more requests at once and to integrate
+with some of our other websites. If you're interested, you can view the script
+that is used to set up the actual Koala instance in the [Sadserver repository]
+under `ansible/tasks/koala.yml`.
+
+[Sadserver repository]: https://github.com/svsticky/sadserver
+
+## Background jobs
+There are two background jobs that need to be run periodically in production:
+
+- `rails admin:reindex_members`, which rebuilds the search index, which ensures
+  that the member search works properly,
+- `rails admin:start_year['Lidmaatschap',7.5]`, which starts a new study year
+  when it's appropriate to do so.
+
+You shouldn't need to run these in development.
+
+## Database management
+Some database commands that you might need if something breaks:
+
+- `rails db:create`: Create a database, but don't fill it with tables or data.
+- `rails db:setup`: Create the database and fill it with random test data.
+  Doesn't work if there already is a database, but does delete your data!
+- `rails db:reset`: Delete and recreate the database, with new test data.
+- `rails db:migrate`: Apply all pending migrations. If the migrations are new,
+  this will alter `db/schema.rb`. If this happens, commit this file!
+- `rails db:rollback`: Roll back the most recent migration.
+
+See [the migrations guide] for more info on how migrations work.
+
+[the migrations guide]: https://guides.rubyonrails.org/active_record_migrations.html

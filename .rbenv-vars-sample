@@ -1,25 +1,48 @@
-# Database credentials: choose either SOCKET or  (HOST,USER,PASSWORD)
-DATABASE_SOCKET=
-
-# If running in development, use this:
+### Database setup ###
+# If you're running in development and using the Docker setup for the database,
+# use these values:
 DATABASE_HOST=127.0.0.1
 DATABASE_USER=root
 DATABASE_PASSWORD=koala123
 DATABASE_PORT=25838
 
-# Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
-KOALA_DOMAIN=
+# Otherwise, if you're using a local Mariadb setup, uncomment and fill in this:
 
-# Secrets
-# Each of these values needs to be set to a random string.
-# You could get them from here:
-# https://www.random.org/strings/?num=3&len=20&digits=on&upperalpha=on&loweralpha=on&unique=off&format=html&rnd=new
+# Database socket, usually /run/mysqld/mysqld.sock
+#DATABASE_SOCKET=/run/mysqld/mysqld.sock
+
+# Host where your database is running. If you're running locally and using a
+# Unix socket, set this to "localhost", if you're using a TCP socket, set this
+# to an IP address.
+#DATABASE_HOST=localhost
+
+# Port to use for the connection. The default is 3306, and this value is not
+# used if you're using a Unix socket.
+#DATABASE_PORT=3306
+
+# Credentials to use. This user will need to have all privileges on the
+# `koala-development` and `koala-test` databases.
+#DATABASE_USER=
+#DATABASE_PASSWORD=
+
+### Secrets ###
+# Each of these values needs to be set to a random string. It doesn't matter
+# what the actual value is, generate random strings with the command `rake secret`.
 SECRET_KEY_BASE=
 DEVISE_SECRET=
 CHECKOUT_TOKEN=
 
 # All the below values can be left empty/default in development.
-OIDC_SIGNING_KEY=
+RAILS_ENV=development
+
+# Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
+KOALA_DOMAIN=http://koala.rails.local:3000
+
+# Number of threads to run
+RAILS_MAX_THREADS=4
+
+# Signing key for OpenID tokens
+OIDC_SIGNING_KEY=.circleci/test-signing-key.pem
 
 # OAuth secrets for OAuth proxy
 # Not needed in development.
@@ -27,16 +50,15 @@ OAUTH_PROXY_UID=
 OAUTH_PROXY_SECRET=
 OAUTH_PROXY_REDIRECTS=https://photos.svsticky.nl/oauth2/callback;https://files.svsticky.nl/oauth2/callback
 
-# API tokens
+# API tokens for sending email. Don't fill in in development, or you'll send a
+# lot of emails to @example.com.
 MAILGUN_DOMAIN=
 MAILGUN_TOKEN=
 
-# MOLLIE credentials
+# MOLLIE credentials for the iDEAL integration.
 MOLLIE_DOMAIN=https://api.mollie.nl
 MOLLIE_VERSION=v1
 MOLLIE_TOKEN=
 
-# Number of threads to run
-RAILS_MAX_THREADS=4
-
+# Secret for error reporting.
 SENTRY_DSN=
