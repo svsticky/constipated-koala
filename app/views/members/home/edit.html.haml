@@ -85,12 +85,12 @@
           %span.footnote 2
           .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
-  .col-md-6
-    .panel.panel-default
-      .panel-heading
+  .col-xl-6
+    .card
+      .card-header
         %i.fa.fa-fw.fa-graduation-cap
         Studiegegevens
-      .panel-body
+      .card-body
         .form-group
           .row
             .col-md-6
@@ -131,19 +131,19 @@
             %br
             Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
 
-    .panel.panel-default
-      .panel-heading
+    .card
+      .card-header
         %i.fa.fa-fw.fa-gavel
         = I18n.t 'members.home.edit.privacy_panel.header'
-      .panel-body
+      .card-body
         = I18n.t 'members.home.edit.privacy_panel.view'
         = link_to 'https://svsticky.nl/wp-content/uploads/privacystatement.pdf' do
           = I18n.t 'members.home.edit.privacy_panel.privacy_statement'
 
   - if @applications.any?
-    .col-lg-6
-      .panel.panel-default
-        .panel-heading
+    .col-xl-6
+      .card
+        .card-header
           %i.fa.fa-fw.fa-rocket
           = I18n.t("members.home.edit.externe_applicaties")
         %table.table.table-striped.table-linked
@@ -155,9 +155,9 @@
                 = link_to authorized_applications_path(application), 'data-method' => :delete do
                   = I18n.t("members.home.edit.revoke")
 
-  .col-md-12
-    .panel.panel-default
-      .panel-body
+  .col-lg-12
+    .card
+      .card-body
         %button.btn.btn-success{type: 'submit'} Opslaan
         = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
         = link_to download_path, { :class => 'button btn btn-default pull-right' } do
