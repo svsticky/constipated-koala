@@ -81,43 +81,49 @@
           .form-group
             = f.hidden_field :join_date, :value => Time.new
             .row
-              .col-md-5
+              .col-lg-5
                 %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
                 = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
-              .col-md-2
+              .col-lg-2
                 %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
                 = f.text_field :infix, :value => @member.infix, :class => 'form-control'
-              .col-md-5
+              .col-lg-5
                 %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
                 = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
+
           .form-group
             .row
-              .col-md-12
+              .col-lg-12
                 %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
                 = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+
           .form-group
             .row
-              .col-md-8
+              .col-lg-8
                 %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
                 = f.text_field :address, :value => @member.address, :class => 'form-control'
-              .col-md-4
+              .col-lg-4
                 %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
                 = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+
           .form-group
             .row
-              .col-md-6
+              .col-lg-6
                 %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
                 = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-              .col-md-6
+              .col-lg-6
                 %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
                 = f.text_field :city, :value => @member.city, :class => 'form-control'
+
           .form-group
             %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
             = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+
           .form-group
             %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
             = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
             .help-block= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
+
           .form-group
             %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
             = f.email_field :email, :value => @member.email, :class => 'form-control'
