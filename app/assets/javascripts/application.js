@@ -23,3 +23,10 @@
 //= require bootstrap/dist/js/bootstrap.bundle.min.js
 //
 //= require_tree ./admin
+
+$(document).on('ready page:load turbolinks:load', function () {
+
+  $('.alert button.close').on('click', function () {
+    $(this).closest('.alert').remove();
+  });
+});

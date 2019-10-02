@@ -3,14 +3,16 @@
 
 = form_for :member, method: :patch, :class => 'form-validation' do |f|
 
-  - if @member.errors.any?
+  - if @member.errors.any? || flash[:error]
     .col
       .alert.alert-danger
         %button.close{ type: "button" } ×
         %span= I18n.t('activerecord.errors.incomplete')
         %ul
-        - @member.errors.full_messages.each do |msg|
-          %li= msg
+          - @member.errors.full_messages.each do |msg|
+            %li= msg
+          - if flash[:error].present?
+            %li= flash[:error]
 
   .col
     .card
@@ -22,23 +24,38 @@
           .row
             .col-lg-5
               = f.label(:first_name)
-              = f.label :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled'
+              = f.text_field :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled', :disabled => true
             .col-lg-2
               = f.label(:infix)
-              = f.label :infix, 'value' => @member.infix, :class => 'form-control form-control-disabled'
+              = f.text_field :infix, :value => @member.infix, :class => 'form-control form-control-disabled', :disabled => true
             .col-lg-5
               = f.label(:last_name)
-              = f.label :last_name, 'value' => @member.last_name, :class => 'form-control form-control-disabled'
+              = f.text_field :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled', :disabled => true
+
+          .callout.callout-info Sommige gegevens kan je niet zelf wijzigen (bijvoorbeeld je naam, geboortedatum en studentnummer), neem hiervoor contact op met #{link_to 'het bestuur', 'mailto:bestuur@svsticky.nl'}.
+        %hr
+
+        .form-group
+          .row
+            .col-md-4
+              = f.label(:birth_date)
+              = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
+            .col-md-8
+              = f.label(:email)
+              %span.footnote 1
+              = f.email_field :email, :value => @member.email, :class => 'form-control'
 
         .form-group
           .row
             .col-lg-6
-              = f.label(:gender)
-              .ui-select
-                = f.select :gender, options_for_select([[I18n.t('members.genders.male'), "m"], [I18n.t('members.genders.female'), "f"]], @member.gender)
+              = f.label(:phone_number)
+              = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
             .col-lg-6
-              = f.label(:birth_date)
-              = f.label :birth_date, 'value' => @member.birth_date, :class => 'form-control form-control-disabled birthdate'
+              = f.label(:emergency_phone_number)
+              %span.footnote 2
+              = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+
+        %hr
 
         .form-group
           .row
@@ -58,28 +75,73 @@
               = f.label(:city)
               = f.text_field :city, :value => @member.city, :class => 'form-control'
 
-        .form-group
-          = f.label(:phone_number)
-          = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+        %hr
 
-        .form-group
-          = f.label(:emergency_phone_number)
-          = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
-
-        .form-group
-          = f.label(:email)
-          = f.email_field :email, :value => @member.email, :class => 'form-control'
+        .footnote
+          %span.footnote 1
           .help-block= I18n.t('activerecord.annotations.member.email')
 
-        - if @member.user && @member.user.unconfirmed_email
-          .callout.callout-warning
-            = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
+        .footnote
+          %span.footnote 2
+          .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
-        %button.btn.btn-success{type: 'submit'}= I18n.t("editing.save")
-        = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-fw.fa-graduation-cap
+        Studiegegevens
+      .panel-body
+        .form-group
+          .row
+            .col-md-6
+              = f.label(:student_id)
+              = f.text_field :student_id, :value => @member.student_id, :class => 'form-control form-control-disabled', :disabled => true
+            .col-md-6
+              = f.label(:join_date)
+              = f.text_field :join_date, :value => I18n.l(@member.join_date), :class => 'form-control form-control-disabled', :disabled => true
 
-  -#
-    .col-lg-9
+        %hr
+
+        .form-group
+          %label{for: 'member_educations'}
+            = I18n.t('activerecord.attributes.member.educations')
+
+        %table.table.table-striped
+          %tbody
+            - @member.educations.each do |education|
+              = f.fields_for 'educations_attributes[]', education do |fs|
+                %tr
+                  %td= I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
+
+                  %td.dropdown
+                    - if education.status == 'active'
+                      = fs.hidden_field :id
+
+                    .ui-select
+                      - if education.status == 'active'
+                        = fs.select :status, options_for_select( [:active, :graduated, :stopped].map{ |name| [I18n.t(name, scope: 'activerecord.attributes.education.status').downcase, name] }, education.status )
+                      - else
+                        %span
+                          = I18n.t(education.status, scope: 'activerecord.attributes.education.status').downcase
+
+        - if @member.educations.any? { |education| education.status == 'active' }
+          .callout.callout-info
+            Voor de vereniging is het belangrijk om inzichtelijk te hebben of je studeert aan de Universiteit Utrecht. Het bijwerken van je studiestatus wordt op prijs gesteld.
+            %br
+            %br
+            Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
+
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-fw.fa-gavel
+        = I18n.t 'members.home.edit.privacy_panel.header'
+      .panel-body
+        = I18n.t 'members.home.edit.privacy_panel.view'
+        = link_to 'https://svsticky.nl/wp-content/uploads/privacystatement.pdf' do
+          = I18n.t 'members.home.edit.privacy_panel.privacy_statement'
+
+  - if @applications.any?
+    .col-lg-6
       .panel.panel-default
         .panel-heading
           %i.fa.fa-fw.fa-rocket
@@ -92,3 +154,12 @@
               %td
                 = link_to authorized_applications_path(application), 'data-method' => :delete do
                   = I18n.t("members.home.edit.revoke")
+
+  .col-md-12
+    .panel.panel-default
+      .panel-body
+        %button.btn.btn-success{type: 'submit'} Opslaan
+        = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-default' }
+        = link_to download_path, { :class => 'button btn btn-default pull-right' } do
+          %i.fa.fa-download
+          Download persoonsgegevens

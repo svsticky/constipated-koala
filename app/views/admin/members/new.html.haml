@@ -35,11 +35,7 @@
 
               .form-group
                 .row
-                  .col-md-6
-                    = f.label(:gender)
-                    .ui-select
-                      = f.select :gender, options_for_select([["MAN", "m"], ["VROUW", "f"]], @member.gender)
-                  .col-md-6
+                  .col-md-12
                     = f.label(:birth_date)
                     = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
 

@@ -90,7 +90,7 @@ Yarn is a package manager for frontend packages. It's currently used for Bootstr
 So now you have a functioning ruby on rails application, now what?! Exactly a way to run it;
 
 ### Development
-In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.local:3000](http://koala.rails.local:3000).
+In development we are using webrick, it is a very basic single threaded server application running your app on port `3000`. It is as easy as you might think. However in koala we have two constrains of [subdomains](../routes.rb), so we need two subdomains to meet that constraint. Adding it to your hostfile works fine. So now you can reach the application [koala.rails.local:3000](http://koala.rails.local:3000). For some functionalities you'll need `sidekiq`. `sidekiq` is used to add and execute jobs later on, in this way a user doesn't have to wait for the response of an external API.
 
 ```shell
 
@@ -99,6 +99,9 @@ $ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
 
 # Run the server using webrick
 $ bundle exec rails server
+
+# Run in a different window to execute background jobs
+$ bundle exec sidekiq
 ```
 
 ### Production
@@ -129,6 +132,8 @@ $ sudo update-rc.d /etc/init.d/unicorn defaults
 ```
 
 Now run `sudo service unicorn start`, congratulations you are running a rails application! :)
+
+For the background jobs, `sidekiq` is used, in development `bundle exec sidekiq` can be used. However in production a more sustainable method is desired. Adding a [service](https://github.com/mperham/sidekiq/tree/master/examples) could resolve this running sidekiq in the background. 
 
 ### A note on databases
 There used to be a section here telling you to be a bit fearful of running the

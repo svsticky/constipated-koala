@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   use_doorkeeper_openid_connect
+
   constraints :subdomain => ['intro', 'intro.dev'] do
-    get  '/', to: 'public#index', as: 'public'
-    post '/', to: 'public#create'
+    scope module: 'public' do
+      get  '/', to: 'home#index', as: 'public'
+      post '/', to: 'home#create'
+    end
   end
 
   constraints :subdomain => ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
@@ -13,6 +16,8 @@ Rails.application.routes.draw do
         get   'edit',                           to: 'home#edit', as: :users_edit
         patch 'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
+
+        get 'download', to: 'home#download'
 
         post 'mongoose', to: 'home#add_funds'
 
@@ -49,11 +54,17 @@ Rails.application.routes.draw do
     get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
     post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
 
+    scope module: 'public' do
+      get   'status(/:token)', to: 'status#edit'
+      post  'status',          to: 'status#update'
+      post  'status/destroy',  to: 'status#destroy'
+    end
+
     scope module: 'admin' do
       resources :members do
         get   'payment_whatsapp'
         patch 'force_email_change'
-        post 'send_user_email'
+        post  'email/:type', to: 'members#send_email', as: :mail
 
         collection do
           get 'search'
@@ -69,7 +80,8 @@ Rails.application.routes.draw do
       end
 
       scope 'payments' do
-        get 'payments',           to: 'payments#index'
+        get 'payments', to: 'payments#index'
+        get 'whatsapp/:member_id', to: 'payments#whatsapp_redirect', as: 'payment_whatsapp_redirect'
         get 'transactions',       to: 'payments#update_transactions'
       end
 

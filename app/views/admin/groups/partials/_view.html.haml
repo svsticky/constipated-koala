@@ -12,7 +12,21 @@
   %table.table.table-striped.table-linked#members{ :data => { :id => group.id, :year => params['year'] || Date.today.study_year }}
 
     - group.members( params['year'] ).each do |member|
-      = render 'admin/groups/partials/member_row', member: member, group: group
+      %tr{:'data-id' => member.id}
+        %td
+          - if member.member.nil?
+            %span= I18n.t('former', scope: 'activerecord.attributes.group')
+          - else
+            = link_to member.name, member.member
+
+        %td
+          .ui-select
+            = select_tag :position, options_for_select( group.positions.map{ |position| [I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize), position]}, (!(defined? member.position).nil? ? member.position : nil) ), :disabled => member.member.nil?,  :include_blank => '-', :class => 'position'
+
+        %td.buttons
+          %button.btn.btn-default.destroy.pull-right
+            %i.fa.fa-fw.fa-trash-o
+
 
     %tr
       %td{ :colspan => 3, :style => 'position: relative;'}

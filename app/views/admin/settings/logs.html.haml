@@ -48,11 +48,15 @@
 
                 - elsif 'Participant' == impression.impressionable_type
                   = link_to impression.impressionable.activity.name, impression.impressionable.activity, :class => 'inline'
-                  = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+
+                  - if impression.impressionable.member.present?
+                    = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
 
                 - elsif 'GroupMember' == impression.impressionable_type
                   = link_to impression.impressionable.group.name, impression.impressionable.group, :class => 'inline'
-                  = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
+
+                  - if impression.impressionable.member.present?
+                    = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
                 - else
                   = impression.controller_name
 

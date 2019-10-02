@@ -1,5 +1,4 @@
 require Rails.root.join('db', 'seeds', 'members.rb')
-require 'open-uri'
 
 # Create 20 activities and the participants
 puts '-- Creating activities'
@@ -23,7 +22,7 @@ dates.each do |start_date|
   @part       = !@entire
 
   viewable   = Faker::Boolean.boolean(0.9)
-  enrollable = viewable ? Faker::Boolean.boolean(0.5) : false
+  enrollable = viewable ? Faker::Boolean.boolean(0.9) : false
   notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.question : nil
 
   activity = Activity.create(
@@ -37,7 +36,7 @@ dates.each do |start_date|
     end_date:          @multiple ? Faker::Date.between(start_date + 1.day, start_date + 7.days) : nil,
     end_time:          @part ? Faker::Time.between(start_date, start_date, :evening) : nil,
 
-    location:          Faker::FamilyGuy.location,
+    location:          Faker::TvShows::FamilyGuy.location,
     organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
     description:       Faker::Lorem.paragraph(5),
 
@@ -54,11 +53,9 @@ dates.each do |start_date|
     notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true
   )
 
-  puts("   -> #{ activity.name } (#{ start_date })")
+  puts("   -> #{ activity.name } (#{ start_date })#{', enrollable' if enrollable}" )
 
-  open('public/poster-example.pdf') do |file|
-    activity.poster.attach(io: file, filename: 'poster-example.pdf')
-  end
+  activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
 
   next unless enrollable
 
@@ -76,9 +73,12 @@ dates.each do |start_date|
     Participant.create(
       member:     member,
       activity:   activity,
+      reservist:  true,
       price:      (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
       paid:       Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
       notes:      response
     )
   end
+
+  activity.enroll_reservists!
 end

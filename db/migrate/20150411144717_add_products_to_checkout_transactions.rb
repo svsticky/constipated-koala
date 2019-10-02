@@ -8,7 +8,6 @@ class AddProductsToCheckoutTransactions < ActiveRecord::Migration[4.2]
 
       t.decimal :price, :scale => 2, :precision => 6
 
-      t.attachment :image
       t.timestamps
     end
 

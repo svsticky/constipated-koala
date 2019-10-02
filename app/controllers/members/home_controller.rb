@@ -1,6 +1,9 @@
 #:nodoc:
-class Members::HomeController < MembersController
+class Members::HomeController < ApplicationController
+  skip_before_action :authenticate_admin!
   skip_before_action :authenticate_user!, only: [:confirm_add_funds]
+
+  layout 'members'
 
   def index
     @member = Member.find(current_user.credentials_id)
@@ -48,7 +51,7 @@ class Members::HomeController < MembersController
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
-    @applications = Doorkeeper::Application.authorized_for(current_user)
+    @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
     @member.educations.build(:id => '-1') if @member.educations.empty?
   end
@@ -109,6 +112,16 @@ class Members::HomeController < MembersController
     end
   end
 
+  def download
+    @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
+    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc)
+
+    send_data render_to_string(:layout => false),
+              :filename => "#{ @member.name.downcase.tr(' ', '-') }.html",
+              :type => 'application/html',
+              :disposition => 'attachment'
+  end
+
   private
 
   def member_post_params
@@ -119,7 +132,7 @@ class Members::HomeController < MembersController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :gender)
+                                   educations_attributes: [:id, :status])
   end
 
   def ideal_transaction_params

@@ -68,18 +68,26 @@
               %i.fa.fa-fw.fa-whatsapp
               Achterstallige betalingen (> 4 mails)
 
-            .card-body#paymentmails
-              %table.table.table-striped.table-linked
-                %thead
-                  %th Lid
-                  %th  WhatsApp
-                %tbody
-                - @late_payments.each do |member|
-                  %tr{ :style => 'height: 36px; line-height: 36px;' }
-                    %td= link_to "#{member.name}", member
-                    %td
-                      %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
+          -#TODO: check whatsapp button
+          .card-body#paymentmails
+            %table.table.table-striped.table-linked
+              %thead
+                %th Lid
+                %th{colspan: 2} WhatsApp
+              %tbody
+              - @late_payments.each do |member|
+                %tr{ :style => 'height: 36px; line-height: 36px;' }
+                  %td= link_to "#{member.name}", member
+                  %td
+                    - if member.whatsappable_phone_number
+                      = link_to payment_whatsapp_redirect_path(member), class: 'btn btn-success', target: '_blank' do
                         %i.fa.fa-fw.fa-whatsapp
+                    - else
+                      %a.btn.btn-default{disabled: true}
+                        %i.fa.fa-fw.fa-whatsapp
+                  %td
+                    %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
+                      %i.fa.fa-fw.fa-clipboard
 
         .card
           .card-header

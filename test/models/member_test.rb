@@ -11,7 +11,7 @@ class MemberTest < ActiveSupport::TestCase
   minimal_required_attributes = {
     'first_name' => '', 'last_name' => '',
     'address' => '', 'house_number' => '', 'postal_code' => '', 'city' => '',
-    'phone_number' => '', 'emergency_phone_number' => '', 'email' => '', 'gender' => '',
+    'phone_number' => '', 'emergency_phone_number' => '', 'email' => '',
     'birth_date' => nil, 'join_date' => nil
   }
 
@@ -29,7 +29,6 @@ class MemberTest < ActiveSupport::TestCase
     m.phone_number = '0612345678'
     m.emergency_phone_number = '0612345678'
     m.email = 'test@svsticky.nl'
-    m.gender = 'm'
     m.birth_date = Date.today
     m.join_date = Date.today
 
