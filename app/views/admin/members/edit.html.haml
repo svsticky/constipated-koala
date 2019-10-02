@@ -3,9 +3,9 @@
 
 %section#content
   .page.page-form
-    .row
-      = form_for :member, url: member_path(@member), method: :patch, :class => 'form-validation' do |f|
+    = form_for :member, url: member_path(@member), method: :patch, :class => 'form-validation' do |f|
 
+      .row
         - if @member.errors.any?
           .col-md-12
             .alert.alert-danger
@@ -16,11 +16,11 @@
                 %li= msg
 
         .col-md-6
-          .panel.panel-default
-            .panel-heading
+          .card
+            .card-header
               %i.fa.fa-fw.fa-user
               = I18n.t('members.home.edit.general_data')
-            .panel-body
+            .card-body
               .form-group
                 .row
                   .col-md-5
@@ -83,20 +83,20 @@
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
 
         .col-md-6
-          .panel.panel-default
-            .panel-heading
+          .card
+            .card-header
               %i.fa.fa-fw.fa-image
               Profielfoto
-            .panel-body
+            .card-body
               .callout.callout-info
                 %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres.
 
         .col-md-6.education
-          .panel.panel-default
-            .panel-heading
+          .card
+            .card-header
               %i.fa.fa-fw.fa-graduation-cap
               Studiegegevens
-            .panel-body
+            .card-body
               .form-group
                 = f.label(:student_id)
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
@@ -133,8 +133,8 @@
                         %span.fa.fa-trash-o
 
         .col-md-12
-          .panel.panel-default
-            .panel-body
+          .card
+            .card-body
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
               = link_to 'Verwijderen', member_path(@member.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }

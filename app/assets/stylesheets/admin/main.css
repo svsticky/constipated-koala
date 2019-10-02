@@ -128,16 +128,6 @@ div.form-group.copyable > div.row > div.col-md-6 {
   float: left;
 }
 
-div.form-group.copyable > a.destroy {
-  position: absolute;
-  right: 0;
-  top: 0;
-  border-color: #cbd5dd;
-  line-height: 54px;
-  height: 68px;
-  width: 48px;
-}
-
 .table span.fa-sort-asc {
   color: green;
   position: relative;

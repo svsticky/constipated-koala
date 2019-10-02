@@ -95,37 +95,34 @@
 
         .card
           .card-body
-            = link_to 'Back', :back, { :class => 'btn btn-primary' }
-            = link_to 'Edit', edit_member_path(@member.id), { :class => 'btn btn-warning' }
-            -# TODO: Test with bootstrap 4/no flatify
-            -#= link_to member_send_user_email_path(@member), method: :post, class: 'btn btn-warning' do
-              %i.fa.fa-paper-plane
-              = @account_button_text
+            .btn-group
+              = link_to 'Back', :back, { :class => 'btn btn-primary' }
+              = link_to 'Edit', edit_member_path(@member.id), { :class => 'btn btn-warning' }
 
-              .btn-group.dropdown.pull-right
-                %button.btn.btn-default.dropdown-toggle
-                  %i.fa.fa-paper-plane
-                  = I18n.t 'admin.member_account_status.send_mail'
-                  %span.caret
+            .btn-group
+              %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button' }
+                %i.fa.fa-paper-plane
+                = I18n.t 'admin.member_account_status.send_mail'
+                %span.caret
 
-                %ul.dropdown-menu
-                  - if @member.user&.confirmed?
-                    %li
-                      = link_to member_mail_path(@member, 'password_reset'), method: :post do
-                        = I18n.t 'admin.member_account_status.send_password_reset'
-
-                  - elsif @member.user && !@member.user.confirmed?
-                    %li
-                      = link_to member_mail_path(@member, 'resend_confirmation'), method: :post do
-                        = I18n.t 'admin.member_account_status.resend_confirmation'
-                  - else
-                    %li
-                      = link_to member_mail_path(@member, 'create_user'), method: :post do
-                        = I18n.t 'admin.member_account_status.send_create_email'
-
+              %ul.dropdown-menu
+                - if @member.user&.confirmed?
                   %li
-                    = link_to member_mail_path(@member, 'consent'), method: :post do
-                      Vraag om studiestatus/consent update
+                    = link_to member_mail_path(@member, 'password_reset'), method: :post, :class => 'dropdown-item' do
+                      = I18n.t 'admin.member_account_status.send_password_reset'
+
+                - elsif @member.user && !@member.user.confirmed?
+                  %li
+                    = link_to member_mail_path(@member, 'resend_confirmation'), method: :post, :class => 'dropdown-item' do
+                      = I18n.t 'admin.member_account_status.resend_confirmation'
+                - else
+                  %li
+                    = link_to member_mail_path(@member, 'create_user'), method: :post, :class => 'dropdown-item' do
+                      = I18n.t 'admin.member_account_status.send_create_email'
+
+                %li
+                  = link_to member_mail_path(@member, 'consent'), method: :post, :class => 'dropdown-item' do
+                    Vraag om studiestatus/consent update
 
         - if @transactions.length > 0 || @member.checkout_cards.length > 0
           .card
