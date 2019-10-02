@@ -77,11 +77,11 @@
       .btn-group
         - if view == 'index'
           -if !activity.notes.blank?
-            = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-default more-info"
+            = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-secondary more-info"
           -else
-            = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-default more-info"
+            = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-secondary more-info"
         -else
-          = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-default"
+          = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-secondary"
 
         - if !activity.notes.blank? && view == 'show'
           %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @member.confirmed_activities.ids.include? activity.id || (@member.reservist_activities.ids.include? activity.id))}

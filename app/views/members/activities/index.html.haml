@@ -6,7 +6,7 @@
     .btn-group{role: "group", 'aria-label': "..."}
       = link_to 'https://calendar.google.com/calendar/embed?src=stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com&ctz=Europe%2FAmsterdam', class: 'btn btn-info', target: '_blank' do
         = I18n.t 'members.activities.index.activities_calendar'
-      = link_to 'https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics', class: 'btn btn-default' do
+      = link_to 'https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics', class: 'btn btn-secondary' do
         ICS
   - else
     .alert.alert-warning= I18n.t('members.activities.index.no_activities')
