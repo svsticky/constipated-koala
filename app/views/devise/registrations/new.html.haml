@@ -4,7 +4,6 @@
     - if @user.errors.any?
       - @user.errors.full_messages.each do |message|
         .alert.alert-danger
-          %button.close{ type: "button" } ×
           %span
             = message
 

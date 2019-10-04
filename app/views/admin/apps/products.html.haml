@@ -36,7 +36,6 @@
           - if @product.errors.any?
             .col-md-6
               .alert.alert-danger
-                %button.close{ type: "button" } ×
                 %span Oeps, niet alles is goed ingevuld;
                 %ul
                 - @product.errors.full_messages.each do |msg|
@@ -100,7 +99,6 @@
           - if @new.errors.any?
             .col-md-6.pull-right
               .alert.alert-danger
-                %button.close{ type: "button" } ×
                 %span Oeps, niet alles is goed ingevuld;
                 %ul
                 - @new.errors.full_messages.each do |msg|

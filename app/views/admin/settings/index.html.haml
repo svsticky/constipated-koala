@@ -110,7 +110,6 @@
 
         - if @advert.errors.any?
           .alert.alert-danger
-            %button.close{ type: "button" } ×
             %span Oh snap, niet alles is goed ingevuld;
             %ul
             - @advert.errors.full_messages.each do |msg|

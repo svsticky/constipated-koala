@@ -4,7 +4,6 @@
 = form_for :activity, url: url, method: method, :class => 'form-validation' do |f|
   - if @activity.errors.any?
     .alert.alert-danger
-      %button.close{ type: "button" } ×
       %span= I18n.t('admin.activities.partials.edit.invalid_values')
       %ul
       - @activity.errors.full_messages.each do |msg|

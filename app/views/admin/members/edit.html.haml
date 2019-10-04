@@ -9,7 +9,6 @@
         - if @member.errors.any?
           .col-md-12
             .alert.alert-danger
-              %button.close{ type: "button" } ×
               %span= I18n.t('activerecord.errors.incomplete')
               %ul
               - @member.errors.full_messages.each do |msg|

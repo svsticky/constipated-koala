@@ -4,15 +4,13 @@
 = form_for :member, method: :patch, :class => 'form-validation' do |f|
 
   - if @member.errors.any? || flash[:error]
-    .col
-      .alert.alert-danger
-        %button.close{ type: "button" } ×
-        %span= I18n.t('activerecord.errors.incomplete')
-        %ul
-          - @member.errors.full_messages.each do |msg|
-            %li= msg
-          - if flash[:error].present?
-            %li= flash[:error]
+    .alert.alert-danger
+      %span= I18n.t('activerecord.errors.incomplete')
+      %ul
+        - @member.errors.full_messages.each do |msg|
+          %li= msg
+        - if flash[:error].present?
+          %li= flash[:error]
 
   .row
     .col-xl-6
