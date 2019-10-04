@@ -72,7 +72,7 @@ Activity.prototype = {
         activity._enrollment_status = Enrollment_stati.reservist;
       }
 
-      activity.update_notes_button.removeClass('hide');
+      activity.update_notes_button.removeClass('d-none');
     });
 
     return request;
@@ -92,7 +92,7 @@ Activity.prototype = {
         activity._enrollment_status = Enrollment_stati.un_enrolled;
       }
 
-      activity.update_notes_button.addClass('hide');
+      activity.update_notes_button.addClass('d-none');
     });
   },
 
