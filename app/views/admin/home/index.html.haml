@@ -13,7 +13,7 @@
               %span.box-icon.bg-success
                 %i.fa.fa-homepage.fa-user
               .card-body.box-info
-                %p.size-h2
+                %h2.text-center
                   = @members
                 %p.text-muted Leden
 
@@ -24,7 +24,7 @@
               %span.box-icon.bg-info
                 %i.fa.fa-homepage.fa-ticket
               .card-body.box-info
-                %p.size-h2
+                %h2.text-center
                   = @activities
                 %p.text-muted Activiteiten
 
@@ -35,7 +35,7 @@
               %span.box-icon.bg-warning
                 %i.fa.fa-homepage.fa-shopping-cart
               .card-body.box-info
-                %p.size-h2
+                %h2.text-center
                   = @transactions
                 %p.text-muted Checkout transacties
 
@@ -46,7 +46,7 @@
               %span.box-icon.bg-danger
                 %i.fa.fa-homepage.fa-eur
               .card-body.box-info
-                %p.size-h2
+                %h2.text-center
                   = number_to_currency(@unpayed, :unit => '')
                 %p.text-muted Openstaande betalingen
 
