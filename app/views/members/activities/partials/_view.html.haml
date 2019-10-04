@@ -83,8 +83,8 @@
         -else
           = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-secondary"
 
-        - if !activity.notes.blank? && view == 'show'
-          %button.btn.btn-info.update-enrollment{ :class => ('d-none' unless @member.confirmed_activities.ids.include? activity.id || (@member.reservist_activities.ids.include? activity.id))}
+        - if activity.notes.present? && view == 'show'
+          %button.btn.btn-info.update-enrollment{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
             = I18n.t("members.activities.partials.view.actions.update_info")
         - if activity.is_enrollable
           - if @member.confirmed_activities.ids.include? activity.id
