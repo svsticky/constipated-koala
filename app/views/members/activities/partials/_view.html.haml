@@ -56,7 +56,7 @@
           23:59
       <br/>
       - if view == 'index'
-        - if activity.notes_mandatory
+        - if activity.notes_mandatory && activity.notes.present?
           %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'}= I18n.t("members.activities.partials.view.notes_mandatory")
   - if view =='show'
     .card-body.show-activity-topborder
