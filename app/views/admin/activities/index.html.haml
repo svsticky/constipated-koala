@@ -24,11 +24,11 @@
                   - if !activity.group.nil?
                     %td.d-none.d-md-table-cell
                       - if activity.group.board?
-                        %span.label.label-primary= activity.group.name.upcase
+                        %span.badge.badge-primary= activity.group.name.upcase
                       - elsif activity.group.committee?
-                        %span.label.label-success= activity.group.name.upcase
+                        %span.badge.badge-success= activity.group.name.upcase
                       - else
-                        %span.label.label-warning= activity.group.name.upcase
+                        %span.label.badge-warning= activity.group.name.upcase
                   - else
                     %td.d-none.d-md-table-cell
                       %span
@@ -39,7 +39,7 @@
 
                   - if activity.ended?
                     %td.d-none.d-md-block
-                      %span.label.label-primary= "Afgelopen"
+                      %span.badge.badge-info= "Afgelopen"
                   -else
                     %td.d-none.d-md-block
                       %span
