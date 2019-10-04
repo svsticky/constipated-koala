@@ -54,7 +54,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       alert( 'Kaart verwijderd', 'warning' );
       $( row ).remove();
     }).fail(function(){
-      alert( 'Kaart is niet geactiveerd', 'error' );
+      alert( 'Kaart is niet verwijderd', 'error' );
       $( button ).removeAttr( 'disabled' );
     });
   });

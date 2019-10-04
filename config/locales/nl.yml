@@ -124,11 +124,10 @@ nl:
           create: "activiteit aangemaakt"
           mail: "betalingsmail gestuurd"
           update: "activiteit bewerkt"
-        checkout_transaction:
-          change_funds: "Tegoed bijgewerkt"
-        checkoutproduct:
+        checkouttransaction:
+          change_funds: "tegoed bijgewerkt"
+        checkoutcard:
           activate_card: "kaart geactiveerd"
-          change_funds: "tegoed opgewaardeerd"
         group:
           create: "groep aangemaakt"
           update: "groep bewerkt"
