@@ -28,6 +28,11 @@ good-listener@^1.2.2:
   dependencies:
     delegate "^3.1.2"
 
+intl-tel-input@^16.0.5:
+  version "16.0.5"
+  resolved "https://registry.yarnpkg.com/intl-tel-input/-/intl-tel-input-16.0.5.tgz#d02431473a1eecec297cbb416cdd3e80432ec075"
+  integrity sha512-gqgFkKyIj+Tlpd8RzSUV8cFAZ2Y4aPE6sTz7DvdRS7uIVIVr0z+KemIJlhQkn4g4BvJ/jlXjDNfIqF5okr5ArQ==
+
 jquery-ujs@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/jquery-ujs/-/jquery-ujs-1.2.2.tgz#6a8ef1020e6b6dda385b90a4bddc128c21c56397"

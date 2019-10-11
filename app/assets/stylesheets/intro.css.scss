@@ -1,6 +1,7 @@
 /*
  *= require font-awesome
  *= require bootstrap/dist/css/bootstrap
+ *= require intl-tel-input/build/css/intlTelInput
  *= require_self
  */
 html,
@@ -841,4 +842,9 @@ footer {
 
 #inschrijven {
   padding: 50px;
+}
+
+// international phone input
+.iti {
+  width: 100%;
 }

@@ -14,6 +14,8 @@
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
+//= require intl-tel-input/build/js/intlTelInput-jquery
+//= require intl-tel-input/build/js/utils
 
 $(document).on('ready page:load turbolinks:load', function () {
   var disabledStudyOptions = null;
@@ -104,6 +106,20 @@ $(document).on('ready page:load turbolinks:load', function () {
     errorPlacement: function (error, element) {
     }
   });
+
+  $('#phone_input').intlTelInput({
+    preferredCountries: ['nl'],
+    separateDialCode: true,
+    hiddenInput: 'phone_number',
+    utilsScript: 'utils.js'
+  });
+
+  $('#emergency_phone_input').intlTelInput({
+    preferredCountries: ['nl'],
+    separateDialCode: true,
+    hiddenInput: 'emergency_phone_number',
+    utilsScript: 'utils.js'
+  })
 
   $('select#method').on("change", function () {
     if ($(this).val() == 'Cash/PIN') {
