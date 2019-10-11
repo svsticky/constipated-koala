@@ -11,8 +11,8 @@ class Member < ApplicationRecord
   validates :postal_code, presence: true
   validates :city, presence: true
 
-  validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
-  validates :emergency_phone_number, :allow_blank => true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
+  validates :phone_number, presence: true, phone_number: true
+  validates :emergency_phone_number, :allow_blank => true, phone_number: true
   validates :emergency_phone_number, presence: true, if: :underage?
 
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
@@ -83,15 +83,6 @@ class Member < ApplicationRecord
 
   def last_name=(last_name)
     write_attribute(:last_name, last_name.downcase.titleize)
-  end
-
-  # remove nonnumbers and change + to 00
-  def phone_number=(phone_number)
-    write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
-  end
-
-  def emergency_phone_number=(emergency_phone_number)
-    write_attribute(:emergency_phone_number, emergency_phone_number.sub('+', '00'))
   end
 
   # lowercase on email

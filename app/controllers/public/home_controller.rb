@@ -16,7 +16,6 @@ class Public::HomeController < PublicController
   end
 
   def create
-    throw
     @member = Member.new(public_post_params.except(:participant_attributes))
     @member.require_student_id = true
 
