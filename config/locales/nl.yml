@@ -242,9 +242,9 @@ nl:
               invalid: "is geen geldig e-mailadres"
               taken: "is al geregistreerd"
             phone_number:
-              invalid: "bestaat niet uit 10 cijfers"
+              invalid: "is ongeldig"
             emergency_phone_number:
-              invalid: "bestaat niet uit 10 cijfers"
+              invalid: "is ongeldig"
               not_provided: "is verplicht onder 18 jaar"
             student_id:
               elfproef: "is niet geldig"

@@ -209,9 +209,9 @@ en:
               invalid: "is not a valid mail address"
               taken: "is already registered"
             phone_number:
-              invalid: "consists of 10 digits"
+              invalid: "is invalid"
             emergency_phone_number:
-              invalid: "consists of 10 digits"
+              invalid: "is invalid"
               not_provided: "is required under 18 years old"
             student_id:
               elfproef: "is not valid"
