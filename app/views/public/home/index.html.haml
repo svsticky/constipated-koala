@@ -117,11 +117,11 @@
 
           .form-group
             %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
-            = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+            = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control', :id => 'phone_input'
 
           .form-group
             %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
-            = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+            = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control', :id => 'emergency_phone_input'
             .help-block= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
 
           .form-group

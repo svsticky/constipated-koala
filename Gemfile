@@ -38,6 +38,9 @@ gem 'will_paginate-bootstrap4'
 gem 'image_processing'
 gem 'rails-settings-cached', '~> 0.7'
 
+# phone number validation
+gem 'telephone_number'
+
 group :production, :staging do
   gem 'sentry-raven'
   gem 'uglifier'
