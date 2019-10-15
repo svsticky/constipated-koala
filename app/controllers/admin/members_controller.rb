@@ -7,9 +7,9 @@ class Admin::MembersController < ApplicationController
     @limit = params[:limit] ? params[:limit].to_i : 50
 
     if params[:search]
-      @members = Member.search(params[:search].clone)
-                       .paginate(page: param[:page], per_page: params[:limit] ||= 50)
-
+      params[:page] ||= 1
+      params[:limit] ||= 50
+      @members = Member.search(params[:search].clone, params[:page], params[:limit])
       @search = params[:search]
 
       redirect_to @members.first if @members.size == 1 && params[:page] ||= 1
