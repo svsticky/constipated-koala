@@ -16,7 +16,6 @@
           %button.click.close{ type: 'button' } ×
           .notice= flash[:notice]
 
-
     .languages{ :style => 'position: absolute; z-index: 2'}
       = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), '/?l=nl', { :style => 'margin: 10px; float:left; '}
       = link_to image_tag('gb.png', { :style => 'height: 15px; width: 25px;' }), '/?l=en', { :style => 'margin: 10px; margin-left: 0px; float:left;'}
@@ -30,33 +29,33 @@
     #over.intro
       .container
         .row
-          .col-md-6.col-md-offset-3.text-center
+          .col-lg-6.offset-lg-3.text-center
             %h2= I18n.t(:sticky, scope: 'headers')
             %p.lead= I18n.t(:lead)
 
     #doenwat.services
       .container
         .row
-          .col-md-4.col-md-offset-4.text-center
+          .col-lg-4.offset-lg-4.text-center
             %h2= I18n.t(:activities, scope: 'headers')
             %hr
         .row
-          .col-md-2.col-md-offset-2.text-center
+          .col-lg-3.text-center
             .service-item
               %i.service-icon.fa.fa-group
               %h4= I18n.t(:title, scope: 'gezelligheid')
               %p= I18n.t(:text, scope: 'gezelligheid')
-          .col-md-2.text-center
+          .col-lg-3.text-center
             .service-item
               %i.service-icon.fa.fa-rocket
               %h4= I18n.t(:title, scope: 'activities')
               %p= I18n.t(:text, scope: 'activities')
-          .col-md-2.text-center
+          .col-lg-3.text-center
             .service-item
               %i.service-icon.fa.fa-book
               %h4= I18n.t(:title, scope: 'orientation')
               %p= I18n.t(:text, scope: 'orientation')
-          .col-md-2.text-center
+          .col-lg-3.text-center
             .service-item
               %i.service-icon.fa.fa-glass
               %h4= I18n.t(:title, scope: 'drinks')
@@ -65,68 +64,73 @@
     #inschrijven.portfolio
       .container
         = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
+          - if @member.errors.any? || !flash[:error].nil?
+            .alert.alert-danger
+              %button.click.close{ type: 'button' } ×
+              %span= I18n.t(:incomplete, scope: 'activerecord.errors')
+              %ul
+              - @member.errors.full_messages.uniq.each do |msg|
+                %li= msg
+              - if flash[:error]
+                %li= flash[:error]
+
+          %h4
+            %i.fa.fa-user
+            = I18n.t(:general, scope: 'form')
+
+          .form-group
+            = f.hidden_field :join_date, :value => Time.new
+            .row
+              .col-lg-5
+                %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
+                = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
+              .col-lg-2
+                %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
+                = f.text_field :infix, :value => @member.infix, :class => 'form-control'
+              .col-lg-5
+                %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
+                = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
+
+          .form-group
+            .row
+              .col-lg-12
+                %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
+                = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+
+          .form-group
+            .row
+              .col-lg-8
+                %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
+                = f.text_field :address, :value => @member.address, :class => 'form-control'
+              .col-lg-4
+                %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
+                = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+
+          .form-group
+            .row
+              .col-lg-6
+                %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
+                = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
+              .col-lg-6
+                %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
+                = f.text_field :city, :value => @member.city, :class => 'form-control'
+
+          .form-group
+            %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
+            = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+
+          .form-group
+            %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
+            = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+            .help-block= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
+
+          .form-group
+            %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
+            = f.email_field :email, :value => @member.email, :class => 'form-control'
+            .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
+
           .row
-            - if @member.errors.any? || !flash[:error].nil?
-              .alert.alert-danger
-                %button.click.close{ type: 'button' } ×
-                %span= I18n.t(:incomplete, scope: 'activerecord.errors')
-                %ul
-                - @member.errors.full_messages.uniq.each do |msg|
-                  %li= msg
-                - if flash[:error]
-                  %li= flash[:error]
-
-            %h4
-              %i.fa.fa-user
-              = I18n.t(:general, scope: 'form')
-
-            .form-group
-              = f.hidden_field :join_date, :value => Time.new
-              .row
-                .col-md-5
-                  %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
-                  = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
-                .col-md-2
-                  %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
-                  = f.text_field :infix, :value => @member.infix, :class => 'form-control'
-                .col-md-5
-                  %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
-                  = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
-            .form-group
-              .row
-                .col-md-12
-                  %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
-                  = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
-            .form-group
-              .row
-                .col-md-8
-                  %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
-                  = f.text_field :address, :value => @member.address, :class => 'form-control'
-                .col-md-4
-                  %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
-                  = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
-            .form-group
-              .row
-                .col-md-6
-                  %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
-                  = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-                .col-md-6
-                  %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
-                  = f.text_field :city, :value => @member.city, :class => 'form-control'
-            .form-group
-              %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
-              = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
-            .form-group
-              %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
-              = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
-              .help-block= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
-            .form-group
-              %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
-              = f.email_field :email, :value => @member.email, :class => 'form-control'
-              .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
-
-          .row
-            .col-md-5
+            .col-lg-5
               %h4
                 %i.fa.fa-graduation-cap
                 = I18n.t(:study, scope: 'form')
@@ -144,14 +148,14 @@
                   = f.fields_for 'educations_attributes[]', education do |fs|
                     .form-group
                       .row
-                        .col-md-12
+                        .col-lg-12
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
-            .col-md-5.activities
+            .col-lg-5.activities
               %h4
                 %i.fa.fa-ticket
                 = I18n.t(:activity, scope: 'activerecord.models')
-              .col-md-6
+              .col-lg-6
                 .form-group
 
                   - @membership.each do |membership|
@@ -172,7 +176,7 @@
                           = activity.name
                           %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(activity.price, :unit => '€')
 
-              .col-md-6
+              .col-lg-6
                 .ui-select
                   %label{for: ''}= I18n.t(:payment, scope: 'form')
                   = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
@@ -185,15 +189,15 @@
     %footer
       .container
         .row
-          .col-md-6.col-md-offset-3.text-center
+          .col-lg-6.offset-lg-3.text-center
             %ul.list-inline
-              %li
+              %li.list-inline-item
                 = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
                   %i.fa.fa-facebook.fa-3x
-              %li
+              %li.list-inline-item
                 = link_to '//twitter.com/StickyUtrecht', :target => '_blank' do
                   %i.fa.fa-twitter.fa-3x
-              %li
+              %li.list-inline-item
                 =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
                   %i.fa.fa-linkedin.fa-3x
 

@@ -4,13 +4,12 @@
 = form_for :group, :url => (group.id.nil? ? groups_path : group_path(group)), :method => (group.id.nil? ? :post : :patch), :class => 'form-validation' do |f|
   - if group.errors.any?
     .alert.alert-danger
-      %button.close{ type: "button" } ×
       %span Oeps, niet alles is goed ingevuld;
       %ul
       - group.errors.full_messages.each do |msg|
         %li= msg
-  .panel.panel-default
-    .panel-heading
+  .card
+    .card-header
       %i.fa.fa-fw.fa-users
       - if group.category.nil?
         Nieuwe groep
@@ -18,7 +17,7 @@
         Bewerk
         = I18n.t(group.category, scope: 'activerecord.attributes.group.categories')
 
-    .panel-body
+    .card-body
 
       .form-group
         .row

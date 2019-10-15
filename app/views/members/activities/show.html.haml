@@ -9,8 +9,8 @@
     = render 'members/activities/partials/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true, activity: @activity
   - if @activity.attendees.count > 0
     .col-lg-3.col-md-6.col-xs-12.cramtable
-      .panel.panel-default
-        .panel-heading
+      .card
+        .card-header
           %i.fa.fa-fw.fa-user
           %span#attendees-count.number= @activity.attendees.count
           = I18n.t("activerecord.models.participants.attendees", count: @activity.attendees.count)
@@ -22,8 +22,8 @@
 
   - if @activity.reservists.count > 0
     .col-lg-3.col-md-6.col-xs-12.cramtable
-      .panel.panel-default
-        .panel-heading
+      .card
+        .card-header
           %i.fa.fa-fw.fa-user
           %span#reservists-count.number= @reservists.count
           = I18n.t("activerecord.models.participants.reservists", count: @activity.reservists.count)

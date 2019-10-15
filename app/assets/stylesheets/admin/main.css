@@ -1,13 +1,3 @@
-.panel > .table-striped > tbody > tr:nth-child(even) > td,
-.panel > .table-striped > tbody > tr:nth-child(even) > th {
-  background-color: #f9f9f9;
-}
-
-.panel > .table-striped > tbody > tr:nth-child(even) > td,
-.panel > .table-striped > tbody > tr:nth-child(even) > th {
-  background-color: #fff;
-}
-
 input.invalid, select.invalid, textarea.invalid {
   border: solid red 1px;
 }
@@ -77,54 +67,25 @@ aside a[href='#'] {
   margin: 0;
 }
 
+ul.pagination {
+  justify-content: center !important;
+  -webkit-box-pack: center !important;
+  -ms-flex-pack: center !important;
+}
+
 .table-footer .page-num-info {
   top: 5px;
 }
 
-.panel-heading.input {
-  padding: 3px 15px 2px;
-  height: 40px;
-  line-height: 40px;
+.mini-box{
+    width: 25px;
 }
 
-.panel-heading.input .input-group {
-  float: right;
-  height: 30px;
-  width: 150px;
-  top: -3px;
-  right: -10px;
+.form-group label{
+    font-size: 15px;
 }
-
-.panel-heading.input .input-group span.input-group-addon {
-  display: initial;
-  top: -1px;
-  position: relative;
-  height: 36px;
-}
-
-.panel-heading.input .input-group input {
-  height: 32px;
-  line-height: 23px;
-  width: 120px;
-}
-
-.panel-heading.input .input-group button {
-  height: 32px;
-  line-height: 18px;
-}
-
-.panel-heading.year {
-  padding: 3px 15px 2px;
-}
-
-.panel-heading.year .ui-select {
-  width: 110px;
-  margin-left: 5px;
-}
-
-.panel-heading.year .ui-select select {
-  font-size: 14px;
-  line-height: 14px;
+.form-group button{
+    font-size: 15px;
 }
 
 @media (min-width: 768px) {
@@ -132,10 +93,6 @@ aside a[href='#'] {
     width: calc(100% - 210px);
     position: relative;
     left: 210px;
-  }
-
-  form .panel-body {
-    position: relative;
   }
 
   form .droparea {
@@ -171,16 +128,6 @@ div.form-group.copyable > div.row > div.col-md-6 {
   float: left;
 }
 
-div.form-group.copyable > a.destroy {
-  position: absolute;
-  right: 0;
-  top: 0;
-  border-color: #cbd5dd;
-  line-height: 54px;
-  height: 68px;
-  width: 48px;
-}
-
 .table span.fa-sort-asc {
   color: green;
   position: relative;
@@ -209,14 +156,8 @@ div.clickable {
   margin-bottom: 10px;
 }
 
-div.clickable > .panel {
-  margin: 0;
-}
-
-div.clickable > .panel:hover {
-  height: 105px;
-  text-decoration: none;
-  border-color: #767676;
+.table{
+    font-size: 15px;
 }
 
 .table span.fa-sort-asc {
@@ -229,48 +170,6 @@ div.clickable > .panel:hover {
   color: red;
 }
 
-.top-nav img {
-  display: block;
-}
-
-.top-nav .email {
-  position: absolute;
-  right: 60px;
-  top: 0;
-  display: block;
-  height: 50px;
-  font-size: 1.1em;
-  font-weight: 100;
-  line-height: 50px;
-  color: white;
-}
-
-.top-nav a {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
-  height: 50px;
-  width: 50px;
-  font-size: 1.2em;
-  line-height: 50px;
-  text-align: center;
-  background-color: #F34541;
-  color: white;
-}
-
-.nav-min .view-container {
-  display: none;
-}
-
-#header .logo {
-  color: white;
-}
-
-#header .menu-button {
-  left: 0;
-}
-
 .is-table-row {
   display: table;
 }
@@ -279,4 +178,49 @@ div.clickable > .panel:hover {
   float: left;
   display: table-cell;
   vertical-align: top;
+}
+
+i.fa.fa-homepage {
+  display: inline-flex;
+  font-size: 3em;
+  margin-top: 20px;
+  color: white;
+}
+
+span.box-icon {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.box-info {
+  position: absolute;
+  left: 100px;
+  right: 0;
+}
+
+.box-info .size-h2 {
+  font-size: 1em;
+  text-align: center;
+}
+
+.box-info p {
+  margin-bottom: 0;
+}
+
+.box-info .text-muted {
+  text-align: center;
+}
+
+span.box-icon {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+}
+
+.box-icon i {
+  line-height: 100px;
+  vertical-align: middle;
+  margin-top: 0 !important;
 }

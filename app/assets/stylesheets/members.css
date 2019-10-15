@@ -8,14 +8,18 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require bootstrap/dist/css/bootstrap
- *= require flatify
+ *= require yeti
  *
  *= require font-awesome
  *= require lato
  *
  *= require_self
  *= require_tree ./members
+ *= require page
+ *= require header
+ *= require sidebar
+ *= require cards
+ *= require callouts
  */
 
 .panel-activity > .panel-body:nth-child(2) {

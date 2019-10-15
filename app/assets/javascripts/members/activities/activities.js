@@ -146,8 +146,6 @@ function initialize_modal() {
   posterModal.on("show.bs.modal", function (event) {
     var activity = new Activity($(event.relatedTarget).closest('.panel-activity'));
     modal = new Poster_modal(this, activity);
-    if (inMoreInfoView())
-      modal.more_info.addClass("hide");
   });
 
 //Add event handler to go to the previous activity in the modal

@@ -18,19 +18,19 @@
 
       %ul.dropdown-menu
         %li{ :style => 'font-family: arial;' }
-          %a.font-family{name: 'arial', tabindex: '-1', type: 'button', unselectable: 'on'}
+          %a.dropdown-item.font-family{name: 'arial', tabindex: '-1', type: 'button', unselectable: 'on'}
             Arial
         %li{ :style => 'font-family: georgia;' }
-          %a.font-family{name: 'georgia', tabindex: '-1', type: 'button', unselectable: 'on'}
+          %a.dropdown-item.font-family{name: 'georgia', tabindex: '-1', type: 'button', unselectable: 'on'}
             Georgia
         %li{ :style => 'font-family: verdana;' }
-          %a.font-family{name: 'verdana', tabindex: '-1', type: 'button', unselectable: 'on'}
+          %a.dropdown-item.font-family{name: 'verdana', tabindex: '-1', type: 'button', unselectable: 'on'}
             Verdana
         %li{ :style => 'font-family: tahoma;' }
-          %a.font-family{name: 'tahoma', tabindex: '-1', type: 'button', unselectable: 'on'}
+          %a.dropdown-item.font-family{name: 'tahoma', tabindex: '-1', type: 'button', unselectable: 'on'}
             Tahoma
         %li{ :style => 'font-family: Comic sans ms;' }
-          %a.font-family{name: 'comic sans', tabindex: '-1', type: 'button', unselectable: 'on'}
+          %a.dropdown-item.font-family{name: 'comic sans', tabindex: '-1', type: 'button', unselectable: 'on'}
             Comic sans
 
     .btn-group
@@ -39,13 +39,13 @@
         %span.caret
 
       %ul.dropdown-menu
-        %li{ :style => 'font-size: 0.8em;' }
+        %li.dropdown-item{ :style => 'font-size: 0.8em;' }
           %a.font-size{name: 'small', tabindex: '-1', type: 'button', unselectable: 'on'}
             = I18n.t("layouts.partials.editor.small")
-        %li{ :style => 'font-size: 1em;' }
+        %li.dropdown-item{ :style => 'font-size: 1em;' }
           %a.font-size{name: 'medium', tabindex: '-1', type: 'button', unselectable: 'on'}
             = I18n.t("layouts.partials.editor.standard")
-        %li{ :style => 'font-size: 1.2em;' }
+        %li.dropdown-item{ :style => 'font-size: 1.2em;' }
           %a.font-size{name: 'large', tabindex: '-1', type: 'button', unselectable: 'on'}
             = I18n.t("layouts.partials.editor.large")
 

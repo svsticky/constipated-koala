@@ -5,25 +5,31 @@ class Admin::MembersController < ApplicationController
 
   def index
     @limit = params[:limit] ? params[:limit].to_i : 50
-    @offset = params[:offset] ? params[:offset].to_i : 0
 
-    @page = @offset / @limit
-
-    # If a search query is send, change the limit and offset accordingly. The param all is whether the query should also look into alumni
     if params[:search]
-      @results = Member.search(params[:search].clone)
+      @members = Member.search(params[:search].clone)
+                       .paginate(page: param[:page], per_page: params[:limit] ||= 50)
 
-      @pages = (@results.size / @limit.to_f).ceil
-      @members = @results[@offset, @limit]
-
-      @members = Member.none if @members.nil?
       @search = params[:search]
 
-      redirect_to @members.first if @members.size == 1 && @offset == 0 && @limit > 1
+      redirect_to @members.first if @members.size == 1 && params[:page] ||= 1
 
     else
-      @members = Member.includes(:educations).where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))).select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id).order(:last_name, :first_name).limit(@limit).offset(@offset)
-      @pages = (Member.count / @limit.to_f).ceil
+      @members =
+        Member
+        .includes(:educations)
+        .where(:id => (
+          Education.select(:member_id)
+                   .where('status = 0')
+                   .map(&:member_id) +
+        Tag.select(:member_id)
+           .where(:name => Tag.active_by_tag)
+           .map(&:member_id)
+        ))
+        .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
+        .order(:last_name, :first_name)
+        .paginate(page: params[:page], per_page: params[:limit] ||= 50)
+
     end
   end
 
@@ -42,10 +48,14 @@ class Admin::MembersController < ApplicationController
 
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
-    # Pagination for checkout transactions, limit is the number of results per page and offset is the number of the first record
+    # Pagination for checkout transactions
     @limit = params[:limit] ? params[:limit].to_i : 10
-    @offset = params[:offset] ? params[:offset].to_i : 0
-    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(params[:id])).order(created_at: :desc).limit(@limit).offset(@offset)
+
+    @transactions = CheckoutTransaction
+                    .where(:checkout_balance => CheckoutBalance
+                    .find_by_member_id(params[:id]))
+                    .order(created_at: :desc)
+                    .paginate(page: params[:page], per_page: params[:limit] ||= 10)
   end
 
   def new
