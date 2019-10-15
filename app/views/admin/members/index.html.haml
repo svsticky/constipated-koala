@@ -57,13 +57,14 @@
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member
 
-      %footer.table-footer
-        .row
-          .col-lg-5.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
-            %span
-              Toon
-              = select_tag 'limit', options_for_select([20,50,100], @limit)
-              leden per pagina
+      - if @search == nil
+        %footer.table-footer
+          .row
+            .col-lg-5.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
+              %span
+                Toon
+                = select_tag 'limit', options_for_select([20,50,100], @limit)
+                leden per pagina
 
-          .col-lg-6
-            = will_paginate @members, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+            .col-lg-6
+              = will_paginate @members, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
