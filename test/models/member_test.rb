@@ -26,8 +26,8 @@ class MemberTest < ActiveSupport::TestCase
     m.house_number = '123' # Not a number, to allow for 'bis', 'A', etc.
     m.postal_code = '1234 AB'
     m.city = 'Testville'
-    m.phone_number = '0612345678'
-    m.emergency_phone_number = '0612345678'
+    m.phone_number = '+31655548806'
+    m.emergency_phone_number = '+31655548806'
     m.email = 'test@svsticky.nl'
     m.birth_date = Date.today
     m.join_date = Date.today
