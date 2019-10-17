@@ -51,8 +51,10 @@
               %td= link_to "#{member.first_name}", member
               %td= link_to "#{member.infix}", member
               %td= link_to "#{member.last_name}", member
-              %td.d-none.d-sm-table-cell= link_to "#{member.phone_number}", member
-              %td.d-block.d-sm-none= link_to "#{member.phone_number}", "tel:#{member.phone_number}", :style => 'color: darkblue;'
+              %td
+                = link_to "tel:#{member.phone_number}" do
+                  %i.fa.fa-phone
+                  = member.phone_number
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member
