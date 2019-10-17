@@ -69,13 +69,13 @@
 
             -# will_paginate doesn't work for search results, so we use a simpler footer then
             - if @search.present?
-              .col-lg-3
+              .col-lg-3.text-center
                 -# Only show button if there are pages to go back to
                 - if @page > 1
                   = link_to( { search: @search, limit: @limit.to_i, page: @page - 1 }, class: 'btn btn-light') do
                     ="←"
 
-              .col-lg-3
+              .col-lg-3.text-center
                 -# Only show button if there are as many results as the limit
                 - if @members.count >= @limit
                   = link_to( { search: @search, limit: @limit, page: @page + 1 }, class: 'btn btn-light') do
