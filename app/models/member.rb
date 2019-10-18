@@ -306,19 +306,6 @@ class Member < ApplicationRecord
     return true
   end
 
-  # Normalize the Member's phone number for use in payment Whatsapps.
-  def whatsappable_phone_number
-    return unless phone_number.present?
-
-    pn = phone_number.gsub(/\s/, '') # Remove whitespace
-
-    return pn.sub(/^06/, "316") if /^06\d{8}$/.match?(pn) # Replace '06' with '316' if it's a Dutch phone number
-
-    return pn.sub(/^+?(00)?/, '') if /^(\+|00)?316\d{8}$/.match?(pn) # Replace 00316, +316 if it's international notation
-
-    nil
-  end
-
   private
 
   # NOTE: this doesn't work in a block without prepend:true relations are destroyed before this callback
