@@ -38,7 +38,7 @@ class Admin::PaymentsController < ApplicationController
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
     msg = render_to_string template: 'admin/members/payment_whatsapp.html.erb', layout: false, content_type: "text/plain"
 
-    pn = @member.whatsappable_phone_number
+    pn = @member.phone_number
 
     redirect_to "https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
   end
