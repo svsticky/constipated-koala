@@ -13,6 +13,8 @@
  *= require font-awesome
  *= require lato
  *
+ *= require intl-tel-input/build/css/intlTelInput
+ *
  *= require_self
  *= require_tree ./admin
  *= require page
