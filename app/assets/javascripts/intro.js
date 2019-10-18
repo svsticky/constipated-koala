@@ -123,7 +123,7 @@ $(document).on('ready page:load turbolinks:load', function () {
     separateDialCode: true,
     hiddenInput: 'emergency_phone_number',
     utilsScript: 'utils.js'
-  })
+  });
 
   function validate_phone_number(input, instance) {
     if (input.value.trim()) {
