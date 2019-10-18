@@ -16,4 +16,6 @@
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //
+//= require intl_tel_number
+//
 //= require_tree ./members
