@@ -52,7 +52,7 @@
               %td= link_to "#{member.infix}", member
               %td= link_to "#{member.last_name}", member
               %td
-                = link_to "tel:#{member.phone_number}" do
+                = link_to "tel:#{TelephoneNumber.parse(member.phone_number).international_number}" do
                   %i.fa.fa-phone
                   = member.phone_number
               %td= link_to "#{member.email}", member

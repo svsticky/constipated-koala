@@ -1,6 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+//= require intl-tel-input/build/js/intlTelInput
+//= require intl-tel-input/build/js/utils
+
 $(document).on('ready page:load turbolinks:load', function () {
 
   $('.education label a.close').bind('click', function () {
@@ -132,4 +135,22 @@ $(document).on('ready page:load turbolinks:load', function () {
   });
 
   destroy(null);
+
+  // phone number validation
+  var phone_input = document.querySelector('#member_phone_number');
+  var emergency_phone_input = document.querySelector('#member_emergency_phone_number');
+
+  var iti_phone_input = window.intlTelInput(phone_input, {
+    preferredCountries: ['nl'],
+    separateDialCode: true,
+    hiddenInput: 'phone_number',
+    utilsScript: 'utils.js'
+  });
+
+  var iti_emergency_phone_input = window.intlTelInput(emergency_phone_input, {
+    preferredCountries: ['nl'],
+    separateDialCode: true,
+    hiddenInput: 'emergency_phone_number',
+    utilsScript: 'utils.js'
+  })
 });

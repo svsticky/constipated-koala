@@ -224,3 +224,8 @@ span.box-icon {
   vertical-align: middle;
   margin-top: 0 !important;
 }
+
+/* international phone number input */
+.iti {
+  width: 100%;
+}
