@@ -1,0 +1,4 @@
+/* Make international telephone input use the whole column */
+.iti {
+  width: 100%;
+}
