@@ -25,6 +25,11 @@ MAILCHIMP_SECRET=
 MAILCHIMP_DATACENTER=
 MAILCHIMP_LIST_ID=
 
+# Mailchimp interest ids
+MAILCHIMP_ALV_ID=
+MAILCHIMP_BUSINESS_ID=
+MAILCHIMP_MMM_ID=
+
 # Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
 KOALA_DOMAIN=
 
