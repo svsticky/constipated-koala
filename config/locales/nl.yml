@@ -190,7 +190,7 @@ nl:
 
       models:
         activity:
-          activity_ended: "Deze activiteit is (niet) meer beschikbaar. Ga terug."
+          activity_ended: "Deze activiteit is niet (meer) beschikbaar. Ga terug."
           already_enrolled: "Je bent al ingeschreven voor deze activiteit."
           attributes:
             end_date:
