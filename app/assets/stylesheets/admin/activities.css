@@ -44,12 +44,6 @@
   width: calc(60% - 50px);
 }
 
-#participants tr > td:nth-child(2) {
-  width: calc(40% - 50px);
-  padding-right: 5%;
-  text-align: right;
-}
-
 #participants tr > td > .btn-group {
   height: 30px;
   float: right;
@@ -100,10 +94,9 @@
   }
 
   form span.poster {
-    position: absolute;
-    top: 96px;
     height: 255px;
     width: 180px;
+    margin-top: 29px;
     border: solid 1px #cbd5dd;
     overflow: hidden;
   }

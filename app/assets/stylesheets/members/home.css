@@ -9,15 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  */
-div#content {
-  left: 0px;
-}
-
-@media (min-width: 768px) {
-  div#content {
-    left: 220px;
-  }
-}
 
 div.clickable {
   overflow: hidden;
@@ -28,11 +19,11 @@ div.clickable > .panel {
   margin: 0;
 }
 
-div.clickable > .panel:hover {
+/*div.clickable > .panel:hover {
   height: 105px;
   text-decoration: none;
   border-color: #767676;
-}
+}*/
 
 .widget .widget-header {
   padding: 15px 15px 50px 15px;
@@ -133,6 +124,10 @@ div.clickable > .panel:hover {
   width: 100%;
 }
 
+.panel.mini-box{
+ min-width: 1000px;
+}
+
 .form-control.birthdate {
   font-weight: normal;
 }
@@ -140,48 +135,6 @@ div.clickable > .panel:hover {
 .home_mongoose_form_element {
   width: 33%;
   min-width: 0 !important;
-}
-
-.top-nav img {
-  display: block;
-}
-
-.top-nav .email {
-  position: absolute;
-  right: 60px;
-  top: 0;
-  display: block;
-  height: 50px;
-  font-size: 1.1em;
-  font-weight: 100;
-  line-height: 50px;
-  color: white;
-}
-
-.top-nav a {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
-  height: 50px;
-  width: 50px;
-  font-size: 1.2em;
-  line-height: 50px;
-  text-align: center;
-  background-color: #F34541;
-  color: white;
-}
-
-.nav-min .view-container {
-  display: none;
-}
-
-#header .logo {
-  color: white;
-}
-
-#header .menu-button {
-  left: 0;
 }
 
 .form-control-disabled {

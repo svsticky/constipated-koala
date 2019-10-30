@@ -42,6 +42,10 @@ div.container.col-md-9 {
   }
 }
 
+.poster-thumbnail {
+  padding-right: 10px;
+}
+
 .poster-thumbnail img {
   width: 140px;
 }
@@ -49,24 +53,6 @@ div.container.col-md-9 {
 .poster-moreinfo a img {
   width: 500px;
   max-width: 100%;
-}
-
-.btn-warning-sat {
-  color: white;
-  background-color: #ffc64d;
-  border-color: #ffae02;
-}
-
-.btn-warning-full {
-  color: white;
-  background-color: #6DD4B8;
-  border-color: #62C0A6;
-}
-
-.btn-warning-full:hover, .btn-warning-full:focus, .btn-warning-full:active {
-  color: white;
-  background-color: #5BB29A;
-  border-color: #47957F;
 }
 
 .activity-info {
@@ -92,6 +78,7 @@ div.container.col-md-9 {
 }
 
 .activity-title {
+  text-overflow: ellipsis;
   overflow: hidden;
   max-width: 80%;
   white-space: nowrap;

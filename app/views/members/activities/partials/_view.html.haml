@@ -4,14 +4,14 @@
   @param {?} @enrollment
   @param {member} @member
 
-.panel.panel-default.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
-  .panel-heading.text-right
-    %span.panel-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
+.card.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
+  .card-header.text-right
+    %span.card-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
     .fullness
       = activity.fullness
     .clearfix
-  .panel-body
+  .card-body.media
     - if activity.poster.attached?
       .media-left.poster-thumbnail
         %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
@@ -56,10 +56,10 @@
           23:59
       <br/>
       - if view == 'index'
-        - if activity.notes_mandatory
+        - if activity.notes_mandatory && activity.notes.present?
           %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'}= I18n.t("members.activities.partials.view.notes_mandatory")
   - if view =='show'
-    .panel-body.show-activity-topborder
+    .card-body.show-activity-topborder
       %strong= I18n.t("activerecord.attributes.activity.description")
       <br/>
       - if activity.description.blank?
@@ -67,24 +67,24 @@
       - else
         = simple_format(activity.description)
     - if !activity.notes.blank?
-      .panel-body.show-activity-topborder
+      .card-body.show-activity-topborder
         %strong
           = activity.notes
         %textarea.form-control.notes{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?)}
           = @enrollment.notes unless @enrollment.nil?
-  .panel-footer.clearfix
+  .card-footer.clearfix
     .pull-right
       .btn-group
         - if view == 'index'
           -if !activity.notes.blank?
-            = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-default more-info"
+            = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-secondary more-info"
           -else
-            = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-default more-info"
+            = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-secondary more-info"
         -else
-          = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-default"
+          = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-secondary"
 
-        - if !activity.notes.blank? && view == 'show'
-          %button.btn.btn-info.update-enrollment{ :class => ('hide' unless @member.confirmed_activities.ids.include? activity.id || (@member.reservist_activities.ids.include? activity.id))}
+        - if activity.notes.present? && view == 'show'
+          %button.btn.btn-info.update-enrollment{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
             = I18n.t("members.activities.partials.view.actions.update_info")
         - if activity.is_enrollable
           - if @member.confirmed_activities.ids.include? activity.id
@@ -97,7 +97,7 @@
             - button_class = 'btn-warning'
           - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
             - button_text = I18n.t("members.activities.partials.view.actions.reservist_enroll")
-            - button_class = 'btn-warning-sat'
+            - button_class = 'btn-warning'
           - else
             - button_text = I18n.t("members.activities.partials.view.actions.enroll")
             - button_class = 'btn-success'

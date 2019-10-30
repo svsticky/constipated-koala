@@ -22,10 +22,5 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
 
       t.index [:record_type, :record_id, :name, :blob_id], name: "index_active_storage_attachments_uniqueness", unique: true
     end
-
-    remove_column :activities, :poster_file_name
-    remove_column :activities, :poster_content_type
-    remove_column :activities, :poster_file_size
-    remove_column :activities, :poster_updated_at
   end
 end

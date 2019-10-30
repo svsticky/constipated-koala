@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
+  before_action :set_locale
+
   protected
 
   def authenticate_admin!
@@ -17,21 +19,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # TODO: why is this here?!
-  def member_information
-    @member = Member.find(current_user.credentials_id)
-
-    # information of the sidebar
-    @balance = CheckoutBalance.find_by_member_id(current_user.credentials_id).balance
-    @debt = Participant
-            .where(paid: false, member: @member, reservist: false)
-            .joins(:activity)
-            .where('activities.start_date < NOW()')
-            .sum(:price) \
-     + Participant # The plus makes it work for all activities where the member does NOT have a modified price.
-            .where(paid: false, price: nil, member: @member, reservist: false)
-            .joins(:activity)
-            .where('activities.start_date < NOW()')
-            .sum('activities.price ')
+  def set_locale
+    session['locale'] = params[:l] || session['locale'] || I18n.default_locale
+    I18n.locale = session['locale']
   end
 end

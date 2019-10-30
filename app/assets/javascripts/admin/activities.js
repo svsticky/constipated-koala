@@ -38,10 +38,10 @@ var participant = {
   add : function(data){
     var template = $('template#attendee-table-row').html();
     var formattedTemplate = template.format(
-        data.participant.id,
-        data.participant.member.id,
-        data.participant.member.name,
-        data.participant.member.email
+        data.id,
+        data.member.id,
+        data.member.name,
+        data.member.email
     );
 
     var added = $(formattedTemplate).insertBefore('#participants-table tr:last');
@@ -57,8 +57,7 @@ var participant = {
     bind_activities();
 
     // trigger #mail client to add recipient
-    $('#mail').trigger('recipient_added', [ data.participant.id, data.participant.member.name, data.participant.member.email, data.activity.price ]);
-
+    $('#mail').trigger('recipient_added', [ data.id, data.member.name, data.member.email, data.activity.price ]);
     $( '#participants .form-group input#participants' ).focus();
   },
 
@@ -90,11 +89,11 @@ var participant = {
           });
       } else {
           // Not already done in participant.add above
-        $('#attendeecount').html(data.activity.fullness);
-        participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
+        $('#attendeecount').html(data.fullness);
+        participant.update_debt_header(data.paid_sum, data.price_sum);
       }
 
-      $('#reservistcount').html(data.activity.reservist_count);
+      $('#reservistcount').html(data.reservist_count);
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -117,7 +116,7 @@ var participant = {
         reservist: false
       }
     }).done(function(data){
-      alert(data.participant.member.name + ' is op de deelnemerslijst geplaatst', 'success');
+      alert(data.member.name + ' is op de deelnemerslijst geplaatst', 'success');
       participant.add(data);
 
       $(row).remove();
@@ -141,7 +140,7 @@ var participant = {
         paid: true
       }
     }).done(function(data){
-      alert(data.participant.member.name + ' heeft betaald', 'success');
+      alert(data.member.name + ' heeft betaald', 'success');
 
       $(row)
         .find( 'button.paid' )
@@ -303,19 +302,19 @@ $(document).on( 'ready page:load turbolinks:load', function(){
  */
 function posterHandlers(){
   //Update poster field when uploading a poseter
-  $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
+  $('form .input-group-append .file-input-wrapper input[type="file"]').on('change', function(){
     if( this.files && this.files[0] ){
-      $('form .input-group-btn .dropdown-toggle').removeClass('disabled');
+      $('form .input-group-append .dropdown-toggle').removeClass('disabled');
       $('form input.remove_poster').val('false');
       $('form .input-group input#output').val(this.files[0].name);
     }
   });
 
   //Handler for removing the poster
-  $('form .input-group-btn a.remove').on('click', function( e ){
+  $('form .input-group-append a.remove').on('click', function( e ){
     e.preventDefault();
 
-    $('form .input-group-btn .dropdown-toggle').addClass('disabled');
+    $('form .input-group-append .dropdown-toggle').addClass('disabled');
     $('form .input-group input#output').val('');
     $('form input.remove_poster').val('true');
 

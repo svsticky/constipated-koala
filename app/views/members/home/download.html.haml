@@ -1,0 +1,300 @@
+!!! 5
+%html
+  %head
+    %title= @member.name
+
+    %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
+    %meta{content: 'width=device-width, initial-scale=1, user-scalable=no', name: 'viewport'}
+
+    - @member.export do | export, checksum |
+      %script{ :checksum => checksum }
+        = raw export
+
+    :css
+      body {
+        background-color: #e9ebee;
+        font-family: sans-serif;
+        font-size: 0.9em;
+      }
+
+      .container {
+        margin: 0 auto;
+        width: 60%;
+      }
+
+      h1, h2, h3 {
+        display: block;
+        width: 100%;
+        margin: 20px 0 0;
+
+        font-weight: normal;
+        font-size: 18px;
+        color: #1d2128;
+
+        position: relative;
+        top: 14px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .block, table {
+        display: block;
+        background-color: white;
+        border: 1px solid #dddfe3;
+
+        margin: 20px 0;
+        padding: 10px 0 20px;
+        width: 100%;
+
+        overflow: hidden;
+      }
+
+      .block.warning {
+        background-color: orange;
+        padding: 0;
+      }
+
+      .block > i {
+        display: inline-block;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+      }
+
+      .block > i.warning {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJleGNsYW1hdGlvbi10cmlhbmdsZSIgcm9sZT0iaW1nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzYgNTEyIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtZXhjbGFtYXRpb24tdHJpYW5nbGUgZmEtdy0xOCBmYS0zeCI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNNTY5LjUxNyA0NDAuMDEzQzU4Ny45NzUgNDcyLjAwNyA1NjQuODA2IDUxMiA1MjcuOTQgNTEySDQ4LjA1NGMtMzYuOTM3IDAtNTkuOTk5LTQwLjA1NS00MS41NzctNzEuOTg3TDI0Ni40MjMgMjMuOTg1YzE4LjQ2Ny0zMi4wMDkgNjQuNzItMzEuOTUxIDgzLjE1NCAwbDIzOS45NCA0MTYuMDI4ek0yODggMzU0Yy0yNS40MDUgMC00NiAyMC41OTUtNDYgNDZzMjAuNTk1IDQ2IDQ2IDQ2IDQ2LTIwLjU5NSA0Ni00Ni0yMC41OTUtNDYtNDYtNDZ6bS00My42NzMtMTY1LjM0Nmw3LjQxOCAxMzZjLjM0NyA2LjM2NCA1LjYwOSAxMS4zNDYgMTEuOTgyIDExLjM0Nmg0OC41NDZjNi4zNzMgMCAxMS42MzUtNC45ODIgMTEuOTgyLTExLjM0Nmw3LjQxOC0xMzZjLjM3NS02Ljg3NC01LjA5OC0xMi42NTQtMTEuOTgyLTEyLjY1NGgtNjMuMzgzYy02Ljg4NCAwLTEyLjM1NiA1Ljc4LTExLjk4MSAxMi42NTR6IiBjbGFzcz0iIj48L3BhdGg+PC9zdmc+);
+        background-repeat: no-repeat;
+      }
+
+      .block > p, .block > dl {
+        display: block;
+        position: relative;
+        margin: 0px;
+
+        padding: 10px 20px 10px 20px;
+        background-color: white;
+      }
+
+      .block.warning > p {
+        margin-left: 50px;
+        font-size: 0.9em;
+      }
+
+      dl.no-padding {
+        padding-bottom: 0px;
+      }
+
+      .block dt {
+        width: 150px;
+        text-align: right;
+        font-weight: 600;
+        font-size: 0.9em;
+      }
+
+      .block dt, .block dd {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-size: 75%;
+        font-weight: bold;
+        line-height: 1;
+        color: white;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+      }
+
+      dd span.label {
+        position: absolute;
+        left: 330px;
+        top: 10px;
+        padding: .2em .6em .3em;
+        background: #767676;
+      }
+
+      table {
+        display: table;
+        background-color: white;
+        border-collapse: collapse;
+        border-spacing: 0;
+        padding: 0;
+      }
+
+      table tr {
+        line-height: 1.2;
+        border-top: 1px solid #ddd;
+      }
+
+      table tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+      }
+
+      table tr td, table tr th {
+        display: table-cell;
+        border: 0;
+        padding: 10px;
+        text-align: left;
+      }
+
+      table tr td:first-of-type, table tr th:first-of-type {
+        padding-left: 40px;
+      }
+
+      table thead tr {
+        border-bottom: 2px solid #dddddd;
+        color: #444;
+      }
+
+      span.footer {
+        font-style: italic;
+        color: #777;
+        font-size: 0.8em;
+      }
+
+      @media print {
+        .container {
+          width: 100%;
+        }
+
+        .block, table {
+          border: 0;
+        }
+
+        table {
+          border-top: 1px solid black;
+        }
+
+        dd span.label {
+          background: white;
+          color: black;
+        }
+
+        .block.warning > p {
+          margin-left: 0;
+        }
+      }
+
+  %body
+    .container
+      .block.warning
+        %i.warning{ :style => 'margin: 30px 15px'}
+
+      %h1 Je persoonlijke gegevens
+
+      .block
+        %dl
+          %dt naam
+          %dd= @member.name
+
+        %dl
+          %dt adres
+          %dd
+            #{@member.address} #{@member.house_number}
+            %br
+            #{@member.postal_code} #{@member.city}
+
+        %dl
+          %dt telefoonnummer
+          %dd= @member.phone_number
+
+        - if @member.emergency_phone_number.present?
+          %dl
+            %dt noodnummer
+            %dd= @member.emergency_phone_number
+
+        %dl
+          %dt e-mailadres
+          %dd= @member.email
+
+        %dl
+          %dt geboortedatum
+          %dd= @member.birth_date
+
+        %dl
+          %dt inschrijfdatum
+          %dd= @member.join_date
+
+      %h2 Je studiegegevens
+
+      .block
+        %dl
+          %dt studentnummer
+          %dd= @member.student_id
+
+        - @member.educations.each do |education|
+          %dl.no-padding
+            %dt= I18n.t education.study.code.downcase, scope: 'activerecord.attributes.study.names'
+            %dd
+              - if education.end_date.nil?
+                #{I18n.l education.start_date, :format => :short}
+              - else
+                #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
+
+              - if education.graduated?
+                %span.label.label-success geslaagd
+              - elsif education.stopped?
+                %span.label.label-warning gestopt
+              - elsif education.active?
+                %span.label.label-info studerend
+
+      - if @member.groups.size > 0
+        %h2 Besturen, commissies en disputen
+
+        %table
+          %tbody
+            - @member.groups.each do |group|
+              %tr
+                %td= group[ :name ]
+                %td= Date.years( group[ :years ].sort )
+
+                %td
+                  - group[ :positions ].each do | position |
+                    - position.each do | position, year |
+                      - unless position.nil?
+                        = I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize )
+
+      - if @member.activities.size > 0
+        %h2 Activiteiten
+
+        %table
+          %thead
+            %tr
+              %th Activiteit
+              %th Prijs
+              %th Datum
+          %tbody
+            - @member.activities.order(start_date: :desc).each do |activity|
+              %tr
+                %td= activity.name
+                %td= number_to_currency(activity.currency(@member), :unit => '€')
+
+                - if !activity.start_date.nil?
+                  - if activity.end_date.nil?
+                    %td= I18n.l activity.start_date
+                  - else
+                    %td #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
+
+      - if @transactions.length > 0 || @member.checkout_cards.length > 0
+        %h2 Checkout transacties
+
+        %table
+          %thead
+            %tr
+              %th Datum
+              %th Prijs
+              %th Producten
+          %tbody
+            - @transactions.each do |transaction|
+              %tr
+                %td #{I18n.l transaction.created_at}
+                %td= number_to_currency(transaction.price, :unit => '€', :negative_format => "%u%n -")
+                %td= transaction.products
+
+      %span.footer Deze pagina is gegenereerd op #{I18n.l Time.now} voor #{@member.name}

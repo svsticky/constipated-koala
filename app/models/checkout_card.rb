@@ -4,11 +4,12 @@ class CheckoutCard < ApplicationRecord
   validates :member, presence: true
   validates :checkout_balance, presence: true
 
-  has_many :checkout_transactions,
-           :dependent => :destroy
+  has_many :checkout_transactions
 
   belongs_to :member
   belongs_to :checkout_balance
+
+  is_impressionable
 
   before_validation(on: :create) do
     # find balance otherwise create a new one

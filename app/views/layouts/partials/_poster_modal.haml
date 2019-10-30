@@ -2,9 +2,8 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"}
-          &times;
         %h4.panel-title.activity-title
+
       .modal-body
         %img.full-width
         %br
@@ -13,9 +12,9 @@
           %button.btn.btn-info.more-info{"data-dismiss" => "modal"}
             = I18n.t("layouts.partials.poster_modal.more_info")
       .modal-footer
-        .col-md-1
-          %button.btn.btn-default.prev-activity <
-        .col-md-6.col-md-offset-2
-          %button.btn.btn-default.full-width{"data-dismiss" => "modal"}= I18n.t("layouts.partials.poster_modal.close")
-        .col-md-1.col-md-offset-2
-          %button.btn.btn-default.next-activity >
+        .col
+          %button.btn.btn-default.btn-secondary.prev-activity <
+        .col
+          %button.btn.btn-default.btn-secondary.full-width{"data-dismiss" => "modal"}= I18n.t("layouts.partials.poster_modal.close")
+        .col
+          %button.btn.btn-default.btn-secondary.next-activity >

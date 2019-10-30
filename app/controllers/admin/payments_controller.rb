@@ -32,6 +32,17 @@ class Admin::PaymentsController < ApplicationController
       end.flatten.uniq
   end
 
+  def whatsapp_redirect
+    @member = Member.find(params[:member_id])
+    @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
+    @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
+    msg = render_to_string template: 'admin/members/payment_whatsapp.html.erb', layout: false, content_type: "text/plain"
+
+    pn = @member.whatsappable_phone_number
+
+    redirect_to "https://api.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
+  end
+
   def update_transactions
     checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = "Gepind"', params[:start_date]).order(created_at: :desc)
     data = checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }

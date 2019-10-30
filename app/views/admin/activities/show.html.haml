@@ -12,8 +12,8 @@
         = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
-        .panel.panel-default
-          .panel-heading
+        .card
+          .card-header
             %i.fa.fa-fw.fa-user
             -if @activity.participant_limit.nil?
               - fullness = @activity.attendees.count
@@ -47,7 +47,7 @@
                 - @activity.participants.where(:member_id => nil).each do |participant|
                   %tr{ :class => ('in-debt' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, reservist: 'false' }  }
                     %td
-                      %span oud-lid
+                      %span= I18n.t('former', scope: 'activerecord.attributes.group')
 
                     %td.price-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                       %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
@@ -69,14 +69,12 @@
                   %ul.dropdown-menu.col-md-11
                 %td{ :style => 'text-align: left;' }
                   - if !@activity.price.nil?
-                    %span{ :style => 'line-height: 39px; margin-left: 8px;' }= number_to_currency(@activity.price, :unit => '€')
-                  - else
-                    %span{ :style => 'line-height: 39px; margin-left: 8px;' } -
+                    %span= number_to_currency(@activity.price, :unit => '€')
                 %td
                 %td
 
-        .panel.panel-default
-          .panel-heading
+        .card
+          .card-header
             %i.fa.fa-fw.fa-user
             %span#reservistcount= @activity.reservists.count
             Reserves
@@ -109,5 +107,5 @@
                     .btn-group
                       %button.btn.btn-success.toparticipant
                         %i.fa.fa-fw.fa-plus
-                      %button.btn.btn-default.destroy
+                      %button.btn.btn-.destroy
                         %i.fa.fa-fw.fa-trash-o

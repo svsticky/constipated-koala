@@ -24,7 +24,7 @@ class ApplicationMailer < ActionMailer::Base
 
   private
 
-  def mail(recipient, sender, subject, html, text)
+  def mail(recipient, sender, subject, html, text, attachment = nil)
     raise ArgumentError if html.blank? && text.blank?
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
@@ -34,10 +34,11 @@ class ApplicationMailer < ActionMailer::Base
                            :subject => subject,
                            :html => html.to_str,
                            :text => text,
-                           'o:testmode' => Rails.env == 'development' ? "true" : "false"
+                           :attachment => attachment,
+                           'o:testmode' => Rails.env == 'development' ? 'true' : 'false'
   end
 
-  def mails(recipient, sender, subject, html, text)
+  def mails(recipient, sender, subject, html, text, attachment = nil)
     raise ArgumentError if html.blank? && text.blank? || recipient.blank?
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
@@ -49,6 +50,7 @@ class ApplicationMailer < ActionMailer::Base
                            :subject => subject,
                            :html => html.to_str,
                            :text => text,
-                           'o:testmode' => Rails.env == 'development' ? "true" : "false"
+                           :attachment => attachment,
+                           'o:testmode' => Rails.env == 'development' ? 'true' : 'false'
   end
 end

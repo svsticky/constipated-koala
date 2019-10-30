@@ -25,10 +25,12 @@ class Member < ApplicationRecord
   validates :birth_date, presence: true
   validates :join_date, presence: true
 
+  enum consent: [:pending, :yearly, :indefinite]
+
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
 
-  # NOTE: prepend true is required, so that is executed before dependent
+  # NOTE: prepend true is required, so that it is executed before dependent => destroy
   before_destroy :before_destroy, prepend: true
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
@@ -42,7 +44,7 @@ class Member < ApplicationRecord
   has_many :educations, :dependent => :nullify
   has_many :studies, :through => :educations
   accepts_nested_attributes_for :educations,
-                                :reject_if => proc { |attributes| attributes['study_id'].blank? },
+                                :reject_if => proc { |attributes| attributes['study_id'].blank? && attributes['status'].blank? },
                                 :allow_destroy => true
 
   has_many :participants, :dependent => :nullify
@@ -65,6 +67,9 @@ class Member < ApplicationRecord
   has_many :groups, :through => :group_members
 
   has_one :user, as: :credentials, :dependent => :destroy
+
+  scope :studying, -> { where(id: Education.where(status: :active)) }
+  scope :alumni, -> { where.not(id: Education.where(status: :active)) }
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
@@ -171,6 +176,9 @@ class Member < ApplicationRecord
         raise ActiveRecord::Rollback
       end
     end
+
+    # update consent_at when consent is given
+    self.consent_at = Time.now if consent_changed? && %w[indefinite yearly].include?(consent.to_s)
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
@@ -308,7 +316,38 @@ class Member < ApplicationRecord
     end
   end
 
-  # Perform an elfproef to verify the student_id
+  def export
+    export = attributes.except(:comments)
+    export[:educations] = educations.pluck(:id)
+    export[:participants] = participants.pluck(:id)
+    export[:group_members] = group_members.pluck(:id)
+    export[:checkout_balance] = checkout_balance&.id
+
+    export.compact
+
+    yield [export.to_json, Digest::MD5.hexdigest(export.to_s)] if block_given?
+  end
+
+  def self.import(import, checksum); end
+
+  def destroyable?
+    return false unless unpaid_activities.empty?
+
+    return true
+  end
+
+  # Normalize the Member's phone number for use in payment Whatsapps.
+  def whatsappable_phone_number
+    return unless phone_number.present?
+
+    pn = phone_number.gsub(/\s/, '') # Remove whitespace
+
+    return pn.sub(/^06/, "316") if /^06\d{8}$/.match?(pn) # Replace '06' with '316' if it's a Dutch phone number
+
+    return pn.sub(/^+?(00)?/, '') if /^(\+|00)?316\d{8}$/.match?(pn) # Replace 00316, +316 if it's international notation
+
+    nil
+  end
 
   private
 
@@ -326,14 +365,17 @@ class Member < ApplicationRecord
     # remove participants of this member for free activities in the future
     Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 
-    # remove all participant notes where member_id is nil
-    Participant.where(:member_id => nil).update_all(notes: nil)
+    # remove all participant notes
+    Participant.where(:member_id => id).update_all(notes: nil)
+
+    # set not updated studies to inactive
+    Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
 
     # remove from mailchimp using just the email as string
     MailchimpJob.perform_later email, nil, []
 
     # create transaction for emptying checkout_balance
-    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'contant') if checkout_balance.present? && checkout_balance.balance != 0
+    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0
   end
 
   # Perform an elfproef to verify the student_id

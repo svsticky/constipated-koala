@@ -15,7 +15,7 @@
 
     = csrf_meta_tags
   %body
-    .container
+    .container-fluid
       .row
         %h1
           = I18n.t :association_name
@@ -29,9 +29,6 @@
               = I18n.t("layouts.doorkeeper.click_here")
 
       = yield
-
-    - if Rails.env.development?
-      = console
 
     %span.version
       = ConstipatedKoala::Application::VERSION.to_s

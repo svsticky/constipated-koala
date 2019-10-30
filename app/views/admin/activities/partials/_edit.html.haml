@@ -4,59 +4,61 @@
 = form_for :activity, url: url, method: method, :class => 'form-validation' do |f|
   - if @activity.errors.any?
     .alert.alert-danger
-      %button.close{ type: "button" } ×
       %span= I18n.t('admin.activities.partials.edit.invalid_values')
       %ul
       - @activity.errors.full_messages.each do |msg|
         %li= msg
 
-  .panel.panel-default
-    .panel-heading
+  .card
+    .card-header
       %i.fa.fa-fw.fa-ticket
       =activity_textfield
-    .panel-body
+
+    .card-body
       .form-group
         .row
-          .col-md-8
+          .col-lg-8
             = label(:activity, :name)
             = f.text_field :name, :value => @activity.name, :class => 'form-control'
-          .col-md-4
+          .col-lg-4
             = label(:activity, :price)
             = f.text_field :price, :value => number_to_currency(@activity.price, :unit => ''), :class => 'form-control'
 
-      .form-group.poster
+      .form-group
         .row
-          .col-md-12
+          .col-lg-3
+            %span.poster.d-none.d-lg-block
+              - if @activity.poster.attached?
+                = image_tag @activity.poster.representation(resize: '180x255!')
+
+          .col-lg-9
             = label(:activity, :description)
             = f.text_area :description, :value => @activity.description, :class => 'form-control', :rows => 8
 
-      .form-group.poster
+      .form-group
         .row
-          .col-md-12
+          .col-lg-12
             = label(:activity, :poster)
             .input-group
               %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.filename}" if @activity.poster.attached?) }
 
-              .input-group-btn
+              .input-group-append
                 %div.btn.btn-primary.file-input-wrapper
                   %span
                     = I18n.t('files.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
+              .input-group-append
                 %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @activity.poster.attached? ) }
                   %span.caret
                 %ul.dropdown-menu
                   %li
                     - if @activity.poster.attached?
-                      = link_to 'download', @activity.poster, :download => ''
+                      = link_to 'Download', @activity.poster, :download => '', :class => 'dropdown-item'
                   %li.divider
                   %li
-                    = link_to I18n.t('files.delete'), '#', :class => 'remove'
+                    = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
 
             = f.hidden_field :_destroy, :class => 'remove_poster'
-
-      %span.poster.hidden-xs
-        - if @activity.poster.attached?
-          = image_tag @activity.poster.representation(resize: '180x255!')
 
       .form-group
         .row
@@ -101,11 +103,11 @@
             = f.text_field :notes, :value => @activity.notes, :class => 'form-control', id: "activity-notes"
 
         .row
-          .col-xs-6
+          .col-sm-6
             = f.check_box :notes_public, checked: @activity.notes_public
             = f.label :notes_public
 
-          .col-xs-6
+          .col-sm-6
             = f.check_box :notes_mandatory, checked: @activity.notes_mandatory
             = f.label :notes_mandatory
 
@@ -114,33 +116,31 @@
         = f.text_area :comments, :value => @activity.comments, :class => 'form-control'
 
       .form-group
-        .col-sm-4
-          .row
+        .row
+          .col-md-4
             = f.check_box :is_viewable, checked: @activity.is_viewable || @activity.name.nil?, data: {original: @activity.is_viewable}
             = f.label :is_viewable
-          .row
-            = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}
-            = f.label :is_enrollable
-
-        .col-sm-4
-          .row
+          .col-md-4
             = f.check_box :show_on_website, checked: @activity.show_on_website, disabled: !@activity.is_viewable, data: {original: @activity.show_on_website}
             = f.label :show_on_website
-          .row
-            = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
-            = f.label :is_alcoholic
-
-        .col-sm-4
-          .row
+          .col-md-4
             = f.check_box :is_freshmans, checked: @activity.is_freshmans
             = f.label :is_freshmans
-          .row
+
+        .row
+          .col-md-4
+            = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}
+            = f.label :is_enrollable
+          .col-md-4
+            = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
+            = f.label :is_alcoholic
+          .col-md-4
             = f.check_box :is_masters, checked: @activity.is_masters
             = f.label :is_masters
 
       .form-group
         .row
-          .col-md-6
+          .col-lg-6
             = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit"
 

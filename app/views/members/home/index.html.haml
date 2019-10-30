@@ -1,121 +1,112 @@
 - content_for(:page, 'home')
 
-.col-md-6.col-xs-12
-  .widget.visible-xs
-    .panel
-      .list-group
-        = link_to activities_path, { class: 'list-group-item' } do
-          %i.fa.fa-ticket
-          = I18n.t('activerecord.models.activity')
-        = link_to :users_edit, { class: 'list-group-item' } do
-          %i.fa.fa-ticket
-          = I18n.t('members.home.index.edit_profile')
-        = link_to destroy_user_session_path, { 'data-method' => :delete, class: 'list-group-item' } do
-          %i.fa.fa-sign-out
-          = I18n.t("devise.sessions.new.sign_out")
+.row
+  .col-lg-6.col-12
 
-  - unless @balance.blank?
-    .panel.panel-box.info-box
-      .panel-left.panel-item.bg-success
-        %i.fa.fa-shopping-cart.fa-5x
-      .panel-right.panel-item.bg-reverse
-        %p.size-h2
-          = number_to_currency( @balance.balance, :unit => '€' )
-        %p.text-muted.text-center= I18n.t('activerecord.models.checkout_balance')
+    - unless @balance.blank?
+      .card.card-box
+        .row.no-gutters
+          .col.bg-success.card-body
+            %i.fa.fa-shopping-cart.fa-5x
+          .col.card-body
+            %p.size-h2
+              = number_to_currency( @balance.balance, :unit => '€' )
+            %p.text-muted.text-center= I18n.t('activerecord.models.checkout_balance')
 
-  .panel.panel-box.info-box
-    .panel-left.panel-item.bg-reverse
-      %p.size-h2
-        = number_to_currency( @debt, :unit => '€' )
-      %p.text-muted.text-center= I18n.t('members.home.index.outstanding_payments')
-    .panel-right.panel-item.bg-warning
-      %i.fa.fa-ticket.fa-5x
+    .card.card-box
+      .row.no-gutters
+        .col.card-body
+          %p.size-h2
+            = number_to_currency( @debt, :unit => '€' )
+          %p.text-muted.text-center= I18n.t('members.home.index.outstanding_payments')
+        .col.bg-warning.card-body
+          %i.fa.fa-ticket.fa-5x
 
-  - if @member.groups.any?
-    .widget
-      .panel.panel-default
-        .panel-heading
-          %i.fa.fa-fw.fa-users
-          = I18n.t('activerecord.models.group')
-        %table.table.table-striped
-          %tbody
-            - @member.groups.each do |group|
-              %tr
-                %td
-                  %strong
-                    = group[ :name ]
-                %td= Date.years( group[ :years ].sort )
+    - if @member.groups.any?
+      .widget
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-users
+            = I18n.t('activerecord.models.group')
+          %table.table.card-body
+            %tbody
+              - @member.groups.each do |group|
+                %tr
+                  %td
+                    %strong
+                      = group[ :name ]
+                  %td= Date.years( group[ :years ].sort )
 
-                %td
-                  - group[ :positions ].each do | position |
-                    - position.each do | position, year |
-                      - unless position.nil?
-                        - if year == Date.today.study_year
-                          = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
+                  %td
+                    - group[ :positions ].each do | position |
+                      - position.each do | position, year |
+                        - unless position.nil?
+                          - if year == Date.today.study_year
+                            = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
 
-.col-md-6.col-xs-12.pull-right
-  .panel.panel-default
-    .panel-heading
-      %span
-        %i.fa.fa-fw.fa-fw.fa-ticket
-        = I18n.t("activerecord.models.activity")
-        = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
+  .col-lg-6.col-12.pull-right
+    .card
+      .card-header
+        %span
+          %i.fa.fa-fw.fa-fw.fa-ticket
+          = I18n.t("activerecord.models.activity")
+          = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
 
-    %table.table.table-striped.table-linked.table-dynamic
-      %tbody
-        - @participants.each do |activity|
-          %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
-            - if !activity.ended?
-              %td= link_to activity.name, activity_path(activity)
-            - else
-              %td= activity.name
-
-            - if !activity.start_date.nil?
-              %td.hidden-xs
-                - if activity.end_date.nil?
-                  = I18n.l activity.start_date
-                - else
-                  #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
-
-            - if !activity.currency(@member).nil?
-              %td= number_to_currency(activity.currency(@member), :unit => '€')
-            - else
-              %td
-
-            %td.text-center.hidden-xs
-              - if !activity.currency(@member).nil? && activity.currency(@member) > 0
-                - if activity.participants.where(:member => @member).first.paid
-                  %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
-                - else
-                  %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
-
-  = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
-    .panel.panel-default.table-dynamic
-      .panel-heading
-        %i.fa.fa-fw.fa-fw.fa-shopping-cart
-        = I18n.t('activerecord.models.checkout_transactions')
-
-      %table.table.table-striped.table-linked
+      %table.table.table-striped
         %tbody
-          - @transactions.each do |transaction|
-            %tr
-              %td.visible-xs{ :colspan => 2 }= I18n.l transaction.created_at
-              %td.hidden-xs= I18n.l transaction.created_at
+          - @participants.each do |activity|
+            %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
+              - if !activity.ended?
+                %td= link_to activity.name, activity_path(activity)
+              - else
+                %td= activity.name
 
-              %td.hidden-xs= transaction.products
-              %td
-                = number_to_currency(transaction.price, :unit => '€')
-                - if transaction.price > 0
-                  %span.fa.fa-sort-asc.pull-right
-                - else
-                  %span.fa.fa-sort-desc.pull-right
+              - if !activity.start_date.nil?
+                %td.hidden-xs
+                  - if activity.end_date.nil?
+                    = I18n.l activity.start_date
+                  - else
+                    #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
 
-          %tr.form
-            %td.home_mongoose_form_element
-              = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + ' transactiekosten in rekening gebracht', :required => ''
-            %td.home_mongoose_form_element
-              .ui-select{ :style => 'margin-top: 5px;' }
-                = f.select :bank, options_for_select(IdealTransaction::issuers), {}, {style: 'min-width: 0px !important'}
+              - if !activity.currency(@member).nil?
+                %td= number_to_currency(activity.currency(@member), :unit => '€')
+              - else
+                %td
 
-            %td.home_mongoose_form_element
-              %button.btn.btn-success.btn-sm{ :type => 'submit'}= I18n.t('members.home.index.upgrade')
+              %td.text-center.d-none.d-sm-block
+                - if !activity.currency(@member).nil? && activity.currency(@member) > 0
+                  - if activity.participants.where(:member => @member).first.paid
+                    %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
+                  - else
+                    %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
+
+    = form_for :ideal_transaction, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
+      .card.table-dynamic
+        .card-header
+          %i.fa.fa-fw.fa-fw.fa-shopping-cart
+          = I18n.t('activerecord.models.checkout_transactions')
+
+        %table.table.card-body
+          %tbody
+            - @transactions.each do |transaction|
+              %tr
+                %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
+                %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
+
+                %td.d-none.d-sm-table-cell= transaction.products
+                %td
+                  = number_to_currency(transaction.price, :unit => '€')
+                  - if transaction.price > 0
+                    %span.fa.fa-sort-asc.pull-right
+                  - else
+                    %span.fa.fa-sort-desc.pull-right
+
+            %tr.form
+              %td.home_mongoose_form_element
+                = f.number_field :amount, :placeholder => 'tegoed', :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + ' transactiekosten in rekening gebracht', :required => ''
+              %td.home_mongoose_form_element
+                .ui-select{ :style => 'margin-top: 5px;' }
+                  = f.select :bank, options_for_select(IdealTransaction::issuers), {}, {style: 'min-width: 0px !important'}
+
+              %td.home_mongoose_form_element
+                %button.btn.btn-success.btn-sm{ :type => 'submit'}= I18n.t('members.home.index.upgrade')

@@ -5,47 +5,55 @@
 
   .page
     .row
-      .col-lg-3.col-xsm-6.clickable
-        = link_to :members, :class => 'panel mini-box' do
-          %span.box-icon.bg-success
-            %i.fa.fa-user
-          .box-info
-            %p.size-h2
-              = @members
-            %p.text-muted Leden
 
-      .col-lg-3.col-xsm-6.clickable
-        = link_to :activities, :class => 'panel mini-box' do
-          %span.box-icon.bg-info
-            %i.fa.fa-ticket
-          .box-info
-            %p.size-h2
-              = @activities
-            %p.text-muted Activiteiten
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :members do
+            .row.no-gutters
+              %span.box-icon.bg-success
+                %i.fa.fa-homepage.fa-user
+              .card-body.box-info
+                %h2.text-center
+                  = @members
+                %p.text-muted Leden
 
-      .col-lg-3.col-xsm-6.clickable
-        = link_to :checkout, :class => 'panel mini-box' do
-          %span.box-icon.bg-warning
-            %i.fa.fa-shopping-cart
-          .box-info
-            %p.size-h2
-              = @transactions
-            %p.text-muted Checkout transacties
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :activities do
+            .row.no-gutters
+              %span.box-icon.bg-info
+                %i.fa.fa-homepage.fa-ticket
+              .card-body.box-info
+                %h2.text-center
+                  = @activities
+                %p.text-muted Activiteiten
 
-      .col-lg-3.col-xsm-6.clickable
-        = link_to :payments, :class => 'panel mini-box' do
-          %span.box-icon.bg-danger
-            %i.fa.fa-eur
-          .box-info
-            %p.size-h2
-              = number_to_currency(@unpayed, :unit => '')
-            %p.text-muted Openstaande betalingen
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :checkout do
+            .row.no-gutters
+              %span.box-icon.bg-warning
+                %i.fa.fa-homepage.fa-shopping-cart
+              .card-body.box-info
+                %h2.text-center
+                  = @transactions
+                %p.text-muted Checkout transacties
 
-  .page
+      .col-12.col-md-6.col-xl-3
+        .card
+          = link_to :payments do
+            .row.no-gutters
+              %span.box-icon.bg-danger
+                %i.fa.fa-homepage.fa-eur
+              .card-body.box-info
+                %h2.text-center
+                  = number_to_currency(@unpayed, :unit => '')
+                %p.text-muted Openstaande betalingen
+
     .row
-      %div.col-md-3.hidden-xs
-        .panel.panel-default
-          .panel-heading
+      %div.col-lg-3.d-none.d-sm-block
+        .card
+          .card-header
             %i.fa.fa-fw.fa-graduation-cap
             Studies
 
@@ -56,9 +64,9 @@
                   %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
-      %div.col-md-6
-        .panel.panel-default
-          .panel-heading
+      %div.col-lg-6
+        .card
+          .card-header
             %i.fa.fa-fw.fa-shopping-cart
             Laatste transacties vandaag
           %table.table.table-striped.table-linked
@@ -78,7 +86,7 @@
                       = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
 
 
-                  %td.hidden-sm
+                  %td.d-none.d-md-table-cell
                     = transaction.products
 
               - if @recent.empty?
@@ -86,9 +94,9 @@
                   %td.text-center
                     %em geen transacties vandaag
 
-      %div.col-md-3
-        .panel.panel-default
-          .panel-heading
+      %div.col-lg-3
+        .card
+          .card-header
             %i.fa.fa-fw.fa-ticket
             Wanbetalers
           %table.table.table-striped.table-linked

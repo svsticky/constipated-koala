@@ -17,4 +17,12 @@ Rails.application.config.assets.precompile += %w[members.css members.js]
 Rails.application.config.assets.precompile += %w[doorkeeper.css doorkeeper.js]
 
 # Assets for intro website
+Rails.application.config.assets.precompile += %w[intro.css intro.js]
+
+# Assets for public pages including token pages
 Rails.application.config.assets.precompile += %w[public.css public.js]
+
+# added view paths for rabl
+Rabl.configure do |config|
+  config.view_paths = [Rails.root.join('app', 'views')]
+end

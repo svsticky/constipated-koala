@@ -8,18 +8,68 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require bootstrap/dist/css/bootstrap
- *= require flatify
+ *= require yeti
  *
  *= require font-awesome
  *= require lato
  *
  *= require_self
  *= require_tree ./members
+ *= require page
+ *= require header
+ *= require sidebar
+ *= require cards
+ *= require callouts
  */
 
 .panel-activity > .panel-body:nth-child(2) {
   height: 230px;
   overflow: hidden;
   display: flex;
+}
+
+span.footnote {
+  font-size: 0.8em;
+  vertical-align: super;
+  position: absolute;
+}
+
+.footnote .help-block {
+  margin-left: 10px;
+}
+
+td.dropdown {
+  text-align: center;
+  position: relative;
+}
+
+td.dropdown:hover ul.dropdown-menu {
+  display: inline-block;
+
+  top: 0;
+  left: auto;
+  right: 10px;
+}
+
+.ui-select > span {
+  display: block;
+  position: relative;
+  padding: 10px 15px 10px 10px;
+  min-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  text-indent: 0.01px;
+  text-overflow: '';
+  text-align: left;
+  cursor: not-allowed;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
 }

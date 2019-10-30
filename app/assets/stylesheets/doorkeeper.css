@@ -12,37 +12,46 @@
  *
  *= require font-awesome
  *= require bootstrap/dist/css/bootstrap
+ *= require yeti
  */
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-html, body {
+html,
+body {
   display: block;
   position: relative;
   height: 100%;
   width: 100%;
 }
 
-h1, h2, h3, h4, p, a, .text-center {
-  font-family: 'Roboto', sans-serif;
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+.text-center {
+  font-family: "Roboto", sans-serif;
 }
 
 a {
   color: white !important;
 }
 
-span.input-group-addon {
+span.input-group-text {
   background-color: white;
 }
 
-div.container {
-  background-color: #F34541;
+div.container-fluid {
+  background-color: #f34541;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-div.container h1, div.container h2 {
+div.container-fluid h1,
+div.container-fluid h2 {
   position: absolute;
   bottom: 30px;
   width: 100%;
@@ -51,18 +60,18 @@ div.container h1, div.container h2 {
   color: white;
 }
 
-div.container h2 {
+div.container-fluid h2 {
   bottom: 0;
   font-size: 1.1em;
   font-weight: 200;
 }
 
-div.container h3 {
+div.container-fluid h3 {
   font-size: 1.8em;
   font-weight: 200;
 }
 
-div.container h4 {
+div.container-fluid h4 {
   position: relative;
   top: -25px;
   font-size: 1.1em;
@@ -70,114 +79,108 @@ div.container h4 {
   line-height: 1.3em;
 }
 
-div.container input {
+div.container-fluid input {
   font-weight: 200;
 }
 
-div.container .text-center {
+div.container-fluid .text-center {
   font-size: 1em;
   font-weight: 100;
   margin-top: 10px !important;
 }
 
-div.container .row {
+div.container-fluid .row {
   position: relative;
   display: block;
-  background-color: #F34541;
+  background-color: #f34541;
   text-align: center;
-  vertical-align: middle;
   width: 100%;
   margin: 0;
+  padding: 0.5rem;
 }
 
-div.container .row:nth-child(1) {
+div.container-fluid .row:nth-child(1) {
   height: 30%;
 }
 
-div.container .row:nth-child(1):after {
+div.container-fluid .row:nth-child(1):after {
   position: absolute;
   display: block;
   left: 50%;
   bottom: -20px;
   margin-left: -4px;
-  content: '';
-  border-left: 8px solid #F34541;
-  border-right: 8px solid #F34541;
+  content: "";
+  border-left: 8px solid #f34541;
+  border-right: 8px solid #f34541;
   border-bottom: 10px solid white;
   background-color: white;
 }
 
-div.container .row:nth-child(2) {
+div.container-fluid .row:nth-child(2) {
   background-color: white;
   margin: 20px 0;
 }
 
-div.container .row > form, div.container .row > div {
+div.container-fluid .row > form,
+div.container-fluid .row > div {
   display: block;
   background-color: white;
-  margin: 50px auto;
+  margin: 2rem auto;
   width: 90%;
 }
 
-div.container .row > div.text-center {
-  background-color: #F34541;
+div.container-fluid .row > div.text-center {
+  background-color: #f34541;
   color: white;
 }
 
-div.container .row > div h3 {
+div.container-fluid .row > div h3 {
   text-align: left;
 }
 
-div.container .row > div p {
+div.container-fluid .row > div p {
   text-align: left;
   margin: 0;
 }
 
-div.container .row > div ul {
+div.container-fluid .row > div ul {
   list-style-position: inside;
   padding-left: 5px;
 }
 
-div.container .row > div li {
+div.container-fluid .row > div li {
   text-align: left;
   padding-top: 2px;
 }
 
-div.container .row > div li:after {
-  content: ',';
+div.container-fluid .row > div li:after {
+  content: ",";
 }
 
-div.container .row > div li:last-child:after {
-  content: '.';
+div.container-fluid .row > div li:last-child:after {
+  content: ".";
 }
 
-div.container .row form div.alert {
+div.container-fluid .row form div.alert {
   margin: 0 -15px 20px;
 }
 
-div.container .row .actions form {
-  display: inline-block;
-  width: 40%;
-}
-
-div.container .row .actions form input {
-  margin: 30px 10px 0;
-}
-
 @media (min-width: 768px) {
-  div.container .row > form, div.container .row > div {
+  div.container-fluid .row > form,
+  div.container-fluid .row > div {
     width: 50%;
   }
 }
 
 @media (min-width: 992px) {
-  div.container .row > form, div.container .row > div {
+  div.container-fluid .row > form,
+  div.container-fluid .row > div {
     width: 30%;
   }
 }
 
-div.container .row form span.input-group-addon i {
-  width: 18px;
+span.input-group-text i {
+  width: 1rem;
 }
 
 span.version {
@@ -190,18 +193,18 @@ span.version {
     display: block;
     right: 10px;
     bottom: 2px;
-    color: rgb(255,255,255); /* Fallback color */
+    color: rgb(255, 255, 255); /* Fallback color */
     color: rgba(255, 255, 255, 0.8);
   }
 
   span.version::before {
-    content: 'v';
+    content: "v";
   }
 }
 
 .remember_label {
   position: relative;
   vertical-align: middle;
-  bottom: 1px;
-  font-weight: normal
+  margin: 0 0 0.3rem 0.2rem;
+  font-weight: normal;
 }

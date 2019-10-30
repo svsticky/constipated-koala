@@ -3,7 +3,6 @@
     .panel-body
       = form_tag members_path, :method => 'get' do
         .input-group
-
           = search_field_tag :search, params[:search],  placeholder: 'zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]', class: 'form-control', :autocomplete => 'off'
 
           %ul.dropdown-menu{ :name => 'studies' }
@@ -26,14 +25,13 @@
             %li
               %a{ :data => { :name => I18n.t("layouts.partials.search.anybody") }}= I18n.t("layouts.partials.search.anybody")
 
-          %span.input-group-btn
-            %button.btn.btn-primary{ type: 'submit', style: 'padding: 7px 20px; height: 34px;' }
+          .input-group-append
+            %button.btn.btn-primary{ type: 'submit' }
               %i.fa.fa-search
 
 - if flash['notice'].present?
   .col-md-12
     .alert.alert-info
-      %button.close{ type: "button" } ×
       %span= I18n.t('activerecord.errors.info')
       %ul
       - Array(flash['notice']).each do |msg|
