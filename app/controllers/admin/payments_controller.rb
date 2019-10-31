@@ -40,7 +40,7 @@ class Admin::PaymentsController < ApplicationController
 
     pn = @member.whatsappable_phone_number
 
-    redirect_to "https://api.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
+    redirect_to "https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
   end
 
   def update_transactions
