@@ -1,31 +1,33 @@
 class NormalizePhoneNumber < ActiveRecord::Migration[5.2]
   def up
-    change_column :members, :phone_number, :string do |t|
-      if (t.start_with?("06"))
-        t[0] = "+31"
-      end
+    Member.find_each do |m|
+      phone_number = normalize(m.phone_number)
+      emergency_phone_number = normalize(m.emergency_phone_number)
 
-      if (t.start_with?("00"))
-        t[0..1] = "+"
-      end
-      
-      if (TelephoneNumber.parse(t).valid?)
-        t = TelephoneNumber.parse(t).e164_number
-      else
-        t = nil
-      end
-
-      return t
+      m.update_attribute :phone_number, phone_number
+      m.update_attribute :emergency_phone_number, emergency_phone_number
     end
   end
 
   def down
-    change_column :members, :phone_number, :string do |t|
-      if (t.start_with?("+"))
-        t[0] = "00"
+    raise ActiveRecord::IrreversibleMigration
+  end
+
+  # normalize and validate phone number
+  def normalize(number)
+    unless number.nil?
+      if number.start_with?("06")
+        number[0] = "+31"
       end
-      
-      return t
+
+      if number.start_with?("00")
+        number[0..1] = "+"
+      end
     end
+
+    number = TelephoneNumber.parse(number)
+
+    return number.e164_number if number.valid?
+    return nil
   end
 end
