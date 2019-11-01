@@ -13,6 +13,7 @@ puts '-- Creating members'
     postal_code:  Faker::Address.postcode,
     city:         Faker::Address.city,
     phone_number: Faker::Base.numerify('+316########'),
+    emergency_phone_number: Faker::Base.numerify('+316########'),
     email:        Faker::Internet.safe_email(name: first_name + '.' + last_name),
     student_id:   "F#{ Faker::Number.number(digits: 6) }",
     birth_date:   Faker::Date.between(from: 28.years.ago, to: 16.years.ago),
