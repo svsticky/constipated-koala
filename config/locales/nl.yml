@@ -341,14 +341,13 @@ nl:
   association_name: "Studievereniging Sticky"
   date:
     day_names:
-      - ~
+      - zondag
       - maandag
       - dinsdag
       - woensdag
       - donderdag
       - vrijdag
       - zaterdag
-      - zondag
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"

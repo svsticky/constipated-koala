@@ -329,14 +329,13 @@ en:
   association_name: "Study association Sticky"
   date:
     day_names:
-    - ~
+    - Sunday
     - Monday
     - Tuesday
     - Wednesday
     - Thursday
     - Friday
     - Saturday
-    - Sunday
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
