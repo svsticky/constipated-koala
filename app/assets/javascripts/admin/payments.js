@@ -8,27 +8,24 @@ $(document).on('ready page:load turbolinks:load', function(){
   });
 
   //Update search
-  if( $('.filtered-search') ){
-    $('input#search').on('keyup', function(){
+  $('input#search').on('keyup', function(){
+    var query = new RegExp( $( this ).val(), 'i');
 
-      var query = new RegExp( $( this ).val(), 'i');
+    $( '.filtered-search table' ).each( function( index, table ){
+      $( table ).find( 'tbody tr' ).each( function( index, row ){
 
-      $( '.filtered-search table' ).each( function( index, table ){
-        $( table ).find( 'tbody tr' ).each( function( index, row ){
-
-          if( query.test( $( row ).attr( 'data-name' )))
-            $( row ).removeClass('hidden');
-          else
-            $( row ).addClass('hidden');
-        });
-
-        if( $( table ).find( 'tbody tr' ).not( '.hidden' ).length > 0 )
-          $( table ).removeClass('hidden');
+        if( query.test( $( row ).attr( 'data-name' )))
+          $( row ).removeClass('d-none');
         else
-          $( table ).addClass('hidden');
+          $( row ).addClass('d-none');
       });
+
+      if( $( table ).find( 'tbody tr' ).not( '.d-none' ).length > 0 )
+        $( table ).removeClass('d-none');
+      else
+        $( table ).addClass('d-none');
     });
-  }
+  });
 
   //Update shown transactions with a start date
   $( '.input-group#transaction_dates #update_transactions button' ).bind( 'click', function() {
