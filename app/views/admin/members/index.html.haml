@@ -51,19 +51,36 @@
               %td= link_to "#{member.first_name}", member
               %td= link_to "#{member.infix}", member
               %td= link_to "#{member.last_name}", member
-              %td.d-none.d-sm-table-cell= link_to "#{member.phone_number}", member
-              %td.d-block.d-sm-none= link_to "#{member.phone_number}", "tel:#{member.phone_number}", :style => 'color: darkblue;'
+              %td
+                = link_to "tel:#{member.phone_number}" do
+                  %i.fa.fa-phone
+                  = member.phone_number
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member
 
-      %footer.table-footer
-        .row
-          .col-lg-5.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
-            %span
-              Toon
-              = select_tag 'limit', options_for_select([20,50,100], @limit)
-              leden per pagina
+        %footer.table-footer
+          .row
+            .col-lg-5.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
+              %span
+                Toon
+                = select_tag 'limit', options_for_select([20,50,100], @limit)
+                leden per pagina
 
-          .col-lg-6
-            = will_paginate @members, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+            -# will_paginate doesn't work for search results, so we use a simpler footer then
+            - if @search.present?
+              .col-lg-3.text-center
+                -# Only show button if there are pages to go back to
+                - if @page > 1
+                  = link_to( { search: @search, limit: @limit.to_i, page: @page - 1 }, class: 'btn btn-light') do
+                    ="←"
+
+              .col-lg-3.text-center
+                -# Only show button if there are as many results as the limit
+                - if @members.count >= @limit
+                  = link_to( { search: @search, limit: @limit, page: @page + 1 }, class: 'btn btn-light') do
+                    ="→"
+
+            - else
+              .col-lg-6
+                = will_paginate @members, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
