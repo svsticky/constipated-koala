@@ -130,7 +130,7 @@
             .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
 
           .row
-            .col-lg-5
+            .col-lg-6
               %h4
                 %i.fa.fa-graduation-cap
                 = I18n.t(:study, scope: 'form')
@@ -151,38 +151,39 @@
                         .col-lg-12
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
-            .col-lg-5.activities
+            .col-lg-6.activities
               %h4
                 %i.fa.fa-ticket
                 = I18n.t(:activity, scope: 'activerecord.models')
-              .col-lg-6
-                .form-group
+              .row
+                .col-lg-6
+                  .form-group
 
-                  - @membership.each do |membership|
-                    = f.fields_for 'participant_attributes[]', membership do |fa|
-                      %label.ui-checkbox
-                        = fa.hidden_field :id, :value => membership.id
-                        = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled'
-                        %span
-                          = I18n.t(:membership)
-                          %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(membership.price, :unit => '€')
+                    - @membership.each do |membership|
+                      = f.fields_for 'participant_attributes[]', membership do |fa|
+                        %label.ui-checkbox
+                          = fa.hidden_field :id, :value => membership.id
+                          = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled'
+                          %span
+                            = I18n.t(:membership)
+                            %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(membership.price, :unit => '€')
 
-                  - @activities.each do |activity|
-                    = f.fields_for 'participant_attributes[]', activity do |fa|
-                      %label.ui-checkbox
-                        = fa.hidden_field :id, :value => activity.id
-                        = fa.check_box :participate, :checked => ('checked' if @participate.include? activity.id )
-                        %span
-                          = activity.name
-                          %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(activity.price, :unit => '€')
+                    - @activities.each do |activity|
+                      = f.fields_for 'participant_attributes[]', activity do |fa|
+                        %label.ui-checkbox
+                          = fa.hidden_field :id, :value => activity.id
+                          = fa.check_box :participate, :checked => ('checked' if @participate.include? activity.id )
+                          %span
+                            = activity.name
+                            %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(activity.price, :unit => '€')
 
-              .col-lg-6
-                .ui-select
-                  %label{for: ''}= I18n.t(:payment, scope: 'form')
-                  = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
-                  %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
-                .ui-select{ :style => 'margin-top: 5px;' }
-                  = select_tag 'bank', options_for_select(IdealTransaction::issuers, @bank), :include_blank => ''
+                .col-lg-6
+                  .ui-select
+                    %label{for: ''}= I18n.t(:payment, scope: 'form')
+                    = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
+                    %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
+                  .ui-select{ :style => 'margin-top: 5px;' }
+                    = select_tag 'bank', options_for_select(IdealTransaction::issuers, @bank), :include_blank => ''
 
           %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
 
