@@ -104,7 +104,15 @@ To easily start the database, you can run MariaDB in a container via Docker.
 Follow these steps to install Docker and start the database:
 
 ```console
+# Install Docker and Docker Compose
 $ sudo apt install docker.io docker-compose
+
+# Add yourself to the `docker` system group (needed only once)
+# NOTE: You need to log out and log in again to apply this!
+$ sudo usermod -aG docker $USER
+
+# Install and start the database
+# If you don't want to log out and log in again, use `sudo` here.
 $ docker-compose up -d
 ```
 
