@@ -34,14 +34,14 @@
       - unless @product.nil?
         = form_for :checkout_product, url: checkout_product_path(@product), method: :patch, :class => 'form-validation' do |f|
           - if @product.errors.any?
-            .col-md-6
+            .col-md-12
               .alert.alert-danger
                 %span Oeps, niet alles is goed ingevuld;
                 %ul
                 - @product.errors.full_messages.each do |msg|
                   %li= msg
 
-          .col-md-6
+          .col-md-12
             .card
               .card-header
                 %i.fa.fa-fw.fa-ticket
