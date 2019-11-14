@@ -31,132 +31,133 @@
                         %i.fa.fa-fw.fa-check
                         Activeer
 
-      - unless @product.nil?
-        = form_for :checkout_product, url: checkout_product_path(@product), method: :patch, :class => 'form-validation' do |f|
-          - if @product.errors.any?
-            .col-md-12
-              .alert.alert-danger
-                %span Oeps, niet alles is goed ingevuld;
-                %ul
-                - @product.errors.full_messages.each do |msg|
-                  %li= msg
+      .col-md-6
+        - unless @product.nil?
+          = form_for :checkout_product, url: checkout_product_path(@product), method: :patch, :class => 'form-validation' do |f|
+            - if @product.errors.any?
+              .col-md-12
+                .alert.alert-danger
+                  %span Oeps, niet alles is goed ingevuld;
+                  %ul
+                  - @product.errors.full_messages.each do |msg|
+                    %li= msg
 
-          .col-md-12
+            .col-md-12.pull-right
+              .card
+                .card-header
+                  %i.fa.fa-fw.fa-ticket
+                  Bewerk product
+                .card-body
+
+                  .form-group.thumb
+                    .row
+                      .col-md-8
+                        = label(:checkout_product, I18n.t( :name, scope: 'activerecord.attributes.checkout_product' ))
+                        = f.text_field :name, :value => @product.name, :class => 'form-control', :disabled => @product.children?
+                      .col-md-4
+                        = label(:checkout_product, I18n.t( :price, scope: 'activerecord.attributes.checkout_product' ))
+                        = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control', :disabled => @product.children?
+
+                  .form-group.thumb
+                    .row
+                      .col-md-4
+                        = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
+                        .ui-select
+                          = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
+                      .col-md-8
+                        = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
+                        .input-group
+                          %input#output.form-control{ :readonly => ''}
+
+                          .input-group-btn
+                            %div.btn.btn-primary.file-input-wrapper{ disabled: @product.children?}
+                              %span uploaden
+                              = f.file_field :image, { 'data-ui-file-upload' => '' }
+
+                  %span.thumb.d-none.d-sm-block
+                    - if @product.url.present?
+                      =image_tag @product.url
+
+                  %button.btn.btn-success.wait{ type: 'submit', disabled: @product.children? } Opslaan
+                  = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
+
+                  .pull-right
+                    = label(:checkout_product, I18n.t( :active, scope: 'activerecord.attributes.checkout_product' ))
+                    = f.check_box :active, :checked => @product.active, :disabled => @product.children?
+
+                %table.table.table-striped.table-linked#products
+                  %tbody
+
+                  - @product.parents.take(5).each do |parent|
+                    %tr
+                      %td= I18n.l parent.created_at
+                      %td= parent.name
+                      %td= I18n.t( parent.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
+                      %td= number_to_currency( parent.price, :unit => '€' )
+
+        - unless @new.nil?
+          = form_for :checkout_product, url: checkout_products_path, method: :post, :class => 'form-validation' do |f|
+            - if @new.errors.any?
+              .col-md-12.pull-right
+                .alert.alert-danger
+                  %span Oeps, niet alles is goed ingevuld;
+                  %ul
+                  - @new.errors.full_messages.each do |msg|
+                    %li= msg
+
+            .col-md-12.pull-right
+              .card
+                .card-header
+                  %i.fa.fa-fw.fa-ticket
+                  Nieuw product
+                .card-body
+
+                  .form-group
+                    .row
+                      .col-md-8
+                        = label(:checkout_product, I18n.t( :name, scope: 'activerecord.attributes.checkout_product' ))
+                        = f.text_field :name, :value => @new.name, :class => 'form-control'
+                      .col-md-4
+                        = label(:checkout_product, I18n.t( :price, scope: 'activerecord.attributes.checkout_product' ))
+                        = f.text_field :price, :value => number_to_currency(@new.price, :unit => ''), :class => 'form-control'
+
+                  .form-group
+                    .row
+                      .col-md-4
+                        = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
+                        .ui-select
+                          = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @new.category )
+                      .col-md-8
+                        = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
+                        .input-group
+                          %input#output.form-control{ :readonly => ''}
+
+                          .input-group-btn
+                            %div.btn.btn-primary.file-input-wrapper
+                              %span uploaden
+                              = f.file_field :image, { 'data-ui-file-upload' => '' }
+
+                  %button.btn.btn-success.wait{type: 'submit'} Opslaan
+                  = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
+
+        - unless @product.nil? || @total.nil?
+          .col-md-12.pull-right
             .card
-              .card-header
+              .card-header.year
                 %i.fa.fa-fw.fa-ticket
-                Bewerk product
-              .card-body
-
-                .form-group.thumb
-                  .row
-                    .col-md-8
-                      = label(:checkout_product, I18n.t( :name, scope: 'activerecord.attributes.checkout_product' ))
-                      = f.text_field :name, :value => @product.name, :class => 'form-control', :disabled => @product.children?
-                    .col-md-4
-                      = label(:checkout_product, I18n.t( :price, scope: 'activerecord.attributes.checkout_product' ))
-                      = f.text_field :price, :value => number_to_currency(@product.price, :unit => ''), :class => 'form-control', :disabled => @product.children?
-
-                .form-group.thumb
-                  .row
-                    .col-md-4
-                      = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
-                      .ui-select
-                        = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
-                    .col-md-8
-                      = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
-                      .input-group
-                        %input#output.form-control{ :readonly => ''}
-
-                        .input-group-btn
-                          %div.btn.btn-primary.file-input-wrapper{ disabled: @product.children?}
-                            %span uploaden
-                            = f.file_field :image, { 'data-ui-file-upload' => '' }
-
-                %span.thumb.d-none.d-sm-block
-                  - if @product.url.present?
-                    =image_tag @product.url
-
-                %button.btn.btn-success.wait{ type: 'submit', disabled: @product.children? } Opslaan
-                = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
-
-                .pull-right
-                  = label(:checkout_product, I18n.t( :active, scope: 'activerecord.attributes.checkout_product' ))
-                  = f.check_box :active, :checked => @product.active, :disabled => @product.children?
-
+                Verkopen
+                .ui-select
+                  = select_tag :year, options_for_select( @years, params['year'] )
               %table.table.table-striped.table-linked#products
                 %tbody
 
-                - @product.parents.take(5).each do |parent|
-                  %tr
-                    %td= I18n.l parent.created_at
-                    %td= parent.name
-                    %td= I18n.t( parent.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
-                    %td= number_to_currency( parent.price, :unit => '€' )
+                - @product.sales( params['year'] ).each do |sale|
+                  - if sale.first[1].to_i > 0
+                    %tr
+                      %td=link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
+                      %td= number_to_currency( sale.first[0].price, :unit => '€')
+                      %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
 
-      - unless @new.nil?
-        = form_for :checkout_product, url: checkout_products_path, method: :post, :class => 'form-validation' do |f|
-          - if @new.errors.any?
-            .col-md-12.pull-right
-              .alert.alert-danger
-                %span Oeps, niet alles is goed ingevuld;
-                %ul
-                - @new.errors.full_messages.each do |msg|
-                  %li= msg
-
-          .col-md-12.pull-right
-            .card
-              .card-header
-                %i.fa.fa-fw.fa-ticket
-                Nieuw product
-              .card-body
-
-                .form-group
-                  .row
-                    .col-md-8
-                      = label(:checkout_product, I18n.t( :name, scope: 'activerecord.attributes.checkout_product' ))
-                      = f.text_field :name, :value => @new.name, :class => 'form-control'
-                    .col-md-4
-                      = label(:checkout_product, I18n.t( :price, scope: 'activerecord.attributes.checkout_product' ))
-                      = f.text_field :price, :value => number_to_currency(@new.price, :unit => ''), :class => 'form-control'
-
-                .form-group
-                  .row
-                    .col-md-4
-                      = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
-                      .ui-select
-                        = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @new.category )
-                    .col-md-8
-                      = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
-                      .input-group
-                        %input#output.form-control{ :readonly => ''}
-
-                        .input-group-btn
-                          %div.btn.btn-primary.file-input-wrapper
-                            %span uploaden
-                            = f.file_field :image, { 'data-ui-file-upload' => '' }
-
-                %button.btn.btn-success.wait{type: 'submit'} Opslaan
-                = link_to 'Annuleren', checkout_products_path, { :class => 'button btn btn-default' }
-
-      - unless @product.nil? || @total.nil?
-        .col-md-12.pull-right
-          .card
-            .card-header.year
-              %i.fa.fa-fw.fa-ticket
-              Verkopen
-              .ui-select
-                = select_tag :year, options_for_select( @years, params['year'] )
-            %table.table.table-striped.table-linked#products
-              %tbody
-
-              - @product.sales( params['year'] ).each do |sale|
-                - if sale.first[1].to_i > 0
-                  %tr
-                    %td=link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
-                    %td= number_to_currency( sale.first[0].price, :unit => '€')
-                    %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
-
-              %tr.total
-                %td{ :colspan => 2} Totaal
-                %td.text-right= number_to_currency( @total.to_f, :unit => '€' )
+                %tr.total
+                  %td{ :colspan => 2} Totaal
+                  %td.text-right= number_to_currency( @total.to_f, :unit => '€' )
