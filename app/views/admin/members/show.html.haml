@@ -41,9 +41,9 @@
               %br
               #{@member.postal_code} #{@member.city}
             %p
-              #{TelephoneNumber.parse(@member.phone_number).international_number()}
+              #{TelephoneNumber.parse(@member.phone_number).international_number}
               %br
-              #{TelephoneNumber.parse(@member.emergency_phone_number).international_number()}
+              #{TelephoneNumber.parse(@member.emergency_phone_number).international_number}
               %br
               #{@member.email}
             - if current_user.admin?
