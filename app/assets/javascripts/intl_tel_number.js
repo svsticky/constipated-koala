@@ -1,7 +1,7 @@
 //= require intl-tel-input/build/js/intlTelInput
 //= require intl-tel-input/build/js/utils
 
-// phone number validation
+// international phone number input + validation
 
 $(document).on('ready page:load turbolinks:load', function(){
   var phone_input = document.querySelector('#member_phone_number');
@@ -22,4 +22,28 @@ $(document).on('ready page:load turbolinks:load', function(){
       utilsScript: 'utils.js'
     });
   }
+
+  // client side phone number validation, only check if input has anything in it
+  function validate_phone_number(input, instance) {
+    if (input.value.trim()) {
+      if (instance.isValidNumber()) {
+        input.classList.add('valid');
+        input.classList.remove('invalid');
+      }
+      else {
+        input.classList.remove('valid');
+        input.classList.add('invalid');
+      }
+    }
+  }
+
+  // event listeners to revalidate the phone numbers
+  phone_input.addEventListener('blur', function() {
+    validate_phone_number(phone_input, iti_phone_input)
+  });
+
+  emergency_phone_input.addEventListener('blur', function() {
+    validate_phone_number(emergency_phone_input, iti_emergency_phone_input)
+  });
+
 });
