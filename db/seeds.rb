@@ -57,14 +57,14 @@ puts '-- Creating board group'
 Group.create(
   name:       'Bestuur',
   category:   1,
-  created_at: Faker::Date.between(3.years.ago, 2.years.ago)
+  created_at: Faker::Date.between(from: 3.years.ago, to: 2.years.ago)
 )
 
 puts '-- Creating membership activity'
 Activity.create(
   name:          'Lidmaatschap',
   price:         7.5,
-  start_date:    Faker::Date.between(30.days.ago, 7.days.ago),
+  start_date:    Faker::Date.between(from: 30.days.ago, to: 7.days.ago),
   is_enrollable: false,
   is_masters:    false,
   is_viewable:   false,

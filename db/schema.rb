@@ -2,11 +2,11 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
-    t.text "metadata", limit: 16777215
+    t.text "metadata", size: :medium
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.date "end_date"
     t.time "end_time"
     t.decimal "price", precision: 6, scale: 2
-    t.text "comments", limit: 16777215
+    t.text "comments", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "description", limit: 16777215
+    t.text "description", size: :medium
     t.integer "organized_by"
     t.boolean "is_enrollable"
     t.boolean "is_alcoholic"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.string "first_name"
     t.string "infix"
     t.string "last_name"
-    t.text "signature", limit: 16777215
+    t.text "signature", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
 
   create_table "checkout_cards", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "uuid", limit: 16, null: false
-    t.text "description", limit: 16777215
+    t.text "description", size: :medium
     t.boolean "active", default: false
     t.integer "member_id", null: false
     t.integer "checkout_balance_id", null: false
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
   create_table "groups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.integer "category"
-    t.text "comments", limit: 16777215
+    t.text "comments", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -168,11 +168,11 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.string "request_hash"
     t.string "ip_address"
     t.string "session_hash"
-    t.text "message", limit: 16777215
-    t.text "referrer", limit: 16777215
+    t.text "message", size: :medium
+    t.text "referrer", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "params", limit: 16777215
+    t.text "params", size: :medium
     t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index"
     t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index"
     t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index"
@@ -198,7 +198,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.string "student_id"
     t.date "birth_date"
     t.date "join_date"
-    t.text "comments", limit: 16777215
+    t.text "comments", size: :medium
     t.integer "consent", default: 0
     t.date "consent_at"
     t.datetime "created_at"
@@ -212,7 +212,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.integer "application_id", null: false
     t.string "token", null: false
     t.integer "expires_in", null: false
-    t.text "redirect_uri", limit: 16777215, null: false
+    t.text "redirect_uri", size: :medium, null: false
     t.datetime "created_at", null: false
     t.datetime "revoked_at"
     t.string "scopes"
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.string "name", null: false
     t.string "uid", null: false
     t.string "secret", null: false
-    t.text "redirect_uri", limit: 16777215, null: false
+    t.text "redirect_uri", size: :medium, null: false
     t.string "scopes", default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
 
   create_table "settings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "var", null: false
-    t.text "value", limit: 16777215
+    t.text "value", size: :medium
     t.integer "thing_id"
     t.string "thing_type", limit: 30
     t.datetime "created_at"
