@@ -41,14 +41,15 @@ tr.total {
 
 /* Members - [Member] - Checkout */
 div#credit.input-group {
-  width: 270px;
   display: inline;
+  width: auto;
+  float: right;
 }
 
-div#credit.input-group > span.input-group-btn > button,
+div#credit.input-group > span.input-group-btn,
 div#credit.input-group > span {
   float: right;
-  margin-top: 2px;
+  margin-left: 2px;
 }
 
 div#credit.input-group > *,
@@ -56,17 +57,7 @@ div#credit.input-group > * > * {
   display: inline-block;
 }
 
-div#credit.input-group > .input-symbol > span {
-  position: absolute;
-  pointer-events: none;
-  margin-left: 0.2em;
-  margin-top: 1px;
-  width: 80px;
-  color: grey;
-}
-
 div#credit.input-group > .input-symbol > input {
-  text-indent: 0.7em;
   width: 80px;
 }
 
