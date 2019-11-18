@@ -508,6 +508,9 @@ nl:
           header: 'Privacy'
           view: 'Bekijk de'
           privacy_statement: 'privacy statement'
+        language_panel:
+          header: "Voorkeurstaal"
+          view: "Pas hier je voorkeurstaal aan"
       index:
         edit_profile: "Gegevens bewerken"
         outstanding_payments: "Openstaande betalingen"

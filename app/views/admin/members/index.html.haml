@@ -45,6 +45,9 @@
                   -#
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
+              %th
+                .th
+                  Voorkeurstaal
 
           - @members.each do |member|
             %tr
@@ -58,6 +61,10 @@
               %td= link_to "#{member.email}", member
               %td= link_to "#{member.student_id}", member
               %td= link_to "#{member.educations.map{ |s| s.study.code }.join(', ')}", member
+              %td= link_to "#{member.language}", member
+
+
+
 
         %footer.table-footer
           .row

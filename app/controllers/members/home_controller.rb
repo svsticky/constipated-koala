@@ -3,10 +3,16 @@ class Members::HomeController < ApplicationController
   skip_before_action :authenticate_admin!
   skip_before_action :authenticate_user!, only: [:confirm_add_funds]
 
+
   layout 'members'
+
 
   def index
     @member = Member.find(current_user.credentials_id)
+
+    #set locale
+    I18n.locale = @member.language
+    session[:locale] = I18n.locale
 
     # information of the middlebar
     @balance = CheckoutBalance.find_by_member_id(current_user.credentials_id)
@@ -133,6 +139,7 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
+                                   :language,
                                    educations_attributes: [:id, :status])
   end
 

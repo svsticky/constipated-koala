@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_204709) do
+ActiveRecord::Schema.define(version: 2019_11_18_135508) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_204709) do
     t.date "consent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "language"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["student_id"], name: "index_members_on_student_id", unique: true
   end

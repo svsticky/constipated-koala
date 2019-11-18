@@ -10,6 +10,7 @@ class Member < ApplicationRecord
   validates :house_number, presence: true
   validates :postal_code, presence: true
   validates :city, presence: true
+  validates :language, presence: true
 
   validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
   validates :emergency_phone_number, :allow_blank => true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
@@ -26,6 +27,8 @@ class Member < ApplicationRecord
   validates :join_date, presence: true
 
   enum consent: [:pending, :yearly, :indefinite]
+  enum language: [:nl, :en]
+
 
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
@@ -112,6 +115,10 @@ class Member < ApplicationRecord
   def student_id=(student_id)
     write_attribute(:student_id, student_id.upcase)
     write_attribute(:student_id, nil) if student_id.blank?
+  end
+
+  def language=(language)
+    write_attribute(:language, language)
   end
 
   def tags_names

@@ -32,7 +32,7 @@ class Admin::MembersController < ApplicationController
            .where(:name => Tag.active_by_tag)
            .map(&:member_id)
         ))
-        .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
+        .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id,:language)
         .order(:last_name, :first_name)
         .paginate(page: params[:page], per_page: params[:limit] ||= 50)
 
@@ -183,6 +183,7 @@ class Admin::MembersController < ApplicationController
                                    :birth_date,
                                    :join_date,
                                    :comments,
+                                   :language,
                                    :tags_names => [],
                                    educations_attributes: [:id, :study_id, :status, :start_date, :end_date, :_destroy])
   end

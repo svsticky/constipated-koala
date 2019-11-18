@@ -132,12 +132,28 @@
 
       .card
         .card-header
+          %i.fa.fa-fw.fa-globe
+          = I18n.t 'members.home.edit.language_panel.header'
+        .card-body
+          = I18n.t 'members.home.edit.language_panel.view'
+          .form-group
+            .ui-select
+              = f.select :language, options_for_select([["\u{1f1f3} (NL)", :nl], ["\u{1f1ec} (EN)" , :en]], selected: @member.language)
+
+      .card
+        .card-header
           %i.fa.fa-fw.fa-gavel
           = I18n.t 'members.home.edit.privacy_panel.header'
         .card-body
           = I18n.t 'members.home.edit.privacy_panel.view'
           = link_to 'https://svsticky.nl/wp-content/uploads/privacystatement.pdf' do
             = I18n.t 'members.home.edit.privacy_panel.privacy_statement'
+
+
+
+
+
+
 
   - if @applications.any?
     .col-xl-6

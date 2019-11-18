@@ -493,6 +493,9 @@ en:
           header: 'Privacy'
           view: 'View the'
           privacy_statement: 'privacy statement'
+        language_panel:
+          header: "Preferred language"
+          view: "Adjust your preferred language"
       index:
         edit_profile: "Edit profile"
         outstanding_payments: "Outstanding payments"
