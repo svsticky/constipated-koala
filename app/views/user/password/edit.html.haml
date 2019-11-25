@@ -1,0 +1,40 @@
+= form_for :user, method: :patch, :class => 'form-validation' do |f|
+
+  - if @user.errors.any? || flash[:error]
+    .alert.alert-danger.offset-xl-3.col-xl-6
+      %span= I18n.t('activerecord.errors.incomplete')
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+        - if flash[:error].present?
+          %li= flash[:error]
+
+  .row
+    .offset-xl-3.col-xl-6
+      .card
+        .card-header
+          %i.fa.fa-fw.fa-key
+          Wachtwoord veranderen
+        .card-body
+          .form-group
+            .row
+              .col-lg-12
+                = f.label(:current_password)
+                = f.password_field :current_password, :class => 'form-control'
+
+            .row
+              .col-lg-12
+                = f.label(:password)
+                = f.password_field :password, :class => 'form-control'
+
+            .row
+              .col-lg-12
+                = f.label(:password_confirmation)
+                = f.password_field :password_confirmation, :class => 'form-control'
+
+  .row
+    .offset-xl-3.col-xl-6
+      .card
+        .card-body
+          %button.btn.btn-success{type: 'submit'} Submit
+          = link_to I18n.t("editing.cancel"), users_edit_path, { :class => 'button btn btn-secondary' }

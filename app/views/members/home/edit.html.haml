@@ -84,6 +84,16 @@
             %span.footnote 2
             .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
+      .card
+        .card-header
+          %i.fa.fa-fw.fa-key
+          = "Wachtwoord veranderen" #TODO: needs translation
+        .card-body
+          = link_to edit_password_path, { :class => 'button btn btn-warning' } do
+            %i.fa.fa-key
+            Verander wachtwoord
+
+
     .col-xl-6
       .card
         .card-header
