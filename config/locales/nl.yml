@@ -326,6 +326,7 @@ nl:
       general: Algemeen
       ideal: iDeal
       payments: Betalingen
+      products: Producten
     member_account_status:
       no_user: "Dit lid heeft geen account."
       send_create_email: "Stuur account-aanmaakmail"
