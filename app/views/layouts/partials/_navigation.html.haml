@@ -35,6 +35,10 @@
           %span= I18n.t("admin.navigation.ideal")
           %i.fa.fa-caret-right
 
+        = link_to :checkout_products, :class => 'list-group-item list-group-item-action' do
+          %span= I18n.t("admin.navigation.products")
+          %i.fa.fa-caret-right
+
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-settings' do
         %span= I18n.t("activerecord.models.settings")

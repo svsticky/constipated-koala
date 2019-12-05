@@ -314,6 +314,7 @@ en:
       general: General
       ideal: iDeal
       payments: Payments
+      products: Products
     member_account_status:
       no_user: "This member has no account."
       send_create_email: "Send account creation email."
