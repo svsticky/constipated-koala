@@ -166,10 +166,8 @@ nl:
         tags: Tags
       participant:
         paid:
-          ? "false"
-          : "Niet betaald"
-          ? "true"
-          : Betaald
+          false: "Niet betaald"
+          true: "Betaald"
       user:
         email: E-mailadres
         password: Wachtwoord
@@ -274,12 +272,6 @@ nl:
           attributes:
             status:
               invalid: "Geen correcte waarde ingevuld"
-      no_connection: "Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!"
-      subscribe:
-        failed: "Je betaling is niet gelukt, je bent wel ingeschreven!"
-        no_bank_provided: "Bank kan niet leeg zijn als je met iDEAL betaalt"
-        success: "Je betaling is ontvangen en je hebt je ingeschreven!"
-        success_without_payment: "Je hebt je ingeschreven!"
     labels:
       activities:
         date: Datum
@@ -341,19 +333,20 @@ nl:
   association_name: "Studievereniging Sticky"
   date:
     day_names:
-      - zondag
+      - nil
       - maandag
       - dinsdag
       - woensdag
       - donderdag
       - vrijdag
       - zaterdag
+      - zondag
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-      - ~
+      - nil
       - januari
       - februari
       - maart
@@ -479,7 +472,7 @@ nl:
         to_the_activity: "Naar de activiteit"
       inform:
         activity_visited_html: "Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%."
-        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} - %recipient.name%\"</i>?"
+        payment_instructions_html: 'Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>"%{subject} - %recipient.name%"</i>?'
     signature: "Het bestuur"
   members:
     activities:
@@ -505,9 +498,9 @@ nl:
       edit:
         general_data: "Algemene gegevens"
         privacy_panel:
-          header: 'Privacy'
-          view: 'Bekijk de'
-          privacy_statement: 'privacy statement'
+          header: "Privacy"
+          view: "Bekijk de"
+          privacy_statement: "privacy statement"
       index:
         edit_profile: "Gegevens bewerken"
         outstanding_payments: "Openstaande betalingen"
