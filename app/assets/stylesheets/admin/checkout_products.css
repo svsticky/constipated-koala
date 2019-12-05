@@ -41,7 +41,7 @@ table.table.table-linked > tbody > tr > td > a:hover {
   height: 36.5px;
   font-size: 30px;
   padding: 0;
-  line-height: 0;
+  line-height: 30px;
   float: right;
 }
 
@@ -50,8 +50,13 @@ table.table.table-linked > tbody > tr > td > a:hover {
   line-height: 36.5px;
 }
 
-.edit-product-form {
+.edit-product-form, .edit-product-form-lower {
   margin-left: 158px;
+}
+
+.save-btn {
+  margin-top: 20px;
+  float: right;
 }
 
 @media (min-width: 768px) {
@@ -80,6 +85,10 @@ table.table.table-linked > tbody > tr > td > a:hover {
   .col-md-8, .col-md-4 {
     max-width: 100%;
     flex: none;
+  }
+
+  .edit-product-form-lower {
+    margin-left: 0px;
   }
 }
 
