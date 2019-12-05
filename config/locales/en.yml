@@ -136,6 +136,7 @@ en:
           suspended: Suspended
       user:
         email: e-mailaddress
+        current_password: Current password
         password: password
         password_confirmation: "Repeat password"
     errors:
@@ -488,6 +489,9 @@ en:
           header: "Privacy"
           view: "View the"
           privacy_statement: "privacy statement"
+        password_options:
+          header: "Password options"
+          change_password: "Change password"
       index:
         edit_profile: "Edit profile"
         outstanding_payments: "Outstanding payments"

@@ -36,5 +36,6 @@
     .offset-xl-3.col-xl-6
       .card
         .card-body
-          %button.btn.btn-success{type: 'submit'} Submit
+          %button.btn.btn-success{type: 'submit'}
+            = I18n.t("editing.save")
           = link_to I18n.t("editing.cancel"), "#", { :class => 'button btn btn-secondary' }

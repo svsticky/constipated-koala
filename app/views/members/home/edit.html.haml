@@ -87,11 +87,11 @@
       .card
         .card-header
           %i.fa.fa-fw.fa-key
-          = "Wachtwoord veranderen" #TODO: needs translation
+          = I18n.t 'members.home.edit.password_options.header'
         .card-body
           = link_to password_change_path, { :class => 'button btn btn-warning' } do
             %i.fa.fa-key
-            Verander wachtwoord
+            = I18n.t 'members.home.edit.password_options.change_password'
 
 
     .col-xl-6
@@ -168,7 +168,8 @@
     .col-xl-12
       .card
         .card-body
-          %button.btn.btn-success{type: 'submit'} Opslaan
+          %button.btn.btn-success{type: 'submit'}
+            = I18n.t("editing.save")
           = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
           = link_to download_path, { :class => 'button btn btn-secondary pull-right' } do
             %i.fa.fa-download
