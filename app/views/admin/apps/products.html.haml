@@ -4,8 +4,6 @@
 - content_for(:title, 'Apps | Producten')
 
 %section#content
-  = render 'layouts/partials/search'
-
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
@@ -17,8 +15,8 @@
           %table.table.table-striped.table-linked#products
             %tbody
               - @products.each do |product|
-                %tr{ :data => { 'id' => product.id }, :class => ( 'inactive' unless product.active )}
-                  %td.col-xs-4= link_to product.name, checkout_product_path(product.id)
+                %tr{ :data => { 'id' => product.id }, :class => ( 'inactive' unless product.active ), :id => 'product_' + product.id.to_s}
+                  %td.col-xs-4= link_to product.name, checkout_product_path(product.id, :anchor => 'product_' + product.id.to_s)
                   %td.col-xs-4= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
                   %td.col-xs-4= number_to_currency( product.price, :unit => '€' )
                   %td.col-xs-4
@@ -31,7 +29,7 @@
                         %i.fa.fa-fw.fa-check
                         Activeer
 
-      .col-md-6
+      .col-md-6.update-side-bar
         - unless @product.nil?
           = form_for :checkout_product, url: checkout_product_path(@product), method: :patch, :class => 'form-validation' do |f|
             - if @product.errors.any?

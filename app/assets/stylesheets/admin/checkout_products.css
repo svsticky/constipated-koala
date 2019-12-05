@@ -97,3 +97,11 @@ a.col-md-4, a.col-md-4:hover {
 a.panel:hover {
   text-decoration: none;
 }
+
+.update-side-bar {
+  position: fixed;
+  right: 0;
+  float: right;
+  top: 65px;
+  width: calc(50% - 100px);
+}

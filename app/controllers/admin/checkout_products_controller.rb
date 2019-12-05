@@ -43,7 +43,7 @@ class Admin::CheckoutProductsController < ApplicationController
       # if a new product is created redirect to it
       product = CheckoutProduct.find_by_parent(@product.id)
 
-      redirect_to checkout_product_path(product || @product.id)
+      redirect_to checkout_product_path(product || @product.id, :anchor => 'product_' + @product.id.to_s)
     else
       @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
       @products = CheckoutProduct.order(:category, :name).last_version
