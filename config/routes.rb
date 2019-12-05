@@ -55,8 +55,8 @@ Rails.application.routes.draw do
     post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
 
     # update password from member options
-    get     'password',     to: 'users/password_change#edit', as: :edit_password
-    patch   'password',     to: 'users/password_change#update'
+    get     'passwordchange',     to: 'users/password_change#edit', as: :password_change
+    patch   'passwordchange',     to: 'users/password_change#update'
 
     scope module: 'public' do
       get   'status(/:token)', to: 'status#edit'
