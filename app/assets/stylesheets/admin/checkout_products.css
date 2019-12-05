@@ -24,8 +24,6 @@ table.table.table-linked > tbody > tr > td > a:hover {
   display: inline-block;
   position: relative;
   padding: 5px;
-  border: solid 1px #767676;
-  border-radius: 5px;
   outline: none;
   background: transparent;
 }
@@ -52,14 +50,18 @@ table.table.table-linked > tbody > tr > td > a:hover {
   line-height: 36.5px;
 }
 
+.edit-product-form {
+  margin-left: 158px;
+}
+
 @media (min-width: 768px) {
-  form .form-group.thumb {
+  /* form .form-group.thumb {
     width: calc(100% - 158px);
     position: relative;
     left: 158px;
     top: auto;
     height: auto;
-  }
+  } */
 
   form .panel-body {
     position: relative;
@@ -70,7 +72,6 @@ table.table.table-linked > tbody > tr > td > a:hover {
     top: 67px;
     height: 128px;
     width: 128px;
-    border: solid 1px #cbd5dd;
     overflow: hidden;
   }
 
@@ -79,7 +80,18 @@ table.table.table-linked > tbody > tr > td > a:hover {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
+  .product-cards {
+    flex-flow: wrap-reverse;
+  }
+
+  .col-md-8, .col-md-4 {
+    max-width: 100%;
+    flex: none;
+  }
+}
+
+@media (max-width: 1030px) {
   .update-side-bar {
     position: relative;
     float: left;
@@ -88,14 +100,14 @@ table.table.table-linked > tbody > tr > td > a:hover {
     top: inherit;
   }
 
-  .row {
-    flex-flow: wrap-reverse;
+  .col-md-6 {
+    max-width: 100%;
+    flex: none;
   }
 }
 
 tr.total {
   font-weight: bold;
-  border-top: 2px solid #dddddd;
 }
 
 .table span.fa-sort-asc {
