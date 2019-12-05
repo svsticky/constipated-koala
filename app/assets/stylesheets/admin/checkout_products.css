@@ -79,6 +79,20 @@ table.table.table-linked > tbody > tr > td > a:hover {
   }
 }
 
+@media (max-width: 768px) {
+  .update-side-bar {
+    position: relative;
+    float: left;
+    width: 100%;
+    padding: 0;
+    top: inherit;
+  }
+
+  .row {
+    flex-flow: wrap-reverse;
+  }
+}
+
 tr.total {
   font-weight: bold;
   border-top: 2px solid #dddddd;
