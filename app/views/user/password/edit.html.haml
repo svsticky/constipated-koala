@@ -38,4 +38,4 @@
         .card-body
           %button.btn.btn-success{type: 'submit'}
             = I18n.t("editing.save")
-          = link_to I18n.t("editing.cancel"), "#", { :class => 'button btn btn-secondary' }
+          = link_to I18n.t("editing.cancel"), users_edit_path, { :class => 'button btn btn-secondary' }
