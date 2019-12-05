@@ -89,8 +89,8 @@ en:
         tags: Tags
       participant:
         paid:
-          ? "false": "Not paid"
-          ? "true": Paid
+          false: "Not paid"
+          true: "Paid"
       settings:
         additional_committee_positions:
           description: "Roles besides chairman, treasurer and board member that will be added to the committees."
@@ -152,7 +152,6 @@ en:
         success: Your payment has been received and you are enrolled!
         no_bank_provided: Bank can't be empty when paying with iDEAL.
         success_without_payment: You have been enrolled!
-
 
       models:
         activity:
@@ -240,13 +239,7 @@ en:
           attributes:
             status:
               invalid: The value is not valid
-      no_connection: "No connection available with %{url}, not all %{name} are complete and will be shown!"
       record_invalid: "Error! The data is invalid."
-      subscribe:
-        failed: "Your payment has failed, but you have been enrolled!"
-        no_bank_provided: "Bank can't be empty when paying with iDEAL."
-        success: "Your payment has been received and you are enrolled!"
-        success_without_payment: "You have been enrolled!"
     impression:
       activity:
         create: "activity created"
@@ -330,31 +323,32 @@ en:
   association_name: "Study association Sticky"
   date:
     day_names:
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+      - nil
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-    - ~
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - Oktober
-    - November
-    - December
+      - nil
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - Oktober
+      - November
+      - December
   devise:
     confirmations:
       activate_account: "Activate account"
@@ -465,7 +459,7 @@ en:
         to_the_activity: "To the activity"
       inform:
         activity_visited_html: "You visited <strong>%{subject}</strong>, this activity cost %recipient.price%."
-        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>\"%{subject} %recipient.name%\"</i>?"
+        payment_instructions_html: 'Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?'
     signature: "The board"
   members:
     activities:
@@ -491,9 +485,9 @@ en:
       edit:
         general_data: General
         privacy_panel:
-          header: 'Privacy'
-          view: 'View the'
-          privacy_statement: 'privacy statement'
+          header: "Privacy"
+          view: "View the"
+          privacy_statement: "privacy statement"
       index:
         edit_profile: "Edit profile"
         outstanding_payments: "Outstanding payments"
