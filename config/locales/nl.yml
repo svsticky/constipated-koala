@@ -170,6 +170,7 @@ nl:
           true: "Betaald"
       user:
         email: E-mailadres
+        current_password: Huidig wachtwoord
         password: Wachtwoord
         password_confirmation: "Herhaal wachtwoord"
     errors:
@@ -502,6 +503,9 @@ nl:
           header: "Privacy"
           view: "Bekijk de"
           privacy_statement: "privacy statement"
+        password_options:
+          header: "Wachtwoord opties"
+          change_password: "Verander wachtwoord"
       index:
         edit_profile: "Gegevens bewerken"
         outstanding_payments: "Openstaande betalingen"
@@ -511,6 +515,7 @@ nl:
   navigation:
     back: Terug
     home: Home
+    submit: Opslaan
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
