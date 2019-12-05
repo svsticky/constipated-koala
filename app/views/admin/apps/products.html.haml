@@ -9,8 +9,12 @@
       .col-md-6
         .card
           .card-header
-            %i.fa.fa-fw.fa-ticket
-            Producten
+            .card-header-text
+              %i.fa.fa-fw.fa-ticket
+              Producten
+              
+            %button.new-product.btn.btn-success
+              +
 
           %table.table.table-striped.table-linked#products
             %tbody
