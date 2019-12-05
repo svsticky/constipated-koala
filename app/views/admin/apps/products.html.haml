@@ -13,9 +13,8 @@
               %i.fa.fa-fw.fa-ticket
               Producten
               
-            %button.new-product.btn.btn-success
-              +
-
+            %button.new-product.btn.btn-success= link_to '+', '/apps/products'
+            
           %table.table.table-striped.table-linked#products
             %tbody
               - @products.each do |product|

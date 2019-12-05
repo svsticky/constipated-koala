@@ -133,3 +133,8 @@ a.col-md-4, a.col-md-4:hover {
 a.panel:hover {
   text-decoration: none;
 }
+
+.new-product a {
+  color: #fff;
+  text-decoration: none;
+}
