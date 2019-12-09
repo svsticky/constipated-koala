@@ -15,7 +15,8 @@ class Users::PasswordChangeController < ApplicationController
     # Require current_password when changing the password and check if a
     # new password was entered manually because Devise doesn't think it's
     # necessary
-    if @user.update_with_password(user_params) && !params[:password].nil?
+
+    if @user.update_with_password(user_params) && !params[:user][:password].empty?
       bypass_sign_in @user, scope: :user
       redirect_to root_path
     else
