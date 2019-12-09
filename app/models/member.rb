@@ -117,10 +117,6 @@ class Member < ApplicationRecord
     write_attribute(:student_id, nil) if student_id.blank?
   end
 
-  def language=(language)
-    write_attribute(:language, language)
-  end
-
   def tags_names
     tags.pluck(:name)
   end
