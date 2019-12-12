@@ -14,6 +14,8 @@
 //= require jquery-ujs/src/rails
 //= require bootstrap-file-input
 //
+//= require toastr
+//
 //= require dropdown
 //= require editor
 //= require mail

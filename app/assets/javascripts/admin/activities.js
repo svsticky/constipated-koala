@@ -140,7 +140,7 @@ var participant = {
         paid: true
       }
     }).done(function(data){
-      alert(data.member.name + ' heeft betaald', 'success');
+      toastr.success(data.member.name + ' heeft betaald', 'success');
 
       $(row)
         .find( 'button.paid' )
@@ -158,7 +158,7 @@ var participant = {
 
       bind_activities();
     }).fail(function(){
-      alert( '', 'error' );
+      toastr.error( '', 'error' );
     });
   },
 

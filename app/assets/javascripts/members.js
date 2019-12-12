@@ -18,4 +18,6 @@
 //
 //= require intl_tel_number
 //
+//= require toastr
+//
 //= require_tree ./members
