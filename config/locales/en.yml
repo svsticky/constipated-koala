@@ -90,7 +90,6 @@ en:
         emergency_phone_number: Phone number for emergencies
         female: Female
         first_name: First name
-        gender: Gender
         house_number: Number
         infix: Prefix
         last_name: Surname
@@ -755,7 +754,6 @@ nl:
         emergency_phone_number: Emergency phone number
         female: Woman
         first_name: First name
-        gender: Gender
         house_number: House number
         infix: Infix
         join_date: Date of registry
@@ -1122,6 +1120,197 @@ nl:
         by clicking the button below!
     devise:
       activation_instructions:
+        about_sticky: >-
+          At Sticky you are welcome for everything a Computer science,
+          Information science and Gametechnology student needs! Like you might
+          have noticed, you can always score a free cup of coffee and cookie in
+          our room (BBG 2.81), or other snacks/drinks. There is also always a
+          member of the board present to answer any and all of your questions.
+          Besides the room being a place to chill and relax during breaks, we
+          also organize a lot of super awesome activities! These activities are
+          in line with the three pillars of Sticky: education, business and good
+          times.
         account_activation_instructions: 'Activate your account by clicking the button below:'
         activate_account: Activate account
+        activity_updates_html: >-
+          Always want to keep up to date with these activities? become a member
+          of %{facebook_group_link_start} Sticky members Facebookgroup
+          %{link_end} and like %{facebook_page_link_start} our page %{link_end}!
+          Furthermore you can find all the information you could ever wish for
+          on our website: %{sticky_site_link_start} svsticky.nl %{link_end}. You
+          can also send a whatsapp message to the Sticky Phone (+31617695025)
+          containing "Hi [your name]" after saving the number.
         and_now: And now?
+        corner_stones:
+          business:
+            description_html: >-
+              To offer you a good picture of the varying companies, where you
+              could work in the future, we organize different lectures,
+              workshops, inhouse days and drinks in collaboration with these
+              companies. These activities offer, beside information about the
+              companies, an oppertunity to learn something extra/completely new.
+              Looking for a study related (part time) job? You can find them at
+              %{job_offer_page_link_start} svsticky.nl/partners/vacatures
+              %{link_end}
+            name: Business
+          education:
+            description_html: >-
+              We organize helping afternoons, workshops and information meetings
+              to support you with your studies. Also, the education board member
+              is your point of contact for everything related with education and
+              quality thereof. You can also easily order your course books and
+              have them delivered at your door via %{books_page_link_start}
+              svsticky.nl/boeken %{link_end}!
+            name: Education
+          sociability:
+            description: >-
+              Besides all above mentioned study and career related activities,
+              we organize a lot of different and fun activities. Every week we
+              also offer free weekly drinks!
+            name: Good times
+        reception_justification: >-
+          You have received this email because you signed up for our mighty
+          marvelous study association! At the end of this mail you'll find a
+          button to activate your account in our memberportal. You can also skip
+          this beautiful introductory speech and scroll down, we won't notice
+          (or maybe we will?).
+        see_you_soon: See you soon!
+        welcome: Welcome to Sticky!
+        wrap_up: >-
+          Curious to see what activities we will organize? More information is
+          available at our member portal, where you can also sign up for them
+          direclty! In the member portal you can also update your information
+          and up your funds to buy snacks and drinks.
+      confirmation_instructions:
+        button_instructions: >-
+          Confirm your emailaddress for your account at Study association Sticky
+          by pressing the button below!
+        confirm_account: Confirm account
+        confirm_email: Confirm emailaddress
+      reset_passwords_instructions:
+        button_instructions: >-
+          Press the button below to create a new password or ignore this mail to
+          keep your current password.
+        notification: >-
+          A new password has been requested for your Sticky account or you have
+          tried creating a new account.
+        reset_password: Reset password
+    gdpr:
+      consent: Manage personal information
+      gdpr_instructions: >-
+        You are a member of Study association Sticky, because you are studying
+        or have studied at University Utrecht. It's very important to Sticky to
+        keep your information up to date. At the link below you can update your
+        information and if you're no longer a student indicate what we may do
+        with your data.
+    greeting: Hi
+    participants:
+      enrolled:
+        activity_start_html: >-
+          This activity starts at <strong>%{activity_start}</strong> and is
+          %{price}. See you there!
+        button_instructions_html: >-
+          You can unenroll until <strong>%{unenroll_date}</strong> for this
+          activity. You can unenroll at the activity's page.
+        free_spot_html: >-
+          Awesome news! A spot has opened up for
+          <strong>%{activity_name}</strong>. You have been automatically
+          enrolled from the back-up list.
+        to_the_activity: To the activity
+      inform:
+        activity_visited_html: >-
+          You joined us at <strong>%{subject}</strong>, this activity costs
+          %recipient.price%.
+        payment_instructions_html: >-
+          Would you transfer this amount as soon as possible to
+          NL61INGB0002877106 in the name of Studievereniging Sticky with
+          description <i>"%{subject} - %recipient.name%"</i>?
+    signature: The board
+  members:
+    activities:
+      bug_report: BUG!
+      index:
+        activities_calendar: Activities calender
+        no_activities: There are no activities at the moment for which you can enroll
+      partials:
+        view:
+          actions:
+            enroll: Enroll
+            reservist_enroll: Enroll to back-up list
+            reservist_unenroll: Unenroll from back-up list
+            unenroll: Unenroll
+            update_info: Update info
+          more_info: More info
+          notes_mandatory: Extra info needed!
+      subscribe: Subscribe!
+    home:
+      edit:
+        general_data: General data
+        privacy_panel:
+          header: Privacy
+          privacy_statement: privacy statement
+          view: See the
+      index:
+        edit_profile: Edit profile
+        outstanding_payments: Outstanding payments
+        upgrade: Upgrade
+    navigation:
+      edit_profile: Edit profile
+  navigation:
+    back: Back
+    home: Home
+  pages:
+    public:
+      status:
+        description: >-
+          You are currently a member of Study association Sticky. Below you will
+          find your study related data known to us, it's important to keep this
+          information up to date. Study association Sticky saves your data
+          during your study and afterwards, when you're no longer actively
+          studying we will ask you below what we may do with your data. For
+          questions, seek contact at %{url}.
+        destroy: Destroy your data
+        destroyable: >-
+          After the deletion of your account you can no longer sign in or enroll
+          for activities, your enrollment to future activities will be canceled
+          and you will lose your mongoose funds.
+        hi: Hello
+        indefinite: >-
+          We are permitted to keep your data until you say otherwise, this is
+          possible at %{url}.
+        indefinite_consent: >-
+          I hereby give permission for you to save my information until I say
+          otherwise.
+        not_destroyable: >-
+          Because you still have financial obligations you cannot delete your
+          account. Make sure you have paid the activities and delete your
+          account by following this link %{url}.
+        remove_description: >-
+          Are you no longer a student and have you not given permission for us
+          to save your data, then it will be deleted immediately. If you are to
+          become a member again later, you'll have to pay the contribution
+          again.
+        remove_info: <span>Delete</span> personal information
+        save: Save
+        save_note: >-
+          After saving the data above the used link will no longer be usable, go
+          to koala to view, change or delete your personal information.
+        store_description: >-
+          No longer a student? Study association Sticky saves your data until
+          you say otherwise. Below you can indicate what we may do with your
+          data; may we save them, do we have to ask again in a year or do we
+          have to delete them immediately. If in hindsight you want your data to
+          be deleted, you can always indicate this at the member page of seek
+          contact via %{url}.
+        store_info: <span>Store</span> personal information
+        warning: >-
+          You are currently trying to delete all your personal information Study
+          association Sticky has on record, are you sure?
+        yearly: >-
+          Not really sure about you want us to do with your data, we can ask you
+          again in a year.
+        yearly_consent: I give consent for you to store my data for another year.
+  time:
+    formats:
+      default: '%d-%m-%Y %H:%M'
+      short: '%H:%M'
