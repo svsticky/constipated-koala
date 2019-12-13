@@ -213,7 +213,7 @@ nl:
           blank_and_end_time: kan niet leeg zijn als er een eindtijd is
           blank_and_start_time: kan niet leeg zijn als er een starttijd is
           enrolled: 'Je bent ingeschreven voor %{activity}.'
-          not_enrollable: Activiteit niet inschrijfbaar.
+          not_enrollable: Activiteit is niet inschrijfbaar.
           not_unenrollable: Activiteit niet uitschrijfbaar.
           participant_limit_reached: '%{activity} zit vol!'
           participant_no_freshman: Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit.
@@ -236,7 +236,7 @@ nl:
         checkout_transaction:
           attributes:
             items:
-              member_under_age: Je bent nog niet oud genoeg om alcohol te kopen
+              member_under_age: Je bent nog niet oud genoeg om alcohol te kopen.
               not_liquor_time: >-
                 Het kopen van alcohol is pas toegestaan om
                 %{Settings.liquor_time}
