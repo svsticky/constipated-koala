@@ -109,7 +109,6 @@ nl:
         emergency_phone_number: Telefoonnummer voor calamiteiten
         female: Vrouw
         first_name: Voornaam
-        gender: Geslacht
         house_number: Huisnummer
         infix: Tussenvoegsel
         join_date: Inschrijfdatum
@@ -497,7 +496,9 @@ nl:
           %{facebook_group_link_start} Sticky-leden Facebookgroep %{link_end} en
           like %{facebook_page_link_start} onze pagina %{link_end}! Daarnaast
           vind je alle informatie die je ooit had kunnen wensen op onze website:
-          %{sticky_site_link_start} svsticky.nl %{link_end}.
+          %{sticky_site_link_start} svsticky.nl %{link_end}. Je kan ook een
+          whatsapp berichtje sturen naar de Sticky Phone (+31617695025) met "Hoi
+          + [je naam]" nadat je het nummer hebt opgeslagen.
         and_now: En nu?
         corner_stones:
           business:
@@ -638,7 +639,7 @@ nl:
           bewaart je gegevens tijdens je studie maar ook erna, zodra je geen
           actieve studie meer hebt vragen we je hieronder wat we met je gegevens
           mogen doen. Voor vragen neem contact op met %{url}.
-        destroy: Verwijderen je gegevens
+        destroy: Verwijder je gegevens
         destroyable: >-
           Na verwijderen kan je niet meer inloggen of inschrijven voor
           activiteiten, je deelname aan toekomstige activiteiten wordt
