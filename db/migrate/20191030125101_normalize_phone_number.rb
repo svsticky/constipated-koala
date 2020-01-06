@@ -2,21 +2,15 @@ class NormalizePhoneNumber < ActiveRecord::Migration[5.2]
   def up
     Member.find_each do |m|
       # duplicate numbers in case we need the old number
-      phone_number = normalize(m.phone_number.dup)
-      emergency_phone_number = normalize(m.emergency_phone_number.dup)
+      new_phone_number = normalize(m.phone_number.dup)
+      new_emergency_phone_number = normalize(m.emergency_phone_number.dup)
 
-      comments = m.comments
+      comments = m.comments || ""
+      comments << "\nMember had invalid phone number #{m.phone_number}" if new_phone_number.nil?
+      comments << "\nMember had invalid emergency phone number #{m.emergency_phone_number}" if new_phone_number.nil? && m.emergency_phone_number.present?
 
-      if phone_number.nil?
-        comments = log_invalid_number(m.phone_number, comments, false)
-      end
-
-      if emergency_phone_number.nil?
-        comments = log_invalid_number(m.emergency_phone_number, comments, true)
-      end
-
-      m.update_attribute :phone_number, phone_number
-      m.update_attribute :emergency_phone_number, emergency_phone_number
+      m.update_attribute :phone_number, new_phone_number
+      m.update_attribute :emergency_phone_number, new_emergency_phone_number
       m.update_attribute :comments, comments
     end
   end
@@ -41,16 +35,5 @@ class NormalizePhoneNumber < ActiveRecord::Migration[5.2]
 
     return number.e164_number if number.valid?
     return nil
-  end
-
-  # add previous number to member comments
-  def log_invalid_number(number, comments, emergency)
-    if comments.nil?
-      comments = ""
-    else
-      comments.concat("\n")
-    end
-
-    comments.concat("Member had invalid #{emergency ? "emergency" : ""} phone number: #{number}")
   end
 end
