@@ -69,7 +69,7 @@ function getCheckoutTransactions (button) {
     $(table).find("tr").remove();
 
     // Bind json data to copy button
-    $("#copy_transactions button").attr("data-clipboard-text", data);
+    $("#copy_transactions button").attr("data-clipboard-text", JSON.stringify(data));
 
     //Fill table if not empty
     if (data.length == 0){
