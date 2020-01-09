@@ -73,7 +73,7 @@ $(document).on('ready page:load turbolinks:load', function () {
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 
     if (!inputAmount.val()) {
-      alert('De opwaardering kan niet nul zijn', 'error');
+      toastr.error('De opwaardering kan niet nul zijn');
       return;
     }
 
@@ -99,7 +99,7 @@ $(document).on('ready page:load turbolinks:load', function () {
       }
     }).done(function (data) {
       inputAmount.prop('disabled', false);
-      alert('Checkout opgewaardeerd', 'success');
+      toastr.success('Checkout opgewaardeerd');
 
       //toevoegen aan de lijst
       $('#transactions').trigger('transaction_added', data); //TODO
@@ -112,7 +112,7 @@ $(document).on('ready page:load turbolinks:load', function () {
       inputAmount.prop('disabled', false);
 
       if(!data.responseJSON){
-        alert('Fout: ' + data.status + ': ' + data.statusText, 'error');
+        toastr.error(data.statusText, data.status);
         return;
       }
 
@@ -129,7 +129,7 @@ $(document).on('ready page:load turbolinks:load', function () {
       // remove last line break
       text = text.slice(0, -5);
 
-      alert('Fout!<br>'+ text, 'error');
+      toastr.error(text);
     });
   });
 

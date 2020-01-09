@@ -189,8 +189,6 @@ Object.defineProperties(Activity.prototype, {
         }
       }).done(function (response) {
         //Alert user of  enrollment
-        // alert(response.message, 'success');
-
         swal({
           title: AlertTitles[method],
           text: response.message,

@@ -77,7 +77,7 @@
               %tr{ :style => 'height: 36px; line-height: 36px;' }
                 %td= link_to "#{member.name}", member
                 %td
-                  - if member.whatsappable_phone_number
+                  - if member.phone_number
                     = link_to payment_whatsapp_redirect_path(member), class: 'btn btn-success', target: '_blank' do
                       %i.fa.fa-fw.fa-whatsapp
                   - else
