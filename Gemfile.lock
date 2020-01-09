@@ -108,7 +108,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i15r (0.5.5)
-    i18n (1.7.0)
+    i18n (1.7.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.9.3)
       mini_magick (>= 4.9.5, < 5)
@@ -116,7 +116,7 @@ GEM
     impressionist (1.6.1)
       nokogiri (~> 1)
     jaro_winkler (1.5.3)
-    json-jwt (1.10.2)
+    json-jwt (1.11.0)
       activesupport (>= 4.2)
       aes_key_wrap
       bindata
