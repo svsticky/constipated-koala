@@ -47,8 +47,6 @@ class Admin::PaymentsController < ApplicationController
     checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = "Gepind"', params[:start_date]).order(created_at: :desc)
     data = checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }
 
-    respond_to do |format|
-      format.js { render :json => data.to_json }
-    end
+    render :json => data
   end
 end

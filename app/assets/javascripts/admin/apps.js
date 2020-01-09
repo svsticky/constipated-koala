@@ -27,10 +27,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         authenticity_token: token
       }
     }).done(function(){
-      alert( 'Kaart geactiveerd', 'success' );
+      toastr.success('Kaart geactiveerd');
       $( row ).remove();
     }).fail(function(){
-      alert( 'Kaart is niet geactiveerd', 'error' );
+      toastr.error('Kaart is niet geactiveerd');
       $( button ).removeAttr( 'disabled' );
     });
   });
@@ -51,10 +51,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         _destroy: true
       }
     }).done(function(){
-      alert( 'Kaart verwijderd', 'warning' );
+      toastr.warning('Kaart verwijderd');
       $( row ).remove();
     }).fail(function(){
-      alert( 'Kaart is niet verwijderd', 'error' );
+      toastr.erro('Kaart is niet verwijderd');
       $( button ).removeAttr( 'disabled' );
     });
   });
@@ -93,7 +93,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       return;
 
     if( !amountInput.val()) {
-      alert ( 'De opwaardering kan niet nul zijn', 'error');
+      toastr.error('De opwaardering kan niet nul zijn');
       return;
     }
 
@@ -116,7 +116,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       }
     }).done(function( data ){
       amountInput.prop( 'disabled' , false);
-      alert( 'Checkout opgewaardeerd', 'success' );
+      toastr.success('Checkout opgewaardeerd');
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
@@ -131,13 +131,13 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       amountInput.prop( 'disabled' , false );
 
       if( data.status === 404 )
-        alert( 'Er is geen kaart gevonden', 'error' );
+        toastr.error('Er is geen kaart gevonden');
 
       if( data.status === 413 )
-        alert( data.responseText, 'error' );
+        toastr.error(data.responseText, data.status);
 
       if( data.status === 400 )
-        alert( 'Het bedrag moet numeriek zijn', 'error' );
+        toastr.error('Het bedrag moet numeriek zijn');
     });
   });
 
@@ -158,10 +158,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         authenticity_token: token
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' verwijderd', 'info');
+      toastr.warning($(row).find('a').html() + ' verwijderd');
       $(row).remove();
-    }).fail(function(){
-      alert( '', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   });
 
@@ -202,7 +202,7 @@ var product = {
 
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' is gedeactiveerd', 'success');
+      toastr.success($(row).find('a').html() + ' is gedeactiveerd');
 
       $(row)
         .addClass('inactive')
@@ -215,8 +215,8 @@ var product = {
       //Reset all event handlers
       bind_flip();
 
-    }).fail(function(){
-      alert( 'Not working', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   },
 
@@ -232,7 +232,7 @@ var product = {
         }
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' is geactiveerd', 'success');
+      toastr.success($(row).find('a').html() + ' is geactiveerd');
 
       $(row)
         .removeClass( 'inactive' )
@@ -244,8 +244,8 @@ var product = {
 
         bind_flip();
 
-    }).fail(function(){
-      alert( 'Not working', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   }
 };

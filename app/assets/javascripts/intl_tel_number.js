@@ -38,12 +38,16 @@ $(document).on('ready page:load turbolinks:load', function(){
   }
 
   // event listeners to revalidate the phone numbers
-  phone_input.addEventListener('blur', function() {
-    validate_phone_number(phone_input, iti_phone_input)
-  });
+  if (phone_input != null) {
+    phone_input.addEventListener('blur', function() {
+      validate_phone_number(phone_input, iti_phone_input)
+    });
+  }
 
-  emergency_phone_input.addEventListener('blur', function() {
-    validate_phone_number(emergency_phone_input, iti_emergency_phone_input)
-  });
+  if (emergency_phone_input != null) {
+    emergency_phone_input.addEventListener('blur', function() {
+      validate_phone_number(emergency_phone_input, iti_emergency_phone_input)
+    });
+  }
 
 });
