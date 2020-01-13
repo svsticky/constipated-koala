@@ -131,6 +131,7 @@
               Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
 
       .card
+
         .card-header
           %i.fa.fa-fw.fa-globe
           = I18n.t 'members.home.edit.language_panel.header'
@@ -138,7 +139,7 @@
           = I18n.t 'members.home.edit.language_panel.view'
           .form-group
             .ui-select
-              = f.select :language, options_for_select([["\u{1f1f3} (NL)", :nl], ["\u{1f1ec} (EN)" , :en]], selected: @member.language)
+              = f.select :language, options_for_select([["Nederlands (NL)", :nl], ["English (EN)" , :en]], selected: @member.language)
 
       .card
         .card-header
