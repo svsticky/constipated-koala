@@ -15,6 +15,7 @@ class Members::ActivitiesController < ApplicationController
   # Renders the overview of all future activities that are enrollable.
   def index
     @member = Member.find(current_user.credentials_id)
+    setLocale
 
     @activities = Activity
                   .where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
@@ -30,6 +31,7 @@ class Members::ActivitiesController < ApplicationController
   # field.
   def show
     @member = Member.find(current_user.credentials_id)
+    setLocale
     @activity = Activity.find(params[:id])
 
     # Don't allow activities for old activities
@@ -49,4 +51,11 @@ class Members::ActivitiesController < ApplicationController
     @attendees = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
   end
+
+  def setLocale
+    #set locale
+    I18n.locale = @member.language
+    session[:locale] = I18n.locale
+  end
 end
+
