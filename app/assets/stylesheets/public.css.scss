@@ -3,15 +3,6 @@
  *= require bootstrap/dist/css/bootstrap
  *= require_self
  */
-html, body {
-  background: white;
-  margin: 0 5px;
-}
-
-
-h1 {
-
-}
 
 h2 {
   font-size: 20px;
@@ -22,86 +13,18 @@ h2 {
 }
 
 dt {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 dd {
-  margin: 5px 0 30px 0;
+  margin: 5px 0 30px 20px;
   font-size: 0.95em;
 }
 
-@media (min-width: 992px) {
-  dd {
-    margin: 5px 0 30px 20px;
-  }
-}
-
-a {
-  color: #337AB8;
-}
-
-@media (min-width: 768px) {
-  .container-narrow {
-    max-width: 600px;
-  }
-}
-
-.languages {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-}
-
-@media (min-width: 992px) {
-  .languages {
-    top: 10px;
-  }
-}
-
-.col-md-12 {
-  margin-bottom: 40px;
-  padding: 0 20px;
-
-  &.no-margin {
-    margin: 0;
-  }
-}
-
-.navbar-brand {
-  display: inline-block;
-  width: calc(100% - 10px);
-
-  padding: 20px 0 20px 20px;
+.navbar {
+  padding: 10px 0 10px 10px;
+  margin-bottom: 10px;
   border-bottom: solid 1px #eee;
-
-
-  a {
-    font-size: 1.2em;
-  }
-}
-
-.form-group .col-md-6 {
-  padding: 0;
-
-  &.bottom-border {
-    position: relative;
-    height: 34px;
-    top: 10px;
-
-    line-height: 20px;
-    border-bottom: solid 1px #CBD5DD;
-  }
-
-  &.no-padding {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-}
-
-@media (min-width: 992px) {
-  .form-group .col-md-6 {
-    padding: 10px 15px 10px 10px;
-  }
 }
 
 .ui-select {
@@ -158,71 +81,4 @@ a {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   pointer-events: none;
-}
-
-.panel-warning {
-  border: solid 1px #FF5141;
-  padding: 10px;
-  margin-top: 20px;
-  text-align: center;
-
-  button {
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-
-  p {
-    text-align: left;
-  }
-}
-
-.buttons {
-  button {
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-
-  p {
-    text-align: left;
-  }
-}
-
-@media (min-width: 992px) {
-  .panel-warning {
-    position: relative;
-    border: solid 1px #FF5141;
-    padding: 10px;
-    margin-top: 20px;
-
-    button {
-      position: absolute;
-      top: 36px;
-      left: 20px;
-      margin: 0;
-    }
-
-    p {
-      margin-left: 220px;
-      margin-top: 2px;
-      padding: 0;
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  .buttons {
-    position: relative;
-
-    button {
-      display: inline-block;
-      position: absolute;
-      top: 3px;
-      left: 40px;
-    }
-
-    p {
-      margin-left: 120px;
-      font-size: 0.95em;
-    }
-  }
 }
