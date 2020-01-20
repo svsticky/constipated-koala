@@ -26,12 +26,13 @@
 
       .form-group
         .row
-          .col-lg-3
-            %span.poster.d-none.d-lg-block
+          .col-md-4
+            = label(:activity, :poster, class: 'd-none d-md-block')
+            .div.poster.d-none.d-md-block
               - if @activity.poster.attached?
-                = image_tag @activity.poster.representation(resize: '180x255!')
+                = image_tag @activity.poster.representation(resize: '180x255!'), :class => 'img-fluid'
 
-          .col-lg-9
+          .col-md-8
             = label(:activity, :description)
             = f.text_area :description, :value => @activity.description, :class => 'form-control', :rows => 8
 
