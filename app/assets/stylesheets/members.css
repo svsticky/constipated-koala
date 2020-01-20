@@ -24,6 +24,7 @@
  *= require sidebar
  *= require cards
  *= require callouts
+ *= require general
  */
 
 .panel-activity > .panel-body:nth-child(2) {
