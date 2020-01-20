@@ -1,0 +1,16 @@
+/*= require intl-tel-input/build/css/intlTelInput
+
+/* Make international telephone input use the whole column */
+.iti {
+  width: 100%;
+}
+
+.iti__flag {
+  background-image: image-url("flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .iti__flag {
+    background-image: image-url("flags@2x.png");
+  }
+}
