@@ -40,7 +40,7 @@
                 = f.label(:birth_date)
                 = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
               .col-md-8
-                = f.label(:email) + "\u00B9"
+                = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
 
           .form-group
@@ -49,7 +49,7 @@
                 = f.label(:phone_number)
                 = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
               .col-lg-6
-                = f.label(:emergency_phone_number) + "\u00B2"
+                = f.label(:emergency_phone_number) + "²"
                 = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
 
           %hr
