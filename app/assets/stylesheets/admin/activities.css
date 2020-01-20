@@ -93,12 +93,10 @@
     display: none;
   }
 
-  form span.poster {
-    height: 255px;
-    width: 180px;
-    margin-top: 29px;
+  form .poster {
+    max-height: 255px;
+    max-width: 180px;
     border: solid 1px #cbd5dd;
-    overflow: hidden;
   }
 }
 
