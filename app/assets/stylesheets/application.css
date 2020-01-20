@@ -23,6 +23,7 @@
  *= require header
  *= require sidebar
  *= require cards
+ *= requere general
  */
 
 .page {
