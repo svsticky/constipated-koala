@@ -21,10 +21,10 @@
         .card-body
           .form-group
             .row
-              .col-lg-5
+              .col-lg-4
                 = f.label(:first_name)
                 = f.text_field :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled', :disabled => true
-              .col-lg-2
+              .col-lg-3
                 = f.label(:infix)
                 = f.text_field :infix, :value => @member.infix, :class => 'form-control form-control-disabled', :disabled => true
               .col-lg-5
@@ -40,8 +40,7 @@
                 = f.label(:birth_date)
                 = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
               .col-md-8
-                = f.label(:email)
-                %span.footnote 1
+                = f.label(:email) + "\u00B9"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
 
           .form-group
@@ -50,8 +49,7 @@
                 = f.label(:phone_number)
                 = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
               .col-lg-6
-                = f.label(:emergency_phone_number)
-                %span.footnote 2
+                = f.label(:emergency_phone_number) + "\u00B2"
                 = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
 
           %hr
