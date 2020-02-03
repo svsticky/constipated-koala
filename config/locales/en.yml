@@ -1,23 +1,24 @@
+---
 en:
   activerecord:
     annotations:
       member:
-        email: "Can't be a UU email address. Address is used for communication between you and Sticky."
-        study: "This is required to check if you are allowed to be a member of Sticky."
-        emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
-        mailinglists: "Mailinglists"
+        email: Can't be a UU email address. Address is used for communication between you and Sticky.
+        study: This is required to check if you are allowed to be a member of Sticky.
+        emergency_phone_number: Someone we can call in case of an emergency. Required if you're not an adult.
+        mailinglists: Mailinglists
         alv:
-          name: "General assembly"
-          description: "Get a few times per year an invitation for the general assemblies in your mailbox."
+          name: General assembly
+          description: Get a few times per year an invitation for the general assemblies in your mailbox.
         mmm:
-          name: "MondayMorningMail"
-          description: "When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more"
+          name: MondayMorningMail
+          description: 'When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more'
         business:
-          name: "Company mailing"
-          description: "When you sign up for this list you will occasionally receive emails from one of the sponsors of Sticky. This mails concern invitations for their events or career options. This mailing is sent by Sticky, your emailadres will never be shared with external companies."
+          name: Company mailing
+          description: 'When you sign up for this list you will occasionally receive emails from one of the sponsors of Sticky. This mails concern invitations for their events or career options. This mailing is sent by Sticky, your emailadres will never be shared with external companies.'
         lectures:
-          name: "Lectures and Workshops"
-          description: "When you sign up for this list you will receive emails for lectures and workshops Sticky organizes. In this way you can stay up to date about our educational activities"
+          name: Lectures and Workshops
+          description: When you sign up for this list you will receive emails for lectures and workshops Sticky organizes. In this way you can stay up to date about our educational activities
     attributes:
       activity:
         comments: Comments (private)
@@ -104,37 +105,25 @@ en:
           'true': Paid
       settings:
         additional_committee_positions:
-          description: >-
-            Roles besides chairman, treasurer and board member that will be
-            added to the committees.
+          description: 'Roles besides chairman, treasurer and board member that will be added to the committees.'
           name: Additional committee roles
         additional_moot_positions:
-          description: >-
-            Roles besides chairman, treasurer and board member that will be
-            added to the moots.
+          description: 'Roles besides chairman, treasurer and board member that will be added to the moots.'
           name: Additional moot roles
         begin_study_year:
-          description: >-
-            The start of next study year. On this date a new year will be
-            automatically started.
+          description: The start of next study year. On this date a new year will be automatically started.
           name: Study year
         intro_activities:
-          description: >-
-            Activities during the introduction period for which new members can
-            enroll at the introduction form.
+          description: Activities during the introduction period for which new members can enroll at the introduction form.
           name: Introduction activities
         intro_membership:
           description: 'The activity for enrolling at Sticky, automatically generated.'
           name: Introduction membership
         liquor_time:
-          description: >-
-            Time at which the purchase of liquor is allowed in Checkout. Till
-            that time, an error will be display.
+          description: 'Time at which the purchase of liquor is allowed in Checkout. Till that time, an error will be display.'
           name: Time at which the purchase of liquor is allowed
         mongoose_ideal_costs:
-          description: >-
-            The costs of an iDEAL transaction. They can be calculated separately
-            in the iDEAL overview this way.
+          description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
           name: IDeal transaction costs
       study:
         names:
@@ -169,8 +158,8 @@ en:
         blank: can't be blank
       models:
         activity:
-          activity_ended: "This activity is not or no longer available"
-          already_enrolled: "You are already enrolled for this activity."
+          activity_ended: This activity is not or no longer available
+          already_enrolled: You are already enrolled for this activity.
           attributes:
             end_date:
               before_start_date: can't be before the start date
@@ -189,9 +178,7 @@ en:
           participant_no_freshman: You are not a freshman student. This is a freshmen-only activity.
           participant_no_masters: You are not a masters student. This is a masters-only activity.
           participant_no_student: You are not enrolled in a study. This activity is for students only
-          participant_notes_not_filled: >-
-            This activity requires extra information, please fill this in before
-            enrolling
+          participant_notes_not_filled: 'This activity requires extra information, please fill this in before enrolling'
           participant_notes_updated: Information updated
           participant_suspended: You have been suspended. Contact the board of Sticky
           participant_underage: This activity is for adults only ;) ;) ;)
@@ -225,34 +212,25 @@ en:
         member:
           attributes:
             email:
-              invalid: "is not a valid mail address"
-              taken: "is already registered"
+              invalid: is not a valid mail address
+              taken: is already registered
             phone_number:
-              invalid: "is invalid"
+              invalid: is invalid
             emergency_phone_number:
-              invalid: "is invalid"
-              not_provided: "is required under 18 years old"
-            student_id:
-              elfproef: "is not valid"
-              invalid: "is not valid"
-              taken: "is already registered"
+              invalid: is invalid
+              not_provided: is required under 18 years old
             participants:
-              unpaid_activities: >-
-                There are unpaid activities, ensure all activities are payed and
-                try again.
-            phone_number:
-              invalid: consists of 10 digits
+              unpaid_activities: 'There are unpaid activities, ensure all activities are payed and try again.'
             student_id:
               elfproef: is not valid
               invalid: is not valid
               taken: is already registered
           blank: can't be blank
           destroy:
-            info: "%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats."
-            checkout_emptied: "The checkout balance was %{balance}, this has been removed from their account."
-            mailchimp_queued: "Mailchimp account is automatically removed."
-          blank: "can't be blank"
-        unpermitted: "is not permitted"
+            info: '%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats.'
+            checkout_emptied: 'The checkout balance was %{balance}, this has been removed from their account.'
+            mailchimp_queued: Mailchimp account is automatically removed.
+        unpermitted: is not permitted
         user:
           attributes:
             email:
@@ -265,9 +243,7 @@ en:
             password_confirmation:
               confirmation: isn't repeated correctly
           blank: can't be blank
-      no_connection: >-
-        No connection available with %{url}, not all %{name} are complete and
-        will be shown!
+      no_connection: 'No connection available with %{url}, not all %{name} are complete and will be shown!'
       record_invalid: Error! The data is invalid.
       subscribe:
         failed: 'Your payment has failed, but you have been enrolled!'
@@ -309,9 +285,7 @@ en:
     messages:
       member:
         force_unconfirmed_email: 'Or <a data-method=''patch'' href=''%{link}''>force</a> the change here.'
-        unconfirmed_email: >-
-          A confirmation mail is send to <b>%{email}</b>, once confirmed the
-          e-mailadress will be updated.
+        unconfirmed_email: 'A confirmation mail is send to <b>%{email}</b>, once confirmed the e-mailadress will be updated.'
       participant:
         paid: '%{name} has paid for %{activity}'
         price: '%{activity} has been changed for %{name}'
@@ -348,9 +322,7 @@ en:
       send_create_email: Send account creation email.
       send_mail: Send a mail
       send_password_reset: Send password reset email
-      user_not_activated: >-
-        This member has an account (%{email}), but the account has not yet been
-        activated.
+      user_not_activated: 'This member has an account (%{email}), but the account has not yet been activated.'
     navigation:
       apps: Apps
       checkout: Checkout
@@ -430,10 +402,7 @@ en:
       identity_confirmation: 'Are you not %{name}?'
     mailer:
       alerts: Alerts e.g. approaching your limit
-      footer_html: >-
-        For more information, visit %{koala_link_start} koala.svsticky.nl
-        %{link_end} or mail to %{secretary_mail_start} secretaris@svsticky.nl
-        %{link_end} for questions.
+      footer_html: 'For more information, visit %{koala_link_start} koala.svsticky.nl %{link_end} or mail to %{secretary_mail_start} secretaris@svsticky.nl %{link_end} for questions.'
     partials:
       editor:
         large: large
@@ -460,114 +429,56 @@ en:
     best_regards: 'Best regards,'
     checkout:
       confirm_card: Confirm card
-      confirmation_instructions: >-
-        Confirm your card for your Checkout account with Study association
-        Sticky by clicking the following button:
+      confirmation_instructions: 'Confirm your card for your Checkout account with Study association Sticky by clicking the following button:'
     devise:
       activation_instructions:
         about_sticky: >-
-          You can go to Sticky for everything that you as Computer Science,
-          Information Science or Game technology need! As you might have noticed
-          already, you can always score free coffee and a cookie in our room
-          (BBG 2,81) or some other other drink/snack. There will always be
-          someone of the board present in the room who can answer all your
-          questions. Besides this place to chill during breaks or in between
-          lectures, we also organise a whole lot of wildly awesome activities.
-          These activities These activities are always aligned to one of the
-          three corner stones of Sticky: Education, Business and Sociability.
+          You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities
+          These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability.
         account_activation_instructions: Activate your account by clicking the button below
         activate_account: Activate account
-        activity_updates_html: >-
-          Do you always want to stay informed about these activities? Join the
-          %{facebook_group_link_start} Sticky-members Facebook group %{link_end}
-          and like  %{facebook_page_link_start} our page %{link_end}! Aside from
-          that, you can find all information that you could ever want on our
-          website: %{sticky_site_link_start} svsticky.nl %{link_end}.
+        activity_updates_html: 'Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all information that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}.'
         and_now: And now?
         corner_stones:
           business:
-            description_html: >-
-              To give you the best possible picture of the different companies
-              you could start working for in the future, we organise varying
-              lectures, workshops, in-house days and drinks with these
-              companies. These activities offer besides information about the
-              company in question, also a nice opportunity to learn something
-              extra or something completely new. Are you looking for a
-              study-related job? You can find these at
-              %{job_offer_page_link_start} svsticky.nl/partners/vacatures
-              %{link_end}.
+            description_html: 'To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, in-house days and drinks with these companies. These activities offer besides information about the company in question, also a nice opportunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}.'
             name: Business
           education:
-            description_html: >-
-              We organise helper days, workshops and information meetings to
-              support you with your study. The Commissioner for Education is
-              your point of contact for anything to do with education and it's
-              quality. You can conveniently buy the books you need and have them
-              delivered at your home at the %{books_page_link_start}
-              svsticky.nl/boeken %{link_end}!
+            description_html: 'We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it''s quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken %{link_end}!'
             name: Education
           sociability:
-            description: >-
-              Besides the study- and carrier-related activities stated above, we
-              also organise many simply sociable activities, like the weekly
-              drinks!
+            description: 'Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!'
             name: Sociability
-        reception_justification: >-
-          You are receiving this e-mail, because you signed up for our mighty
-          beautiful study association! At the end of this mail you will find a
-          button to activate your account in our members portal. You could also
-          skip this gorgeous introduction talk en scroll down immediately. We
-          won't see that anyway (or will we?).
+        reception_justification: 'You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your account in our members portal. You could also skip this gorgeous introduction talk en scroll down immediately. We won''t see that anyway (or will we?).'
         see_you_soon: See you soon!
         welcome: Welcome to Sticky!
-        wrap_up: >-
-          Curious about which activities we will soon organize? You can find
-          more information in our member portal and you can enroll there too! In
-          this member portal you can also edit your profile and upgrade your
-          credit for snacks and drinks.
+        wrap_up: Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks.
       confirmation_instructions:
-        button_instructions: >-
-          Confirm your e-mail address for your Sticky account by clicking the
-          button below!
+        button_instructions: Confirm your e-mail address for your Sticky account by clicking the button below!
         confirm_account: Confirm account
         confirm_email: Confirm e-mail address
       reset_passwords_instructions:
-        button_instructions: >-
-          Click the button below to enter a new password or ignore this e-mail
-          to keep your current one.
-        notification: >-
-          A new password has been requested for your Sticky account, or you
-          tried to create a new one.
+        button_instructions: Click the button below to enter a new password or ignore this e-mail to keep your current one.
+        notification: 'A new password has been requested for your Sticky account, or you tried to create a new one.'
         reset_password: Reset password
     greeting: Hoi
     participants:
       enrolled:
-        activity_start_html: >-
-          The activity starts at <strong>%{activity_start}</strong> and costs
-          %{price}. See you there!
-        button_instructions_html: >-
-          You can un-enroll until <strong>%{unenroll_date}</strong>. You can do
-          this at the activity's page.
-        free_spot_html: >-
-          Great news! A free spot appeared for
-          <strong>%{activity.name}</strong>. You were automatically enrolled
-          from the spares list.
+        activity_start_html: 'The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!'
+        button_instructions_html: 'You can un-enroll until <strong>%{unenroll_date}</strong>. You can do this at the activity''s page.'
+        free_spot_html: 'Great news! A free spot appeared for <strong>%{activity.name}</strong>. You were automatically enrolled from the spares list.'
         to_the_activity: To the activity
       inform:
-        activity_visited_html: >-
-          You visited <strong>%{subject}</strong>, this activity cost
-          %recipient.price%.
-        payment_instructions_html: >-
-          Please transfer this amount to NL61INGB0002877106 t.n.v. Study
-          association Sticky citing <i>"%{subject} %recipient.name%"</i>?
+        activity_visited_html: 'You visited <strong>%{subject}</strong>, this activity cost %recipient.price%.'
+        payment_instructions_html: 'Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?'
     signature: The board
   members:
     activities:
       bug_report: BUG!
       index:
-        no_activities: "There are no activities for which you can enroll at the moment"
-        activities_calendar: "Activities calendar"
-        copy_ICS: "Copy Webcal link"
+        no_activities: There are no activities for which you can enroll at the moment
+        activities_calendar: Activities calendar
+        copy_ICS: Copy Webcal link
       subscribe: Subscribe!
       partials:
         view:
@@ -576,20 +487,20 @@ en:
             reservist_enroll: Enroll to spares list
             reservist_unenroll: Un-enroll from spares list
             unenroll: Uitschrijven
-            update_info: "Update info"
-          more_info: "More info"
-          notes_mandatory: "Extra info required!"
-      back_to_overview: "Back to activity overview"
+            update_info: Update info
+          more_info: More info
+          notes_mandatory: Extra info required!
+      back_to_overview: Back to activity overview
     home:
       edit:
         general_data: General
         privacy_panel:
-          header: "Privacy"
-          view: "View the"
-          privacy_statement: "privacy statement"
+          header: Privacy
+          view: View the
+          privacy_statement: privacy statement
         password_options:
-          header: "Password options"
-          change_password: "Change password"
+          header: Password options
+          change_password: Change password
       index:
         edit_profile: Edit profile
         outstanding_payments: Outstanding payments
@@ -602,51 +513,21 @@ en:
   pages:
     public:
       status:
-        description: >-
-          At the moment you are enrolled at Study association Sticky. Below you
-          will find study information that is known to us, it is important to
-          keep this information. Study association Sticky saves your data during
-          your study but also afterwards, as soon as you are not actively
-          studying more, we ask you below what we can do with your data. For
-          questions please contact %{url}.
+        description: 'At the moment you are enrolled at Study association Sticky. Below you will find study information that is known to us, it is important to keep this information. Study association Sticky saves your data during your study but also afterwards, as soon as you are not actively studying more, we ask you below what we can do with your data. For questions please contact %{url}.'
         destroy: Delete your data
-        destroyable: >-
-          After deleting you can no longer log in or register for activities,
-          your participation in future activities will be deleted and you will
-          lose your mongoose credit.
+        destroyable: 'After deleting you can no longer log in or register for activities, your participation in future activities will be deleted and you will lose your mongoose credit.'
         hi: Hi
-        indefinite: >-
-          We may keep all your data until you indicate otherwise, this can be
-          done via %{url}.
+        indefinite: 'We may keep all your data until you indicate otherwise, this can be done via %{url}.'
         indefinite_consent: I give permission to keep my data until I indicate otherwise.
-        not_destroyable: >-
-          Because you still have financial obligations you cannot delete your
-          account. Make sure you pay for the latest activities and delete your
-          account by following this link or in %{url}.
-        remove_description: >-
-          If you are no longer a student and you have not given permission above
-          to save your data, you can immediately delete your personal data. If
-          you want to become a member again later, you will have to pay a new
-          contribution.
+        not_destroyable: 'Because you still have financial obligations you cannot delete your account. Make sure you pay for the latest activities and delete your account by following this link or in %{url}.'
+        remove_description: 'If you are no longer a student and you have not given permission above to save your data, you can immediately delete your personal data. If you want to become a member again later, you will have to pay a new contribution.'
         remove_info: <span>Delete</span> personal data
         save: Save
-        save_note: >-
-          After saving the above data, the used link is unusable, go to koala to
-          view or delete your data.
-        store_description: >-
-          No student anymore? Study association Sticky saves your data until you
-          indicate that you no longer want this. Below you can indicate what we
-          can do with your data; may we save them, do we have to ask again in a
-          year or do you want to immediately delete all your data. If you still
-          want to delete your data afterwards, you can of course do so via the
-          member page or contact %{url}.
+        save_note: 'After saving the above data, the used link is unusable, go to koala to view or delete your data.'
+        store_description: 'No student anymore? Study association Sticky saves your data until you indicate that you no longer want this. Below you can indicate what we can do with your data; may we save them, do we have to ask again in a year or do you want to immediately delete all your data. If you still want to delete your data afterwards, you can of course do so via the member page or contact %{url}.'
         store_info: <span>Store</span> personal data
-        warning: >-
-          You are about to delete all your personal data at Study Association
-          Sticky, are you sure?
-        yearly: >-
-          Not quite sure what you want, we can ask you the question again in a
-          year.
+        warning: 'You are about to delete all your personal data at Study Association Sticky, are you sure?'
+        yearly: 'Not quite sure what you want, we can ask you the question again in a year.'
         yearly_consent: I give my permission to keep my data for another year.
   time:
     formats:
@@ -656,14 +537,9 @@ nl:
   activerecord:
     annotations:
       member:
-        email: >-
-          Emailaddress can't be an UU email. The email will be used for
-          communication between Sticky and you. Your emailaddress will also be
-          used as a login.
+        email: Emailaddress can't be an UU email. The email will be used for communication between Sticky and you. Your emailaddress will also be used as a login.
         emergency_phone_number: Someone who we can call in case of emergency. Mandatory when under 18.
-        study: >-
-          This data is necessary to check if you meet the conditions for
-          membership.
+        study: This data is necessary to check if you meet the conditions for membership.
     attributes:
       activity:
         comments: Comments (private)
@@ -672,7 +548,6 @@ nl:
         end_time: End time
         is_alcoholic: Alcohol (18+)
         is_enrollable: Enrollable
-        is_freshmans: First year students
         is_masters: Masters
         is_viewable: View on Koala
         location: Location
@@ -687,6 +562,7 @@ nl:
         start_date: Start date
         start_time: Start time
         unenroll_date: Unenroll deadline
+        is_freshmans: First year students
       checkout_product:
         active: Active
         categories:
@@ -703,8 +579,8 @@ nl:
         status:
           active: Studying
           graduated: Graduated
-          inactive: Not studying
           stopped: Stopped
+          inactive: Not studying
       group:
         categories:
           board: board
@@ -720,31 +596,14 @@ nl:
           moot: Moot members
           other: Members
         name: Name
-      impression:
-        activity:
-          create: activity created
-          mail: payment mail sent
-          update: activity updated
-        checkoutcard:
-          activate_card: cart activated
-        checkouttransaction:
-          change_funds: funds updated
-        group:
-          create: group created
-          update: group updated
-        groupmember:
-          create: '%{name} added'
-          update: '%{name} updated'
-        member:
-          create: member added
-          destroy: member deleted
-          update: member data updated
-        participant:
-          create: participant added
-          update:
-            paid: participant has paid
-            price: price has changed for member
-            unpaid: participant has not paid
+        positions:
+          board: Board member
+          chairman: Chairman
+          education: Education
+          external: External affairs
+          internal: Internal affairs
+          secretary: Secretary
+          treasurer: Treasurer
       member:
         address: Street name
         birth_date: Date of birth
@@ -757,50 +616,38 @@ nl:
         first_name: First name
         house_number: House number
         infix: Infix
-        join_date: Date of registry
         last_name: Last name
         male: Man
         phone_number: Phone number
         postal_code: Postal code
         student_id: Student number
         tags: Tags
+        join_date: Date of registry
       participant:
         paid:
           'false': Not paid
           'true': Paid
       settings:
         additional_committee_positions:
-          description: >-
-            Roles beside chairman, treasurer and boardmember, which will be
-            added to all committees.
+          description: 'Roles beside chairman, treasurer and boardmember, which will be added to all committees.'
           name: Extra committee roles
         additional_moot_positions:
-          description: >-
-            Roles beside chairman, secretary and treasurer, which will be added
-            to all moots.
+          description: 'Roles beside chairman, secretary and treasurer, which will be added to all moots.'
           name: Extra moot roles
         begin_study_year:
-          description: >-
-            The beginning of the next study year. On this date a new year will
-            automatically start.
+          description: The beginning of the next study year. On this date a new year will automatically start.
           name: Study year
         intro_activities:
-          description: >-
-            Activities during the intro which new members can sign up for using
-            the registration form.
+          description: Activities during the intro which new members can sign up for using the registration form.
           name: Intro activities
         intro_membership:
           description: 'The activity for signing up to Sticky, automatically generated.'
           name: Intro membership
         liquor_time:
-          description: >-
-            The time when members can buy alcohol in Checkout. Until that time
-            an error message will be displayed.
+          description: The time when members can buy alcohol in Checkout. Until that time an error message will be displayed.
           name: Time when alcohol can be sold
         mongoose_ideal_costs:
-          description: >-
-            The costs of an iDEAL-transaction, so the iDEAL-transactions can be
-            calculated seperately in an iDEAL-overview.
+          description: 'The costs of an iDEAL-transaction, so the iDEAL-transactions can be calculated seperately in an iDEAL-overview.'
           name: IDeal transaction costs
         positions:
           board: Board member
@@ -835,10 +682,36 @@ nl:
         email: Emailaddress
         password: Password
         password_confirmation: Repeat password
+      impression:
+        activity:
+          create: activity created
+          mail: payment mail sent
+          update: activity updated
+        checkoutcard:
+          activate_card: cart activated
+        checkouttransaction:
+          change_funds: funds updated
+        group:
+          create: group created
+          update: group updated
+        groupmember:
+          create: '%{name} added'
+          update: '%{name} updated'
+        member:
+          create: member added
+          destroy: member deleted
+          update: member data updated
+        participant:
+          create: participant added
+          update:
+            paid: participant has paid
+            price: price has changed for member
+            unpaid: participant has not paid
     errors:
       default: Something went wrong
       incomplete: 'Oh snap, not everything is filled in'
-      info: Success
+      messages:
+        blank: can't be blank
       models:
         activity:
           activity_ended: This activity is not available. Go back.
@@ -858,23 +731,13 @@ nl:
           not_enrollable: Activity is not enrollable.
           not_unenrollable: Activity is not unenrollable.
           participant_limit_reached: '%{activity} has reached the participant limit. '
-          participant_no_freshman: >-
-            You are not a first year student. This is an activity for first year
-            students.
-          participant_no_masters: >-
-            You are not a master student. This is an activity for master
-            students.
-          participant_no_student: >-
-            You are not currently enrolled for a study. This is an activity for
-            students.
-          participant_notes_not_filled: >-
-            This activity needs extra information, fill this in before you sign
-            up.
+          participant_no_freshman: You are not a first year student. This is an activity for first year students.
+          participant_no_masters: You are not a master student. This is an activity for master students.
+          participant_no_student: You are not currently enrolled for a study. This is an activity for students.
+          participant_notes_not_filled: 'This activity needs extra information, fill this in before you sign up.'
           participant_notes_updated: Information updated.
           participant_suspended: You are suspended. Seek out contact with a board member of Sticky.
-          participant_underage: >-
-            This activity is only for the big boys and girls and non-binary
-            individuals ;) ;) ;)
+          participant_underage: This activity is only for the big boys and girls and non-binary individuals ;) ;) ;)
           unenroll_date_passed: The unenrollment date has passed.
           unenrolled: 'You have been unenrolled for %{activity}.'
         checkout_product:
@@ -883,9 +746,7 @@ nl:
           attributes:
             items:
               member_under_age: You aren't old enough to buy alcohol.
-              not_liquor_time: >-
-                The purchase of alcohol is only permitted from
-                %{Settings.liquor_time}
+              not_liquor_time: 'The purchase of alcohol is only permitted from %{Settings.liquor_time}'
             payment_method:
               blank: The method of payment has to be specified
             price:
@@ -913,9 +774,7 @@ nl:
               invalid: doesn't consist of 10 digits
               not_provided: is mandatory beneath 18 years old
             participants:
-              unpaid_activities: >-
-                There are unpaid activities, pay these activities and try to
-                delete again afterwards.
+              unpaid_activities: 'There are unpaid activities, pay these activities and try to delete again afterwards.'
             phone_number:
               invalid: doesn't consist of 10 digits
             student_id:
@@ -924,13 +783,8 @@ nl:
               taken: is already registered
           blank: cannot be blank
           destroy:
-            checkout_emptied: >-
-              The checkout funds were %{balance}, this has been taken from the
-              funds.
-            info: >-
-              %{name} has been succesfully deleted. Committee members, studies
-              followed, activity participation and checkout transactions are
-              anonymised for statistics.
+            checkout_emptied: 'The checkout funds were %{balance}, this has been taken from the funds.'
+            info: '%{name} has been succesfully deleted. Committee members, studies followed, activity participation and checkout transactions are anonymised for statistics.'
         unpermitted: is not valid
         user:
           attributes:
@@ -944,16 +798,42 @@ nl:
             password_confirmation:
               confirmation: has not been repeated correctly
           blank: cannot be empty
-      no_connection: >-
-        There is no connection possible with %{url}, not all %{name} are
-        complete and will be displayed!
-      no_consent: 'You are no longer a student, indicate what we may do with your data.'
+      no_connection: 'There is no connection possible with %{url}, not all %{name} are complete and will be displayed!'
+      record_invalid: Error! The data is invalid.
       subscribe:
         failed: 'Your payment was not succesful, you have been registerd though!'
         no_bank_provided: Bank option cannot be empty when paying with iDEAL
         success: Your payment has been received and you're signed up!
         success_without_payment: You've been registered!
       unsupported_content_type: 'The file type %{type} is not permitted. (%{allowed} required)'
+      info: Success
+      no_consent: 'You are no longer a student, indicate what we may do with your data.'
+    impression:
+      activity:
+        create: activity created
+        mail: payment mail sent
+        update: activity updated
+      checkout_transaction:
+        change_funds: Credit updated
+      checkoutproduct:
+        activate_card: card activated
+        change_funds: funds added
+      group:
+        create: group created
+        update: group updated
+      groupmember:
+        create: '%{name} added'
+        update: '%{name} updated'
+      member:
+        create: member created
+        destroy: member deleted
+        update: member updated
+      participant:
+        create: participant added
+        update:
+          paid: participant has paid
+          price: price for participant has been updated
+          unpaid: participant hasn't paid
     labels:
       activities:
         date: Date
@@ -962,18 +842,12 @@ nl:
     messages:
       member:
         force_unconfirmed_email: 'Of <a data-method=''patch'' href=''%{link}''>force</a> the change.'
-        unconfirmed_email: >-
-          A confirmation email has been sent to <b>%{email}</b>, as soon as this
-          email has been confirmed, it will be updated.
+        unconfirmed_email: 'A confirmation email has been sent to <b>%{email}</b>, as soon as this email has been confirmed, it will be updated.'
       participant:
         paid: '%{name} has paid for %{activity}'
         price: '%{activity} has been changed to %{name}'
         unpaid: '%{name} hasn''t paid for %{activity}'
       record_invalid: Wrong! Data isn't valid.
-    missing_value_placeholders:
-      activity:
-        description: No description available
-        free: Free
     models:
       activity: Activities
       checkout_balance: Mongoose funds
@@ -991,6 +865,10 @@ nl:
           other: Reservists
       settings: Settings
       study: Study/Studies
+    missing_value_placeholders:
+      activity:
+        description: No description available
+        free: Free
   admin:
     activities:
       partials:
@@ -1013,6 +891,7 @@ nl:
       general: General
       ideal: iDeal
       payments: Payments
+      products: Products
   association_name: Study association Sticky
   date:
     day_names:
@@ -1086,10 +965,7 @@ nl:
       identity_confirmation: 'Aren''t you %{name}?'
     mailer:
       alerts: 'Warnings, for instance: Close to your limit'
-      footer_html: >-
-        For more information take a look at %{koala_link_start}
-        koala.svsticky.nl %{link_end} or mail %{secretary_mail_start}
-        secretaris@svsticky.nl %{link_end} for questions.
+      footer_html: 'For more information take a look at %{koala_link_start} koala.svsticky.nl %{link_end} or mail %{secretary_mail_start} secretaris@svsticky.nl %{link_end} for questions.'
     partials:
       editor:
         large: large
@@ -1116,117 +992,52 @@ nl:
     best_regards: 'Best regards,'
     checkout:
       confirm_card: Confirm card
-      confirmation_instructions: >-
-        Confirm your card for your Checkout account at study association Sticky
-        by clicking the button below!
+      confirmation_instructions: Confirm your card for your Checkout account at study association Sticky by clicking the button below!
     devise:
       activation_instructions:
         about_sticky: >-
-          At Sticky you are welcome for everything a Computer science,
-          Information science and Gametechnology student needs! Like you might
-          have noticed, you can always score a free cup of coffee and cookie in
-          our room (BBG 2.81), or other snacks/drinks. There is also always a
-          member of the board present to answer any and all of your questions.
-          Besides the room being a place to chill and relax during breaks, we
-          also organize a lot of super awesome activities! These activities are
-          in line with the three pillars of Sticky: education, business and good
-          times.
+          At Sticky you are welcome for everything a Computer science, Information science and Gametechnology student needs! Like you might have noticed, you can always score a free cup of coffee and cookie in our room (BBG 2.81), or other snacks/drinks. There is also always a member of the board present to answer any and all of your questions. Besides the room being a place to chill and relax during breaks, we also organize a lot of super awesome activities! These activities are in line with
+          the three pillars of Sticky: education, business and good times.
         account_activation_instructions: 'Activate your account by clicking the button below:'
         activate_account: Activate account
-        activity_updates_html: >-
-          Always want to keep up to date with these activities? become a member
-          of %{facebook_group_link_start} Sticky members Facebookgroup
-          %{link_end} and like %{facebook_page_link_start} our page %{link_end}!
-          Furthermore you can find all the information you could ever wish for
-          on our website: %{sticky_site_link_start} svsticky.nl %{link_end}. You
-          can also send a whatsapp message to the Sticky Phone (+31617695025)
-          containing "Hi [your name]" after saving the number.
+        activity_updates_html: 'Always want to keep up to date with these activities? become a member of %{facebook_group_link_start} Sticky members Facebookgroup %{link_end} and like %{facebook_page_link_start} our page %{link_end}! Furthermore you can find all the information you could ever wish for on our website: %{sticky_site_link_start} svsticky.nl %{link_end}. You can also send a whatsapp message to the Sticky Phone (+31617695025) containing "Hi [your name]" after saving the number.'
         and_now: And now?
         corner_stones:
           business:
-            description_html: >-
-              To offer you a good picture of the varying companies, where you
-              could work in the future, we organize different lectures,
-              workshops, inhouse days and drinks in collaboration with these
-              companies. These activities offer, beside information about the
-              companies, an oppertunity to learn something extra/completely new.
-              Looking for a study related (part time) job? You can find them at
-              %{job_offer_page_link_start} svsticky.nl/partners/vacatures
-              %{link_end}
+            description_html: 'To offer you a good picture of the varying companies, where you could work in the future, we organize different lectures, workshops, inhouse days and drinks in collaboration with these companies. These activities offer, beside information about the companies, an oppertunity to learn something extra/completely new. Looking for a study related (part time) job? You can find them at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}'
             name: Business
           education:
-            description_html: >-
-              We organize helping afternoons, workshops and information meetings
-              to support you with your studies. Also, the education board member
-              is your point of contact for everything related with education and
-              quality thereof. You can also easily order your course books and
-              have them delivered at your door via %{books_page_link_start}
-              svsticky.nl/boeken %{link_end}!
+            description_html: 'We organize helping afternoons, workshops and information meetings to support you with your studies. Also, the education board member is your point of contact for everything related with education and quality thereof. You can also easily order your course books and have them delivered at your door via %{books_page_link_start} svsticky.nl/boeken %{link_end}!'
             name: Education
           sociability:
-            description: >-
-              Besides all above mentioned study and career related activities,
-              we organize a lot of different and fun activities. Every week we
-              also offer free weekly drinks!
+            description: 'Besides all above mentioned study and career related activities, we organize a lot of different and fun activities. Every week we also offer free weekly drinks!'
             name: Good times
-        reception_justification: >-
-          You have received this email because you signed up for our mighty
-          marvelous study association! At the end of this mail you'll find a
-          button to activate your account in our memberportal. You can also skip
-          this beautiful introductory speech and scroll down, we won't notice
-          (or maybe we will?).
+        reception_justification: 'You have received this email because you signed up for our mighty marvelous study association! At the end of this mail you''ll find a button to activate your account in our memberportal. You can also skip this beautiful introductory speech and scroll down, we won''t notice (or maybe we will?).'
         see_you_soon: See you soon!
         welcome: Welcome to Sticky!
-        wrap_up: >-
-          Curious to see what activities we will organize? More information is
-          available at our member portal, where you can also sign up for them
-          direclty! In the member portal you can also update your information
-          and up your funds to buy snacks and drinks.
+        wrap_up: 'Curious to see what activities we will organize? More information is available at our member portal, where you can also sign up for them direclty! In the member portal you can also update your information and up your funds to buy snacks and drinks.'
       confirmation_instructions:
-        button_instructions: >-
-          Confirm your emailaddress for your account at Study association Sticky
-          by pressing the button below!
+        button_instructions: Confirm your emailaddress for your account at Study association Sticky by pressing the button below!
         confirm_account: Confirm account
         confirm_email: Confirm emailaddress
       reset_passwords_instructions:
-        button_instructions: >-
-          Press the button below to create a new password or ignore this mail to
-          keep your current password.
-        notification: >-
-          A new password has been requested for your Sticky account or you have
-          tried creating a new account.
+        button_instructions: Press the button below to create a new password or ignore this mail to keep your current password.
+        notification: A new password has been requested for your Sticky account or you have tried creating a new account.
         reset_password: Reset password
-    gdpr:
-      consent: Manage personal information
-      gdpr_instructions: >-
-        You are a member of Study association Sticky, because you are studying
-        or have studied at University Utrecht. It's very important to Sticky to
-        keep your information up to date. At the link below you can update your
-        information and if you're no longer a student indicate what we may do
-        with your data.
     greeting: Hi
     participants:
       enrolled:
-        activity_start_html: >-
-          This activity starts at <strong>%{activity_start}</strong> and is
-          %{price}. See you there!
-        button_instructions_html: >-
-          You can unenroll until <strong>%{unenroll_date}</strong> for this
-          activity. You can unenroll at the activity's page.
-        free_spot_html: >-
-          Awesome news! A spot has opened up for
-          <strong>%{activity_name}</strong>. You have been automatically
-          enrolled from the back-up list.
+        activity_start_html: 'This activity starts at <strong>%{activity_start}</strong> and is %{price}. See you there!'
+        button_instructions_html: 'You can unenroll until <strong>%{unenroll_date}</strong> for this activity. You can unenroll at the activity''s page.'
+        free_spot_html: 'Awesome news! A spot has opened up for <strong>%{activity_name}</strong>. You have been automatically enrolled from the back-up list.'
         to_the_activity: To the activity
       inform:
-        activity_visited_html: >-
-          You joined us at <strong>%{subject}</strong>, this activity costs
-          %recipient.price%.
-        payment_instructions_html: >-
-          Would you transfer this amount as soon as possible to
-          NL61INGB0002877106 in the name of Studievereniging Sticky with
-          description <i>"%{subject} - %recipient.name%"</i>?
+        activity_visited_html: 'You joined us at <strong>%{subject}</strong>, this activity costs %recipient.price%.'
+        payment_instructions_html: 'Would you transfer this amount as soon as possible to NL61INGB0002877106 in the name of Studievereniging Sticky with description <i>"%{subject} - %recipient.name%"</i>?'
     signature: The board
+    gdpr:
+      consent: Manage personal information
+      gdpr_instructions: 'You are a member of Study association Sticky, because you are studying or have studied at University Utrecht. It''s very important to Sticky to keep your information up to date. At the link below you can update your information and if you''re no longer a student indicate what we may do with your data.'
   members:
     activities:
       bug_report: BUG!
@@ -1263,53 +1074,21 @@ nl:
   pages:
     public:
       status:
-        description: >-
-          You are currently a member of Study association Sticky. Below you will
-          find your study related data known to us, it's important to keep this
-          information up to date. Study association Sticky saves your data
-          during your study and afterwards, when you're no longer actively
-          studying we will ask you below what we may do with your data. For
-          questions, seek contact at %{url}.
+        description: 'You are currently a member of Study association Sticky. Below you will find your study related data known to us, it''s important to keep this information up to date. Study association Sticky saves your data during your study and afterwards, when you''re no longer actively studying we will ask you below what we may do with your data. For questions, seek contact at %{url}.'
         destroy: Destroy your data
-        destroyable: >-
-          After the deletion of your account you can no longer sign in or enroll
-          for activities, your enrollment to future activities will be canceled
-          and you will lose your mongoose funds.
+        destroyable: 'After the deletion of your account you can no longer sign in or enroll for activities, your enrollment to future activities will be canceled and you will lose your mongoose funds.'
         hi: Hello
-        indefinite: >-
-          We are permitted to keep your data until you say otherwise, this is
-          possible at %{url}.
-        indefinite_consent: >-
-          I hereby give permission for you to save my information until I say
-          otherwise.
-        not_destroyable: >-
-          Because you still have financial obligations you cannot delete your
-          account. Make sure you have paid the activities and delete your
-          account by following this link %{url}.
-        remove_description: >-
-          Are you no longer a student and have you not given permission for us
-          to save your data, then it will be deleted immediately. If you are to
-          become a member again later, you'll have to pay the contribution
-          again.
+        indefinite: 'We are permitted to keep your data until you say otherwise, this is possible at %{url}.'
+        indefinite_consent: I hereby give permission for you to save my information until I say otherwise.
+        not_destroyable: 'Because you still have financial obligations you cannot delete your account. Make sure you have paid the activities and delete your account by following this link %{url}.'
+        remove_description: 'Are you no longer a student and have you not given permission for us to save your data, then it will be deleted immediately. If you are to become a member again later, you''ll have to pay the contribution again.'
         remove_info: <span>Delete</span> personal information
         save: Save
-        save_note: >-
-          After saving the data above the used link will no longer be usable, go
-          to koala to view, change or delete your personal information.
-        store_description: >-
-          No longer a student? Study association Sticky saves your data until
-          you say otherwise. Below you can indicate what we may do with your
-          data; may we save them, do we have to ask again in a year or do we
-          have to delete them immediately. If in hindsight you want your data to
-          be deleted, you can always indicate this at the member page of seek
-          contact via %{url}.
+        save_note: 'After saving the data above the used link will no longer be usable, go to koala to view, change or delete your personal information.'
+        store_description: 'No longer a student? Study association Sticky saves your data until you say otherwise. Below you can indicate what we may do with your data; may we save them, do we have to ask again in a year or do we have to delete them immediately. If in hindsight you want your data to be deleted, you can always indicate this at the member page of seek contact via %{url}.'
         store_info: <span>Store</span> personal information
-        warning: >-
-          You are currently trying to delete all your personal information Study
-          association Sticky has on record, are you sure?
-        yearly: >-
-          Not really sure about you want us to do with your data, we can ask you
-          again in a year.
+        warning: 'You are currently trying to delete all your personal information Study association Sticky has on record, are you sure?'
+        yearly: 'Not really sure about you want us to do with your data, we can ask you again in a year.'
         yearly_consent: I give consent for you to store my data for another year.
   time:
     formats:

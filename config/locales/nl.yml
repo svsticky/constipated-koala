@@ -267,16 +267,10 @@ nl:
             emergency_phone_number:
               invalid: "is ongeldig"
               not_provided: "is verplicht onder 18 jaar"
-            student_id:
-              elfproef: "is niet geldig"
-              invalid: "is niet geldig"
-              taken: "is al geregistreerd"
             participants:
               unpaid_activities: >-
                 Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en
                 probeer daarna nogmaals te verwijderen.
-            phone_number:
-              invalid: bestaat niet uit 10 cijfers
             student_id:
               elfproef: is niet geldig
               invalid: is niet geldig
@@ -286,7 +280,6 @@ nl:
             info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
             checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
             mailchimp_queued: "Mailchimp gegevens worden automatisch verwijderd."
-          blank: "kan niet leeg zijn"
         unpermitted: "is niet geldig"
         user:
           attributes:
@@ -662,8 +655,4 @@ nl:
         remove_info: <span>Verwijderen</span> persoonsgegevens
         save: Opslaan
         save_note: Na opslaan van bovenstaande gegevens is de gebruikte link onbruikbaar, ga naar koala om je gegevens te bekijken of verwijderen.
-
-        destroyable: Na verwijderen kan je niet meer inloggen of inschrijven voor activiteiten, je deelname aan toekomstige activiteiten wordt verwijderd en je verliest je mongoose tegoed.
-        not_destroyable: Omdat je nog financiele verplichtingen hebt kun je je account niet verwijderen. Zorg dat je de laatste activiteiten betaald en verwijder je account door deze link te volgen of in %{url}.
         warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
-        destroy: Verwijder je gegevens
