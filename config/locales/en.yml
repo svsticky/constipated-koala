@@ -156,7 +156,7 @@ en:
 
       models:
         activity:
-          activity_ended: "This activity is not or no longer available. Go back."
+          activity_ended: "This activity is not or no longer available"
           already_enrolled: "You are already enrolled for this activity."
           attributes:
             end_date:
@@ -479,6 +479,7 @@ en:
             update_info: "Update info"
           more_info: "More info"
           notes_mandatory: "Extra info required!"
+      back_to_overview: "Back to activity overview"
     genders:
       female: FEMALE
       male: MALE

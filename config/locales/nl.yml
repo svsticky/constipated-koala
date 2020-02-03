@@ -189,7 +189,7 @@ nl:
 
       models:
         activity:
-          activity_ended: "Deze activiteit is niet (meer) beschikbaar. Ga terug."
+          activity_ended: "Deze activiteit is niet (meer) beschikbaar"
           already_enrolled: "Je bent al ingeschreven voor deze activiteit."
           attributes:
             end_date:
@@ -493,6 +493,7 @@ nl:
             update_info: "Update info"
           more_info: "Meer info"
           notes_mandatory: "Extra info vereist!"
+      back_to_overview: "Terug naar overzicht"
     genders:
       female: Vrouw
       male: MAN
