@@ -32,6 +32,11 @@ Rails.application.configure do
     :port => 3000
   }
 
+  config.hosts << 'koala.rails.local'
+  config.hosts << 'intro.rails.local'
+  config.hosts << 'leden.rails.local'
+  config.hosts << 'members.rails.local'
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

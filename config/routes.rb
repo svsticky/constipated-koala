@@ -37,7 +37,6 @@ Rails.application.routes.draw do
     # No double controllers
     get     'admin/home',   to: redirect('/')
     get     'members/home', to: redirect('/')
-    get     'calendarfeed', to: 'calendars#show'
 
     # Devise routes
     devise_for :users, :path => '', :skip => [:registrations], :controllers => {
@@ -53,6 +52,10 @@ Rails.application.routes.draw do
     # update account with password after receiving invite
     get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
     post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
+
+    # update password from member options
+    get     'passwordchange',     to: 'users/password_change#edit', as: :password_change
+    patch   'passwordchange',     to: 'users/password_change#update'
 
     scope module: 'public' do
       get   'status(/:token)', to: 'status#edit'

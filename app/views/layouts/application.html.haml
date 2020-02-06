@@ -20,12 +20,6 @@
     %link{:href => asset_path('apple-icon-koala-72.png'), :rel => "apple-touch-icon"}
     %link{:href => asset_path('apple-icon-koala-57.png'), :rel => "apple-touch-icon"}
 
-    %template#alert
-      .toast{:class => "toast-{1}"}
-        %button.toast-close-button
-          ×
-        .toast-message
-          {0}
     = csrf_meta_tags
   %body#app
     %div

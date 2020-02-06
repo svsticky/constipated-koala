@@ -21,10 +21,10 @@
         .card-body
           .form-group
             .row
-              .col-lg-5
+              .col-lg-4
                 = f.label(:first_name)
                 = f.text_field :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled', :disabled => true
-              .col-lg-2
+              .col-lg-3
                 = f.label(:infix)
                 = f.text_field :infix, :value => @member.infix, :class => 'form-control form-control-disabled', :disabled => true
               .col-lg-5
@@ -40,8 +40,7 @@
                 = f.label(:birth_date)
                 = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
               .col-md-8
-                = f.label(:email)
-                %span.footnote 1
+                = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
 
           .form-group
@@ -50,8 +49,7 @@
                 = f.label(:phone_number)
                 = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
               .col-lg-6
-                = f.label(:emergency_phone_number)
-                %span.footnote 2
+                = f.label(:emergency_phone_number) + "²"
                 = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
 
           %hr
@@ -93,12 +91,23 @@
           .card-body
             .form-group
               - Settings['mailchimp.interests'].each do |name, key|
-                .row
-                  .col-md-12
-                    %label.ui-checkbox
-                      = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
-                      %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
-                      .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
+                - if !(name == "alv")
+                  .row
+                    .col-md-12
+                      %label.ui-checkbox
+                        = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
+                        %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
+                        .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
+
+    .col-xl-6
+      .card
+        .card-header
+          %i.fa.fa-fw.fa-key
+          = I18n.t 'members.home.edit.password_options.header'
+        .card-body
+          = link_to password_change_path, { :class => 'button btn btn-warning' } do
+            %i.fa.fa-key
+            = I18n.t 'members.home.edit.password_options.change_password'
 
     .col-xl-6
       .card
@@ -174,7 +183,8 @@
     .col-xl-12
       .card
         .card-body
-          %button.btn.btn-success{type: 'submit'} Opslaan
+          %button.btn.btn-success{type: 'submit'}
+            = I18n.t("editing.save")
           = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
           = link_to download_path, { :class => 'button btn btn-secondary pull-right' } do
             %i.fa.fa-download

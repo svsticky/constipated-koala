@@ -24,14 +24,14 @@ function bind_group_members(){
         authenticity_token: token
       }
     }).done(function(){
-      alert($(row).find('a').html() + ' verwijderd', 'warning');
+      toastr.warning($(row).find('a').html() + ' verwijderd');
       $(row).remove();
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
       $( 'input#search' ).select();
-    }).fail(function(){
-      alert( '', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   });
 
@@ -50,9 +50,9 @@ function bind_group_members(){
         position: position
       }
     }).done(function( data ){
-      alert( 'functie is gewijzigd' );
+      toastr.success('Functie is gewijzigd');
     }).fail(function( data ){
-      alert( 'geen verbinding of geen id', 'error' );
+      toastr.error('Geen verbinding of geen id');
     });
   });
 }
@@ -82,7 +82,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
 
       $( '#members input.position:last' ).focus();
     }).fail(function(){
-      alert( 'Deze persoon is al toegevoegd', 'warning' );
+      toastr.warning('Deze persoon is al toegevoegd');
     });
   });
 });

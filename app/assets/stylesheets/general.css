@@ -1,0 +1,8 @@
+/*
+    This file is used to override values in yeti for all pages
+*/
+
+label {
+    margin-bottom: 0;
+    margin-top: 0.5rem;
+}

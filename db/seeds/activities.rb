@@ -6,8 +6,8 @@ puts '-- Creating activities'
 dates = []
 
 20.times do
-  dates << Faker::Time.between(Time.now, 3.months.from_now, :morning)
-  dates << Faker::Time.between(2.years.ago, Date.today, :morning)
+  dates << Faker::Time.between(from: Time.now, to: 3.months.from_now)
+  dates << Faker::Time.between(from: 2.years.ago, to: Date.today)
 end
 
 dates.each do |start_date|
@@ -21,9 +21,9 @@ dates.each do |start_date|
   @entire     = Faker::Boolean.boolean
   @part       = !@entire
 
-  viewable   = Faker::Boolean.boolean(0.9)
-  enrollable = viewable ? Faker::Boolean.boolean(0.9) : false
-  notes = Faker::Boolean.boolean(0.2) ? Faker::Lorem.question : nil
+  viewable   = Faker::Boolean.boolean(true_ratio: 0.9)
+  enrollable = viewable ? Faker::Boolean.boolean(true_ratio: 0.9) : false
+  notes = Faker::Boolean.boolean(true_ratio: 0.2) ? Faker::Lorem.question : nil
 
   activity = Activity.create(
     name:              Faker::Hacker.ingverb.capitalize,
@@ -33,24 +33,24 @@ dates.each do |start_date|
     start_date:        start_date,
     start_time:        @part ? start_date.to_time : nil,
 
-    end_date:          @multiple ? Faker::Date.between(start_date + 1.day, start_date + 7.days) : nil,
-    end_time:          @part ? Faker::Time.between(start_date, start_date, :evening) : nil,
+    end_date:          @multiple ? Faker::Date.between(from: start_date + 1.day, to: start_date + 7.days) : nil,
+    end_time:          @part ? Faker::Time.between_dates(from: start_date, to: Date.today, period: :evening) : nil,
 
     location:          Faker::TvShows::FamilyGuy.location,
-    organized_by:      Faker::Boolean.boolean(0.8) ? Group.all.sample : nil,
-    description:       Faker::Lorem.paragraph(5),
+    organized_by:      Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample : nil,
+    description:       Faker::Lorem.paragraph(sentence_count: 5),
 
     is_enrollable:     enrollable,
-    is_masters:        Faker::Boolean.boolean(0.2),
+    is_masters:        Faker::Boolean.boolean(true_ratio: 0.2),
     is_viewable:       viewable,
-    is_alcoholic:      Faker::Boolean.boolean(0.2),
-    is_freshmans:      Faker::Boolean.boolean(0.2),
+    is_alcoholic:      Faker::Boolean.boolean(true_ratio: 0.2),
+    is_freshmans:      Faker::Boolean.boolean(true_ratio: 0.2),
 
-    participant_limit: enrollable && Faker::Boolean.boolean(0.5) ? Faker::Number.between(2, 18) : nil,
+    participant_limit: enrollable && Faker::Boolean.boolean(true_ratio: 0.5) ? Faker::Number.within(range: 2..18) : nil,
 
     notes:             notes,
-    notes_mandatory:   notes.nil? ? Faker::Boolean.boolean(0.2) : false,
-    notes_public:      notes.nil? ? Faker::Boolean.boolean(0.6) : true
+    notes_mandatory:   notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.2) : false,
+    notes_public:      notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : true
   )
 
   puts("   -> #{ activity.name } (#{ start_date })#{', enrollable' if enrollable}" )
@@ -67,15 +67,15 @@ dates.each do |start_date|
   eligible = eligible.select(&:freshman?) if activity.is_freshmans
   eligible = eligible.select(&:masters?) if activity.is_masters
 
-  response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(0.3)) ? Faker::Measurement.height : nil
+  response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(true_ratio: 0.3)) ? Faker::Measurement.height : nil
 
-  eligible.sample(Faker::Number.between(20, 20)).each do |member|
+  eligible.sample(Faker::Number.within(range: 18..22)).each do |member|
     Participant.create(
       member:     member,
       activity:   activity,
       reservist:  true,
-      price:      (Faker::Boolean.boolean(0.2) ? Faker::Commerce.price / 5 : nil),
-      paid:       Faker::Boolean.boolean(0.4), # if price is 0 then the paid attribute is not used
+      price:      (Faker::Boolean.boolean(true_ratio: 0.2) ? Faker::Commerce.price / 5 : nil),
+      paid:       Faker::Boolean.boolean(true_ratio: 0.4), # if price is 0 then the paid attribute is not used
       notes:      response
     )
   end

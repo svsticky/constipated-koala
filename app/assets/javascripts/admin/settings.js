@@ -18,7 +18,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         value: obj.value
       }
     }).done(function( data, status ){
-      alert( $(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast', 'success' );
+      toastr.success($(obj).parents('.list-group-item').find('.col-md-6 b').html() + ' aangepast');
 
       if( !data )
         return;
@@ -27,9 +27,9 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         $(obj).val(data.activities);
 
       if( 'warning' in data && data.warning === true )
-        alert( 'niet alle activiteiten gevonden', 'warning' );
+        toastr.warning('Niet alle activiteiten gevonden');
     }).fail(function(){
-      alert( 'Instelling is niet opgeslagen', 'error' );
+      toastr.error('Instelling is niet opgeslagen');
     });
   });
 
@@ -47,10 +47,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         authenticity_token: token
       }
     }).done(function( data, status ){
-      alert( 'Advertentie verwijderd', 'success' );
+      toastr.success('Advertentie verwijderd');
       $( row ).remove();
     }).fail(function(){
-      alert( 'Advertentie is niet verwijderd', 'error' );
+      toastr.error('Advertentie is niet verwijderd');
     });
   });
 

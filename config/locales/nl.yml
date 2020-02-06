@@ -176,12 +176,11 @@ nl:
         tags: Tags
       participant:
         paid:
-          ? "false"
-          : "Niet betaald"
-          ? "true"
-          : Betaald
+          false: "Niet betaald"
+          true: "Betaald"
       user:
         email: E-mailadres
+        current_password: Huidig wachtwoord
         password: Wachtwoord
         password_confirmation: "Herhaal wachtwoord"
     errors:
@@ -200,7 +199,7 @@ nl:
 
       models:
         activity:
-          activity_ended: "Deze activiteit is (niet) meer beschikbaar. Ga terug."
+          activity_ended: "Deze activiteit is niet (meer) beschikbaar"
           already_enrolled: "Je bent al ingeschreven voor deze activiteit."
           attributes:
             end_date:
@@ -253,9 +252,9 @@ nl:
               invalid: "is geen geldig e-mailadres"
               taken: "is al geregistreerd"
             phone_number:
-              invalid: "bestaat niet uit 10 cijfers"
+              invalid: "is ongeldig"
             emergency_phone_number:
-              invalid: "bestaat niet uit 10 cijfers"
+              invalid: "is ongeldig"
               not_provided: "is verplicht onder 18 jaar"
             student_id:
               elfproef: "is niet geldig"
@@ -285,12 +284,6 @@ nl:
           attributes:
             status:
               invalid: "Geen correcte waarde ingevuld"
-      no_connection: "Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn volledig en worden getoond!"
-      subscribe:
-        failed: "Je betaling is niet gelukt, je bent wel ingeschreven!"
-        no_bank_provided: "Bank kan niet leeg zijn als je met iDEAL betaalt"
-        success: "Je betaling is ontvangen en je hebt je ingeschreven!"
-        success_without_payment: "Je hebt je ingeschreven!"
     labels:
       activities:
         date: Datum
@@ -337,6 +330,7 @@ nl:
       general: Algemeen
       ideal: iDeal
       payments: Betalingen
+      products: Producten
     member_account_status:
       no_user: "Dit lid heeft geen account."
       send_create_email: "Stuur account-aanmaakmail"
@@ -352,20 +346,19 @@ nl:
   association_name: "Studievereniging Sticky"
   date:
     day_names:
-      - ~
+      - zondag
       - maandag
       - dinsdag
       - woensdag
       - donderdag
       - vrijdag
       - zaterdag
-      - zondag
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-      - ~
+      - nil
       - januari
       - februari
       - maart
@@ -491,7 +484,7 @@ nl:
         to_the_activity: "Naar de activiteit"
       inform:
         activity_visited_html: "Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%."
-        payment_instructions_html: "Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>\"%{subject} - %recipient.name%\"</i>?"
+        payment_instructions_html: 'Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>"%{subject} - %recipient.name%"</i>?'
     signature: "Het bestuur"
   members:
     activities:
@@ -510,6 +503,7 @@ nl:
             update_info: "Update info"
           more_info: "Meer info"
           notes_mandatory: "Extra info vereist!"
+      back_to_overview: "Terug naar overzicht"
     genders:
       female: Vrouw
       male: MAN
@@ -517,9 +511,12 @@ nl:
       edit:
         general_data: "Algemene gegevens"
         privacy_panel:
-          header: 'Privacy'
-          view: 'Bekijk de'
-          privacy_statement: 'privacy statement'
+          header: "Privacy"
+          view: "Bekijk de"
+          privacy_statement: "privacy statement"
+        password_options:
+          header: "Wachtwoord opties"
+          change_password: "Verander wachtwoord"
       index:
         edit_profile: "Gegevens bewerken"
         outstanding_payments: "Openstaande betalingen"
@@ -529,6 +526,7 @@ nl:
   navigation:
     back: Terug
     home: Home
+    submit: Opslaan
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
@@ -557,4 +555,4 @@ nl:
         destroyable: Na verwijderen kan je niet meer inloggen of inschrijven voor activiteiten, je deelname aan toekomstige activiteiten wordt verwijderd en je verliest je mongoose tegoed.
         not_destroyable: Omdat je nog financiele verplichtingen hebt kun je je account niet verwijderen. Zorg dat je de laatste activiteiten betaald en verwijder je account door deze link te volgen of in %{url}.
         warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
-        destroy: Verwijderen je gegevens
+        destroy: Verwijder je gegevens

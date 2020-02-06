@@ -3,51 +3,55 @@
     .list-group.list-group-flush{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
       = link_to :root, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("navigation.home")
-        %i.fa.fa-desktop{:class => ('active' if yield(:page) == 'home')}
+        %i.fa.fa-desktop{:class => ('active' if current_page?(:root))}
 
       = link_to :members, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("activerecord.models.member")
-        %i.fa.fa-user{:class => ('active' if yield(:page) == 'members')}
+        %i.fa.fa-user{:class => ('active' if current_page?(:members))}
 
       = link_to :groups, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("activerecord.models.group")
-        %i.fa.fa-users{:class => ('active' if yield(:page) == 'groups')}
+        %i.fa.fa-users{:class => ('active' if current_page?(:groups))}
 
       = link_to :activities, :class => 'list-group-item list-group-item-action'do
         %span= I18n.t("activerecord.models.activity")
-        %i.fa.fa-ticket{:class => ('active' if yield(:page) == 'activities')}
+        %i.fa.fa-ticket{:class => ('active' if current_page?(:activities))}
 
       = link_to :payments, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.payments")
-        %i.fa.fa-money{:class => ('active' if yield(:page) == 'payments')}
+        %i.fa.fa-money{:class => ('active' if current_page?(:payments))}
 
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-apps' do
         %span= I18n.t("admin.navigation.apps")
         %i.fa.fa-terminal{:class => ('active' if yield(:page) == 'apps')}
 
-      .collapse.list-group#sub-apps
+      .collapse.list-group#sub-apps{:class => ('show' if yield(:page) == 'apps')}
         = link_to :checkout, :class => 'list-group-item list-group-item-action' do
           %span= I18n.t("admin.navigation.checkout")
-          %i.fa.fa-caret-right
+          %i.fa.fa-caret-right{:class => ('active' if current_page?(:checkout))}
 
         = link_to :ideal, :class => 'list-group-item list-group-item-action' do
           %span= I18n.t("admin.navigation.ideal")
-          %i.fa.fa-caret-right
+          %i.fa.fa-caret-right{:class => ('active' if current_page?(:ideal))}
+
+        = link_to :checkout_products, :class => 'list-group-item list-group-item-action' do
+          %span= I18n.t("admin.navigation.products")
+          %i.fa.fa-caret-right{:class => ('active' if current_page?(:checkout_products))}
 
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-settings' do
         %span= I18n.t("activerecord.models.settings")
         %i.fa.fa-gears{:class => ('active' if yield(:page) == 'settings')}
 
-      .collapse.list-group#sub-settings
+      .collapse.list-group#sub-settings{:class => ('show' if yield(:page) == 'settings') }
         = link_to :settings do
           %span= I18n.t("admin.navigation.general")
-          %i.fa.fa-caret-right
+          %i.fa.fa-caret-right{:class => ('active' if current_page?(settings_path))}
 
-        = link_to :logs_settings do
+        = link_to :logs_settings, :class => 'list-group-item list-group-item-action' do
           %span= I18n.t("activerecord.models.impressions")
-          %i.fa.fa-caret-right
+          %i.fa.fa-caret-right{:class => ('active' if current_page?(logs_settings_path))}
 
       .d-md-none
         = link_to destroy_user_session_path, 'data-method' => :delete do

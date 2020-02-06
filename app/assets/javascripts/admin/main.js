@@ -149,18 +149,6 @@ $(document).on('ready page:load turbolinks:load', function(){
     location.search = $.param(params);
   });
 
-  window.alert = function(message, type){
-    var template = $('template#alert').html();
-    var alert = template.format(message, type || 'info');
-    $('#toast-container').append(alert).children('.toast:not(.toast-error)').delay(3000).queue(function() {
-      $(this).remove();
-    });
-
-    $('.toast-close-button').on('click', function(){
-      $(this).closest('.toast').remove();
-    });
-  };
-
   //menu navigation
   $('.toggle-min').click(function(event){
     event.preventDefault();

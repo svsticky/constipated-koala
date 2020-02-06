@@ -11,8 +11,8 @@ class Member < ApplicationRecord
   validates :postal_code, presence: true
   validates :city, presence: true
 
-  validates :phone_number, presence: true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
-  validates :emergency_phone_number, :allow_blank => true, format: { with: /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/, multiline: true }
+  validates :phone_number, presence: true, phone_number: true
+  validates :emergency_phone_number, :allow_blank => true, phone_number: true
   validates :emergency_phone_number, presence: true, if: :underage?
 
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
@@ -83,15 +83,6 @@ class Member < ApplicationRecord
 
   def last_name=(last_name)
     write_attribute(:last_name, last_name.downcase.titleize)
-  end
-
-  # remove nonnumbers and change + to 00
-  def phone_number=(phone_number)
-    write_attribute(:phone_number, phone_number.sub('+', '00').gsub(/\D/, ''))
-  end
-
-  def emergency_phone_number=(emergency_phone_number)
-    write_attribute(:emergency_phone_number, emergency_phone_number.sub('+', '00'))
   end
 
   # lowercase on email
@@ -182,7 +173,7 @@ class Member < ApplicationRecord
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
-  def self.search(query)
+  def self.search(query, offset = 0, limit = 50)
     student_id = query.match(/^\F?\d{6,7}$/i)
     return where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
 
@@ -193,7 +184,7 @@ class Member < ApplicationRecord
     return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
 
     records = filter(query)
-    return records.find_by_fuzzy_query(query) unless query.blank?
+    return records.find_by_fuzzy_query(query, limit: limit, offset: offset) unless query.blank?
 
     return records
   end
@@ -334,19 +325,6 @@ class Member < ApplicationRecord
     return false unless unpaid_activities.empty?
 
     return true
-  end
-
-  # Normalize the Member's phone number for use in payment Whatsapps.
-  def whatsappable_phone_number
-    return unless phone_number.present?
-
-    pn = phone_number.gsub(/\s/, '') # Remove whitespace
-
-    return pn.sub(/^06/, "316") if /^06\d{8}$/.match?(pn) # Replace '06' with '316' if it's a Dutch phone number
-
-    return pn.sub(/^+?(00)?/, '') if /^(\+|00)?316\d{8}$/.match?(pn) # Replace 00316, +316 if it's international notation
-
-    nil
   end
 
   private

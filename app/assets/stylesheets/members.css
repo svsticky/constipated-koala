@@ -13,6 +13,10 @@
  *= require font-awesome
  *= require lato
  *
+ *= require intl_tel_input
+ *
+ *= require toastr/toastr.css
+ *
  *= require_self
  *= require_tree ./members
  *= require page
@@ -20,6 +24,7 @@
  *= require sidebar
  *= require cards
  *= require callouts
+ *= require general
  */
 
 .panel-activity > .panel-body:nth-child(2) {

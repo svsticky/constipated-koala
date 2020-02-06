@@ -5,8 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{ repo_name }.git"
 end
 
-gem 'mysql2'
-gem 'rails'
+gem 'mysql2', '0.5.1'
+gem 'rails', '~> 6.0'
 
 # use of Haml and rabl
 gem 'haml'
@@ -36,7 +36,10 @@ gem 'will_paginate-bootstrap4'
 
 # settings cached in rails environment
 gem 'image_processing'
-gem 'rails-settings-cached'
+gem 'rails-settings-cached', '~> 0.7'
+
+# phone number validation
+gem 'telephone_number'
 
 gem 'sidekiq'
 

@@ -33,13 +33,7 @@ class Members::ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
 
     # Don't allow activities for old activities
-    if @activity.ended? || !@activity.is_viewable?
-      render :status => :gone,
-             :plain => I18n.t(
-               :activity_ended,
-               scope: 'activerecord.errors.models.activity'
-             )
-    end
+    render :unavailable, :status => :gone if @activity.ended? || !@activity.is_viewable?
 
     @enrollment = Participant.find_by(
       member_id: @member.id,

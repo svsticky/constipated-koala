@@ -38,17 +38,15 @@ class Admin::PaymentsController < ApplicationController
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
     msg = render_to_string template: 'admin/members/payment_whatsapp.html.erb', layout: false, content_type: "text/plain"
 
-    pn = @member.whatsappable_phone_number
+    pn = @member.phone_number
 
-    redirect_to "https://api.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
+    redirect_to "https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
   end
 
   def update_transactions
     checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = "Gepind"', params[:start_date]).order(created_at: :desc)
     data = checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }
 
-    respond_to do |format|
-      format.js { render :json => data.to_json }
-    end
+    render :json => data
   end
 end

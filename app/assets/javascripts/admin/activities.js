@@ -67,7 +67,7 @@ var participant = {
     var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 
-    if( !confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?') )
+    if(!confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?'))
       return;
 
     $.ajax({
@@ -77,7 +77,7 @@ var participant = {
         authenticity_token: token
       }
     }).done(function(data){
-      alert($(row).find('a').html() + ' verwijderd', 'warning');
+      toastr.warning($(row).find('a').html() + ' verwijderd');
       $(row).remove();
 
       //Move reservist to attendees if applicable
@@ -97,9 +97,9 @@ var participant = {
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
-      $( 'input#search' ).select();
-    }).fail(function(){
-      alert( '', 'error' );
+      $('input#search').select();
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   },
 
@@ -116,14 +116,14 @@ var participant = {
         reservist: false
       }
     }).done(function(data){
-      alert(data.member.name + ' is op de deelnemerslijst geplaatst', 'success');
+      toastr.success(data.member.name + ' is op de deelnemerslijst geplaatst');
       participant.add(data);
 
       $(row).remove();
 
       bind_activities();
-    }).fail(function(){
-      alert( '', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   },
 
@@ -140,7 +140,7 @@ var participant = {
         paid: true
       }
     }).done(function(data){
-      alert(data.member.name + ' heeft betaald', 'success');
+      toastr.success(data.member.name + ' heeft betaald', 'success');
 
       $(row)
         .find( 'button.paid' )
@@ -157,8 +157,8 @@ var participant = {
       $( 'input#search' ).select();
 
       bind_activities();
-    }).fail(function(){
-      alert( '', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   },
 
@@ -175,7 +175,7 @@ var participant = {
         paid: false
       }
     }).done(function(data){
-      alert($(row).find( 'a' ).html() + ' heeft nog niet betaald', 'warning' );
+      toastr.warning(data.member.name + ' heeft nog niet betaald');
 
       $(row)
         .find( 'button.unpaid' )
@@ -192,8 +192,8 @@ var participant = {
       $( 'input#search' ).select();
 
       bind_activities();
-    }).fail(function(){
-      alert( '', 'error' );
+    }).fail(function(error){
+      toastr.error(error.statusText, error.status);
     });
   },
 
@@ -237,9 +237,9 @@ var participant = {
 
       participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
-      alert( 'het deelname bedrag is veranderd' );
-    }).fail(function( data ){
-      alert( 'geen verbinding of geen nummer', 'error' );
+      toastr.success('Het deelname bedrag is veranderd');
+    }).fail(function(){
+      toastr.error('Geen verbinding of geen nummer');
     });
   }
 };
@@ -261,7 +261,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       }).done(function( data ){
         participant.add(data);
       }).fail(function(){
-        alert( 'Deze persoon is al toegevoegd', 'warning' );
+        toastr.warning('Deze persoon is al toegevoegd');
       });
   });
 

@@ -25,6 +25,8 @@ class Activity < ApplicationRecord
     errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
   end
 
+  validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
+
   # Disabled validations
   # validates :end_date
   # validates :description

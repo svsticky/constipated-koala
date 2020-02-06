@@ -99,8 +99,8 @@ en:
         tags: Tags
       participant:
         paid:
-          ? "false": "Not paid"
-          ? "true": Paid
+          false: "Not paid"
+          true: "Paid"
       settings:
         additional_committee_positions:
           description: "Roles besides chairman, treasurer and board member that will be added to the committees."
@@ -146,6 +146,7 @@ en:
           suspended: Suspended
       user:
         email: e-mailaddress
+        current_password: Current password
         password: password
         password_confirmation: "Repeat password"
     errors:
@@ -163,10 +164,9 @@ en:
         no_bank_provided: Bank can't be empty when paying with iDEAL.
         success_without_payment: You have been enrolled!
 
-
       models:
         activity:
-          activity_ended: "This activity is not or no longer available. Go back."
+          activity_ended: "This activity is not or no longer available"
           already_enrolled: "You are already enrolled for this activity."
           attributes:
             end_date:
@@ -219,9 +219,9 @@ en:
               invalid: "is not a valid mail address"
               taken: "is already registered"
             phone_number:
-              invalid: "consists of 10 digits"
+              invalid: "is invalid"
             emergency_phone_number:
-              invalid: "consists of 10 digits"
+              invalid: "is invalid"
               not_provided: "is required under 18 years old"
             student_id:
               elfproef: "is not valid"
@@ -251,13 +251,7 @@ en:
           attributes:
             status:
               invalid: The value is not valid
-      no_connection: "No connection available with %{url}, not all %{name} are complete and will be shown!"
       record_invalid: "Error! The data is invalid."
-      subscribe:
-        failed: "Your payment has failed, but you have been enrolled!"
-        no_bank_provided: "Bank can't be empty when paying with iDEAL."
-        success: "Your payment has been received and you are enrolled!"
-        success_without_payment: "You have been enrolled!"
     impression:
       activity:
         create: "activity created"
@@ -325,6 +319,7 @@ en:
       general: General
       ideal: iDeal
       payments: Payments
+      products: Products
     member_account_status:
       no_user: "This member has no account."
       send_create_email: "Send account creation email."
@@ -340,32 +335,31 @@ en:
   association_name: "Study association Sticky"
   date:
     day_names:
-    - ~
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-    - Sunday
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
       short: "%Y"
     month_names:
-    - ~
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - Oktober
-    - November
-    - December
+      - nil
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - Oktober
+      - November
+      - December
   devise:
     confirmations:
       activate_account: "Activate account"
@@ -476,7 +470,7 @@ en:
         to_the_activity: "To the activity"
       inform:
         activity_visited_html: "You visited <strong>%{subject}</strong>, this activity cost %recipient.price%."
-        payment_instructions_html: "Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>\"%{subject} %recipient.name%\"</i>?"
+        payment_instructions_html: 'Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?'
     signature: "The board"
   members:
     activities:
@@ -495,6 +489,7 @@ en:
             update_info: "Update info"
           more_info: "More info"
           notes_mandatory: "Extra info required!"
+      back_to_overview: "Back to activity overview"
     genders:
       female: FEMALE
       male: MALE
@@ -502,9 +497,12 @@ en:
       edit:
         general_data: General
         privacy_panel:
-          header: 'Privacy'
-          view: 'View the'
-          privacy_statement: 'privacy statement'
+          header: "Privacy"
+          view: "View the"
+          privacy_statement: "privacy statement"
+        password_options:
+          header: "Password options"
+          change_password: "Change password"
       index:
         edit_profile: "Edit profile"
         outstanding_payments: "Outstanding payments"
