@@ -72,8 +72,8 @@ class MailchimpJob < ApplicationJob
       Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
       'User-Agent': 'constipated-koala'
     )
-  rescue RestClient::BadRequest => error
-    logger.debug JSON.parse(error.response.body)
+  rescue RestClient::BadRequest => e
+    logger.debug JSON.parse(e.response.body)
   rescue RestClient::NotFound
     logger.debug 'record not found'
   end
