@@ -143,6 +143,12 @@
                   = f.check_box :business_subscribe, :checked => false
                   %span= I18n.t('business.name', scope: 'activerecord.annotations.member')
                 .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
+            .row
+              .col-md-6
+                %label.ui-checkbox
+                  = f.check_box :lectures_subscribe, :checked => false
+                  %span= I18n.t('lectures.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
 
           .row
             .col-lg-5

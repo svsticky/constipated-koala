@@ -8,11 +8,14 @@ en:
         emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
         mailinglists: "Mailinglists"
         mmm:
-          name: "MaandagMorgenMail"
-          description: "Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer."
+          name: "MondayMorningMail"
+          description: "When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more"
         business:
-          name: "Bedrijfsmailing"
-          description: "Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails."
+          name: "Company mailing"
+          description: "When you sign up for this list you will occasionally receive emails from one of the sponsors of Sticky. This mails concern invitations for their events or career options. This mailing is sent by Sticky, your emailadres will never be shared with external companies."
+        lectures:
+          name: "Lectures and Workshops"
+          description: "When you sign up for this list you will receive emails for lectures and workshops Sticky organizes. In this way you can stay up to date about our educational activities"
     attributes:
       activity:
         comments: "Comments (private)"

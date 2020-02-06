@@ -19,6 +19,7 @@ defaults: &defaults
       alv: <%= ENV['MAILCHIMP_ALV_ID'] %>
       business: <%= ENV['MAILCHIMP_BUSINESS_ID'] %>
       mmm: <%= ENV['MAILCHIMP_MMM_ID'] %>
+      lectures: <%= ENV['MAILCHIMP_LECTURES_ID'] %>
 
     # tags that should be synced using koala, other tags will be ignored
     tags:

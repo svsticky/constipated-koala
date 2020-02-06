@@ -40,6 +40,7 @@ class Public::HomeController < PublicController
       interests = [Settings['mailchimp.interests.alv']]
       interests.push Settings['mailchimp.interests.mmm'] if params[:member][:mmm_subscribe] == "1"
       interests.push Settings['mailchimp.interests.business'] if params[:member][:business_subscribe] == "1"
+      interests.push Settings['mailchimp.interests.lectures'] if params[:member][:business_subscribe] == "1"
 
       MailchimpJob.perform_later @member.email, @member, interests
 
