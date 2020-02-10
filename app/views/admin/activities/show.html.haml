@@ -55,10 +55,10 @@
                     %td.buttons
                       .btn-group
                         - if participant.paid
-                          %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 ) }
+                          %button.btn.btn-primary.unpaid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 ) }
                             %i.fa.fa-fw.fa-check
                         - else
-                          %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0)}
+                          %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0)}
                             %i.fa.fa-fw.fa-times
                         %button.btn.btn-default.destroy
                           %i.fa.fa-fw.fa-trash-o
