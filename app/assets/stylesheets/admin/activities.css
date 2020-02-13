@@ -128,3 +128,8 @@
 #activity_participant_limit {
   width: 50px;
 }
+
+#activity_table {
+  table-layout: fixed;
+  overflow: hidden;
+}
