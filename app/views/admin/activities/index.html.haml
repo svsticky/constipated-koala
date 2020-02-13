@@ -15,7 +15,7 @@
             %i.fa.fa-fw.fa-ticket
             = I18n.t('activerecord.models.activity')
             = select_tag :year, options_for_select( @years, params['year'] )
-          %table.table.table-striped.table-linked
+          %table.table.table-striped.table-linked#activity_table
             %tbody
               - @activities.each do |activity|
                 %tr
