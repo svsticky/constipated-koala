@@ -7,6 +7,9 @@ nl:
         study: "Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap."
         emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
         mailinglists: "Mailinglijsten"
+        alv:
+          name: "Algemene Leden Vergaderingen"
+          description: "Krijg een paar keer per jaar een uitnodiging en de stukken voor de leden vergaderingen in je mailbox."
         mmm:
           name: "MaandagMorgenMail"
           description: "Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer."

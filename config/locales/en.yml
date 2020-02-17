@@ -7,6 +7,9 @@ en:
         study: "This is required to check if you are allowed to be a member of Sticky."
         emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
         mailinglists: "Mailinglists"
+        alv:
+          name: "General assembly"
+          description: "Get a few times per year an invitation for the general assemblies in your mailbox."
         mmm:
           name: "MondayMorningMail"
           description: "When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more"

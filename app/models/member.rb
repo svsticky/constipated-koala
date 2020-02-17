@@ -292,7 +292,7 @@ class Member < ApplicationRecord
   end
 
   def mailchimp_interests
-    return if id.nil? || ENV['MAILCHIMP_DATACENTER'].nil?
+    return if id.nil? || ENV['MAILCHIMP_DATACENTER'].empty?
 
     Rails.cache.fetch("members/#{ id }/mailchimp/interests", expires_in: 30.days) do
       response = RestClient.get(

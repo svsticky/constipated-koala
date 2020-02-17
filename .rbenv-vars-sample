@@ -55,6 +55,8 @@ OAUTH_PROXY_REDIRECTS=https://photos.svsticky.nl/oauth2/callback;https://files.s
 MAILGUN_DOMAIN=
 MAILGUN_TOKEN=
 
+# MAILCHIMP_TOKEN is the mailchimp API token
+# MAILCHIMP_SECRET is used for the mailchimp webhook
 MAILCHIMP_TOKEN=
 MAILCHIMP_SECRET=
 MAILCHIMP_DATACENTER=

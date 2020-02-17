@@ -40,8 +40,7 @@ class MailchimpJob < ApplicationJob
 
       merge_fields: {
         FIRSTNAME: member.first_name,
-        LASTNAME: (member.infix.blank? ? member.last_name : "#{ member.infix } #{ member.last_name }"),
-        STUDIES: member.studies.pluck(:code).join(' ')
+        LASTNAME: (member.infix.blank? ? member.last_name : "#{ member.infix } #{ member.last_name }")
       }
     }
 

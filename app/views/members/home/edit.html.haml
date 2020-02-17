@@ -90,8 +90,8 @@
             %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
           .card-body
             .form-group
-              - Settings['mailchimp.interests'].each do |name, key|
-                - if !(name == "alv")
+              - if !@member.mailchimp_interests.nil?
+                - Settings['mailchimp.interests'].each do |name, key|
                   .row
                     .col-md-12
                       %label.ui-checkbox
