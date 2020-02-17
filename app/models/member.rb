@@ -129,11 +129,6 @@ class Member < ApplicationRecord
     return "#{ first_name } #{ infix } #{ last_name }"
   end
 
-  # create hash for gravatar
-  def gravatar
-    return Digest::MD5.hexdigest(email.downcase)
-  end
-
   # TODO: refactor
   def groups
     groups = {}
