@@ -36,6 +36,14 @@ class Public::HomeController < PublicController
       impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
+      # add user to mailchimp
+      interests = [Settings['mailchimp.interests.alv']]
+      interests.push Settings['mailchimp.interests.mmm'] if params[:member][:mmm_subscribe] == "1"
+      interests.push Settings['mailchimp.interests.business'] if params[:member][:business_subscribe] == "1"
+      interests.push Settings['mailchimp.interests.lectures'] if params[:member][:business_subscribe] == "1"
+
+      MailchimpJob.perform_later @member.email, @member, interests
+
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }
         flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')

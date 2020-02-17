@@ -82,6 +82,23 @@
             %span.footnote 2
             .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
+    - if !Settings['mailchimp.interests'].empty?
+      .col-xl-6
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-envelope
+            %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+          .card-body
+            .form-group
+              - if !@member.mailchimp_interests.nil?
+                - Settings['mailchimp.interests'].each do |name, key|
+                  .row
+                    .col-md-12
+                      %label.ui-checkbox
+                        = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
+                        %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
+                        .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
+
     .col-xl-6
       .card
         .card-header

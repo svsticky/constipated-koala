@@ -6,6 +6,19 @@ en:
         email: "Can't be a UU email address. Address is used for communication between you and Sticky."
         study: "This is required to check if you are allowed to be a member of Sticky."
         emergency_phone_number: "Someone we can call in case of an emergency. Required if you're not an adult."
+        mailinglists: "Mailinglists"
+        alv:
+          name: "General assembly"
+          description: "Get a few times per year an invitation for the general assemblies in your mailbox."
+        mmm:
+          name: "MondayMorningMail"
+          description: "When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more"
+        business:
+          name: "Company mailing"
+          description: "When you sign up for this list you will occasionally receive emails from one of the sponsors of Sticky. This mails concern invitations for their events or career options. This mailing is sent by Sticky, your emailadres will never be shared with external companies."
+        lectures:
+          name: "Lectures and Workshops"
+          description: "When you sign up for this list you will receive emails for lectures and workshops Sticky organizes. In this way you can stay up to date about our educational activities"
     attributes:
       activity:
         comments: "Comments (private)"
@@ -222,6 +235,7 @@ en:
           destroy:
             info: "%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats."
             checkout_emptied: "The checkout balance was %{balance}, this has been removed from their account."
+            mailchimp_queued: "Mailchimp account is automatically removed."
           blank: "can't be blank"
         unpermitted: "is not permitted"
         user:

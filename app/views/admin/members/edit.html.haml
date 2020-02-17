@@ -81,15 +81,6 @@
                 = f.label(:comments)
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
 
-        .col-md-6
-          .card
-            .card-header
-              %i.fa.fa-fw.fa-image
-              Profielfoto
-            .card-body
-              .callout.callout-info
-                %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres.
-
         .col-md-6.education
           .card
             .card-header
@@ -130,6 +121,13 @@
 
                       %a.btn.btn-default.destroy{ :type => 'button' }
                         %span.fa.fa-trash-o
+
+
+                - unless Settings['mailchimp.interests'].empty?
+                  .form-group
+                    = f.label(:mailchimp_interests)
+                    = f.select :mailchimp_interests, options_for_select( Settings['mailchimp.interests'] , @member.mailchimp_interests.select{ |_,v| v == true}.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
+
 
         .col-md-12
           .card

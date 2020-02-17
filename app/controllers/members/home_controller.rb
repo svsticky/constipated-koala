@@ -64,7 +64,9 @@ class Members::HomeController < ApplicationController
   def update
     @member = Member.find(current_user.credentials_id)
 
-    if @member.update(member_post_params)
+    if @member.update member_post_params.except 'mailchimp_interests'
+      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys
+
       impressionist(@member, 'lid bewerkt')
 
       redirect_to users_root_path
@@ -133,6 +135,7 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
+                                   :mailchimp_interests => [],
                                    educations_attributes: [:id, :status])
   end
 

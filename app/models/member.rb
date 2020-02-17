@@ -286,6 +286,22 @@ class Member < ApplicationRecord
     return records
   end
 
+  def mailchimp_interests
+    return if id.nil? || ENV['MAILCHIMP_DATACENTER'].nil? || ENV['MAILCHIMP_DATACENTER'].empty?
+
+    Rails.cache.fetch("members/#{ id }/mailchimp/interests", expires_in: 30.days) do
+      response = RestClient.get(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }?fields=interests",
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+
+      return JSON.parse(response.body)['interests']
+    rescue RestClient::ResourceNotFound
+      return []
+    end
+  end
+
   def export
     export = attributes.except(:comments)
     export[:educations] = educations.pluck(:id)
@@ -327,6 +343,9 @@ class Member < ApplicationRecord
 
     # set not updated studies to inactive
     Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
+
+    # remove from mailchimp using just the email as string
+    MailchimpJob.perform_later email, nil, []
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0

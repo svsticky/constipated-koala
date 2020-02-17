@@ -92,6 +92,12 @@
                   - elsif education.active?
                     %span.label.label-info studerend
 
+            - unless Settings['mailchimp.interests'].empty?
+              %dl.dl-horizontal
+                %dt Mailchimp lijsten
+                %dd= @member.mailchimp_interests&.select{ |_,v| v == true}&.map{ |k, _| Settings['mailchimp.interests'].key(k) }&.join(', ')
+
+
         .card
           .card-body
             .btn-group

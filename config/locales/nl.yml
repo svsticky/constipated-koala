@@ -6,6 +6,19 @@ nl:
         email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou. Je e-mailadres wordt ook gebruikt als login."
         study: "Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap."
         emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
+        mailinglists: "Mailinglijsten"
+        alv:
+          name: "Algemene Leden Vergaderingen"
+          description: "Krijg een paar keer per jaar een uitnodiging en de stukken voor de leden vergaderingen in je mailbox."
+        mmm:
+          name: "MaandagMorgenMail"
+          description: "Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer."
+        business:
+          name: "Bedrijfsmailing"
+          description: "Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails."
+        lectures:
+          name: "Lezingen en Workshops"
+          description: "Door je voor deze lijst aan te melden zul je een mail krijgen voor alle lezingen en workshops die Sticky organiseert. Zo kun je op de hoogte blijven van onze educatieve activiteiten."
     attributes:
       activity:
         comments: "Opmerkingen (privé)"
@@ -255,6 +268,7 @@ nl:
           destroy:
             info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
             checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
+            mailchimp_queued: "Mailchimp gegevens worden automatisch verwijderd."
           blank: "kan niet leeg zijn"
         unpermitted: "is niet geldig"
         user:

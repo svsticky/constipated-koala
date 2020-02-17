@@ -13,6 +13,19 @@ defaults: &defaults
     committee: ['fotograaf','pr']
     moot: []
 
+  mailchimp:
+    # interests are subsection of the mail list
+    interests:
+      alv: <%= ENV['MAILCHIMP_ALV_ID'] %>
+      business: <%= ENV['MAILCHIMP_BUSINESS_ID'] %>
+      mmm: <%= ENV['MAILCHIMP_MMM_ID'] %>
+      lectures: <%= ENV['MAILCHIMP_LECTURES_ID'] %>
+
+    # tags that should be synced using koala, other tags will be ignored
+    tags:
+      - gratie
+      - alumni
+
 development:
   <<: *defaults
 
