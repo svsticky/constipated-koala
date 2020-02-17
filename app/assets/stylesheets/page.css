@@ -9,6 +9,7 @@
   bottom: 0;
   width: auto;
   overflow-y: auto;
+  background-color: #f3f3f3;
 }
 
 #content {

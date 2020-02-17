@@ -102,16 +102,6 @@
     .col-xl-6
       .card
         .card-header
-          %i.fa.fa-fw.fa-key
-          = I18n.t 'members.home.edit.password_options.header'
-        .card-body
-          = link_to password_change_path, { :class => 'button btn btn-warning' } do
-            %i.fa.fa-key
-            = I18n.t 'members.home.edit.password_options.change_password'
-
-    .col-xl-6
-      .card
-        .card-header
           %i.fa.fa-fw.fa-graduation-cap
           Studiegegevens
         .card-body
@@ -183,9 +173,16 @@
     .col-xl-12
       .card
         .card-body
-          %button.btn.btn-success{type: 'submit'}
-            = I18n.t("editing.save")
-          = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
-          = link_to download_path, { :class => 'button btn btn-secondary pull-right' } do
-            %i.fa.fa-download
-            Download persoonsgegevens
+          .btn-group
+            %button.btn.btn-success{type: 'submit'}
+              = I18n.t("editing.save")
+            = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
+
+          .btn-group.pull-right
+            = link_to password_change_path, { :class => 'button btn btn-warning' } do
+              %i.fa.fa-key
+              = I18n.t 'members.home.edit.password_options.change_password'
+
+            = link_to download_path, { :class => 'button btn btn-secondary' } do
+              %i.fa.fa-download
+              Download persoonsgegevens
