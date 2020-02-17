@@ -543,7 +543,7 @@ nl:
     attributes:
       activity:
         comments: Comments (private)
-        description: Discription
+        description: Description
         end_date: End date
         end_time: End time
         is_alcoholic: Alcohol (18+)
@@ -896,31 +896,31 @@ nl:
   date:
     day_names:
       - nil
-      - monday
-      - tuesday
-      - wednesday
-      - thursday
-      - friday
-      - saterday
-      - sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
     formats:
       day_month: '%d %B'
       default: '%d-%m-%Y'
       short: '%Y'
     month_names:
       - nil
-      - january
-      - february
-      - march
-      - april
-      - may
-      - june
-      - july
-      - august
-      - september
-      - october
-      - november
-      - december
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
   devise:
     confirmations:
       activate_account: Activate account
