@@ -19,6 +19,12 @@ class Api::WebhookController < ApiController
     head :ok
   end
 
+  # send ok status to convince mailchimp everything works
+  def mailchimp_confirm_callback
+    head(:unauthorized) && return unless params[:token] == ENV['MAILCHIMP_SECRET']
+    head :ok
+  end
+
   # update cache with new information
   def mailchimp
     head(:unauthorized) && return unless params[:token] == ENV['MAILCHIMP_SECRET']
