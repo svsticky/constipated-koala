@@ -481,7 +481,6 @@ en:
       index:
         no_activities: "There are no activities for which you can enroll at the moment"
         activities_calendar: "Activities calendar"
-        download_ICS: "Download ICS"
         copy_ICS: "Copy ICS"
       subscribe: Subscribe!
       partials:
