@@ -481,7 +481,7 @@ en:
       index:
         no_activities: "There are no activities for which you can enroll at the moment"
         activities_calendar: "Activities calendar"
-        copy_ICS: "Copy ICS"
+        copy_ICS: "Copy Webcal link"
       subscribe: Subscribe!
       partials:
         view:

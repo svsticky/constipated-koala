@@ -495,7 +495,7 @@ nl:
       index:
         no_activities: "Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven"
         activities_calendar: "Activiteitenkalender"
-        copy_ICS: "Kopieer ICS"
+        copy_ICS: "Kopieer Webcal link"
       subscribe: Abonneer!
       partials:
         view:
