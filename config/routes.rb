@@ -139,6 +139,7 @@ Rails.application.routes.draw do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
           post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
 
+          get 'mailchimp/:token', to: 'webhook#mailchimp_confirm_callback', as: 'mailchimp_confirm'
           post 'mailchimp/:token', to: 'webhook#mailchimp', as: 'mailchimp'
         end
 
