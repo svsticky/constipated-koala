@@ -115,6 +115,12 @@ Rails.application.routes.draw do
           match :flip, action: :flip_active, via: [:patch]
         end
       end
+
+      # sidekiq web interface
+      authenticate :user, ->(u) { u.admin? } do
+        require 'sidekiq/web'
+        mount Sidekiq::Web => '/sidekiq'
+      end
     end
 
     scope 'api' do
