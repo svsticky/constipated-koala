@@ -21,7 +21,7 @@ class Api::WebhookController < ApiController
 
   # update cache with new information
   def mailchimp
-    head(:unauthorized) && return unless params[:secret] == ENV['MAILCHIMP_SECRET']
+    head(:unauthorized) && return unless params[:token] == ENV['MAILCHIMP_SECRET']
     head(:precondition_failed) && return unless params[:data][:list_id] == ENV['MAILCHIMP_LIST_ID']
     head(:method_not_allowed) && return unless ['subscribe', 'unsubscribe', 'profile', 'cleaned'].include? params[:type]
 
