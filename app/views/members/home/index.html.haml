@@ -20,7 +20,7 @@
             = number_to_currency( @debt, :unit => '€' )
           %p.text-muted.text-center= I18n.t('members.home.index.outstanding_payments')
         .col.bg-warning.card-body
-          %i.fa.fa-ticket.fa-5x
+          %i.fa.fa-ticket-alt.fa-5x
 
     - if @member.groups.any?
       .widget
@@ -48,7 +48,7 @@
     .card
       .card-header
         %span
-          %i.fa.fa-fw.fa-fw.fa-ticket
+          %i.fa.fa-fw.fa-fw.fa-ticket-alt
           = I18n.t("activerecord.models.activity")
           = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
 

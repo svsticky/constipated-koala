@@ -415,7 +415,25 @@ en:
       ideal: iDeal
       payments: Payments
       products: Products
-  association_name: Study association Sticky
+      links: External links
+      pictures: Pictures
+      files: Files
+      declarations: Declarations
+      books: Books
+      vacancies: Vacancies
+    member_account_status:
+      no_user: "This member has no account."
+      send_create_email: "Send account creation email."
+      user_not_activated: "This member has an account (%{email}), but the account has not yet been activated."
+      resend_confirmation: "Re-send activation mail"
+      active_user: "This member has an active account(%{email})."
+      send_password_reset: "Send password reset email"
+      email_sent: "Email sent!"
+      consent_sent: Mail for updating studystatus send
+      send_consent_mail: Request updating studystatus
+      send_mail: Send a mail
+
+  association_name: "Study association Sticky"
   date:
     day_names:
       - Sunday
@@ -660,7 +678,13 @@ en:
         outstanding_payments: Outstanding payments
         upgrade: Upgrade
     navigation:
-      edit_profile: Edit profile
+      link: External links
+      pictures: Pictures
+      files: Files
+      declarations: DigiDecs
+      books: Books
+      vacancies: Vacancies
+      edit_profile: "Edit profile"
   navigation:
     back: Back
     home: Home

@@ -22,7 +22,7 @@
           = link_to :activities do
             .row.no-gutters
               %span.box-icon.bg-info
-                %i.fa.fa-homepage.fa-ticket
+                %i.fa.fa-homepage.fa-ticket-alt
               .card-body.box-info
                 %h2.text-center
                   = @activities
@@ -44,7 +44,7 @@
           = link_to :payments do
             .row.no-gutters
               %span.box-icon.bg-danger
-                %i.fa.fa-homepage.fa-eur
+                %i.fa.fa-homepage.fa-euro-sign
               .card-body.box-info
                 %h2.text-center
                   = number_to_currency(@unpayed, :unit => '')
@@ -97,7 +97,7 @@
       %div.col-lg-3
         .card
           .card-header
-            %i.fa.fa-fw.fa-ticket
+            %i.fa.fa-fw.fa-ticket-alt
             Wanbetalers
           %table.table.table-striped.table-linked
             %tbody

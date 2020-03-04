@@ -621,7 +621,13 @@ nl:
         outstanding_payments: Openstaande betalingen
         upgrade: Opwaarderen
     navigation:
-      edit_profile: Gegevens bewerken
+      edit_profile: "Gegevens bewerken"
+      links: Externe links
+      pictures: Foto's
+      files: Bestanden
+      declarations: DigiDecs
+      books: Boeken
+      vacancies: Vacatures
   navigation:
     back: Terug
     home: Home

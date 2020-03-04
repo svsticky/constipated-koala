@@ -10,20 +10,19 @@
  *
  *= require yeti
  *
- *= require font-awesome
  *= require lato
  *
  *= require intl_tel_input
- *
+ * 
+ *= require font_awesome5_webfont
  *= require toastr/toastr.css
- *
  *= require_self
  *= require_tree ./admin
  *= require page
  *= require header
  *= require sidebar
  *= require cards
- *= requere general
+ *= require general
  */
 
 .page {
