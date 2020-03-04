@@ -12,7 +12,7 @@
         .card
           .card-header
             .card-header-text
-              %i.fa.fa-fw.fa-ticket
+              %i.fa.fa-fw.fa-ticket-alt
               Producten
             
             =link_to "+", checkout_products_path, class: "new-product btn btn-success"
@@ -48,7 +48,7 @@
             .col-md-12.pull-right
               .card
                 .card-header
-                  %i.fa.fa-fw.fa-ticket
+                  %i.fa.fa-fw.fa-ticket-alt
                   Bewerk product
                 .card-body
 
@@ -106,7 +106,7 @@
             .col-md-12.pull-right
               .card
                 .card-header
-                  %i.fa.fa-fw.fa-ticket
+                  %i.fa.fa-fw.fa-ticket-alt
                   Nieuw product
                 .card-body
 
@@ -141,7 +141,7 @@
           .col-md-12.pull-right
             .card
               .card-header.year
-                %i.fa.fa-fw.fa-ticket
+                %i.fa.fa-fw.fa-ticket-alt
                 Verkopen
                 .ui-select
                   = select_tag :year, options_for_select( @years, params['year'] )

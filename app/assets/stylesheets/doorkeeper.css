@@ -10,7 +10,7 @@
  *
  *= require_self
  *
- *= require font-awesome
+ *= require font_awesome5_webfont 
  *= require bootstrap/dist/css/bootstrap
  *= require yeti
  */

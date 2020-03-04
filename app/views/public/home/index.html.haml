@@ -174,7 +174,7 @@
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
             .col-lg-6.activities
               %h4
-                %i.fa.fa-ticket
+                %i.fa.fa-ticket-alt
                 = I18n.t(:activity, scope: 'activerecord.models')
               .row
                 .col-lg-6

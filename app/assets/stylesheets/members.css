@@ -9,8 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require yeti
- *
- *= require font-awesome
+ *= require font_awesome5_webfont
  *= require lato
  *
  *= require intl_tel_input
@@ -25,7 +24,9 @@
  *= require cards
  *= require callouts
  *= require general
+
  */
+
 
 .panel-activity > .panel-body:nth-child(2) {
   height: 230px;
