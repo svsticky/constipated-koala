@@ -23,17 +23,6 @@ class MailchimpJob < ApplicationJob
   def perform(key, member, interests = Settings['mailchimp.interests'].values, mailchimp_status = 'subscribed')
     return if ENV['MAILCHIMP_DATACENTER'].nil?
 
-    # delete user without interests, update member information and tags if interests is nil
-    if !interests.nil? && interests.empty?
-      RestClient.delete(
-        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }",
-        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
-        'User-Agent': 'constipated-koala'
-      )
-
-      return
-    end
-
     request = {
       email_address: member.email,
       status: mailchimp_status,
@@ -58,6 +47,19 @@ class MailchimpJob < ApplicationJob
       Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
       'User-Agent': 'constipated-koala'
     )
+
+    # archive user without interests, update member information and tags if interests is nil
+    # this needs to be done *after* updating interests, otherwise the archived
+    # user still has interests.
+    if !interests.nil? && interests.empty?
+      RestClient.delete(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }",
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+
+      return
+    end
 
     Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless interests.nil?
 
