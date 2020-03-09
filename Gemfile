@@ -14,8 +14,9 @@ gem 'rabl'
 
 # assets and stuff
 gem 'coffee-rails'
-gem 'sassc-rails'
 gem 'font_awesome5_rails'
+gem 'sassc-rails'
+
 
 # authentication gems
 gem 'devise'
