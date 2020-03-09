@@ -55,11 +55,10 @@
               %span= I18n.t("members.navigation.edit_profile")
               %i.fa.fa-user{:class => ('active' if yield(:page) == 'edit')}
             = link_to '', :class => 'list-group-item list-group-item-action',
-                          'data-toggle' => 'collapse', 'href' => '#sub-apps' do
+              'data-toggle' => 'collapse', 'href' => '#sub-apps' do
               %span= I18n.t("members.navigation.link")
               %i.fa.fa-caret-down
-
-            .collapse.list-group#sub-apps{:class => ('show' if yield(:page) == 'apps')}
+            .collapse.list-group#sub-apps
               = link_to "https://fotos.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t("members.navigation.pictures")
                 %i.fa.fa-camera
@@ -76,10 +75,6 @@
                 %span= I18n.t("members.navigation.vacancies")
                 %i.fa.fa-briefcase
               
-              = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-md-none' do
-                %span= I18n.t("devise.sessions.new.sign_out")
-                %i.fa.fa-sign-out-alt
-
       .view-container
         %section
           .page#content
