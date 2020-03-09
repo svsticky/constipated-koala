@@ -17,7 +17,6 @@ gem 'coffee-rails'
 gem 'font_awesome5_rails'
 gem 'sassc-rails'
 
-
 # authentication gems
 gem 'devise'
 gem 'doorkeeper'
