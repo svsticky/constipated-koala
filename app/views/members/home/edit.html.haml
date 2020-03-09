@@ -87,7 +87,7 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-envelope
-            %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+            = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
           .card-body
             .form-group
               - if !@member.mailchimp_interests.nil?
