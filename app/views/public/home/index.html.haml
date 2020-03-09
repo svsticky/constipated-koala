@@ -215,13 +215,10 @@
             %ul.list-inline
               %li.list-inline-item
                 = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
-                  %i.fa.fa-facebook.fa-3x
-              %li.list-inline-item
-                = link_to '//twitter.com/StickyUtrecht', :target => '_blank' do
-                  %i.fa.fa-twitter.fa-3x
+                  %i.fab.fa-facebook.fa-3x
               %li.list-inline-item
                 =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
-                  %i.fa.fa-linkedin.fa-3x
+                  %i.fab.fa-linkedin.fa-3x
 
 - if @member.errors.any? || !flash[:error].nil?
   :javascript
