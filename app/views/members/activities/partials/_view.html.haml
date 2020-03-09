@@ -7,7 +7,12 @@
 .card.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
   .card-header.text-right
     %span.card-title.float-left.activity-title{ :style => 'text-overflow: ellipsis;'}
-      = activity.name
+      -if view == 'show'
+        = link_to ("/activities/") do
+          %i.fa.fa-chevron-left
+          = activity.name
+      -else
+        = activity.name
     .fullness
       = activity.fullness
     .clearfix
@@ -76,7 +81,7 @@
     .row
       - if view == 'index'
         -if !activity.notes.blank?
-          = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fa fa-pencil-square-o'></i>"), "/activities/#{activity.id}", class: "btn btn-secondary more-info col-12 col-sm-6"
+          = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fas fa-edit'></i>"), "/activities/#{activity.id}", class: "btn btn-secondary more-info col-12 col-sm-6"
         -else
           = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-secondary more-info col-12 col-sm-6"
 
@@ -100,6 +105,4 @@
           - button_class = 'btn-success col-12 col-sm-6'
         %button.btn.enrollment{ :class => button_class}
           = button_text
-    -if view == 'show'
-      .row
-        = link_to I18n.t("navigation.back"), "/activities/", class: "btn btn-secondary col-12 col-sm-3"
+    
