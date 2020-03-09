@@ -678,11 +678,7 @@ en:
         outstanding_payments: Outstanding payments
         upgrade: Upgrade
     navigation:
-<<<<<<< HEAD
       links: External links
-=======
-      link: External links
->>>>>>> Update FA4 to FA5 + External links for members
       pictures: Pictures
       files: Files
       declarations: DigiDecs
