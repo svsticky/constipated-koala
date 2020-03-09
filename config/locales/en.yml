@@ -425,7 +425,6 @@ en:
       - Thursday
       - Friday
       - Saturday
-      - sunday
     formats:
       day_month: '%d %B'
       default: '%d-%m-%Y'
