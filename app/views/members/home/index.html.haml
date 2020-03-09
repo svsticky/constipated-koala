@@ -44,7 +44,7 @@
                           - if year == Date.today.study_year
                             = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
 
-  .col-lg-6.col-12.pull-right
+  .col-lg-6.col-12.float-right
     .card
       .card-header
         %span
@@ -97,9 +97,9 @@
                 %td
                   = number_to_currency(transaction.price, :unit => '€')
                   - if transaction.price > 0
-                    %span.fa.fa-sort-asc.pull-right
+                    %span.fa.fa-sort-asc.float-right
                   - else
-                    %span.fa.fa-sort-desc.pull-right
+                    %span.fa.fa-sort-desc.float-right
 
             %tr.form
               %td.home_mongoose_form_element

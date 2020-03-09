@@ -24,7 +24,7 @@
             = select_tag :position, options_for_select( group.positions.map{ |position| [I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize), position]}, (!(defined? member.position).nil? ? member.position : nil) ), :disabled => member.member.nil?,  :include_blank => '-', :class => 'position'
 
         %td.buttons
-          %button.btn.btn-default.destroy.pull-right
+          %button.btn.btn-default.destroy.float-right
             %i.fa.fa-fw.fa-trash-o
 
 
