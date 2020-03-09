@@ -37,9 +37,9 @@
       = link_to 'Annuleren', groups_path, { :class => 'button btn btn-default' }
 
       - if !group.id.nil? && group.category != "board"
-        = link_to "Verwijderen", group, { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+        = link_to "Verwijderen", group, { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
 
 
 
       //- if group.category != "board"
-      //= link_to 'Verwijderen', group_path(|group.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+      //= link_to 'Verwijderen', group_path(|group.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }

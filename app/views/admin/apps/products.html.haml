@@ -45,7 +45,7 @@
                   - @product.errors.full_messages.each do |msg|
                     %li= msg
 
-            .col-md-12.pull-right
+            .col-md-12.float-right
               .card
                 .card-header
                   %i.fa.fa-fw.fa-ticket-alt
@@ -96,14 +96,14 @@
         - unless @new.nil?
           = form_for :checkout_product, url: checkout_products_path, method: :post, :class => 'form-validation' do |f|
             - if @new.errors.any?
-              .col-md-12.pull-right
+              .col-md-12.float-right
                 .alert.alert-danger
                   %span Oeps, niet alles is goed ingevuld;
                   %ul
                   - @new.errors.full_messages.each do |msg|
                     %li= msg
 
-            .col-md-12.pull-right
+            .col-md-12.float-right
               .card
                 .card-header
                   %i.fa.fa-fw.fa-ticket-alt
@@ -138,7 +138,7 @@
                   %button.btn.btn-success.wait.save-btn{type: 'submit'} Opslaan
 
         - unless @product.nil? || @total.nil?
-          .col-md-12.pull-right
+          .col-md-12.float-right
             .card
               .card-header.year
                 %i.fa.fa-fw.fa-ticket-alt

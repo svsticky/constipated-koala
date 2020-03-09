@@ -36,9 +36,9 @@
                   %td
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
-                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                      %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
                     - else
-                      %span.fa.fa-sort-desc.pull-right
+                      %span.fa.fa-sort-desc.float-right
 
                   %td
                     - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?

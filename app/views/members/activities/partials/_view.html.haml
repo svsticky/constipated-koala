@@ -6,7 +6,7 @@
 
 .card.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
   .card-header.text-right
-    %span.card-title.pull-left.activity-title{ :style => 'text-overflow: ellipsis;'}
+    %span.card-title.float-left.activity-title{ :style => 'text-overflow: ellipsis;'}
       = activity.name
     .fullness
       = activity.fullness
@@ -81,7 +81,7 @@
           = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{activity.id}", class: "btn btn-secondary more-info col-12 col-sm-6"
 
       - if activity.notes.present? && view == 'show'
-        %button.btn.btn-info.update-enrollment.col-12.col-sm-6{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
+        %button.btn.btn-info.update-enrollment.col-9.col-sm-6{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
           = I18n.t("members.activities.partials.view.actions.update_info")
       - if activity.is_enrollable
         - if @member.confirmed_activities.ids.include? activity.id
