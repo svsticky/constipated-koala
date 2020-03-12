@@ -678,7 +678,7 @@ en:
         outstanding_payments: Outstanding payments
         upgrade: Upgrade
     navigation:
-      link: External links
+      links: External links
       pictures: Pictures
       files: Files
       declarations: DigiDecs
