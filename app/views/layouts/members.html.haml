@@ -56,7 +56,7 @@
               %i.fa.fa-user{:class => ('active' if yield(:page) == 'edit')}
             = link_to '', :class => 'list-group-item list-group-item-action',
               'data-toggle' => 'collapse', 'href' => '#sub-apps' do
-              %span= I18n.t("members.navigation.link")
+              %span= I18n.t("members.navigation.links")
               %i.fa.fa-caret-down
             .collapse.list-group#sub-apps
               = link_to "https://fotos.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
