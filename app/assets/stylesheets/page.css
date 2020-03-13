@@ -2,6 +2,12 @@
   padding: 15px;
 }
 
+@media (max-width: 480px) {
+  .page {
+    padding: 0px;
+  }
+}
+
 #content {
   position: absolute;
   top: 50px;
