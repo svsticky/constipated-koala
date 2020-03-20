@@ -37,10 +37,10 @@ class Public::HomeController < PublicController
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # add user to mailchimp
-      interests = [Settings['mailchimp.interests.alv']]
-      interests.push Settings['mailchimp.interests.mmm'] if params[:member][:mmm_subscribe] == "1"
-      interests.push Settings['mailchimp.interests.business'] if params[:member][:business_subscribe] == "1"
-      interests.push Settings['mailchimp.interests.lectures'] if params[:member][:business_subscribe] == "1"
+      interests = [Rails.configuration.mailchimp_interests[:alv]]
+      interests.push Rails.configuration.mailchimp_interests[:mmm] if params[:member][:mmm_subscribe] == "1"
+      interests.push Rails.configuration.mailchimp_interests[:business] if params[:member][:business_subscribe] == "1"
+      interests.push Rails.configuration.mailchimp_interests[:lectures] if params[:member][:lectures_subscribe] == "1"
 
       MailchimpJob.perform_later @member.email, @member, interests
 
