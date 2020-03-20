@@ -20,7 +20,7 @@
 class MailchimpJob < ApplicationJob
   queue_as :default
 
-  def perform(key, member, interests = Settings['mailchimp.interests'].values, mailchimp_status = 'subscribed')
+  def perform(key, member, interests = Rails.configuration.mailchimp_interests.values, mailchimp_status = 'subscribed')
     return if ENV['MAILCHIMP_DATACENTER'].nil?
 
     request = {
@@ -36,8 +36,8 @@ class MailchimpJob < ApplicationJob
     # just update existing users if lists are not given
     request[:status_if_new] = mailchimp_status unless interests.nil?
 
-    # set interests from mailchimp.interests (MMM/ALV/..) if interests not nil
-    request[:interests] = Settings['mailchimp.interests'].values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
+    # set interests from mailchimp_interests (MMM/ALV/..) if interests not nil
+    request[:interests] = Rails.configuration.mailchimp_interests.values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
 
     logger.debug request.inspect
 
@@ -69,7 +69,7 @@ class MailchimpJob < ApplicationJob
 
     RestClient.post(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }/tags",
-      { tags: Settings['mailchimp.tags'].map { |i| { name: i, status: (tags.include?(i) ? 'active' : 'inactive') } } }.to_json,
+      { tags: Rails.configuration.mailchimp_tags.map { |i| { name: i, status: (tags.include?(i) ? 'active' : 'inactive') } } }.to_json,
       Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
       'User-Agent': 'constipated-koala'
     )

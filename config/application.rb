@@ -45,6 +45,15 @@ module ConstipatedKoala
     config.mailgun = ENV['MAILGUN_TOKEN']
     config.checkout = ENV['CHECKOUT_TOKEN']
 
+    config.mailchimp_interests = {
+      alv: ENV['MAILCHIMP_ALV_ID'],
+      business: ENV['MAILCHIMP_BUSINESS_ID'],
+      mmm: ENV['MAILCHIMP_MMM_ID'],
+      lectures: ENV['MAILCHIMP_LECTURES_ID']
+    }
+
+    config.mailchimp_tags = ["gratie", "alumni"]
+
     config.action_dispatch.rescue_responses = {
       'ActiveRecord::RecordNotFound' => :not_found,
       'ActiveRecord::RecordInvalid' => :bad_request,
