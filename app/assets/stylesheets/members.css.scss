@@ -1,0 +1,547 @@
+/*
+ * This is a manifest file that'll be compiled into application.scss, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap/dist/css/bootstrap.min.css
+ *= require font_awesome5_webfont
+ * require lato
+ *
+ * require toastr/toastr.css
+ *= require_self
+ */
+
+ @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+ @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+ // TODO check font-weight
+
+ /*
+   Styling created for constipated koala member pages, adding a cleaner view,
+   posts, and more.
+
+  */
+
+  /* Color table */
+ :root {
+   --nav-bg: #2f4050;
+   --nav-bg-active: #293846;
+   --nav-bg-border: #19aa8d;
+
+   --page-bg: #f3f3f4;
+   --page-bg-wrapper: #ffffff;
+   --page-bg-border: #e7eaec;
+
+   --button-primary: #1ab394;
+
+
+   // TODO use this?
+   --off-white: #fffaf8;
+ }
+
+
+  /* Default styles for html elements */
+ html, body, #app {
+   display: block;
+   height: 100%;
+   width: 100%;
+
+   font-weight: 100;
+ }
+
+ body {
+   position: relative;
+   width: 100%;
+
+   display: -ms-flex;
+   display: -webkit-flex;
+   display: flex;
+
+   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 13px;
+   color: #676a6d;
+
+   background-color: var(--nav-bg);
+   overflow-x: hidden;
+ }
+
+ a {
+   color: #337ab5;
+
+   &:hover,
+   &:focus {
+     text-decoration: none;
+   }
+ }
+
+ h1 {
+   font-size: 30px;
+   font-weight: 100;
+   margin-bottom: 10px;
+ }
+
+ h2 {
+   font-size: 1.2em;
+   font-weight: 500;
+   margin-bottom: 10px;
+ }
+
+ h3 {
+   font-size: 16px;
+   font-weight: 100;
+   margin-bottom: 10px;
+ }
+
+ h4 {
+   font-size: 14px;
+   font-weight: 600;
+ }
+
+
+ /* container classes */
+ #page-container {
+   position: relative;
+   margin-left: 0;
+   min-height: 100vh;
+   width: 100%;
+
+   background-color: var(--page-bg);
+
+   padding: 0 15px;
+   flex-shrink: 1;
+
+   @media (min-width: 768px) {
+     position: inherit;
+     margin-left: 220px;
+     width: calc(100% - 220px);
+   }
+ }
+
+ /* navigation */
+ nav.navbar-static-top {
+   display: block;
+   width: 100%;
+   padding: 0px;
+   margin-bottom: 25px;
+
+   background-color: var(--white);
+
+   ul {
+     float: right;
+   }
+
+   li {
+     position: inline-block;
+     margin-right: 12px;
+     padding: 15px 10px;
+     min-height: 40px;
+
+     a {
+       position: relative;
+       color: #999c9e;
+
+       font-size: 13px;
+
+       &:hover {
+         color: #686b6e;
+       }
+     }
+   }
+ }
+
+ div.nav-min nav.navbar-default ul.nav {
+   display: block;
+ }
+
+ nav.navbar-default {
+   position: absolute;
+
+   display: block;
+   width: 100%;
+
+   background-color: var(--nav-bg);
+   border-color: var(--nav-background);
+
+   z-index: 5;
+
+   @media (min-width: 768px) {
+     width: 220px;
+   }
+
+   .toggle-min {
+     z-index: 2;
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     line-height: 30px;
+     padding: 10px 16px 10px 16px;
+     font-size: 18px;
+     color: #fff;
+   }
+
+   .navbar-brand {
+     line-height: 40px;
+     width: 100%;
+     text-align: center;
+     color: var(--off-white);
+     font-size: 1.2em;
+   }
+
+   ul.nav {
+     display: none;
+
+     @media (min-width: 768px) {
+       display: block;
+       box-shadow: none;
+     }
+
+     li {
+       position: relative;
+       display: block;
+
+       a {
+         position: relative;
+         display: block;
+         padding: 14px 20px 14px 25px;
+         font-weight: 600;
+         color: #a7b1c2;
+
+         &:hover,
+         &:focus {
+           background-color: var(--nav-bg-active);
+           color: var(--white);
+         }
+
+         .nav-label {
+           margin-left: 8px;
+           font-weight: 400;
+         }
+       }
+     }
+
+     li.active {
+       color: var(--white);
+       border-left: 4px solid var(--nav-bg-border);
+       background: var(--nav-bg-active);
+     }
+   }
+ }
+
+ /* page container elements*/
+ div.card {
+   margin-bottom: 25px;
+
+   background-color: #ffffff;
+
+   border-color: #e7eaec;
+   border-image: none;
+   border-style: solid;
+   border-width: 1px;
+
+   overflow: hidden;
+
+   .card-header {
+     background-color: #ffffff;
+     border-bottom: solid 1px #e7eaec;
+     border-top: none;
+     padding: 11px 15px;
+     font-weight: 400;
+
+     color: inherit;
+     margin-bottom: 0;
+
+     img {
+       position: absolute;
+       width: 50px;
+       top: 5px;
+     }
+
+      h4 {
+       float: none;
+       display: inline-block;
+       width: 100%;
+       margin-left: 60px;
+       margin-bottom: 0px;
+       font-size: 1.1em;
+       position: relative;
+       top: 3px;
+       color: var(--nav-bg-border);
+     }
+
+     ul {
+       margin-bottom: 0px;
+       margin-left: 60px;
+       padding-left: 0px;
+
+       li {
+         display: inline-block;
+         font-size: 0.8em;
+         font-weight: 100;
+
+         &:not(:first-child) {
+           &::before{
+             content: "· ";
+             font-weight: bold;
+           }
+         }
+       }
+     }
+   }
+
+   .card-body.content {
+     h1, h2, h3, h4, h5, h6 {
+       font-size: 1em;
+
+       &:not(:first-child) {
+         margin-top: 20px;
+       }
+     }
+   }
+
+   table.card-body {
+     margin-bottom: 0;
+   }
+
+   .card-member {
+     h2 {
+       padding-left: 20px;
+     }
+
+     p {
+       position: relative;
+       margin-left: 20px;
+       font-weight: 100;
+
+       i {
+         position: absolute;
+         left: -20px;
+         line-height: 19.5px;
+       }
+     }
+   }
+
+   .card-tools {
+     display: block;
+     float: none;
+     margin-top: 0;
+     position: relative;
+     padding: 0;
+     text-align: right;
+   }
+ }
+
+ div.card-group {
+   a.card {
+     padding: 5px;
+
+     img {
+       width: 100%;
+       height: auto;
+     }
+   }
+ }
+
+ div.card-deck {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+
+   justify-content: flex-start;
+
+   a.card {
+     flex: none;
+     width: 100%;
+
+     @media (min-width: 420px) {
+       max-width: 254px;
+       flex-basis: 200px;
+       flex-grow: 1;
+
+       margin: 0 15px 20px;
+     }
+
+     color: #676A7C;
+   }
+
+   .card-body {
+     position: relative;
+     padding: 10px 20px;
+
+     .card-title {
+       font-weight: 500;
+       margin-bottom: 2px;
+     }
+
+     .card-text {
+       font-size: 0.8em;
+     }
+
+     span.card-price {
+       position: absolute;
+       display: inline-block;
+       height: 100%;
+
+       border-left: solid 1px rgba(0,0,0, .125);
+       padding-left: 10px;
+
+       top: 0px;
+       right: 10px;
+
+       font-weight: 500;
+       font-size: 1.2em;
+       line-height: 55px;
+     }
+   }
+ }
+
+ div[class^="col-"] > img {
+   position: relative;
+
+   float: left;
+   width: 100%;
+   border-radius: 0;
+   margin-bottom: 25px;
+
+   @media (min-width: 768px) {
+     width: 30vw;
+     padding-right: 30px;
+     margin-bottom: 0px;
+   }
+ }
+
+ div.card.activity {
+   padding-bottom: 10px;
+
+   dt {
+     float: left;
+     min-width: 130px;
+   }
+
+   dd {
+     margin-bottom: 0px;
+   }
+
+   .btn-group {
+     position: absolute;
+     bottom: 10px;
+     right: 1.25rem;
+   }
+ }
+
+ /* buttons */
+ .btn, button {
+   border-radius: 3px;
+   outline: 0;
+
+   &:focus {
+     box-shadow: none;
+   }
+ }
+
+ .btn:active {
+   background-image: none;
+   outline: 0;
+   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+ }
+
+ .btn-primary {
+   color: #ffffff;
+   background-color: #1ab394;
+   border-color: #1ab394;
+
+   &:hover, &:focus {
+     background-color: #18a689;
+     border-color: #18a689;
+     color: #ffffff;
+   }
+
+   &:disabled {
+     color: #ffffff;
+     background-color: #18a689;
+     border-color: #18a689;
+   }
+
+   &:not(:disabled):not(.disabled) {
+     &:active, &.active {
+       color: #ffffff;
+       background-color: #18a689;
+       border-color: #18a689;
+     }
+
+     &:active:focus, &.active:focus {
+       -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+       box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+     }
+   }
+ }
+
+ .btn-default {
+   color: inherit;
+   background: white;
+   border: 1px solid #e7eaec;
+
+   &:hover, &:focus {
+     color: inherit;
+     border: 1px solid #d2d2d2;
+   }
+
+   &:active {
+     color: inherit;
+     border: 1px solid #d2d2d2;
+
+     &:focus, &:hover {
+       color: inherit;
+       border: 1px solid #d2d2d2;
+     }
+
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) inset;
+   }
+ }
+
+ /* Other elements */
+ .callout {
+   padding: 10px;
+   margin: 20px 0;
+   border: 1px solid #eee;
+   border-left-width: 5px;
+   border-radius: 3px;
+
+   h4 {
+     margin-top: 0;
+     margin-bottom: 5px;
+   }
+
+   p:last-child {
+     margin-bottom: 0;
+   }
+ }
+
+ @each $name,$color in (default,#777),(primary,#428bca),(success,#5cb85c),(danger,#d9534f),(warning,#f0ad4e),(info,#5bc0de), (bdc,#29527a) {
+   .callout-#{$name} {
+     border-left-color: $color;
+     h4 {
+       color: $color;
+     }
+   }
+ }
+
+ .table-sm td, .table-sm th {
+   padding-left: .75rem;
+ }
+
+ .footnote {
+   position: relative;
+
+   span {
+     position: absolute;
+   }
+
+   .help-block {
+     margin-left: 20px;
+   }
+ }

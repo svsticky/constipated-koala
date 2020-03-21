@@ -14,70 +14,75 @@
     = stylesheet_link_tag 'members', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'members', 'data-turbolinks-track' => 'reload'
 
-    %template#alert
-      .toast{:class => "toast-{1}"}
-        %button.toast-close-button
-          ×
-        .toast-message
-          {0}
-    = csrf_meta_tags
   %body#app
-    %div
-      %section.header.bg-dark
-        %header.clearfix
-          = link_to '#', :class => 'toggle-min d-block d-md-none menu-button' do
-            %i.fa.fa-bars
+    .nav-min
+      %nav.navbar-default{:role => "navigation"}
+        = link_to '#', :class => 'toggle-min d-block d-md-none menu-button' do
+          %i.fa.fa-bars
 
-          = link_to root_path, :class => 'logo' do
-            %span
-              = t :association_name
+        = link_to root_path, :class => 'navbar-brand' do
+          = t :association_name
 
-          .top-nav
-            .email.d-none.d-md-block
-              %span= current_user.email
+        %ul.nav
+          %li{:class => ('active' if yield(:page) == 'home')}
+            = link_to :root do
+              %i.fa.fa-laptop
+              %span.nav-label= I18n.t("navigation.home")
 
-            .d-none.d-md-block
+          %li{:class => ('active' if yield(:page) == 'activities')}
+            = link_to activities_path do
+              %i.fa.fa-ticket-alt
+              %span.nav-label= I18n.t("activerecord.models.activity")
+
+
+          %li{:class => ('active' if yield(:page) == 'edit')}
+            = link_to :users_edit do
+              %i.fa.fa-user
+              %span.nav-label= I18n.t("members.navigation.profile")
+
+          %li.d-none.d-md-block
+            = link_to destroy_user_session_path, 'data-method' => :delete do
+              %i.fa.fa-sign-out-alt
+              %span.nav-label= I18n.t("members.navigation.sign_out")
+
+          %hr
+
+          %li
+            = link_to "https://fotos.svsticky.nl/" do
+              %i.fa.fa-camera
+              %span= I18n.t("members.navigation.pictures")
+
+          %li
+            = link_to "https://files.svsticky.nl/" do
+              %i.fa.fa-file
+              %span= I18n.t("members.navigation.files")
+
+          %li
+            = link_to "https://digidecs.svsticky.nl/" do
+              %i.fa.fa-receipt
+              %span= I18n.t("members.navigation.declarations")
+
+          %li
+            = link_to "https://svsticky.nl/boeken" do
+              %i.fa.fa-book
+              %span= I18n.t("members.navigation.books")
+
+          %li
+            = link_to "https://svsticky.nl/carriere/vacatures" do
+              %i.fa.fa-briefcase
+              %span= I18n.t("members.navigation.vacancies")
+
+    #page-container
+      .row
+        %nav.navbar.navbar-static-top
+          %ul.nav.d-md-none
+            %li
+              %span.text-muted= current_user.email
+            %li
               = link_to destroy_user_session_path, 'data-method' => :delete do
                 %i.fa.fa-sign-out-alt
+                %span.nav-label= I18n.t("members.navigation.sign_out")
 
-      %aside#sidebar-container{role: 'navigation'}
-        #sidebar-wrapper
-          .list-group.list-group-flush{'data-collapse-nav' => '', 'data-slim-scroll' => '', 'data-highlight-active' => '' }
-            = link_to :root, :class => 'list-group-item list-group-item-action' do
-              %span= I18n.t("navigation.home")
-              %i.fa.fa-desktop{:class => ('active' if yield(:page) == 'home')}
-
-            = link_to activities_path, :class => 'list-group-item list-group-item-action' do
-              %span= I18n.t("activerecord.models.activity")
-              %i.fa.fa-ticket-alt{:class => ('active' if yield(:page) == 'activities')}
-
-            = link_to :users_edit, :class => 'list-group-item list-group-item-action' do
-              %span= I18n.t("members.navigation.edit_profile")
-              %i.fa.fa-user{:class => ('active' if yield(:page) == 'edit')}
-            = link_to '', :class => 'list-group-item list-group-item-action',
-              'data-toggle' => 'collapse', 'href' => '#sub-apps' do
-              %span= I18n.t("members.navigation.links")
-              %i.fa.fa-caret-down
-            .collapse.list-group#sub-apps
-              = link_to "https://fotos.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
-                %span= I18n.t("members.navigation.pictures")
-                %i.fa.fa-camera
-              = link_to "https://files.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
-                %span= I18n.t("members.navigation.files")
-                %i.fa.fa-file
-              = link_to "https://digidecs.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
-                %span= I18n.t("members.navigation.declarations")
-                %i.fa.fa-receipt
-              = link_to "https://svsticky.nl/boeken", :class => 'list-group-item list-group-item-action' do
-                %span= I18n.t("members.navigation.books")
-                %i.fa.fa-book
-              = link_to "https://svsticky.nl/carriere/vacatures", :class => 'list-group-item list-group-item-action' do
-                %span= I18n.t("members.navigation.vacancies")
-                %i.fa.fa-briefcase
-
-      .view-container
-        %section
-          .page#content
-            = yield
+      = yield
 
     #toast-container.toast-bottom-right

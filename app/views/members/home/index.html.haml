@@ -1,6 +1,37 @@
 - content_for(:page, 'home')
 
 .row
+  .col-md-8
+    .card
+      .card-header
+        %img{:alt => "Martijn Casteel", :src => "assets/images/avatar.png"}
+        %h4 Martijn Casteel
+        %ul
+          %li 12 februari om 11:09
+          %li pinned
+      .card-body.content
+        %h5 Maandag 13:30: Boulderen / Bouldering
+        WEL klimmen, GEEN zekering nodig. Kom vrij klimmen in Boulderhal Energiehaven met de sportcommissie!
+        %a{:href => "https://koala.svsticky.nl/activities/909"} https://koala.svsticky.nl/activities/909
+        %h5 Dinsdag 13:00: Ode to your CODE (hulpmiddag)
+        Op 21 januari, een week voor het grote CODE practicum, organiseert Sticky een hulpmiddag in BBG 1.79 van 13:00u tot 17:00u. Hier kan je extra vragen stellen en de laatste hand leggen aan je practicum. Wij zorgen voor koffie, thee en koekjes.
+        %a{:href => "https://koala.svsticky.nl/activities/904"} https://koala.svsticky.nl/activities/904
+    .card-group
+      %a.card{:href => "activities-1.html"}
+        %img{:src => "https://koala.svsticky.nl/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBblFGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3b8d8069146688c8a41c61a56ca6eb27c3510fce/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpVMGVETTJNQ0VHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--bc06e6dadc3d6aa65a6d6c8ca97fee1874e47854/gamejam.png"}/
+      %a.card{:href => "activities-1.html"}
+        %img{:src => "https://koala.svsticky.nl/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcEFGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--2ee0ca31b9ca534ed0ca2ba38acc3019d46c302b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpVMGVETTJNQ0VHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--bc06e6dadc3d6aa65a6d6c8ca97fee1874e47854/posterjustdance.png"}/
+      %a.card{:href => "activities-1.html"}
+        %img{:src => "https://koala.svsticky.nl/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBb0VGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--61a13ea24d325a5787befa8732b4e6632c606587/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpVMGVETTJNQ0VHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--bc06e6dadc3d6aa65a6d6c8ca97fee1874e47854/Sexy%20Study%20Session%20(2).pdf"}/
+  .col-md-4
+    .card
+      .card-body
+        openstaande betalingen lijst
+    .card
+      .card-body
+        mongoose tegoed
+-#
+  .row
   .col-lg-6.col-12
 
     - unless @balance.blank?
