@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?('/')
-  "https://github.com/#{ repo_name }.git"
-end
+# please use gem's only for ruby functionalities
+# use yarn for custom javascript or css libraries
 
 gem 'mysql2', '0.5.1'
 gem 'rails', '~> 6.0'
@@ -13,9 +11,9 @@ gem 'haml'
 gem 'rabl'
 
 # assets and stuff
-gem 'coffee-rails'
-gem 'font_awesome5_rails'
 gem 'sassc-rails'
+gem 'sprockets', '~> 3.0' # TODO remove this line and update to v4
+gem 'will_paginate'
 
 # authentication gems
 gem 'devise'
@@ -26,23 +24,17 @@ gem 'impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
+gem 'sidekiq'
 
 # search engine
 gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
-# pagination
-gem 'will_paginate'
-gem 'will_paginate-bootstrap4'
-
 # settings cached in rails environment
 gem 'image_processing'
 gem 'rails-settings-cached', '~> 0.7'
 
-# phone number validation
-gem 'telephone_number'
 
-gem 'sidekiq'
 
 group :production, :staging do
   gem 'sentry-raven'
@@ -61,8 +53,7 @@ group :development do
   gem 'byebug', platform: :mri
   gem 'web-console'
 
-  # Added at 2018-01-12 12:01:35 +0100 by cdfa:
-  gem 'i15r', '~> 0.5.5'
+  gem 'i15r'
 end
 
 group :development, :test do

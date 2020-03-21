@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@fortawesome/fontawesome-free@^5.12.1":
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.12.1.tgz#2a98fea9fbb8a606ddc79a4680034e9d5591c550"
+  integrity sha512-ZtjIIFplxncqxvogq148C3hBLQE+W3iJ8E4UvJ09zIJUgzwLcROsWwFDErVSXY2Plzao5J9KUYNHKHMEUYDMKw==
+
 bootstrap@^4.3.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
