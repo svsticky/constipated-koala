@@ -50,6 +50,11 @@ Study.transaction do
     code:    'HCI',
     masters: true
   )
+  Study.create(
+    id:      9,
+    code:    'ADS',
+    masters: true
+  )
 end
 
 # Create one board which by default is not selectable in the app
