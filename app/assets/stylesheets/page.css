@@ -5,6 +5,7 @@
 @media (max-width: 480px) {
   .page {
     padding: 0px;
+    padding-top: 15px;
   }
 }
 
