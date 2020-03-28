@@ -8,7 +8,7 @@
     .row
       .col-md-6
         = render 'admin/activities/partials/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch
-        = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
+        = render 'layouts/partials/mail', mail: 'participants/inform', subject: @bank_name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
         .card
