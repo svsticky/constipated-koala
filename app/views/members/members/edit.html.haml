@@ -1,7 +1,7 @@
-- content_for(:page, "edit")
+- content_for(:page, 'member')
 - content_for(:title, @member.name)
 
-= form_for :member, method: :patch, :class => 'form-validation' do |f|
+= form_for :member, url: :current_member, method: :patch, :class => 'form-validation' do |f|
 
   - if @member.errors.any? || flash[:error]
     .alert.alert-danger
@@ -13,7 +13,7 @@
           %li= flash[:error]
 
   .row
-    .col-xl-6
+    .col-md-6
       .card
         .card-header
           %i.fa.fa-fw.fa-user
@@ -21,13 +21,13 @@
         .card-body
           .form-group
             .row
-              .col-lg-4
+              .col-md-4
                 = f.label(:first_name)
                 = f.text_field :first_name, 'value' => @member.first_name, :class => 'form-control form-control-disabled', :disabled => true
-              .col-lg-3
+              .col-md-3
                 = f.label(:infix)
                 = f.text_field :infix, :value => @member.infix, :class => 'form-control form-control-disabled', :disabled => true
-              .col-lg-5
+              .col-md-5
                 = f.label(:last_name)
                 = f.text_field :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled', :disabled => true
 
@@ -38,17 +38,17 @@
             .row
               .col-md-4
                 = f.label(:birth_date)
-                = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
+                = f.text_field :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled', :disabled => true
               .col-md-8
                 = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
 
           .form-group
             .row
-              .col-lg-6
+              .col-md-6
                 = f.label(:phone_number)
                 = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
-              .col-lg-6
+              .col-md-6
                 = f.label(:emergency_phone_number) + "²"
                 = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
 
@@ -56,19 +56,19 @@
 
           .form-group
             .row
-              .col-lg-8
+              .col-md-9
                 = f.label(:address)
                 = f.text_field :address, :value => @member.address, :class => 'form-control'
-              .col-lg-4
+              .col-md-3
                 = f.label(:house_number)
                 = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
 
           .form-group
             .row
-              .col-lg-6
+              .col-md-4
                 = f.label(:postal_code)
                 = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-              .col-lg-6
+              .col-md-8
                 = f.label(:city)
                 = f.text_field :city, :value => @member.city, :class => 'form-control'
 
@@ -82,24 +82,8 @@
             %span.footnote 2
             .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
-    - if !Settings['mailchimp.interests'].empty?
-      .col-xl-6
-        .card
-          .card-header
-            %i.fa.fa-fw.fa-envelope
-            = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
-          .card-body
-            .form-group
-              - if !@member.mailchimp_interests.nil?
-                - Settings['mailchimp.interests'].each do |name, key|
-                  .row
-                    .col-md-12
-                      %label.ui-checkbox
-                        = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
-                        %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
-                        .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
 
-    .col-xl-6
+    .col-md-6
       .card
         .card-header
           %i.fa.fa-fw.fa-graduation-cap
@@ -145,17 +129,24 @@
               %br
               Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
 
-      .card
-        .card-header
-          %i.fa.fa-fw.fa-gavel
-          = I18n.t 'members.home.edit.privacy_panel.header'
-        .card-body
-          = I18n.t 'members.home.edit.privacy_panel.view'
-          = link_to 'https://public.svsticky.nl/privacystatement.pdf' do
-            = I18n.t 'members.home.edit.privacy_panel.privacy_statement'
+      - if !Settings['mailchimp.interests'].empty?
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-envelope
+            = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+          .card-body
+            .form-group
+              - if !@member.mailchimp_interests.nil?
+                - Settings['mailchimp.interests'].each do |name, key|
+                  .row
+                    .col-md-12
+                      %label.ui-checkbox
+                        = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
+                        %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
+                        .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
 
   - if @applications.any?
-    .col-xl-6
+    .col-md-6
       .card
         .card-header
           %i.fa.fa-fw.fa-rocket
@@ -170,19 +161,14 @@
                   = I18n.t("members.home.edit.revoke")
 
   .row
-    .col-xl-12
+    .col-12
       .card
         .card-body
           .btn-group
-            %button.btn.btn-success{type: 'submit'}
-              = I18n.t("editing.save")
-            = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
+            %button.btn.btn-sm.btn-primary{type: 'submit'}= I18n.t("editing.save")
+            = link_to I18n.t("editing.cancel"), :current_member, { :class => 'button btn btn-sm btn-default' }
 
-          .btn-group.float-right
-            = link_to password_change_path, { :class => 'button btn btn-warning' } do
-              %i.fa.fa-key
-              = I18n.t 'members.home.edit.password_options.change_password'
-
-            = link_to download_path, { :class => 'button btn btn-secondary' } do
+          .btn-group
+            = link_to :download_current_member, { :class => 'button btn btn-sm btn-default' } do
               %i.fa.fa-download
               Download persoonsgegevens

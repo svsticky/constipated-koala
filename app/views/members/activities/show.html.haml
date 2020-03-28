@@ -1,40 +1,135 @@
 - content_for(:page, 'activities')
 - content_for(:title, "Activiteiten | #{@activity.name}")
 
-.container.col-12#activity-container{:data => {:view => 'show'}}
-  %div{:class => "col-12 col-lg-#{12 - (@activity.attendees.count > 0 ? 3 : 0) - (@activity.reservists.count > 0 ? 3 : 0)}"}
-    = render 'members/activities/partials/view', activity: @activity, view: 'show'
 
-  %template#participant_table_row_template
-    = render 'members/activities/partials/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true, activity: @activity
+.row
+
+  - if @participant&.errors&.any? || flash[:error]
+    .col-12
+      .alert.alert-danger
+        - if @participant&.errors&.any?
+          %span= I18n.t('activerecord.errors.incomplete')
+          %ul
+            - @participant.errors.full_messages.each do |msg|
+              %li= msg
+        - elsif flash[:error]
+          %span= I18n.t('activerecord.errors.models.activity.not_unenrollable')
+          = flash[:error]
+
+  - elsif flash[:notices]&.any?
+    .col-12
+      .alert.alert-warning
+        %span= I18n.t('activerecord.errors.models.activity.backup_enrolled', activity: @activity.name)
+        - if flash[:notices].length == 1
+          = flash[:notices][0]
+        - else
+          %ul
+            - flash[:notices].each do |msg|
+              %li= msg
+
+  .col-lg-8
+    = image_tag @activity.poster_representation, class: 'activity'
+
+    = form_for @participant, url: activity_participants_path(@activity.id), :class => 'form-validation' do |f|
+      .card.activity
+        .card-header
+          %i.fas.fa-calendar-day
+          = @activity.name
+
+          - if @activity.participant_limit
+            %span.float-right= "#{ @activity.attendees.count }/#{ @activity.participant_limit }"
+
+        .card-body
+          %dl
+            %dt Datum
+            %dd= format_date(@activity)
+            %dt Tijd
+            %dd= format_time(@activity)
+            %dt Prijs
+            %dd
+              - if !@activity.price.nil? and @activity.price != 0
+                = number_to_currency(@activity.price, :precision => 2, :unit => '€ ', separator: ',', delimiter: '.')
+              - else
+                = I18n.t("activerecord.missing_value_placeholders.activity.free")
+
+            - if !@activity.location.nil? && !@activity.location.empty?
+              %dt= I18n.t("activerecord.attributes.activity.location")
+              %dd= @activity.location
+
+            - if !@activity.unenroll_date.nil? && @activity.is_enrollable?
+              %dt= I18n.t("activerecord.attributes.activity.unenroll_date")
+              %dd
+                = l(@activity.unenroll_date, format: "%A %d %B %Y")
+                23:59
+
+            - if @activity.is_masters
+              %dt Voorrang voor
+              %dd= I18n.t('activerecord.attributes.activity.is_masters')
+
+            - if @activity.is_freshmans
+              %dt Voorrang voor
+              %dd= I18n.t('activerecord.attributes.activity.is_freshmans')
+
+            - if @activity.notes_mandatory
+              %span.warning= I18n.t("members.activities.partials.view.notes_mandatory")
+
+          - if !@activity.description.blank?
+            = simple_format(@activity.description)
+
+          - if @activity.notes_mandatory
+            .card-border
+              %span.bold= @activity&.notes
+              = f.text_area :notes, :value => @participant.notes, :class => 'form-control'
+
+          .btn-group.pull-right
+            - if @activity.is_enrollable
+              - if current_user.credentials.confirmed_activities.ids.include? @activity.id
+
+                - classes = ['btn', 'btn-sm', 'btn-danger', (' disabled' if @activity.unenroll?)]
+                = link_to activity_participants_path(@activity.id), 'data-method' => :delete, class: classes do
+                  = I18n.t("members.activities.partials.view.actions.unenroll")
+
+                - if @activity.notes_mandatory
+                  %button.btn.btn-sm.btn-default
+                    = I18n.t("members.activities.partials.view.actions.update_info")
+
+              - elsif current_user.credentials.reservist_activities.ids.include? @activity.id
+                = link_to activity_participants_path(@activity.id), 'data-method' => :delete, class: 'btn btn-sm btn-warning' do
+                  = I18n.t("members.activities.partials.view.actions.reservist_unenroll")
+
+                - if @activity.notes_mandatory
+                  %button.btn.btn-sm.btn-default
+                    = I18n.t("members.activities.partials.view.actions.update_info")
+
+
+              - elsif @activity.participant_limit != nil && @activity.participant_limit <= @activity.participants.count
+                %button.btn.btn-sm.btn-warning
+                  = I18n.t("members.activities.partials.view.actions.reservist_enroll")
+
+              - else
+                %button.btn.btn-sm.btn-primary
+                  = I18n.t("members.activities.partials.view.actions.enroll")
+
   - if @activity.attendees.count > 0
-    .col-12.col-md-6.col-xl-3.cramtable
+    .col-md-6.col-lg-2{class: ('col-lg-4' if @activity.reservists.count == 0)}
       .card
         .card-header
           %i.fa.fa-fw.fa-user
-          %span#attendees-count.number= @activity.attendees.count
+          %span.attendees= @activity.attendees.count
           = I18n.t("activerecord.models.participants.attendees", count: @activity.attendees.count)
-
-        %table#attendees_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
-          %tbody
-            - @attendees.each do |participant|
-              = render 'members/activities/partials/participant_table_row', participant: participant, activity: @activity
+        %table.table.card-body.table-striped.table-sm
+          - @activity.ordered_attendees.each do |participant|
+            %tr
+              %td= participant.member.name
 
   - if @activity.reservists.count > 0
-    .col-12.col-md-6.col-xl-3.cramtable
+    .col-md-6.col-lg-2
       .card
         .card-header
           %i.fa.fa-fw.fa-user
-          %span#reservists-count.number= @reservists.count
+          %span.reservists= @activity.reservists.count
           = I18n.t("activerecord.models.participants.reservists", count: @activity.reservists.count)
-
-        %table#reservists_table.table.table-striped.table-linked{ :data => {'id' => @activity.id }}
-          %tbody
-            - @reservists.each do |participant|
-              = render 'members/activities/partials/participant_table_row', participant: participant, activity: @activity
-
-= link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
-  %i.fa.fa-bug
-  = I18n.t 'members.activities.bug_report'
-
-= render 'layouts/partials/poster_modal', view: 'show'
+        %table.table.card-body.table-striped.table-sm
+          - @activity.ordered_reservists.each do |participant|
+            %tr
+              %td= participant.member.name

@@ -14,75 +14,77 @@
     = stylesheet_link_tag 'members', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'members', 'data-turbolinks-track' => 'reload'
 
+    = csrf_meta_tag
+
   %body#app
-    .nav-min
-      %nav.navbar-default{:role => "navigation"}
-        = link_to '#', :class => 'toggle-min d-block d-md-none menu-button' do
-          %i.fa.fa-bars
+    %nav.navbar.navbar-default.navbar-expand-lg{:role => "navigation"}
+      = link_to '#', :class => 'navbar-toggler d-md-none', 'data-toggle': 'collapse', 'data-target': '#navbar-collapse' do
+        %i.fa.fa-bars
 
-        = link_to root_path, :class => 'navbar-brand' do
-          = t :association_name
+      = link_to root_path, :class => 'navbar-brand' do
+        = t :association_name
 
-        %ul.nav
-          %li{:class => ('active' if yield(:page) == 'home')}
-            = link_to :root do
-              %i.fa.fa-laptop
-              %span.nav-label= I18n.t("navigation.home")
+      %ul.nav.collapse.navbar-collapse#navbar-collapse
+        %li{:class => ('active' if yield(:page) == 'home')}
+          = link_to :users_root, class: 'nav-item' do
+            %i.fas.fa-laptop
+            %span.nav-label= I18n.t("navigation.home")
 
-          %li{:class => ('active' if yield(:page) == 'activities')}
-            = link_to activities_path do
-              %i.fa.fa-ticket-alt
-              %span.nav-label= I18n.t("activerecord.models.activity")
+        %li{:class => ('active' if yield(:page) == 'member')}
+          = link_to :current_member, class: 'nav-item' do
+            %i.far.fa-user-circle
+            %span.nav-label= I18n.t("members.navigation.profile")
 
+        %li{:class => ('active' if yield(:page) == 'activities')}
+          = link_to :activities, class: 'nav-item' do
+            %i.far.fa-calendar-alt
+            %span.nav-label= I18n.t("activerecord.models.activity")
 
-          %li{:class => ('active' if yield(:page) == 'edit')}
-            = link_to :users_edit do
-              %i.fa.fa-user
-              %span.nav-label= I18n.t("members.navigation.profile")
-
-          %li.d-none.d-md-block
-            = link_to destroy_user_session_path, 'data-method' => :delete do
-              %i.fa.fa-sign-out-alt
-              %span.nav-label= I18n.t("members.navigation.sign_out")
-
+        %li.d-md-none
+          = link_to destroy_user_session_path, 'data-method' => :delete, class: 'nav-item' do
+            %i.fa.fa-sign-out-alt
+            %span.nav-label= I18n.t("members.navigation.sign_out")
+        %li
           %hr
 
-          %li
-            = link_to "https://fotos.svsticky.nl/" do
-              %i.fa.fa-camera
-              %span= I18n.t("members.navigation.pictures")
+        %li
+          = link_to "https://fotos.svsticky.nl/" do
+            %i.fas.fa-camera-retro
+            %span.nav-label= I18n.t("members.navigation.pictures")
 
-          %li
-            = link_to "https://files.svsticky.nl/" do
-              %i.fa.fa-file
-              %span= I18n.t("members.navigation.files")
+        %li
+          = link_to "https://files.svsticky.nl/" do
+            %i.far.fa-folder
+            %span.nav-label= I18n.t("members.navigation.files")
 
-          %li
-            = link_to "https://digidecs.svsticky.nl/" do
-              %i.fa.fa-receipt
-              %span= I18n.t("members.navigation.declarations")
+        %li
+          = link_to "https://digidecs.svsticky.nl/" do
+            %i.fas.fa-file-invoice
+            %span.nav-label= I18n.t("members.navigation.declarations")
 
-          %li
-            = link_to "https://svsticky.nl/boeken" do
-              %i.fa.fa-book
-              %span= I18n.t("members.navigation.books")
+        %li
+          = link_to "https://svsticky.nl/boeken" do
+            %i.fa.fa-book
+            %span.nav-label= I18n.t("members.navigation.books")
 
-          %li
-            = link_to "https://svsticky.nl/carriere/vacatures" do
-              %i.fa.fa-briefcase
-              %span= I18n.t("members.navigation.vacancies")
+        %li
+          = link_to "https://svsticky.nl/carriere/vacatures" do
+            %i.fa.fa-briefcase
+            %span.nav-label= I18n.t("members.navigation.vacancies")
 
     #page-container
-      .row
+      .row.d-none.d-md-flex
         %nav.navbar.navbar-static-top
-          %ul.nav.d-md-none
+          %ul.nav
             %li
-              %span.text-muted= current_user.email
+              = link_to :current_member do
+                %i.far.fa-user-circle
+                %span.nav-label= current_user.email
             %li
               = link_to destroy_user_session_path, 'data-method' => :delete do
-                %i.fa.fa-sign-out-alt
                 %span.nav-label= I18n.t("members.navigation.sign_out")
+                %i.fa.fa-sign-out-alt
 
       = yield
 
-    #toast-container.toast-bottom-right
+      #toast-container.toast-bottom-right

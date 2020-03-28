@@ -1,25 +1,19 @@
 - content_for(:page, 'activities')
 - content_for(:title, 'Activiteiten')
 
-.flex-center
-  - if @activities.any?
-    .btn-group{role: "group", 'aria-label': "..."}
-      = link_to 'https://calendar.google.com/calendar/embed?src=stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com&ctz=Europe%2FAmsterdam', class: 'btn btn-info', target: '_blank' do
-        = I18n.t 'members.activities.index.activities_calendar'
-      = link_to '', class: 'btn btn-secondary', id: 'copy-btn', onclick: 'Copy_ICS()' do
-        = I18n.t 'members.activities.index.copy_ICS'
-  - else
-    .alert.alert-warning= I18n.t('members.activities.index.no_activities')
+.row
+  .col-md-12
+    .card-deck
+      - @activities.each do |activity|
 
-%div{:style => "height:15px;"}
+        = link_to activity, class: 'card' do
+          = image_tag activity.thumbnail_representation, class: 'card-img-top'
+          .card-body
+            %h3.card-title= activity.name
+            %p.card-text
+              = format_date(activity, format: '%d-%m-%Y')
+              = format_time(activity, display_end: false)
 
-#activity-container{:data => {:view => 'index'}}
-  - @activities.each do |activity|
-    .flexwrap
-      = render 'members/activities/partials/view', activity: activity, view: 'index'
-
-= link_to 'mailto:pleasedotheneedful@svsticky.nl' , class: 'btn btn-danger helpme' do
-  %i.fa.fa-bug
-  = I18n.t 'members.activities.bug_report'
-
-= render 'layouts/partials/poster_modal', view: 'index'
+              - if !activity.price.nil? and activity.price != 0
+                %span.card-price
+                  = number_to_currency(activity.price, :precision => 2, :unit => '€')

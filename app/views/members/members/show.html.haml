@@ -1,0 +1,97 @@
+- content_for(:page, 'member')
+- content_for(:title, @member.name)
+
+
+.row
+  .col-lg-4
+    .card
+      .card-body.member-card
+        %h2
+          %i.fas.fa-user-circle
+          = @member.name
+
+        - if @member.tags.any?
+          %ul
+            - @member.tags.each do |tag|
+              %li= I18n.t(tag.name, scope: 'activerecord.attributes.tag.names')
+
+        %p
+          %i.fa.fa-map-marker
+          = @member.address
+          = @member.house_number
+          %br
+          = @member.postal_code
+          = @member.city
+        %p
+          %i.fa.fa-phone-alt
+          = @member.phone_number
+        %p
+          %i.far.fa-envelope-open
+          %a{:href => "mailto:#{@member.email}"}= @member.email
+
+        .btn-group
+          .row
+            .col-md-6
+              = link_to :edit_current_member, class: 'btn btn-primary btn-sm btn-block' do
+                %i.far.fa-edit
+                Bewerken
+            .col-md-6
+              = link_to :password_current_member, { :class => 'button btn btn-sm btn-default btn-block' } do
+                %i.fa.fa-key
+                = I18n.t 'members.home.edit.password_options.change_password'
+
+
+
+    - if @member.groups.any?
+      .card
+        .card-header
+          %i.fa.fa-user-friends
+          = I18n.t('activerecord.models.group')
+        %table.table.card-body.table-striped
+          - @member.groups.each do |group|
+            %tr
+              %td
+                %strong= group[ :name ]
+              %td= Date.years( group[ :years ].sort )
+              %td
+                - group[ :positions ].each do | position |
+                  - position.each do | position, year |
+                    - unless position.nil?
+                      - if year == Date.today.study_year
+                        = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
+
+  .col-lg-8
+    .card
+      .card-header
+        %i.far.fa-calendar-alt
+        = I18n.t("activerecord.models.activity")
+      %table.table.card-body.table-striped
+        - @participants.each do |activity|
+          %tr
+            %td= link_to activity.name, members_path(activity)
+            %td.hidden-xs= format_date(activity, format: '%d-%m-%Y')
+            %td= number_to_currency(activity.currency(@member), :precision => 2, :unit => '€ ', separator: ',', delimiter: '.')
+            %td.text-center.d-none.d-sm-block
+              - if !activity.currency(@member).nil? && activity.currency(@member) > 0
+                - if activity.participants.where(:member => @member).first.paid
+                  %span= I18n.t('activerecord.attributes.participant.paid.true')
+                - else
+                  %span.warning= I18n.t('activerecord.attributes.participant.paid.false')
+
+
+    - if @transactions.length > 0 || @member.checkout_cards.length > 0
+      .card
+        .card-header
+          %i.fa.fa-fw.fa-fw.fa-shopping-cart
+          = I18n.t('activerecord.models.checkout_transactions')
+        %table.table.card-body.table-striped
+          - @transactions.each do |transaction|
+            %tr
+              %td= I18n.l transaction.created_at
+              %td.d-none.d-md-block= transaction.products
+              %td
+                = number_to_currency(transaction.price, :unit => '€')
+                - if transaction.price > 0
+                  %span.fa.fa-sort-asc.float-right
+                - else
+                  %span.fa.fa-sort-desc.float-right

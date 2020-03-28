@@ -14,14 +14,7 @@ class Members::ActivitiesController < ApplicationController
   # [GET] /activities
   # Renders the overview of all future activities that are enrollable.
   def index
-    @member = Member.find(current_user.credentials_id)
-
-    @activities = Activity
-                  .where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-                         Date.today, Date.today)
-                  .where(is_viewable: true)
-                  .order(:start_date, :start_time)
-    @activities = @activities.reject(&:ended?)
+    @activities = Activity.upcoming
   end
 
   # [GET] /activities/:id
@@ -29,18 +22,14 @@ class Members::ActivitiesController < ApplicationController
   # activity, the list of enrolled people and reservists, and the notes entry
   # field.
   def show
-    @member = Member.find(current_user.credentials_id)
     @activity = Activity.find(params[:id])
 
-    # Don't allow activities for old activities
-    render :unavailable, :status => :gone if @activity.ended? || !@activity.is_viewable?
+    # Don't allow activities for old activities #TODO
+    # render :unavailable, :status => :gone if @activity.ended? || !@activity.is_viewable?
 
-    @enrollment = Participant.find_by(
-      member_id: @member.id,
+    @participant = Participant.find_by(
+      member_id: Member.find(current_user.credentials_id).id,
       activity_id: @activity.id
-    )
-
-    @attendees = @activity.ordered_attendees
-    @reservists = @activity.ordered_reservists
+    ) || Participant.new
   end
 end
