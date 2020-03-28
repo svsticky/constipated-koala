@@ -7,7 +7,7 @@ class Users::PasswordChangeController < ApplicationController
   def edit
     @user = current_user
 
-    render 'user/password/edit'
+    render 'members/members/password'
   end
 
   def update
@@ -20,7 +20,7 @@ class Users::PasswordChangeController < ApplicationController
       bypass_sign_in @user, scope: :user
       redirect_to root_path
     else
-      render 'user/password/edit'
+      render 'members/members/password'
     end
   end
 
