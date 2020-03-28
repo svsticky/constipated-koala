@@ -684,7 +684,8 @@ en:
       declarations: DigiDecs
       books: Books
       vacancies: Vacancies
-      edit_profile: "Edit profile"
+      profile: Profiel
+      sign_out: Uitloggen
   navigation:
     back: Back
     home: Home

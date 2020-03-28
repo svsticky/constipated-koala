@@ -402,11 +402,11 @@ div.card {
     }
   }
 
-  .mongoose-card, .debt-card {
+  .mongoose-card, .mongoose-top-off, .debt-card {
     height: 60px;
     padding: 5px;
 
-    i {
+    > i {
       position: absolute;
       height: 100%;
       width: 30%;
@@ -429,6 +429,40 @@ div.card {
 
     span {
       font-size: 1.5em;
+    }
+  }
+
+  .mongoose-top-off {
+    position: relative;
+
+    > i {
+      width: 10%
+    }
+
+    form {
+      margin-left: 10%;
+
+      input, select {
+        display: block;
+        width: 100%;
+      }
+
+      select {
+        margin-top: 4px;
+      }
+
+      button {
+        position: absolute;
+        max-width: calc(100% - 15px);
+
+        top: 0px;
+        right: 15px;
+        bottom: 0px;
+
+        i {
+          left: 0px;
+        }
+      }
     }
   }
 

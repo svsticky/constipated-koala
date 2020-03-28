@@ -47,7 +47,7 @@ puts '-- Creating checkout transactions'
 CheckoutCard.all.each do |card|
   Faker::Number.within(range: 0..10).times do
     checkout_products = CheckoutProduct.all
-    checkout_products.reject(&:liquor?) if card.member.underage?
+    checkout_products.reject(&:liquor?) unless card.member.adult?
 
     CheckoutTransaction.create(
       checkout_card_id:            card.id,

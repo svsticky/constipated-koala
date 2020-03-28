@@ -13,20 +13,21 @@ Rails.application.routes.draw do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
 
-        get   'edit',                           to: 'home#edit', as: :users_edit
-        patch 'edit',                           to: 'home#update'
-        delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
+        resource :member, as: 'current_member', only: [:show, :edit, :update] do
+          get 'download', to: 'members#download'
 
-        get 'download', to: 'home#download'
+          # update password from member options
+          get     'password',     to: '/users/password_change#edit'
+          patch   'password',     to: '/users/password_change#update'
 
-        post 'mongoose', to: 'home#add_funds'
+          post    'mongoose',     to: 'members#add_funds'
 
-        # TODO: should this be moved to nginx or
-        # @deprated these old routes
-        get 'enrollments',                      to: redirect('/activities')
-        get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
+          # revoke access to external authorized_applications
+          delete 'authorized_applications/:id',   to: 'members#revoke', as: :authorized_applications
+        end
 
         resources :activities, only: [:index, :show] do
+          get 'participants', to: redirect('/activities/%{activity_id}')
           resource :participants, only: [:create, :update, :destroy]
         end
       end
@@ -52,10 +53,6 @@ Rails.application.routes.draw do
     # update account with password after receiving invite
     get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
     post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
-
-    # update password from member options
-    get     'passwordchange',     to: 'users/password_change#edit', as: :password_change
-    patch   'passwordchange',     to: 'users/password_change#update'
 
     scope module: 'public' do
       get   'status(/:token)', to: 'status#edit'

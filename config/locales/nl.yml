@@ -619,15 +619,16 @@ nl:
       index:
         edit_profile: Gegevens bewerken
         outstanding_payments: Openstaande betalingen
-        upgrade: Opwaarderen
+        upgrade: Mongoose opwaarderen
     navigation:
-      edit_profile: "Gegevens bewerken"
       links: Externe links
       pictures: Foto's
       files: Bestanden
       declarations: DigiDecs
       books: Boeken
       vacancies: Vacatures
+      profile: Profiel
+      sign_out: Uitloggen
   navigation:
     back: Terug
     home: Home

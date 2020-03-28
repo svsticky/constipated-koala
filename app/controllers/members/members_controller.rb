@@ -51,6 +51,43 @@ class Members::MembersController < ApplicationController
               :disposition => 'attachment'
   end
 
+
+  def add_funds
+    member = Member.find(current_user.credentials_id)
+    balance = CheckoutBalance.find_or_create_by!(member: member)
+
+    if ideal_transaction_params[:amount].to_f <= Settings.mongoose_ideal_costs
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+      redirect_to members_home_path
+      return
+    end
+
+    if balance.nil?
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+      redirect_to members_home_path
+      return
+    end
+
+    ideal = IdealTransaction.new(
+      :description => 'Mongoose-tegoed',
+      :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
+      :issuer => ideal_transaction_params[:bank],
+      :member => member,
+
+      :transaction_id => nil,
+      :transaction_type => 'CheckoutTransaction',
+
+      :redirect_uri => users_root_url
+    )
+
+    if ideal.save
+      redirect_to ideal.mollie_uri
+    else
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+      redirect_to :current_member
+    end
+  end
+
   def revoke
     Doorkeeper::AccessToken.revoke_all_for params[:id], current_user
     redirect_to :current_member_edit
@@ -68,5 +105,9 @@ class Members::MembersController < ApplicationController
                                    :email,
                                    :mailchimp_interests => [],
                                    educations_attributes: [:id, :status])
+  end
+
+  def ideal_transaction_params
+    params.require(:ideal_transaction).permit(:bank, :amount)
   end
 end

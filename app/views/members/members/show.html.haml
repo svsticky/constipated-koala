@@ -40,7 +40,28 @@
                 %i.fa.fa-key
                 = I18n.t 'members.home.edit.password_options.change_password'
 
+    .card
+      .card-body.mongoose-top-off
+        %i.fa.fa-shopping-bag.fa-2x
 
+        .form-group
+          = form_for :ideal_transaction, :url => :mongoose_current_member, :method=> :post, :class => 'form-validation' do |f|
+            .row
+              .col
+                = f.number_field :amount,
+                  :placeholder => 'mongoose',
+                  :min => 1,
+                  :pattern => '^\d+(\.|\,)\d{2}$',
+                  'data-toggle' => 'tooltip',
+                  'data-placement' => 'bottom',
+                  :title => "Er wordt €#{Settings.mongoose_ideal_costs} transactiekosten in rekening gebracht",
+                  :required => ''
+
+                = f.select :bank, options_for_select(IdealTransaction::issuers)
+              .col.center-area
+                %button.btn.btn-default.btn-sm{ :type => 'submit'}
+                  = I18n.t('members.home.index.upgrade')
+                  %i.fab.fa-ideal
 
     - if @member.groups.any?
       .card
@@ -68,7 +89,7 @@
       %table.table.card-body.table-striped
         - @participants.each do |activity|
           %tr
-            %td= link_to activity.name, members_path(activity)
+            %td= link_to activity.name, activity
             %td.hidden-xs= format_date(activity, format: '%d-%m-%Y')
             %td= number_to_currency(activity.currency(@member), :precision => 2, :unit => '€ ', separator: ',', delimiter: '.')
             %td.text-center.d-none.d-sm-block
