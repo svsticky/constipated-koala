@@ -9,20 +9,81 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require yeti
- *= require font_awesome5_webfont
+ *= require @fortawesome/fontawesome-free/css/all
  *= require lato
  *
- *= require font_awesome5_webfont
- *= require toastr/toastr.css
  *= require_self
  *= require_tree ./admin
- * require page
- * require header
- * require sidebar
- * require cards
- * require general
  */
 
 .page {
   padding: 15px;
+}
+
+a.table-row {
+  display: table-row;
+}
+
+td > select.custom-select {
+  position: relative;
+  top: -2px;
+}
+
+td.py-0 > button {
+  margin: 3px 0px;
+}
+
+div.card-header {
+  a.btn {
+    position: absolute;
+    right: 8px;
+    height: 30px;
+    width: 30px;
+    line-height: 17px;
+    top: 8px;
+    font-weight: 400;
+  }
+
+ .custom-select {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    max-width: 200px;
+    width: 50%;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+    float: right;
+    margin: -0.75rem -1.25rem;
+    padding: 5px;
+
+    .input-group, .input-group-btn, .custom-select {
+      position: relative;
+      top: 0px;
+      right: 0px;
+      width: 100px;
+
+      display: inline-block;
+    }
+
+    .input-group {
+      display: inline-flex;
+      position: relative;
+      top: 1.5px;
+    }
+
+    .input-group-btn {
+      width: auto;
+    }
+  }
+}
+
+ul.pagination {
+  margin-bottom: 0px;
+
+  li:first-child.page-item.disabled, li:last-child.page-item.disabled  {
+    visibility: hidden;
+  }
 }

@@ -13,7 +13,7 @@ gem 'rabl'
 # assets and stuff
 gem 'sassc-rails'
 gem 'sprockets', '~> 3.0' # TODO remove this line and update to v4
-gem 'will_paginate'
+gem 'pagy'
 
 # authentication gems
 gem 'devise'

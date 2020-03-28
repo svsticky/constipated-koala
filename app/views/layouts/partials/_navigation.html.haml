@@ -7,15 +7,15 @@
 
       = link_to :members, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("activerecord.models.member")
-        %i.fa.fa-user{:class => ('active' if current_page?(:members))}
+        %i.fa.fa-user{:class => ('active' if yield(:page) == 'members')}
 
       = link_to :groups, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("activerecord.models.group")
-        %i.fa.fa-users{:class => ('active' if current_page?(:groups))}
+        %i.fa.fa-users{:class => ('active' if yield(:page) == 'groups')}
 
       = link_to :activities, :class => 'list-group-item list-group-item-action'do
         %span= I18n.t("activerecord.models.activity")
-        %i.fa.fa-ticket-alt{:class => ('active' if current_page?(:activities))}
+        %i.fa.fa-ticket-alt{:class => ('active' if yield(:page) == 'activities')}
 
       = link_to :payments, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.payments")
@@ -31,13 +31,13 @@
           %span= I18n.t("admin.navigation.checkout")
           %i.fa.fa-caret-right{:class => ('active' if current_page?(:checkout))}
 
+        = link_to :checkout_products, :class => 'list-group-item list-group-item-action' do
+          %span= I18n.t("admin.navigation.products")
+          %i.fa.fa-caret-right{:class => ('active' if yield(:subpage) == 'checkout')} 
+
         = link_to :ideal, :class => 'list-group-item list-group-item-action' do
           %span= I18n.t("admin.navigation.ideal")
           %i.fa.fa-caret-right{:class => ('active' if current_page?(:ideal))}
-
-        = link_to :checkout_products, :class => 'list-group-item list-group-item-action' do
-          %span= I18n.t("admin.navigation.products")
-          %i.fa.fa-caret-right{:class => ('active' if current_page?(:checkout_products))}
 
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-settings' do

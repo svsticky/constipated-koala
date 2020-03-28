@@ -19,9 +19,7 @@ class Activity < ApplicationRecord
 
   validate :content_type
   def content_type
-    # NOTE required to be an pdf, jpg or png but file can also be empty
-    return unless poster.attached?
-
+    return unless poster.attached? # NOTE required to be an pdf, jpg or png but file can also be empty
     errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
   end
 
@@ -43,6 +41,8 @@ class Activity < ApplicationRecord
   has_many :members, :through => :participants
 
   attr_accessor :magic_enrolled_reservists
+
+  scope :upcoming, -> { where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today).where(is_viewable: true).order(:start_date, :start_time) }
 
   before_validation do
     self.start_date = Date.today if start_date.blank?
@@ -113,15 +113,6 @@ class Activity < ApplicationRecord
       .joins(:member)
   end
 
-  # Prevents duplication in hiding information in the API if notes_public is false.
-  def participant_filter(participants)
-    if notes_public
-      participants.map { |p| { name: p.member.name, notes: p.notes } }
-    else
-      participants.map { |p| { name: p.member.name } }
-    end
-  end
-
   def group
     Group.find_by_id organized_by
   end
@@ -140,7 +131,6 @@ class Activity < ApplicationRecord
 
   def price
     return 0 if read_attribute(:price).nil?
-
     return read_attribute(:price)
   end
 
@@ -150,7 +140,7 @@ class Activity < ApplicationRecord
     write_attribute(:price, nil) if price == 0
   end
 
-  def self.combine_dt(date, time)
+  def self.combine_datetime(date, time)
     return Time.zone.local(date.year, date.month, date.day, time.hour, time.min, time.sec) if time
     return Time.zone.local(date.year, date.month, date.day) if date
 
@@ -168,11 +158,11 @@ class Activity < ApplicationRecord
   end
 
   def start
-    Activity.combine_dt(start_date, start_time)
+    Activity.combine_datetime(start_date, start_time)
   end
 
   def end
-    Activity.combine_dt(end_date, end_time)
+    Activity.combine_datetime(end_date, end_time)
   end
 
   def end_is_possible
@@ -226,28 +216,8 @@ class Activity < ApplicationRecord
     return luckypeople
   end
 
-  def participant_counts
-    # Helper method to get counts of both types of Participants for this activity at once
-    [participants.count, attendees.count, reservists.count]
-  end
-
-  def fullness
-    # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
-    return '' unless is_enrollable
-
-    # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
-    if participant_limit
-      return 'VOL!' if attendees.count >= participant_limit
-
-      return "#{ attendees.count }/#{ participant_limit }"
-    end
-
-    attendees.count.to_s
-  end
-
-  def ended?
-    (end_time && self.end < Time.zone.now) ||
-      (end_time.nil? && start < Time.zone.now)
+  def unenroll?
+    self.unenroll_date&.end_of_day && self.unenroll_date.end_of_day < Time.now
   end
 
   def poster_representation

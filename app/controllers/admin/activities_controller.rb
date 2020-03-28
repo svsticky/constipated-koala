@@ -1,11 +1,12 @@
 #:nodoc:
 class Admin::ActivitiesController < ApplicationController
+  include ::StudyYear
   # replaced with calls in each of the methods
   # impressionist :actions => [ :create, :update, :destroy ]
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
-    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    @years = range(Activity.first.start_date.year).reverse
 
     @activity = Activity.new
   end
@@ -25,7 +26,7 @@ class Admin::ActivitiesController < ApplicationController
       redirect_to @activity
     else
       @activities = Activity.all.order(start_date: :desc)
-      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+      @years = range(Activity.first.start_date.year).reverse
 
       @detailed = Activity.debtors.sort_by(&:start_date).reverse!
 

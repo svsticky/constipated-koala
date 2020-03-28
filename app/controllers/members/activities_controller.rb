@@ -14,7 +14,7 @@ class Members::ActivitiesController < ApplicationController
   # [GET] /activities
   # Renders the overview of all future activities that are enrollable.
   def index
-    @activities = Activity.upcoming
+    @activities = Activity.upcoming.includes(:participants)
   end
 
   # [GET] /activities/:id

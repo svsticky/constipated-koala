@@ -106,11 +106,9 @@
                         = fs.hidden_field :id, :class => 'id'
                       .row
                         .col-md-6
-                          .ui-select
-                            = fs.select :study_id, options_for_select(Study.all.map{|s| [I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id]}, education.study_id), :include_blank => "--"
+                          = fs.select :study_id, options_for_select(Study.all.map{|s| [I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id]}, education.study_id), {:include_blank => "--"}, { class: 'custom-select' }
                         .col-md-6
-                          .ui-select
-                            = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
+                          = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status), {}, { class: 'custom-select' }
                       .row
                         .col-md-6
                           = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
@@ -126,7 +124,7 @@
                 - unless Settings['mailchimp.interests'].empty?
                   .form-group
                     = f.label(:mailchimp_interests)
-                    = f.select :mailchimp_interests, options_for_select( Settings['mailchimp.interests'] , @member.mailchimp_interests.select{ |_,v| v == true}.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
+                    = f.select :mailchimp_interests, options_for_select( Settings['mailchimp.interests'] , @member.mailchimp_interests&.select{ |_,v| v == true}&.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
 
 
         .col-md-12

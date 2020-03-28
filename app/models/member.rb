@@ -1,7 +1,6 @@
 # By default, a class begins with a number of validations. student_id is
 # special because in the intro website it cannot be empty. However, an admin can
 # make it empty.
-# The emergency phone number is only required if the member is not an adult
 class Member < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -11,9 +10,11 @@ class Member < ApplicationRecord
   validates :postal_code, presence: true
   validates :city, presence: true
 
-  validates :phone_number, presence: true, phone_number: true
-  validates :emergency_phone_number, :allow_blank => true, phone_number: true
-  validates :emergency_phone_number, presence: true, if: :underage?
+  validates :phone_number, presence: true
+
+  # The emergency phone number is only required if the member is not an adult
+  # validates :emergency_phone_number, :allow_blank => true
+  validates :emergency_phone_number, presence: true, if: -> { !adult? }
 
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
 
@@ -67,6 +68,16 @@ class Member < ApplicationRecord
   has_many :groups, :through => :group_members
 
   has_one :user, as: :credentials, :dependent => :destroy
+
+  scope :active, -> { where(:id => (
+    Education.select(:member_id)
+     .where('status = 0')
+     .map(&:member_id) +
+    Tag.select(:member_id)
+      .where(:name => Tag.active_by_tag)
+      .map(&:member_id)
+    ))
+  }
 
   scope :studying, -> { where(id: Education.where(status: :active)) }
   scope :alumni, -> { where.not(id: Education.where(status: :active)) }
@@ -193,9 +204,9 @@ class Member < ApplicationRecord
     saved_change_to_first_name? || saved_change_to_infix? || saved_change_to_last_name? || saved_change_to_email?
   end
 
-  def underage?
-    !adult?
-  end
+  # def underage?
+  #   !adult?
+  # end
 
   def masters?
     !educations.empty? && educations.any? { |education| Study.find(education.study_id).masters }
@@ -210,7 +221,6 @@ class Member < ApplicationRecord
   # NOTE: return default value if birth date is blank, required for form validation
   def adult?
     return false if birth_date.blank?
-
     return 18.years.ago >= birth_date
   end
 
@@ -221,6 +231,10 @@ class Member < ApplicationRecord
   # Member may enroll when currently enrolled in study, or tagged with one of the whitelisting tags.
   def may_enroll?
     return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
+  end
+
+  def suspended?
+    Tag.exists?(member: self, name: Tag.names[:suspended])
   end
 
   # TODO: move search related methods to lib?

@@ -26,20 +26,14 @@
             = f.text_field :name, :value => group.name, :class => 'form-control'
           .col-md-4
             = label(:group, I18n.t( :category, scope: 'activerecord.attributes.group' ))
-            .ui-select
-              = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: group.category, disabled: ['board'] )
+            = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: group.category, disabled: ['board'] ), {}, {class: 'custom-select'}
 
         .form-group
           = label(:group, I18n.t( :comments, scope: 'activerecord.attributes.group' ))
           = f.text_area :comments, :value => group.comments, :class => 'form-control', :rows => 5
 
       %button.btn.btn-success.wait{ type: 'submit' } Opslaan
-      = link_to 'Annuleren', groups_path, { :class => 'button btn btn-default' }
+      = link_to 'Annuleren', groups_path, { :class => 'button btn btn-light' }
 
       - if !group.id.nil? && group.category != "board"
         = link_to "Verwijderen", group, { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
-
-
-
-      //- if group.category != "board"
-      //= link_to 'Verwijderen', group_path(|group.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }

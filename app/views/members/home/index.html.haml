@@ -29,6 +29,22 @@
           %span= number_to_currency(@balance.balance, :precision => 2, :unit => '€ ', separator: ',', delimiter: '.')
           %p Mongoose tegoed
 
+    .card.d-block.d-md-none
+      .card-header
+        %i.far.fa-calendar-alt
+        Ingeschreven activiteiten
+
+      %table.table.card-body.table-striped.table-sm
+        - @attending.each do |participant|
+          %tr
+            %td
+              = link_to participant.activity.name, participant.activity
+              %br
+              = format_date(participant.activity, format: '%d-%m-%Y')
+            %td.text-center.d-none.d-sm-block
+              - if participant.reservist?
+                reserve
+
     - @posts.each do |post|
       .card
         .card-header
@@ -68,11 +84,13 @@
         %i.far.fa-calendar-alt
         Ingeschreven activiteiten
 
-      %table.table.card-body.table-striped
+      %table.table.card-body.table-striped.table-sm
         - @attending.each do |participant|
           %tr
-            %td= link_to participant.activity.name, participant.activity
-            %td.hidden-xs= format_date(participant.activity, format: '%d-%m-%Y')
+            %td
+              = link_to participant.activity.name, participant.activity
+              %br
+              = format_date(participant.activity, format: '%d-%m-%Y')
             %td.text-center.d-none.d-sm-block
               - if participant.reservist?
                 reserve

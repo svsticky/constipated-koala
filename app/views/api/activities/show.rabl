@@ -26,11 +26,11 @@ node :unenroll_date do |activity|
 end
 
 node :attendees do |activity|
-  activity.participant_filter(activity.ordered_attendees)
+  activity.ordered_attendees.map { |p| { name: p.member.name } }
 end
 
 node :reservists do |activity|
-  activity.participant_filter(activity.ordered_reservists)
+  activity.ordered_reservists.map { |p| { name: p.member.name } }
 end
 
 glue :group do

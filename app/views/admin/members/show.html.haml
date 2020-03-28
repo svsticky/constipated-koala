@@ -101,8 +101,9 @@
         .card
           .card-body
             .btn-group
-              = link_to 'Back', :back, { :class => 'btn btn-primary' }
-              = link_to 'Edit', edit_member_path(@member.id), { :class => 'btn btn-warning' }
+              = link_to edit_member_path(@member.id), { :class => 'btn btn-warning' } do
+                %i.far.fa-edit
+                Bewerken
 
             .btn-group
               %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button' }
@@ -131,29 +132,26 @@
 
         - if @transactions.length > 0 || @member.checkout_cards.length > 0
           .card
-            .card-header.input
+            .card-header
               %i.fa.fa-fw.fa-shopping-cart
               Checkout
 
-              .input-group#credit{ :data => { 'member_id' => @member.id }}
-                .input-symbol
-                  %span &euro;
-                  %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => '') }
+              .form-group#credit{ :data => { 'member_id' => @member.id }}
+                .input-group
+                  .input-group-prepend
+                    %span.input-group-text &euro;
+                  %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => ''), class: 'form-control' }
 
-                <!-- Containing this selector in a div fixes an
-                overflow in Firefox, that doesn't occur in
-                Chrome. See #203. -->
-                #selector-container
-                  %select#payment_method{ :required => true }
-                    %option{:value => "Gepind"}= "Gepind"
-                    %option{:value => "Contant"}= "Contant"
-                    %option{:value => "", :selected => "selected" }= "-"
-                    %option{:value => "Verkoop"}= "Verkoop"
+                %select.custom-select#payment_method{ :required => true }
+                  %option{:value => "Gepind"}= "Gepind"
+                  %option{:value => "Contant"}= "Contant"
+                  %option{:value => "", :selected => "selected" }= "-"
+                  %option{:value => "Verkoop"}= "Verkoop"
 
-                %span.input-group-btn
+                .input-group-btn
                   %button.btn.btn-warning#upgrade-btn opwaarderen
 
-            %table.table.table-striped#transactions
+            %table.table.card-body.table-striped
               %thead
                 %tr
                   %th Datum
@@ -172,17 +170,9 @@
 
                     %td.d-none.d-sm-table-cell
                       = transaction.products
-            %footer.table-footer
-              .row
-                .col-lg-12.page-num-info.d-none.d-md-block{ :data => { :limit => @limit, :pagination => 4 } }
-                  %span
-                    Toon
-                    = select_tag 'limit', options_for_select([10,20,50], @limit)
-                    transacties per pagina
-              .row
-                .col-lg-12
-                  = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
 
+            .card-footer
+              = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
 
       .col-lg-6
         .card
@@ -207,7 +197,7 @@
           .card-header.year
             %i.fa.fa-fw.fa-ticket-alt
             Activiteiten
-            = select_tag :year, options_for_select( @years, params['year'] )
+            = select_tag :year, options_for_select( @years, params['year'] ), class: 'custom-select'
 
           %table.table.table-striped.table-linked#participants
             %thead
@@ -240,5 +230,5 @@
                       - else
                         %button.btn.btn-warning.paid{ :class => ('d-none' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
                           %i.fa.fa-fw.fa-times
-                      %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash-o
+                      %button.btn.btn-light.destroy
+                        %i.fa.fa-fw.fa-trash

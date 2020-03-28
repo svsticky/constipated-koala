@@ -1,11 +1,13 @@
 #:nodoc:
 class Admin::ParticipantsController < ApplicationController
   def create
+    @activity = Activity.find_by_id(params[:activity_id])
     @participant = Participant.new(
       member: Member.find_by_id(params[:member]),
-      activity: Activity.find_by_id(params[:activity_id])
+      activity: @activity
     )
 
+    @participant.notes = ' - ' if @activity.notes_mandatory
     impressionist(@participant) if @participant.save
   end
 

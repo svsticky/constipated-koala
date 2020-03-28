@@ -77,10 +77,6 @@
     left: 210px;
   }
 
-  form .panel-body {
-    position: relative;
-  }
-
   form .droparea {
     position: absolute;
     top: 5px;
@@ -96,7 +92,6 @@
   form .poster {
     max-height: 255px;
     max-width: 180px;
-    border: solid 1px #cbd5dd;
   }
 }
 

@@ -11,20 +11,18 @@
       .col-md-6
         .card
           .card-header
-            .card-header-text
-              %i.fa.fa-fw.fa-ticket-alt
-              Producten
-            
-            =link_to "+", checkout_products_path, class: "new-product btn btn-success"
-            
+            %i.fa.fa-fw.fa-ticket-alt
+            Producten
+            = link_to '+', :checkout_products, class: 'btn btn-outline-primary'
+
           %table.table.table-striped.table-linked#products
             %tbody
               - @products.each do |product|
                 %tr{ :data => { 'id' => product.id }, :class => ( 'inactive' unless product.active ), :id => 'product_' + product.id.to_s}
-                  %td.col-xs-4= link_to product.name, checkout_product_path(product.id, :anchor => 'product_' + product.id.to_s)
+                  %td.col-xs-4= link_to product.name, checkout_product_path(product.id)
                   %td.col-xs-4= I18n.t( product.category, scope: 'activerecord.attributes.checkout_product.categories' ).downcase
                   %td.col-xs-4= number_to_currency( product.price, :unit => '€' )
-                  %td.col-xs-4
+                  %td.col-xs-4.py-0
                     - if product.active
                       %button.btn.btn-warning.deactivate
                         %i.fa.fa-fw.fa-times
@@ -65,8 +63,7 @@
                     .row
                       .col-md-4
                         = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
-                        .ui-select
-                          = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category )
+                        = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @product.category ), {}, {class: 'custom-select'}
                       .col-md-8
                         = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
                         .input-group
@@ -123,8 +120,7 @@
                     .row
                       .col-md-4
                         = label(:checkout_product, I18n.t( :category, scope: 'activerecord.attributes.checkout_product' ))
-                        .ui-select
-                          = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @new.category )
+                        = f.select :category, options_for_select( CheckoutProduct.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.checkout_product.categories'), name] }, @new.category ), {}, { class: 'custom-select'}
                       .col-md-8
                         = label(:checkout_product, I18n.t( :image, scope: 'activerecord.attributes.checkout_product' ))
                         .input-group
@@ -137,24 +133,24 @@
 
                   %button.btn.btn-success.wait.save-btn{type: 'submit'} Opslaan
 
-        - unless @product.nil? || @total.nil?
+        - unless @product.nil?
           .col-md-12.float-right
             .card
               .card-header.year
                 %i.fa.fa-fw.fa-ticket-alt
                 Verkopen
-                .ui-select
-                  = select_tag :year, options_for_select( @years, params['year'] )
-              %table.table.table-striped.table-linked#products
+                = select_tag :year, options_for_select( @years, params['year'] ), class: 'custom-select'
+              %table.table.table-striped.card-body#products
                 %tbody
 
-                - @product.sales( params['year'] ).each do |sale|
-                  - if sale.first[1].to_i > 0
-                    %tr
-                      %td=link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
-                      %td= number_to_currency( sale.first[0].price, :unit => '€')
-                      %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
+                - unless @total.nil?
+                  - @product.sales( params['year'] ).each do |sale|
+                    - if sale.first[1].to_i > 0
+                      %tr
+                        %td=link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
+                        %td= number_to_currency( sale.first[0].price, :unit => '€')
+                        %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
 
-                %tr.total
-                  %td{ :colspan => 2} Totaal
-                  %td.text-right= number_to_currency( @total.to_f, :unit => '€' )
+                  %tr.total
+                    %td{ :colspan => 2} Totaal
+                    %td.text-right= number_to_currency( @total.to_f, :unit => '€' )

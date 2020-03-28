@@ -1,6 +1,7 @@
 #:nodoc:
 class Admin < ApplicationRecord
   has_one :user, as: :credentials
+  has_one_attached :avatar
 
   attr_accessor :email
   attr_accessor :password

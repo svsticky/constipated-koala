@@ -14,7 +14,6 @@
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
-//= require intl_tel_number
 
 $(document).on('ready page:load turbolinks:load', function () {
   var disabledStudyOptions = null;

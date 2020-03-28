@@ -12,52 +12,43 @@
           .card-header
             %i.fa.fa-fw.fa-fw.fa-shopping-cart
             Transacties
-          .table-responsive#transactions
-            %table.table.table-bordered.table-striped.table-linked
-              %thead
-                %tr
-                  %th
-                    .th
-                      Datum
-                  %th
-                    .th
-                      Prijs
-                  %th
-                    .th
-                      Lid
-                  %th.d-none.d-md-block
-                    .th
-                      Producten
+          %table.table.table-striped.card-body
+            %thead
+              %tr
+                %th
+                  .th
+                    Datum
+                %th
+                  .th
+                    Prijs
+                %th
+                  .th
+                    Lid
+                %th.d-none.d-md-block
+                  .th
+                    Producten
 
-              - @transactions.each do |transaction|
-                %tr
-                  %td #{I18n.l transaction.created_at}
-                  %td
-                    = number_to_currency(transaction.price, :unit => '€')
-                    - if transaction.price > 0
-                      %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
-                    - else
-                      %span.fa.fa-sort-desc.float-right
+            - @transactions.each do |transaction|
+              %tr
+                %td #{I18n.l transaction.created_at}
+                %td
+                  = number_to_currency(transaction.price, :unit => '€')
+                  - if transaction.price > 0
+                    %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
+                  - else
+                    %span.fa.fa-sort-desc.float-right
 
-                  %td
-                    - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
-                      = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
-                    - else
-                      \-
+                %td
+                  - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
+                    = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
+                  - else
+                    \-
 
-                  %td.d-none.d-md-block
-                    = transaction.products
+                %td.d-none.d-md-block
+                  = transaction.products
 
-          %footer.table-footer
-            .row
-              .col-lg-3.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => @pagination } }
-                %span
-                  Toon
-                  = select_tag 'limit', options_for_select([20,50,100], @limit)
-                  transacties per pagina
-
-              .col-12.col-lg-6
-                = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+          .card-footer
+            = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
 
       .col-xl-4#credit
         .card
@@ -94,7 +85,7 @@
                 %p.uuid= card.uuid
                 .btn-group
                   %button.btn.btn-primary activeer
-                  %button.btn.btn-line-primary verwijder
+                  %button.btn.btn-outline-danger verwijder
             - if @cards.length == 0
               %li.list-group-item
                 %p.text-center

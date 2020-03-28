@@ -141,6 +141,7 @@ GEM
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
+    pagy (3.7.4)
     parallel (1.19.1)
     parser (2.7.0.5)
       ast (~> 2.4.0)
@@ -256,7 +257,6 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    will_paginate (3.3.0)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -275,6 +275,7 @@ DEPENDENCIES
   impressionist
   listen
   mysql2 (= 0.5.1)
+  pagy
   puma
   rabl
   rails (~> 6.0)
@@ -290,7 +291,6 @@ DEPENDENCIES
   uglifier
   unicorn
   web-console
-  will_paginate
 
 BUNDLED WITH
    2.1.4

@@ -8,6 +8,16 @@
 
         = link_to activity, class: 'card' do
           = image_tag activity.thumbnail_representation, class: 'card-img-top'
+
+          - participant = current_user.credentials.participants.find_by_activity_id activity.id
+          - if participant.present?
+            .card-img-overlay
+              - if participant.reservist
+                %span.ribbon reserve
+              - else
+                %span.ribbon.attendee ingeschreven
+
+
           .card-body
             %h3.card-title= activity.name
             %p.card-text

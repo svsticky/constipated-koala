@@ -13,7 +13,7 @@
           .card-header.year
             %i.fa.fa-fw.fa-ticket-alt
             = I18n.t('activerecord.models.activity')
-            = select_tag :year, options_for_select( @years, params['year'] )
+            = select_tag :year, options_for_select( @years, params['year'] ), class: 'custom-select'
           %table.table.table-striped.table-linked#activity_table
             %tbody
               - @activities.each do |activity|
@@ -35,10 +35,3 @@
 
 
                   %td.d-none.d-md-block= link_to I18n.l(activity.start_date, :format => :day_month), activity
-
-                  - if activity.ended?
-                    %td.d-none.d-md-block
-                      %span.badge.badge-info= "Afgelopen"
-                  -else
-                    %td.d-none.d-md-block
-                      %span
