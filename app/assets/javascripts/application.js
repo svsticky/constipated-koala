@@ -12,7 +12,7 @@
 //
 //= require jquery/dist/jquery.min
 //= require jquery-ujs/src/rails
-//= require bootstrap-file-input
+//= require bootstrap/dist/js/bootstrap.bundle.min.js
 //
 //= require dropdown
 //= require editor
@@ -20,13 +20,32 @@
 //
 //= require clipboard/dist/clipboard.min
 //= require turbolinks/dist/turbolinks
-//= require bootstrap/dist/js/bootstrap.bundle.min.js
+//= require toastr/build/toastr.min
 //
-//= require_tree ./admin
+//= require_tree ./application
 
-$(document).on('ready page:load turbolinks:load', function () {
+$(document).on('ready page:load turbolinks:load', function(){
 
-  $('.alert button.close').on('click', function () {
-    $(this).closest('.alert').remove();
+  // Alerts for on the frontend, default type is info
+  // script#alert is a template in de header file.
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) {
+      return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+  };
+
+
+  // Select specific year in multiplje views
+  $('.card-header > select.custom-select').on('change', function(){
+    var params = {};
+
+    params.year = $(this).val();
+    location.search = $.param(params);
+  });
+
+  // Ask for confirmation on data-method=delete
+  $('.btn[data-method=delete]').on('click', function () {
+    return confirm('Weet u het zeker?');
   });
 });

@@ -94,6 +94,7 @@ Rails.application.routes.draw do
           get 'logs'
           patch 'profile', to: 'settings#profile'
 
+          get 'advertisement',    to: redirect('/settings')
           post 'advertisement'
           delete 'advertisement', to: 'settings#destroy_advertisement'
         end

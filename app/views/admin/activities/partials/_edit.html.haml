@@ -85,7 +85,7 @@
 
           .col-md-6
             = f.label :participant_limit
-            = f.number_field :participant_limit, min: 0, disabled: !@activity.is_enrollable, data: {original: @activity.participant_limit}, id: "participant_limit", class: 'form-control'
+            = f.number_field :participant_limit, min: 0, value: @activity.participant_limit, class: 'form-control'
 
       .form-group
         .row
@@ -125,7 +125,7 @@
             = f.check_box :is_viewable, checked: @activity.is_viewable || @activity.name.nil?, data: {original: @activity.is_viewable}
             = f.label :is_viewable
           .col-md-4
-            = f.check_box :show_on_website, checked: @activity.show_on_website, disabled: !@activity.is_viewable, data: {original: @activity.show_on_website}
+            = f.check_box :show_on_website, checked: @activity.show_on_website, value: @activity.show_on_website
             = f.label :show_on_website
           .col-md-4
             = f.check_box :is_freshmans, checked: @activity.is_freshmans
@@ -133,7 +133,7 @@
 
         .row
           .col-md-4
-            = f.check_box :is_enrollable, checked: @activity.is_enrollable, disabled: !@activity.is_viewable, data: {original: @activity.is_enrollable}
+            = f.check_box :is_enrollable, checked: @activity.is_enrollable
             = f.label :is_enrollable
           .col-md-4
             = f.check_box :is_alcoholic, checked: @activity.is_alcoholic

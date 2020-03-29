@@ -1,9 +1,8 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-//
-//= require bootstrap-file-input
 
 $(document).on( 'ready page:load turbolinks:load', function(){
+  $('form.signature #editor').editor();
 
   $( '#settings input[id^=\'options\']' ).on( 'change', function( e ){
     var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
@@ -34,10 +33,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
   });
 
   // remove advert
-  $( 'div#advertisements tr .btn-group button.destroy' ).bind( 'click', function() {
+  $( 'div#advertisements tr .btn-group button' ).bind( 'click', function() {
     var button = $( this );
     var row = $( this ).closest( 'tr' );
-    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
+    var token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
 
     $.ajax({
       url: '/settings/advertisement',
@@ -52,11 +51,5 @@ $(document).on( 'ready page:load turbolinks:load', function(){
     }).fail(function(){
       toastr.error('Advertentie is niet verwijderd');
     });
-  });
-
-  $('li.disabled a').on('click', function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
   });
 });

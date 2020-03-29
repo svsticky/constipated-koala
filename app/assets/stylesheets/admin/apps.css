@@ -1,4 +1,4 @@
-.panel-heading {
+/* .panel-heading {
   height: 39px;
   padding-top: 0;
   line-height: 39px;
@@ -39,7 +39,7 @@ tr.total {
   border-top: 2px solid #dddddd;
 }
 
-/* Members - [Member] - Checkout */
+
 div#credit.input-group {
   display: inline;
   width: auto;
@@ -66,7 +66,7 @@ div#credit.input-group select {
   height: 32px;
 }
 
-/* Apps - Checkout - Opwaarderen */
+
 #credit form.form-inline > .form-group {
   padding: 0;
 }
@@ -149,4 +149,4 @@ a.panel:hover {
   position: absolute;
   bottom: 12px;
   right: 10px;
-}
+} */

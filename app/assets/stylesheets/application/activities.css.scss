@@ -1,0 +1,25 @@
+div#participants {
+  table {
+    td[colspan='3'] > a {
+      position: relative;
+      left: -8px;
+    }
+
+    td > .btn-group {
+      display: flex;
+      height: 30px;
+      margin: 2px 0 4px 0;
+      padding: 0;
+
+      button, .btn {
+        height: 32px;
+        line-height: 20px;
+        padding: 5px 12px;
+      }
+    }
+  }
+}
+
+.in-debt, .in-debt a {
+    color: #e94b3b;
+}

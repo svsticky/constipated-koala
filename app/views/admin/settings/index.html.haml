@@ -10,7 +10,7 @@
           .card-header
             %i.fas.fa-fw.fa-wrench
             Instellingen
-          %ul.card-body.p-0.m-0
+          %ul.card-body.p-0.m-0#settings
             = form_tag settings_url do
 
               %li.list-group-item
@@ -119,7 +119,7 @@
                           %li
                             = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
 
-              .form-group#mail
+              .form-group#editor
                 %label{for: ''} Ondertekening
                 = render 'layouts/partials/editor'
 
@@ -141,29 +141,26 @@
           .card-header
             %i.fa.fa-fw.fa-fw.fa-desktop
             Advertenties
-          .card-body
-            .table-responsive
-              %table.table.table-striped.table-linked
+          %table.table.table-striped.card-body
+            - @advertisements.each do |advertisement|
+              %tr{ :data => { 'id' => advertisement.id }}
+                %td
+                  = advertisement.name
+                  %br
+                  = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '764x1080!'), :download => ''
+                %td.btn-group.float-right
+                  %button.btn.btn-light
+                    %i.fa.fa-fw.fa-trash
 
-                - @advertisements.each do |advertisement|
-                  %tr{ :data => { 'id' => advertisement.id }}
-                    %td
-                      = advertisement.name
-                      = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '764x1080!'), :download => ''
-                    %td.buttons
-                      .btn-group
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
-
+          .card-footer
             = form_for :advertisement, url: advertisement_settings_path, method: :post, :class => 'form-validation' do |f|
-              .form-group
+              .form-group.m-0
                 .input-group
                   = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
-              %div{ :style => 'margin-left: 5px;' }
-                %div.btn.btn-primary.file-input-wrapper
-                  %span Uploaden
-                  = f.file_field :poster, { 'data-ui-file-upload' => '' }
-                %button.btn.btn-success.wait{type: 'submit'} Opslaan
+                  %div.btn.btn-primary.file-input-wrapper
+                    %span Uploaden
+                    = f.file_field :poster, { 'data-ui-file-upload' => '' }
+                  %button.btn.btn-success.wait{type: 'submit'} Opslaan
 
         .card
           .card-header
@@ -174,8 +171,3 @@
               %tr
                 %td= link_to application.name, application.redirect_uri
                 %td= application.redirect_uri
-
-:javascript
-  $(document).on('ready page:load turbolinks:load', function(){
-    $('form.signature').editor();
-  });

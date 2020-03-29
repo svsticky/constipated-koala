@@ -4,7 +4,7 @@
 %section#content
   = render 'layouts/partials/search'
 
-  .page{ :data => { 'authenticity_token' => form_authenticity_token}}
+  .page
     .row
 
       %div
@@ -194,7 +194,7 @@
 
 
         .card
-          .card-header.year
+          .card-header
             %i.fa.fa-fw.fa-ticket-alt
             Activiteiten
             = select_tag :year, options_for_select( @years, params['year'] ), class: 'custom-select'
@@ -208,7 +208,7 @@
                 %th.d-none.d-sm-table-cell{ :style => 'text-align: center;' } Betaald
             %tbody
               - @activities.each do |activity|
-                %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
+                %tr{ :class => ('in-debt' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }
                   %td= link_to "#{activity.name}", activity
 
                   - if !activity.currency(@member).nil?

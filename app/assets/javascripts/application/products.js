@@ -1,62 +1,13 @@
-//
-//= require bootstrap-file-input
-
 $(document).on( 'ready page:load turbolinks:load', function(){
-
-  bind_flip();
-
-  // $('form .input-group-btn .file-input-wrapper input[type="file"]').on('change', function(){
-  //   if( this.files && this.files[0] ){
-  //     $('form .input-group input#output').val(this.files[0].name);
-  //   }
-  // });
-
-
-
-  // [DELETE] checkout_product
-  $('#products button.destroy').on('click', function(){
-    var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
-    var row = $(this).closest('tr');
-
-    if( !confirm($(row).find('a').html() + ' verwijderen?') )
-      return;
-
-    $.ajax({
-      url: '/apps/products',
-      type: 'DELETE',
-      data: {
-        id: id,
-        authenticity_token: token
-      }
-    }).done(function(){
-      toastr.warning($(row).find('a').html() + ' verwijderd');
-      $(row).remove();
-    }).fail(function(error){
-      toastr.error(error.statusText, error.status);
-    });
-  });
-
-
-  $('.date-input input').on('change', function(){
-    var params = {};
-
-    params.date = $(this).val();
-    location.search = $.param(params);
-  });
-
-  $('form').on('submit', function(){
-    $( this ).find('button[type="submit"].wait').addClass('disabled');
-  });
-
+  bind_deactivate();
 });
 
-function bind_flip(){
+function bind_deactivate(){
   //Reset all event handlers
   $('#products button').off('click');
 
   $('#products').find('button.activate').on('click', product.activate);
-  $('#products').find('button.deactivate').on('click', product.deactivate);;
+  $('#products').find('button.deactivate').on('click', product.deactivate);
 }
 
 var product = {
@@ -84,7 +35,7 @@ var product = {
         .append( '<i class="fa fa-fw fa-check"></i> Activeer' );
 
       //Reset all event handlers
-      bind_flip();
+      bind_deactivate();
 
     }).fail(function(error){
       toastr.error(error.statusText, error.status);
@@ -113,7 +64,7 @@ var product = {
         .addClass( 'deactivate btn-warning' )
         .append( '<i class="fa fa-fw fa-times"></i> Deactiveer' );
 
-        bind_flip();
+        bind_deactivate();
 
     }).fail(function(error){
       toastr.error(error.statusText, error.status);

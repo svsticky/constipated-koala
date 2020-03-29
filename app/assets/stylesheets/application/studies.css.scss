@@ -1,0 +1,19 @@
+div.form-group.study {
+  position: relative;
+
+  div.row {
+    div.col-md-6:last-of-type {
+      flex-basis: calc(50% - 50px);
+    }
+  }
+
+  a.btn {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 40px;
+    text-align: center;
+    line-height: 56px;
+  }
+}

@@ -13,7 +13,9 @@
  *= require lato
  *
  *= require_self
+ *= require toastr/build/toastr.min
  *= require_tree ./admin
+ *= require_tree ./application
  */
 
 .page {

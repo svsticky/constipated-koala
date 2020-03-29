@@ -5,7 +5,7 @@
 
 %section#content
 
-  .page.page-table{ :data => { 'authenticity_token' => form_authenticity_token}}
+  .page.page-table
     .row
       .col-xl-8
         %section.card.table-dynamic
@@ -55,24 +55,24 @@
           .card-header
             %i.far.fa-fw.fa-money-bill-alt
             Opwaarderen
-          .card-body{ :style => 'position: relative;' }
-            %form.form-inline
-              .form-group.col-md-12#search_card
+          %form
+            .card-body
+              .form-group.m-0#search_card
                 %input.form-control#card_holder{ :placeholder => 'zoek lid op voornaam, achternaam, of studentnummer', :tabindex => '-1' }
-                %ul.dropdown-menu.col-md-12
+                %ul.dropdown-menu
 
-              .form-group.col-md-3.amount{ :style => 'display: none;' }
-                %input.form-control#amount{ :placeholder => 'hoeveel', :autocomplete => 'off' }
+            .card-body.amount
+              .form-group.m-0
+                .input-group
+                  %input.form-control#amount{ :placeholder => 'bedrag', :autocomplete => 'off' }
 
-              .form-group.col-md-3.amount{ :style => 'display: none;' }
-                %select.form-control#payment_method{ :required => true }
-                  %option{:value => "Gepind"}= "Gepind"
-                  %option{:value => "Contant"}= "Contant"
-                  %option{:value => "", :selected => "selected" }= "-"
-                  %option{:value => "Verkoop"}= "Verkoop"
-
-              .form-group.col-md-12{ :style => 'display: none;' }
-                %button.form-control.btn.btn-line-primary opslaan
+                  %select.form-control#method{ :required => true }
+                    %option{:value => "Gepind"}= "Gepind"
+                    %option{:value => "Contant"}= "Contant"
+                    %option{:value => "", :selected => "selected" }= "-"
+                    %option{:value => "Verkoop"}= "Verkoop"
+                .input-group-append
+                  %button.form-control.btn.btn-outline-primary{type: 'submit'} opwaarderen
 
         .card#cards
           .card-header
@@ -81,7 +81,7 @@
           %ul.list-group
             - @cards.each do |card|
               %li.list-group-item{ :data => { 'uuid' => card.uuid }}
-                %p= link_to "#{card.member.name}", card.member
+                %p.m-0= link_to "#{card.member.name}", card.member
                 %p.uuid= card.uuid
                 .btn-group
                   %button.btn.btn-primary activeer

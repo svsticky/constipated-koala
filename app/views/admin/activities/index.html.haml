@@ -10,7 +10,7 @@
 
       .col-md-6
         .card
-          .card-header.year
+          .card-header
             %i.fa.fa-fw.fa-ticket-alt
             = I18n.t('activerecord.models.activity')
             = select_tag :year, options_for_select( @years, params['year'] ), class: 'custom-select'

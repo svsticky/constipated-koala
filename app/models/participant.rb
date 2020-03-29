@@ -14,7 +14,7 @@ class Participant < ApplicationRecord
 
   scope :upcoming, -> { joins(:activity).where('(activities.end_date IS NULL AND activities.start_date >= ?) OR activities.end_date >= ? AND activities.is_viewable = TRUE', Date.today, Date.today).order(:start_date, :start_time) }
   scope :debt, -> { where(paid: false, reservist: false).joins(:activity).where('activities.start_date < NOW()').sum('case when participants.price IS NULL then activities.price else participants.price end') }
-  
+
   def price=(price)
     write_attribute(:price, price.to_s.tr(',', '.').to_f) unless price.blank?
     write_attribute(:price, nil) if price.blank?
@@ -35,7 +35,6 @@ class Participant < ApplicationRecord
   before_validation do
     # if not paid, let the price be default for possible changes
     write_attribute(:price, nil) if activity.price == self.price && !self.paid
-    self.reservist! #run at least over here, can also be called in controller for messages
   end
 
   def reservist!

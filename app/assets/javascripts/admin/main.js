@@ -1,14 +1,5 @@
 
 $(document).on('ready page:load turbolinks:load', function(){
-  // Alerts for on the frontend, default type is info
-  // script#alert is a template in de header file.
-  String.prototype.format = function() {
-    var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, number) {
-      return typeof args[number] != 'undefined' ? args[number] : match;
-    });
-  };
-
   $('.button.btn[data-method=delete]').on('click', function () {
     return confirm('Weet u het zeker?');
   });
@@ -154,12 +145,5 @@ $(document).on('ready page:load turbolinks:load', function(){
     event.preventDefault();
 
     $('#app').children('div').toggleClass('nav-min');
-  });
-
-  $('.year select').on('change', function(){
-    var params = {};
-
-    params.year = $(this).val();
-    location.search = $.param(params);
   });
 });

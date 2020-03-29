@@ -3,17 +3,7 @@ class Admin::MembersController < ApplicationController
 
   def index
     if params[:search].present?
-      @search = params[:search]
-
-      params[:page] ||= 1
-      @page = params[:page].to_i
-
-      params[:limit] ||= 50
-      @limit = params[:limit].to_i
-      offset = (@page - 1) * @limit
-
-      @members = Member.search(@search.clone, offset, @limit)
-      redirect_to @members.first if @members.size == 1 && @page == 1
+      @pagination, @members = pagy_array(Member.search(params[:search].clone))
 
     else
       @pagination, @members = pagy(
@@ -27,6 +17,7 @@ class Admin::MembersController < ApplicationController
   # As defined above this is an json call only
   def search
     @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
+    # TODO if all integers use like %
   end
 
   def show

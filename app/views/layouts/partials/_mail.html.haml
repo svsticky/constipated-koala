@@ -5,8 +5,8 @@
   @param {string}   mail          - Name of the template used in this mail
 
 .card
-  .card-body
-    %form.form-horizontal#mail{ :data => { :id => id }, :action => mail_activity_participants_path( :activity_id => id ), :method => :post }
+  .card-body#mail-editor
+    %form.form-horizontal{ :data => { :id => id }, :action => mail_activity_participants_path( :activity_id => id ), :method => :post, :id => 'editor' }
       .form-group.row
         %label.col-lg-2.d-none.d-md-block{ :style => 'height: 34px; line-height: 34px; padding-right: 0px;'}= I18n.t("layouts.partials.mail.addressees")
         .col-lg-10.col-sm-12

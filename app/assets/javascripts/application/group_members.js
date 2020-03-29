@@ -75,10 +75,11 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       }
     }).done(function( data ){
       var template = $('template#group_member').html();
-      var member = template.format(data.id, data.member_id, name);
+      var member = template.format(data.id, data.member.id, data.member.name);
       var added = $(member).insertBefore('table#members tr:last');
 
       bind_group_members();
+      toastr.success(data.member.name + ' is toegevoegd');
 
       $( '#members input.position:last' ).focus();
     }).fail(function(){

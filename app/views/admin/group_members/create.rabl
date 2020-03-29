@@ -1,6 +1,6 @@
 object @member
 attributes :id
 
-glue @member.member do
-  attributes :first_name, :infix, :last_name
+child :member do
+  attributes :id, :name, :email
 end

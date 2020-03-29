@@ -24,11 +24,11 @@
                   %td.col-xs-4= number_to_currency( product.price, :unit => '€' )
                   %td.col-xs-4.py-0
                     - if product.active
-                      %button.btn.btn-warning.deactivate
+                      %button.btn.btn-warning.float-right.deactivate
                         %i.fa.fa-fw.fa-times
                         Deactiveer
                     - else
-                      %button.btn.btn-primary.activate
+                      %button.btn.btn-primary.float-right.activate
                         %i.fa.fa-fw.fa-check
                         Activeer
 
@@ -136,7 +136,7 @@
         - unless @product.nil?
           .col-md-12.float-right
             .card
-              .card-header.year
+              .card-header
                 %i.fa.fa-fw.fa-ticket-alt
                 Verkopen
                 = select_tag :year, options_for_select( @years, params['year'] ), class: 'custom-select'

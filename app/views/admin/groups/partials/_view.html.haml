@@ -3,7 +3,7 @@
   @param {integer} params['year']   - optional parameter in the url
 
 .card
-  .card-header.year
+  .card-header
     %i.fa.fa-fw.fa-user
     = I18n.t(group.category, scope: 'activerecord.attributes.group.members')
     = select_tag :year, options_for_select( group.years, params['year'] ), {class: 'custom-select'}

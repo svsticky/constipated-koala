@@ -15,30 +15,29 @@
 
           .card-body#participants.filtered-search
             - @detailed.each do |activity|
-              %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
+              %table.table.table-striped{ :data => { 'id' => activity.id } }
                 %thead
-                  %tr{ :style => 'font-size: 1.1em;' }
-                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
+                  %tr
+                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity
 
                 %tbody
                   - activity.attendees.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
                     - if !participant.currency.nil? && participant.currency > 0
-                      %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :'activities-id' => activity.id, :id => participant.id, :email => participant.member.email, :name => participant.member.name } }
+                      %tr{ :class => ('in-debt' unless participant.currency.nil? || participant.paid), :data => { :'activities-id' => activity.id, :id => participant.id, :email => participant.member.email, :name => participant.member.name } }
                         %td= link_to "#{participant.member.name}", participant.member
 
                         - if !participant.currency.nil?
                           %td= link_to "#{number_to_currency(participant.currency, :unit => '€')}", participant.member
 
-                        %td.buttons
-                          .btn-group
-                            - if participant.paid
-                              %button.btn.btn-primary.unpaid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
-                                %i.fa.fa-fw.fa-check
-                            - else
-                              %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
-                                %i.fa.fa-fw.fa-times
-                            %button.btn.btn-light.destroy
-                              %i.fa.fa-fw.fa-trash
+                        %td.btn-group.float-right
+                          - if participant.paid
+                            %button.btn.btn-primary.unpaid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
+                              %i.fa.fa-fw.fa-check
+                          - else
+                            %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
+                              %i.fa.fa-fw.fa-times
+                          %button.btn.btn-light.destroy
+                            %i.fa.fa-fw.fa-trash
 
       .col-xl-6
         .card
@@ -51,16 +50,10 @@
               %th Activiteit
               %th Dagen
             %tbody
-            - @last_impressions.each do |tupel|
-              - activity = tupel[0]
-              - days = tupel[1]
-              %tr{ :style => 'height: 36px; line-height: 36px;' }
-                - if days.is_a? Numeric and days < 7
-                  %td=link_to activity.name, activity
-                  %td=days
-                - else
-                  %td=link_to activity.name, activity, { :style => 'color:red'}
-                  %td{ :style => 'color:red'}=days
+            - @last_impressions.each do |activity, days|
+              %tr{ class: ('in-debt' if days.is_a? Numeric and days < 7)}
+                %td= link_to activity.name, activity
+                %td= days
 
         .card
           .card-header
@@ -68,13 +61,13 @@
             Achterstallige betalingen (> 4 mails)
 
           -#TODO: check whatsapp button
-          %table.table.table-striped.table-linked#paymentmails
+          %table.table.table-striped#paymentmails
             %thead
               %th Lid
               %th{colspan: 2} WhatsApp
             %tbody
             - @late_payments.each do |member|
-              %tr{ :style => 'height: 36px; line-height: 36px;' }
+              %tr
                 %td= link_to "#{member.name}", member
                 %td
                   - if member.phone_number
@@ -118,7 +111,7 @@
               %th Datum
             %tbody
               - @checkout_transactions.each do |transaction|
-                %tr{ :style => 'height: 36px; line-height: 36px;' }
+                %tr
                   %td
                     - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
                       = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member

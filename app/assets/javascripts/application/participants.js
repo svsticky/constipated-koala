@@ -65,7 +65,7 @@ var participant = {
   delete : function (){
     var row = $(this).closest('tr');
     var id = $(this).closest('tr').attr('data-id');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
 
     if(!confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?'))
       return;
@@ -81,7 +81,7 @@ var participant = {
       $(row).remove();
 
       //Move reservist to attendees if applicable
-      if (data.magic_reservists.length > 0) {
+      if (data.magic_reservists && data.magic_reservists.length > 0) {
         data.magic_reservists.forEach(
           function(item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();
@@ -105,7 +105,7 @@ var participant = {
 
   // Upgrade from reservists to participants by admin
   upgrade : function (){
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
     var row = $(this).closest('tr');
 
     $.ajax({
@@ -129,7 +129,7 @@ var participant = {
 
   //Admin marks participant as having paid
   updatePaid : function (){
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
     var row = $(this).closest('tr');
 
     $.ajax({
@@ -140,14 +140,9 @@ var participant = {
         paid: true
       }
     }).done(function(data){
-      toastr.success(data.member.name + ' heeft betaald', 'success');
+      toastr.success(data.member.name + ' heeft betaald');
 
-      $(row)
-        .find( 'button.paid' )
-        .empty()
-        .removeClass( 'paid btn-warning red' )
-        .addClass( 'unpaid btn-primary' )
-        .append( '<i class="fa fa-fw fa-check"></i>' );
+      $(row).find( 'button.paid' ).removeClass( 'paid btn-warning' ).empty().addClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-check"></i>' );
 
       $(row).removeClass('in-debt');
       participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
@@ -164,7 +159,7 @@ var participant = {
 
   //Admin marks participant as having not paid
   updateUnpaid : function() {
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
     var row = $(this).closest('tr');
 
     $.ajax({
@@ -177,12 +172,7 @@ var participant = {
     }).done(function(data){
       toastr.warning(data.member.name + ' heeft nog niet betaald');
 
-      $(row)
-        .find( 'button.unpaid' )
-        .empty()
-        .addClass( 'paid btn-warning red' )
-        .removeClass( 'unpaid btn-primary' )
-        .append( '<i class="fa fa-fw fa-times"></i>' );
+      $(row).find( 'button.unpaid' ).removeClass( 'unpaid btn-primary' ).empty().addClass( 'paid btn-warning' ).append( '<i class="fa fa-fw fa-times"></i>' );
 
       $(row).addClass('in-debt');
       participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
@@ -200,7 +190,7 @@ var participant = {
   //Admin updates participant's price
   updatePrice : function (){
     var row = $(this).closest('tr');
-    var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
+    var token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
     var price = $(this).val().replace(',', '.');
 
     // If left blank assume 0
@@ -244,9 +234,6 @@ var participant = {
   }
 };
 
-/*
- * Document load handler
- */
 $(document).on( 'ready page:load turbolinks:load', function(){
   bind_activities();
 
@@ -264,66 +251,4 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         toastr.warning('Deze persoon is al toegevoegd');
       });
   });
-
-  posterHandlers();
-
-  $('form#mail').mail();
-
-  // 'Enrollable' checkbox toggled
-  $('#activity_is_enrollable').on('click', function() {
-      $('#participant_limit')[0].disabled = !this.checked;
-  });
-
-  $('#activity_is_viewable').on('click', function() {
-      $('#activity_is_enrollable')[0].disabled = !this.checked;
-      $('#activity_show_on_website')[0].disabled = !this.checked;
-      if(!this.checked)
-      {
-          $('#activity_show_on_website')[0].checked = this.checked;
-          $('#activity_is_enrollable')[0].checked = this.checked;
-          $('#participant_limit')[0].disabled = !this.checked;
-      }
-  });
-
-  if($('#activity_is_viewable').length > 0 && $('#activity_is_viewable')[0].checked)
-  {
-      $('#activity_is_enrollable')[0].disabled = false;
-      $('#activity_show_on_website')[0].disabled = false;
-  }
-
-  // Add confirmation dialog only when changing participants limit
-  $('#participant_limit').on('change', function() {
-    $('.btn.btn-success.wait[type="submit"]').attr('data-confirm', "Activiteit opslaan?");
-  });
 });
-
-/*
- * Contains the poster related handlers
- */
-function posterHandlers(){
-  //Update poster field when uploading a poseter
-  $('form .input-group-append .file-input-wrapper input[type="file"]').on('change', function(){
-    if( this.files && this.files[0] ){
-      $('form .input-group-append .dropdown-toggle').removeClass('disabled');
-      $('form input.remove_poster').val('false');
-      $('form .input-group input#output').val(this.files[0].name);
-    }
-  });
-
-  //Handler for removing the poster
-  $('form .input-group-append a.remove').on('click', function( e ){
-    e.preventDefault();
-
-    $('form .input-group-append .dropdown-toggle').addClass('disabled');
-    $('form .input-group input#output').val('');
-    $('form input.remove_poster').val('true');
-
-    $('form .file-input-wrapper input[type="file"]').val(null);
-    $('form .thumb img').remove();
-  });
-
-  //Handler for uploading the poster (keep user waiting)
-  $('form').on('submit', function(){
-    $( this ).find('button[type="submit"].wait').addClass('disabled');
-  });
-}
