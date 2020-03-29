@@ -1,0 +1,171 @@
+.callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 0px solid;
+  border-left-width: 5px;
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  code {
+    border-radius: 3px;
+  }
+
+  + .callout {
+    margin-top: -5px;
+  }
+}
+
+.callout-default {
+  border-left-color: #777;
+
+  h4 {
+    color: #777;
+  }
+}
+
+.callout-primary {
+  border-left-color: #428bca;
+  background-color: #eaf2f9;
+
+  h4 {
+    color: #428bca;
+  }
+}
+
+.callout-success {
+  border-left-color: #5cb85c;
+  background-color: #f3faf3;
+
+  h4 {
+    color: #5cb85c;
+  }
+}
+
+.callout-danger {
+  border-left-color: #d9534f;
+  background-color: #fdf7f7;
+
+  h4 {
+    color: #d9534f;
+  }
+}
+
+.callout-warning {
+  border-left-color: #f0ad4e;
+  background-color: #fcf8f2;
+
+  h4 {
+    color: #f0ad4e;
+  }
+}
+
+.callout-info {
+  border-left-color: #46b8da;
+  background-color: #f4f8fa;
+
+  h4 {
+    color: #46b8da;
+  }
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
+a.card, .card > a {
+  text-decoration: none !important;
+}
+
+
+.card-box {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+  border: none;
+
+  .card-body {
+    display: table-cell;
+    padding: 30px 0;
+    width: 1%;
+    vertical-align: top;
+    border-radius: 0;
+  }
+
+  i {
+    line-height: 90px;
+    color: #fff;
+  }
+}
+
+.size-h2 {
+  font-size: 30px;
+}
+
+.card .table {
+  margin-bottom: 0;
+}
+
+.card-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.card-footer .btn-group {
+  white-space: nowrap;
+}
+
+
+i.fa.fa-homepage {
+  display: inline-flex;
+  font-size: 3em;
+  margin-top: 20px;
+  color: white;
+}
+
+span.box-icon {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.box-info {
+  position: absolute;
+  left: 100px;
+  right: 0;
+
+  .size-h2 {
+    font-size: 1em;
+    text-align: center;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .text-muted {
+    text-align: center;
+  }
+}
+
+span.box-icon {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  text-decoration: none !important;
+
+  i {
+    line-height: 100px;
+    vertical-align: middle;
+    margin-top: 0 !important;
+  }
+}

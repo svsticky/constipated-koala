@@ -1,5 +1,13 @@
 object @activity
-attributes :fullness, :paid_sum, :price_sum
+attributes :paid_sum, :price_sum
+
+node :fullness do |activity|
+  if activity.participant_limit
+    "#{activity.attendees.count}/#{activity.participant_limit}"
+  else
+    activity.attendees.count
+  end
+end
 
 node :reservist_count do |activity|
   activity.reservists.count

@@ -14,63 +14,79 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-user
-            -if @activity.participant_limit.nil?
-              - fullness = @activity.attendees.count
-            -else
-              - fullness = "#{@activity.attendees.count}/#{@activity.participant_limit}"
+
             %span#attendeecount
-              = fullness
+              -if @activity.participant_limit.nil?
+                = @activity.attendees.count
+              -else
+                = "#{@activity.attendees.count}/#{@activity.participant_limit}"
             = t 'activerecord.models.participants.attendees.other'
-            %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
-            %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
 
 
           %template#attendee-table-row
-            = render 'admin/activities/partials/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
+            %tr.in-debt{"data-data-activities-id" => "2", "data-email" => "{3}", "data-id" => "{0}", "data-reservist" => "false"}
+              %td
+                %a{:href => "/members/{1}"}
+                  {2}
+              %td.price-input-td
+                %input.price{:autocomplete => "off", :type => "text", :value => "10.00"}
+              %td.notes-td
+              %td.buttons
+                .btn-group
+                  %button.btn.btn-warning.paid
+                    %i.fa.fa-fw.fa-times
+                  %button.btn.btn-light.destroy
+                    %i.fa.fa-fw.fa-trash
+
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %thead
               %tr
-                %td
-                  Naam
-                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  Prijs
-                %td{ :style => 'min-width: 50%; width: 50%;' }
-                  -if @activity.notes
-                    =@activity.notes
+                %td Naam
+                %td Prijs
+
+                -if @activity.notes
+                  %td= @activity.notes
+
                 %td.buttons
+
             %tbody
               - @attendees.each do |participant|
-                = render 'admin/activities/partials/attendee_table_row', participant: participant
+                %tr{ :class => ('in-debt' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id || '{0}', :'data-activities-id' => @activity.id, :email => participant.member.email || '{3}', reservist: participant.reservist.to_s || 'false' }  }
+                  %td
+                    - if participant.member_id.nil?
+                      = I18n.t('former', scope: 'activerecord.attributes.group')
+                    - else
+                      = link_to participant.member.name, participant.member
 
-              - if (@activity.end_date || @activity.start_date) > Date.today
-                - @activity.participants.where(:member_id => nil).each do |participant|
-                  %tr{ :class => ('in-debt' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id, :'data-activities-id' => @activity.id, reservist: 'false' }  }
+                  %td
+                    %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
+
+                  - if @activity.notes
                     %td
-                      %span= I18n.t('former', scope: 'activerecord.attributes.group')
+                      - if participant.notes
+                        = participant.notes
 
-                    %td.price-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                      %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
-                    %td.notes-td
-                    %td.buttons
-                      .btn-group
-                        - if participant.paid
-                          %button.btn.btn-primary.unpaid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 ) }
-                            %i.fa.fa-fw.fa-check
-                        - else
-                          %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0)}
-                            %i.fa.fa-fw.fa-times
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash
+                  %td.buttons
+                    .btn-group
+                      - if participant.paid
+                        %button.btn.btn-primary.unpaid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 ) }
+                          %i.fa.fa-fw.fa-check
+                      - else
+                        %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0)}
+                          %i.fa.fa-fw.fa-times
+                      %button.btn.btn-light.destroy
+                        %i.fa.fa-fw.fa-trash
+
 
               %tr
-                %td{ :style => 'position: relative;'}
-                  %input#participant.col-md-11{ :style => 'margin-left: -3px;', :tabindex => '-1' }
+                %td
+                  %input#participant.col-md-11{ :tabindex => '-1' }
                   %ul.dropdown-menu.col-md-11
-                %td{ :style => 'text-align: left;' }
+                %td
                   - if !@activity.price.nil?
                     %span= number_to_currency(@activity.price, :unit => '€')
-                %td
-                %td
+                %td{ colspan: ('2' if @activity.notes)}
+
 
         .card
           .card-header
@@ -83,9 +99,9 @@
               %tr
                 %td
                   Naam
-                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                %td
                   Prijs
-                %td{ :style => 'min-width: 50%; width: 50%;' }
+                %td
                   -if @activity.notes
                     =@activity.notes
                 %td.buttons
@@ -94,13 +110,13 @@
               - @reservists.each do |participant|
                 %tr{data: { id: participant.id, :'data-activities-id' => @activity.id, email: participant.member.email, member_id: participant.member.id, reservist: "true" }  }
                   %td= link_to "#{participant.member.name}", participant.member
-                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
+                  %td
                     %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
-                  %td.notes-td{ :style => 'min-width: 50%; width: 50%;' }
-                    -if participant.notes
-                      %p= participant.notes
-                    -else
-                      %p
+
+                  -if @activity.notes
+                    %td
+                      -if participant.notes
+                        = participant.notes
 
                   %td.buttons
                     .btn-group

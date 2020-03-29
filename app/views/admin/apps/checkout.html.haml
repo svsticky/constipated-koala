@@ -82,7 +82,7 @@
             - @cards.each do |card|
               %li.list-group-item{ :data => { 'uuid' => card.uuid }}
                 %p.m-0= link_to "#{card.member.name}", card.member
-                %p.uuid= card.uuid
+                %p.uuid.m-0= card.uuid
                 .btn-group
                   %button.btn.btn-primary activeer
                   %button.btn.btn-outline-danger verwijder

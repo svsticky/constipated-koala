@@ -1,23 +1,45 @@
-div#participants {
-  table {
-    td[colspan='3'] > a {
-      position: relative;
-      left: -8px;
-    }
+div#participants table, table#participants {
+  td {
+    padding: 2px 10px;
+    vertical-align: middle;
 
-    td > .btn-group {
-      display: flex;
-      height: 30px;
-      margin: 2px 0 4px 0;
-      padding: 0;
+    // header payments page
+    &[colspan='3'] {
+      padding: 20px 10px 2px;
 
-      button, .btn {
-        height: 32px;
-        line-height: 20px;
-        padding: 5px 12px;
+      a {
+        position: relative;
+        left: -8px;
       }
     }
+
+    input.price {
+      max-width: 100px;
+    }
+
+    input.participant {
+      width: auto;
+    }
   }
+
+  td > .btn-group {
+    display: flex;
+    height: 30px;
+    margin: 2px 0 4px 0;
+    padding: 0;
+
+    button, .btn {
+      height: 32px;
+      line-height: 20px;
+      padding: 5px 12px;
+    }
+  }
+}
+
+table td span.badge {
+  height: 100%;
+  display: inline;
+  font-weight: 400;
 }
 
 .in-debt, .in-debt a {

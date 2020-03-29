@@ -14,12 +14,34 @@
  *
  *= require_self
  *= require toastr/build/toastr.min
- *= require_tree ./admin
  *= require_tree ./application
  */
 
 .page {
   padding: 15px;
+}
+
+#content {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  overflow-y: auto;
+  background-color: #f3f3f3;
+  left: 0px;
+}
+
+@media (min-width: 768px) {
+  #content {
+    left: 240px;
+  }
+}
+
+
+label {
+    margin-bottom: 0;
+    margin-top: 0.5rem;
 }
 
 a.table-row {

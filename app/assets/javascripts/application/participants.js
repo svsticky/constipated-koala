@@ -9,43 +9,30 @@ function bind_activities(){
   // Admin marks participant as having paid
   // [PATCH] participants
   $('#participants').find('button.paid').on('click', participant.updatePaid);
-
-  // Admin marks participant as having not paid
-  // [PATCH] participants
   $('#participants').find('button.unpaid').on('click', participant.updateUnpaid);
+  $('#participants').find('input.price').on('change', participant.updatePrice);
+  $('#participants button.toparticipant').on('click', participant.upgrade);
 
   // Admin deletes participant from activity
   // [DELETE] participants
   $('#participants button.destroy').on('click', participant.delete);
-
-  $('#participants button.toparticipant').on('click', participant.upgrade);
-
-  // Admin updates participant's price
-  // [PATCH] participants
-  $('#participants').find('input.price').on('change', participant.updatePrice);
 }
 
 /*
  * Participant namespace containing all participant related functions
  */
 var participant = {
-  update_debt_header: function (paidSum, priceSum) {
-    $('#paidsum').html('€' + parseFloat(paidSum).toFixed(2));
-    $('#pricesum').html('/ €' + parseFloat(priceSum).toFixed(2));
-  },
 
   //Admin adds a new participant to the activity
   add : function(data){
-    var template = $('template#attendee-table-row').html();
-    var formattedTemplate = template.format(
+    var template = $('template#attendee-table-row').html().format(
         data.id,
         data.member.id,
         data.member.name,
         data.member.email
     );
 
-    var added = $(formattedTemplate).insertBefore('#participants-table tr:last');
-    $('.number').html( +$('.number').html() +1 );
+    var added = $(template).insertBefore('#participants-table tr:last');
 
     if(data.activity.price > 0)
       $(added).addClass('in-debt');
@@ -53,7 +40,6 @@ var participant = {
       $(added).find( 'button.paid' ).addClass( 'd-none' );
 
     $('#attendeecount').html(data.activity.fullness);
-    participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
     bind_activities();
 
     // trigger #mail client to add recipient
@@ -90,10 +76,7 @@ var participant = {
       } else {
           // Not already done in participant.add above
         $('#attendeecount').html(data.fullness);
-        participant.update_debt_header(data.paid_sum, data.price_sum);
       }
-
-      $('#reservistcount').html(data.reservist_count);
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -120,8 +103,9 @@ var participant = {
       participant.add(data);
 
       $(row).remove();
-
       bind_activities();
+
+      $('#reservistcount').html(data.activity.reservist_count);
     }).fail(function(error){
       toastr.error(error.statusText, error.status);
     });
@@ -143,12 +127,9 @@ var participant = {
       toastr.success(data.member.name + ' heeft betaald');
 
       $(row).find( 'button.paid' ).removeClass( 'paid btn-warning' ).empty().addClass( 'unpaid btn-primary' ).append( '<i class="fa fa-fw fa-check"></i>' );
-
       $(row).removeClass('in-debt');
-      participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
       $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
-
       $( 'input#search' ).select();
 
       bind_activities();
@@ -173,9 +154,7 @@ var participant = {
       toastr.warning(data.member.name + ' heeft nog niet betaald');
 
       $(row).find( 'button.unpaid' ).removeClass( 'unpaid btn-primary' ).empty().addClass( 'paid btn-warning' ).append( '<i class="fa fa-fw fa-times"></i>' );
-
       $(row).addClass('in-debt');
-      participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
       $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
 
@@ -224,8 +203,6 @@ var participant = {
 
         $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }
-
-      participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
       toastr.success('Het deelname bedrag is veranderd');
     }).fail(function(){
