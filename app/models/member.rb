@@ -344,8 +344,17 @@ class Member < ApplicationRecord
     # set not updated studies to inactive
     Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
 
-    # remove from mailchimp using just the email as string
-    MailchimpJob.perform_later email, nil, []
+    # remove from mailchimp
+    RestClient.post(
+      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }/actions/delete-permanent",
+      {},
+      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+      'User-Agent': 'constipated-koala'
+    )
+  rescue RestClient::BadRequest => e
+    logger.debug JSON.parse(e.response.body)
+  rescue RestClient::NotFound
+    logger.debug "Unable to delete Mailchimp user: user not found"
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0
