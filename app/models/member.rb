@@ -344,13 +344,15 @@ class Member < ApplicationRecord
     # set not updated studies to inactive
     Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
 
-    # remove from mailchimp
-    RestClient.post(
-      "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }/actions/delete-permanent",
-      {},
-      Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
-      'User-Agent': 'constipated-koala'
-    )
+    # remove from mailchimp, unless mailchimp env vars not set
+    unless ENV['MAILCHIMP_DATACENTER'].nil?
+      RestClient.post(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }/actions/delete-permanent",
+        {},
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+    end
   rescue RestClient::BadRequest => e
     logger.debug JSON.parse(e.response.body)
   rescue RestClient::NotFound
