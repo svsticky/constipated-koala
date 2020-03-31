@@ -101,7 +101,9 @@ class Admin::MembersController < ApplicationController
     email = @member.email
 
     if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?)
+      if !Rails.configuration.mailchimp_interests:alv.empty?
+        MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?)
+      end
 
       impressionist @member
       redirect_to @member
