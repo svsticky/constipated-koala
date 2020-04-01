@@ -72,9 +72,11 @@ class Admin::MembersController < ApplicationController
   end
 
   def create
-    @member = Member.new(member_post_params)
+    @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
+      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
+        ENV['MAILCHIMP_DATACENTER'].nil?
 
       @member.tags_names = params[:member][:tags_names]
 
@@ -97,8 +99,13 @@ class Admin::MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
+    email = @member.email
 
-    if @member.update(member_post_params)
+    if @member.update member_post_params.except 'mailchimp_interests'
+
+      MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
+        ENV['MAILCHIMP_DATACENTER'].nil?
+
       impressionist @member
       redirect_to @member
     else
@@ -151,6 +158,7 @@ class Admin::MembersController < ApplicationController
     if @member.destroy
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued') unless @member.mailchimp_interests.nil?
 
       redirect_to root_url
     else
@@ -184,6 +192,7 @@ class Admin::MembersController < ApplicationController
                                    :join_date,
                                    :comments,
                                    :tags_names => [],
+                                   :mailchimp_interests => [],
                                    educations_attributes: [:id, :study_id, :status, :start_date, :end_date, :_destroy])
   end
 end

@@ -92,6 +92,12 @@
                   - elsif education.active?
                     %span.label.label-info studerend
 
+            - unless ENV['MAILCHIMP_DATACENTER'].nil?
+              %dl.dl-horizontal
+                %dt Mailchimp lijsten
+                %dd= @member.mailchimp_interests&.select{ |_,v| v == true}&.map{ |k, _| Rails.configuration.mailchimp_interests.key(k) }&.join(', ')
+
+
         .card
           .card-body
             .btn-group
@@ -160,9 +166,9 @@
                     %td
                       = number_to_currency(transaction.price, :unit => '€')
                       - if transaction.price > 0
-                        %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                        %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
                       - else
-                        %span.fa.fa-sort-desc.pull-right
+                        %span.fa.fa-sort-desc.float-right
 
                     %td.d-none.d-sm-table-cell
                       = transaction.products
@@ -199,7 +205,7 @@
 
         .card
           .card-header.year
-            %i.fa.fa-fw.fa-ticket
+            %i.fa.fa-fw.fa-ticket-alt
             Activiteiten
             = select_tag :year, options_for_select( @years, params['year'] )
 
@@ -229,10 +235,10 @@
                   %td.d-none.d-sm-table-cell.buttons
                     .btn-group{ :style => 'margin-top: 3px; margin-right:3px; float: right;', :class => ('disabled' unless current_user.admin?)}
                       - if activity.participants.where(:member => @member).first.paid
-                        %button.btn.btn-primary.unpaid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                        %button.btn.btn-primary.unpaid{ :class => ('d-none' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
                           %i.fa.fa-fw.fa-check
                       - else
-                        %button.btn.btn-warning.paid{ :class => ('hidden' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
+                        %button.btn.btn-warning.paid{ :class => ('d-none' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
                           %i.fa.fa-fw.fa-times
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash-o

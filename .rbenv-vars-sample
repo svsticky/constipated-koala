@@ -55,6 +55,22 @@ OAUTH_PROXY_REDIRECTS=https://photos.svsticky.nl/oauth2/callback;https://files.s
 MAILGUN_DOMAIN=
 MAILGUN_TOKEN=
 
+# MAILCHIMP_TOKEN is the mailchimp API token
+# MAILCHIMP_SECRET is used for the mailchimp webhook
+MAILCHIMP_TOKEN=
+MAILCHIMP_SECRET=
+MAILCHIMP_DATACENTER=
+MAILCHIMP_LIST_ID=
+
+# Mailchimp interest ids
+MAILCHIMP_ALV_ID=
+MAILCHIMP_BUSINESS_ID=
+MAILCHIMP_MMM_ID=
+MAILCHIMP_LECTURES_ID=
+
+# Hostname of where Koala is running, like https://koala.svsticky.nl or http://koala.rails.local:3000
+KOALA_DOMAIN=
+
 # MOLLIE credentials for the iDEAL integration.
 MOLLIE_DOMAIN=https://api.mollie.nl
 MOLLIE_VERSION=v1

@@ -4,6 +4,27 @@
 
 var token, modal, participant_row_template;
 
+function Copy_ICS() {
+    /* Link to copy */ 
+    var copy_text = "webcal://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
+
+    /* create a new element */
+    var el = document.createElement('textarea');
+    el.value = copy_text;
+    el.setAttribute('readonly', '');
+    el.style = {position: 'absolute', left: '-9999px'};
+    document.body.appendChild(el);
+    
+    /* Select the new element */
+    el.select();
+
+    /* Copy the text inside the selection*/
+    document.execCommand("copy");
+
+    /* Delete the temporary element */
+    document.body.removeChild(el);
+};
+
 function get_activity_container() {
   return $('#activity-container');
 }

@@ -82,15 +82,22 @@
             %span.footnote 2
             .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
-      .card
-        .card-header
-          %i.fa.fa-fw.fa-key
-          = I18n.t 'members.home.edit.password_options.header'
-        .card-body
-          = link_to password_change_path, { :class => 'button btn btn-warning' } do
-            %i.fa.fa-key
-            = I18n.t 'members.home.edit.password_options.change_password'
-
+    - if !ENV['MAILCHIMP_DATACENTER'].nil?
+      .col-xl-6
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-envelope
+            = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+          .card-body
+            .form-group
+              - if !@member.mailchimp_interests.nil?
+                - Rails.configuration.mailchimp_interests.each do |name, key|
+                  .row
+                    .col-md-12
+                      %label.ui-checkbox
+                        = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
+                        %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
+                        .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
 
     .col-xl-6
       .card
@@ -144,7 +151,7 @@
           = I18n.t 'members.home.edit.privacy_panel.header'
         .card-body
           = I18n.t 'members.home.edit.privacy_panel.view'
-          = link_to 'https://svsticky.nl/wp-content/uploads/privacystatement.pdf' do
+          = link_to 'https://public.svsticky.nl/privacystatement.pdf' do
             = I18n.t 'members.home.edit.privacy_panel.privacy_statement'
 
   - if @applications.any?
@@ -166,9 +173,16 @@
     .col-xl-12
       .card
         .card-body
-          %button.btn.btn-success{type: 'submit'}
-            = I18n.t("editing.save")
-          = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
-          = link_to download_path, { :class => 'button btn btn-secondary pull-right' } do
-            %i.fa.fa-download
-            Download persoonsgegevens
+          .btn-group
+            %button.btn.btn-success{type: 'submit'}
+              = I18n.t("editing.save")
+            = link_to I18n.t("editing.cancel"), users_root_path, { :class => 'button btn btn-secondary' }
+
+          .btn-group.float-right
+            = link_to password_change_path, { :class => 'button btn btn-warning' } do
+              %i.fa.fa-key
+              = I18n.t 'members.home.edit.password_options.change_password'
+
+            = link_to download_path, { :class => 'button btn btn-secondary' } do
+              %i.fa.fa-download
+              Download persoonsgegevens

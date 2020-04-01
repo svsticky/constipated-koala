@@ -4,7 +4,6 @@
 - content_for(:title, 'Apps | Checkout')
 
 %section#content
-  = render 'layouts/partials/search'
 
   .page.page-table{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
@@ -36,9 +35,9 @@
                   %td
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
-                      %span.fa.fa-sort-asc.pull-right{ :style => 'padding-up: 3px;'}
+                      %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
                     - else
-                      %span.fa.fa-sort-desc.pull-right
+                      %span.fa.fa-sort-desc.float-right
 
                   %td
                     - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
@@ -63,7 +62,7 @@
       .col-xl-4#credit
         .card
           .card-header
-            %i.fa.fa-fw.fa-money
+            %i.far.fa-fw.fa-money-bill-alt
             Opwaarderen
           .card-body{ :style => 'position: relative;' }
             %form.form-inline

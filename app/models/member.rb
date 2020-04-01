@@ -286,6 +286,22 @@ class Member < ApplicationRecord
     return records
   end
 
+  def mailchimp_interests
+    return nil if id.nil? || ENV['MAILCHIMP_DATACENTER'].nil? || ENV['MAILCHIMP_DATACENTER'].empty?
+
+    Rails.cache.fetch("members/#{ id }/mailchimp/interests", expires_in: 30.days) do
+      response = RestClient.get(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }?fields=interests",
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+
+      JSON.parse(response.body)['interests']
+    rescue RestClient::ResourceNotFound
+      return nil
+    end
+  end
+
   def export
     export = attributes.except(:comments)
     export[:educations] = educations.pluck(:id)
@@ -327,6 +343,20 @@ class Member < ApplicationRecord
 
     # set not updated studies to inactive
     Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
+
+    # remove from mailchimp, unless mailchimp env vars not set
+    unless ENV['MAILCHIMP_DATACENTER'].nil?
+      RestClient.post(
+        "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }/actions/delete-permanent",
+        {},
+        Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
+        'User-Agent': 'constipated-koala'
+      )
+    end
+  rescue RestClient::BadRequest => e
+    logger.debug JSON.parse(e.response.body)
+  rescue RestClient::NotFound
+    logger.debug "Unable to delete Mailchimp user: user not found"
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0

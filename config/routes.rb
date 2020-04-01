@@ -115,6 +115,12 @@ Rails.application.routes.draw do
           match :flip, action: :flip_active, via: [:patch]
         end
       end
+
+      # sidekiq web interface
+      authenticate :user, ->(u) { u.admin? } do
+        require 'sidekiq/web'
+        mount Sidekiq::Web => '/sidekiq'
+      end
     end
 
     scope 'api' do
@@ -138,6 +144,9 @@ Rails.application.routes.draw do
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
           post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
+
+          get 'mailchimp/:token', to: 'webhook#mailchimp_confirm_callback', as: 'mailchimp_confirm'
+          post 'mailchimp/:token', to: 'webhook#mailchimp', as: 'mailchimp'
         end
 
         # NOTE legacy implementation for checkout without oauth

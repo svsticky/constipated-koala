@@ -14,6 +14,7 @@ gem 'rabl'
 
 # assets and stuff
 gem 'coffee-rails'
+gem 'font_awesome5_rails'
 gem 'sassc-rails'
 
 # authentication gems
@@ -40,6 +41,8 @@ gem 'rails-settings-cached', '~> 0.7'
 
 # phone number validation
 gem 'telephone_number'
+
+gem 'sidekiq'
 
 group :production, :staging do
   gem 'sentry-raven'

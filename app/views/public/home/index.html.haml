@@ -42,7 +42,7 @@
         .row
           .col-lg-3.text-center
             .service-item
-              %i.service-icon.fa.fa-group
+              %i.service-icon.fa.fa-users
               %h4= I18n.t(:title, scope: 'gezelligheid')
               %p= I18n.t(:text, scope: 'gezelligheid')
           .col-lg-3.text-center
@@ -57,7 +57,7 @@
               %p= I18n.t(:text, scope: 'orientation')
           .col-lg-3.text-center
             .service-item
-              %i.service-icon.fa.fa-glass
+              %i.service-icon.fa.fa-glass-martini
               %h4= I18n.t(:title, scope: 'drinks')
               %p= I18n.t(:text, scope: 'drinks')
 
@@ -129,12 +129,33 @@
             = f.email_field :email, :value => @member.email, :class => 'form-control'
             .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
 
+          .form-group
+            %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+            .row
+              .col-md-6
+                %label.ui-checkbox
+                  = f.check_box :mmm_subscribe, :checked => false
+                  %span= I18n.t('mmm.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
+            .row
+              .col-md-6
+                %label.ui-checkbox
+                  = f.check_box :business_subscribe, :checked => false
+                  %span= I18n.t('business.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
+            .row
+              .col-md-6
+                %label.ui-checkbox
+                  = f.check_box :lectures_subscribe, :checked => false
+                  %span= I18n.t('lectures.name', scope: 'activerecord.annotations.member')
+                .help-block= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
+
           .row
             .col-lg-6
               %h4
                 %i.fa.fa-graduation-cap
                 = I18n.t(:study, scope: 'form')
-                .help-block= I18n.t(:study, scope: 'activerecord.annotations.member')
+              .help-block= I18n.t(:study, scope: 'activerecord.annotations.member')
 
               .form-group
                 %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
@@ -153,7 +174,7 @@
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
             .col-lg-6.activities
               %h4
-                %i.fa.fa-ticket
+                %i.fa.fa-ticket-alt
                 = I18n.t(:activity, scope: 'activerecord.models')
               .row
                 .col-lg-6
@@ -194,13 +215,10 @@
             %ul.list-inline
               %li.list-inline-item
                 = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
-                  %i.fa.fa-facebook.fa-3x
-              %li.list-inline-item
-                = link_to '//twitter.com/StickyUtrecht', :target => '_blank' do
-                  %i.fa.fa-twitter.fa-3x
+                  %i.fab.fa-facebook.fa-3x
               %li.list-inline-item
                 =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
-                  %i.fa.fa-linkedin.fa-3x
+                  %i.fab.fa-linkedin.fa-3x
 
 - if @member.errors.any? || !flash[:error].nil?
   :javascript

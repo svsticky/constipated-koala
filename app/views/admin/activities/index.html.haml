@@ -2,7 +2,6 @@
 - content_for(:title, 'Activiteiten')
 
 %section#content
-  = render 'layouts/partials/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
@@ -12,17 +11,17 @@
       .col-md-6
         .card
           .card-header.year
-            %i.fa.fa-fw.fa-ticket
+            %i.fa.fa-fw.fa-ticket-alt
             = I18n.t('activerecord.models.activity')
             = select_tag :year, options_for_select( @years, params['year'] )
-          %table.table.table-striped.table-linked
+          %table.table.table-striped.table-linked#activity_table
             %tbody
               - @activities.each do |activity|
                 %tr
                   %td= link_to activity.name, activity
 
                   - if !activity.group.nil?
-                    %td.d-none.d-md-table-cell
+                    %td
                       - if activity.group.board?
                         %span.badge.badge-primary= activity.group.name.upcase
                       - elsif activity.group.committee?
@@ -30,7 +29,7 @@
                       - else
                         %span.label.badge-warning= activity.group.name.upcase
                   - else
-                    %td.d-none.d-md-table-cell
+                    %td
                       %span
 
 

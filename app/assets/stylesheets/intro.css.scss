@@ -1,8 +1,9 @@
 /*
- *= require font-awesome
+ *= require font_awesome5_webfont
  *= require bootstrap/dist/css/bootstrap
  *= require intl_tel_input
  *= require_self
+
  */
 html,
 body {
@@ -616,7 +617,7 @@ select[multiple].input-lg,
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #b6b6b6;
+  color: #606060;
 }
 
 @media (min-width: 768px) {

@@ -50,7 +50,7 @@ var participant = {
     if(data.activity.price > 0)
       $(added).addClass('in-debt');
     else
-      $(added).find( 'button.paid' ).addClass( 'hidden' );
+      $(added).find( 'button.paid' ).addClass( 'd-none' );
 
     $('#attendeecount').html(data.activity.fullness);
     participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
@@ -221,8 +221,8 @@ var participant = {
         price: price
       }
     }).done(function( data ){
-      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('hidden unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
-      $(row).find('button.paid').removeClass('hidden');
+      $(row).find('button.unpaid').empty().addClass('paid btn-warning').removeClass('d-none unpaid btn-primary').append('<i class="fa fa-fw fa-times"></i>');
+      $(row).find('button.paid').removeClass('d-none');
       $(row).removeClass('in-debt');
 
       if(price > 0){
@@ -230,7 +230,7 @@ var participant = {
 
         $('#mail').trigger('recipient_unpayed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }else{
-        $(row).find( 'button.paid' ).addClass( 'hidden' );
+        $(row).find( 'button.paid' ).addClass( 'd-none' );
 
         $('#mail').trigger('recipient_payed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
       }

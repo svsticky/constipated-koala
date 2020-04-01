@@ -20,7 +20,7 @@ div.container.col-md-9 {
     width: 100%;
   }
 
-  .panel-footer .pull-right {
+  .panel-footer .float-right {
     width: 100%;
   }
 
@@ -98,6 +98,10 @@ div.container.col-md-9 {
 
 .custom_left {
   padding-left: 0;
+}
+
+.cramtable table {
+  table-layout: fixed;
 }
 
 .cramtable tr > td {

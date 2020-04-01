@@ -36,6 +36,12 @@ class Public::HomeController < PublicController
       impressionist @member
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
+      # add user to mailchimp
+      interests = mailchimp_interests params[:member]
+
+      MailchimpJob.perform_later @member.email, @member, interests unless
+        ENV['MAILCHIMP_DATACENTER'].nil?
+
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }
         flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
@@ -94,6 +100,15 @@ class Public::HomeController < PublicController
   end
 
   private
+
+  def mailchimp_interests(member)
+    # add user to mailchimp
+    interests = [Rails.configuration.mailchimp_interests[:alv]]
+    interests.push Rails.configuration.mailchimp_interests[:mmm] if member[:mmm_subscribe] == "1"
+    interests.push Rails.configuration.mailchimp_interests[:business] if member[:business_subscribe] == "1"
+    interests.push Rails.configuration.mailchimp_interests[:lectures] if member[:lectures_subscribe] == "1"
+    interests
+  end
 
   def set_locale
     session['locale'] = params[:l] || session['locale'] || I18n.default_locale

@@ -10,7 +10,7 @@
       .col-xl-6
         .card
           .card-header
-            %i.fa.fa-fw.fa-ticket
+            %i.fa.fa-fw.fa-ticket-alt
             Niet betaalde activiteiten
 
           .card-body#participants.filtered-search
@@ -32,10 +32,10 @@
                         %td.buttons
                           .btn-group
                             - if participant.paid
-                              %button.btn.btn-primary.unpaid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
+                              %button.btn.btn-primary.unpaid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
                                 %i.fa.fa-fw.fa-check
                             - else
-                              %button.btn.btn-warning.paid{ :class => ('hidden' if participant.currency.nil? || participant.currency == 0 )}
+                              %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
                                 %i.fa.fa-fw.fa-times
                             %button.btn.btn-default.destroy
                               %i.fa.fa-fw.fa-trash-o
@@ -64,7 +64,7 @@
 
         .card
           .card-header
-            %i.fa.fa-fw.fa-whatsapp
+            %i.fab.fa-fw.fa-whatsapp
             Achterstallige betalingen (> 4 mails)
 
           -#TODO: check whatsapp button
@@ -89,7 +89,7 @@
 
         .card
           .card-header
-            %i.fa.fa-fw.fa-money
+            %i.far.fa-fw.fa-money-bill-alt
             Checkout transacties (Gepind)
 
           .card-body

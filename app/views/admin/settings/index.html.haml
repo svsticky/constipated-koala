@@ -3,14 +3,13 @@
 - content_for(:title, 'Instellingen')
 
 %section#content
-  = render 'layouts/partials/search'
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
         .card
           .card-header
-            %i.fa.fa-fw.fa-fw.fa-wrench
+            %i.fas.fa-fw.fa-wrench
             Instellingen
           %ul.list-group#settings
             = form_tag settings_url do

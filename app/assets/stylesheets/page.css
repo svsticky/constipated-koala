@@ -2,6 +2,13 @@
   padding: 15px;
 }
 
+@media (max-width: 480px) {
+  .page {
+    padding: 0px;
+    padding-top: 15px;
+  }
+}
+
 #content {
   position: absolute;
   top: 50px;
@@ -9,6 +16,7 @@
   bottom: 0;
   width: auto;
   overflow-y: auto;
+  background-color: #f3f3f3;
 }
 
 #content {

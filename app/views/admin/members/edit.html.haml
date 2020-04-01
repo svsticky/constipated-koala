@@ -81,15 +81,6 @@
                 = f.label(:comments)
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
 
-        .col-md-6
-          .card
-            .card-header
-              %i.fa.fa-fw.fa-image
-              Profielfoto
-            .card-body
-              .callout.callout-info
-                %p Als profielfoto gebruiken we een gravatar die gekoppeld is aan je e-mailadres.
-
         .col-md-6.education
           .card
             .card-header
@@ -131,9 +122,16 @@
                       %a.btn.btn-default.destroy{ :type => 'button' }
                         %span.fa.fa-trash-o
 
+
+                - unless ENV['MAILCHIMP_DATACENTER'].nil?
+                  .form-group
+                    = f.label(:mailchimp_interests)
+                    = f.select :mailchimp_interests, options_for_select( Rails.configuration.mailchimp_interests , @member.mailchimp_interests.select{ |_,v| v == true}.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
+
+
         .col-md-12
           .card
             .card-body
               %button.btn.btn-success{type: 'submit'} Opslaan
               = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
-              = link_to 'Verwijderen', member_path(@member.id), { :class => 'button btn btn-danger pull-right', 'data-method' => :delete }
+              = link_to 'Verwijderen', member_path(@member.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
