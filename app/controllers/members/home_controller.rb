@@ -65,7 +65,8 @@ class Members::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys
+      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys unless
+        ENV['MAILCHIMP_DATACENTER'].nil?
 
       impressionist(@member, 'lid bewerkt')
 
