@@ -19,10 +19,10 @@ class Activity < ApplicationRecord
 
   validate :content_type
   def content_type
-    # NOTE required to be an pdf, jpg or png but file can also be empty
+    # NOTE required to be an pdf, jpg, png or gif but file can also be empty
     return unless poster.attached?
 
-    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png'])
+    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png image/gif')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png', 'image/gif'])
   end
 
   validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
@@ -251,10 +251,22 @@ class Activity < ApplicationRecord
   end
 
   def poster_representation
-    poster.representation(resize: '764x1080!') if poster.attached?
+    return unless poster.attached?
+
+    if poster.content_type.to_s == 'image/gif'
+      poster
+    else
+      poster.representation(resize: '764x1080!')
+    end
   end
 
   def thumbnail_representation
-    poster.representation(resize: '254x360!') if poster.attached?
+    return unless poster.attached?
+
+    if poster.content_type.to_s == 'image/gif'
+      poster
+    else
+      poster.representation(resize: '254x360!')
+    end
   end
 end
