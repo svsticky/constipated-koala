@@ -92,7 +92,7 @@
                   - elsif education.active?
                     %span.label.label-info studerend
 
-            - unless Rails.configuration.mailchimp_interests.empty?
+            - unless ENV['MAILCHIMP_DATACENTER'].nil?
               %dl.dl-horizontal
                 %dt Mailchimp lijsten
                 %dd= @member.mailchimp_interests&.select{ |_,v| v == true}&.map{ |k, _| Rails.configuration.mailchimp_interests.key(k) }&.join(', ')
