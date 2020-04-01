@@ -29,8 +29,7 @@
           .col-md-4
             = label(:activity, :poster, class: 'd-none d-md-block')
             .div.poster.d-none.d-md-block
-              - if @activity.poster.attached?
-                = image_tag @activity.poster.representation(resize: '180x255!'), :class => 'img-fluid'
+              = image_tag @activity.thumbnail_representation, :class => 'img-fluid'
 
           .col-md-8
             = label(:activity, :description)
