@@ -40,7 +40,7 @@ class Public::HomeController < PublicController
       interests = mailchimp_interests params[:member]
 
       MailchimpJob.perform_later @member.email, @member, interests unless
-        ENV['MAILCHIMP_DATACENTER'].nil?
+        ENV['MAILCHIMP_DATACENTER'].blank?
 
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }
