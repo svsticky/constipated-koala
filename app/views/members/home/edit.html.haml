@@ -82,7 +82,7 @@
             %span.footnote 2
             .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
 
-    - if !ENV['MAILCHIMP_DATACENTER'].nil?
+    - if !ENV['MAILCHIMP_DATACENTER'].blank?
       .col-xl-6
         .card
           .card-header

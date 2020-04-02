@@ -66,7 +66,7 @@ class Members::HomeController < ApplicationController
 
     if @member.update member_post_params.except 'mailchimp_interests'
       MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys unless
-        ENV['MAILCHIMP_DATACENTER'].nil?
+        ENV['MAILCHIMP_DATACENTER'].blank?
 
       impressionist(@member, 'lid bewerkt')
 

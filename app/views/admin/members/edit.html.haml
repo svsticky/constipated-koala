@@ -123,7 +123,7 @@
                         %span.fa.fa-trash-o
 
 
-                - unless ENV['MAILCHIMP_DATACENTER'].nil?
+                - unless ENV['MAILCHIMP_DATACENTER'].blank?
                   .form-group
                     = f.label(:mailchimp_interests)
                     = f.select :mailchimp_interests, options_for_select( Rails.configuration.mailchimp_interests , @member.mailchimp_interests.select{ |_,v| v == true}.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
