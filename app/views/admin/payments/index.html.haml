@@ -79,13 +79,13 @@
                 %td
                   - if member.phone_number
                     = link_to payment_whatsapp_redirect_path(member), class: 'btn btn-success', target: '_blank' do
-                      %i.fa.fa-fw.fa-whatsapp
+                      %i.fab.fa-fw.fa-whatsapp
                   - else
                     %a.btn.btn-default{disabled: true}
-                      %i.fa.fa-fw.fa-whatsapp
+                      %i.fab.fa-fw.fa-whatsapp
                 %td
                   %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
-                    %i.fa.fa-fw.fa-clipboard
+                    %i.fa.fa-fw.fa-copy
 
         .card
           .card-header
