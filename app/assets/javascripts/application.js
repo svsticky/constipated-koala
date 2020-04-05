@@ -23,6 +23,8 @@
 //= require clipboard/dist/clipboard.min
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap.bundle.min.js
+//= require toastr/build/toastr.min
+//= require quill/dist/quill.min
 //
 //= require_tree ./admin
 //
