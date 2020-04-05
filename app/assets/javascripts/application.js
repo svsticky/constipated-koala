@@ -21,6 +21,7 @@
 //= require clipboard/dist/clipboard.min
 //= require turbolinks/dist/turbolinks
 //= require toastr/build/toastr.min
+//= require quill/dist/quill.min
 //
 //= require_tree ./application
 
