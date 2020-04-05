@@ -1,0 +1,125 @@
+- content_for(:page, 'posts')
+- content_for(:title, 'Berichten')
+
+%section#content
+
+  .page.page-form
+    .row
+      .col-md-6
+        .card
+          .card-header
+            %i.fas.fa-fw.fa-stream
+            Berichten
+
+        #posts
+          - @posts.each do |post|
+            .card
+              = link_to post, class: 'card-header' do
+                - if post.author&.avatar&.attached?
+                  = image_tag post.author.avatar_representation, class: 'avatar'
+
+                .card-img-overlay
+                  - if post.published?
+                    %span.ribbon.success published
+                  - if post.draft?
+                    %span.ribbon draft
+                  - if post.review?
+                    %span.ribbon review
+                  - if post.scheduled?
+                    %span.ribbon.warning scheduled
+
+                  - if post.pinned?
+                    %span.ribbon pinned
+
+                %h4= post.author.name
+                %ul
+                  %li
+                    - if post.published_at.present?
+                      = I18n.l(post.published_at, format: "%d %B %H:%m")
+
+                  - post.tags&.each do |tag|
+                    %li= tag
+
+              .card-body.content
+                = raw post.content
+
+
+        = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
+
+
+      .col-md-6
+        = form_for @post, :html => { :class => 'form-validation post-content' } do |f|
+          - if @post.errors.any?
+            .alert.alert-danger
+              %span= I18n.t('activerecord.errors.incomplete')
+              %ul
+              - @post.errors.full_messages.each do |msg|
+                %li= msg
+
+          .card
+            .card-header
+              %i.fa.fa-fw.fa-paragraph
+              - if @post.id
+                Bericht bewerken
+              - else
+                Bericht aanmaken
+            .card-body
+              = f.hidden_field :id, :value => @post.id
+
+              .form-group
+                .row
+                  .col-md-8
+                    .image-group
+                      - if @post.author&.avatar&.attached?
+                        = image_tag @post.author.avatar_representation, class: 'avatar'
+
+                    .image-side
+                      = f.label :author
+                      = f.text_field :author, :value => @post.author.name, :disabled => true, :class => 'form-control'
+
+                      = f.hidden_field :author_id, :value => @post.author_id
+                      = f.hidden_field :author_type, :value => @post.author_type
+
+                  .col-md-4.form-check
+                    = f.label :pinned
+                    = f.check_box :pinned, checked: @post.pinned.nil? ? @post.pinned? : @post.pinned
+
+              .form-group
+                .row
+                  .col-lg-4
+                    = f.label :status
+                    = f.select :status, options_for_select(Post.statuses.keys, @post.status || Post.statuses.draft), {}, class: 'custom-select'
+
+                  .col-lg-8.col-md-12
+                    = f.label :tags
+                    = f.text_field :tags, :value => @post.tags, :class => 'form-control'
+
+              .form-group
+                .row
+                  .col-lg-4
+                    = f.label :published_at
+                    = f.datetime_local_field :published_at, :value => @post.published_at&.strftime('%FT%T'), :class => 'form-control'
+
+              .form-group
+                = f.hidden_field :content, value: @post.content, id: 'post-content'
+
+                #editor
+                  != @post.content
+
+              -#
+                .form-group#editor
+                  = render 'layouts/partials/editor'
+
+                  #textarea.form-control{ :contenteditable => 'true' }
+                    != @post.content
+
+                  = f.text_area :content, :rows => 8, :value => @post.content, :class => 'form-control', :id => 'html'
+
+              .btn-group
+                %button.btn.btn-success{type: 'submit'} Opslaan
+                - if @post.id
+                  = link_to 'terug', :posts, class: 'btn btn-default'
+
+              - if @post.id
+                = link_to post_path, 'data-method' => :delete, class: 'btn btn-danger float-right' do
+                  verwijderen

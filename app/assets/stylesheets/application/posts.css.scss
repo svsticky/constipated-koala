@@ -1,0 +1,439 @@
+/*
+* Instead of importing the entire members stylesheet I copied a portion,
+* remember you should update both stylesheets if you change anything. Otherwise
+* the admin won't see the same layout
+*
+*/
+
+/* first some styling only for the admin page */
+
+// .btn {
+//   min-width: 80px;
+// }
+//
+// .btn-default {
+//   border: solid 1px #e7eaec;
+// }
+
+.image-group {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+.image-side {
+  margin-left: 80px;
+}
+
+.form-text {
+  margin-top: 0;
+  margin-left: 0.25rem;
+}
+
+.form-check {
+  top: 28px;
+
+  input {
+    position: relative;
+    top: 3px;
+  }
+}
+
+div.ql-editor {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 300px;
+
+  font-size: 13px;
+  font-weight: 100;
+  color: #676a6d;
+
+  h1, h2, h3, h4, h5, h6 {
+    &:not(:first-child) {
+      margin-top: 10px;
+      margin-bottom: 2px;
+    }
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #337ab5;
+    text-decoration: none !important;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  ol, ul, dl {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+.ql-toolbar {
+  .ql-header .ql-picker-item {
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 100;
+
+    &[data-value="1"]::before {
+      font-size: 1.3em !important;
+      font-weight: 700;
+    }
+
+    &[data-value="2"]::before {
+      font-size: 1.2em !important;
+      font-weight: 600;
+    }
+
+    &[data-value="3"]::before {
+      font-size: 1.17em;
+      font-weight: 400;
+    }
+
+    &[data-value="4"]::before {
+      font-size: 1em;
+      font-weight: 300;
+    }
+
+    &[data-value="5"]::before {
+      font-size: 0.83em;
+      font-weight: 300;
+    }
+  }
+}
+
+#posts {
+  div.card {
+    overflow: visible !important;
+
+    .card-img-overlay {
+      padding-right: 0px;
+      bottom: auto;
+      height: 0px;
+      margin-top: -6px;
+
+      span.ribbon {
+        position: relative;
+        min-width: 86px;
+        right: -3px;
+
+        float: right;
+        clear: right;
+
+        display: inline-block;
+        text-align: center;
+        font-weight: 400;
+
+        margin-bottom: 2px;
+        padding: 2px 10px;
+        background-color: #fffaf8;
+        z-index: 10;
+
+        border: solid 1px #e7eaec;
+
+        &.success {
+          background-color: #5cb85c;
+          color: white;
+        }
+
+        &.warning {
+          background-color: #f0ad4e;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+/*
+* Below is a partial copy of members.css.scss
+*   #posts{
+*     @import '../members.css.scss';
+*   }
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+
+#posts, form.post-content #editor {
+  position: relative;
+  width: 100%;
+
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 100;
+  color: #676a6d;
+
+  a {
+    color: #337ab5;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  h1 {
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  h3 {
+    font-size: 1.17em;
+    font-weight: 400;
+  }
+
+  h4 {
+    font-size: 1em;
+    font-weight: 300;
+  }
+
+  h5 {
+    font-size: 0.83em;
+    font-weight: 300;
+  }
+
+  div.card {
+    margin-bottom: 10px;
+    background-color: #ffffff;
+
+    @media (min-width: 768px) {
+      margin-bottom: 25px;
+    }
+
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+
+    overflow: hidden;
+
+    .card-header {
+      background-color: #ffffff;
+      border-bottom: solid 1px #e7eaec;
+      border-top: none;
+      padding: 11px 15px;
+      font-weight: 400;
+
+      color: inherit;
+      margin-bottom: 0;
+
+      img {
+        position: absolute;
+        width: 50px;
+        top: 5px;
+      }
+
+      h4 {
+        float: none;    ul {
+        margin-bottom: 0px;
+        margin-left: 60px;
+        padding-left: 0px;
+
+        li {
+          display: inline-block;
+          font-size: 0.8em;
+          font-weight: 100;
+
+          &:not(:first-child) {
+            &::before{
+              content: "· ";
+              font-weight: bold;
+            }
+          }
+        }
+      }
+        display: inline-block;
+        width: 100%;
+        margin-left: 60px;
+        margin-bottom: 0px;
+        font-size: 1.1em;
+        position: relative;
+        top: 3px;
+        color: #19aa8d;
+      }
+
+      i {
+        width: 20px;
+        text-align: center;
+        position: relative;
+        left: -5px;
+      }
+
+      ul {
+        margin-bottom: 0px;
+        margin-left: 60px;
+        padding-left: 0px;
+
+        li {
+          display: inline-block;
+          font-size: 0.8em;
+          font-weight: 100;
+
+          &:not(:first-child) {
+            &::before{
+              content: "· ";
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    .card-body.content {
+      h1, h2, h3, h4, h5, h6 {
+        font-size: 1em;
+
+        &:not(:first-child) {
+          margin-top: 10px;
+          margin-bottom: 2px;
+        }
+      }
+    }
+
+    table.card-body {
+      margin-bottom: 0;
+    }
+
+    .member-card {
+      h2 {
+        padding-left: 20px;
+
+        i {
+          position: absolute;
+          left: 17px;
+          top: 22px;
+        }
+      }
+
+      ul {
+        position: relative;
+        top: -12px;
+
+        margin-bottom: 0px;
+        padding-left: 21px;
+
+        li {
+          display: inline-block;
+
+          font-size: 0.8em;
+          font-weight: 100;
+
+          &:not(:first-child) {
+            margin-left: 3px;
+
+            &::before{
+              content: "· ";
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      p {
+        position: relative;
+        margin-left: 20px;
+        font-weight: 100;
+
+        i {
+          position: absolute;
+          left: -20px;
+          line-height: 19.5px;
+          font-size: 10px;
+        }
+      }
+
+      .btn-group {
+        display: block;
+      }
+    }
+
+    .mongoose-card, .mongoose-top-off, .debt-card {
+      height: 60px;
+      padding: 5px;
+
+      > i {
+        position: absolute;
+        height: 100%;
+        width: 30%;
+        margin: -5px;
+
+        background-color: #5cb85c;
+
+        color: #fffaf8;
+        text-align: center;
+        line-height: 55px;
+      }
+
+      span, p {
+        display: block;
+        padding-left: 30%;
+        font-size: 0.8em;
+        text-align: center;
+        margin: 0;
+      }
+
+      span {
+        font-size: 1.5em;
+      }
+    }
+
+    .mongoose-top-off {
+      position: relative;
+
+      > i {
+        width: 10%
+      }
+
+      form {
+        margin-left: 10%;
+
+        input, select {
+          display: block;
+          width: 100%;
+        }
+
+        select {
+          margin-top: 4px;
+        }
+
+        button {
+          position: absolute;
+          max-width: calc(100% - 15px);
+
+          top: 0px;
+          right: 15px;
+          bottom: 0px;
+
+          i {
+            left: 0px;
+          }
+        }
+      }
+    }
+
+    .debt-card i {
+      background-color: #f0ad4e;
+    }
+
+    .card-tools {
+      display: block;
+      float: none;
+      margin-top: 0;
+      position: relative;
+      padding: 0;
+      text-align: right;
+    }
+  }
+}
