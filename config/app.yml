@@ -13,6 +13,9 @@ defaults: &defaults
     committee: ['fotograaf','pr']
     moot: []
 
+  posts:
+    pinned: []
+
   mailchimp:
     # interests are subsection of the mail list
     interests:

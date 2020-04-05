@@ -4,7 +4,7 @@
 
 %section#content
 
-  .page{ :data => { 'authenticity_token' => form_authenticity_token}}
+  .page
     .row
       .col-md-6
         = render 'admin/activities/partials/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch

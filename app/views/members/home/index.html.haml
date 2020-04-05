@@ -6,12 +6,12 @@
       .card
         .card-header
           - if post.author.avatar.attached?
-            = image_tag post.author.avatar, class: 'activity'
+            = image_tag post.author.avatar_representation, class: 'avatar'
           %h4= post.author.name
           %ul
             %li= I18n.l(post.published_at, format: "%d %B %H:%m")
 
-            - post.tags.each do |tag|
+            - post.tags&.each do |tag|
               %li= tag
         .card-body.content
           = raw post.content
@@ -45,7 +45,7 @@
               - if participant.reservist?
                 reserve
 
-    - @posts.each do |post|
+    - @unpinned.each do |post|
       .card
         .card-header
           - if post.author.avatar.attached?

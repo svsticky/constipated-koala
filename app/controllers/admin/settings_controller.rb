@@ -83,7 +83,7 @@ class Admin::SettingsController < ApplicationController
   private
 
   def member_post_params
-    params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
+    params.require(:admin).permit(:first_name, :infix, :last_name, :avatar, :signature)
   end
 
   def advertisement_post_params

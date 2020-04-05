@@ -45,3 +45,23 @@ table td span.badge {
 .in-debt, .in-debt a {
     color: #e94b3b;
 }
+
+#mail-editor #textarea, #mail-editor textarea#html {
+  font-family: arial;
+  font-size: medium;
+  color: #222;
+  width: 100%;
+  min-height: 300px;
+  margin-bottom: 10px;
+  overflow-y: scroll;
+  display: none;
+}
+
+#mail-editor form.html  textarea#html {
+  display: block;
+  font-size: .9em;
+}
+
+#mail-editor form:not(.html) #textarea {
+  display: block;
+}

@@ -1,7 +1,7 @@
 $(document).on( 'ready page:load turbolinks:load', function(){
 
   // init mail helper
-  $('#mail-editor #editor').mail();
+  $('#mail-editor form').mail();
 
 
   // Add confirmation if participant_limit is changed

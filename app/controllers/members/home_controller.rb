@@ -10,7 +10,7 @@ class Members::HomeController < ApplicationController
     @activities = Activity.upcoming.take(2)
 
     @pinned = Post.published.pinned
-    @posts = Post.published
+    @unpinned = Post.published.unpinned
 
     @debt = @member.participants.debt
     @balance = CheckoutBalance.find_by_member_id(current_user.credentials_id)

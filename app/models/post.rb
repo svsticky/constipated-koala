@@ -1,25 +1,44 @@
 class Post < ApplicationRecord
   belongs_to :author, :polymorphic => true
+  serialize :tags
 
   validates :status, presence: true
-  enum status: [:draft, :published]
+  validates :published_at, presence: true, if: -> { self.scheduled? }
 
-  default_scope { order(published_at: :desc) }
-  scope :pinned, -> { where(status: :published) } #TODO add pinned setting
+  enum status: [:draft, :published, :review, :scheduled]
 
-  def tags
-    read_attribute(:tags).split(',')
-  end
+  default_scope { order('published_at IS NOT NULL, published_at DESC') }
+  scope :pinned, -> { where(id: Settings['posts.pinned']) }
+  scope :unpinned, -> { where.not(id: Settings['posts.pinned']) }
+
+  attr_accessor :pinned
 
   def tags=(tags)
-    write_attribute(:tags, tags.join(','))
+    write_attribute(:tags, tags.split(' '))
   end
 
-  before_update do
-    # if paid, fix price in participant
-    if status_changed? && self.published? && self.published_at.nil?
+  def pinned?
+    Settings['posts.pinned'].include? self.id
+  end
+
+  before_save do
+    if self.published? && self.published_at.nil?
       self.published_at = Time.now
+    elsif !self.published? && !self.scheduled?
+      self.published_at = nil
     end
+  end
+
+  after_save do
+    if Settings['posts.pinned'].include?(id) && self.pinned != '1'
+      Settings['posts.pinned'] = Settings['posts.pinned'].reject{ |i| id == i }
+    elsif self.pinned == '1'
+      Settings['posts.pinned'] = Settings['posts.pinned'] << id
+    end
+  end
+
+  after_destroy do
+    Settings['posts.pinned'] = Settings['posts.pinned'].reject{ |i| id == i }
   end
 end
 

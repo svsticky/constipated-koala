@@ -14,7 +14,7 @@ tr td a {
   display: inline;
 }
 
-#editor > #textarea, #editor > textarea#html {
+#editor #textarea, #editor textarea#html {
   font-family: arial;
   font-size: medium;
   color: #222;
@@ -25,11 +25,36 @@ tr td a {
   display: none;
 }
 
-#editor.html > textarea#html {
+form.html #editor textarea#html {
   display: block;
   font-size: .9em;
 }
 
-#editor:not(.html) > #textarea {
+form:not(.html) #editor #textarea {
   display: block;
+}
+
+form.signature .card-body {
+  .row:nth-of-type(3) {
+    margin-left: 100px;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .image-group {
+    position: absolute;
+    padding: 5px;
+
+    top: 75px;
+    left: 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 5px;
+
+    img.avatar {
+      width: 50px;
+    }
+  }
 }

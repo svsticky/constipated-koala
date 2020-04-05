@@ -75,6 +75,16 @@
     #page-container
       .row.d-none.d-md-flex
         %nav.navbar.navbar-static-top
+
+          -#
+            %ol.breadcrumb
+              %li.breadcrumb-item
+                %a{:href => "#"} Home
+              %li.breadcrumb-item
+                %a{:href => "#"} Library
+              %li.breadcrumb-item.active{"aria-current" => "page"} Data
+
+
           %ul.nav
             %li
               = link_to :current_member do

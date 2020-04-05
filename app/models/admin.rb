@@ -13,6 +13,10 @@ class Admin < ApplicationRecord
     "#{ first_name } #{ infix } #{ last_name }"
   end
 
+  def avatar_representation
+    avatar.representation(resize: '50x50!') if avatar.attached?
+  end
+
   after_create do
     user = User.new(
       email: email,

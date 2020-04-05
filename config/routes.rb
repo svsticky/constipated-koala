@@ -89,6 +89,8 @@ Rails.application.routes.draw do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'
       end
 
+      resources :posts, only: [:index, :show, :create, :update, :destroy]
+
       resources :settings, only: [:index, :create] do
         collection do
           get 'logs'
