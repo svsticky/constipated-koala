@@ -31,3 +31,4 @@ node_modules/
 signing-key.pem
 
 .idea
+*.code-workspace

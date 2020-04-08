@@ -36,7 +36,7 @@ form:not(.html) #editor #textarea {
 
 form.signature .card-body {
   .row:nth-of-type(3) {
-    margin-left: 100px;
+    margin-left: 60px;
   }
 
   .form-group {
@@ -48,7 +48,7 @@ form.signature .card-body {
     padding: 5px;
 
     top: 75px;
-    left: 20px;
+    left: 0px;
 
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 5px;
@@ -56,5 +56,9 @@ form.signature .card-body {
     img.avatar {
       width: 50px;
     }
+  }
+
+  div.ql-editor {
+    min-height: 100px;
   }
 }
