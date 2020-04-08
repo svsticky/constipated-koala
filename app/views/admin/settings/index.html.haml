@@ -112,8 +112,33 @@
                 %label{for: ''}
                 = I18n.t('admin.settings.signature')
                 = render 'layouts/partials/editor'
+                  .col-lg-12
+                    = label(:admin, :avatar)
+                    .input-group
+                      %input#output.form-control{ :readonly => '', :value => ("#{@admin.avatar.filename}" if @admin.avatar.attached?) }
 
-                #textarea.form-control{ :contenteditable => 'true' }
+                      .input-group-append
+                        %div.btn.btn-primary.file-input-wrapper
+                          %span
+                            = I18n.t('files.upload')
+                          = f.file_field :avatar, { 'data-ui-file-upload' => '' }
+                      .input-group-append
+                        %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @admin.avatar.attached? ) }
+                          %span.caret
+                        %ul.dropdown-menu
+                          %li
+                            - if @admin.avatar.attached?
+                              = link_to 'Download', @admin.avatar, :download => '', :class => 'dropdown-item'
+                          %li.divider
+                          %li
+                            = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
+
+              .form-group.signature
+                = f.hidden_field :signature, value: @admin.signature
+
+                %label{for: ''} Ondertekening
+
+                #editor
                   != @admin.signature
 
                 = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'

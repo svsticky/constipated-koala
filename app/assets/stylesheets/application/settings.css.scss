@@ -1,0 +1,64 @@
+li.list-group-item {
+  display: inline-table;
+  width: 100%;
+  padding: 10px 0;
+
+  input {
+    width: 100%;
+    line-height: 25px;
+    margin-top: 3px;
+  }
+}
+
+tr td a {
+  display: inline;
+}
+
+#editor #textarea, #editor textarea#html {
+  font-family: arial;
+  font-size: medium;
+  color: #222;
+  width: 100%;
+  min-height: 300px;
+  margin-bottom: 10px;
+  overflow-y: scroll;
+  display: none;
+}
+
+form.html #editor textarea#html {
+  display: block;
+  font-size: .9em;
+}
+
+form:not(.html) #editor #textarea {
+  display: block;
+}
+
+form.signature .card-body {
+  .row:nth-of-type(3) {
+    margin-left: 60px;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .image-group {
+    position: absolute;
+    padding: 5px;
+
+    top: 75px;
+    left: 0px;
+
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 5px;
+
+    img.avatar {
+      width: 50px;
+    }
+  }
+
+  div.ql-editor {
+    min-height: 100px;
+  }
+}

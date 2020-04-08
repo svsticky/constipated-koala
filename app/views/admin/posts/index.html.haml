@@ -100,20 +100,11 @@
                     = f.label :published_at
                     = f.datetime_local_field :published_at, :value => @post.published_at&.strftime('%FT%T'), :class => 'form-control'
 
-              .form-group
+              .form-group.post-content
                 = f.hidden_field :content, value: @post.content, id: 'post-content'
 
                 #editor
                   != @post.content
-
-              -#
-                .form-group#editor
-                  = render 'layouts/partials/editor'
-
-                  #textarea.form-control{ :contenteditable => 'true' }
-                    != @post.content
-
-                  = f.text_area :content, :rows => 8, :value => @post.content, :class => 'form-control', :id => 'html'
 
               .btn-group
                 %button.btn.btn-success{type: 'submit'} Opslaan

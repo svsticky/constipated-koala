@@ -39,70 +39,72 @@
   }
 }
 
-div.ql-editor {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  min-height: 300px;
-
-  font-size: 13px;
-  font-weight: 100;
-  color: #676a6d;
-
-  h1, h2, h3, h4, h5, h6 {
-    &:not(:first-child) {
-      margin-top: 10px;
-      margin-bottom: 2px;
-    }
-  }
-
-  p {
-    margin-bottom: 1rem;
-  }
-
-  a {
-    color: #337ab5;
-    text-decoration: none !important;
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
-  }
-
-  ol, ul, dl {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-}
-
-.ql-toolbar {
-  .ql-header .ql-picker-item {
+form.post-content {
+  div.ql-editor {
     font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    min-height: 300px;
+
     font-size: 13px;
     font-weight: 100;
+    color: #676a6d;
 
-    &[data-value="1"]::before {
-      font-size: 1.3em !important;
-      font-weight: 700;
+    h1, h2, h3, h4, h5, h6 {
+      &:not(:first-child) {
+        margin-top: 10px;
+        margin-bottom: 2px;
+      }
     }
 
-    &[data-value="2"]::before {
-      font-size: 1.2em !important;
-      font-weight: 600;
+    p {
+      margin-bottom: 1rem;
     }
 
-    &[data-value="3"]::before {
-      font-size: 1.17em;
-      font-weight: 400;
+    a {
+      color: #337ab5;
+      text-decoration: none !important;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
     }
 
-    &[data-value="4"]::before {
-      font-size: 1em;
-      font-weight: 300;
+    ol, ul, dl {
+      margin-top: 0;
+      margin-bottom: 1rem;
     }
+  }
 
-    &[data-value="5"]::before {
-      font-size: 0.83em;
-      font-weight: 300;
+  .ql-toolbar {
+    .ql-header .ql-picker-item {
+      font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 100;
+
+      &[data-value="1"]::before {
+        font-size: 1.3em !important;
+        font-weight: 700;
+      }
+
+      &[data-value="2"]::before {
+        font-size: 1.2em !important;
+        font-weight: 600;
+      }
+
+      &[data-value="3"]::before {
+        font-size: 1.17em;
+        font-weight: 400;
+      }
+
+      &[data-value="4"]::before {
+        font-size: 1em;
+        font-weight: 300;
+      }
+
+      &[data-value="5"]::before {
+        font-size: 0.83em;
+        font-weight: 300;
+      }
     }
   }
 }
