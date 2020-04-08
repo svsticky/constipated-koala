@@ -3,11 +3,11 @@
 //
 //= require bootstrap-file-input
 
-$(document).on("ready page:load turbolinks:load", function () {
-  $("#settings input[id^='options']").on("change", function (e) {
-    var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
-    );
+$(document).on( 'ready page:load turbolinks:load', function(){
+  $('.form-group.signature').editor();
+
+  $( '#settings input[id^=\'options\']' ).on( 'change', function( e ){
+    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
     var obj = this;
 
     $.ajax({
