@@ -37,12 +37,10 @@ class Public::HomeController < PublicController
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # add user to mailchimp
-      interests = [Settings['mailchimp.interests.alv']]
-      interests.push Settings['mailchimp.interests.mmm'] if params[:member][:mmm_subscribe] == "1"
-      interests.push Settings['mailchimp.interests.business'] if params[:member][:business_subscribe] == "1"
-      interests.push Settings['mailchimp.interests.lectures'] if params[:member][:business_subscribe] == "1"
+      interests = mailchimp_interests params[:member]
 
-      MailchimpJob.perform_later @member.email, @member, interests
+      MailchimpJob.perform_later @member.email, @member, interests unless
+        ENV['MAILCHIMP_DATACENTER'].nil?
 
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }
@@ -102,6 +100,15 @@ class Public::HomeController < PublicController
   end
 
   private
+
+  def mailchimp_interests(member)
+    # add user to mailchimp
+    interests = [Rails.configuration.mailchimp_interests[:alv]]
+    interests.push Rails.configuration.mailchimp_interests[:mmm] if member[:mmm_subscribe] == "1"
+    interests.push Rails.configuration.mailchimp_interests[:business] if member[:business_subscribe] == "1"
+    interests.push Rails.configuration.mailchimp_interests[:lectures] if member[:lectures_subscribe] == "1"
+    interests
+  end
 
   def set_locale
     session['locale'] = params[:l] || session['locale'] || I18n.default_locale

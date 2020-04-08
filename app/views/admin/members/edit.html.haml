@@ -121,11 +121,10 @@
                         %span.fa.fa-trash
 
 
-                - unless Settings['mailchimp.interests'].empty?
+                - unless ENV['MAILCHIMP_DATACENTER'].nil?
                   .form-group
                     = f.label(:mailchimp_interests)
-                    = f.select :mailchimp_interests, options_for_select( Settings['mailchimp.interests'] , @member.mailchimp_interests&.select{ |_,v| v == true}&.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
-
+                    = f.select :mailchimp_interests, options_for_select( Rails.configuration.mailchimp_interests , @member.mailchimp_interests.select{ |_,v| v == true}.map{ |k, _| k }), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
 
         .col-md-12
           .card

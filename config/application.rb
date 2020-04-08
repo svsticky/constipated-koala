@@ -16,7 +16,7 @@ module ConstipatedKoala
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    VERSION = '2.0.1'.freeze
+    VERSION = '2.1.0'.freeze
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -43,6 +43,15 @@ module ConstipatedKoala
     # Custom configuration
     config.mailgun = ENV['MAILGUN_TOKEN']
     config.checkout = ENV['CHECKOUT_TOKEN']
+
+    config.mailchimp_interests = {
+      alv: ENV['MAILCHIMP_ALV_ID'],
+      business: ENV['MAILCHIMP_BUSINESS_ID'],
+      mmm: ENV['MAILCHIMP_MMM_ID'],
+      lectures: ENV['MAILCHIMP_LECTURES_ID']
+    }
+
+    config.mailchimp_tags = ["gratie", "alumni"]
 
     config.action_dispatch.rescue_responses = {
       'ActiveRecord::RecordNotFound' => :not_found,

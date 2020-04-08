@@ -91,12 +91,9 @@ div.container-fluid .text-center {
 
 div.container-fluid .row {
   position: relative;
-  display: block;
   background-color: #f34541;
   text-align: center;
-  width: 100%;
   margin: 0;
-  padding: 0.5rem;
 }
 
 div.container-fluid .row:nth-child(1) {

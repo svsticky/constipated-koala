@@ -179,6 +179,10 @@ under `ansible/tasks/koala.yml`.
 
 [Sadserver repository]: https://github.com/svsticky/sadserver
 
+## Mailchimp synchronization
+
+To utilize and set up the mailchimp synchronization have a look at [MAILCHIMP.md](MAILCHIMP.md).
+
 ## Background jobs
 There are two background jobs that need to be run periodically in production:
 

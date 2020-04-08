@@ -118,10 +118,10 @@
                 .callout.callout-info
                   %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
 
-                - unless Settings['mailchimp.interests'].empty?
+                - unless ENV['MAILCHIMP_DATACENTER'].nil?
                   .form-group
                     = f.label(:mailchimp_interests)
-                    = f.select :mailchimp_interests, options_for_select( Settings['mailchimp.interests'], NIL), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
+                    = f.select :mailchimp_interests, options_for_select( Rails.configuration.mailchimp_interests, NIL), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
 
         .col-md-12
           .card
