@@ -18,8 +18,4 @@
     .flexwrap
       = render 'members/activities/partials/view', activity: activity, view: 'index'
 
-= link_to 'mailto:pleasedotheneedful@svsticky.nl' , class: 'btn btn-danger helpme' do
-  %i.fa.fa-bug
-  = I18n.t 'members.activities.bug_report'
-
 = render 'layouts/partials/poster_modal', view: 'index'
