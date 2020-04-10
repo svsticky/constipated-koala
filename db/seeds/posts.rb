@@ -3,7 +3,7 @@ require Rails.root.join('db', 'seeds', 'users.rb')
 # Create 20 activities and the participants
 puts '-- Creating posts'
 
-4.times do
+6.times do
   created_at = Faker::Time.between(from: 2.years.ago, to: Date.yesterday)
 
   Post.create(
@@ -28,4 +28,6 @@ puts '-- Creating posts'
 
 end
 
-# TODO make one post pinnen and published to be sure
+# Set first post to pinned
+Settings['posts.pinned'] = [Post.published&.first&.id]
+
