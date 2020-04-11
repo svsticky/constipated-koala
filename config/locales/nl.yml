@@ -628,7 +628,7 @@ nl:
       declarations: DigiDecs
       books: Boeken
       vacancies: Vacatures
-      github: Github
+      github: GitHub
   navigation:
     back: Terug
     home: Home
