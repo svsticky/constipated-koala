@@ -685,7 +685,7 @@ en:
       declarations: DigiDecs
       books: Books
       vacancies: Vacancies
-      github: Github
+      github: GitHub
       edit_profile: "Edit profile"
   navigation:
     back: Back
