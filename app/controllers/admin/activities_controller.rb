@@ -15,23 +15,6 @@ class Admin::ActivitiesController < ApplicationController
     @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
-
-    # Strip an activity name ffrom all characters banks do not support
-
-    # Remove all non-ascii characters (no language extension)
-    ascii_encoding_options = {
-      :invalid => :replace,      # Replace invalid byte sequences
-      :undef => :replace,        # Replace anything not defined in ASCII
-      :replace => '',            # Use a blank for those replacements
-      :universal_newline => true # Always break lines with \n
-    }
-
-    ascii = @activity.name.encode(Encoding.find('ASCII'), ascii_encoding_options)
-
-    # Remove the other illegal characters
-    # Non-printable characters are ignored
-    # source: https://www.sepaforcorporates.com/sepa-implementation/valid-xml-characters-sepa-payments/
-    @bank_name = ascii.delete "!\"#$%&*;<=>@[\\]^_`{|}~"
   end
 
   def create
