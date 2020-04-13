@@ -183,6 +183,6 @@
               %i.fa.fa-key
               = I18n.t 'members.home.edit.password_options.change_password'
 
-            = link_to download_path, { :class => 'button btn btn-secondary' } do
+            = link_to download_path, { :class => 'button btn btn-secondary', :download => I18n.t('members.home.index.personal_data') } do
               %i.fa.fa-download
-              Download persoonsgegevens
+              = I18n.t 'members.home.index.personal_data'
