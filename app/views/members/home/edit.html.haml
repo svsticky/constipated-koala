@@ -36,9 +36,10 @@
 
           .form-group
             .row
-              .col-md-4
-                = f.label(:birth_date)
-                = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
+              - if @member.birth_date?
+                .col-md-4
+                  = f.label(:birth_date)
+                  = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
               .col-md-8
                 = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
@@ -123,20 +124,21 @@
           %table.table.table-striped
             %tbody
               - @member.educations.each do |education|
-                = f.fields_for 'educations_attributes[]', education do |fs|
-                  %tr
-                    %td= I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
+                - if education.study.code?
+                  = f.fields_for 'educations_attributes[]', education do |fs|
+                    %tr
+                      %td= I18n.t(education.study.code.downcase, scope: 'activerecord.attributes.study.names')
 
-                    %td.dropdown
-                      - if education.status == 'active'
-                        = fs.hidden_field :id
-
-                      .ui-select
+                      %td.dropdown
                         - if education.status == 'active'
-                          = fs.select :status, options_for_select( [:active, :graduated, :stopped].map{ |name| [I18n.t(name, scope: 'activerecord.attributes.education.status').downcase, name] }, education.status )
-                        - else
-                          %span
-                            = I18n.t(education.status, scope: 'activerecord.attributes.education.status').downcase
+                          = fs.hidden_field :id
+
+                        .ui-select
+                          - if education.status == 'active'
+                            = fs.select :status, options_for_select( [:active, :graduated, :stopped].map{ |name| [I18n.t(name, scope: 'activerecord.attributes.education.status').downcase, name] }, education.status )
+                          - else
+                            %span
+                              = I18n.t(education.status, scope: 'activerecord.attributes.education.status').downcase
 
           - if @member.educations.any? { |education| education.status == 'active' }
             .callout.callout-info
