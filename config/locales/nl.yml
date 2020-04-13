@@ -621,6 +621,7 @@ nl:
         edit_profile: Gegevens bewerken
         outstanding_payments: Openstaande betalingen
         upgrade: Opwaarderen
+        personal_data: "Persoonsgegevens"
     navigation:
       edit_profile: "Gegevens bewerken"
       links: Externe links
