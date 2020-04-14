@@ -26,8 +26,4 @@ class Api::ActivitiesController < ApiController
   def show
     @activity = Activity.find_by_id! params[:id]
   end
-
-  def advertisements
-    @advertisements = Advertisement.all
-  end
 end

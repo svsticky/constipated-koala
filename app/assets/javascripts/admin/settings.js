@@ -33,28 +33,6 @@ $(document).on( 'ready page:load turbolinks:load', function(){
     });
   });
 
-  // remove advert
-  // Will be removed, so no need for translation
-  $( 'div#advertisements tr .btn-group button.destroy' ).bind( 'click', function() {
-    var button = $( this );
-    var row = $( this ).closest( 'tr' );
-    var token = encodeURIComponent($(this).closest( '.page' ).attr( 'data-authenticity-token' ));
-
-    $.ajax({
-      url: '/settings/advertisement',
-      type: 'DELETE',
-      data: {
-        id: $( row ).attr( 'data-id' ),
-        authenticity_token: token
-      }
-    }).done(function( data, status ){
-      toastr.success('Advertentie verwijderd');
-      $( row ).remove();
-    }).fail(function(){
-      toastr.error('Advertentie is niet verwijderd');
-    });
-  });
-
   $('li.disabled a').on('click', function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();

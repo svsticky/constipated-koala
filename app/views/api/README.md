@@ -34,23 +34,6 @@ Content-Type → application/json; charset=utf-8
 ]
 ```
 
-##### Retrieve advertisements
-<pre>
-<b>GET /api/advertisements HTTP/1.1</b>
-Host → koala.svsticky.nl
-</pre>
-
-```json
-HTTP/1.1 200 OK
-Content-Type → application/json; charset=utf-8
-
-[
-  {
-    "poster": "https://sticky-posters.s3.amazonaws.com/activities/199/medium/conferentie.png?1453823170"
-  }
-]
-```
-
 ## Participant
 
 
