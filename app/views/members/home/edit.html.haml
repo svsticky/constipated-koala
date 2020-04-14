@@ -1,7 +1,7 @@
 - content_for(:page, "edit")
 - content_for(:title, @member.name)
 
-= form_for :member, method: :patch, :class => 'form-validation' do |f|
+= form_for :member, method: :patch, authenticity_token: true, :class => 'form-validation' do |f|
 
   - if @member.errors.any? || flash[:error]
     .alert.alert-danger
