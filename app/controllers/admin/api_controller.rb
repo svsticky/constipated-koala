@@ -12,5 +12,4 @@ class Admin::ApiController < ApplicationController
     render :status => :ok,
            :json => Activity.list.only(:name, :start_date, :end_date, :poster)
   end
-
 end
