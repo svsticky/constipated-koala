@@ -269,11 +269,6 @@ $(document).on( 'ready page:load turbolinks:load', function(){
 
   $('form#mail').mail();
 
-  // 'Enrollable' checkbox toggled
-  $('#activity_is_enrollable').on('click', function() {
-      $('#participant_limit')[0].disabled = !this.checked;
-  });
-
   $('#activity_is_viewable').on('click', function() {
       $('#activity_is_enrollable')[0].disabled = !this.checked;
       $('#activity_show_on_website')[0].disabled = !this.checked;
@@ -281,7 +276,6 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       {
           $('#activity_show_on_website')[0].checked = this.checked;
           $('#activity_is_enrollable')[0].checked = this.checked;
-          $('#participant_limit')[0].disabled = !this.checked;
       }
   });
 
