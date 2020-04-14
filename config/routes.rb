@@ -96,9 +96,6 @@ Rails.application.routes.draw do
         collection do
           get 'logs'
           patch 'profile', to: 'settings#profile'
-
-          post 'advertisement'
-          delete 'advertisement', to: 'settings#destroy_advertisement'
         end
       end
 
@@ -158,8 +155,6 @@ Rails.application.routes.draw do
           get  'products',      to: 'checkout#products'
           post 'transaction',   to: 'checkout#purchase'
         end
-
-        get 'advertisements', to: 'activities#advertisements'
       end
     end
   end

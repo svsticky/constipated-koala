@@ -121,36 +121,6 @@
             - @advert.errors.full_messages.each do |msg|
               %li= msg
 
-        .card#advertisements
-          .card-header
-            %i.fa.fa-fw.fa-fw.fa-desktop
-            = I18n.t('admin.settings.ads')
-          .card-body
-            .table-responsive
-              %table.table.table-bordered.table-striped.table-linked
-
-                - @advertisements.each do |advertisement|
-                  %tr{ :data => { 'id' => advertisement.id }}
-                    %td
-                      = advertisement.name
-                      = link_to advertisement.poster.filename, advertisement.poster.representation(resize: '764x1080!'), :download => ''
-                    %td.buttons
-                      .btn-group
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
-
-            = form_for :advertisement, url: advertisement_settings_path, method: :post, :class => 'form-validation' do |f|
-              .form-group
-                .input-group
-                  = f.text_field :name, { :class => 'form-control', :placeholder => I18n.t('admin.payment.description') }
-              %div{ :style => 'margin-left: 5px;' }
-                %div.btn.btn-primary.file-input-wrapper
-                  %span
-                    = I18n.t('editing.upload')
-                  = f.file_field :poster, { 'data-ui-file-upload' => '' }
-                %button.btn.btn-success.wait{type: 'submit'}
-                  = I18n.t('editing.save')
-
         .card
           .card-header
             %i.fa.fa-fw.fa-rocket

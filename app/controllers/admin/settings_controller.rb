@@ -7,9 +7,6 @@ class Admin::SettingsController < ApplicationController
     @studies = Study.all
 
     @applications = Doorkeeper::Application.all
-
-    @advert = Advertisement.new
-    @advertisements = Advertisement.all
   end
 
   def create
@@ -52,29 +49,6 @@ class Admin::SettingsController < ApplicationController
     redirect_to :settings
   end
 
-  def advertisement
-    @advert = Advertisement.new(advertisement_post_params)
-
-    if @advert.save
-      redirect_to :settings
-    else
-      @admin = current_user.credentials
-      @studies = Study.all
-
-      @applications = Doorkeeper::Application.all
-      @advertisements = Advertisement.all
-
-      render 'index'
-    end
-  end
-
-  def destroy_advertisement
-    render :status => :bad_request, :json => 'no id given' if params[:id].blank?
-
-    Advertisement.destroy(params[:id])
-    head :no_content
-  end
-
   def logs
     @limit = params[:limit] ? params[:limit].to_i : 50
 
@@ -89,7 +63,4 @@ class Admin::SettingsController < ApplicationController
     params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
   end
 
-  def advertisement_post_params
-    params.require(:advertisement).permit(:name, :poster)
-  end
 end
