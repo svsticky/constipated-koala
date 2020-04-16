@@ -1,48 +1,31 @@
+---
 nl:
   activerecord:
     annotations:
       member:
-        email: "E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou. Je e-mailadres wordt ook gebruikt als login."
-        study: "Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap."
-        emergency_phone_number: "Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar."
-        mailinglists: "Mailinglijsten"
         alv:
-          name: "Algemene Leden Vergaderingen"
-          description: "Krijg een paar keer per jaar een uitnodiging en de stukken voor de leden vergaderingen in je mailbox."
-        mmm:
-          name: "MaandagMorgenMail"
-          description: "Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer."
+          description: Krijg een paar keer per jaar een uitnodiging en de stukken voor de leden vergaderingen in je mailbox.
+          name: Algemene Leden Vergaderingen
         business:
-          name: "Bedrijfsmailing"
-          description: "Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails."
+          description: Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails.
+          name: Bedrijfsmailing
+        email: E-mailadres kan geen adres van de UU zijn. Het e-mailadres wordt gebruikt voor communicatie van Sticky naar jou. Je e-mailadres wordt ook gebruikt als login.
+        emergency_phone_number: Iemand die we kunnen bellen in geval van nood. Verplicht onder 18 jaar.
         lectures:
-          name: "Lezingen en Workshops"
-          description: "Door je voor deze lijst aan te melden zul je een mail krijgen voor alle lezingen en workshops die Sticky organiseert. Zo kun je op de hoogte blijven van onze educatieve activiteiten."
+          description: Door je voor deze lijst aan te melden zul je een mail krijgen voor alle lezingen en workshops die Sticky organiseert. Zo kun je op de hoogte blijven van onze educatieve activiteiten.
+          name: Lezingen en Workshops
+        mailinglists: Mailinglijsten
+        mmm:
+          description: Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer.
+          name: MaandagMorgenMail
+        study: Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap.
     attributes:
       activity:
-        comments: Opmerkingen (privé)
         description: Beschrijving
-        end_date: Einddatum
-        end_time: Eindtijd
-        is_alcoholic: Alcohol (18+)
-        is_enrollable: Inschrijfbaar
-        is_freshmans: Eerstejaars
-        is_masters: Masters
-        is_viewable: Toon in Koala
         location: Locatie
-        name: Naam
-        notes: Extra specificatie
-        notes_mandatory: Verplicht
-        notes_public: Publiek
-        organized_by: Organisator
-        participant_limit: Deelnemerslimiet
         price: Prijs
-        show_on_website: Toon op website
-        start_date: Begindatum
-        start_time: Begintijd
         unenroll_date: Uitschrijfdeadline
       checkout_product:
-        active: Actief
         categories:
           additional: Overig
           beverage: Drinken
@@ -74,101 +57,50 @@ nl:
           moot: Dispuutsleden
           other: Leden
         name: Naam
-      impression:
-        activity:
-          create: activiteit aangemaakt
-          mail: betalingsmail gestuurd
-          update: activiteit bewerkt
-        checkoutcard:
-          activate_card: kaart geactiveerd
-        checkouttransaction:
-          change_funds: tegoed bijgewerkt
-        group:
-          create: groep aangemaakt
-          update: groep bewerkt
-        groupmember:
-          create: '%{name} toegevoegd'
-          update: '%{name} bewerkt'
-        member:
-          create: lid aangemaakt
-          destroy: lid verwijderd
-          update: gegevens bewerkt
-        participant:
-          create: deelnemer toegevoegd
-          update:
-            paid: deelnemer heeft betaald
-            price: prijs is veranderd voor deelnemer
-            unpaid: deelnemer heeft niet betaald
       member:
         address: Straatnaam
         birth_date: Geboortedatum
         city: Woonplaats
-        comments: Commentaar
         educations: Studie
         email: E-mailadres
         emergency_phone_number: Telefoonnummer voor calamiteiten
-        female: Vrouw
         first_name: Voornaam
         house_number: Huisnummer
         infix: Tussenvoegsel
-        join_date: Inschrijfdatum
         last_name: Achternaam
-        male: Man
         phone_number: Telefoonnummer
         postal_code: Postcode
         student_id: Studentnummer
-        tags: Tags
       participant:
         paid:
           'false': Niet betaald
           'true': Betaald
       settings:
         additional_committee_positions:
-          description: >-
-            Rollen die naast voorzitter, penningmeester en bestuurslid worden
-            toegevoegd aan alle commissies.
+          description: Rollen die naast voorzitter, penningmeester en bestuurslid worden toegevoegd aan alle commissies.
           name: Extra commissierollen
         additional_moot_positions:
-          description: >-
-            Rollen die naast voorzitter, secretaris, en penningmeester worden
-            toegevoegd aan alle disputen.
+          description: Rollen die naast voorzitter, secretaris, en penningmeester worden toegevoegd aan alle disputen.
           name: Extra dispuutrollen
         begin_study_year:
-          description: >-
-            Het begin van het volgende studiejaar. Op deze datum wordt er
-            automatisch een nieuw jaar gestart.
+          description: Het begin van het volgende studiejaar. Op deze datum wordt er automatisch een nieuw jaar gestart.
           name: Studiejaar
         intro_activities:
-          description: >-
-            Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in
-            het inschrijfformulier kunnen inschrijven.
+          description: Activiteiten tijdens de introperiode waarvoor nieuwe leden zich in het inschrijfformulier kunnen inschrijven.
           name: Introductie activiteiten
         intro_membership:
-          description: >-
-            De activiteit voor het inschrijven bij Sticky, automatisch
-            gegenereerd.
+          description: De activiteit voor het inschrijven bij Sticky, automatisch gegenereerd.
           name: Introductie lidmaatschap
         liquor_time:
-          description: >-
-            Het tijdstip vanaf wanneer leden alcohol kunnen kopen in Checkout.
-            Tot die tijd wordt een foutmelding gepresenteerd.
+          description: Het tijdstip vanaf wanneer leden alcohol kunnen kopen in Checkout. Tot die tijd wordt een foutmelding gepresenteerd.
           name: Tijdstip vanaf wanneer alcohol verkocht wordt
         mongoose_ideal_costs:
-          description: >-
-            De kosten van een iDEAL-transactie, zodat deze apart kunnen worden
-            berekend in het iDEAL-overzicht.
+          description: De kosten van een iDEAL-transactie, zodat deze apart kunnen worden berekend in het iDEAL-overzicht.
           name: IDeal transactie kosten
-        positions:
-          board: Bestuurslid
-          chairman: Voorzitter
-          education: Commissaris onderwijs
-          external: Commissaris extern
-          internal: Commissaris intern
-          secretary: Secretaris
-          treasurer: Penningmeester
       study:
         names:
           acsc: Advanced Computing Science
+          ads: Applied Data Science
           ainm: Artificial Intelligence
           atec: Technical Artificial Intelligence
           ckem: Content & Knowledge Engineering
@@ -176,7 +108,6 @@ nl:
           gmte: Game and Media Technology
           gt: Gametechnologie
           hci: Human Computer Interaction
-          ads: Applied Data Science
           inca: Informatica
           inku: Informatiekunde
           mbim: Business Informatics
@@ -189,128 +120,42 @@ nl:
           pardon: Gratie
           suspended: Geschorst
       user:
-        email: E-mailadres
-        current_password: Huidig wachtwoord
         password: Wachtwoord
         password_confirmation: Herhaal wachtwoord
     errors:
       default: Er is iets fout gegaan
-      incomplete: 'Oh snap, niet alles is goed ingevuld'
+      incomplete: Oh snap, niet alles is goed ingevuld
       info: Het is gelukt
       models:
         activity:
-          activity_ended: "Deze activiteit is niet (meer) beschikbaar"
-          already_enrolled: "Je bent al ingeschreven voor deze activiteit."
-          attributes:
-            end_date:
-              before_start_date: kan niet voor de startdatum zijn
-            end_time:
-              before_start_time: kan niet voor de starttijd zijn
-            unenroll_date:
-              after_start_date: kan niet na de startdatum zijn
-          backup_enrolled: 'Je bent op de reservelijst gezet van %{activity}.'
-          blank: kan niet leeg zijn
-          blank_and_end_time: kan niet leeg zijn als er een eindtijd is
-          blank_and_start_time: kan niet leeg zijn als er een starttijd is
-          enrolled: 'Je bent ingeschreven voor %{activity}.'
-          not_enrollable: Activiteit is niet inschrijfbaar.
-          not_unenrollable: Activiteit niet uitschrijfbaar.
-          participant_limit_reached: '%{activity} zit vol!'
-          participant_no_freshman: Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit.
-          participant_no_masters: >-
-            Je bent geen masters student. Deze activiteit is een
-            masters-activiteit.
-          participant_no_student: >-
-            Je bent niet ingeschreven bij een studie. Deze activiteit is alleen
-            voor studenten.
-          participant_notes_not_filled: >-
-            Deze activiteit vereist extra informatie, vul dit in voordat je je
-            inschrijft.
-          participant_notes_updated: Informatie bijgewerkt.
-          participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky.
-          participant_underage: Deze activiteit is alleen voor grote mensen ;) ;) ;)
-          unenroll_date_passed: De uitschrijfdeadline is verstreken.
-          unenrolled: 'Je bent uitgeschreven voor %{activity}.'
+          activity_ended: Deze activiteit is niet (meer) beschikbaar
         checkout_product:
           blank: kan niet leeg zijn
-        checkout_transaction:
-          attributes:
-            items:
-              member_under_age: Je bent nog niet oud genoeg om alcohol te kopen.
-              not_liquor_time: >-
-                Het kopen van alcohol is pas toegestaan om
-                %{Settings.liquor_time}
-            payment_method:
-              blank: De betaalmethode moet gespecificeerd zijn
-            price:
-              blank: De prijs moet gespecificeerd zijn
-              insufficient_credit: Er is te weinig saldo
-              other_than: De opwaardering kan niet 0 zijn
-        education:
-          attributes:
-            status:
-              invalid: Geen correcte waarde ingevuld
         ideal_transaction:
           attributes:
             checkout: Mongoose-tegoed
-            fees: iDEAL-kosten
-          blank: Transactie kan niet leeg zijn
           failed: Transactie is nog niet verwerkt.
           processed: Transactie is al verwerkt.
           success: Transactie is verwerkt!
         member:
           attributes:
             email:
-              invalid: "is geen geldig e-mailadres"
-              taken: "is al geregistreerd"
-            phone_number:
-              invalid: "is ongeldig"
-            emergency_phone_number:
-              invalid: "is ongeldig"
-              not_provided: "is verplicht onder 18 jaar"
-            student_id:
-              elfproef: "is niet geldig"
-              invalid: "is niet geldig"
-              taken: "is al geregistreerd"
+              taken: is al geregistreerd
             participants:
-              unpaid_activities: >-
-                Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en
-                probeer daarna nogmaals te verwijderen.
-            phone_number:
-              invalid: bestaat niet uit 10 cijfers
+              unpaid_activities: Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en probeer daarna nogmaals te verwijderen.
             student_id:
               elfproef: is niet geldig
               invalid: is niet geldig
-              taken: is al geregistreerd
-          blank: kan niet leeg zijn
           destroy:
+            checkout_emptied: Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald.
             info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
-            checkout_emptied: "Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald."
-            mailchimp_queued: "Mailchimp gegevens worden automatisch verwijderd."
-          blank: "kan niet leeg zijn"
-        unpermitted: "is niet geldig"
-        user:
-          attributes:
-            email:
-              blank: mag niet leeg zijn
-              invalid: is geen geldig e-mailadres
-              taken: bestaat al in database
-            password:
-              invalid: moet minstens 8 tekens hebben
-              too_short: moet minstens 8 tekens hebben
-            password_confirmation:
-              confirmation: is niet goed herhaald
-          blank: kan niet leeg zijn
-      no_connection: >-
-        Er is geen verbinding mogelijk met %{url}, niet alle %{name} zijn
-        volledig en worden getoond!
-      no_consent: 'Je bent geen student meer, geef aan wat we met je data mogen doen.'
+            mailchimp_queued: Mailchimp gegevens worden automatisch verwijderd.
+      no_consent: Je bent geen student meer, geef aan wat we met je data mogen doen.
       subscribe:
-        failed: 'Je betaling is niet gelukt, je bent wel ingeschreven!'
+        failed: Je betaling is niet gelukt, je bent wel ingeschreven!
         no_bank_provided: Bank kan niet leeg zijn als je met iDEAL betaalt
-        success: Je betaling is ontvangen en je hebt je ingeschreven!
         success_without_payment: Je hebt je ingeschreven!
-      unsupported_content_type: 'Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)'
+      unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
     labels:
       activities:
         date: Datum
@@ -318,15 +163,8 @@ nl:
         when: Wanneer
     messages:
       member:
-        force_unconfirmed_email: 'Of <a data-method=''patch'' href=''%{link}''>forceer</a> de wijziging.'
-        unconfirmed_email: >-
-          Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze
-          wordt bevestigd wordt het e-mailadres aangepast.
-      participant:
-        paid: '%{name} heeft betaald voor %{activity}'
-        price: '%{activity} is veranderd voor %{name}'
-        unpaid: '%{name} heeft niet betaald voor %{activity}'
-      record_invalid: Fout! Gegevens niet geldig.
+        force_unconfirmed_email: Of <a data-method='patch' href='%{link}'>forceer</a> de wijziging.
+        unconfirmed_email: Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze wordt bevestigd wordt het e-mailadres aangepast.
     missing_value_placeholders:
       activity:
         description: Geen beschrijving beschikbaar
@@ -336,7 +174,6 @@ nl:
       checkout_balance: Mongoose tegoed
       checkout_transactions: Mongoose transacties
       group: Groepen
-      ideal_transaction: iDEAL-transactie
       impressions: Logs
       member: Leden
       participants:
@@ -352,20 +189,17 @@ nl:
     activities:
       partials:
         edit:
-          invalid_values: 'Oeps, niet alles is goed ingevuld'
+          invalid_values: Oeps, niet alles is goed ingevuld
     member_account_status:
-      active_user: 'Dit lid heeft een actief account (%{email}).'
+      active_user: Dit lid heeft een actief account (%{email}).
       consent_sent: Mail voor studiestatus update verstuurd.
       email_sent: Email verstuurd!
       no_user: Dit lid heeft geen account.
       resend_confirmation: Her-verstuur account-activatiemail
-      send_consent_mail: Vraag om studiestatus/consent update
       send_create_email: Stuur account-aanmaakmail
       send_mail: Verstuur mail
       send_password_reset: Verstuur password-reset-email
-      user_not_activated: >-
-        Dit lid heeft een account (%{email}), maar het account is nog niet
-        geactiveerd.
+      user_not_activated: Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd.
     navigation:
       apps: Apps
       checkout: Checkout
@@ -374,33 +208,6 @@ nl:
       payments: Betalingen
       products: Producten
   association_name: Studievereniging Sticky
-  date:
-    day_names:
-      - zondag
-      - maandag
-      - dinsdag
-      - woensdag
-      - donderdag
-      - vrijdag
-      - zaterdag
-    formats:
-      day_month: '%d %B'
-      default: '%d-%m-%Y'
-      short: '%Y'
-    month_names:
-      - nil
-      - januari
-      - februari
-      - maart
-      - april
-      - mei
-      - juni
-      - juli
-      - augustus
-      - september
-      - oktober
-      - november
-      - december
   devise:
     confirmations:
       activate_account: Account activeren
@@ -419,12 +226,9 @@ nl:
       password: wachtwoord
       repeat_password: wachtwoord herhalen
     registrations:
-      login: Inloggen
       new:
         instruction: Maak een Sticky account aan
         submit: Wachtwoord aanvragen
-      password_recovery: Wachtwoord vergeten
-      sign_up: Account registreren
     sessions:
       new:
         remember_me: Onthoud mij
@@ -436,19 +240,15 @@ nl:
     save: Opslaan
   files:
     delete: Verwijder
-    download: Download
     upload: Upload
   layouts:
     doorkeeper:
       click_here: Klik dan hier
       hi: Hoi
-      identity_confirmation: 'Bent u niet %{name}?'
+      identity_confirmation: Bent u niet %{name}?
     mailer:
       alerts: 'Waarschuwingen, bijvoorbeeld: Dichtbij je limiet'
-      footer_html: >-
-        Kijk voor meer informatie op %{koala_link_start} koala.svsticky.nl
-        %{link_end} of mail naar %{secretary_mail_start} secretaris@svsticky.nl
-        %{link_end} voor vragen.
+      footer_html: Kijk voor meer informatie op %{koala_link_start} koala.svsticky.nl %{link_end} of mail naar %{secretary_mail_start} secretaris@svsticky.nl %{link_end} voor vragen.
     partials:
       editor:
         large: groot
@@ -472,130 +272,60 @@ nl:
         anybody: iedereen
         studying: studerend
   mailings:
-    best_regards: 'Met vriendelijke groet,'
+    best_regards: Met vriendelijke groet,
     checkout:
       confirm_card: Kaart bevestigen
-      confirmation_instructions: >-
-        Bevestig je kaart voor je Checkout account bij Studievereniging Sticky
-        door op de onderstaande knop te klikken!
+      confirmation_instructions: Bevestig je kaart voor je Checkout account bij Studievereniging Sticky door op de onderstaande knop te klikken!
     devise:
       activation_instructions:
-        about_sticky: >-
-          Bij Sticky kun je terecht voor alles wat jij als student Informatica,
-          Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al
-          vernomen hebt, kun je altijd een gratis kop koffie en een koekje
-          scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de
-          kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen
-          te beantwoorden. Naast deze plek om te chillen tijdens pauzes of
-          tussen de colleges door, organiseren we ook nog eens enorm veel
-          woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één
-          van de drie pijlers van Sticky: onderwijs, bedrijfsleven en
-          gezelligheid.
+        about_sticky: 'Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.'
         account_activation_instructions: 'Activeer je account door op onderstaande knop te klikken:'
         activate_account: Activeer account
-        activity_updates_html: >-
-          Altijd op de hoogte blijven van deze activiteiten? Word lid van de
-          %{facebook_group_link_start} Sticky-leden Facebookgroep %{link_end} en
-          like %{facebook_page_link_start} onze pagina %{link_end}! Daarnaast
-          vind je alle informatie die je ooit had kunnen wensen op onze website:
-          %{sticky_site_link_start} svsticky.nl %{link_end}. Je kan ook een
-          whatsapp berichtje sturen naar de Sticky Phone (+31617695025) met "Hoi
-          + [je naam]" nadat je het nummer hebt opgeslagen.
+        activity_updates_html: 'Altijd op de hoogte blijven van deze activiteiten? Word lid van de %{facebook_group_link_start} Sticky-leden Facebookgroep %{link_end} en like %{facebook_page_link_start} onze pagina %{link_end}! Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: %{sticky_site_link_start} svsticky.nl %{link_end}. Je kan ook een whatsapp berichtje sturen naar de Sticky Phone (+31617695025) met "Hoi + [je naam]" nadat je het nummer hebt opgeslagen.'
         and_now: En nu?
         corner_stones:
           business:
-            description_html: >-
-              Om jou een zo goed mogelijk beeld te geven van al die
-              verschillende bedrijven waar jij later aan de slag kunt,
-              organiseren wij in samenwerking met deze bedrijven verschillende
-              lezingen, workshops, inhousedagen en borrels. Deze activiteiten
-              bieden naast informatie over het bedrijf in kwestie, ook nog eens
-              een mooie gelegenheid om eens iets extra’s/compleet nieuws te
-              leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je
-              via %{job_offer_page_link_start} svsticky.nl/partners/vacatures
-              %{link_end}
+            description_html: Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}
             name: Bedrijfsleven
           education:
-            description_html: >-
-              Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten
-              om jou te ondersteunen bij je studie. Ook is de Commissaris
-              Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en
-              de kwaliteit daarvan te maken heeft. Bij ons kun je je
-              studieboeken gemakkelijk kopen en thuis later bezorgen via
-              %{books_page_link_start} svsticky.nl/boeken %{link_end}!
+            description_html: Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via %{books_page_link_start} svsticky.nl/boeken %{link_end}!
             name: Onderwijs
           sociability:
-            description: >-
-              Naast alle bovenstaande studie- en carrièregerelateerde
-              activiteiten, organiseren we ook veel simpelweg gezellige
-              activiteiten. Daarnaast is er wekelijks een gratis borrel!
+            description: Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiseren we ook veel simpelweg gezellige activiteiten. Daarnaast is er wekelijks een gratis borrel!
             name: Gezelligheid
-        reception_justification: >-
-          Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig
-          mooie studievereniging! Aan het eind van deze mail vind je de knop om
-          je account in ons ledenportaal te activeren. Je kunt ook dit prachtige
-          introductiepraatje overslaan en meteen naar beneden scrollen, dat zien
-          we toch niet (of toch wel?).
+        reception_justification: Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
         see_you_soon: Tot snel!
         welcome: Welkom bij Sticky!
-        wrap_up: >-
-          Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer
-          informatie vind je in ons ledenportaal en je kunt je daar ook meteen
-          inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens
-          aanpassen en je tegoed voor snacks en drinken opwaarderen.
+        wrap_up: Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
       confirmation_instructions:
-        button_instructions: >-
-          Bevestig je e-mailadres voor je account bij Studievereniging Sticky
-          door op de onderstaande knop te klikken!
+        button_instructions: Bevestig je e-mailadres voor je account bij Studievereniging Sticky door op de onderstaande knop te klikken!
         confirm_account: Account bevestigen
-        confirm_email: E-mailadres bevestigen
       reset_passwords_instructions:
-        button_instructions: >-
-          Klik op onderstaande knop om een nieuw wachtwoord aan te maken of
-          negeer deze mail om je huidige wachtwoord te behouden.
-        notification: >-
-          Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je
-          hebt geprobeerd een nieuw account aan te maken.
+        button_instructions: Klik op onderstaande knop om een nieuw wachtwoord aan te maken of negeer deze mail om je huidige wachtwoord te behouden.
+        notification: Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuw account aan te maken.
         reset_password: Reset wachtwoord
     gdpr:
       consent: Persoonsgegevens beheren
-      gdpr_instructions: >-
-        Je staat ingeschreven bij Studievereniging Sticky omdat je een studie
-        doet of hebt gedaan bij de Universiteit Utrecht. Het is voor de
-        vereniging belangrijk om je gegevens bij te werken. Op onderstaande link
-        kun je je gegevens bijwerken en als je geen student meer bent aangeven
-        wat we met je data mogen doen.
+      gdpr_instructions: Je staat ingeschreven bij Studievereniging Sticky omdat je een studie doet of hebt gedaan bij de Universiteit Utrecht. Het is voor de vereniging belangrijk om je gegevens bij te werken. Op onderstaande link kun je je gegevens bijwerken en als je geen student meer bent aangeven wat we met je data mogen doen.
     greeting: Hoi
     participants:
       enrolled:
-        activity_start_html: >-
-          De activiteit begint op <strong>%{activity_start}</strong> en
-          %{price}. Tot dan!
-        button_instructions_html: >-
-          Je kunt je tot <strong>%{unenroll_date}</strong> uitschrijven voor
-          deze activiteit. Dit kun je doen op de pagina van de activiteit.
-        free_spot_html: >-
-          Geweldig nieuws! Er is een plaats vrijgekomen voor
-          <strong>%{activity_name}</strong>. Hiervoor ben je automatisch
-          ingeschreven vanaf de reservelijst.
+        activity_start_html: De activiteit begint op <strong>%{activity_start}</strong> en %{price}. Tot dan!
+        button_instructions_html: Je kunt je tot <strong>%{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
+        free_spot_html: Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>%{activity_name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
         to_the_activity: Naar de activiteit
       inform:
-        activity_visited_html: >-
-          Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit
-          kostte %recipient.price%.
-        payment_instructions_html: >-
-          Zou je dit bedrag zo snel mogelijk willen overmaken naar
-          NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v.
-          <i>"%{subject} - %recipient.name%"</i>?
+        activity_visited_html: Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%.
+        payment_instructions_html: Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>"%{subject} - %recipient.name%"</i>?
     signature: Het bestuur
   members:
     activities:
+      back_to_overview: Terug naar overzicht
       bug_report: BUG!
       index:
-        no_activities: "Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven"
-        activities_calendar: "Activiteitenkalender"
-        copy_ICS: "Kopieer Webcal link"
-      subscribe: Abonneer!
+        activities_calendar: Activiteitenkalender
+        copy_ICS: Kopieer Webcal link
+        no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
       partials:
         view:
           actions:
@@ -603,76 +333,31 @@ nl:
             reservist_enroll: Inschrijven op reservelijst
             reservist_unenroll: Uitschrijven van reservelijst
             unenroll: Uitschrijven
-            update_info: "Update info"
-          more_info: "Meer info"
-          notes_mandatory: "Extra info vereist!"
-      back_to_overview: "Terug naar overzicht"
+            update_info: Update info
+          more_info: Meer info
+          notes_mandatory: Extra info vereist!
     home:
       edit:
         general_data: Algemene gegevens
-        privacy_panel:
-          header: "Privacy"
-          view: "Bekijk de"
-          privacy_statement: "privacy statement"
         password_options:
-          header: "Wachtwoord opties"
-          change_password: "Verander wachtwoord"
+          change_password: Verander wachtwoord
+        privacy_panel:
+          header: Privacy
+          privacy_statement: privacy statement
+          view: Bekijk de
       index:
-        edit_profile: Gegevens bewerken
         outstanding_payments: Openstaande betalingen
         upgrade: Opwaarderen
         personal_data: "Persoonsgegevens"
     navigation:
-      edit_profile: "Gegevens bewerken"
+      books: Boeken
+      declarations: DigiDecs
+      edit_profile: Gegevens bewerken
+      files: Bestanden
+      github: GitHub
       links: Externe links
       pictures: Foto's
-      files: Bestanden
-      declarations: DigiDecs
-      books: Boeken
       vacancies: Vacatures
-      github: GitHub
   navigation:
     back: Terug
     home: Home
-    submit: Opslaan
-  time:
-    formats:
-      default: "%d-%m-%Y %H:%M"
-      short: "%H:%M"
-  pages:
-    public:
-      status:
-        description: >-
-          Op het moment ben je ingeschreven bij Studievereniging Sticky.
-          Hieronder vind je studiegegevens die bij ons bekend zijn, het is
-          belangrijk om deze gegevens bij te houden. Studievereniging Sticky
-          bewaart je gegevens tijdens je studie maar ook erna, zodra je geen
-          actieve studie meer hebt vragen we je hieronder wat we met je gegevens
-          mogen doen. Voor vragen neem contact op met %{url}.
-        destroy: Verwijder je gegevens
-        destroyable: >-
-          Na verwijderen kan je niet meer inloggen of inschrijven voor
-          activiteiten, je deelname aan toekomstige activiteiten wordt
-          verwijderd en je verliest je mongoose tegoed.
-        hi: Hallo
-        indefinite: >-
-          Wij mogen al je gegevens bewaren totdat jij anders aangeeft, dit kan
-          via %{url}.
-        indefinite_consent: Ik geef toestemming mijn gegevens te bewaren totdat ik anders aangeef.
-        not_destroyable: >-
-          Omdat je nog financiele verplichtingen hebt kun je je account niet
-          verwijderen. Zorg dat je de laatste activiteiten betaald en verwijder
-          je account door deze link te volgen of in %{url}.
-        remove_description: >-
-          Ben je geen student meer en heb je hierboven geen toestemming gegeven
-          om je gegevens te bewaren dan kun je je persoonsgegevens direct
-          verwijderen. Mocht je later weer lid willen worden zal je opnieuw
-          contributie moeten betalen.
-        remove_info: <span>Verwijderen</span> persoonsgegevens
-        save: Opslaan
-        save_note: Na opslaan van bovenstaande gegevens is de gebruikte link onbruikbaar, ga naar koala om je gegevens te bekijken of verwijderen.
-
-        destroyable: Na verwijderen kan je niet meer inloggen of inschrijven voor activiteiten, je deelname aan toekomstige activiteiten wordt verwijderd en je verliest je mongoose tegoed.
-        not_destroyable: Omdat je nog financiele verplichtingen hebt kun je je account niet verwijderen. Zorg dat je de laatste activiteiten betaald en verwijder je account door deze link te volgen of in %{url}.
-        warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
-        destroy: Verwijder je gegevens
