@@ -1,0 +1,22 @@
+---
+nl:
+  doorkeeper:
+    errors:
+      messages:
+        account_selection_required: De autorisatieserver vereist een keuze van gebruikersaccount
+        consent_required: De autorisatieserver vereist toestemming van de gebruiker
+        interaction_required: De autorisatieserver vereist interactie van gebruiker
+        login_required: De autorisatieserver vereist authenticatie van de gebruiker
+    openid_connect:
+      errors:
+        messages:
+          auth_time_from_resource_owner_not_configured: Gefaald vanwege Doorkeeper::OpenidConnect.configure.auth_time_from_resource_owner ontbrekende instellingen.
+          reauthenticate_resource_owner_not_configured: Gefaald vanwege Doorkeeper::OpenidConnect.configure.reauthenticate_resource_owner ontbrekende instellingen.
+          resource_owner_from_access_token_not_configured: Gefaald vanwege Doorkeeper::OpenidConnect.configure.resource_owner_from_access_token ontbrekende instellingen.
+          subject_not_configured: ID Token generatie gefaald vanwege Doorkeeper::OpenidConnect.configure.subject ontbrekende instellingen.
+    scopes:
+      address: Bekijk je fysieke adres
+      email: Bekijk je e-mailadres
+      openid: Verifieer je account
+      phone: Bekijk je telefoonnummer
+      profile: Bekijk je profile
