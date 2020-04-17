@@ -216,32 +216,6 @@ en:
       payments: Payments
       products: Products
   association_name: Study association Sticky
-  devise:
-    confirmations:
-      activate_account: Activate account
-      new:
-        instruction: Confirm the email address for your sticky account
-        submit: Submit
-    passwords:
-      edit:
-        change_password: Change password
-        instruction: Enter the password you want to use for your Sticky-account.
-      new:
-        instruction: Enter your email address to obtain a new password.
-        submit: Submit
-    placeholders:
-      email: e-mail address
-      password: password
-      repeat_password: repeat password
-    registrations:
-      new:
-        instruction: Create a Sticky account
-        submit: Create account
-    sessions:
-      new:
-        remember_me: Remember me
-        sign_in: Log in
-        sign_out: Sign out
   editing:
     cancel: Cancel
     delete: Delete
@@ -346,6 +320,7 @@ en:
           notes_mandatory: Extra info required!
     home:
       edit:
+        externe_applicaties: External applications
         general_data: General
         password_options:
           change_password: Change password
@@ -353,6 +328,7 @@ en:
           header: Privacy
           privacy_statement: privacy statement
           view: View the
+        revoke: revoke
       index:
         outstanding_payments: Outstanding payments
         upgrade: Upgrade

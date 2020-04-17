@@ -57,6 +57,14 @@ nl:
           moot: Dispuutsleden
           other: Leden
         name: Naam
+        positions:
+          board: Bestuurslid
+          chairman: Voorzitter
+          education: Commissaris Onderwijs
+          external: Commissaris Extern
+          internal: Commissaris Intern
+          secretary: Secretaris
+          treasurer: Penningmeester
       member:
         address: Straatnaam
         birth_date: Geboortedatum
@@ -208,32 +216,6 @@ nl:
       payments: Betalingen
       products: Producten
   association_name: Studievereniging Sticky
-  devise:
-    confirmations:
-      activate_account: Account activeren
-      new:
-        instruction: Bevestig jouw e-mailadres voor jouw Sticky-account.
-        submit: Versturen
-    passwords:
-      edit:
-        change_password: Verander wachtwoord
-        instruction: Vul hier het gewenste wachtwoord in voor je Sticky-account.
-      new:
-        instruction: Vul hier jouw e-mailadres in om een nieuw wachtwoord aan te vragen.
-        submit: Versturen
-    placeholders:
-      email: e-mailadres
-      password: wachtwoord
-      repeat_password: wachtwoord herhalen
-    registrations:
-      new:
-        instruction: Maak een Sticky account aan
-        submit: Wachtwoord aanvragen
-    sessions:
-      new:
-        remember_me: Onthoud mij
-        sign_in: Log in
-        sign_out: Log uit
   editing:
     cancel: Annuleren
     delete: Verwijderen
@@ -338,6 +320,7 @@ nl:
           notes_mandatory: Extra info vereist!
     home:
       edit:
+        externe_applicaties: Externe applicaties
         general_data: Algemene gegevens
         password_options:
           change_password: Verander wachtwoord
@@ -345,6 +328,7 @@ nl:
           header: Privacy
           privacy_statement: privacy statement
           view: Bekijk de
+        revoke: Intrekken
       index:
         outstanding_payments: Openstaande betalingen
         upgrade: Opwaarderen
