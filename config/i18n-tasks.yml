@@ -1,0 +1,40 @@
+# i18n-tasks finds and manages missing and unused translations: https://github.com/glebm/i18n-tasks
+
+# The locales.
+locales: [nl, en]
+
+# Read and write translations.
+data:
+  # Locale files or `File.find` patterns where translations are read from:
+  read:
+    # Default:
+    - config/locales/%{locale}.yml
+    - config/locales/public.%{locale}.yml
+    - config/locales/devise.%{locale}.yml
+    - config/locales/doorkeeper.%{locale}.yml
+
+  # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
+  # `i18n-tasks normalize -p` will force move the keys according to these rules
+  write:
+    ## For example, write devise and simple form keys to their respective files:
+    - ['{devise, doorkeeper}.*', 'config/locales/\1.%{locale}.yml']
+    ## Catch-all default:
+    - config/locales/%{locale}.yml
+
+  yaml:
+    write:
+      # do not wrap lines at 80 characters
+      line_width: -1
+
+# Find translate calls
+search:
+  ## Paths or `File.find` patterns to search in:
+  paths:
+  - app/
+
+  ## Files or `File.fnmatch` patterns to exclude from search. Some files are always excluded regardless of this setting:
+  ##   %w(*.jpg *.png *.gif *.svg *.ico *.eot *.otf *.ttf *.woff *.woff2 *.pdf *.css *.sass *.scss *.less *.yml *.json)
+  exclude:
+    - app/assets/images
+    - app/assets/fonts
+    - app/assets/videos

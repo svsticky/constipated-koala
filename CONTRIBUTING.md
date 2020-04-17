@@ -15,6 +15,10 @@ These hooks are located in the .hooks directory and should activate them by runn
 
 A template for new pages can be found at app/views/layouts/\_blank.html.haml.
 
+### Translations
+
+When working on the application you might find or introduce some new text. If this is the case, please replace or put the translation in the correct translation files. To help you with this, we are using the [i18n-tasks](https://github.com/glebm/i18n-tasks) gem. Run the `i18n-tasks health` command to check whether something is wrong with the translations or to see if you forgot to add a translation. For other commands please check out their [Home page](https://glebm.github.io/i18n-tasks/).
+
 ### Branching strategy
 
 The history of this project includes a lot of unnecessary merge commits, which aren't
