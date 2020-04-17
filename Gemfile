@@ -63,6 +63,9 @@ group :development do
 
   # Added at 2018-01-12 12:01:35 +0100 by cdfa:
   gem 'i15r', '~> 0.5.5'
+
+  # i18n helper
+  gem 'i18n-tasks', '~> 0.9.31'
 end
 
 group :development, :test do
