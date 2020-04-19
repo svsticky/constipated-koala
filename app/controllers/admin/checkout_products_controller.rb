@@ -68,7 +68,7 @@ class Admin::CheckoutProductsController < ApplicationController
       transaction = CheckoutTransaction.new(:price => params[:amount], :checkout_balance => CheckoutBalance.find_by_member_id!(params[:member_id]), :payment_method => params[:payment_method])
 
     else
-      render :status => :bad_request, :json => 'no identifier given'
+      render :status => :bad_request, :json => I18n.t('checkout.error.identifier')
       return
     end
 
