@@ -19,7 +19,7 @@ class Api::CheckoutController < ActionController::Base
     card = CheckoutCard.find_by_uuid!(params[:uuid])
 
     unless card.active
-      render status: :unauthorized, json: 'card not yet activated'
+      render status: :unauthorized, json: I18n.t('checkout.error.not_activated')
       return
     end
 
@@ -76,19 +76,19 @@ class Api::CheckoutController < ActionController::Base
     redirect_to :new_user_session
 
     if card.nil?
-      flash[:alert] = 'Bevestigingstoken is ongeldig!'
+      flash[:alert] = I18n.t('checkout.card.nil')
       return
     end
 
     if card.active
-      flash[:alert] = 'Kaart is al geactiveerd!'
+      flash[:alert] = I18n.t('checkout.card.already_activated')
       return
     end
 
     if card.update(active: true)
-      flash[:notice] = 'Kaart geactiveerd!'
+      flash[:notice] = I18n.t('checkout.card.activated')
     else
-      flash[:alert] = 'Kaart kon niet worden geactiveerd!'
+      flash[:alert] = I18n.t('checkout.card.not_activated')
     end
   end
 

@@ -1,0 +1,10 @@
+nl:
+  checkout:
+    error:
+      not_activated: Kaart is nog niet geactiveerd
+      identifier: Geen ID gegeven
+    card:
+      nil: Bevestigingstoken is ongeldig!
+      already_activated: Kaart is al geactiveerd!
+      activated: Kaart geactiveerd!
+      not_activated: Kaart kon niet worden geactiveerd!
