@@ -21,11 +21,29 @@ en:
         study: This is required to check if you are allowed to be a member of Sticky.
     attributes:
       activity:
+        comments: Comments (private)
         description: Description
+        end_date: Enddate
+        end_time: Endtime
+        is_alcoholic: Alcoholic(18+)
+        is_enrollable: Enrollable
+        is_freshmans: First year students
+        is_masters: Masters
+        is_viewable: Viewable
         location: Location
+        name: Name
+        notes: Extra notes
+        notes_mandatory: Mandatory
+        notes_public: Public
+        organized_by: Organisator
+        participant_limit: Participant limit
         price: Price
+        show_on_website: On website
+        start_date: Startdate
+        start_time: Starttime
         unenroll_date: Un-enroll date
       checkout_product:
+        active: Active
         categories:
           additional: Additional
           beverage: Drinks
@@ -69,16 +87,21 @@ en:
         address: Address
         birth_date: Date of birth
         city: City
+        comments: Comments
         educations: Study
         email: Email
         emergency_phone_number: Phone number for emergencies
+        female: Female
         first_name: First name
         house_number: Number
         infix: Prefix
+        join_date: Date of registry
         last_name: Surname
+        male: Male
         phone_number: Phone number
         postal_code: Postal code
         student_id: Student ID
+        tags: Tags
       participant:
         paid:
           'false': Not paid
@@ -105,6 +128,14 @@ en:
         mongoose_ideal_costs:
           description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
           name: IDeal transaction costs
+        positions:
+          board: Board member
+          chairman: Chairman
+          education: Education
+          external: External affairs
+          internal: Internal affairs
+          secretary: Secretary
+          treasurer: Treasurer
       study:
         names:
           acsc: Advanced Computing Science
@@ -128,40 +159,110 @@ en:
           pardon: Pardon
           suspended: Suspended
       user:
+        current_password: Current password
+        email: e-mailaddress
         password: password
         password_confirmation: Repeat password
     errors:
       default: Some has gone wrong
       incomplete: Oh snap, you forgot some things
       info: Success
+      messages:
+        blank: can't be blank
       models:
         activity:
           activity_ended: This activity is not or no longer available
+          already_enrolled: You are already enrolled for this activity.
+          attributes:
+            end_date:
+              before_start_date: can't be before the start date
+            end_time:
+              before_start_time: can't be before the start time
+            unenroll_date:
+              after_start_date: can't be after the start date
+          backup_enrolled: You have been added to the spares list of %{activity}
+          blank: can't be blank
+          blank_and_end_time: can't be blank if the end time is set
+          blank_and_start_time: can't be blank if the start time is set
+          enrolled: You are enrolled for %{activity}
+          not_enrollable: Activity not enrollable
+          not_unenrollable: Activity not un-enrollable
+          participant_limit_reached: "%{activity} is full!"
+          participant_no_freshman: You are not a freshman student. This is a freshmen-only activity.
+          participant_no_masters: You are not a masters student. This is a masters-only activity.
+          participant_no_student: You are not enrolled in a study. This activity is for students only
+          participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
+          participant_notes_updated: Information updated
+          participant_suspended: You have been suspended. Contact the board of Sticky
+          participant_underage: This activity is for adults only ;) ;) ;)
+          unenroll_date_passed: The un-enrollment deadline has passed.
+          unenrolled: You have been un-enrolled for %{activity}.
         checkout_product:
           blank: can't be blank
+        checkout_transaction:
+          attributes:
+            items:
+              member_under_age: You're legally not allowed to buy alcohol yet
+              not_liquor_time: Buying alcohol is not allowed until %{Settings.liquor_time}
+            payment_method:
+              blank: The payment method was not specified
+            price:
+              blank: The price was not specified
+              insufficient_credit: Insufficient credit
+              other_than: The upgrade can't be 0
+        education:
+          attributes:
+            status:
+              invalid: The value is not valid
         ideal_transaction:
           attributes:
             checkout: Mongoose credit
+            fees: iDEAL fee
+          blank: Transaction can't be blank
           failed: Transaction has not been processed
           processed: Transaction has already been processed
           success: Transaction has been processed!
         member:
           attributes:
             email:
+              invalid: is not a valid mail address
               taken: is already registered
+            emergency_phone_number:
+              invalid: is invalid
+              not_provided: is required under 18 years old
             participants:
               unpaid_activities: There are unpaid activities, ensure all activities are payed and try again.
+            phone_number:
+              invalid: is invalid
             student_id:
               elfproef: is not valid
               invalid: is not valid
+              taken: is already registered
+          blank: can't be blank
           destroy:
             checkout_emptied: The checkout balance was %{balance}, this has been removed from their account.
             info: "%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats."
             mailchimp_queued: Mailchimp account is automatically removed.
+        unpermitted: is not permitted
+        user:
+          attributes:
+            email:
+              blank: can't be blank
+              invalid: is not a valid email address
+              taken: already exists in the database
+            password:
+              invalid: isn't valid
+              too_short: should be at least 8 characters long
+            password_confirmation:
+              confirmation: isn't repeated correctly
+          blank: can't be blank
+      no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
       no_consent: You are no longer a student, indicate what we may do with your data.
+      record_invalid: Error! The data is invalid.
       subscribe:
         failed: Your payment has failed, but you have been enrolled!
         no_bank_provided: Bank can't be empty when paying with iDEAL.
+        success: Your payment has been received and you are enrolled!
         success_without_payment: You have been enrolled!
       unsupported_content_type: File type %{type} is not allowed. (%{allowed})
     labels:
@@ -173,6 +274,11 @@ en:
       member:
         force_unconfirmed_email: Or <a data-method='patch' href='%{link}'>force</a> the change here.
         unconfirmed_email: A confirmation mail is send to <b>%{email}</b>, once confirmed the e-mailadress will be updated.
+      participant:
+        paid: "%{name} has paid for %{activity}"
+        price: "%{activity} has been changed for %{name}"
+        unpaid: "%{name} has not paid for %{activity}"
+      record_invalid: Wrong! Data isn't valid.
     missing_value_placeholders:
       activity:
         description: No description available
@@ -204,24 +310,59 @@ en:
       email_sent: Email sent!
       no_user: This member has no account.
       resend_confirmation: Re-send activation mail
+      send_consent_mail: Request updating studystatus
       send_create_email: Send account creation email.
       send_mail: Send a mail
       send_password_reset: Send password reset email
       user_not_activated: This member has an account (%{email}), but the account has not yet been activated.
     navigation:
       apps: Apps
+      books: Books
       checkout: Checkout
+      declarations: Declarations
+      files: Files
       general: General
       ideal: iDeal
+      links: External links
       payments: Payments
+      pictures: Pictures
       products: Products
+      vacancies: Vacancies
   association_name: Study association Sticky
+  date:
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      day_month: "%d %B"
+      default: "%d-%m-%Y"
+      short: "%Y"
+    month_names:
+    - nil
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - Oktober
+    - November
+    - December
   editing:
     cancel: Cancel
     delete: Delete
     save: Save
   files:
     delete: Remove
+    download: Download
     upload: Upload
   layouts:
     doorkeeper:
@@ -282,6 +423,7 @@ en:
       confirmation_instructions:
         button_instructions: Confirm your e-mail address for your Sticky account by clicking the button below!
         confirm_account: Confirm account
+        confirm_email: Confirm e-mail address
       reset_passwords_instructions:
         button_instructions: Click the button below to enter a new password or ignore this e-mail to keep your current one.
         notification: A new password has been requested for your Sticky account, or you tried to create a new one.
@@ -318,19 +460,23 @@ en:
             update_info: Update info
           more_info: More info
           notes_mandatory: Extra info required!
+      subscribe: Subscribe!
     home:
       edit:
         externe_applicaties: External applications
         general_data: General
         password_options:
           change_password: Change password
+          header: Password options
         privacy_panel:
           header: Privacy
           privacy_statement: privacy statement
           view: View the
         revoke: revoke
       index:
+        edit_profile: Edit profile
         outstanding_payments: Outstanding payments
+        personal_data: Personal data
         upgrade: Upgrade
         personal_data: "Personal data"
     navigation:
@@ -345,3 +491,27 @@ en:
   navigation:
     back: Back
     home: Home
+    submit: Submit
+  pages:
+    public:
+      status:
+        description: At the moment you are enrolled at Study association Sticky. Below you will find study information that is known to us, it is important to keep this information. Study association Sticky saves your data during your study but also afterwards, as soon as you are not actively studying more, we ask you below what we can do with your data. For questions please contact %{url}.
+        destroy: Delete your data
+        destroyable: After deleting you can no longer log in or register for activities, your participation in future activities will be deleted and you will lose your mongoose credit.
+        hi: Hi
+        indefinite: We may keep all your data until you indicate otherwise, this can be done via %{url}.
+        indefinite_consent: I give permission to keep my data until I indicate otherwise.
+        not_destroyable: Because you still have financial obligations you cannot delete your account. Make sure you pay for the latest activities and delete your account by following this link or in %{url}.
+        remove_description: If you are no longer a student and you have not given permission above to save your data, you can immediately delete your personal data. If you want to become a member again later, you will have to pay a new contribution.
+        remove_info: "<span>Delete</span> personal data"
+        save: Save
+        save_note: After saving the above data, the used link is unusable, go to koala to view or delete your data.
+        store_description: No student anymore? Study association Sticky saves your data until you indicate that you no longer want this. Below you can indicate what we can do with your data; may we save them, do we have to ask again in a year or do you want to immediately delete all your data. If you still want to delete your data afterwards, you can of course do so via the member page or contact %{url}.
+        store_info: "<span>Store</span> personal data"
+        warning: You are about to delete all your personal data at Study Association Sticky, are you sure?
+        yearly: Not quite sure what you want, we can ask you the question again in a year.
+        yearly_consent: I give my permission to keep my data for another year.
+  time:
+    formats:
+      default: "%d-%m-%Y %H:%M"
+      short: "%H:%M"
