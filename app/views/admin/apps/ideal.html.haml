@@ -1,7 +1,7 @@
 - content_for(:page, 'apps')
 - content_for(:subpage, 'ideal')
 
-- content_for(:title, 'iDeal')
+- content_for(:title, 'Apps | iDeal')
 
 %section#content
 
@@ -14,7 +14,7 @@
     %section.card.table-dynamic
       .card-header
         %i.fa.fa-fw.fa-credit-card
-        iDeal transacties
+        = I18n.t('admin.payment.ideal')
 
       .table-responsive
         %table.table.table-bordered.table-striped.table-linked
@@ -22,19 +22,19 @@
             %tr
               %th
                 .th
-                  Datum
+                  = I18n.t('admin.payment.date')
               %th
                 .th
-                  Lid
+                  = I18n.t('admin.payment.member')
               %th
                 .th
-                  Omschrijving
+                  = I18n.t('admin.payment.description')
               %th
                 .th
-                  Prijs
+                  = I18n.t('admin.payment.price')
               %th
                 .th
-                  Status
+                  = I18n.t('admin.payment.state')
 
           - @transactions.each do |transaction|
             %tr
@@ -66,9 +66,9 @@
         .row
           .col-lg-3.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :all => @all } }
             %span
-              Toon
+              = I18n.t('admin.payment.show')
               = select_tag 'limit', options_for_select([20,50,100], @limit)
-              transacties per pagina
+              = I18n.t('admin.payment.per_page')
 
           .col-12.col-lg-6
             = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer

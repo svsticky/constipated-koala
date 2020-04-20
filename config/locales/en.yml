@@ -323,9 +323,9 @@ en:
           unpaid: participant hasn't paid
     labels:
       activities:
-        date: Datum
-        time: Tijd
-        when: Wanneer
+        date: Date
+        time: Time
+        when: When
     messages:
       member:
         force_unconfirmed_email: Or <a data-method='patch' href='%{link}'>force</a> the change here.
@@ -340,50 +340,18 @@ en:
         description: No description available
         free: Free
     models:
-      activity: Activities
       checkout_balance: Mongoose credit
       checkout_transactions: Mongoose transactions
       group: Groups
-      impressions: Logs
-      member: Members
       participants:
         attendees:
-          one: Deelnemer
-          other: Deelnemers
+          one: Attendee
+          other: Attendees
         reservists:
           one: Reserve
           other: Reserves
       settings: Settings
       study: Study/Studies
-  admin:
-    activities:
-      partials:
-        edit:
-          invalid_values: Oops, not everything was filled in correctly
-    member_account_status:
-      active_user: This member has an active account(%{email}).
-      consent_sent: Mail for updating studystatus send
-      email_sent: Email sent!
-      no_user: This member has no account.
-      resend_confirmation: Re-send activation mail
-      send_consent_mail: Request updating studystatus
-      send_create_email: Send account creation email.
-      send_mail: Send a mail
-      send_password_reset: Send password reset email
-      user_not_activated: This member has an account (%{email}), but the account has not yet been activated.
-    navigation:
-      apps: Apps
-      books: Books
-      checkout: Checkout
-      declarations: Declarations
-      files: Files
-      general: General
-      ideal: iDeal
-      links: External links
-      payments: Payments
-      pictures: Pictures
-      products: Products
-      vacancies: Vacancies
   association_name: Study association Sticky
   date:
     day_names:
@@ -414,8 +382,12 @@ en:
     - December
   editing:
     cancel: Cancel
+    copy: Copy
     delete: Delete
+    edit: Edit
     save: Save
+    update: Updaten
+    upload: Upload
   files:
     delete: Remove
     download: Download
@@ -465,7 +437,7 @@ en:
             enroll: Enroll
             reservist_enroll: Enroll to spares list
             reservist_unenroll: Un-enroll from spares list
-            unenroll: Uitschrijven
+            unenroll: Unenroll
             update_info: Update info
           more_info: More info
           notes_mandatory: Extra info required!
@@ -486,7 +458,7 @@ en:
             date: Date
             price: Price
             products: Products
-            single: Activiteit
+            single: Activity
           generated: This page is generated on
           graduation:
             graduated: Graduated
@@ -494,7 +466,6 @@ en:
             studying: Studying
           name: Name
           number: Student number
-          personal_data: Personal data
           phone: Phone number
           pursuits: Boards, committees and societies
           title: Download personal data
@@ -518,8 +489,7 @@ en:
         outstanding_payments: Outstanding payments
         personal_data: Personal data
         transaction_costs: transaction costs charged
-        upgrade: Upgrade
-        personal_data: "Personal data"
+        upgrade: Top up
     navigation:
       books: Books
       declarations: DigiDecs
@@ -530,6 +500,7 @@ en:
       pictures: Pictures
       vacancies: Vacancies
   navigation:
+    activity: Activities
     back: Back
     home: Home
     submit: Submit

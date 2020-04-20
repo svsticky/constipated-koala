@@ -15,7 +15,8 @@
               .card-body.box-info
                 %h2.text-center
                   = @members
-                %p.text-muted Leden
+                %p.text-muted 
+                  = I18n.t('admin.members.title')
 
       .col-12.col-md-6
         .card
@@ -26,7 +27,8 @@
               .card-body.box-info
                 %h2.text-center
                   = @activities
-                %p.text-muted Activiteiten
+                %p.text-muted
+                  = I18n.t('admin.activities.title')
 
       .col-12.col-md-6
         .card
@@ -37,7 +39,8 @@
               .card-body.box-info
                 %h2.text-center
                   = @transactions
-                %p.text-muted Checkout transacties
+                %p.text-muted
+                  = I18n.t('admin.front.checkout')
 
       .col-12.col-md-6
         .card
@@ -48,14 +51,15 @@
               .card-body.box-info
                 %h2.text-center
                   = number_to_currency(@unpayed, :unit => '')
-                %p.text-muted Openstaande betalingen
+                %p.text-muted
+                  = I18n.t('admin.front.outstanding_payments')
 
     .row
       %div.col-lg-3.d-none.d-sm-block
         .card
           .card-header
             %i.fa.fa-fw.fa-graduation-cap
-            Studies
+            = I18n.t('admin.front.studies')
 
           %table.table.table-striped.table-linked
             %tbody
@@ -68,7 +72,7 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-shopping-cart
-            Laatste transacties vandaag
+            = I18n.t('admin.front.transactions_today')
           %table.table.table-striped.table-linked
             %tbody
               - @recent.each do |transaction|
@@ -92,13 +96,14 @@
               - if @recent.empty?
                 %tr
                   %td.text-center
-                    %em geen transacties vandaag
+                    %em
+                      = I18n.t('admin.front.no_transactions')
 
       %div.col-lg-3
         .card
           .card-header
             %i.fa.fa-fw.fa-ticket-alt
-            Wanbetalers
+            = I18n.t('admin.front.defaulters')
           %table.table.table-striped.table-linked
             %tbody
               - @defaulters.each do | member, amount |

@@ -2,10 +2,37 @@
 en:
   checkout:
     card:
+      activate: activate
       activated: Card activated!
       already_activated: Card is already activated!
       nil: Confirmation token is invalid!
+      none: No cards
       not_activated: Card could not be activated!
+      remove: remove
+      to_be_activated: To be activated cards
     error:
       identifier: No identifier given
       not_activated: Card is not yet activated
+    products:
+      activate: Activate
+      deactivate: Deactivate
+      edit: Edit product
+      new: New product
+      sales: Sales
+      save: Save
+      title: Products
+      total: Total
+      upload: Upload
+    top_up:
+      amount: Amount
+      cash: Cash
+      pin: Pinned
+      sale: Sale
+      save: Save
+      search: Search member by name, surname or student number
+      title: Top up
+    transactions:
+      date: Date
+      member: Member
+      price: Price
+      title: Transactions

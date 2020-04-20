@@ -3,7 +3,7 @@
 - content_for(:page, 'apps')
 - content_for(:subpage, 'checkout')
 
-- content_for(:title, 'Apps | Producten')
+- content_for(:title, "Apps | #{I18n.t('checkout.products.title')}")
 
 %section#content
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}, :'data-turbolinks' => 'false'}
@@ -13,7 +13,7 @@
           .card-header
             .card-header-text
               %i.fa.fa-fw.fa-ticket-alt
-              Producten
+              = I18n.t('checkout.products.title')
             
             =link_to "+", checkout_products_path, class: "new-product btn btn-success"
             
@@ -28,11 +28,11 @@
                     - if product.active
                       %button.btn.btn-warning.deactivate
                         %i.fa.fa-fw.fa-times
-                        Deactiveer
+                        = I18n.t('checkout.products.deactivate')
                     - else
                       %button.btn.btn-primary.activate
                         %i.fa.fa-fw.fa-check
-                        Activeer
+                        = I18n.t('checkout.products.activate')
 
       .col-md-6.update-side-bar
         - unless @product.nil?
@@ -40,7 +40,8 @@
             - if @product.errors.any?
               .col-md-12
                 .alert.alert-danger
-                  %span Oeps, niet alles is goed ingevuld;
+                  %span
+                  = I18n.t('admin.error.invalid_values')
                   %ul
                   - @product.errors.full_messages.each do |msg|
                     %li= msg
@@ -49,7 +50,7 @@
               .card
                 .card-header
                   %i.fa.fa-fw.fa-ticket-alt
-                  Bewerk product
+                  = I18n.t('checkout.products.edit')
                 .card-body
 
                   .form-group.edit-product-form
@@ -74,14 +75,16 @@
 
                           .input-group-btn
                             %div.btn.btn-primary.file-input-wrapper{ disabled: @product.children?}
-                              %span uploaden
+                              %span
+                              = I18n.t('checkout.products.upload')
                               = f.file_field :image, { 'data-ui-file-upload' => '' }
 
                   %span.thumb.d-none.d-sm-block
                     - if @product.url.present?
                       =image_tag @product.url
 
-                  %button.btn.btn-success.wait.save-btn{ type: 'submit', disabled: @product.children? } Opslaan
+                  %button.btn.btn-success.wait.save-btn{ type: 'submit', disabled: @product.children? }
+                    = I18n.t('editing.save')
 
                 %table.table.table-striped.table-linked#products
                   %tbody
@@ -98,7 +101,8 @@
             - if @new.errors.any?
               .col-md-12.float-right
                 .alert.alert-danger
-                  %span Oeps, niet alles is goed ingevuld;
+                  %span
+                  = I18n.t('admin.error.invalid_values')
                   %ul
                   - @new.errors.full_messages.each do |msg|
                     %li= msg
@@ -107,7 +111,7 @@
               .card
                 .card-header
                   %i.fa.fa-fw.fa-ticket-alt
-                  Nieuw product
+                  = I18n.t('checkout.products.new')
                 .card-body
 
                   .form-group
@@ -132,17 +136,19 @@
 
                           .input-group-btn
                             %div.btn.btn-primary.file-input-wrapper
-                              %span uploaden
+                              %span
+                              = I18n.t('checkout.products.upload')
                               = f.file_field :image, { 'data-ui-file-upload' => '' }
 
-                  %button.btn.btn-success.wait.save-btn{type: 'submit'} Opslaan
+                  %button.btn.btn-success.wait.save-btn{type: 'submit'} 
+                    = I18n.t('editing.save')
 
         - unless @product.nil? || @total.nil?
           .col-md-12.float-right
             .card
               .card-header.year
                 %i.fa.fa-fw.fa-ticket-alt
-                Verkopen
+                = I18n.t('checkout.products.sales')
                 .ui-select
                   = select_tag :year, options_for_select( @years, params['year'] )
               %table.table.table-striped.table-linked#products
@@ -156,5 +162,5 @@
                       %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
 
                 %tr.total
-                  %td{ :colspan => 2} Totaal
+                  %td{ :colspan => 2}= I18n.t('checkout.products.total')
                   %td.text-right= number_to_currency( @total.to_f, :unit => '€' )

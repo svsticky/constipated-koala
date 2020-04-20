@@ -49,7 +49,7 @@
       .card-header
         %span
           %i.fa.fa-fw.fa-fw.fa-ticket-alt
-          = I18n.t("activerecord.models.activity")
+          = I18n.t("navigation.activity")
           = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
 
       %table.table.table-striped

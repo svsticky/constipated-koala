@@ -1,5 +1,5 @@
 - content_for(:page, 'payments')
-- content_for(:title, 'Betalingen')
+- content_for(:title, I18n.t('admin.navigation.payments'))
 
 %section#content
   = render 'layouts/partials/search'
@@ -11,7 +11,7 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-ticket-alt
-            Niet betaalde activiteiten
+            = I18n.t('admin.payment.not_paid')
 
           .card-body#participants.filtered-search
             - @detailed.each do |activity|
@@ -44,12 +44,14 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-envelope
-            Betalingsmails
+            = I18n.t('admin.payment.mails')
           .card-body#paymentmails
             %table.table.table-striped.table-linked
               %thead
-                %th Activiteit
-                %th Dagen
+                %th 
+                  = I18n.t('admin.activities.single')
+                %th
+                  = I18n.t('admin.payment.days')
               %tbody
               - @last_impressions.each do |tupel|
                 - activity = tupel[0]
@@ -65,12 +67,13 @@
         .card
           .card-header
             %i.fab.fa-fw.fa-whatsapp
-            Achterstallige betalingen (> 4 mails)
+            = I18n.t('admin.payment.overdue')
 
           -#TODO: check whatsapp button
           %table.table.table-striped.table-linked#paymentmails
             %thead
-              %th Lid
+              %th 
+                = I18n.t('admin.payment.member')
               %th{colspan: 2} WhatsApp
             %tbody
             - @late_payments.each do |member|
@@ -90,7 +93,7 @@
         .card
           .card-header
             %i.far.fa-fw.fa-money-bill-alt
-            Checkout transacties (Gepind)
+            = I18n.t('admin.payment.pinned')
 
           .card-body
             .input-group#transaction_dates
@@ -99,23 +102,27 @@
                 %input#pin-total-date{ :type => 'date', :value =>  1.days.ago.strftime('%Y-%m-%d') }
 
               .col-sm-3.col-6
-                Dagtotaal:
+                = I18n.t('admin.payment.day_total')
                 %span#pin-total-result
                   = number_to_currency(@checkout_transactions.sum(&:price), unit: '€')
               .col-sm-3.col-6
                 %span.input-group-btn#update_transactions
-                  %button.btn.btn-warning Update
+                  %button.btn.btn-warning
+                    = I18n.t('editing.update')
               .col-sm-3.col-6
                 %span.input-group-btn#copy_transactions
                   %button.btn.btn-clipboard{ :"data-clipboard-text" => @dat }
                     %i.fa.fa-copy
-                    Copy
+                    = I18n.t('editing.copy')
 
             %table.table.table-striped.table-linked#transactions
               %thead
-                %th Lid
-                %th Prijs
-                %th Datum
+                %th
+                  = I18n.t('admin.payment.member')
+                %th
+                  = I18n.t('admin.payment.price')
+                %th
+                  = I18n.t('admin.payment.date')
               %tbody
                 - @checkout_transactions.each do |transaction|
                   %tr{ :style => 'height: 36px; line-height: 36px;' }
@@ -129,6 +136,7 @@
                 - if @checkout_transactions.empty?
                   %tr
                     %td
-                      %em Geen transacties
+                      %em
+                        = I18n.t('admin.payment.no_transactions')
                     %td
                     %td

@@ -1,18 +1,18 @@
 - content_for(:page, 'activities')
-- content_for(:title, 'Activiteiten')
+- content_for(:title, I18n.t('admin.activities.title'))
 
 %section#content
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token} }
     .row
       .col-md-6
-        = render 'admin/activities/partials/edit', activity_textfield: 'Nieuwe Activiteit', url: activities_path, method: :post
+        = render 'admin/activities/partials/edit', activity_textfield: I18n.t('admin.activities.new'), url: activities_path, method: :post
 
       .col-md-6
         .card
           .card-header.year
             %i.fa.fa-fw.fa-ticket-alt
-            = I18n.t('activerecord.models.activity')
+            = I18n.t('admin.activities.title')
             = select_tag :year, options_for_select( @years, params['year'] )
           %table.table.table-striped.table-linked#activity_table
             %tbody
@@ -38,7 +38,8 @@
 
                   - if activity.ended?
                     %td.d-none.d-md-block
-                      %span.badge.badge-info= "Afgelopen"
+                      %span.badge.badge-info
+                        = I18n.t('admin.activities.ended')
                   -else
                     %td.d-none.d-md-block
                       %span

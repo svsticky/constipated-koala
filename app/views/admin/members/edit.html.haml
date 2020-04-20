@@ -1,5 +1,5 @@
 - content_for(:page, 'members')
-- content_for(:title, "Leden | #{@member.name}")
+- content_for(:title, "#{I18n.t('admin.members.title')} | #{@member.name}")
 
 %section#content
   .page.page-form
@@ -85,7 +85,7 @@
           .card
             .card-header
               %i.fa.fa-fw.fa-graduation-cap
-              Studiegegevens
+              = I18n.t('admin.members.study_info')
             .card-body
               .form-group
                 = f.label(:student_id)
@@ -113,9 +113,9 @@
                             = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
                       .row
                         .col-md-6
-                          = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
+                          = fs.date_field :start_date, :class => 'form-control'
                         .col-md-6
-                          = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
+                          = fs.date_field :end_date, :class => 'form-control'
                         = fs.hidden_field :_destroy, :class => 'destroy'
 
 
@@ -132,6 +132,6 @@
         .col-md-12
           .card
             .card-body
-              %button.btn.btn-success{type: 'submit'} Opslaan
-              = link_to 'Annuleren', member_path, { :class => 'button btn btn-default' }
-              = link_to 'Verwijderen', member_path(@member.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
+              %button.btn.btn-success{type: 'submit'}= I18n.t('editing.save')
+              = link_to I18n.t('editing.cancel'), member_path, { :class => 'button btn btn-default' }
+              = link_to I18n.t('editing.delete'), member_path(@member.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }

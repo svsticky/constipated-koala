@@ -1,5 +1,5 @@
 - content_for(:page, 'members')
-- content_for(:title, 'Leden')
+- content_for(:title, I18n.t('admin.members.title'))
 
 %section#content
   .page.page-form
@@ -9,7 +9,7 @@
         - if @member.errors.any?
           .col-md-12
             .alert.alert-danger
-              %span Oh snap, niet alles is goed ingevuld;
+              %span= I18n.t('activerecord.errors.incomplete')
               %ul
               - @member.errors.full_messages.each do |msg|
                 %li= msg
@@ -18,7 +18,7 @@
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-user
-              Algemene gegevens
+              = I18n.t('members.home.edit.general_data')
             .panel-body
               .form-group
                 .row
@@ -67,7 +67,8 @@
               .form-group
                 = f.label(:email)
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-                .help-block Dit kan niet een uu email zijn!
+                .help-block
+                  = I18n.t('admin.members.no_uu')
 
               .form-group
                 = f.label(:tags)
@@ -81,7 +82,7 @@
           .panel.panel-default
             .panel-heading
               %i.fa.fa-fw.fa-graduation-cap
-              Studiegegevens
+              = I18n.t('admin.members.study_info')
             .panel-body
               .form-group
                 = f.label(:student_id)
@@ -109,9 +110,9 @@
                             = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
                       .row
                         .col-md-6
-                          = fs.date_field :start_date, :class => 'form-control', :placeholder => 'begin datum'
+                          = fs.date_field :start_date, :class => 'form-control'
                         .col-md-6
-                          = fs.date_field :end_date, :class => 'form-control', :placeholder => 'eind datum'
+                          = fs.date_field :end_date, :class => 'form-control'
                         = fs.hidden_field :_destroy, :class => 'destroy'
                       .row
                         .col-md-6
@@ -119,7 +120,8 @@
                             %span.fa.fa-trash-o
 
                 .callout.callout-info
-                  %p Om een wijziging door te voeren moet je op de opslaan knop drukken.
+                  %p 
+                    = I18n.t('admin.members.save_text')
 
                 - unless ENV['MAILCHIMP_DATACENTER'].blank?
                   .form-group
@@ -129,5 +131,5 @@
         .col-md-12
           .panel.panel-default
             .panel-body
-              %button.btn.btn-success{type: 'submit'} Opslaan
-              = link_to 'Annuleren', members_path, { :class => 'button btn btn-default' }
+              %button.btn.btn-success{type: 'submit'}= I18n.t('editing.save')
+              = link_to I18n.t('editing.cancel'), members_path, { :class => 'button btn btn-default' }

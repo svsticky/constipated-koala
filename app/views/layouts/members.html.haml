@@ -48,7 +48,7 @@
               %i.fa.fa-desktop{:class => ('active' if yield(:page) == 'home')}
 
             = link_to activities_path, :class => 'list-group-item list-group-item-action' do
-              %span= I18n.t("activerecord.models.activity")
+              %span= I18n.t("navigation.activity")
               %i.fa.fa-ticket-alt{:class => ('active' if yield(:page) == 'activities')}
 
             = link_to :users_edit, :class => 'list-group-item list-group-item-action' do

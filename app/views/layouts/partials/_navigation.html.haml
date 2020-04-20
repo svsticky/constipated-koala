@@ -6,15 +6,15 @@
         %i.fa.fa-desktop{:class => ('active' if current_page?(:root))}
 
       = link_to :members, :class => 'list-group-item list-group-item-action' do
-        %span= I18n.t("activerecord.models.member")
+        %span= I18n.t("admin.navigation.member")
         %i.fa.fa-user{:class => ('active' if current_page?(:members))}
 
       = link_to :groups, :class => 'list-group-item list-group-item-action' do
-        %span= I18n.t("activerecord.models.group")
+        %span= I18n.t("admin.navigation.group")
         %i.fa.fa-users{:class => ('active' if current_page?(:groups))}
 
       = link_to :activities, :class => 'list-group-item list-group-item-action'do
-        %span= I18n.t("activerecord.models.activity")
+        %span= I18n.t("navigation.activity")
         %i.fa.fa-ticket-alt{:class => ('active' if current_page?(:activities))}
 
       = link_to :payments, :class => 'list-group-item list-group-item-action' do
@@ -41,7 +41,7 @@
 
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-settings' do
-        %span= I18n.t("activerecord.models.settings")
+        %span= I18n.t("admin.navigation.settings")
         %i.fas.fa-cog{:class => ('active' if yield(:page) == 'settings')}
 
       .collapse.list-group#sub-settings{:class => ('show' if yield(:page) == 'settings') }
@@ -50,7 +50,7 @@
           %i.fas.fa-caret-right{:class => ('active' if current_page?(settings_path))}
 
         = link_to :logs_settings, :class => 'list-group-item list-group-item-action' do
-          %span= I18n.t("activerecord.models.impressions")
+          %span= I18n.t("admin.navigation.impressions")
           %i.fas.fa-caret-right{:class => ('active' if current_page?(logs_settings_path))}
 
       .d-md-none

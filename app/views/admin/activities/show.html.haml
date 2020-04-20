@@ -1,5 +1,5 @@
 - content_for(:page, 'activities')
-- content_for(:title, "Activiteiten | #{@activity.name}")
+- content_for(:title, "#{I18n.t('admin.activities.title')} | #{@activity.name}")
 - content_for(:template, 'activities/activity.html.js')
 
 %section#content
@@ -7,7 +7,7 @@
   .page{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
-        = render 'admin/activities/partials/edit', activity_textfield: 'Activiteit', url: activity_path(@activity), method: :patch
+        = render 'admin/activities/partials/edit', activity_textfield: I18n.t('admin.activities.single'), url: activity_path(@activity), method: :patch
         = render 'layouts/partials/mail', mail: 'participants/inform', subject: @activity.name, recipients: @recipients, id: @activity.id
 
       .col-md-6#participants
@@ -31,9 +31,9 @@
             %thead
               %tr
                 %td
-                  Naam
+                  = I18n.t("activerecord.attributes.activity.name")
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  Prijs
+                  = I18n.t("activerecord.attributes.activity.price")
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes
@@ -75,16 +75,17 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-user
-            %span#reservistcount= @activity.reservists.count
-            Reserves
+            %span#reservistcount
+              = @activity.reservists.count
+              = I18n.t("activerecord.models.participants.reservists.other")
 
           %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %thead
               %tr
                 %td
-                  Naam
+                  = I18n.t("activerecord.attributes.activity.name")
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  Prijs
+                  = I18n.t("activerecord.attributes.activity.price")
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes
