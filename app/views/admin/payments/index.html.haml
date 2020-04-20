@@ -18,7 +18,7 @@
               %table.table.table-striped.table-linked{ :data => { 'id' => activity.id } }
                 %thead
                   %tr{ :style => 'font-size: 1.1em;' }
-                    %td{ :colspan => 3 }= link_to "#{activity.name}", activity, :style => 'left: -10px; position: relative;'
+                    %td{ :colspan => 3 }= link_to "#{ activity.name }", activity, :style => 'left: -10px; position: relative;'
 
                 %tbody
                   - activity.attendees.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|

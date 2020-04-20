@@ -17,7 +17,7 @@ module Mailings
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
 
-        #{ I18n.t('mailings.devise.confirmation_instructions.link_instructions', confirm_link: confirmation_url(record, confirmation_token: token))}
+        #{ I18n.t('mailings.devise.confirmation_instructions.link_instructions', confirm_link: confirmation_url(record, confirmation_token: token)) }
 
         #{ I18n.t('mailings.best_regards') }
 
@@ -42,26 +42,26 @@ module Mailings
         #{ I18n.t('mailings.greeting') } #{ record.credentials.first_name },
 
         ## #{ I18n.t('mailings.devise.activation_instructions.welcome') }
-        HAHAHAHAHA JE GEBRUIKT TOCH NOG DE GOEIE FILES HIER HIHIHIHIHIHIHIHIHI
+
         #{ I18n.t('mailings.devise.activation_instructions.reception_justification') }
 
         #{ I18n.t('mailings.devise.activation_instructions.about_sticky') }
 
         #{ I18n.t('mailings.devise.activation_instructions.activity_updates_html',
-          facebook_group_link_start: raw("<a href=\"https://www.facebook.com/groups/814759978565158\">"),
-          facebook_page_link_start: raw("<a href=\"https://www.facebook.com/stickyutrecht\">"),
-          sticky_site_link_start: raw("<a href=\"https://svsticky.nl\">"),
-          link_end: raw("</a>")) }
+                  facebook_group_link_start: raw('<a href="https://www.facebook.com/groups/814759978565158">'),
+                  facebook_page_link_start: raw('<a href="https://www.facebook.com/stickyutrecht">'),
+                  sticky_site_link_start: raw('<a href="https://svsticky.nl">'),
+                  link_end: raw('</a>')) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.name') }
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.description_html',
-          books_page_link_start: raw('<a href="https://svsticky.nl/boeken">'),
-          link_end: raw("</a>"))}
+                  books_page_link_start: raw('<a href="https://svsticky.nl/boeken">'),
+                  link_end: raw('</a>')) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.business.name') }
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.business.description_html',
-          job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
-          link_end: raw("</a>"))}
+                  job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
+                  link_end: raw('</a>')) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.name') }
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.description') }
@@ -93,7 +93,7 @@ module Mailings
         #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
 
         #{ I18n.t('mailings.devise.reset_passwords_instructions.notification') }
-        #{ I18n.t('mailings.devise.reset_passwords_instructions.link_instructions', reset_password: edit_password_url(record, reset_password_token: token))}
+        #{ I18n.t('mailings.devise.reset_passwords_instructions.link_instructions', reset_password: edit_password_url(record, reset_password_token: token)) }
 
         #{ I18n.t('mailings.best_regards') }
 
@@ -120,7 +120,7 @@ module Mailings
         #{ I18n.t('mailings.devise.changed_instructions.inform_change_text', new_email: record.user.unconfirmed_email) }
 
         #{ I18n.t('mailings.best_regards') }
-        
+
         #{ current_user.credentials.name }
       PLAINTEXT
 
