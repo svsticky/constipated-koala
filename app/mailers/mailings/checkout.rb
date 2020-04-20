@@ -6,23 +6,25 @@ module Mailings
       puts confirmation_url if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
+      subject_name = "#{ I18n.t("association_name") } | #{ I18n.t('mailings.checkout.subject') }"
+
       html = render_to_string(:layout => 'mailer', :locals => {
                                 name: card.member.first_name,
                                 confirmation_url: confirmation_url,
-                                subject: 'Studievereniging Sticky | Checkout kaart bevestigen'
+                                subject: subject_name
                               })
 
       text = <<~PLAINTEXT
-        Hoi #{ card.member.first_name },
+        #{ I18n.t('mailings.greeting') } #{ card.member.first_name },
 
-        Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar #{ confirmation_url } te gaan.
+        #{ I18n.t('mailings.checkout.confirm_card_link', confirm_url: confirmation_url) }
 
-        Met vriendelijke groet,
+        #{ I18n.t('mailings.best_regards') }
 
-        Het bestuur
+        #{ I18n.t('mailings.signature') }
       PLAINTEXT
 
-      return mail(card.member.email, nil, 'Studievereniging Sticky | Checkout kaart bevestigen', html, text)
+      return mail(card.member.email, nil, subject_name, html, text)
     end
   end
 end

@@ -29,17 +29,16 @@ module Mailings
       url = activity_url activity.id
 
       starts_at = I18n.l activity.start_date, format: :day_month
-      starts_at += ", om #{ I18n.l activity.start_time, format: :short }" if activity.start_time
+      starts_at += ", #{ I18n.l activity.start_time, format: :short }" if activity.start_time
 
       price = activity.price
       price = if price > 0
-                "kost €#{ format('%.02f', price) }"
+                "#{ I18n.t('mailings.participants.enrolled.cost') } €#{ format('%.02f', price) }"
               else
-                "is gratis"
+                I18n.t('mailings.participants.enrolled.free')
               end
 
-      subject = "Studievereniging Sticky | Je bent ingeschreven voor #{ activity.name }"
-
+      subject = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.participants.enrolled.subject', activity: activity.name) }"
       html = render_to_string(:layout => 'mailer', :locals => {
                                 name: member.first_name,
                                 activity: activity,
@@ -50,20 +49,20 @@ module Mailings
                                 subject: subject
                               })
 
-      text = <<~PLAINTEXT
-        Hoi #{ member.first_name },
+      text = <<~HTML
+        #{ I18n.t('mailings.greeting') } #{ member.first_name },
 
-        Geweldig nieuws! Er is een plaats vrijgekomen voor #{ activity.name }. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
+        #{ I18n.t('mailings.participants.enrolled.free_spot_html', activity_name: activity.name) }
 
-        De activiteit begint op #{ starts_at } en #{ price }. Tot dan!
+        #{ I18n.t('mailings.participants.enrolled.activity_start_html', activity_start: starts_at, price: price) }
 
-        Je kunt je tot #{ activity.unenroll_date } uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
-        Naar de activiteit: #{ url }
+        #{ I18n.t('mailings.participants.enrolled.button_instructions_html', unenroll_date: activity.unenroll_date) }
+        #{ I18n.t('mailings.participants.enrolled.to_the_activity') }: #{ url }
 
-        Met vriendelijke groet,
+        #{ I18n.t('mailings.best_regards') }
 
-        Het bestuur
-      PLAINTEXT
+        #{ I18n.t('mailings.signature') }
+      HTML
 
       return mail(member.email, nil, subject, html, text)
     end

@@ -8,16 +8,16 @@ module Mailings
       recipients = members.map do |member|
       end
 
-      html = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: 'Lidmaatschap Studievereniging Sticky' }
+      html = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: I18n.t('mailings.membership') }
 
       text = <<~PLAINTEXT
-        Hoi %recipient.first_name%,
+        #{ I18n.t('mailings.greeting') } %recipient.first_name%,
 
-        Op het moment sta je bij Studievereniging ingeschreven.
+        #{ I18n.t('mailings.gdpr.enrolled') }
 
-        Met vriendelijke groet,
+        #{ I18n.t('mailings.best_regards') }
 
-        Het bestuur
+        #{ I18n.t('mailings.signature') }
       PLAINTEXT
 
       return mails(recipients, nil, '', html, text)

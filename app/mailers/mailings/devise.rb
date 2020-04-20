@@ -11,19 +11,20 @@ module Mailings
       html = render_to_string :locals => {
         name: record.credentials.name,
         confirmation_url: confirmation_url(record, confirmation_token: token),
-        subject: 'Studievereniging Sticky | account bevestigen'
+        subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.confirmation_instructions.confirm_email') }"
       }
 
       text = <<~PLAINTEXT
-        Hoi #{ record.credentials.name },
+        #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
 
-        Bevestig je email voor je account bij studievereniging sticky door naar #{ confirmation_url(record, confirmation_token: token) } te gaan.
+        #{ I18n.t('mailings.devise.confirmation_instructions.link_instructions', confirm_link: confirmation_url(record, confirmation_token: token))}
 
-        Met vriendelijke groet,
-        Het bestuur
+        #{ I18n.t('mailings.best_regards') }
+
+        #{ I18n.t('mailings.signature') }
       PLAINTEXT
 
-      return mail(record.unconfirmed_email ||= record.email, nil, 'Sticky account activeren', html, text)
+      return mail(record.unconfirmed_email ||= record.email, nil, I18n.t('mailings.devise.confirmation_instructions.activate_account'), html, text)
     end
 
     def activation_instructions(record, token, _opts = {})
@@ -34,45 +35,48 @@ module Mailings
       html = render_to_string :locals => {
         name: record.credentials.first_name,
         activation_url: url,
-        subject: 'Welkom bij Sticky! | account activeren'
+        subject: "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }"
       }
 
       text = <<~MARKDOWN
-        Hoi #{ record.credentials.first_name },
+        #{ I18n.t('mailings.greeting') } #{ record.credentials.first_name },
 
-        ## Welkom bij Sticky!
-        Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
+        ## #{ I18n.t('mailings.devise.activation_instructions.welcome') }
+        HAHAHAHAHA JE GEBRUIKT TOCH NOG DE GOEIE FILES HIER HIHIHIHIHIHIHIHIHI
+        #{ I18n.t('mailings.devise.activation_instructions.reception_justification') }
 
-        Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.
+        #{ I18n.t('mailings.devise.activation_instructions.about_sticky') }
 
-        Altijd op de hoogte blijven van deze activiteiten? Word lid van de [Sticky-leden Facebookgroep][1] en like [onze pagina][2]!
-        Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: [svsticky.nl][3].
+        #{ I18n.t('mailings.devise.activation_instructions.activity_updates_html',
+          facebook_group_link_start: raw("<a href=\"https://www.facebook.com/groups/814759978565158\">"),
+          facebook_page_link_start: raw("<a href=\"https://www.facebook.com/stickyutrecht\">"),
+          sticky_site_link_start: raw("<a href=\"https://svsticky.nl\">"),
+          link_end: raw("</a>")) }
 
-        ## Onderwijs
-        Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via [svsticky.nl/boeken][4]!
+        ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.name') }
+        #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.description_html',
+          books_page_link_start: raw('<a href="https://svsticky.nl/boeken">'),
+          link_end: raw("</a>"))}
 
-        ## Bedrijfsleven
-        Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via [svsticky.nl/partners/vacatures][5]!
+        ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.business.name') }
+        #{ I18n.t('mailings.devise.activation_instructions.corner_stones.business.description_html',
+          job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
+          link_end: raw("</a>"))}
 
-        ## Gezelligheid
-        Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiseren we ook veel simpelweg gezellige activiteiten. Daarnaast is er wekelijks een gratis borrel!
+        ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.name') }
+        #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.description') }
 
-        ## En nu?
-        Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
+        ## #{ I18n.t('mailings.devise.activation_instructions.and_now', url: url) }
+        #{ I18n.t('mailings.devise.activation_instructions.wrap_up', url: url) }
 
-        Activeer je account voor ons ledenbeheersysteem door naar #{ url } te gaan.
+        #{ I18n.t('mailings.devise.activation_instructions.account_activation_link', url: url) }
 
-        Tot snel!
-        Het bestuur
+        #{ I18n.t('mailings.devise.activation_instructions.see_you_soon') }
 
-        [1]: https://www.facebook.com/groups/814759978565158
-        [2]: https://www.facebook.com/stickyutrecht
-        [3]: https://svsticky.nl
-        [4]: https://svsticky.nl/boeken
-        [5]: https://svsticky.nl/partners/vacatures
+        #{ I18n.t('mailings.signature') }
       MARKDOWN
 
-      return mail(record.email, nil, 'Welkom bij Sticky | account activeren', html, text)
+      return mail(record.email, nil, "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }", html, text)
     end
 
     def reset_password_instructions(record, token, _opts = {})
@@ -82,43 +86,45 @@ module Mailings
       html = render_to_string :locals => {
         name: record.credentials.name,
         reset_url: edit_password_url(record, reset_password_token: token),
-        subject: 'Studievereniging Sticky | wachtwoord herstellen'
+        subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.reset_passwords_instructions.reset_password') }"
       }
 
       text = <<~PLAINTEXT
-        Hoi #{ record.credentials.name },
+        #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
 
-        Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuwe account aan te maken.
-        Ga naar #{ edit_password_url(record, reset_password_token: token) } om een nieuw wachtwoord in te stellen of negeer deze e-mail als je je huidige wachtwoord wil behouden.
+        #{ I18n.t('mailings.devise.reset_passwords_instructions.notification') }
+        #{ I18n.t('mailings.devise.reset_passwords_instructions.link_instructions', reset_password: edit_password_url(record, reset_password_token: token))}
 
-        Met vriendelijke groet,
-        Het bestuur
+        #{ I18n.t('mailings.best_regards') }
+
+        #{ I18n.t('mailings.signature') }
       PLAINTEXT
 
-      return mail(record.email, nil, 'Sticky wachtwoord opnieuw instellen', html, text)
+      return mail(record.email, nil, "#{ I18n.t('mailings.devise.reset_passwords_instructions.reset_password') } Sticky", html, text)
     end
 
     def forced_confirm_email(record, current_user, _opts = {})
-      puts "#{ record.user.unconfirmed_email } is forcefully confirmed" if Rails.env.development?
+      puts "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string :locals => {
         name: record.name,
         email: record.user.unconfirmed_email,
         sendername: current_user.credentials.name,
-        subject: 'Studievereniging Sticky | e-mailadres gewijzigd'
+        subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.changed_instructions.changed_email') }"
       }
 
       text = <<~PLAINTEXT
-        Hoi #{ record.name },
+        #{ I18n.t('mailings.greeting') } #{ record.name },
 
-        Je e-mailadres is gewijzigd naar #{ record.user.unconfirmed_email }. Neem zo snel mogelijk contact op (door te antwoorden op deze mail) als je deze wijziging niet hebt aangevraagd.
+        #{ I18n.t('mailings.devise.changed_instructions.inform_change_text', new_email: record.user.unconfirmed_email) }
 
-        Met vriendelijke groet,
+        #{ I18n.t('mailings.best_regards') }
+        
         #{ current_user.credentials.name }
       PLAINTEXT
 
-      return mail([record.user.email, record.user.unconfirmed_email], current_user.sender, 'Studievereniging Sticky | e-mailadres gewijzigd', html, text)
+      return mail([record.user.email, record.user.unconfirmed_email], current_user.sender, "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.changed_instructions.changed_email') }", html, text)
     end
   end
 end

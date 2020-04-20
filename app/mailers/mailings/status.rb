@@ -14,21 +14,21 @@ module Mailings
         }
       end
 
-      html = render_to_string :layout => 'mailer', :locals => { subject: 'Lidmaatschap Studievereniging Sticky' }
+      html = render_to_string :layout => 'mailer', :locals => { subject:  I18n.t('mailings.membership') }
 
       text = <<~PLAINTEXT
-        Hoi %recipient.first_name%,
+        #{ I18n.t('mailings.greeting') } %recipient.first_name%,
 
         #{ I18n.t('mailings.gdpr.gdpr_instructions') }
 
         %recipient.url%
 
-        Met vriendelijke groet,
+        #{ I18n.t('mailings.best_regards') }
 
-        Het bestuur
+        #{ I18n.t('mailings.signature') }
       PLAINTEXT
 
-      return mails(variables, nil, 'Lidmaatschap Studievereniging Sticky', html, text)
+      return mails(variables, nil, I18n.t('mailings.membership'), html, text)
     end
 
     # TODO: send export and say bye

@@ -1,4 +1,5 @@
-nl:
+---
+en:
   checkout:
     error:
       not_activated: Card is not yet activated
