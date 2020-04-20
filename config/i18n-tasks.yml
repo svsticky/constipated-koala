@@ -12,6 +12,8 @@ data:
     - config/locales/public.%{locale}.yml
     - config/locales/devise.%{locale}.yml
     - config/locales/doorkeeper.%{locale}.yml
+    - config/locales/checkout.%{locale}.yml
+    - config/locales/mailings.%{locale}.yml
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules

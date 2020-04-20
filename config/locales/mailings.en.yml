@@ -1,0 +1,67 @@
+---
+en:
+  mailings:
+    best_regards: Best regards,
+    checkout:
+      confirm_card: Confirm card
+      confirm_card_link: Confirme Checkout card for your account at Study association Sticky by going to %{confirm_url}.
+      confirmation_instructions: 'Confirm your card for your Checkout account with Study association Sticky by clicking the following button:'
+      subject: Confirm Checkout card
+    devise:
+      activation_instructions:
+        about_sticky: 'You can go to Sticky for everything that you as Computer Science, Information Science or Game technology need! As you might have noticed already, you can always score free coffee and a cookie in our room (BBG 2,81) or some other other drink/snack. There will always be someone of the board present in the room who can answer all your questions. Besides this place to chill during breaks or in between lectures, we also organise a whole lot of wildly awesome activities. These activities These activities are always aligned to one of the three corner stones of Sticky: Education, Business and Sociability.'
+        account_activation_instructions: Activate your account by clicking the button below
+        account_activation_link: Activate your account for our member system by going to %{url}.
+        activate_account: Activate account
+        activity_updates_html: 'Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all information that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}.'
+        and_now: And now?
+        corner_stones:
+          business:
+            description_html: To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, in-house days and drinks with these companies. These activities offer besides information about the company in question, also a nice opportunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}.
+            name: Business
+          education:
+            description_html: We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken %{link_end}!
+            name: Education
+          sociability:
+            description: Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!
+            name: Sociability
+        reception_justification: You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your account in our members portal. You could also skip this gorgeous introduction talk en scroll down immediately. We won't see that anyway (or will we?).
+        see_you_soon: See you soon!
+        welcome: Welcome to Sticky!
+        wrap_up: Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks.
+      changed_instructions:
+        changed_email: Emailaddress changed
+        inform_change_text: Your emailaddress is changed to %{new_email}. Please contact us as soon as possible (by replying to this email) if this change was not done by you.
+      confirmation_instructions:
+        activate_account: Activate account
+        button_instructions: Confirm your e-mail address for your Sticky account by clicking the button below!
+        confirm_account: Confirm account
+        confirm_email: Confirm e-mail address
+        link_instructions: Activate your email for your account at Study association Sticky by going to %{confirm_link}.
+      reset_passwords_instructions:
+        button_instructions: Click the button below to enter a new password or ignore this e-mail to keep your current one.
+        link_instructions: Go to %{reset_password} to create a new password, or ignore this email if you want to keep your current password.
+        notification: A new password has been requested for your Sticky account, or you tried to create a new one.
+        reset_password: Reset password
+    gdpr:
+      consent: Manage personal information
+      enrolled: You are currently enrolled at Stucky assocation Sticly.
+      gdpr_instructions: You are a member of Study association Sticky, because you are studying or have studied at University Utrecht. It's very important to Sticky to keep your information up to date. At the link below you can update your information and if you're no longer a student indicate what we may do with your data.
+    greeting: Hi
+    membership: Membership Study association Sticky
+    participants:
+      enrolled:
+        activity_start_html: The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!
+        button_instructions_html: You can un-enroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page.
+        cost: costs
+        free: is free
+        free_spot_html: Great news! A free spot appeared for <strong>%{activity_name}</strong>. You were automatically enrolled from the spares list.
+        subject: You are enrolled to %{activity}
+        to_the_activity: To the activity
+      inform:
+        activity_visited_html: You visited <strong>%{subject}</strong>, this activity cost %recipient.price%.
+        payment_instructions_html: Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?
+    removed: is immediatly removed
+    signature: The board
+    subject:
+      confirm_card: Confirm Checkout card

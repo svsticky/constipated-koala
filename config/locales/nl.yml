@@ -165,6 +165,7 @@ nl:
         password_confirmation: Herhaal wachtwoord
     errors:
       default: Er is iets fout gegaan
+      failed_login: failed login attempt
       incomplete: Oh snap, niet alles is goed ingevuld
       info: Het is gelukt
       messages:
@@ -317,17 +318,17 @@ nl:
       user_not_activated: Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd.
     navigation:
       apps: Apps
-      books: TRANSLATION MISSING
+      books: Boeken
       checkout: Checkout
-      declarations: TRANSLATION MISSING
-      files: TRANSLATION MISSING
+      declarations: Declaraties
+      files: Bestanden
       general: Algemeen
       ideal: iDeal
-      links: TRANSLATION MISSING
+      links: Links
       payments: Betalingen
-      pictures: TRANSLATION MISSING
+      pictures: Foto's
       products: Producten
-      vacancies: TRANSLATION MISSING
+      vacancies: Vacatures
   association_name: Studievereniging Sticky
   date:
     day_names:
@@ -394,54 +395,6 @@ nl:
         alumni: alumni
         anybody: iedereen
         studying: studerend
-  mailings:
-    best_regards: Met vriendelijke groet,
-    checkout:
-      confirm_card: Kaart bevestigen
-      confirmation_instructions: Bevestig je kaart voor je Checkout account bij Studievereniging Sticky door op de onderstaande knop te klikken!
-    devise:
-      activation_instructions:
-        about_sticky: 'Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.'
-        account_activation_instructions: 'Activeer je account door op onderstaande knop te klikken:'
-        activate_account: Activeer account
-        activity_updates_html: 'Altijd op de hoogte blijven van deze activiteiten? Word lid van de %{facebook_group_link_start} Sticky-leden Facebookgroep %{link_end} en like %{facebook_page_link_start} onze pagina %{link_end}! Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: %{sticky_site_link_start} svsticky.nl %{link_end}. Je kan ook een whatsapp berichtje sturen naar de Sticky Phone (+31617695025) met "Hoi + [je naam]" nadat je het nummer hebt opgeslagen.'
-        and_now: En nu?
-        corner_stones:
-          business:
-            description_html: Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}
-            name: Bedrijfsleven
-          education:
-            description_html: Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via %{books_page_link_start} svsticky.nl/boeken %{link_end}!
-            name: Onderwijs
-          sociability:
-            description: Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiseren we ook veel simpelweg gezellige activiteiten. Daarnaast is er wekelijks een gratis borrel!
-            name: Gezelligheid
-        reception_justification: Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
-        see_you_soon: Tot snel!
-        welcome: Welkom bij Sticky!
-        wrap_up: Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
-      confirmation_instructions:
-        button_instructions: Bevestig je e-mailadres voor je account bij Studievereniging Sticky door op de onderstaande knop te klikken!
-        confirm_account: Account bevestigen
-        confirm_email: E-mailadres bevestigen
-      reset_passwords_instructions:
-        button_instructions: Klik op onderstaande knop om een nieuw wachtwoord aan te maken of negeer deze mail om je huidige wachtwoord te behouden.
-        notification: Er is een nieuw wachtwoord aangevraagd voor je Sticky account, of je hebt geprobeerd een nieuw account aan te maken.
-        reset_password: Reset wachtwoord
-    gdpr:
-      consent: Persoonsgegevens beheren
-      gdpr_instructions: Je staat ingeschreven bij Studievereniging Sticky omdat je een studie doet of hebt gedaan bij de Universiteit Utrecht. Het is voor de vereniging belangrijk om je gegevens bij te werken. Op onderstaande link kun je je gegevens bijwerken en als je geen student meer bent aangeven wat we met je data mogen doen.
-    greeting: Hoi
-    participants:
-      enrolled:
-        activity_start_html: De activiteit begint op <strong>%{activity_start}</strong> en %{price}. Tot dan!
-        button_instructions_html: Je kunt je tot <strong>%{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
-        free_spot_html: Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>%{activity_name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.
-        to_the_activity: Naar de activiteit
-      inform:
-        activity_visited_html: Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%.
-        payment_instructions_html: Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>"%{subject} - %recipient.name%"</i>?
-    signature: Het bestuur
   members:
     activities:
       back_to_overview: Terug naar overzicht
@@ -506,11 +459,11 @@ nl:
         remove_info: "<span>Verwijderen</span> persoonsgegevens"
         save: Opslaan
         save_note: Na opslaan van bovenstaande gegevens is de gebruikte link onbruikbaar, ga naar koala om je gegevens te bekijken of verwijderen.
-        store_description: Geen student meer? Studievereniging Sticky slaat je data op totdat je aangeeft dat je dit niet lang wil. Hieronder kan je aangeven wat we doen met jouw data; we kunnen het opsaaln, moeten we het volgend jaar opnieuw vragen of wil je meteen al je data laten verwijderen. Als je later besluit om toch je data te laten verwijderen, je kan altijd dit doen via de leden pagina of neem contact op met ${url}.
-        store_info: <span>Opslag</span> persoonlijke data 
+        store_description: Geen student meer? Studievereniging Sticky slaat je data op totdat je aangeeft dat je dit niet lang wil. Hieronder kan je aangeven wat we doen met jouw data; we kunnen het opsaaln, moeten we het volgend jaar opnieuw vragen of wil je meteen al je data laten verwijderen. Als je later besluit om toch je data te laten verwijderen, je kan altijd dit doen via de leden pagina of neem contact op met %{url}.
+        store_info: "<span>Opslag</span> persoonlijke data"
         warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
         yearly: Als je niet zeker weet wat je moet doen, kunnen wij het altijd nog volgend jaar weer vragen,
-        yearly_consent: Ik geef mijn toestemming om mijn data te bewaren voor nog een jaar. 
+        yearly_consent: Ik geef mijn toestemming om mijn data te bewaren voor nog een jaar.
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
