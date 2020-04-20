@@ -83,6 +83,31 @@ nl:
           internal: Commissaris Intern
           secretary: Secretaris
           treasurer: Penningmeester
+      impression:
+        activity:
+          create: activiteit aangemaakt
+          mail: betalingsmail gestuurd
+          update: activiteit bewerkt
+        checkoutcard:
+          activate_card: kaart geactiveerd
+        checkouttransaction:
+          change_funds: tegoed bijgewerkt
+        group:
+          create: groep aangemaakt
+          update: groep bewerkt
+        groupmember:
+          create: "%{name} toegevoegd"
+          update: "%{name} bewerkt"
+        member:
+          create: lid aangemaakt
+          destroy: lid verwijderd
+          update: gegevens bewerkt
+        participant:
+          create: deelnemer toegevoegd
+          update:
+            paid: deelnemer heeft betaald
+            price: prijs is veranderd voor deelnemer
+            unpaid: deelnemer heeft niet betaald
       member:
         address: Straatnaam
         birth_date: Geboortedatum
@@ -266,6 +291,36 @@ nl:
         success: Je betaling is ontvangen en je hebt je ingeschreven!
         success_without_payment: Je hebt je ingeschreven!
       unsupported_content_type: Het bestandstype %{type} is niet toegestaan. (%{allowed} vereist)
+    impression:
+      activity:
+        create: activiteit aangemaakt
+        mail: betalingsmail gestuurd
+        update: activiteit bewerkt
+      checkout_transaction:
+        change_funds: tegoed bijgewerkt
+      checkoutcard:
+        activate_card: kaart geactiveerd
+      checkoutproduct:
+        activate_card: kaart geactiveerd
+        change_funds: tegoed opladen
+      checkouttransaction:
+        change_funds: tegoed bijgewerkt
+      group:
+        create: groep aangemaakt
+        update: groep bewerkt
+      groupmember:
+        create: "%{name} toegevoegd"
+        update: "%{name} bewerkt"
+      member:
+        create: lid aangemaakt
+        destroy: lid verwijderd
+        update: gegevens bewerkt
+      participant:
+        create: deelnemer toegevoegd
+        update:
+          paid: deelnemer heeft betaald
+          price: prijs is veranderd voor deelnemer
+          unpaid: deelnemer heeft niet betaald
     labels:
       activities:
         date: Datum
@@ -394,6 +449,7 @@ nl:
         active: actief
         alumni: alumni
         anybody: iedereen
+        placeholder: zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]
         studying: studerend
   members:
     activities:
