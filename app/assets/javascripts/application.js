@@ -14,6 +14,9 @@
 //= require jquery-ujs/src/rails
 //= require bootstrap-file-input
 //
+//= require i18n
+//= require i18n/translations
+//
 //= require toastr
 //
 //= require dropdown

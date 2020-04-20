@@ -137,7 +137,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         toastr.error(data.responseText, data.status);
 
       if( data.status === 400 )
-        toastr.error('Het bedrag moet numeriek zijn');
+        toastr.error(I18n.t('checkout.error.numeric'));
     });
   });
 

@@ -15,6 +15,8 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
 //= require intl_tel_number
+//= require i18n
+//= require i18n/translations
 
 $(document).on('ready page:load turbolinks:load', function () {
   var disabledStudyOptions = null;
@@ -60,7 +62,7 @@ $(document).on('ready page:load turbolinks:load', function () {
     }
 
     return sum % 11 === 0;
-  }, "Studentnummer is niet geldig");
+  }, I18n.t('form.invalid_student_id'));
 
   jQuery.validator.addMethod("required_if_minor", function(value, element) {
     // get max birth date to be 18 years old, ignoring time
@@ -72,7 +74,7 @@ $(document).on('ready page:load turbolinks:load', function () {
 
     // field is valid if member is 18 years or if it's not empty
     return (birthDate < maxDate || value)
-  }, "Telefoonnummer voor calamiteiten is verplicht onder 18 jaar");
+  }, I18n.t('form.phone_required_underage'));
 
   $('form').validate({
     rules: {
