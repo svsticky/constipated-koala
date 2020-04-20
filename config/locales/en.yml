@@ -83,6 +83,31 @@ en:
           internal: Internal affairs
           secretary: Secretary
           treasurer: Treasurer
+      impression:
+        activity:
+          create: activity created
+          mail: payment mail sent
+          update: activity updated
+        checkoutcard:
+          activate_card: cart activated
+        checkouttransaction:
+          change_funds: funds updated
+        group:
+          create: group created
+          update: group updated
+        groupmember:
+          create: "%{name} added"
+          update: "%{name} updated"
+        member:
+          create: member added
+          destroy: member deleted
+          update: member data updated
+        participant:
+          create: participant added
+          update:
+            paid: participant has paid
+            price: price has changed for member
+            unpaid: participant has not paid
       member:
         address: Address
         birth_date: Date of birth
@@ -266,6 +291,36 @@ en:
         success: Your payment has been received and you are enrolled!
         success_without_payment: You have been enrolled!
       unsupported_content_type: File type %{type} is not allowed. (%{allowed})
+    impression:
+      activity:
+        create: activity created
+        mail: payment mail sent
+        update: activity updated
+      checkout_transaction:
+        change_funds: Credit updated
+      checkoutcard:
+        activate_card: card activated
+      checkoutproduct:
+        activate_card: card activated
+        change_funds: funds added
+      checkouttransaction:
+        change_funds: Credit updated
+      group:
+        create: group created
+        update: group updated
+      groupmember:
+        create: "%{name} added"
+        update: "%{name} updated"
+      member:
+        create: member created
+        destroy: member deleted
+        update: member updated
+      participant:
+        create: participant added
+        update:
+          paid: participant has paid
+          price: price for participant has been updated
+          unpaid: participant hasn't paid
     labels:
       activities:
         date: Datum
@@ -394,6 +449,7 @@ en:
         active: active
         alumni: alumni
         anybody: anybody
+        placeholder: search member by name, email, phone number or student number, or use study:[name], year:[year], state:[state] and tag:[type]
         studying: studying
   members:
     activities:
