@@ -31,7 +31,7 @@
                 = f.label(:last_name)
                 = f.text_field :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled', :disabled => true
 
-            .callout.callout-info Sommige gegevens kan je niet zelf wijzigen (bijvoorbeeld je naam, geboortedatum en studentnummer), neem hiervoor contact op met #{link_to 'het bestuur', 'mailto:bestuur@svsticky.nl'}.
+            .callout.callout-info #{ I18n.t('members.home.edit.board_only_change_info') } #{link_to I18n.t('members.home.edit.board'), 'mailto:bestuur@svsticky.nl'}.
           %hr
 
           .form-group
@@ -81,7 +81,8 @@
 
           .footnote
             %span.footnote 2
-            .help-block Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
+            .help-block
+              = I18n.t('members.home.edit.underage_phone')
 
     - if !ENV['MAILCHIMP_DATACENTER'].blank?
       .col-xl-6
@@ -104,7 +105,7 @@
       .card
         .card-header
           %i.fa.fa-fw.fa-graduation-cap
-          Studiegegevens
+          = I18n.t 'members.home.edit.study'
         .card-body
           .form-group
             .row
@@ -142,10 +143,10 @@
 
           - if @member.educations.any? { |education| education.status == 'active' }
             .callout.callout-info
-              Voor de vereniging is het belangrijk om inzichtelijk te hebben of je studeert aan de Universiteit Utrecht. Het bijwerken van je studiestatus wordt op prijs gesteld.
+              = I18n.t('members.home.edit.edit_study_info')
               %br
-              %br
-              Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
+              %br 
+              #{ I18n.t('members.home.edit.mutate_study') } #{link_to I18n.t('members.home.edit.board'), 'mailto:bestuur@svsticky.nl'}.
 
       .card
         .card-header

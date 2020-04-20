@@ -416,8 +416,37 @@ en:
       subscribe: Subscribe!
     home:
       edit:
+        board: the board
+        board_only_change_info: Some data can't be edit by yourself (for example your name, date of birth and student number). If this needs to be updated please contact
+        download:
+          activities: Activities
+          address: Address
+          birth: Date of birth
+          email: Email
+          emergency: Emergency number
+          enroll_date: Enrollment date
+          for: for
+          general:
+            date: Date
+            price: Price
+            products: Products
+            single: Activiteit
+          generated: This page is generated on
+          graduation:
+            graduated: Graduated
+            stopped: Stopped
+            studying: Studying
+          name: Name
+          number: Student number
+          personal_data: Personal data
+          phone: Phone number
+          pursuits: Boards, committees and societies
+          title: Download personal data
+          transactions: Checkout transactions
+        edit_study_info: For the association it is important to know whether you are studying at Utrecht University. We appreciate keeping your status up to date. Don't forget to save!
         externe_applicaties: External applications
         general_data: General
+        mutate_study: Updating already completed studies and adding new studies can be done by the board, please mail
         password_options:
           change_password: Change password
           header: Password options
@@ -426,10 +455,13 @@ en:
           privacy_statement: privacy statement
           view: View the
         revoke: revoke
+        study: Study information
+        underage_phone: If you are underage, you are required to add an emergency phone number.
       index:
         edit_profile: Edit profile
         outstanding_payments: Outstanding payments
         personal_data: Personal data
+        transaction_costs: transaction costs charged
         upgrade: Upgrade
         personal_data: "Personal data"
     navigation:
