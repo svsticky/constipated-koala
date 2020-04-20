@@ -1,11 +1,11 @@
 ---
 en:
   checkout:
-    error:
-      not_activated: Card is not yet activated
-      identifier: No identifier given
     card:
-      nil: Confirmation token is invalid!
-      already_activated: Card is already activated!
       activated: Card activated!
+      already_activated: Card is already activated!
+      nil: Confirmation token is invalid!
       not_activated: Card could not be activated!
+    error:
+      identifier: No identifier given
+      not_activated: Card is not yet activated

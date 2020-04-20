@@ -183,46 +183,47 @@
 
   %body
     .container
-      %h1 Je persoonlijke gegevens
+      %h1
+        = I18n.t('members.home.edit.download.personal_data')
 
       .block
         %dl
-          %dt naam
+          %dt= I18n.t('members.home.edit.download.name')
           %dd= @member.name
 
         %dl
-          %dt adres
+          %dt= I18n.t('members.home.edit.download.address')
           %dd
             #{@member.address} #{@member.house_number}
             %br
             #{@member.postal_code} #{@member.city}
 
         %dl
-          %dt telefoonnummer
+          %dt= I18n.t('members.home.edit.download.phone')
           %dd= @member.phone_number
 
         - if @member.emergency_phone_number.present?
           %dl
-            %dt noodnummer
+            %dt= I18n.t('members.home.edit.download.emergency')
             %dd= @member.emergency_phone_number
 
         %dl
-          %dt e-mailadres
+          %dt= I18n.t('members.home.edit.download.email')
           %dd= @member.email
 
         %dl
-          %dt geboortedatum
+          %dt= I18n.t('members.home.edit.download.birth')
           %dd= @member.birth_date
 
         %dl
-          %dt inschrijfdatum
+          %dt= I18n.t('members.home.edit.download.enroll_date')
           %dd= @member.join_date
 
-      %h2 Je studiegegevens
+      %h2= I18n.t('members.home.edit.study')
 
       .block
         %dl
-          %dt studentnummer
+          %dt= I18n.t('members.home.edit.download.number')
           %dd= @member.student_id
 
         - @member.educations.each do |education|
@@ -235,14 +236,14 @@
                 #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
 
               - if education.graduated?
-                %span.label.label-success geslaagd
+                %span.label.label-success= I18n.t('members.home.edit.download.graduation.graduated')
               - elsif education.stopped?
-                %span.label.label-warning gestopt
+                %span.label.label-warning= I18n.t('members.home.edit.download.graduation.stopped')
               - elsif education.active?
-                %span.label.label-info studerend
+                %span.label.label-info= I18n.t('members.home.edit.download.graduation.studying')
 
       - if @member.groups.size > 0
-        %h2 Besturen, commissies en disputen
+        %h2= I18n.t('members.home.edit.download.pursuits')
 
         %table
           %tbody
@@ -258,14 +259,14 @@
                         = I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize )
 
       - if @member.activities.size > 0
-        %h2 Activiteiten
+        %h2= I18n.t('members.home.edit.download.activities')
 
         %table
           %thead
             %tr
-              %th Activiteit
-              %th Prijs
-              %th Datum
+              %th= I18n.t('members.home.edit.download.general.single')
+              %th= I18n.t('members.home.edit.download.general.price')
+              %th= I18n.t('members.home.edit.download.general.date')
           %tbody
             - @member.activities.order(start_date: :desc).each do |activity|
               %tr
@@ -279,14 +280,14 @@
                     %td #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
 
       - if @transactions.length > 0 || @member.checkout_cards.length > 0
-        %h2 Checkout transacties
+        %h2= I18n.t('members.home.edit.download.transactions')
 
         %table
           %thead
             %tr
-              %th Datum
-              %th Prijs
-              %th Producten
+              %th= I18n.t('members.home.edit.download.general.date')
+              %th= I18n.t('members.home.edit.download.general.price')
+              %th= I18n.t('members.home.edit.download.general.products')
           %tbody
             - @transactions.each do |transaction|
               %tr
@@ -294,4 +295,8 @@
                 %td= number_to_currency(transaction.price, :unit => '€', :negative_format => "%u%n -")
                 %td= transaction.products
 
-      %span.footer Deze pagina is gegenereerd op #{I18n.l Time.now} voor #{@member.name}
+      %span.footer
+        = I18n.t('members.home.edit.download.generated') 
+        = I18n.l(Time.now) 
+        = I18n.t('members.home.edit.download.for') 
+        = @member.name
