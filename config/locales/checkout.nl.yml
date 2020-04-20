@@ -13,6 +13,7 @@ nl:
     error:
       identifier: Geen ID gegeven
       not_activated: Kaart is nog niet geactiveerd
+      numeric: Het bedrag moet numeriek zijn
     products:
       activate: Activeren
       deactivate: Deactiveren

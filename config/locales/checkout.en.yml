@@ -13,6 +13,7 @@ en:
     error:
       identifier: No identifier given
       not_activated: Card is not yet activated
+      numeric: The amount should be numeric
     products:
       activate: Activate
       deactivate: Deactivate

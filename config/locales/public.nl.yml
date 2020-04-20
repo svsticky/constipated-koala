@@ -11,6 +11,8 @@ nl:
     general: Algemene gegevens
     payment: Betaalmethode
     study: Studiegegevens
+    invalid_student_id: Studentnummer is niet geldig
+    phone_required_underage: Telefoonnummer voor calamiteiten is verplicht onder 18 jaar
   gezelligheid:
     text: In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.
     title: Gezelligheid

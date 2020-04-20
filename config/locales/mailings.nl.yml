@@ -65,3 +65,7 @@ nl:
     signature: Het bestuur
     subject:
       confirm_card: Bevesitg Checkout kaart
+    confirmation: Weet je het zeker?
+    sent:
+      yes: Mail is verstuurd
+      no: Mail is niet verstuurd!

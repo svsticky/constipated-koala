@@ -65,3 +65,7 @@ en:
     signature: The board
     subject:
       confirm_card: Confirm Checkout card
+      confirmation: Are you sure?
+    sent:
+      yes: Mail has been sent
+      no: Mail has not been sent!
