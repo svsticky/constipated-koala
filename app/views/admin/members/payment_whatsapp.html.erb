@@ -1,10 +1,10 @@
-Hey! <%= current_user.credentials.first_name %> van Sticky hier :)
+<%= I18n.t('admin.payment.whatsapp.title', user: current_user.credentials.first_name) %>
 
-De volgende activiteiten staan open:
+<%= I18n.t('admin.payment.whatsapp.open_activities') %>:
 <% @participants.each do |p| %>
 - <%= p.activity.name %> - <%= number_to_currency(p.currency, unit: '€') %>
 <% end %>
 
-Dit geeft een totaal van *<%= number_to_currency(@participants.map(&:currency).sum, unit: '€') %>*
+<%= I18n.t('admin.payment.whatsapp.total_of', amount: number_to_currency(@participants.map(&:currency).sum, unit: '€')) %>
 
-Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand <%= @member.name %>_?
+<%= I18n.t('admin.payment.whatsapp.pay_to', member: @member.name) %>

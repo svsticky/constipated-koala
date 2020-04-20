@@ -1,6 +1,6 @@
 - content_for(:page, 'settings')
 
-- content_for(:title, 'Instellingen')
+- content_for(:title, I18n.t('admin.navigation.settings'))
 
 %section#content
 
@@ -10,7 +10,7 @@
         .card
           .card-header
             %i.fas.fa-fw.fa-wrench
-            Instellingen
+            = I18n.t('admin.navigation.settings')
           %ul.list-group#settings
             = form_tag settings_url do
 
@@ -57,7 +57,7 @@
                     %p= I18n.t 'intro_activities.description', scope: 'activerecord.attributes.settings'
 
                   .col-md-6
-                    %input.form-control{ :id => 'options_intro_activities', :name => 'intro.activities', :value => Settings['intro.activities'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+                    %input.form-control{ :id => 'options_intro_activities', :name => 'intro.activities', :value => Settings['intro.activities'].join(', '), :placeholder => I18n.t('admin.settings.separate') }
 
               %li.list-group-item
                 .container.row
@@ -66,7 +66,7 @@
                     %p= I18n.t 'additional_committee_positions.description', scope: 'activerecord.attributes.settings'
 
                   .col-md-6
-                    %input.form-control{ :id => 'options_additional_committee_positions', :name => 'additional_positions.committee', :value =>Settings['additional_positions.committee'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+                    %input.form-control{ :id => 'options_additional_committee_positions', :name => 'additional_positions.committee', :value =>Settings['additional_positions.committee'].join(', '), :placeholder => I18n.t('admin.settings.separate') }
 
               %li.list-group-item
                 .container.row
@@ -75,31 +75,35 @@
                     %p= I18n.t 'additional_moot_positions.description', scope: 'activerecord.attributes.settings'
 
                   .col-md-6
-                    %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_positions.moot', :value => Settings['additional_positions.moot'].join(', '), :placeholder => 'gescheiden met komma\'s' }
+                    %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_positions.moot', :value => Settings['additional_positions.moot'].join(', '), :placeholder => I18n.t('admin.settings.separate') }
 
       .col-md-6
         = form_for :admin, :url => profile_settings_path, method: :patch, :html => { :class => 'form-validation signature' } do |f|
           .card
             .card-header
               %i.fa.fa-fw.fa-user
-              Admin gegevens
+              = I18n.t('admin.settings.admin_title')
             .card-body
               = f.hidden_field :id, :value => @admin.id, :class => 'id'
 
               .form-group
                 .row
                   .col-md-4
-                    %label{for: ''} Voornaam
+                    %label{for: ''}
+                    = I18n.t('admin.members.name')
                     = f.text_field :first_name, :value => @admin.first_name, :class => 'form-control'
                   .col-md-3
-                    %label{for: ''} Tussenvoegsel
+                    %label{for: ''}
+                    = I18n.t('admin.members.infix')
                     = f.text_field :infix, :value => @admin.infix, :class => 'form-control'
                   .col-md-5
-                    %label{for: ''} Achternaam
+                    %label{for: ''}
+                    = I18n.t('admin.members.surname')
                     = f.text_field :last_name, :value => @admin.last_name, :class => 'form-control'
 
               .form-group#mail
-                %label{for: ''} Ondertekening
+                %label{for: ''}
+                = I18n.t('admin.settings.signature')
                 = render 'layouts/partials/editor'
 
                 #textarea.form-control{ :contenteditable => 'true' }
@@ -107,11 +111,12 @@
 
                 = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'
 
-              %button.btn.btn-success{type: 'submit'} Opslaan
+              %button.btn.btn-success{type: 'submit'}
+                = I18n.t('editing.save')
 
         - if @advert.errors.any?
           .alert.alert-danger
-            %span Oh snap, niet alles is goed ingevuld;
+            %span= I18n.t('activerecord.errors.incomplete')
             %ul
             - @advert.errors.full_messages.each do |msg|
               %li= msg
@@ -119,7 +124,7 @@
         .card#advertisements
           .card-header
             %i.fa.fa-fw.fa-fw.fa-desktop
-            Advertenties
+            = I18n.t('admin.settings.ads')
           .card-body
             .table-responsive
               %table.table.table-bordered.table-striped.table-linked
@@ -137,17 +142,19 @@
             = form_for :advertisement, url: advertisement_settings_path, method: :post, :class => 'form-validation' do |f|
               .form-group
                 .input-group
-                  = f.text_field :name, { :class => 'form-control', :placeholder => 'Omschrijving' }
+                  = f.text_field :name, { :class => 'form-control', :placeholder => I18n.t('admin.payment.description') }
               %div{ :style => 'margin-left: 5px;' }
                 %div.btn.btn-primary.file-input-wrapper
-                  %span Uploaden
+                  %span
+                    = I18n.t('editing.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
-                %button.btn.btn-success.wait{type: 'submit'} Opslaan
+                %button.btn.btn-success.wait{type: 'submit'}
+                  = I18n.t('editing.save')
 
         .card
           .card-header
             %i.fa.fa-fw.fa-rocket
-            Externe applicaties
+            = I18n.t('admin.settings.external_apps')
           %table.table.table-striped.table-linked
             - @applications.each do |application|
               %tr

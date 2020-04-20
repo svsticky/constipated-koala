@@ -1,5 +1,5 @@
 - content_for(:page, 'members')
-- content_for(:title, "Leden | #{@member.name}")
+- content_for(:title, "#{I18n.t('admin.members.title')} | #{@member.name}")
 
 %section#content
   = render 'layouts/partials/search'
@@ -25,7 +25,7 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-user
-            Algemene gegevens
+            = I18n.t('members.home.edit.general_data')
           .card-body
             - if flash[:success].present?
               %p.alert.alert-success{ :style => 'margin: 0px;'}
@@ -67,12 +67,14 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-graduation-cap
-            Studiegegevens
+            = I18n.t('admin.members.study_info')
           .card-body
             %dl.dl-horizontal
-              %dt Studentnummer
+              %dt
+                = I18n.t('admin.members.student_number')
               %dd= @member.student_id
-              %dt Lid sinds
+              %dt 
+                = I18n.t('admin.members.since')
               - if !@member.join_date.nil?
                 %dd= I18n.l @member.join_date
 
@@ -86,11 +88,14 @@
                     #{I18n.l education.start_date, :format => :short}  -  #{I18n.l education.end_date, :format => :short}
 
                   - if education.graduated?
-                    %span.label.label-success geslaagd
+                    %span.label.label-success
+                      = I18n.t('activerecord.attributes.education.status.graduated')
                   - elsif education.stopped?
-                    %span.label.label-warning gestopt
+                    %span.label.label-warning
+                      = I18n.t('activerecord.attributes.education.status.stopped')
                   - elsif education.active?
-                    %span.label.label-info studerend
+                    %span.label.label-info
+                      = I18n.t('activerecord.attributes.education.status.active')
 
             - unless ENV['MAILCHIMP_DATACENTER'].blank?
               %dl.dl-horizontal
@@ -101,8 +106,8 @@
         .card
           .card-body
             .btn-group
-              = link_to 'Back', :back, { :class => 'btn btn-primary' }
-              = link_to 'Edit', edit_member_path(@member.id), { :class => 'btn btn-warning' }
+              = link_to I18n.t('editing.cancel'), :back, { :class => 'btn btn-primary' }
+              = link_to I18n.t('editing.edit'), edit_member_path(@member.id), { :class => 'btn btn-warning' }
 
             .btn-group
               %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button' }
@@ -127,13 +132,13 @@
 
                 %li
                   = link_to member_mail_path(@member, 'consent'), method: :post, :class => 'dropdown-item' do
-                    Vraag om studiestatus/consent update
+                    = I18n.t 'admin.member_account_status.send_consent_mail'
 
         - if @transactions.length > 0 || @member.checkout_cards.length > 0
           .card
             .card-header.input
               %i.fa.fa-fw.fa-shopping-cart
-              Checkout
+              = I18n.t('admin.navigation.checkout')
 
               .input-group#credit{ :data => { 'member_id' => @member.id }}
                 .input-symbol
@@ -145,20 +150,24 @@
                 Chrome. See #203. -->
                 #selector-container
                   %select#payment_method{ :required => true }
-                    %option{:value => "Gepind"}= "Gepind"
-                    %option{:value => "Contant"}= "Contant"
+                    %option{:value => "Gepind"}= I18n.t('checkout.top_up.pin')
+                    %option{:value => "Contant"}= I18n.t('checkout.top_up.cash')
                     %option{:value => "", :selected => "selected" }= "-"
-                    %option{:value => "Verkoop"}= "Verkoop"
+                    %option{:value => "Verkoop"}= I18n.t('checkout.top_up.sale')
 
                 %span.input-group-btn
-                  %button.btn.btn-warning#upgrade-btn opwaarderen
+                  %button.btn.btn-warning#upgrade-btn
+                    = I18n.t('checkout.top_up.title')
 
             %table.table.table-striped#transactions
               %thead
                 %tr
-                  %th Datum
-                  %th Prijs
-                  %th.d-none.d-sm-table-cell Producten
+                  %th
+                    = I18n.t('checkout.transactions.date')
+                  %th
+                    = I18n.t('checkout.transactions.price')
+                  %th.d-none.d-sm-table-cell
+                    = I18n.t('checkout.products.title')
               %tbody
                 - @transactions.each do |transaction|
                   %tr
@@ -176,9 +185,10 @@
               .row
                 .col-lg-12.page-num-info.d-none.d-md-block{ :data => { :limit => @limit, :pagination => 4 } }
                   %span
-                    Toon
+                    = I18n.t('admin.payment.show')
                     = select_tag 'limit', options_for_select([10,20,50], @limit)
-                    transacties per pagina
+                    = I18n.t('admin.payment.per_page')
+              
               .row
                 .col-lg-12
                   = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
@@ -188,7 +198,7 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-users
-            Groepen
+            = I18n.t('admin.navigation.group')
           %table.table.table-striped
             %tbody
               - @member.groups.each do |group|
@@ -206,16 +216,20 @@
         .card
           .card-header.year
             %i.fa.fa-fw.fa-ticket-alt
-            Activiteiten
+            = I18n.t('admin.activities.title')
             = select_tag :year, options_for_select( @years, params['year'] )
 
           %table.table.table-striped.table-linked#participants
             %thead
               %tr
-                %th Activiteit
-                %th Prijs
-                %th.d-none.d-md-table-cell Datum
-                %th.d-none.d-sm-table-cell{ :style => 'text-align: center;' } Betaald
+                %th 
+                  = I18n.t('admin.activities.single')
+                %th
+                  = I18n.t('admin.payment.price')
+                %th.d-none.d-md-table-cell
+                  = I18n.t('admin.payment.date')
+                %th.d-none.d-sm-table-cell{ :style => 'text-align: center;' }
+                  = I18n.t('admin.payment.paid')
             %tbody
               - @activities.each do |activity|
                 %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid), :data => { :id => activity.participants.where(:member => @member).first.id, :'activities-id' => activity.id } }

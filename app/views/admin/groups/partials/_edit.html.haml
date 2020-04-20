@@ -4,7 +4,8 @@
 = form_for :group, :url => (group.id.nil? ? groups_path : group_path(group)), :method => (group.id.nil? ? :post : :patch), :class => 'form-validation' do |f|
   - if group.errors.any?
     .alert.alert-danger
-      %span Oeps, niet alles is goed ingevuld;
+      %span
+      = I18n.t('admin.error.invalid_values')
       %ul
       - group.errors.full_messages.each do |msg|
         %li= msg
@@ -12,9 +13,9 @@
     .card-header
       %i.fa.fa-fw.fa-users
       - if group.category.nil?
-        Nieuwe groep
+        = I18n.t('admin.group.new')
       - else
-        Bewerk
+        = I18n.t('editing.edit')
         = I18n.t(group.category, scope: 'activerecord.attributes.group.categories')
 
     .card-body
@@ -33,11 +34,11 @@
           = label(:group, I18n.t( :comments, scope: 'activerecord.attributes.group' ))
           = f.text_area :comments, :value => group.comments, :class => 'form-control', :rows => 5
 
-      %button.btn.btn-success.wait{ type: 'submit' } Opslaan
-      = link_to 'Annuleren', groups_path, { :class => 'button btn btn-default' }
+      %button.btn.btn-success.wait{ type: 'submit' }= I18n.t('editing.save')
+      = link_to I18n.t('editing.cancel'), groups_path, { :class => 'button btn btn-default' }
 
       - if !group.id.nil? && group.category != "board"
-        = link_to "Verwijderen", group, { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
+        = link_to I18n.t('editing.delete'), group, { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
 
 
 

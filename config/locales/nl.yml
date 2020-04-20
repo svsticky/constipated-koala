@@ -340,12 +340,9 @@ nl:
         description: Geen beschrijving beschikbaar
         free: Gratis
     models:
-      activity: Activiteiten
       checkout_balance: Mongoose tegoed
       checkout_transactions: Mongoose transacties
       group: Groepen
-      impressions: Logs
-      member: Leden
       participants:
         attendees:
           one: Deelnemer
@@ -355,35 +352,6 @@ nl:
           other: Reserves
       settings: Instellingen
       study: Studie(s)
-  admin:
-    activities:
-      partials:
-        edit:
-          invalid_values: Oeps, niet alles is goed ingevuld
-    member_account_status:
-      active_user: Dit lid heeft een actief account (%{email}).
-      consent_sent: Mail voor studiestatus update verstuurd.
-      email_sent: Email verstuurd!
-      no_user: Dit lid heeft geen account.
-      resend_confirmation: Her-verstuur account-activatiemail
-      send_consent_mail: Vraag om studiestatus/consent update
-      send_create_email: Stuur account-aanmaakmail
-      send_mail: Verstuur mail
-      send_password_reset: Verstuur password-reset-email
-      user_not_activated: Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd.
-    navigation:
-      apps: Apps
-      books: Boeken
-      checkout: Checkout
-      declarations: Declaraties
-      files: Bestanden
-      general: Algemeen
-      ideal: iDeal
-      links: Links
-      payments: Betalingen
-      pictures: Foto's
-      products: Producten
-      vacancies: Vacatures
   association_name: Studievereniging Sticky
   date:
     day_names:
@@ -414,8 +382,12 @@ nl:
     - december
   editing:
     cancel: Annuleren
+    copy: Kopieer
     delete: Verwijderen
+    edit: Wijzig
     save: Opslaan
+    update: Updaten
+    upload: Uploaden
   files:
     delete: Verwijder
     download: Download
@@ -449,7 +421,7 @@ nl:
         active: actief
         alumni: alumni
         anybody: iedereen
-        placeholder: zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]
+        placeholder: Zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]
         studying: studerend
   members:
     activities:
@@ -494,7 +466,6 @@ nl:
             studying: Studerend
           name: Naam
           number: Studentennummer
-          personal_data: Je persoonlijke gegevens
           phone: Telefoonnummer
           pursuits: Besturen, commissies en disputen
           title: Download persoonsgegevens
@@ -519,7 +490,6 @@ nl:
         personal_data: Persoonsgegevens
         transaction_costs: transactiekosten in rekening gebracht
         upgrade: Opwaarderen
-        personal_data: "Persoonsgegevens"
     navigation:
       books: Boeken
       declarations: DigiDecs
@@ -530,6 +500,7 @@ nl:
       pictures: Foto's
       vacancies: Vacatures
   navigation:
+    activity: Activiteiten
     back: Terug
     home: Home
     submit: Opslaan

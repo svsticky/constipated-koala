@@ -1,0 +1,91 @@
+---
+en:
+  admin:
+    activities:
+      ended: Ended
+      new: New activity
+      single: Activity
+      title: Activities
+    error:
+      invalid_values: Oops, not everything was filled in correctly
+    front:
+      checkout: Checkout transactions
+      defaulters: Defaulters
+      no_transactions: No transactions today
+      outstanding_payments: Outstanding payments
+      studies: Studies
+      transactions_today: Latest transactions today
+    group:
+      new: New groep
+    member_account_status:
+      active_user: This member has an active account(%{email}).
+      consent_sent: Mail for updating studystatus send
+      email_sent: Email sent!
+      no_user: This member has no account.
+      resend_confirmation: Re-send activation mail
+      send_consent_mail: Request updating studystatus
+      send_create_email: Send account creation email.
+      send_mail: Send a mail
+      send_password_reset: Send password reset email
+      user_not_activated: This member has an account (%{email}), but the account has not yet been activated.
+    members:
+      email: Emailaddress
+      infix: Infix
+      members_per_page: members per page
+      name: Name
+      no_uu: This can not be an email from UU!
+      phone: Phone number
+      save_text: Please click on the save button to save your changes.
+      show: Show
+      since: Member since
+      student_number: Student number
+      study: Study
+      study_info: Study information
+      surname: Surname
+      title: Members
+    navigation:
+      apps: Apps
+      checkout: Checkout
+      general: General
+      group: Groups
+      ideal: iDeal
+      impressions: Logs
+      member: Members
+      payments: Payments
+      products: Products
+      settings: Settings
+    payment:
+      date: Date
+      day_total: Daily total
+      days: Days
+      description: Description
+      ideal: iDeal transactions
+      mails: Paymentmails
+      member: Member
+      no_transactions: No transactions
+      not_paid: Unpaid for activities
+      overdue: Overdue payments (> 4 mails)
+      paid: Paid
+      per_page: transactions per page
+      pinned: Pinned Checkout transactions
+      price: Price
+      show: Show
+      state: State
+      whatsapp:
+        open_activities: You still have payments open for the following activities
+        pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Openstaand %{member}_?
+        title: Hey! %{user} from Sticky here :)
+        total_of: This comes down to a total of *%{amount}*
+    settings:
+      action: Action
+      address: IP address
+      admin_title: Admin data
+      ads: Advertisements
+      date: Date
+      external_apps: External applications
+      object: Object
+      per_page: lines per page
+      separate: separated by commas
+      show: Show
+      signature: Signature
+      user: User

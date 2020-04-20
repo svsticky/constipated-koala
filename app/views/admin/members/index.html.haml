@@ -1,5 +1,5 @@
 - content_for(:page, 'members')
-- content_for(:title, 'Leden')
+- content_for(:title, I18n.t('admin.members.title'))
 
 %section#content
   = render 'layouts/partials/search'
@@ -8,7 +8,7 @@
     %section.card.table-dynamic
       .card-header
         %i.fa.fa-fw.fa-user
-        Leden
+        = I18n.t('admin.members.title')
         = link_to '+', :new_member, { :class => 'btn btn-secondary float-right', :style => 'line-height: 1;' }
 
       .table-responsive
@@ -17,31 +17,31 @@
             %tr
               %th
                 .th
-                  Voornaam
+                  = I18n.t('admin.members.name')
                   -#
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
               %th
                 .th
-                  Tussenvoegsel
+                  = I18n.t('admin.members.infix')
               %th
                 .th
-                  Achternaam
+                  = I18n.t('admin.members.surname')
                   -#
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
               %th
                 .th
-                  Telefoonnummer
+                  = I18n.t('admin.members.phone')
               %th
                 .th
-                  E-mailadres
+                  = I18n.t('admin.members.email')
               %th
                 .th
-                  Studentnummer
+                  = I18n.t('admin.members.student_number')
               %th
                 .th
-                  Studie
+                  = I18n.t('admin.members.study')
                   -#
                     %span.glyphicon.glyphicon-chevron-up
                     %span.glyphicon.glyphicon-chevron-down
@@ -63,9 +63,9 @@
           .row
             .col-lg-5.page-num-info.d-none.d-sm-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
               %span
-                Toon
+                = I18n.t('admin.members.show')
                 = select_tag 'limit', options_for_select([20,50,100], @limit)
-                leden per pagina
+                = I18n.t('admin.members.members_per_page')
 
             -# will_paginate doesn't work for search results, so we use a simpler footer then
             - if @search.present?

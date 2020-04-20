@@ -1,0 +1,91 @@
+---
+nl:
+  admin:
+    activities:
+      ended: Afgelopen
+      new: Nieuwe activiteit
+      single: Activiteit
+      title: Activiteiten
+    error:
+      invalid_values: Oeps, niet alles is goed ingevuld
+    front:
+      checkout: Checkout transacties
+      defaulters: Wanbetalers
+      no_transactions: Geen transacties vandaag
+      outstanding_payments: Openstaande betalingen
+      studies: Studies
+      transactions_today: Laatste transacties vandaag
+    group:
+      new: Nieuwe groep
+    member_account_status:
+      active_user: Dit lid heeft een actief account (%{email}).
+      consent_sent: Mail voor studiestatus update verstuurd.
+      email_sent: Email verstuurd!
+      no_user: Dit lid heeft geen account.
+      resend_confirmation: Her-verstuur account-activatiemail
+      send_consent_mail: Vraag om studiestatus/consent update
+      send_create_email: Stuur account-aanmaakmail
+      send_mail: Verstuur mail
+      send_password_reset: Verstuur password-reset-email
+      user_not_activated: Dit lid heeft een account (%{email}), maar het account is nog niet geactiveerd.
+    members:
+      email: E-mailadres
+      infix: Tussenvoegsel
+      members_per_page: leden per pagina
+      name: Voornaam
+      no_uu: Dit kan niet een uu email zijn!
+      phone: Telefoonnummer
+      save_text: Om een wijziging door te voeren moet je op de opslaan knop drukken.
+      show: Toon
+      since: Lid sinds
+      student_number: Studentnummer
+      study: Studie
+      study_info: Studiegegevens
+      surname: Achternaam
+      title: Leden
+    navigation:
+      apps: Apps
+      checkout: Checkout
+      general: Algemeen
+      group: Groepen
+      ideal: iDeal
+      impressions: Logs
+      member: Leden
+      payments: Betalingen
+      products: Producten
+      settings: Instellingen
+    payment:
+      date: Datum
+      day_total: Dagtotaal
+      days: Dagen
+      description: Omschrijving
+      ideal: iDeal transacties
+      mails: Betalingsmails
+      member: Lid
+      no_transactions: Geen transacties
+      not_paid: Niet betaalde activiteiten
+      overdue: Achterstallige betalingen (> 4 mails)
+      paid: Betaald
+      per_page: transacties per pagina
+      pinned: Gepinde Checkout transacties
+      price: Prijs
+      show: Toon
+      state: Status
+      whatsapp:
+        open_activities: De volgende activiteiten staan open
+        pay_to: Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand %{member}_?
+        title: Hey! %{user} van Sticky hier :)
+        total_of: Dit geeft een totaal van *%{amount}*
+    settings:
+      action: Actie
+      address: IP-adres
+      admin_title: Admin gegevens
+      ads: Advertenties
+      date: Datum
+      external_apps: Externe applicaties
+      object: Object
+      per_page: regels per pagina
+      separate: gescheiden met komma\'s
+      show: Toon
+      signature: Ondertekening
+      user: Gebruiker

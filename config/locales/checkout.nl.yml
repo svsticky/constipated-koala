@@ -2,10 +2,37 @@
 nl:
   checkout:
     card:
+      activate: activeer
       activated: Kaart geactiveerd!
       already_activated: Kaart is al geactiveerd!
       nil: Bevestigingstoken is ongeldig!
+      none: Geen kaarten
       not_activated: Kaart kon niet worden geactiveerd!
+      remove: verwijder
+      to_be_activated: Niet geactiveerde kaarten
     error:
       identifier: Geen ID gegeven
       not_activated: Kaart is nog niet geactiveerd
+    products:
+      activate: Activeren
+      deactivate: Deactiveren
+      edit: Wijzig product
+      new: Nieuw product
+      sales: Verkoop
+      save: Opslaan
+      title: Producten
+      total: Totaal
+      upload: Uploaden
+    top_up:
+      amount: Hoeveel
+      cash: Contant
+      pin: Gepind
+      sale: Verkoop
+      save: Opslaan
+      search: Zoek lid op voornaam, achternaam, of studentnummer
+      title: Opwaarderen
+    transactions:
+      date: Datum
+      member: Lid
+      price: Prijs
+      title: Transacties
