@@ -145,9 +145,9 @@
             = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, data: {original: @activity.participant_limit}, id: "participant_limit"
 
-      %button.btn.btn-success.wait{type: 'submit'}= I18n.t("editing.save")
+      %button.btn.btn-success.wait{type: 'submit'}= I18n.t('editing.save')
       - if (@activity.id)
-        = link_to I18n.t("navigation.back"), :back, { :class => 'button btn btn-default' }
-        = link_to I18n.t("editing.delete"), activity_path(@activity.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
+        = link_to I18n.t('navigation.back'), :back, { :class => 'button btn btn-default' }
+        = link_to I18n.t('editing.delete'), activity_path(@activity.id), { :class => 'button btn btn-danger float-right', 'data-method' => :delete }
       - else
-        = link_to I18n.t("editing.cancel"), activities_path, { :class => 'button btn btn-default' }
+        = link_to I18n.t('editing.cancel'), activities_path, { :class => 'button btn btn-default' }

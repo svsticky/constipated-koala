@@ -31,9 +31,9 @@
             %thead
               %tr
                 %td
-                  = I18n.t("activerecord.attributes.activity.name")
+                  = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  = I18n.t("activerecord.attributes.activity.price")
+                  = I18n.t('activerecord.attributes.activity.price')
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes
@@ -77,15 +77,15 @@
             %i.fa.fa-fw.fa-user
             %span#reservistcount
               = @activity.reservists.count
-              = I18n.t("activerecord.models.participants.reservists.other")
+              = I18n.t('activerecord.models.participants.reservists.other')
 
           %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %thead
               %tr
                 %td
-                  = I18n.t("activerecord.attributes.activity.name")
+                  = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  = I18n.t("activerecord.attributes.activity.price")
+                  = I18n.t('activerecord.attributes.activity.price')
                 %td{ :style => 'min-width: 50%; width: 50%;' }
                   -if @activity.notes
                     =@activity.notes

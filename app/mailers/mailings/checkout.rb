@@ -6,7 +6,7 @@ module Mailings
       puts confirmation_url if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
-      subject_name = "#{ I18n.t("association_name") } | #{ I18n.t('mailings.checkout.subject') }"
+      subject_name = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.checkout.subject') }"
 
       html = render_to_string(:layout => 'mailer', :locals => {
                                 name: card.member.first_name,
