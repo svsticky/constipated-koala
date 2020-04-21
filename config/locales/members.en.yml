@@ -1,32 +1,35 @@
+---
 en:
   members:
     activities:
-      back_to_overview: Back to activity overview
-      index:
-        activities_calendar: Activities calendar
-        copy_ICS: Copy Webcal link
-        no_activities: There are no activities for which you can enroll at the moment
-      full: FULL!
       actions:
+        cancel: Nope
+        confirm: Yup!
+        confirm_enroll: You are being enrolled for this activity. Are you sure?
+        confirm_enroll_date_passed: The unenrollment date for this activity has already been exceeded. Unenrolling is because of this not possible anymore. Are you sure you want to enroll?
+        confirm_unenroll: You are unenrolling for this activity. Are you sure?
+        confirm_update: Are you sure you want to update this information?
+        edit: Edit
         enroll: Enroll
         reservist_enroll: Enroll to spares list
         reservist_unenroll: Un-enroll from spares list
         unenroll: Unenroll
         update_info: Update info
-        edit: Edit
-        confirm: Yup!
-        cancel: Nope
-        confirm_enroll: You are being enrolled for this activity. Are you sure?
-        confirm_enroll_date_passed: The unenrollment date for this activity has already been exceeded. Unenrolling is because of this not possible anymore. Are you sure you want to enroll?
-        confirm_unenroll: You are unenrolling for this activity. Are you sure?
-        confirm_update: Are you sure you want to update this information?
+      back_to_overview: Back to activity overview
+      error:
+        edit: Could not edit!
+        enroll: Could not enroll!
+        unenroll: Could not unenroll!
+        unenroll_deadline: The unenroll deadline has been exceeded.
+        unenroll_failed: Unenrollment failed
+      full: FULL!
+      index:
+        activities_calendar: Activities calendar
+        copy_ICS: Copy Webcal link
+        no_activities: There are no activities for which you can enroll at the moment
       info:
         more_info: More info
         notes_mandatory: Extra info required!
-      error:
-        enroll: Could not enroll!
-        unenroll: Could not unenroll!
-        edit: Could not edit!
     home:
       edit:
         board: the board

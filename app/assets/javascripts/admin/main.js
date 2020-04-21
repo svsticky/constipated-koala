@@ -10,7 +10,7 @@ $(document).on('ready page:load turbolinks:load', function(){
   };
 
   $('.button.btn[data-method=delete]').on('click', function () {
-    return confirm('Weet u het zeker?');
+    return confirm(I18n.t('admin.general.confirmation'));
   });
 
   $( '.page.search .input-group ul.dropdown-menu').find( 'li a' ).on( 'mouseenter', function(){

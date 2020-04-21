@@ -2,8 +2,17 @@
 en:
   admin:
     activities:
+      added_reservist: has been placed on the participants list
       ended: Ended
+      has_not_paid: has not yet paid
+      has_paid: has paid
+      info:
+        already_added: This participant was already added
+        price_changed: The participants fee has changed
+        price_error: No connection or not a number
       new: New activity
+      remove_participant: Do you want to remove %{user} as participant?
+      save: Save activity?
       single: Activity
       title: Activities
     error:
@@ -15,8 +24,15 @@ en:
       outstanding_payments: Outstanding payments
       studies: Studies
       transactions_today: Latest transactions today
+    general:
+      confirmation: Are you sure?
+      remove: Do you want to remove %{user}?
+      removed: removed
     group:
+      already_added: This person has already been added
       new: New groep
+      role_change: Role has been changed
+      role_error: No connection or no ID
     member_account_status:
       active_user: This member has an active account(%{email}).
       consent_sent: Mail for updating studystatus send
@@ -43,6 +59,8 @@ en:
       study_info: Study information
       surname: Surname
       title: Members
+      top_up: Checkout topped up
+      top_up_error: Top up balance can't be zero
     navigation:
       apps: Apps
       checkout: Checkout
@@ -59,10 +77,13 @@ en:
       day_total: Daily total
       days: Days
       description: Description
+      found: Transactions found
       ideal: iDeal transactions
       mails: Paymentmails
       member: Member
       no_transactions: No transactions
+      no_update: Could not update
+      not_found: No transactions found
       not_paid: Unpaid for activities
       overdue: Overdue payments (> 4 mails)
       paid: Paid
@@ -72,6 +93,8 @@ en:
       show: Show
       state: State
       whatsapp:
+        copy: Message copied to clipboard
+        copy_error: Message could not be retrieved
         open_activities: You still have payments open for the following activities
         pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Openstaand %{member}_?
         title: Hey! %{user} from Sticky here :)
@@ -83,6 +106,8 @@ en:
       ads: Advertisements
       date: Date
       external_apps: External applications
+      not_all_found: Not all activities were found
+      not_saved: Setting not saved
       object: Object
       per_page: lines per page
       separate: separated by commas

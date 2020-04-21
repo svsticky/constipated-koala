@@ -8,7 +8,10 @@ nl:
       nil: Bevestigingstoken is ongeldig!
       none: Geen kaarten
       not_activated: Kaart kon niet worden geactiveerd!
+      not_found: Er is geen kaart gevonden
+      not_removed: Kaart is niet verwijderd
       remove: verwijder
+      removed: Kaart verwijderd
       to_be_activated: Niet geactiveerde kaarten
     error:
       identifier: Geen ID gegeven
@@ -16,7 +19,9 @@ nl:
       numeric: Het bedrag moet numeriek zijn
     products:
       activate: Activeren
+      activated: is geactiveerd
       deactivate: Deactiveren
+      deactivated: is gedeactiveerd
       edit: Wijzig product
       new: Nieuw product
       sales: Verkoop

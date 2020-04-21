@@ -73,7 +73,7 @@ $(document).on('ready page:load turbolinks:load', function () {
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 
     if (!inputAmount.val()) {
-      toastr.error('De opwaardering kan niet nul zijn');
+      toastr.error(I18n.t('admin.members.top_up_error'));
       return;
     }
 
@@ -99,7 +99,7 @@ $(document).on('ready page:load turbolinks:load', function () {
       }
     }).done(function (data) {
       inputAmount.prop('disabled', false);
-      toastr.success('Checkout opgewaardeerd');
+      toastr.success(I18n.t('admin.members.top_up'));
 
       //toevoegen aan de lijst
       $('#transactions').trigger('transaction_added', data); //TODO

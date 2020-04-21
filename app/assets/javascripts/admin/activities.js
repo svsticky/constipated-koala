@@ -67,7 +67,7 @@ var participant = {
     var id = $(this).closest('tr').attr('data-id');
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
 
-    if(!confirm('Deelname van ' + $(row).find('a').html() + ' verwijderen?'))
+    if(!confirm(I18n.t('admin.activities.remove_participant', {user: $(row).find('a').html()})))
       return;
 
     $.ajax({
@@ -77,7 +77,7 @@ var participant = {
         authenticity_token: token
       }
     }).done(function(data){
-      toastr.warning($(row).find('a').html() + ' verwijderd');
+      toastr.warning(`${$(row).find('a').html()} ${I18n.t('admin.general.removed')}`);
       $(row).remove();
 
       //Move reservist to attendees if applicable
@@ -116,7 +116,7 @@ var participant = {
         reservist: false
       }
     }).done(function(data){
-      toastr.success(data.member.name + ' is op de deelnemerslijst geplaatst');
+      toastr.success(`${data.member.name} ${I18n.t('admin.activities.added_reservist')}`);
       participant.add(data);
 
       $(row).remove();
@@ -140,7 +140,7 @@ var participant = {
         paid: true
       }
     }).done(function(data){
-      toastr.success(data.member.name + ' heeft betaald', 'success');
+      toastr.success(`${data.member.name} ${I18n.t('admin.activities.has_paid')}`);
 
       $(row)
         .find( 'button.paid' )
@@ -175,7 +175,7 @@ var participant = {
         paid: false
       }
     }).done(function(data){
-      toastr.warning(data.member.name + ' heeft nog niet betaald');
+      toastr.warning(`${data.member.name} ${I18n.t('admin.activities.added_reservist')}`);
 
       $(row)
         .find( 'button.unpaid' )
@@ -237,9 +237,9 @@ var participant = {
 
       participant.update_debt_header(data.activity.paid_sum, data.activity.price_sum);
 
-      toastr.success('Het deelname bedrag is veranderd');
+      toastr.success(I18n.t('admin.activities.info.price_changed'));
     }).fail(function(){
-      toastr.error('Geen verbinding of geen nummer');
+      toastr.error(I18n.t('admin.activities.info.price_error'));
     });
   }
 };
@@ -261,7 +261,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       }).done(function( data ){
         participant.add(data);
       }).fail(function(){
-        toastr.warning('Deze persoon is al toegevoegd');
+        toastr.warning(I18n.t('admin.activities.info.already_added'));
       });
   });
 
@@ -287,7 +287,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
 
   // Add confirmation dialog only when changing participants limit
   $('#participant_limit').on('change', function() {
-    $('.btn.btn-success.wait[type="submit"]').attr('data-confirm', "Activiteit opslaan?");
+    $('.btn.btn-success.wait[type="submit"]').attr('data-confirm', I18n.t('admin.activities.save'));
   });
 });
 

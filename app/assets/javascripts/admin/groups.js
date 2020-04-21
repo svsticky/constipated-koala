@@ -14,7 +14,7 @@ function bind_group_members(){
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
 
-    if( !confirm($(row).find('a').html() + ' verwijderen?') )
+    if( !confirm(I18n.t('admin.general.remove', $(row).find('a').html())) )
       return;
 
     $.ajax({
@@ -24,7 +24,7 @@ function bind_group_members(){
         authenticity_token: token
       }
     }).done(function(){
-      toastr.warning($(row).find('a').html() + ' verwijderd');
+      toastr.warning(`${$(row).find('a').html()} ${I18n.t('admin.general.removed')}`);
       $(row).remove();
 
       $('#mail').trigger('recipient_removed', [ $(row).attr('data-id'), $(row).find('a').html(), $(row).attr('data-email') ]);
@@ -50,9 +50,9 @@ function bind_group_members(){
         position: position
       }
     }).done(function( data ){
-      toastr.success('Functie is gewijzigd');
+      toastr.success(I18n.t('admin.group.role_change'));
     }).fail(function( data ){
-      toastr.error('Geen verbinding of geen id');
+      toastr.error(I18n.t('admin.group.role_error'));
     });
   });
 }
@@ -82,7 +82,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
 
       $( '#members input.position:last' ).focus();
     }).fail(function(){
-      toastr.warning('Deze persoon is al toegevoegd');
+      toastr.warning(I18n.t('admin.group.already_added'));
     });
   });
 });

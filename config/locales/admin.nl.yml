@@ -2,8 +2,17 @@
 nl:
   admin:
     activities:
+      added_reservist: is op de deelnemerslijst geplaatst
       ended: Afgelopen
+      has_not_paid: heeft nog niet betaald
+      has_paid: heeft betaald
+      info:
+        already_added: Deze persoon is al toegevoegd
+        price_changed: Het deelname bedrag is veranderd
+        price_error: Geen verbinding of geen nummer
       new: Nieuwe activiteit
+      remove_participant: Deelname van %{user} verwijderen?
+      save: Activiteit opslaan?
       single: Activiteit
       title: Activiteiten
     error:
@@ -15,8 +24,15 @@ nl:
       outstanding_payments: Openstaande betalingen
       studies: Studies
       transactions_today: Laatste transacties vandaag
+    general:
+      confirmation: Weet u het zeker?
+      remove: Wil je %{user} verwijderen?
+      removed: verwijderd
     group:
+      already_added: Deze persoon is al toegevoegd
       new: Nieuwe groep
+      role_change: Functie is gewijzigd
+      role_error: Geen verbinding of geen ID
     member_account_status:
       active_user: Dit lid heeft een actief account (%{email}).
       consent_sent: Mail voor studiestatus update verstuurd.
@@ -43,6 +59,8 @@ nl:
       study_info: Studiegegevens
       surname: Achternaam
       title: Leden
+      top_up: Checkout opgewaardeerd
+      top_up_error: De opwaardering kan niet nul zijn
     navigation:
       apps: Apps
       checkout: Checkout
@@ -59,10 +77,13 @@ nl:
       day_total: Dagtotaal
       days: Dagen
       description: Omschrijving
+      found: Transacties gevonden
       ideal: iDeal transacties
       mails: Betalingsmails
       member: Lid
       no_transactions: Geen transacties
+      no_update: Kon niet updaten
+      not_found: Geen transacties gevonden
       not_paid: Niet betaalde activiteiten
       overdue: Achterstallige betalingen (> 4 mails)
       paid: Betaald
@@ -72,6 +93,8 @@ nl:
       show: Toon
       state: Status
       whatsapp:
+        copy: Bericht gekopieerd naar klembord
+        copy_error: Bericht kon niet worden opgehaald
         open_activities: De volgende activiteiten staan open
         pay_to: Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand %{member}_?
         title: Hey! %{user} van Sticky hier :)
@@ -83,6 +106,8 @@ nl:
       ads: Advertenties
       date: Datum
       external_apps: Externe applicaties
+      not_all_found: Niet alle activiteiten gevonden
+      not_saved: Instelling is niet opgeslagen
       object: Object
       per_page: regels per pagina
       separate: gescheiden met komma\'s
