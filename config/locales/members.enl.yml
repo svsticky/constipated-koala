@@ -1,0 +1,86 @@
+en:
+  members:
+    activities:
+      back_to_overview: Back to activity overview
+      index:
+        activities_calendar: Activities calendar
+        copy_ICS: Copy Webcal link
+        no_activities: There are no activities for which you can enroll at the moment
+      full: FULL!
+      actions:
+        enroll: Enroll
+        reservist_enroll: Enroll to spares list
+        reservist_unenroll: Un-enroll from spares list
+        unenroll: Unenroll
+        update_info: Update info
+        edit: Edit
+        confirm: Yup!
+        cancel: Nope
+        confirm_enroll: You are being enrolled for this activity. Are you sure?
+        confirm_enroll_date_passed: The unenrollment date for this activity has already been exceeded. Unenrolling is because of this not possible anymore. Are you sure you want to enroll?
+        confirm_unenroll: You are unenrolling for this activity. Are you sure?
+        confirm_update: Are you sure you want to update this information?
+      info:
+        more_info: More info
+        notes_mandatory: Extra info required!
+      error:
+        enroll: Could not enroll!
+        unenroll: Could not unenroll!
+        edit: Could not edit!
+    home:
+      edit:
+        board: the board
+        board_only_change_info: Some data can't be edit by yourself (for example your name, date of birth and student number). If this needs to be updated please contact
+        download:
+          activities: Activities
+          address: Address
+          birth: Date of birth
+          email: Email
+          emergency: Emergency number
+          enroll_date: Enrollment date
+          for: for
+          general:
+            date: Date
+            price: Price
+            products: Products
+            single: Activity
+          generated: This page is generated on
+          graduation:
+            graduated: Graduated
+            stopped: Stopped
+            studying: Studying
+          name: Name
+          number: Student number
+          phone: Phone number
+          pursuits: Boards, committees and societies
+          title: Download personal data
+          transactions: Checkout transactions
+        edit_study_info: For the association it is important to know whether you are studying at Utrecht University. We appreciate keeping your status up to date. Don't forget to save!
+        externe_applicaties: External applications
+        general_data: General
+        mutate_study: Updating already completed studies and adding new studies can be done by the board, please mail
+        password_options:
+          change_password: Change password
+          header: Password options
+        privacy_panel:
+          header: Privacy
+          privacy_statement: privacy statement
+          view: View the
+        revoke: revoke
+        study: Study information
+        underage_phone: If you are underage, you are required to add an emergency phone number.
+      index:
+        edit_profile: Edit profile
+        outstanding_payments: Outstanding payments
+        personal_data: Personal data
+        transaction_costs: transaction costs charged
+        upgrade: Top up
+    navigation:
+      books: Books
+      declarations: DigiDecs
+      edit_profile: Edit profile
+      files: Files
+      github: GitHub
+      links: External links
+      pictures: Pictures
+      vacancies: Vacancies

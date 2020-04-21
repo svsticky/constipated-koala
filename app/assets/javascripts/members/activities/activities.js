@@ -50,13 +50,13 @@ function rgbToHex(rgb) {
 
 function confirm_enroll(activity) {
   swal({
-      title: 'Inschrijven',
-      text: "Je wordt ingeschreven voor deze activiteit. Weet je het zeker?",
+      title: I18n.t('members.activities.actions.enroll'),
+      text: I18n.t('members.activities.actions.confirm_enroll'),
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!",
-      cancelButtonText: "Nee",
+      confirmButtonText: I18n.t('members.activities.actions.confirm'),
+      cancelButtonText: I18n.t('members.activities.actions.cancel'),
       closeOnConfirm: false
     },
     // on confirm
@@ -72,13 +72,13 @@ function confirm_enroll(activity) {
 
 function confirm_un_enroll_date_passed(activity) {
   swal({
-      title: 'Inschrijven',
-      text: "De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?",
+      title: I18n.t('members.activities.actions.enroll'),
+      text: I18n.t('members.activities.actions.confirm_enroll_date_passed'),
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!",
-      cancelButtonText: "Nee"
+      confirmButtonText: I18n.t('members.activities.actions.confirm'),
+      cancelButtonText: I18n.t('members.activities.actions.cancel')
     },
     // anonymous function, because this is set to the sweetalert
     function () {
@@ -89,18 +89,18 @@ function confirm_un_enroll_date_passed(activity) {
 
 function confirm_un_enroll(activity) {
   if (activity.has_un_enroll_date_passed()) {
-    swal('Uitschrijven mislukt!', 'De uitschrijfdeadline is al verstreken.', 'error');
+    swal(I18n.t('members.activities.error.unenroll_failed'), I18n.t('members.activities.error.unenroll_deadline'), 'error');
     return;
   }
 
   swal({
-      title: 'Uitschrijven',
-      text: "Je schrijft je uit voor deze activiteit. Weet je het zeker?",
+      title: I18n.t('members.activities.actions.unenroll'),
+      text: I18n.t('members.activities.actions.confirm_unenroll'),
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
-      confirmButtonText: "Jep!",
-      cancelButtonText: "Nee",
+      confirmButtonText: I18n.t('members.activities.actions.confirm'),
+      cancelButtonText: I18n.t('members.activities.actions.cancel'),
       closeOnConfirm: false
     },
     // anonymous function, because this is set to the sweetalert
@@ -112,12 +112,12 @@ function confirm_un_enroll(activity) {
 
 function confirm_update(activity) {
   swal({
-      title: "Weet je zeker dat je deze informatie wilt bewerken?",
+      title: I18n.t('members.activities.actions.confirm_update'),
       type: "info",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.update_notes_button.css('backgroundColor')),
-      confirmButtonText: "Jep!",
-      cancelButtonText: "Nee",
+      confirmButtonText: I18n.t('members.activities.actions.confirm'),
+      cancelButtonText: I18n.t('members.activities.actions.cancel'),
       closeOnConfirm: false
     },
     // anonymous function, because this is set to the sweetalert
