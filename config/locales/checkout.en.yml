@@ -8,7 +8,10 @@ en:
       nil: Confirmation token is invalid!
       none: No cards
       not_activated: Card could not be activated!
-      remove: remove
+      not_found: No card was found
+      not_removed: Card was not removed
+      remove: verwijder
+      removed: Card removed
       to_be_activated: To be activated cards
     error:
       identifier: No identifier given
@@ -16,7 +19,9 @@ en:
       numeric: The amount should be numeric
     products:
       activate: Activate
+      activated: is activated
       deactivate: Deactivate
+      deactivated: is deactivated
       edit: Edit product
       new: New product
       sales: Sales

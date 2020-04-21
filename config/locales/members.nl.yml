@@ -1,34 +1,35 @@
+---
 nl:
   members:
     activities:
-      back_to_overview: Terug naar overzicht
-      index:
-        activities_calendar: Activiteitenkalender
-        copy_ICS: Kopieer Webcal link
-        no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
-      full: VOL!
       actions:
+        cancel: Nee
+        confirm: Jep!
+        confirm_enroll: Je wordt ingeschreven voor deze activiteit. Weet je het zeker?
+        confirm_enroll_date_passed: De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?
+        confirm_unenroll: Je schrijft je uit voor deze activiteit. Weet je het zeker?
+        confirm_update: Weet je zeker dat je deze informatie wilt bewerken?
+        edit: Bijwerken
         enroll: Inschrijven
         reservist_enroll: Inschrijven op reservelijst
         reservist_unenroll: Uitschrijven van reservelijst
         unenroll: Uitschrijven
         update_info: Update info
-        edit: Bijwerken
-        confirm: Jep!
-        cancel: Nee
-        confirm_enroll: Je wordt ingeschreven voor deze activiteit. Weet je het zeker?
-        confirm_enroll_date_passed: De uitschrijfdeadline voor deze activiteit is verstreken. Hierdoor is uitschrijven niet mogelijk. Weet je zeker dat je je wilt inschrijven?
-        confirm_unenroll: Je schrijft je uit voor deze activiteit. Weet je het zeker?
-        confirm_update: Weet je zeker dat je deze informatie wilt bewerken?
+      back_to_overview: Terug naar overzicht
+      error:
+        edit: Kon niet bijwerken!
+        enroll: Kon niet inschrijven!
+        unenroll: Kon niet uitschrijven!
+        unenroll_deadline: De uitschrijfdeadline is al verstreken.
+        unenroll_failed: Uitschrijven mislukt!
+      full: VOL!
+      index:
+        activities_calendar: Activiteitenkalender
+        copy_ICS: Kopieer Webcal link
+        no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
       info:
         more_info: Meer info
         notes_mandatory: Extra info vereist!
-      error:
-        enroll: Kon niet inschrijven!
-        unenroll: Kon niet uitschrijven!
-        edit: Kon niet bijwerken!
-        unenroll_failed: Uitschrijven mislukt!
-        unenroll_deadline: De uitschrijfdeadline is al verstreken.
     home:
       edit:
         board: het bestuur

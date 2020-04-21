@@ -27,10 +27,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         authenticity_token: token
       }
     }).done(function(){
-      toastr.success('Kaart geactiveerd');
+      toastr.success(I18n.t('checkout.card.activated'));
       $( row ).remove();
     }).fail(function(){
-      toastr.error('Kaart is niet geactiveerd');
+      toastr.error(I18n.t('checkout.card.not_activated'));
       $( button ).removeAttr( 'disabled' );
     });
   });
@@ -51,10 +51,10 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         _destroy: true
       }
     }).done(function(){
-      toastr.warning('Kaart verwijderd');
+      toastr.warning(I18n.t('checkout.card.removed'));
       $( row ).remove();
     }).fail(function(){
-      toastr.erro('Kaart is niet verwijderd');
+      toastr.error(I18n.t('checkout.card.not_removed'));
       $( button ).removeAttr( 'disabled' );
     });
   });
@@ -93,7 +93,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       return;
 
     if( !amountInput.val()) {
-      toastr.error('De opwaardering kan niet nul zijn');
+      toastr.error(I18n.t('admin.members.top_up_error'));
       return;
     }
 
@@ -116,7 +116,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       }
     }).done(function( data ){
       amountInput.prop( 'disabled' , false);
-      toastr.success('Checkout opgewaardeerd');
+      toastr.success(I18n.t('admin.members.top_up'));
 
       //toevoegen aan de lijst
       $( '#transactions' ).trigger( 'transaction_added', data ); //TODO
@@ -131,7 +131,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
       amountInput.prop( 'disabled' , false );
 
       if( data.status === 404 )
-        toastr.error('Er is geen kaart gevonden');
+        toastr.error(I18n.t('checkout.card.not_found'));
 
       if( data.status === 413 )
         toastr.error(data.responseText, data.status);
@@ -147,7 +147,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
 
-    if( !confirm($(row).find('a').html() + ' verwijderen?') )
+    if( !confirm(I18n.t('admin.general.remove', $(row).find('a').html())) )
       return;
 
     $.ajax({
@@ -158,7 +158,7 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         authenticity_token: token
       }
     }).done(function(){
-      toastr.warning($(row).find('a').html() + ' verwijderd');
+      toastr.warning(`${$(row).find('a').html()} ${I18n.t('admin.general.removed')}`);
       $(row).remove();
     }).fail(function(error){
       toastr.error(error.statusText, error.status);
@@ -202,7 +202,7 @@ var product = {
 
       }
     }).done(function(){
-      toastr.success($(row).find('a').html() + ' is gedeactiveerd');
+      toastr.success(`${$(row).find('a').html()} ${I18n.t('checkout.products.deactivated')}`);
 
       $(row)
         .addClass('inactive')
@@ -210,7 +210,7 @@ var product = {
         .empty()
         .removeClass( 'deactivate btn-warning' )
         .addClass( 'activate btn-primary' )
-        .append( '<i class="fa fa-fw fa-check"></i> Activeer' );
+        .append( `<i class="fa fa-fw fa-check"></i> ${I18n.t('checkout.products.deactivate')}` );
 
       //Reset all event handlers
       bind_flip();
@@ -232,7 +232,7 @@ var product = {
         }
       }
     }).done(function(){
-      toastr.success($(row).find('a').html() + ' is geactiveerd');
+      toastr.success(`${$(row).find('a').html()} ${I18n.t('checkout.products.activated')}`);
 
       $(row)
         .removeClass( 'inactive' )
@@ -240,7 +240,7 @@ var product = {
         .empty()
         .removeClass( 'activate btn-primary inactive' )
         .addClass( 'deactivate btn-warning' )
-        .append( '<i class="fa fa-fw fa-times"></i> Deactiveer' );
+        .append( `<i class="fa fa-fw fa-times"></i> ${I18n.t('checkout.products.activate')}` );
 
         bind_flip();
 

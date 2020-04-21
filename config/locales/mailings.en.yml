@@ -62,10 +62,9 @@ en:
         activity_visited_html: You visited <strong>%{subject}</strong>, this activity cost %recipient.price%.
         payment_instructions_html: Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?
     removed: is immediatly removed
+    sent:
+      'false': Mail has not been sent!
+      'true': Mail has been sent
     signature: The board
     subject:
       confirm_card: Confirm Checkout card
-      confirmation: Are you sure?
-    sent:
-      yes: Mail has been sent
-      no: Mail has not been sent!

@@ -27,13 +27,14 @@ $(document).on( 'ready page:load turbolinks:load', function(){
         $(obj).val(data.activities);
 
       if( 'warning' in data && data.warning === true )
-        toastr.warning('Niet alle activiteiten gevonden');
+        toastr.warning(I18n.t('admin.settings.not_all_found'));
     }).fail(function(){
-      toastr.error('Instelling is niet opgeslagen');
+      toastr.error(I18n.t('admin.settings.not_saved'));
     });
   });
 
   // remove advert
+  // Will be removed, so no need for translation
   $( 'div#advertisements tr .btn-group button.destroy' ).bind( 'click', function() {
     var button = $( this );
     var row = $( this ).closest( 'tr' );

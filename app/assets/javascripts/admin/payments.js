@@ -43,10 +43,10 @@ function getWhatsappText (url) {
   return $.ajax({
     url: url,
     success: function() {
-      toastr.success('Bericht gekopieerd naar klembord');
+      toastr.success(I18n.t('admin.payment.whatsapp.copy'));
     },
     error: function() {
-      toastr.error('Bericht kon niet worden opgehaald');
+      toastr.error(I18n.t('admin.payment.whatsapp.copy_error'));
     },
     async: false
   }).responseText;
@@ -73,8 +73,8 @@ function getCheckoutTransactions (button) {
 
     //Fill table if not empty
     if (data.length == 0){
-      table.append('<tr style="height: 36px; line-height: 36px;"><td><em>Geen transacties</em></td><td></td><td></td></tr>')
-      toastr.warning('Geen transacties gevonden');
+      table.append(`<tr style="height: 36px; line-height: 36px;"><td><em>${I18n.t('admin.payment.no_transactions')}</em></td><td></td><td></td></tr>`)
+      toastr.warning(I18n.t('admin.payment.not_found'));
     }
     else {
       $.each(data, function(key, t) {
@@ -84,10 +84,10 @@ function getCheckoutTransactions (button) {
         if (t.price.indexOf('-') > 0) t.price = "-€" + t.price.substring(2);
         table.append('<tr style="height: 36px; line-height: 36px;"><td><a href="/members/' + t.member_id + '">' + t.name + '</a></td><td>' + t.price + '</td><td>' + t.date + '</td></tr>')
       });
-      toastr.success('Transacties gevonden');
+      toastr.success(I18n.t('admin.payment.found'));
     }
     $("#pin-total-result").text("€" + total.toFixed(2));
   }).fail(function(){
-    toastr.error('Kon niet updaten');
+    toastr.error(I18n.t('admin.payment.no_update'));
   });
 }
