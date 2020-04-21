@@ -1,4 +1,6 @@
 //= require cache_helpers.js
+//= require i18n
+//= require i18n/translations
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.
@@ -14,9 +16,9 @@ function find_in_object(object, checkFunction) {
 }
 
 var AlertTitles = {
-  'POST': 'Inschrijven',
-  'PATCH': 'Bijwerken',
-  'DELETE': 'Uitschrijven'
+  'POST': I18n.t('members.activities.actions.enroll'),
+  'PATCH': I18n.t('members.activities.actions.edit'),
+  'DELETE': I18n.t('members.activities.actions.unenroll')
 };
 
 /**
@@ -28,7 +30,7 @@ function Activity(activity_panel) {
   this.panel = activity_panel;
 }
 
-Activity.full_string = 'VOL!';
+Activity.full_string = I18n.t('members.activities.full');
 
 Activity.get_participant_count_from_string = function (fullness) {
   if (!fullness.includes(Activity.full_string))
@@ -202,13 +204,13 @@ Object.defineProperties(Activity.prototype, {
         var message;
         switch (method) {
           case "POST":
-            message = "Kon niet inschrijven! ";
+            message = I18n.t('members.activities.error.enroll');
             break;
           case "DELETE":
-            message = "Kon niet uitschrijven! ";
+            message = I18n.t('members.activities.error.unenroll');
             break;
           case "PATCH":
-            message = "Kon niet bijwerken! ";
+            message = I18n.t('members.activities.error.edit');
             break;
         }
         if (data.responseJSON) {
@@ -402,10 +404,10 @@ Object.defineProperties(Activity.prototype,
  * @type {{un_enrolled: Enrollment_status, enrolled: Enrollment_status, reservist: Enrollment_status, reservistable: Enrollment_status}}
  */
 var Enrollment_stati = {
-  un_enrolled: new Enrollment_status('btn-success', 'Inschrijven'),
-  enrolled: new Enrollment_status('btn-danger', 'Uitschrijven'),
-  reservist: new Enrollment_status('btn-warning', 'Uitschrijven van reservelijst'),
-  reservistable: new Enrollment_status('btn-warning', 'Inschrijven op reservelijst')
+  un_enrolled: new Enrollment_status('btn-success', I18n.t('members.activities.actions.enroll')),
+  enrolled: new Enrollment_status('btn-danger', I18n.t('members.activities.actions.unenroll')),
+  reservist: new Enrollment_status('btn-warning', I18n.t('members.activities.actions.reservist_unenroll')),
+  reservistable: new Enrollment_status('btn-warning', I18n.t('members.activities.actions.reservist_enroll'))
 };
 
 function Enrollment_status(classes, buttonText) {

@@ -62,7 +62,7 @@
       <br/>
       - if view == 'index'
         - if activity.notes_mandatory && activity.notes.present?
-          %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'}= I18n.t("members.activities.partials.view.notes_mandatory")
+          %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'}= I18n.t("members.activities.info.notes_mandatory")
   - if view =='show'
     .card-body.show-activity-topborder
       %strong= I18n.t("activerecord.attributes.activity.description")
@@ -81,27 +81,27 @@
     .row
       - if view == 'index'
         -if !activity.notes.blank?
-          = link_to raw("#{I18n.t('members.activities.partials.view.more_info')}&nbsp;&nbsp;&nbsp;<i class='fas fa-edit'></i>"), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
+          = link_to raw("#{I18n.t('members.activities.info.more_info')}&nbsp;&nbsp;&nbsp;<i class='fas fa-edit'></i>"), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
         -else
-          = link_to I18n.t('members.activities.partials.view.more_info'), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
+          = link_to I18n.t('members.activities.info.more_info'), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
 
       - if activity.notes.present? && view == 'show'
         %button.btn.btn-info.update-enrollment.col-9.col-sm-6{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
-          = I18n.t("members.activities.partials.view.actions.update_info")
+          = I18n.t("members.activities.actions.update_info")
       - if activity.is_enrollable
         - if @member.confirmed_activities.ids.include? activity.id
-          - button_text = I18n.t("members.activities.partials.view.actions.unenroll")
+          - button_text = I18n.t("members.activities.actions.unenroll")
           - button_class = 'btn-danger col-12 col-sm-6'
           - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
             - button_class += ' disabled'
         - elsif @member.reservist_activities.ids.include? activity.id
-          - button_text = I18n.t("members.activities.partials.view.actions.reservist_unenroll")
+          - button_text = I18n.t("members.activities.actions.reservist_unenroll")
           - button_class = 'btn-warning col-12 col-sm-6'
         - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
-          - button_text = I18n.t("members.activities.partials.view.actions.reservist_enroll")
+          - button_text = I18n.t("members.activities.actions.reservist_enroll")
           - button_class = 'btn-warning col-12 col-sm-6'
         - else
-          - button_text = I18n.t("members.activities.partials.view.actions.enroll")
+          - button_text = I18n.t("members.activities.actions.enroll")
           - button_class = 'btn-success col-12 col-sm-6'
         %button.btn.enrollment{ :class => button_class}
           = button_text
