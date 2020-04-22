@@ -33,8 +33,4 @@
             - @reservists.each do |participant|
               = render 'members/activities/partials/participant_table_row', participant: participant, activity: @activity
 
-= link_to "mailto:pleasedotheneedful@svsticky.nl" , class: "btn btn-danger helpme"do
-  %i.fa.fa-bug
-  = I18n.t 'members.activities.bug_report'
-
 = render 'layouts/partials/poster_modal', view: 'show'
