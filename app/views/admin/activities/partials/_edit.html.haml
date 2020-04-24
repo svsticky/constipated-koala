@@ -30,7 +30,7 @@
             = label(:activity, :poster, class: 'd-none d-md-block')
             .div.poster.d-none.d-md-block
               - if @activity.poster.attached?
-                = image_tag @activity.poster.representation(resize: '180x255!'), :class => 'img-fluid'
+                = image_tag @activity.thumbnail_representation, :class => 'img-fluid'
 
           .col-md-8
             = label(:activity, :description)
@@ -142,6 +142,11 @@
             = f.check_box :is_masters, checked: @activity.is_masters
             = f.label :is_masters
 
+      .form-group
+        .row
+          .col-lg-6
+            = f.label :participant_limit
+            = f.number_field :participant_limit, min: 0, data: {original: @activity.participant_limit}, id: "participant_limit"
 
       %button.btn.btn-success.wait{type: 'submit'}= I18n.t("editing.save")
       - if (@activity.id)

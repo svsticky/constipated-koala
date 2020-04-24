@@ -4,6 +4,7 @@ test_activities_1:
   end_date: <%= 10.days.since %>
   unenroll_date: <%= 7.days.since %>
   price: 0
+  is_viewable: true
   is_enrollable: true
   is_alcoholic: false
   is_masters: false
@@ -15,6 +16,7 @@ test_activities_2:
   end_date: <%= 10.days.since %>
   unenroll_date: <%= 7.days.since %>
   price: 0
+  is_viewable: true
   is_enrollable: true
   is_alcoholic: false
   is_masters: false
@@ -26,6 +28,7 @@ test_activities_3:
   end_date: <%= 8.days.since %>
   unenroll_date: <%= 2.days.since %>
   price: 0
+  is_viewable: true
   is_enrollable: true
   is_alcoholic: true
   is_masters: false
@@ -36,6 +39,7 @@ test_activities_4:
   end_date: <%= 10.days.since %>
   unenroll_date: <%= 7.days.since %>
   price: 0
+  is_viewable: true
   is_enrollable: true
   is_alcoholic: false
   is_masters: false
@@ -47,6 +51,7 @@ test_luckypeople_masters:
   end_date: <%= 10.days.since %>
   unenroll_date: <%= 7.days.since %>
   price: 0
+  is_viewable: true
   is_enrollable: true
   is_alcoholic: false
   is_masters: true
@@ -59,8 +64,20 @@ test_luckypeople_freshmen:
   end_date: <%= 10.days.since %>
   unenroll_date: <%= 7.days.since %>
   price: 0
+  is_viewable: true
   is_enrollable: true
   is_alcoholic: false
   is_masters: false
   is_freshmans: true
   participant_limit: 1
+
+test_invisible_activity:
+  name: Supergeheime activiteit die niet zichtbaar is
+  start_date: <%= 20.days.since %>
+  end_date: <%= 20.days.since %>
+  unenroll_date: <%= 17.days.since %>
+  price: 12.34
+  is_viewable: false
+  is_enrollable: false
+  is_alcoholic: false
+  participant_limit: 10

@@ -32,3 +32,4 @@ signing-key.pem
 
 .idea
 *.code-workspace
+.byebug_history

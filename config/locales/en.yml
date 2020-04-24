@@ -199,6 +199,7 @@ en:
           gmte: Game and Media Technology
           gt: Gametechnology
           hci: Human Computer Interaction
+          ads: Applied Data Science
           inca: Computer Science
           inku: Information Science
           mbim: Business Informatics
@@ -677,6 +678,7 @@ en:
         edit_profile: Edit profile
         outstanding_payments: Outstanding payments
         upgrade: Upgrade
+        personal_data: "Personal data"
     navigation:
       links: External links
       pictures: Pictures
@@ -686,6 +688,8 @@ en:
       vacancies: Vacancies
       profile: Profiel
       sign_out: Uitloggen
+      github: GitHub
+      edit_profile: "Edit profile"
   navigation:
     back: Back
     home: Home

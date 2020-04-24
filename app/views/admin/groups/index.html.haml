@@ -5,7 +5,7 @@
 
   .page.page-form
     .row
-      .col-md-6{ :class => ('d-none d-sm-block' unless @group.nil?) }
+      .col-md-6{ :class => ( 'd-sm-block' unless @group.nil?) }
         = render 'admin/groups/partials/index', group: @group, groups: @groups
 
       .col-md-6

@@ -21,7 +21,7 @@ class MailchimpJob < ApplicationJob
   queue_as :default
 
   def perform(key, member, interests = Rails.configuration.mailchimp_interests.values, mailchimp_status = 'subscribed')
-    return if ENV['MAILCHIMP_DATACENTER'].nil?
+    return if ENV['MAILCHIMP_DATACENTER'].blank?
 
     request = {
       email_address: member.email,

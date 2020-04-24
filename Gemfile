@@ -12,7 +12,7 @@ gem 'rabl'
 
 # assets and stuff
 gem 'sassc-rails'
-gem 'sprockets', '~> 3.0' # TODO remove this line and update to v4
+gem 'sprockets'
 gem 'pagy'
 
 # authentication gems

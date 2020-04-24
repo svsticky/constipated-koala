@@ -176,6 +176,7 @@ nl:
           gmte: Game and Media Technology
           gt: Gametechnologie
           hci: Human Computer Interaction
+          ads: Applied Data Science
           inca: Informatica
           inku: Informatiekunde
           mbim: Business Informatics
@@ -620,6 +621,7 @@ nl:
         edit_profile: Gegevens bewerken
         outstanding_payments: Openstaande betalingen
         upgrade: Mongoose opwaarderen
+        personal_data: "Persoonsgegevens"
     navigation:
       links: Externe links
       pictures: Foto's
@@ -629,6 +631,7 @@ nl:
       vacancies: Vacatures
       profile: Profiel
       sign_out: Uitloggen
+      github: GitHub
   navigation:
     back: Terug
     home: Home

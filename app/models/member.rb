@@ -301,7 +301,7 @@ class Member < ApplicationRecord
   end
 
   def mailchimp_interests
-    return nil if id.nil? || ENV['MAILCHIMP_DATACENTER'].nil? || ENV['MAILCHIMP_DATACENTER'].empty?
+    return nil if id.nil? || ENV['MAILCHIMP_DATACENTER'].blank? || ENV['MAILCHIMP_DATACENTER'].empty?
 
     Rails.cache.fetch("members/#{ id }/mailchimp/interests", expires_in: 30.days) do
       response = RestClient.get(
@@ -359,7 +359,7 @@ class Member < ApplicationRecord
     Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
 
     # remove from mailchimp, unless mailchimp env vars not set
-    unless ENV['MAILCHIMP_DATACENTER'].nil?
+    unless ENV['MAILCHIMP_DATACENTER'].blank?
       RestClient.post(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }/actions/delete-permanent",
         {},
