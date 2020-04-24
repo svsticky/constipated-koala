@@ -238,9 +238,45 @@ form.post-content {
       }
 
       h4 {
-        float: none;    ul {
+        float: none;
+        display: inline-block;
+        width: 100%;
         margin-bottom: 0px;
-        margin-left: 60px;
+        font-size: 1.1em;
+        position: relative;
+        top: 3px;
+        color: #19aa8d;  
+        
+        ul {
+          margin-bottom: 0px;
+          margin-left: 60px;
+          padding-left: 0px;
+
+          li {
+            display: inline-block;
+            font-size: 0.8em;
+            font-weight: 100;
+
+            &:not(:first-child) {
+              &::before{
+                content: "· ";
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+
+      i {
+        width: 20px;
+        text-align: center;
+        position: relative;
+        left: -5px;
+      }
+
+      ul {
+        margin-bottom: 0px;
+        margin-left: 0px;
         padding-left: 0px;
 
         li {
@@ -256,39 +292,10 @@ form.post-content {
           }
         }
       }
-        display: inline-block;
-        width: 100%;
-        margin-left: 60px;
-        margin-bottom: 0px;
-        font-size: 1.1em;
-        position: relative;
-        top: 3px;
-        color: #19aa8d;
-      }
 
-      i {
-        width: 20px;
-        text-align: center;
-        position: relative;
-        left: -5px;
-      }
-
-      ul {
-        margin-bottom: 0px;
-        margin-left: 60px;
-        padding-left: 0px;
-
-        li {
-          display: inline-block;
-          font-size: 0.8em;
-          font-weight: 100;
-
-          &:not(:first-child) {
-            &::before{
-              content: "· ";
-              font-weight: bold;
-            }
-          }
+      &.avatar-padding {
+        h4, ul {
+          margin-left: 60px;
         }
       }
     }
