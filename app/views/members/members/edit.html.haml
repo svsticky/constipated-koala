@@ -145,7 +145,7 @@
               %br
               Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar #{link_to 'bestuur@svsticky.nl', 'mailto:bestuur@svsticky.nl'}. Vergeet niet te opslaan!
 
-      - if !Settings['mailchimp.interests'].empty?
+      - if !Settings['mailchimp.interests'].blank?
         .card
           .card-header
             %i.fa.fa-fw.fa-envelope

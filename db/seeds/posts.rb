@@ -8,7 +8,7 @@ puts '-- Creating posts'
 
   Post.create(
     status: [0,1].sample,
-    tags: ['test'],
+    tags: 'test test2',
 
     author: Admin.all.sample,
 

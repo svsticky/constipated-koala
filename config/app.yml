@@ -13,6 +13,9 @@ defaults: &defaults
     committee: ['fotograaf','pr']
     moot: []
 
+  posts:
+    pinned: []
+    
 development:
   <<: *defaults
 
