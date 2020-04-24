@@ -4,12 +4,15 @@
   .col-md-8
     - @pinned.each do |post|
       .card
-        .card-header
+        .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
           - if post.author.avatar.attached?
             = image_tag post.author.avatar_representation, class: 'avatar'
           %h4= post.author.name
           %ul
             %li= I18n.l(post.published_at, format: "%d %B %H:%m")
+
+            - if post.pinned?
+              %li.bold pinned
 
             - post.tags&.each do |tag|
               %li= tag
@@ -47,7 +50,7 @@
 
     - @unpinned.each do |post|
       .card
-        .card-header
+        .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
           - if post.author.avatar.attached?
             = image_tag post.author.avatar, class: 'activity'
           %h4= post.author.name
