@@ -87,5 +87,6 @@ require Rails.root.join('db', 'seeds', 'checkout.rb')
 require Rails.root.join('db', 'seeds', 'groups.rb')
 require Rails.root.join('db', 'seeds', 'activities.rb')
 require Rails.root.join('db', 'seeds', 'payments.rb')
+require Rails.root.join('db', 'seeds', 'posts.rb')
 
 puts '-- done'
