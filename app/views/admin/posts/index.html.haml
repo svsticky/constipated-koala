@@ -14,7 +14,7 @@
         #posts
           - @posts.each do |post|
             .card
-              = link_to post, class: 'card-header' do
+              = link_to post, class: 'card-header ' + ('avatar-padding' if post.author&.avatar&.attached?).to_s do
                 - if post.author&.avatar&.attached?
                   = image_tag post.author.avatar_representation, class: 'avatar'
 
@@ -33,8 +33,8 @@
 
                 %h4= post.author.name
                 %ul
-                  %li
-                    - if post.published_at.present?
+                  - if post.published_at.present?
+                    %li
                       = I18n.l(post.published_at, format: "%d %B %H:%m")
 
                   - post.tags&.each do |tag|
