@@ -23,7 +23,7 @@ Rails.application.routes.draw do
           post    'mongoose',     to: 'members#add_funds'
 
           # revoke access to external authorized_applications
-          delete 'authorized_applications/:id',   to: 'members#revoke', as: :authorized_applications
+          delete 'authorized_applications/:id', to: 'members#revoke', as: :authorized_applications
         end
 
         resources :activities, only: [:index, :show] do

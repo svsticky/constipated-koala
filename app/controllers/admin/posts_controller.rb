@@ -1,8 +1,7 @@
 #:nodoc:
 class Admin::PostsController < ApplicationController
   def index
-
-    # TODO add filters, for pinned draft etc
+    # TODO: add filters, for pinned draft etc
     @pagination, @posts = pagy(Post.all)
     @post = Post.new author: current_user.credentials
   end
@@ -49,11 +48,9 @@ class Admin::PostsController < ApplicationController
       :id,
       :author_id,
       :author_type,
-
       :status,
       :pinned,
       :tags,
-
       :published_at,
       :content
     )

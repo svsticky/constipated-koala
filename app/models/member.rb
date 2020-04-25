@@ -69,14 +69,15 @@ class Member < ApplicationRecord
 
   has_one :user, as: :credentials, :dependent => :destroy
 
-  scope :active, -> { where(:id => (
+  scope :active, lambda {
+    where(:id => (
     Education.select(:member_id)
      .where('status = 0')
      .map(&:member_id) +
     Tag.select(:member_id)
       .where(:name => Tag.active_by_tag)
       .map(&:member_id)
-    ))
+  ))
   }
 
   scope :studying, -> { where(id: Education.where(status: :active)) }
@@ -221,6 +222,7 @@ class Member < ApplicationRecord
   # NOTE: return default value if birth date is blank, required for form validation
   def adult?
     return false if birth_date.blank?
+
     return 18.years.ago >= birth_date
   end
 

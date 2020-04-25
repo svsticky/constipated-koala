@@ -27,10 +27,12 @@ class Admin::SettingsController < ApplicationController
 
     elsif ['mongoose_ideal_costs'].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
 
     elsif ['begin_study_year'].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
+
       Settings[params[:setting]] = Date.parse(params[:value])
 
     elsif ['liquor_time'].include? params[:setting]
@@ -38,6 +40,7 @@ class Admin::SettingsController < ApplicationController
       logger.debug((params[:value] =~ /\d{2}:\d{2}/).inspect)
 
       head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
+
       Settings[params[:setting]] = params[:value]
     end
 

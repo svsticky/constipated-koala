@@ -1,5 +1,6 @@
 #:nodoc:
-class Admin::ParticipantsController < ApplicationController # TODO use permit params, and tidy up
+class Admin::ParticipantsController < ApplicationController
+  # TODO: use permit params, and tidy up
   def create
     @activity = Activity.find_by_id(params[:activity_id])
     @participant = Participant.new(
@@ -25,6 +26,7 @@ class Admin::ParticipantsController < ApplicationController # TODO use permit pa
 
     elsif params[:price].present?
       raise 'not a number' unless params[:price].is_number?
+
       message = 'price'
       @participant.update_attributes(:price => params[:price])
     end

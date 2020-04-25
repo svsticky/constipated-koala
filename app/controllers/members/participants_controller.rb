@@ -16,8 +16,8 @@ class Members::ParticipantsController < ApplicationController
   def create
     @activity = Activity.find_by_id params[:activity_id]
     @participant = Participant.new(
-       member: Member.find(current_user.credentials_id),
-       activity: @activity
+      member: Member.find(current_user.credentials_id),
+      activity: @activity
     )
 
     @participant.notes = participant_params[:notes] if @activity.notes_mandatory
@@ -35,8 +35,8 @@ class Members::ParticipantsController < ApplicationController
   def update
     @activity = Activity.find_by_id params[:activity_id]
     @participant = Participant.find_by(
-       member_id: Member.find(current_user.credentials_id).id,
-       activity_id: @activity.id
+      member_id: Member.find(current_user.credentials_id).id,
+      activity_id: @activity.id
     )
 
     @participant.errors.add(:notes, I18n.t('activerecord.errors.participant.blank')) if @activity.notes_mandatory && participant_params[:notes].blank?

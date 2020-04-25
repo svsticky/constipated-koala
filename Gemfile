@@ -11,9 +11,9 @@ gem 'haml'
 gem 'rabl'
 
 # assets and stuff
+gem 'pagy'
 gem 'sassc-rails'
 gem 'sprockets'
-gem 'pagy'
 
 # authentication gems
 gem 'devise'
@@ -33,8 +33,6 @@ gem 'responders'
 # settings cached in rails environment
 gem 'image_processing'
 gem 'rails-settings-cached', '~> 0.7'
-
-
 
 group :production, :staging do
   gem 'sentry-raven'

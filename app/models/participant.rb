@@ -20,21 +20,21 @@ class Participant < ApplicationRecord
     write_attribute(:price, nil) if price.blank?
   end
 
-  def currency #TODO rename to price?
+  # TODO: rename to price?
+  def currency
     return activity.price if read_attribute(:price).nil?
+
     self.price ||= 0
   end
 
   before_update do
     # if paid, fix price in participant
-    if paid_changed? && self.price.nil?
-      self.price = activity.price
-    end
+    self.price = activity.price if paid_changed? && self.price.nil?
   end
 
   before_validation do
     # if not paid, let the price be default for possible changes
-    write_attribute(:price, nil) if activity.price == self.price && !self.paid
+    write_attribute(:price, nil) if activity.price == self.price && !paid
   end
 
   def reservist!

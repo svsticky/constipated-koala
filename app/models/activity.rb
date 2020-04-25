@@ -133,6 +133,7 @@ class Activity < ApplicationRecord
 
   def price
     return 0 if read_attribute(:price).nil?
+
     return read_attribute(:price)
   end
 
@@ -219,7 +220,7 @@ class Activity < ApplicationRecord
   end
 
   def unenroll?
-    self.unenroll_date&.end_of_day && self.unenroll_date.end_of_day < Time.now
+    unenroll_date&.end_of_day && unenroll_date.end_of_day < Time.now
   end
 
   def poster_representation

@@ -1,6 +1,5 @@
 #:nodoc:
 class Admin::MembersController < ApplicationController
-
   def index
     if params[:search].present?
       @pagination, @members = pagy_array(Member.search(params[:search].clone))
@@ -9,7 +8,8 @@ class Admin::MembersController < ApplicationController
       @pagination, @members = pagy(
         Member.includes(:educations).active
         .select(:id, :first_name, :infix, :last_name, :phone_number, :email, :student_id)
-        .order(:last_name, :first_name))
+        .order(:last_name, :first_name)
+      )
 
     end
   end
@@ -17,7 +17,7 @@ class Admin::MembersController < ApplicationController
   # As defined above this is an json call only
   def search
     @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
-    # TODO if all integers use like %
+    # TODO: if all integers use like %
   end
 
   def show
