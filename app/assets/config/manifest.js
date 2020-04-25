@@ -18,3 +18,6 @@
 // Assets for public pages including token pages
 //= link public.css
 //= link public.js
+//
+// Fontawesome is having trouble with the url, see application/fontawesome.css.scss
+//= link_directory ../../../node_modules/@fortawesome/fontawesome-free/webfonts

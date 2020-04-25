@@ -1,0 +1,14 @@
+/*
+ * I had some issues with fontawesome being in the node_modules
+ * moved the requires to import so I can override the font-path
+ * better solution would be to copy webfonts into public, or 
+ * more options from sprockets such as defining output directory.
+ *
+ * https://fontawesome.com/how-to-use/on-the-web/using-with/sass
+ */
+
+$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
