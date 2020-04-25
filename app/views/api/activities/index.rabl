@@ -2,8 +2,6 @@ collection @activities
 
 attribute :id, :name, :location, :price, :show_on_website, :description
 
-node :participant_counter, &:fullness
-
 node :start_date do |activity|
   if activity.start_time.nil?
     activity.start_date
