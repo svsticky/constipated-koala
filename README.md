@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/5732642/78973685-ae2b7c00-7b10-11ea-973b-251fe8a7c22f.png" alt="constipated-koala" style="max-width:100%;">
+<img src="https://cloud.githubusercontent.com/assets/5732642/15008505/fa32a904-11e0-11e6-900a-98622e3f797a.png" alt="constipated-koala" style="max-width:100%;">
 </p>
 
 # Operation Constipated Koala
