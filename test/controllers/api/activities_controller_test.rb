@@ -12,8 +12,7 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse @response.body # @response is set automagically on get
 
     # Assert that we see all activities we should
-    should_see = Activity.where(is_viewable: true).to_a
-    should_see.reject!(&:ended?)
+    should_see = Activity.upcoming.to_a
 
     assert_equal should_see.count, data.count
 
