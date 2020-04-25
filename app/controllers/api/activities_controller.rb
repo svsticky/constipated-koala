@@ -9,7 +9,6 @@ class Api::ActivitiesController < ApiController
     else
       @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?', Date.today, Date.today).order(:start_date).where(is_viewable: true)
       @activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
-      @activities = @activities.reject(&:ended?)
     end
   end
 
