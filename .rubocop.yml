@@ -21,7 +21,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 500
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 500
 
 Metrics/MethodLength:

@@ -6,7 +6,7 @@ class Participant < ApplicationRecord
   validates :notes, length: { maximum: 30 }
   validates :notes, presence: true, if: -> { activity.notes_mandatory }
 
-  validate :is_enrollable
+  validate :enrollable?
   validate :age_restriction
 
   attr_accessor :notice
@@ -57,7 +57,7 @@ class Participant < ApplicationRecord
 
   private
 
-  def is_enrollable
+  def enrollable?
     errors.add(:base, I18n.t(:not_enrollable, scope: 'activerecord.errors.models.activity')) unless activity.is_enrollable?
     errors.add(:base, I18n.t(:participant_no_student, scope: 'activerecord.errors.models.activity')) unless member.may_enroll?
     errors.add(:base, I18n.t(:participant_suspended, scope: 'activerecord.errors.models.activity')) if member.suspended?

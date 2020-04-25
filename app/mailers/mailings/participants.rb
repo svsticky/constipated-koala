@@ -33,7 +33,7 @@ module Mailings
 
       price = activity.price
       price = if price > 0
-                "kost €#{ format('%.02f', price) }"
+                "kost €#{ format('%.02f', price) }" # rubocop:disable Style/FormatStringToken:
               else
                 "is gratis"
               end
