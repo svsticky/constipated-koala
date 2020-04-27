@@ -1,6 +1,7 @@
 //= require cache_helpers.js
 //= require i18n
 //= require i18n/translations
+//= require language.js
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.

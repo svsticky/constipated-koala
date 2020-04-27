@@ -95,8 +95,8 @@ en:
       whatsapp:
         copy: Message copied to clipboard
         copy_error: Message could not be retrieved
-        open_activities: You still have payments open for the following activities
-        pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Openstaand %{member}_?
+        open_activities: You still have not paid for the following activities
+        pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Outstanding %{member}_?
         title: Hey! %{user} from Sticky here :)
         total_of: This comes down to a total of *%{amount}*
     settings:

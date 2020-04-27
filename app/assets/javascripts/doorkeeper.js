@@ -13,3 +13,4 @@
 //= require jquery/dist/jquery.min
 //= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
+//= require language.js
