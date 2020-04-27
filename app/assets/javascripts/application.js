@@ -30,8 +30,18 @@
 //= require_tree ./admin
 
 $(document).on('ready page:load turbolinks:load', function () {
-
   $('.alert button.close').on('click', function () {
     $(this).closest('.alert').remove();
   });
 });
+
+// Language logic
+I18n.fallbacks = true;
+I18n.defaultLocale = "nl";
+
+// Language switcher
+const urlParams = new URLSearchParams(window.location.search);
+const language = urlParams.get('l');
+const l = language || sessionStorage.getItem("locale") || I18n.defaultLocale
+sessionStorage.setItem("locale", l);
+I18n.locale = l;
