@@ -70,7 +70,7 @@ end
 group :development, :test do
   gem 'rubocop'
   gem 'spring'
-  
-  # i18n helper
+
+  # i18n checks
   gem 'i18n-tasks', '~> 0.9.31'
 end
