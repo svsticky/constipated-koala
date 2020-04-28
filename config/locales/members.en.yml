@@ -73,12 +73,12 @@ en:
         study: Study information
         underage_phone: If you are underage, you are required to add an emergency phone number.
       index:
+        credit: Credit
         edit_profile: Edit profile
         outstanding_payments: Outstanding payments
         personal_data: Personal data
         transaction_costs: transaction costs charged
         upgrade: Top up
-        credit: Credit
     navigation:
       books: Books
       declarations: DigiDecs
