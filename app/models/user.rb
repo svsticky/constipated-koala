@@ -15,6 +15,10 @@ class User < ApplicationRecord
     return false
   end
 
+  def language
+    return credentials.language
+  end
+
   def sender
     "#{ credentials.name } <#{ email }>"
   end
