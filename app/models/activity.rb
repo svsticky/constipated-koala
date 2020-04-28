@@ -33,7 +33,7 @@ class Activity < ApplicationRecord
   # validates :unenroll_date
 
   before_destroy :rewrite_logs_before_delete, prepend: true
-  is_impressionable dependent: :nullify
+  is_impressionable :dependent => :ignore
 
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
 
@@ -273,6 +273,6 @@ class Activity < ApplicationRecord
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
   def rewrite_logs_before_delete
-    impressions.update_all(message: "Removed #{ name } (#{ id })")
+    impressions.update_all(message: "#{ name } (#{ id })")
   end
 end
