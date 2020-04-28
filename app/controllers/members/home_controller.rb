@@ -71,7 +71,7 @@ class Members::HomeController < ApplicationController
       session["locale"] = @member.language
       impressionist(@member, I18n.t('activerecrd.attributes.impression.member.update'))
 
-      redirect_to users_root_path
+      redirect_to users_root_path(:l => @member.language)
       return
     end
 
