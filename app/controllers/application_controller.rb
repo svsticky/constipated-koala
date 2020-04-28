@@ -20,6 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
+    if !current_user.nil?
+      session['locale'] = current_user.language
+    end
     session['locale'] = session['locale'] || I18n.default_locale
     I18n.locale = session['locale']
   end
