@@ -78,6 +78,7 @@ en:
         personal_data: Personal data
         transaction_costs: transaction costs charged
         upgrade: Top up
+        credit: Credit
     navigation:
       books: Books
       declarations: DigiDecs

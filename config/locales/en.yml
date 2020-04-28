@@ -348,8 +348,8 @@ en:
           one: Attendee
           other: Attendees
         reservists:
-          one: Reserve
-          other: Reserves
+          one: Spare
+          other: Spares
       settings: Settings
       study: Study/Studies
   association_name: Study association Sticky

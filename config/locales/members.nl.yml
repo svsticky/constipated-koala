@@ -78,6 +78,7 @@ nl:
         personal_data: Persoonsgegevens
         transaction_costs: transactiekosten in rekening gebracht
         upgrade: Opwaarderen
+        credit: Tegoed
     navigation:
       books: Boeken
       declarations: DigiDecs
