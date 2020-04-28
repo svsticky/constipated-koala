@@ -237,7 +237,7 @@ class Activity < ApplicationRecord
 
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if participant_limit
-      return 'VOL!' if attendees.count >= participant_limit
+      return I18n.t('members.activities.full') if attendees.count >= participant_limit
 
       return "#{ attendees.count }/#{ participant_limit }"
     end
