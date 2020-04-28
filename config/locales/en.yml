@@ -128,6 +128,7 @@ en:
         postal_code: Postal code
         student_id: Student ID
         tags: Tags
+        language: Language
       participant:
         paid:
           'false': Not paid

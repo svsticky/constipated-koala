@@ -40,9 +40,12 @@
                 .col-md-4
                   = f.label(:birth_date)
                   = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
-              .col-md-8
+              .col-md-5
                 = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
+              .col-md-3
+                = f.label(:language)
+                = f.select :language, options_for_select([["NL", :nl], ["EN" , :en]], selected: @member.language)
 
           .form-group
             .row

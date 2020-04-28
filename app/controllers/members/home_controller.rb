@@ -68,7 +68,8 @@ class Members::HomeController < ApplicationController
       MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys unless
         ENV['MAILCHIMP_DATACENTER'].blank?
 
-      impressionist(@member, 'lid bewerkt')
+      session["locale"] = @member.language
+      impressionist(@member, I18n.t('activerecrd.attributes.impression.member.update'))
 
       redirect_to users_root_path
       return
@@ -97,7 +98,7 @@ class Members::HomeController < ApplicationController
     end
 
     ideal = IdealTransaction.new(
-      :description => 'Mongoose-tegoed',
+      :description => I18n.t('activerecord.errors.models.ideal_transaction.attributes.checkout'),
       :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
       :issuer => ideal_transaction_params[:bank],
       :member => member,
@@ -136,6 +137,7 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
+                                   :language,
                                    :mailchimp_interests => [],
                                    educations_attributes: [:id, :status])
   end
