@@ -16,6 +16,7 @@ class Member < ApplicationRecord
   validates :emergency_phone_number, presence: true, if: :underage?
 
   validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
+  validates :language, presence: true
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
@@ -26,6 +27,7 @@ class Member < ApplicationRecord
   validates :join_date, presence: true
 
   enum consent: [:pending, :yearly, :indefinite]
+  enum language: [:nl, :en]
 
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
