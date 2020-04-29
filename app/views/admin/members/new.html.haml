@@ -3,9 +3,9 @@
 
 %section#content
   .page.page-form
-    .row
-      = form_for :member, url: members_path, method: :post, :class => 'form-validation' do |f|
+    = form_for :member, url: members_path, method: :post, :class => 'form-validation' do |f|
 
+      .row
         - if @member.errors.any?
           .col-md-12
             .alert.alert-danger
@@ -15,11 +15,11 @@
                 %li= msg
 
         .col-md-6
-          .panel.panel-default
-            .panel-heading
+          .card
+            .card-header
               %i.fa.fa-fw.fa-user
               = I18n.t('members.home.edit.general_data')
-            .panel-body
+            .card-body
               .form-group
                 .row
                   .col-md-5
@@ -79,11 +79,11 @@
                 = f.text_area :comments, :value => @member.comments, :class => 'form-control'
 
         .col-md-6.education
-          .panel.panel-default
-            .panel-heading
+          .card
+            .card-header
               %i.fa.fa-fw.fa-graduation-cap
               = I18n.t('admin.members.study_info')
-            .panel-body
+            .card-body
               .form-group
                 = f.label(:student_id)
                 = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
@@ -120,7 +120,7 @@
                             %span.fa.fa-trash-o
 
                 .callout.callout-info
-                  %p 
+                  %p
                     = I18n.t('admin.members.save_text')
 
                 - unless ENV['MAILCHIMP_DATACENTER'].blank?
@@ -129,7 +129,7 @@
                     = f.select :mailchimp_interests, options_for_select( Rails.configuration.mailchimp_interests, NIL), { :include_blank => true }, :multiple => true, :name => 'member[mailchimp_interests][]', :class => 'form-control'
 
         .col-md-12
-          .panel.panel-default
-            .panel-body
+          .card
+            .card-body
               %button.btn.btn-success{type: 'submit'}= I18n.t('editing.save')
               = link_to I18n.t('editing.cancel'), members_path, { :class => 'button btn btn-default' }
