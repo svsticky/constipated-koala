@@ -6,6 +6,8 @@ class Admin < ApplicationRecord
   attr_accessor :password
   attr_accessor :password_confirmation
 
+  def language; end
+
   def name
     return "#{ first_name } #{ last_name }" if infix.blank?
 

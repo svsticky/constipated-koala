@@ -4,6 +4,8 @@ class Admin::SettingsController < ApplicationController
 
   def index
     @admin = current_user.credentials
+    @user = User.find_by_email(current_user.email)
+
     @studies = Study.all
 
     @applications = Doorkeeper::Application.all
@@ -43,10 +45,13 @@ class Admin::SettingsController < ApplicationController
   end
 
   def profile
+    @user = User.find_by_email(current_user.email)
+    @user.update(user_post_params)
+    
     @admin = Admin.find(current_user.credentials_id)
+    @admin.update(admin_post_params)
 
-    @admin.update(member_post_params)
-    redirect_to :settings
+    return redirect_to "?l=#{@user.language}"
   end
 
   def logs
@@ -59,7 +64,11 @@ class Admin::SettingsController < ApplicationController
 
   private
 
-  def member_post_params
+  def admin_post_params
     params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
+  end
+
+  def user_post_params
+    params.require(:admin).permit(:language)
   end
 end

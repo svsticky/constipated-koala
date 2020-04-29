@@ -197,7 +197,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_194948) do
     t.date "consent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "language", default: 0, null: false
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["student_id"], name: "index_members_on_student_id", unique: true
   end
@@ -322,6 +321,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_194948) do
     t.integer "credentials_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "language", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["credentials_id", "credentials_type"], name: "index_users_on_credentials_id_and_credentials_type", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -3,6 +3,8 @@ class User < ApplicationRecord
   is_impressionable
 
   belongs_to :credentials, :polymorphic => true
+  
+  enum language: [:nl, :en]
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -13,10 +15,6 @@ class User < ApplicationRecord
     return true if credentials_type.casecmp('admin').zero?
 
     return false
-  end
-
-  def language
-    return credentials.language
   end
 
   def sender
