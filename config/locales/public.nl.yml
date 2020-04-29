@@ -9,11 +9,11 @@ nl:
   form:
     bank: Bank
     general: Algemene gegevens
+    introduction: Introductie %{user}
     invalid_student_id: Studentnummer is niet geldig
     payment: Betaalmethode
     phone_required_underage: Telefoonnummer voor calamiteiten is verplicht onder 18 jaar
     study: Studiegegevens
-    introduction: Introductie %{user}
   gezelligheid:
     text: In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.
     title: Gezelligheid

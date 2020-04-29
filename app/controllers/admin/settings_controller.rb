@@ -47,11 +47,11 @@ class Admin::SettingsController < ApplicationController
   def profile
     @user = User.find_by_email(current_user.email)
     @user.update(user_post_params)
-    
+
     @admin = Admin.find(current_user.credentials_id)
     @admin.update(admin_post_params)
 
-    return redirect_to "?l=#{@user.language}"
+    return redirect_to "?l=#{ @user.language }"
   end
 
   def logs

@@ -23,8 +23,8 @@ nl:
       activity:
         comments: Opmerkingen (privé)
         description: Beschrijving
-        description_nl: Nederlandse beschrijving
         description_en: Engelse beschrijving
+        description_nl: Nederlandse beschrijving
         end_date: Einddatum
         end_time: Eindtijd
         is_alcoholic: Alcohol (18+)
@@ -124,13 +124,13 @@ nl:
         house_number: Huisnummer
         infix: Tussenvoegsel
         join_date: Inschrijfdatum
+        language: Voorkeurstaal
         last_name: Achternaam
         male: Man
         phone_number: Telefoonnummer
         postal_code: Postcode
         student_id: Studentnummer
         tags: Tags
-        language: Voorkeurstaal
       participant:
         paid:
           'false': Niet betaald
