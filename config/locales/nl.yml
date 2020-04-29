@@ -23,6 +23,8 @@ nl:
       activity:
         comments: Opmerkingen (privé)
         description: Beschrijving
+        description_nl: Nederlandse beschrijving
+        description_en: Engelse beschrijving
         end_date: Einddatum
         end_time: Eindtijd
         is_alcoholic: Alcohol (18+)

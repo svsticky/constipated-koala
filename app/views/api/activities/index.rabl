@@ -1,6 +1,6 @@
 collection @activities
 
-attribute :id, :name, :location, :price, :show_on_website, :description
+attribute :id, :name, :location, :price, :show_on_website, :description_nl, :description_en
 
 node :participant_counter, &:fullness
 

@@ -67,10 +67,12 @@
     .card-body.show-activity-topborder
       %strong= I18n.t("activerecord.attributes.activity.description")
       <br/>
-      - if activity.description.blank?
-        = I18n.t("activerecord.missing_value_placeholders.activity.description")
+      - if @user.language == 'nl' && !activity.description_nl.blank?
+        = simple_format(activity.description_nl)
+      - elsif @user.language == 'en' && !activity.description_en.blank?
+        = simple_format(activity.description_en)
       - else
-        = simple_format(activity.description)
+        = I18n.t("activerecord.missing_value_placeholders.activity.description")
     - if !activity.notes.blank?
       .card-body.show-activity-topborder
         %strong

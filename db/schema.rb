@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_194948) do
+ActiveRecord::Schema.define(version: 2020_04_29_072750) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_194948) do
     t.text "comments", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "description", size: :medium
+    t.text "description_nl", size: :medium
     t.integer "organized_by"
     t.boolean "is_enrollable"
     t.boolean "is_alcoholic"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_194948) do
     t.boolean "is_masters"
     t.boolean "is_freshmans"
     t.boolean "show_on_website", default: false, null: false
+    t.text "description_en"
   end
 
   create_table "admins", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -197,6 +198,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_194948) do
     t.date "consent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "language", default: 0, null: false
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["student_id"], name: "index_members_on_student_id", unique: true
   end
