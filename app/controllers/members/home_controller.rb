@@ -51,6 +51,7 @@ class Members::HomeController < ApplicationController
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
+    @user = User.find_by_email(current_user.email)
     @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
     @member.educations.build(:id => '-1') if @member.educations.empty?
@@ -62,16 +63,18 @@ class Members::HomeController < ApplicationController
   end
 
   def update
+    @user = User.find_by_email(current_user.email)
+    @user.update(user_post_params)
+
     @member = Member.find(current_user.credentials_id)
 
     if @member.update member_post_params.except 'mailchimp_interests'
       MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys unless
         ENV['MAILCHIMP_DATACENTER'].blank?
 
-      session["locale"] = @member.language
       impressionist(@member, I18n.t('activerecrd.attributes.impression.member.update'))
 
-      redirect_to users_root_path(:l => @member.language)
+      redirect_to users_root_path(:l => @user.language)
       return
     end
 
@@ -140,6 +143,10 @@ class Members::HomeController < ApplicationController
                                    :language,
                                    :mailchimp_interests => [],
                                    educations_attributes: [:id, :status])
+  end
+
+  def user_post_params
+    params.require(:member).permit(:language)
   end
 
   def ideal_transaction_params

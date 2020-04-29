@@ -45,7 +45,7 @@
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
               .col-md-3
                 = f.label(:language)
-                = f.select :language, options_for_select([["NL", :nl], ["EN" , :en]], selected: @member.language)
+                = f.select :language, options_for_select([["NL", :nl], ["EN" , :en]], selected: @user.language)
 
           .form-group
             .row
