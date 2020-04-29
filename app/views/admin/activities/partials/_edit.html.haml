@@ -17,24 +17,28 @@
     .card-body
       .form-group
         .row
-          .col-lg-8
-            = label(:activity, :name)
-            = f.text_field :name, :value => @activity.name, :class => 'form-control'
-          .col-lg-4
-            = label(:activity, :price)
-            = f.text_field :price, :value => number_to_currency(@activity.price, :unit => ''), :class => 'form-control'
-
-      .form-group
-        .row
           .col-md-4
             = label(:activity, :poster, class: 'd-none d-md-block')
             .div.poster.d-none.d-md-block
               - if @activity.poster.attached?
                 = image_tag @activity.thumbnail_representation, :class => 'img-fluid'
+          .row
+            .col-lg-12
+              = label(:activity, :name)
+              = f.text_field :name, :value => @activity.name, :class => 'form-control'
+            .col-lg-6
+              = label(:activity, :price)
+              = f.text_field :price, :value => number_to_currency(@activity.price, :unit => ''), :class => 'form-control'
 
-          .col-md-8
-            = label(:activity, :description)
-            = f.text_area :description, :value => @activity.description, :class => 'form-control', :rows => 8
+      .form-group
+        .row
+          .col-md-12
+            = label(:activity, :description_nl)
+            = f.text_area :description_nl, :value => @activity.description_nl, :class => 'form-control', :rows => 8
+
+          .col-md-12
+            = label(:activity, :description_en)
+            = f.text_area :description_en, :value => @activity.description_en, :class => 'form-control', :rows => 8
 
       .form-group
         .row

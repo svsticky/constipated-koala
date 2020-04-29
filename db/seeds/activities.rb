@@ -38,7 +38,8 @@ dates.each do |start_date|
 
     location:          Faker::TvShows::FamilyGuy.location,
     organized_by:      Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample : nil,
-    description:       Faker::Lorem.paragraph(sentence_count: 5),
+    description_nl:    Faker::Lorem.paragraph(sentence_count: 5),
+    description_en:    Faker::Lorem.paragraph(sentence_count: 5),
 
     is_enrollable:     enrollable,
     is_masters:        Faker::Boolean.boolean(true_ratio: 0.2),

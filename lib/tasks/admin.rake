@@ -64,7 +64,8 @@ namespace :admin do
       name: args[:membership] ||= 'Lidmaatschap',
       price: args[:price] ||= 7.5,
       start_date: Settings.begin_study_year,
-      description: 'automatisch gegenereerde activiteit'
+      description_nl: 'automatisch gegenereerde activiteit',
+      description_en: 'automatically generated activity'
     )
 
     # set next date for new activity

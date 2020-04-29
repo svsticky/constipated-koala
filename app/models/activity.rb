@@ -29,7 +29,6 @@ class Activity < ApplicationRecord
 
   # Disabled validations
   # validates :end_date
-  # validates :description
   # validates :unenroll_date
 
   before_destroy :rewrite_logs_before_delete, prepend: true

@@ -56,7 +56,7 @@ class Public::HomeController < PublicController
 
       if params[:method] == 'IDEAL'
         transaction = IdealTransaction.new(
-          :description => "Introductie #{ @member.name }",
+          :description => I18n.t("form.introduction", user: @member.name),
           :amount => total,
           :issuer => params[:bank],
           :member => @member,
