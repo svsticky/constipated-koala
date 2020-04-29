@@ -72,7 +72,7 @@ class Members::HomeController < ApplicationController
       MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].select { |_, val| val == '1' }.keys unless
         ENV['MAILCHIMP_DATACENTER'].blank?
 
-      impressionist(@member, I18n.t('activerecrd.attributes.impression.member.update'))
+      impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
       redirect_to users_root_path(:l => @user.language)
       return

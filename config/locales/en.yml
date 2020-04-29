@@ -23,8 +23,8 @@ en:
       activity:
         comments: Comments (private)
         description: Description
-        description_nl: Dutch description
         description_en: English description
+        description_nl: Dutch description
         end_date: Enddate
         end_time: Endtime
         is_alcoholic: Alcoholic(18+)
@@ -124,13 +124,13 @@ en:
         house_number: Number
         infix: Prefix
         join_date: Date of registry
+        language: Preferred language
         last_name: Surname
         male: Male
         phone_number: Phone number
         postal_code: Postal code
         student_id: Student ID
         tags: Tags
-        language: Preferred language
       participant:
         paid:
           'false': Not paid
