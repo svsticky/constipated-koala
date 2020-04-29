@@ -103,9 +103,10 @@
 
               .form-group
                 .row
-                  %label{for: ''}
+                  .col-md-12
+                    %label{for: ''}
                     = I18n.t('activerecord.attributes.member.language')
-                    = f.select :language, options_for_select([["Nederlands", :nl], "Engels"], selected: @user.language)
+                    = f.select :language, options_for_select([["Nederlands", :nl], ["Engels", :en]], selected: @user.language)
 
               .form-group#mail
                 %label{for: ''}
