@@ -114,13 +114,6 @@
               %button.btn.btn-success{type: 'submit'}
                 = I18n.t('editing.save')
 
-        - if @advert.errors.any?
-          .alert.alert-danger
-            %span= I18n.t('activerecord.errors.incomplete')
-            %ul
-            - @advert.errors.full_messages.each do |msg|
-              %li= msg
-
         .card
           .card-header
             %i.fa.fa-fw.fa-rocket
