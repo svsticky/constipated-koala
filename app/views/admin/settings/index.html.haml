@@ -101,11 +101,12 @@
                     = I18n.t('admin.members.surname')
                     = f.text_field :last_name, :value => @admin.last_name, :class => 'form-control'
 
+              // Maak dit mooier
               .form-group
                 .row
                   %label{for: ''}
                     = I18n.t('activerecord.attributes.member.language')
-                    = f.select :language, options_for_select([["NL", :nl], ["EN" , :en]], selected: @user.language)
+                    = f.select :language, options_for_select([["Nederlands", :nl], [I18n.t("Engels", :en]], selected: @user.language)
 
               .form-group#mail
                 %label{for: ''}
