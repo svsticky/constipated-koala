@@ -55,9 +55,9 @@ then Ruby itself:
 
 ```console
 # These dependencies copied from https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-$ sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev mupdf-tools
 # Run this step in Koala's source directory, or rbenv won't know which version to install
-$ rbenv install
+rbenv install
 ```
 
 Note that installing Ruby will compile it from source, which can take a bit of
@@ -69,13 +69,13 @@ to build its dependencies. Install these, and then install Koala's Ruby
 dependencies:
 
 ```console
-$ sudo apt install curl libmariadbclient-dev imagemagick ghostscript
+sudo apt install curl libmariadbclient-dev imagemagick ghostscript
 
 # We use an older version of Bundler, as we haven't upgraded to version 2 yet.
-$ gem install bundler -v 1.17.1
+gem install bundler -v 1.17.1
 
-$ bundle install
-$ rbenv rehash
+bundle install
+rbenv rehash
 ```
 
 Then follow the instructions on [this page][yarn-install] to install Yarn,
@@ -106,15 +106,15 @@ Follow these steps to install Docker and start the database:
 
 ```console
 # Install Docker and Docker Compose
-$ sudo apt install docker.io docker-compose
+sudo apt install docker.io docker-compose
 
 # Add yourself to the `docker` system group (needed only once)
 # NOTE: You need to log out and log in again to apply this!
-$ sudo usermod -aG docker $USER
+sudo usermod -aG docker $USER
 
 # Install and start the database
 # If you don't want to log out and log in again, use `sudo` here.
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 MariaDB will now set itself up in the background, and will be available in
@@ -149,9 +149,9 @@ It generates two users that you can use:
 You can run Koala itself by running this command:
 
 ```console
-$ rails server
+rails server
 # This works as well:
-$ rails s
+rails s
 ```
 
 This will start a server that listens until you press Ctrl-C in the window
