@@ -86,9 +86,9 @@ nl:
       impression:
         activity:
           create: activiteit aangemaakt
+          destroy: activiteit verwijderd
           mail: betalingsmail gestuurd
           update: activiteit bewerkt
-          destroy: "activiteit verwijderd"
         checkoutcard:
           activate_card: kaart geactiveerd
         checkouttransaction:
