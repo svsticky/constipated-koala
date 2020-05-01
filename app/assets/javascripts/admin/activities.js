@@ -175,7 +175,7 @@ var participant = {
         paid: false
       }
     }).done(function(data){
-      toastr.warning(`${data.member.name} ${I18n.t('admin.activities.added_reservist')}`);
+      toastr.warning(`${data.member.name} ${I18n.t('admin.activities.has_not_paid')}`);
 
       $(row)
         .find( 'button.unpaid' )
