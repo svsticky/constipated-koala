@@ -73,7 +73,7 @@
               %dt
                 = I18n.t('admin.members.student_number')
               %dd= @member.student_id
-              %dt 
+              %dt
                 = I18n.t('admin.members.since')
               - if !@member.join_date.nil?
                 %dd= I18n.l @member.join_date
@@ -222,7 +222,7 @@
           %table.table.table-striped.table-linked#participants
             %thead
               %tr
-                %th 
+                %th
                   = I18n.t('admin.activities.single')
                 %th
                   = I18n.t('admin.payment.price')
@@ -255,4 +255,4 @@
                         %button.btn.btn-warning.paid{ :class => ('d-none' if activity.currency(@member).nil? || activity.currency(@member) == 0 )}
                           %i.fa.fa-fw.fa-times
                       %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash-o
+                        %i.fa.fa-fw.fa-trash

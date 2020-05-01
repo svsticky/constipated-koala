@@ -45,7 +45,7 @@ $(document).on('ready page:load turbolinks:load', function () {
         $(row).find('select').removeAttr('disabled').removeAttr('style').css('width', '100%');
 
         $(destroy).val("false");
-        $(this).html("<span class='fa fa-trash-o'></span>");
+        $(this).html("<span class='fa fa-trash'></span>");
         $(row).find('input.form-control').attr('disabled', 'disabled');
 
       } else {
@@ -111,15 +111,15 @@ $(document).on('ready page:load turbolinks:load', function () {
     }).fail(function (data) {
       inputAmount.prop('disabled', false);
 
-      if(!data.responseJSON){
+      if (!data.responseJSON) {
         toastr.error(data.statusText, data.status);
         return;
       }
 
       let errors = data.responseJSON.errors;
       let text = "";
-      for(let attribute in errors){
-        for(let error of errors[attribute])
+      for (let attribute in errors) {
+        for (let error of errors[attribute])
           text += error + ', ';
 
         // remove last colon and space
