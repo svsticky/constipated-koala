@@ -16,6 +16,7 @@ In both development and production, we use [Mariadb] as the database.
 [rbenv]: https://github.com/rbenv/rbenv
 
 ## Requirements
+
 To get started, you will need:
 
 - A Linux installation (we assume you're using Ubuntu 18.04)
@@ -29,12 +30,11 @@ You'll install:
 - [Yarn], a JavaScript package manager,
 - Koala's dependencies.
 
-
 To start, clone the project:
 
 ```console
-$ git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
-$ cd koala.svsticky.nl
+git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
+cd koala.svsticky.nl
 ```
 
 Ruby is a programming language and requires an environment. We can set up the
@@ -47,7 +47,7 @@ After installing rbenv, you'll also need the rbenv-vars plugin, which is used
 to read a configuration file. Install it like so:
 
 ```console
-$ git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
+git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
 ```
 
 Once you've done this, install the dependencies you'll need to build Ruby, and
@@ -86,8 +86,8 @@ a package manager for our JavaScript dependencies.
 You should now be able to run the following command:
 
 ```console
-$ yarn install
-$ rails assets:precompile
+yarn install
+rails assets:precompile
 ```
 
 This will download our JavaScript and CSS dependencies, and confirm that you're
@@ -96,6 +96,7 @@ able to build our CSS and JS bundles.
 If all of this worked, you're ready to run Koala!
 
 ## Configuring Koala
+
 To actually run Koala, you'll need a running copy of MariaDB or MySQL. In
 production, we run MariaDB, and to prevent problems we run the same database in
 development as well.
@@ -134,7 +135,7 @@ instructions in the file.
 Once you're done, you can set up the database with this command:
 
 ```console
-$ rails db:setup
+rails db:setup
 ```
 
 This creates the database for you and fills it with fake test data.
@@ -144,6 +145,7 @@ It generates two users that you can use:
 - `test@svsticky.nl`, a member user (same password).
 
 ## Running Koala
+
 You can run Koala itself by running this command:
 
 ```console
@@ -160,16 +162,17 @@ only accessible from the computer where you're running the server.
 In order to have the server actually work, you'll need to run this command once:
 
 ```console
-$ echo "127.0.0.1    koala.rails.local members.rails.local leden.rails.local intro.rails.local" | sudo tee -a /etc/hosts
+echo "127.0.0.1    koala.rails.local members.rails.local leden.rails.local intro.rails.local" | sudo tee -a /etc/hosts
 ```
 
 After this, when the server is running, you can open
-http://koala.rails.local:3000 in your browser, and you should get Koala's login
+<http://koala.rails.local:3000> in your browser, and you should get Koala's login
 screen.
 
 Happy hacking!
 
 ## Production
+
 The development setup is set up to consume less resources, and to allow rapid
 development by automatically loading changed code. In production, we use
 a different setup to be able to handle more requests at once and to integrate
@@ -184,16 +187,21 @@ under `ansible/tasks/koala.yml`.
 To utilize and set up the mailchimp synchronization have a look at [MAILCHIMP.md](MAILCHIMP.md).
 
 ## Background jobs
-There are two background jobs that need to be run periodically in production:
+
+There are three background jobs that need to be run periodically in production:
 
 - `rails admin:reindex_members`, which rebuilds the search index, which ensures
   that the member search works properly,
 - `rails admin:start_year['Lidmaatschap',7.5]`, which starts a new study year
   when it's appropriate to do so.
+- `rails status:mail`, which should be run once a year, preferably in the summer
+  holidays. The tasks asks appropiate members if they are still studying and if
+  they are okay with us storing their data (our version of GDPR compliancy).
 
 You shouldn't need to run these in development.
 
 ## Database management
+
 Some database commands that you might need if something breaks:
 
 - `rails db:create`: Create a database, but don't fill it with tables or data.
