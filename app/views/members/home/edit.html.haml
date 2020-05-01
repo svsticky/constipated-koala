@@ -30,23 +30,23 @@
               .col-lg-5
                 = f.label(:last_name)
                 = f.text_field :last_name, :value => @member.last_name, :class => 'form-control form-control-disabled', :disabled => true
+              - if @member.birth_date?
+                .col-md-6
+                  = f.label(:birth_date)
+                  = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
 
             .callout.callout-info #{ I18n.t('members.home.edit.board_only_change_info') } #{link_to I18n.t('members.home.edit.board'), 'mailto:bestuur@svsticky.nl'}.
           %hr
 
           .form-group
             .row
-              - if @member.birth_date?
-                .col-md-4
-                  = f.label(:birth_date)
-                  = f.label :birth_date, :value => I18n.l(@member.birth_date), :class => 'form-control form-control-disabled'
-              .col-md-5
+              .col-md-8
                 = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
               
-              .col-md-3
+              .col-md-4
                 = f.label(:language)
-                = f.select :language, options_for_select([["Nederlands", :nl], ["English", :en]], selected: @user.language)
+                = f.select :language, options_for_select([["Nederlands", :nl], ["English", :en]], selected: @user.language), {:class => 'form-control'}
 
           .form-group
             .row
