@@ -79,3 +79,8 @@ td.dropdown:hover ul.dropdown-menu {
     display: flex;
     justify-content: center;
 }
+
+#member_language {
+  display: block;
+  width: 100%;
+}

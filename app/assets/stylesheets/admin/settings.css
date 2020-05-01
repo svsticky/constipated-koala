@@ -14,3 +14,7 @@ tr td a {
   display: inline;
 }
 
+#admin_language {
+  display: block;
+  width: 100%
+}
