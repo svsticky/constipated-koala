@@ -27,13 +27,9 @@ class Activity < ApplicationRecord
 
   validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
 
-  # Disabled validations
-  # validates :end_date
-  # validates :unenroll_date
+  is_impressionable
 
   before_destroy :rewrite_logs_before_delete, prepend: true
-  is_impressionable :dependent => :ignore
-
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
 
   has_one_attached :poster
