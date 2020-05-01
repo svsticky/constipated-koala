@@ -38,8 +38,6 @@ dates.each do |start_date|
 
     location:          Faker::TvShows::FamilyGuy.location,
     organized_by:      Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample : nil,
-    description_nl:    Faker::Lorem.paragraph(sentence_count: 5),
-    description_en:    Faker::Lorem.paragraph(sentence_count: 5),
 
     is_enrollable:     enrollable,
     is_masters:        Faker::Boolean.boolean(true_ratio: 0.2),
@@ -57,6 +55,12 @@ dates.each do |start_date|
   puts("   -> #{ activity.name } (#{ start_date })#{', enrollable' if enrollable}" )
 
   activity.poster.attach(io: File.open('public/poster-example.pdf'), filename: 'poster-example.pdf', content_type: 'application/pdf')
+
+  # Add description in corresponding locales
+  Faker::Config.locale = :nl
+  activity.description_nl = Faker::Markdown.sandwich(sentences: 5)
+  Faker::Config.locale = :en
+  activity.description_en = Faker::Markdown.sandwich(sentences: 5)
 
   next unless enrollable
 

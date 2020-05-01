@@ -27,7 +27,6 @@ class Member < ApplicationRecord
   validates :join_date, presence: true
 
   enum consent: [:pending, :yearly, :indefinite]
-  enum language: [:nl, :en]
 
   fuzzily_searchable :query
   is_impressionable :dependent => :ignore
