@@ -59,8 +59,8 @@
                         - else
                           %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0)}
                             %i.fa.fa-fw.fa-times
-                        %button.btn.btn-default.destroy
-                          %i.fa.fa-fw.fa-trash-o
+                        %button.btn.btn-danger.destroy
+                          %i.fa.fa-fw.fa-trash
 
               %tr
                 %td{ :style => 'position: relative;'}
@@ -107,5 +107,5 @@
                     .btn-group
                       %button.btn.btn-success.toparticipant
                         %i.fa.fa-fw.fa-plus
-                      %button.btn.btn-.destroy
-                        %i.fa.fa-fw.fa-trash-o
+                      %button.btn.btn-default.destroy
+                        %i.fa.fa-fw.fa-trash

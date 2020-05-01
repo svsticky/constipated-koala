@@ -37,8 +37,8 @@
                             - else
                               %button.btn.btn-warning.paid{ :class => ('d-none' if participant.currency.nil? || participant.currency == 0 )}
                                 %i.fa.fa-fw.fa-times
-                            %button.btn.btn-default.destroy
-                              %i.fa.fa-fw.fa-trash-o
+                            %button.btn.btn-danger.destroy
+                              %i.fa.fa-fw.fa-trash
 
       .col-xl-6
         .card
@@ -48,7 +48,7 @@
           .card-body#paymentmails
             %table.table.table-striped.table-linked
               %thead
-                %th 
+                %th
                   = I18n.t('admin.activities.single')
                 %th
                   = I18n.t('admin.payment.days')
@@ -72,7 +72,7 @@
           -#TODO: check whatsapp button
           %table.table.table-striped.table-linked#paymentmails
             %thead
-              %th 
+              %th
                 = I18n.t('admin.payment.member')
               %th{colspan: 2} WhatsApp
             %tbody
