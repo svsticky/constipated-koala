@@ -29,7 +29,7 @@ class Participant < ApplicationRecord
     impressions.each do |i|
       prefix = "#{ activity.name } (#{ activity.id }) - "
       message = case i.action_name
-                when "update" then
+                when "update"
                   I18n.t i.message, scope: [:activerecord, :attributes, :impression, i.impressionable_type.downcase, i.action_name]
                 else
                   I18n.t i.action_name, scope: [:activerecord, :attributes, :impression, i.impressionable_type.downcase]
