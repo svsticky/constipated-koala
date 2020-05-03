@@ -31,9 +31,10 @@ table.table.table-linked > tbody > tr > td > a:hover {
 .update-side-bar {
   position: fixed;
   right: 0;
-  float: right;
+  max-height: calc(100% - 70px);
   top: 65px;
   width: calc(50% - 100px);
+  overflow-y: scroll;
 }
 
 .new-product {
