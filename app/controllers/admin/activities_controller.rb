@@ -87,6 +87,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :is_masters,
                                      :is_freshmans,
                                      :participant_limit,
+                                     :show_participants,
                                      :_destroy)
   end
 end

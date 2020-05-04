@@ -41,6 +41,7 @@ nl:
         participant_limit: Deelnemerslimiet
         price: Prijs
         show_on_website: Toon op website
+        show_participants: Deelnemers zichtbaar
         start_date: Begindatum
         start_time: Begintijd
         unenroll_date: Uitschrijfdeadline
