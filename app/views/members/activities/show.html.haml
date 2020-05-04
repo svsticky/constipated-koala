@@ -2,12 +2,12 @@
 - content_for(:title, "Activiteiten | #{@activity.name}")
 
 .container.col-12#activity-container{:data => {:view => 'show'}}
-  %div{:class => "col-12 col-lg-#{12 - (@activity.attendees.count > 0 ? 3 : 0) - (@activity.reservists.count > 0 ? 3 : 0)}"}
+  %div{:class => "col-12 col-lg-#{@activity.show_participants ? (12 - (@activity.attendees.count > 0 ? 3 : 0) - (@activity.reservists.count > 0 ? 3 : 0)) : 12}"}
     = render 'members/activities/partials/view', activity: @activity, view: 'show'
 
   %template#participant_table_row_template
     = render 'members/activities/partials/participant_table_row', participant: Participant.new(activity: @activity, member: Member.new), is_template: true, activity: @activity
-  - if @activity.attendees.count > 0
+  - if @activity.attendees.count > 0 && @activity.show_participants
     .col-12.col-md-6.col-xl-3.cramtable
       .card
         .card-header
@@ -20,7 +20,7 @@
             - @attendees.each do |participant|
               = render 'members/activities/partials/participant_table_row', participant: participant, activity: @activity
 
-  - if @activity.reservists.count > 0
+  - if @activity.reservists.count > 0 && @activity.show_participants
     .col-12.col-md-6.col-xl-3.cramtable
       .card
         .card-header

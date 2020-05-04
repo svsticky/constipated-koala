@@ -142,6 +142,11 @@
           .col-md-4
             = f.check_box :is_masters, checked: @activity.is_masters
             = f.label :is_masters
+        
+        .row
+          .col-lg-6
+            = f.check_box :show_participants, checked: @activity.show_participants
+            = f.label :show_participants
 
       .form-group
         .row

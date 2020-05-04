@@ -41,6 +41,7 @@ en:
         participant_limit: Participant limit
         price: Price
         show_on_website: On website
+        show_participants: Show participants
         start_date: Startdate
         start_time: Starttime
         unenroll_date: Un-enroll date
