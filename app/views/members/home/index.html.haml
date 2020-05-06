@@ -76,7 +76,7 @@
                 - else
                   %tdl
                 %td
-                  = check_box_tag "activity_ids[]", activity.id if !activity.participants.where(:member => @member).first.paid && !activity.currency(@member).nil? && activity.currency(@member) > 0
+                  = check_box_tag "activity_ids[]", activity.id if !activity.participants.where(:member => @member).first.paid && activity.currency(@member) > 0 && activity.is_payable
                 %td.text-center.d-none.d-sm-block
                   - if !activity.currency(@member).nil? && activity.currency(@member) > 0
                     - if activity.participants.where(:member => @member).first.paid
