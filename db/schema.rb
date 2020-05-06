@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_110627) do
+ActiveRecord::Schema.define(version: 2020_05_27_123642) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_110627) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "items"
-    t.string "payment_method", limit: 7
+    t.string "payment_method", limit: 16
   end
 
   create_table "educations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -136,22 +136,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_110627) do
     t.text "comments", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "ideal_transactions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "description"
-    t.decimal "amount", precision: 6, scale: 2
-    t.string "status", limit: 9, default: "open"
-    t.integer "member_id"
-    t.string "transaction_type"
-    t.string "transaction_id"
-    t.string "redirect_uri"
-    t.string "trxid"
-    t.string "token", limit: 64
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["token"], name: "index_ideal_transactions_on_token", unique: true
-    t.index ["trxid"], name: "index_ideal_transactions_on_trxid", unique: true
   end
 
   create_table "impressions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -275,6 +259,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_110627) do
     t.bigint "member_id"
     t.string "transaction_type"
     t.string "transaction_id"
+    t.string "is_online"
     t.string "trxid"
     t.string "qrurl"
     t.string "deeplink"
@@ -283,6 +268,21 @@ ActiveRecord::Schema.define(version: 2020_04_30_110627) do
     t.index ["member_id"], name: "index_payconiq_transactions_on_member_id"
     t.index ["token"], name: "index_payconiq_transactions_on_token", unique: true
     t.index ["trxid"], name: "index_payconiq_transactions_on_trxid", unique: true
+  end
+
+  create_table "payments", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "description"
+    t.decimal "amount", precision: 6, scale: 2
+    t.string "status", limit: 9, default: "open"
+    t.integer "member_id"
+    t.string "transaction_id"
+    t.string "ideal_redirect_uri"
+    t.string "trxid"
+    t.string "token", limit: 64
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "transaction_type", default: 0
+    t.integer "payment_type", default: 0
   end
 
   create_table "settings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

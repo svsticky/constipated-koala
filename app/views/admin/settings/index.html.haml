@@ -26,6 +26,15 @@
               %li.list-group-item
                 .container.row
                   .col-md-6
+                    %b= I18n.t 'payconiq_transaction_costs.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'payconiq_transaction_costs.description', scope: 'activerecord.attributes.settings'
+
+                  .col-md-6
+                    %input.form-control{ :id => 'options_payconiq_transaction_costs', :name => 'payconiq_transaction_costs', :value => Settings.payconiq_transaction_costs, :placeholder => '' }
+
+              %li.list-group-item
+                .container.row
+                  .col-md-6
                     %b= I18n.t 'liquor_time.name', scope: 'activerecord.attributes.settings'
                     %p= I18n.t 'liquor_time.description', scope: 'activerecord.attributes.settings'
 
