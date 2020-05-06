@@ -29,6 +29,10 @@ class Admin::SettingsController < ApplicationController
 
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
 
+    elsif ['payconiq_transaction_costs'].include? params[:setting]
+      head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+      Settings[params[:setting]] = params[:value].sub(',', '.').to_f
+
     elsif ['begin_study_year'].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
 
