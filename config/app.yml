@@ -2,6 +2,7 @@ defaults: &defaults
   # year doesn't matter as long as it is in the past, cronjob creates new date incrementing exactly one year
   begin_study_year: '2009-09-01'
 
+  payconiq_transaction_costs: 0.12
   mongoose_ideal_costs: 0.29
   liquor_time: '16:00'
 

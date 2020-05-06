@@ -52,10 +52,10 @@
           %span
             %i.fa.fa-fw.fa-fw.fa-ticket-alt
             = I18n.t("navigation.activity")
-            = select_tag :year, options_for_select( @years, params['year'] ), class: 'year-selector'
-            = f.submit "betaal activiteiten", class: 'button btn btn-success btn-sm', type: "submit"
-            = submit_tag 'checkall', :type => 'button', class: "btn btn-success btn-sm", id: 'check_all'
-
+            = select_tag :year, options_for_select( @years), class: 'year-selector'
+            = f.submit "betaal activiteiten", class: 'button btn btn-success btn-sm', type: "submit", id: "pay-activity"
+            = submit_tag 'checkall', :type => 'button', class: "btn btn-success btn-sm", id: 'check-all'
+            = select_tag :payment_type, options_for_select([%w[Payconiq Payconiq],%w[Ideal Ideal]])
         %table.table.table-striped
           %tbody
             - @participants.each do |activity|
@@ -76,7 +76,7 @@
                 - else
                   %tdl
                 %td
-                  = check_box_tag "activity_ids[]", activity.id if !activity.participants.where(:member => @member).first.paid && activity.currency(@member) > 0 && activity.is_payable
+                  = check_box_tag "activity_ids[]", activity.id, true if !activity.participants.where(:member => @member).first.paid && activity.currency(@member) > 0 && activity.is_payable
                 %td.text-center.d-none.d-sm-block
                   - if !activity.currency(@member).nil? && activity.currency(@member) > 0
                     - if activity.participants.where(:member => @member).first.paid
@@ -84,29 +84,41 @@
                     - else
                       %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
 
-    = form_for :payconiq_transaction, :remote => true,:url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
-      .card.table-dynamic
-        .card-header
-          %i.fa.fa-fw.fa-fw.fa-shopping-cart
-          = I18n.t('activerecord.models.activity_transactions')
-          %i.fa.fa-fw.fa-2x.fa-question-circle.float-right{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => I18n.t('members.home.index.mongoose-info')}
 
-        %table.table.card-body
-          %tbody
-            - @transactions.each do |transaction|
-              %tr
-                %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
-                %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
-                %td.d-none.d-sm-table-cell= transaction.activities.map(&:name).join(', ')
-                %td
-                  = number_to_currency(transaction.sum, :unit => '€')
-                  - if transaction.sum > 0
-                    %span.fa.fa-sort-asc.float-right
-                  - else
-                    %span.fa.fa-sort-desc.float-right
-
-            %tr.form
+    .card
+      .card-header
+        %i.fa.fa-fw.fa-fw.fa-shopping-cart
+        %span= I18n.t("activerecord.models.transactions")
+        = select("", "payment-type", [["Payconiq","Payconiq"],["Ideal","Ideal"]])
+      %table.table.card-body
+        %tbody
+          - @transactions.each do |transaction|
+            %tr
+              %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
+              %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
+              %td.d-none.d-sm-table-cell= transaction.products #activities.map(&:name).join(', ')
+              %td
+                = number_to_currency(transaction.price, :unit => '€')
+                - if transaction.price > 0
+                  %span.fa.fa-sort-asc.float-right
+                - else
+                  %span.fa.fa-sort-desc.float-right
+          = form_with :remote => true, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
+            = f.hidden_field(:payment_type, :value => "Payconiq")
+            %tr.form.payconiq
               %td.home_mongoose_form_element
                 = f.number_field :amount, :placeholder => I18n.t('members.home.index.credit'), :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
+              %td.home_mongoose_form_element
+              %td.home_mongoose_form_element
+                %button.btn.btn-success.btn-sm{ :type => 'submit'}= I18n.t('members.home.index.upgrade')
+
+          = form_with :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
+            = f.hidden_field(:payment_type, :value => "Payconiq")
+            %tr.form.ideal
+              %td.home_mongoose_form_element
+                = f.number_field :amount, :placeholder => I18n.t('members.home.index.credit'), :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
+              %td.home_mongoose_form_element
+                .ui-select{ :style => 'margin-top: 5px;' }
+                  = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important'}
               %td.home_mongoose_form_element
                 %button.btn.btn-success.btn-sm{ :type => 'submit'}= I18n.t('members.home.index.upgrade')

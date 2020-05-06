@@ -162,6 +162,9 @@ nl:
         mongoose_ideal_costs:
           description: De kosten van een iDEAL-transactie, zodat deze apart kunnen worden berekend in het iDEAL-overzicht.
           name: IDeal transactie kosten
+        payconiq_transaction_costs:
+          description: De kosten van een Payconiq-transactie, zodat deze apart kunnen worden berekend in het Payconiq-overzicht.
+          name: Payconiq transactie kosten
         positions:
           board: Bestuurslid
           chairman: Voorzitter
@@ -363,6 +366,7 @@ nl:
           other: Reserves
       settings: Instellingen
       study: Studie(s)
+      transactions: Transacties
   association_name: Studievereniging Sticky
   date:
     day_names:
