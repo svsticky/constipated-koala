@@ -153,7 +153,10 @@
           .col-md-4
             = f.check_box :is_masters, checked: @activity.is_masters
             = f.label :is_masters
-        
+        .row
+          .col-md-4
+            = f.check_box :is_payable, checked: @activity.is_payable, disabled: @activity.price == 0, data: {original: @activity.is_payable}
+            = f.label :is_payable
         .row
           .col-lg-6
             = f.check_box :show_participants, checked: @activity.show_participants

@@ -85,6 +85,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :is_alcoholic,
                                      :is_enrollable,
                                      :is_viewable,
+                                     :is_payable,
                                      :show_on_website,
                                      :is_masters,
                                      :is_freshmans,
