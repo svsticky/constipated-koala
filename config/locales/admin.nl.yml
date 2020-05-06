@@ -129,3 +129,8 @@ nl:
       show: Toon
       signature: Ondertekening
       user: Gebruiker
+  activerecord:
+    attributes:
+      settings:
+        payconiq_transaction_costs:
+          name: ""

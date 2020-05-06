@@ -164,6 +164,9 @@ en:
         mongoose_ideal_costs:
           description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
           name: IDeal transaction costs
+        payconiq_transaction_costs:
+          description: The costs of an Payconiq transaction. They can be calculated separately in the Payconiq overview this way.
+          name: Payconiq transaction costs
         positions:
           board: Board member
           chairman: Chairman
@@ -295,6 +298,7 @@ en:
             password_confirmation:
               confirmation: isn't repeated correctly
           blank: can't be blank
+        transactions: Transactions
       no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
       no_consent: You are no longer a student, indicate what we may do with your data.
       record_invalid: Error! The data is invalid.
