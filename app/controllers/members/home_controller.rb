@@ -140,7 +140,6 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :language,
                                    :mailchimp_interests => [],
                                    educations_attributes: [:id, :status])
   end

@@ -25,7 +25,8 @@ member.update(email: 'test@svsticky.nl')
 user = User.new(
   email:       member.email,
   password:    'sticky123',
-  credentials: member
+  credentials: member,
+  language:    Faker::Number.within(range: 0..1)
 )
 
 user.skip_confirmation!
