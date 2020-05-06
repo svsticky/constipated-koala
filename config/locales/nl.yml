@@ -35,6 +35,7 @@ nl:
         is_freshmans: Eerstejaars
         is_masters: Masters
         is_viewable: Toon in Koala
+        is_payable: Betaalbaar
         location: Locatie
         name: Naam
         notes: Extra specificatie
