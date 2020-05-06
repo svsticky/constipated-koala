@@ -35,6 +35,7 @@ en:
         is_freshmans: First year students
         is_masters: Masters
         is_viewable: Viewable
+        is_payable: Payable
         location: Location
         name: Name
         notes: Extra notes
