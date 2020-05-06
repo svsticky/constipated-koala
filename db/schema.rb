@@ -198,7 +198,6 @@ ActiveRecord::Schema.define(version: 2020_04_29_072750) do
     t.date "consent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "language", default: 0, null: false
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["student_id"], name: "index_members_on_student_id", unique: true
   end

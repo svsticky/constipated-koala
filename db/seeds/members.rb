@@ -18,8 +18,7 @@ puts '-- Creating members'
     student_id:   "F#{ Faker::Number.number(digits: 6) }",
     birth_date:   Faker::Date.between(from: 28.years.ago, to: 16.years.ago),
     join_date:    Faker::Date.between(from: 6.years.ago, to: Date.today),
-    comments:     (Faker::Boolean.boolean(true_ratio: 0.3) ? Faker::Hacker.say_something_smart : nil),
-    language:     Faker::Number.within(range: 0..1)
+    comments:     (Faker::Boolean.boolean(true_ratio: 0.3) ? Faker::Hacker.say_something_smart : nil)
   )
 
   puts("   -> #{ member.name } (#{ member.student_id })")
