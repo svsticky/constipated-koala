@@ -91,7 +91,9 @@ class Member < ApplicationRecord
     write_attribute(:email, email.downcase) if user.nil?
   end
 
-  def language; end
+  def language;
+    return user.language
+  end
 
   def address=(address)
     write_attribute(:address, address.strip)
