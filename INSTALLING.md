@@ -71,8 +71,7 @@ dependencies:
 ```console
 sudo apt install curl libmariadbclient-dev imagemagick ghostscript
 
-# We use an older version of Bundler, as we haven't upgraded to version 2 yet.
-gem install bundler -v 1.17.1
+gem install bundler -v 2.1.4
 
 bundle install
 rbenv rehash
