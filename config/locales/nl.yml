@@ -264,7 +264,7 @@ nl:
             participants:
               unpaid_activities: Er zijn nog onbetaalde activiteiten, betaal deze activiteiten en probeer daarna nogmaals te verwijderen.
             phone_number:
-              invalid: bestaat niet uit 10 cijfers
+              invalid: is ongeldig
             student_id:
               elfproef: is niet geldig
               invalid: is niet geldig
