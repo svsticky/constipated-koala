@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         root to: 'home#index', as: :users_root
 
         get   'edit',                           to: 'home#edit', as: :users_edit
-        patch 'edit',                           to: 'home#update'
+        post  'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
 
         get 'download', to: 'home#download'

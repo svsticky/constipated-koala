@@ -1,7 +1,7 @@
 - content_for(:page, "edit")
 - content_for(:title, @member.name)
 
-= form_for :member, method: :patch, authenticity_token: true, :class => 'form-validation' do |f|
+= form_for :member, method: :post, :class => 'form-validation' do |f|
 
   - if @member.errors.any? || flash[:error]
     .alert.alert-danger
@@ -43,7 +43,7 @@
               .col-md-8
                 = f.label(:email) + "¹"
                 = f.email_field :email, :value => @member.email, :class => 'form-control'
-              
+
               .col-md-4
                 = f.label(:language)
                 = f.select :language, options_for_select([["Nederlands", :nl], ["English", :en]], selected: @user.language), {:class => 'form-control'}
@@ -149,7 +149,7 @@
             .callout.callout-info
               = I18n.t('members.home.edit.edit_study_info')
               %br
-              %br 
+              %br
               #{ I18n.t('members.home.edit.mutate_study') } #{link_to I18n.t('members.home.edit.board'), 'mailto:bestuur@svsticky.nl'}.
 
       .card
