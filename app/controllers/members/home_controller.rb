@@ -74,7 +74,9 @@ class Members::HomeController < ApplicationController
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
-      redirect_to users_root_path(:l => @user.language)
+      cookies["locale"] = @user.language
+
+      redirect_to users_root_path
       return
     end
 
