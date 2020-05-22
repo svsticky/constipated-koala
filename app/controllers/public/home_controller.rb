@@ -111,7 +111,7 @@ class Public::HomeController < PublicController
   end
 
   def set_locale
-    session['locale'] = session['locale'] || I18n.default_locale
+    session['locale'] = params[:l] || I18n.default_locale
     I18n.locale = session['locale']
   end
 
