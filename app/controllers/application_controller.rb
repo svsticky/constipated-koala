@@ -12,11 +12,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def after_sign_in_path_for(resource)
-    I18n.locale = resource.language
-    return users_root_path(l: resource.language)
-  end
-
   def authenticate_admin!
     if !current_user.nil? && !current_user.admin?
       head :forbidden
