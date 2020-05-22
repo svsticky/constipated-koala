@@ -72,6 +72,7 @@ en:
         revoke: revoke
         study: Study information
         underage_phone: If you are underage, you are required to add an emergency phone number.
+        profile_saved: Profile saved
       index:
         credit: Credit
         edit_profile: Edit profile
