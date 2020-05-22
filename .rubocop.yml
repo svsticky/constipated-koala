@@ -21,9 +21,6 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 500
 
-Metrics/LineLength:
-  Max: 500
-
 Metrics/MethodLength:
   Max: 200
 
@@ -31,9 +28,18 @@ Metrics/MethodLength:
 Style/NumericPredicate:
   Enabled: False
 
+Layout/LineLength:
+  Enabled: True
+
 # Require spaces in string interpolation "#{ meme }" instead of "#{meme}"
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: space
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
 
 Style/RegexpLiteral:
   EnforcedStyle: slashes
@@ -47,3 +53,28 @@ Layout/EmptyLinesAroundBlockBody:
 Style/NumericLiterals:
   Exclude:
     - 'db/schema.rb'
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
