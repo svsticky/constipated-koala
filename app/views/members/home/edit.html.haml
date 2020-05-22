@@ -12,6 +12,10 @@
         - if flash[:error].present?
           %li= flash[:error]
 
+  - if flash[:notice]
+    .alert.alert-success
+      %span= flash[:notice]
+
   .row
     .col-xl-6
       .card

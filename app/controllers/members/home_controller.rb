@@ -76,7 +76,7 @@ class Members::HomeController < ApplicationController
 
       cookies["locale"] = @user.language
 
-      redirect_to users_root_path
+      redirect_to users_edit_path, :notice => I18n.t('members.home.edit.profile_saved')
       return
     end
 

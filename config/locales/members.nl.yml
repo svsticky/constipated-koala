@@ -72,6 +72,7 @@ nl:
         revoke: intrekken
         study: Studiegegevens
         underage_phone: Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
+        profile_saved: Gegevens opgeslagen
       index:
         credit: Tegoed
         edit_profile: Gegevens bewerken
