@@ -143,3 +143,11 @@ div.clickable > .panel {
   opacity: 1;
   font-weight: normal;
 }
+
+table.table > tbody > tr > td > span::after {
+  content: ", ";
+}
+
+table.table > tbody > tr > td > span:last-child::after {
+  content: "";
+}

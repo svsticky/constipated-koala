@@ -41,8 +41,7 @@
                     - group[ :positions ].each do | position |
                       - position.each do | position, year |
                         - unless position.nil?
-                          - if year == Date.today.study_year
-                            = I18n.t position, scope: 'activerecord.attributes.group.positions', default: position.capitalize
+                          %span= I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize)
 
   .col-lg-6.col-12.float-right
     .card
