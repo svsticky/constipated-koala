@@ -7,6 +7,7 @@ nl:
       confirm_card_link: Bevestig je Checkout kaart voor je account bij Studievereniging Sticky door naar %{confirm_url} te gaan.
       confirmation_instructions: Bevestig je kaart voor je Checkout account bij Studievereniging Sticky door op de onderstaande knop te klikken!
       subject: Checkout kaart bevestigen
+    confirm: Weet je zeker dat je deze mail wilt versturen?
     devise:
       activation_instructions:
         about_sticky: 'Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.'
@@ -67,4 +68,4 @@ nl:
       'true': Mail is verstuurd
     signature: Het bestuur
     subject:
-      confirm_card: Bevesitg Checkout kaart
+      confirm_card: Bevestig Checkout kaart
