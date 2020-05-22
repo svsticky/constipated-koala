@@ -5,7 +5,7 @@ class Admin::CheckoutProductsController < ApplicationController
   respond_to :json, only: [:activate_card, :change_funds]
 
   def index
-    @products = CheckoutProduct.order(:category, :name).last_version
+    @products = CheckoutProduct.order(:category, :name).last_version.sort_by { |t| [(t.active ? 0 : 1), t.name] }
     @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
     @new = CheckoutProduct.new
