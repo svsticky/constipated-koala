@@ -19,6 +19,7 @@ class Member < ApplicationRecord
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
+
   validates :student_id, presence: false, uniqueness: true, :allow_blank => true, format: { with: /\F?\d{6,7}/ }
   validate :valid_student_id
 

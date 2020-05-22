@@ -4,6 +4,7 @@ class Api::GroupsController < ApiController
 
   def index
     (@groups = Group.where(:category => params[:category]).order(:name)) && return unless params[:category].nil?
+
     @groups = Group.all.order(:category, :name)
   end
 

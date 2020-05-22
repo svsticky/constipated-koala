@@ -5,6 +5,7 @@ class IdealTransaction < ApplicationRecord
   self.primary_key = :token
 
   attr_accessor :issuer, :mollie_uri, :message
+
   validates :description, presence: true
   validates :amount, presence: true, numericality: true
   validates :status, presence: true

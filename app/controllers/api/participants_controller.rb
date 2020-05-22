@@ -9,6 +9,7 @@ class Api::ParticipantsController < ApiController
 
     elsif params[:member_id].present?
       head(:unauthorized) && return unless Authorization._member.id == params[:member_id].to_i
+
       @participants = Participant.where(:member => Authorization._member).includes(:activity, :member)
 
     else
@@ -20,6 +21,7 @@ class Api::ParticipantsController < ApiController
   def create
     @participant = Participant.new(:member => Authorization._member, :activity => Activity.find_by_id!(params[:activity_id]))
     head(:bad_request) && return unless @participant.save
+
     render :status => :created
   end
 
