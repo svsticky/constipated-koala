@@ -77,6 +77,9 @@
               = link_to "https://github.com/svsticky/", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t('members.navigation.github')
                 %i.fab.fa-github
+              = link_to "https://svsticky.com/discord/", :class => 'list-group-item list-group-item-action' do
+                %span= I18n.t('members.navigation.discord')
+                %i.fab.fa-discord
             -# Signout button for mobile
             = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-md-none' do
               %span= I18n.t('devise.sessions.new.sign_out')
