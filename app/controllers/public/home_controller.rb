@@ -1,7 +1,5 @@
 #:nodoc:
 class Public::HomeController < PublicController
-  before_action :set_locale
-
   layout false
 
   def index
@@ -108,11 +106,6 @@ class Public::HomeController < PublicController
     interests.push Rails.configuration.mailchimp_interests[:business] if member[:business_subscribe] == "1"
     interests.push Rails.configuration.mailchimp_interests[:lectures] if member[:lectures_subscribe] == "1"
     interests
-  end
-
-  def set_locale
-    session['locale'] = params[:l] || I18n.default_locale
-    I18n.locale = session['locale']
   end
 
   def public_post_params
