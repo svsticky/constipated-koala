@@ -73,6 +73,7 @@ nl:
         study: Studiegegevens
         underage_phone: Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
         profile_saved: Gegevens opgeslagen
+        email_confirmation: "Email veranderd: Controleer je inbox om het nieuwe adres te bevestigen"
       index:
         credit: Tegoed
         edit_profile: Gegevens bewerken

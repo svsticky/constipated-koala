@@ -73,6 +73,7 @@ en:
         study: Study information
         underage_phone: If you are underage, you are required to add an emergency phone number.
         profile_saved: Profile saved
+        email_confirmation: "Email changed: Check your inbox to confirm the new address"
       index:
         credit: Credit
         edit_profile: Edit profile

@@ -14,7 +14,10 @@
 
   - if flash[:notice]
     .alert.alert-success
-      %span= flash[:notice]
+      %span= I18n.t(flash[:notice])
+  - if flash[:warning]
+    .alert.alert-warning
+      %span= I18n.t(flash[:warning])
 
   .row
     .col-xl-6
