@@ -74,9 +74,13 @@ class Members::HomeController < ApplicationController
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
+
       cookies["locale"] = @user.language
 
-      redirect_to users_edit_path, :notice => I18n.t('members.home.edit.profile_saved')
+      # use the translation location instead of the actual translated string so
+      # the correct translation can be displayed if the user changed the language
+      flash[:warning] = 'members.home.edit.email_confirmation' if @member.email != params[:member][:email]
+      redirect_to users_edit_path, :notice => 'members.home.edit.profile_saved'
       return
     end
 
