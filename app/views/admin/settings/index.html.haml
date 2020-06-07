@@ -87,6 +87,10 @@
               = f.hidden_field :id, :value => @admin.id, :class => 'id'
 
               .form-group
+                .image-group
+                  - if @admin.avatar.attached?
+                    = image_tag @admin.avatar, class: 'avatar'
+              
                 .row
                   .col-md-4
                     %label{for: ''}
@@ -108,10 +112,7 @@
                     = I18n.t('activerecord.attributes.member.language')
                     = f.select :language, options_for_select([["Nederlands", :nl], ["English", :en]], selected: @user.language)
 
-              .form-group#mail
-                %label{for: ''}
-                = I18n.t('admin.settings.signature')
-                = render 'layouts/partials/editor'
+                .row
                   .col-lg-12
                     = label(:admin, :avatar)
                     .input-group

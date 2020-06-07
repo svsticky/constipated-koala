@@ -1,6 +1,5 @@
 require Rails.root.join('db', 'seeds', 'users.rb')
 
-# Create 20 activities and the participants
 puts '-- Creating posts'
 
 6.times do

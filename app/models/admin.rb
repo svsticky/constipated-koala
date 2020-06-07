@@ -1,6 +1,7 @@
 #:nodoc:
 class Admin < ApplicationRecord
   has_one :user, as: :credentials
+  has_one_attached :avatar
 
   attr_accessor :email
   attr_accessor :password
@@ -12,6 +13,10 @@ class Admin < ApplicationRecord
     return "#{ first_name } #{ last_name }" if infix.blank?
 
     "#{ first_name } #{ infix } #{ last_name }"
+  end
+
+  def avatar_representation
+    avatar.representation(resize: '50x50!') if avatar.attached?
   end
 
   after_create do
