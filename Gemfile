@@ -10,7 +10,6 @@ gem 'rabl'
 # assets and stuff
 gem 'coffee-rails'
 gem 'font_awesome5_rails'
-gem 'pagy'
 gem 'sassc-rails'
 
 # authentication gems
@@ -28,8 +27,7 @@ gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
 # pagination
-gem 'will_paginate'
-gem 'will_paginate-bootstrap4'
+gem 'pagy'
 
 # settings cached in rails environment
 gem 'image_processing'
