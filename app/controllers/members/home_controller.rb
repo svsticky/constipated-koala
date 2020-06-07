@@ -21,20 +21,8 @@ class Members::HomeController < ApplicationController
             .where('activities.is_payable')
             .sum('activities.price ')
 
-    # @participants =
-    #   (
-    #    @member.activities
-    #      .study_year( params['year'] )
-    #      .distinct
-    #      .joins(:participants)
-    #      .where(:participants => { :member => @member }) \
-    #    +
-    #     @member.activities
-    #       .joins(:participants)
-    #       .where("participants.paid = FALSE AND participants.price > 0")
-    #    ).uniq
-    #      .sort_by(&:start_date)
-    #      .reverse!
+    @pinned = Post.published.pinned
+    @unpinned = Post.published.unpinned
 
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
     @participants =
