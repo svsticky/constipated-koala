@@ -181,17 +181,8 @@
 
                     %td.d-none.d-sm-table-cell
                       = transaction.products
-            %footer.table-footer
-              .row
-                .col-lg-12.page-num-info.d-none.d-md-block{ :data => { :limit => @limit, :pagination => 4 } }
-                  %span
-                    = I18n.t('admin.payment.show')
-                    = select_tag 'limit', options_for_select([10,20,50], @limit)
-                    = I18n.t('admin.payment.per_page')
-              
-              .row
-                .col-lg-12
-                  = will_paginate @transactions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+            .card-footer
+              = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
 
 
       .col-lg-6

@@ -3,9 +3,8 @@ class Admin::AppsController < ApplicationController
   def checkout
     @pagination = 5
 
-    @transactions = CheckoutTransaction.includes(:checkout_card)
-                                       .order(created_at: :desc)
-                                       .paginate(page: params[:page], per_page: params[:limit] ||= 20)
+    @pagination, @transactions = pagy(CheckoutTransaction.includes(:checkout_card)
+      .order(created_at: :desc), items: params[:limit] ||= 20)
 
     @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
 
@@ -14,7 +13,6 @@ class Admin::AppsController < ApplicationController
   end
 
   def ideal
-    @transactions = IdealTransaction.order(created_at: :desc)
-                                    .paginate(page: params[:page], per_page: params[:limit] ||= 20)
+    @pagination, @transactions = pagy(IdealTransaction.order(created_at: :desc), items: params[:limit] ||= 20)
   end
 end
