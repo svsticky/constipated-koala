@@ -69,6 +69,17 @@ class Member < ApplicationRecord
 
   has_one :user, as: :credentials, :dependent => :destroy
 
+  scope :active, lambda {
+    where(:id => (
+    Education.select(:member_id)
+     .where('status = 0')
+     .map(&:member_id) +
+    Tag.select(:member_id)
+      .where(:name => Tag.active_by_tag)
+      .map(&:member_id)
+  ))
+  }
+
   scope :studying, -> { where(id: Education.where(status: :active)) }
   scope :alumni, -> { where.not(id: Education.where(status: :active)) }
 
@@ -173,7 +184,7 @@ class Member < ApplicationRecord
   end
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
-  def self.search(query, offset = 0, limit = 50)
+  def self.search(query)
     student_id = query.match(/^\F?\d{6,7}$/i)
     return where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
 
@@ -184,7 +195,7 @@ class Member < ApplicationRecord
     return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
 
     records = filter(query)
-    return records.find_by_fuzzy_query(query, limit: limit, offset: offset) unless query.blank?
+    return records.find_by_fuzzy_query(query) unless query.blank?
 
     return records
   end
@@ -226,6 +237,10 @@ class Member < ApplicationRecord
   # Member may enroll when currently enrolled in study, or tagged with one of the whitelisting tags.
   def may_enroll?
     return enrolled_in_study? || Tag.exists?(member: self, name: [:pardon, :merit, :donator, :honorary])
+  end
+
+  def suspended?
+    Tag.exists?(member: self, name: Tag.names[:suspended])
   end
 
   # TODO: move search related methods to lib?

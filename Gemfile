@@ -10,8 +10,8 @@ gem 'rabl'
 # assets and stuff
 gem 'coffee-rails'
 gem 'font_awesome5_rails'
-gem 'sassc-rails'
 gem 'pagy'
+gem 'sassc-rails'
 
 # authentication gems
 gem 'devise'

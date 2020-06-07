@@ -85,14 +85,5 @@
 
               %td= impression.ip_address
 
-
-      %footer.table-footer
-        .row
-          .col-lg-3.page-num-info.d-none.d-md-block{ :data => { :limit => @limit, :pagination => 4, :search => @search, :all => @all } }
-            %span
-              = I18n.t('admin.settings.show')
-              = select_tag 'limit', options_for_select([20,50,100], @limit)
-              = I18n.t('admin.settings.per_page')
-
-          .col-12.col-lg-6
-            = will_paginate @impressions, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
+      .card-footer
+        = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
