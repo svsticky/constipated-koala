@@ -14,7 +14,7 @@ function bind_group_members(){
     var token = encodeURIComponent($(this).closest('.page').attr('data-authenticity-token'));
     var row = $(this).closest('tr');
 
-    if( !confirm(I18n.t('admin.general.remove', $(row).find('a').html())) )
+    if( !confirm(I18n.t('admin.general.remove', {user:$(row).find('a').html()))} )
       return;
 
     $.ajax({
