@@ -190,11 +190,11 @@ Object.defineProperties(Activity.prototype, {
         }
       }).done(function (response) {
         //Alert user of  enrollment
-        swal({
+        Swal.fire({
           title: AlertTitles[method],
           text: response.message,
           timer: 10000,
-          type: "success"
+          icon: "success"
         });
 
         activity._fullness = Activity.get_fullness_from_count_and_limit(response.participant_count,
@@ -216,10 +216,10 @@ Object.defineProperties(Activity.prototype, {
           message += data.responseJSON.message;
         }
 
-        swal({
+        Swal.fire({
           title: AlertTitles[method],
           text: message,
-          type: "error"
+          icon: "error"
         });
       });
 
