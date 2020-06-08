@@ -1,4 +1,4 @@
-//= require sweetalert/dist/sweetalert.min
+//= require sweetalert2/dist/sweetalert2.min
 //= require ./activity.js
 //= require members/activities/poster_modal
 
@@ -49,10 +49,10 @@ function rgbToHex(rgb) {
 }
 
 function confirm_enroll(activity) {
-  swal({
+  Swal.fire({
       title: I18n.t('members.activities.actions.enroll'),
       text: I18n.t('members.activities.actions.confirm_enroll'),
-      type: "warning",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: I18n.t('members.activities.actions.confirm'),
@@ -71,10 +71,10 @@ function confirm_enroll(activity) {
 }
 
 function confirm_un_enroll_date_passed(activity) {
-  swal({
+  Swal.fire({
       title: I18n.t('members.activities.actions.enroll'),
       text: I18n.t('members.activities.actions.confirm_enroll_date_passed'),
-      type: "warning",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: I18n.t('members.activities.actions.confirm'),
@@ -89,14 +89,14 @@ function confirm_un_enroll_date_passed(activity) {
 
 function confirm_un_enroll(activity) {
   if (activity.has_un_enroll_date_passed()) {
-    swal(I18n.t('members.activities.error.unenroll_failed'), I18n.t('members.activities.error.unenroll_deadline'), 'error');
+    Swal.fire(I18n.t('members.activities.error.unenroll_failed'), I18n.t('members.activities.error.unenroll_deadline'), 'error');
     return;
   }
 
-  swal({
+  Swal.fire({
       title: I18n.t('members.activities.actions.unenroll'),
       text: I18n.t('members.activities.actions.confirm_unenroll'),
-      type: "warning",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: I18n.t('members.activities.actions.confirm'),
@@ -111,9 +111,9 @@ function confirm_un_enroll(activity) {
 }
 
 function confirm_update(activity) {
-  swal({
+  Swal.fire({
       title: I18n.t('members.activities.actions.confirm_update'),
-      type: "info",
+      icon: "info",
       showCancelButton: true,
       confirmButtonColor: rgbToHex(activity.update_notes_button.css('backgroundColor')),
       confirmButtonText: I18n.t('members.activities.actions.confirm'),
