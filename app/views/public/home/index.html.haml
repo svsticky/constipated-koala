@@ -9,16 +9,26 @@
     = javascript_include_tag 'intro', 'data-turbolinks-track' => 'reload'
 
     = csrf_meta_tags
-  %body
+  %body{ :data => { :spy => 'scroll', :target => '.navbar' } }
     - if flash[:notice]
       .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
         .alert.alert-success.center-block{ :style => 'width: 500px;' }
           %button.click.close{ type: 'button' } ×
           .notice= flash[:notice]
 
-    .languages{ :style => 'position: absolute; z-index: 2'}
-      = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), '/?l=nl', { :style => 'margin: 10px; float:left; '}
-      = link_to image_tag('gb.png', { :style => 'height: 15px; width: 25px;' }), '/?l=en', { :style => 'margin: 10px; margin-left: 0px; float:left;'}
+    .navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+      .container
+        %ul.navbar-nav
+          %li.nav-item
+            = link_to I18n.t(:welcome, scope: 'headers'), '#top', { :class => 'nav-link' }
+          %li.nav-item
+            = link_to I18n.t(:about, scope: 'headers'), '#over', { :class => 'nav-link' }
+          %li.nav-item
+            = link_to I18n.t(:activities, scope: 'headers'), '#doenwat', { :class => 'nav-link' }
+          %li.nav-item
+            = link_to I18n.t(:subscribe, scope: 'headers'), '#inschrijven', { :class => 'nav-link' }
+        = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), '/?l=nl', { :style => 'margin: 10px; float:left; '}
+        = link_to image_tag('gb.png', { :style => 'height: 15px; width: 25px;' }), '/?l=en', { :style => 'margin: 10px; margin-left: 0px; float:left;'}
 
     .header-bg
     #top.header
