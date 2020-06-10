@@ -15,6 +15,9 @@ class Admin::ParticipantsController < ApplicationController
     if params[:reservist].present?
       message = params[:reservist].to_b ? 'reservist' : 'participant'
       @participant.update_attributes(:reservist => params[:reservist])
+
+      # notify participant of enrollment
+      Mailings::Participants.enrolled(@participant).deliver_later
     end
 
     if params[:paid].present?
