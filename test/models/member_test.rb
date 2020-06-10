@@ -52,7 +52,7 @@ class MemberTest < ActiveSupport::TestCase
     m.student_id = '5636450'
     assert m.save, 'Valid numerical student number marked invalid'
 
-    m.student_id = 'F1337420'
+    m.student_id = 'F133742'
     assert m.save, 'F-number marked invalid'
 
     m.student_id = '0000001'
