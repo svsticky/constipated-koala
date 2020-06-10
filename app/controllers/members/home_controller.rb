@@ -74,7 +74,6 @@ class Members::HomeController < ApplicationController
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
-
       cookies["locale"] = @user.language
 
       # use the translation location instead of the actual translated string so
