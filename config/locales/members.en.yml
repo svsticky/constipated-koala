@@ -59,6 +59,7 @@ en:
           title: Download personal data
           transactions: Checkout transactions
         edit_study_info: For the association it is important to know whether you are studying at Utrecht University. We appreciate keeping your status up to date. Don't forget to save!
+        email_confirmation: 'Email changed: Check your inbox to confirm the new address'
         externe_applicaties: External applications
         general_data: General
         mutate_study: Updating already completed studies and adding new studies can be done by the board, please mail
@@ -69,11 +70,10 @@ en:
           header: Privacy
           privacy_statement: privacy statement
           view: View the
+        profile_saved: Profile saved
         revoke: revoke
         study: Study information
         underage_phone: If you are underage, you are required to add an emergency phone number.
-        profile_saved: Profile saved
-        email_confirmation: "Email changed: Check your inbox to confirm the new address"
       index:
         credit: Credit
         edit_profile: Edit profile

@@ -59,6 +59,7 @@ nl:
           title: Download persoonsgegevens
           transactions: Checkout transacties
         edit_study_info: Voor de vereniging is het belangrijk om inzichtelijk te hebben of je studeert aan de Universiteit Utrecht. Het bijwerken van je studiestatus wordt op prijs gesteld. Vergeet niet te opslaan!
+        email_confirmation: 'Email veranderd: Controleer je inbox om het nieuwe adres te bevestigen'
         externe_applicaties: Externe applicaties
         general_data: Algemene gegevens
         mutate_study: Muteren van reeds afgesloten studies en toevoegen van nieuwe studies kan het bestuur voor je doen, mail naar
@@ -69,11 +70,10 @@ nl:
           header: Privacy
           privacy_statement: privacy statement
           view: Bekijk de
+        profile_saved: Gegevens opgeslagen
         revoke: intrekken
         study: Studiegegevens
         underage_phone: Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
-        profile_saved: Gegevens opgeslagen
-        email_confirmation: "Email veranderd: Controleer je inbox om het nieuwe adres te bevestigen"
       index:
         credit: Tegoed
         edit_profile: Gegevens bewerken
