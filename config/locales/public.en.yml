@@ -6,6 +6,9 @@ en:
   drinks:
     text: With free weekly drinks and regular themed drinks, there’ll be enough opportunities to get to know your fellow students!
     title: Drinks
+  education:
+    text: From book sales to extra assistance and from teacher drinks to symposia, Sticky makes studying easy and fun
+    title: Education
   form:
     bank: Bank
     general: General data

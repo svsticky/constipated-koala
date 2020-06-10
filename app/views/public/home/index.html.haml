@@ -34,32 +34,37 @@
             %p.lead= I18n.t(:lead)
 
     #doenwat.services
-      .container
+      .container-fluid
         .row
           .col-lg-4.offset-lg-4.text-center
             %h2= I18n.t(:activities, scope: 'headers')
             %hr
         .row
-          .col-lg-3.text-center
+          .col-lg.text-center
             .service-item
               %i.service-icon.fa.fa-users
               %h4= I18n.t(:title, scope: 'gezelligheid')
               %p= I18n.t(:text, scope: 'gezelligheid')
-          .col-lg-3.text-center
+          .col-lg.text-center
             .service-item
               %i.service-icon.fa.fa-rocket
               %h4= I18n.t(:title, scope: 'activities')
               %p= I18n.t(:text, scope: 'activities')
-          .col-lg-3.text-center
+          .col-lg.text-center
             .service-item
               %i.service-icon.fa.fa-book
               %h4= I18n.t(:title, scope: 'orientation')
               %p= I18n.t(:text, scope: 'orientation')
-          .col-lg-3.text-center
+          .col-lg.text-center
             .service-item
               %i.service-icon.fa.fa-glass-martini
               %h4= I18n.t(:title, scope: 'drinks')
               %p= I18n.t(:text, scope: 'drinks')
+          .col-lg.text-center
+            .service-item
+              %i.service-icon.fa.fa-graduation-cap
+              %h4= I18n.t(:title, scope: 'education')
+              %p= I18n.t(:text, scope: 'education')
 
     #inschrijven.portfolio
       .container
