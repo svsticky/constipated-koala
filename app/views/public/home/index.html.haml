@@ -134,8 +134,11 @@
             = f.email_field :email, :value => @member.email, :class => 'form-control'
             .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
 
+          %h4
+            %i.fa.fa-envelope
+            = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+
           .form-group
-            %label{for: ''}= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
             .row
               .col-md-6
                 %label.ui-checkbox
