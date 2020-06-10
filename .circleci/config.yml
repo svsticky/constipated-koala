@@ -41,7 +41,7 @@ jobs:
       - run: bundle exec rubocop
 
       # check for security vulnerabilities
-      - run: bunlde exec brakeman
+      - run: bundle exec brakeman
 
       # wait for database, create and setup
       - run: dockerize -wait tcp://localhost:3306 -timeout 1m
