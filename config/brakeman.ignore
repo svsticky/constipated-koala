@@ -1,0 +1,238 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "30b78607ab65fa6d3cfd1421a89095d5e289b45f6a118346451c16bca130b14e",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/admin/payments_controller.rb",
+      "line": 43,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(\"https://web.whatsapp.com/send?phone=#{Member.find(params[:member_id]).phone_number}&text=#{ERB::Util.url_encode(render_to_string(:template => \"admin/members/payment_whatsapp.html.erb\", :layout => false, :content_type => \"text/plain\"))}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::PaymentsController",
+        "method": "whatsapp_redirect"
+      },
+      "user_input": "Member.find(params[:member_id]).phone_number",
+      "confidence": "High",
+      "note": "Not the most beautiful code, but only the phone number and message in the redirect can be edited by the same admin that is using the link"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "3b8d54ccdfe03e13e9d1cd35e1640ed0a68e7505d339a35e79d8d25b531e6775",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/mailings/participants/inform.html.haml",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "current_user.credentials.signature",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "mailings/participants/inform"
+      },
+      "user_input": "current_user.credentials.signature",
+      "confidence": "Weak",
+      "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "3d256a3750c67158d1c5fa66e30e5e07fa242ecb5bb8146376846d4dd7918557",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/members/home_controller.rb",
+      "line": 121,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.ideal_transaction.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Members::HomeController",
+        "method": "add_funds"
+      },
+      "user_input": "IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.ideal_transaction.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri",
+      "confidence": "High",
+      "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "49b99fb6bf70bc433c99ac49400e2a8fb485000efde1696fc26e8bfd9e69e1aa",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/members/edit.html.haml",
+      "line": 73,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "I18n.t(:unconfirmed_email, :scope => \"activerecord.messages.member\", :email => Member.includes(:educations).includes(:tags).find(params[:id]).user.unconfirmed_email, :link => member_force_email_change_path(Member.includes(:educations).includes(:tags).find(params[:id])))",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::MembersController",
+          "method": "edit",
+          "line": 98,
+          "file": "app/controllers/admin/members_controller.rb",
+          "rendered": {
+            "name": "admin/members/edit",
+            "file": "app/views/admin/members/edit.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/members/edit"
+      },
+      "user_input": "Member.includes(:educations).includes(:tags)",
+      "confidence": "Weak",
+      "note": "We kinda trust our admins to not put code in an emailadress"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "655d6702388e12806bfc4a3e194dd9b031f35805f1c1600d24c31870e091afcb",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/public/home_controller.rb",
+      "line": 69,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(IdealTransaction.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => \"Activity\", :redirect_uri => public_url).mollie_uri)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Public::HomeController",
+        "method": "create"
+      },
+      "user_input": "IdealTransaction.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => \"Activity\", :redirect_uri => public_url).mollie_uri",
+      "confidence": "High",
+      "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "7627b4a6d06014a919a69d798701940bc0938376d285cc17e9d6dbfde550f778",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/checkout_transaction.rb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "CheckoutBalance.where(:id => checkout_balance.id).limit(1).update_all(\"balance = balance + #{price}, updated_at = NOW()\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "CheckoutTransaction",
+        "method": null
+      },
+      "user_input": "price",
+      "confidence": "Medium",
+      "note": "price is already validated beforehand"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "8506deaed7b8bffade415a45e77365d8ad85c8a1827d26de4da2690c759f1cb3",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/settings/index.html.haml",
+      "line": 117,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "current_user.credentials.signature",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::SettingsController",
+          "method": "index",
+          "line": 12,
+          "file": "app/controllers/admin/settings_controller.rb",
+          "rendered": {
+            "name": "admin/settings/index",
+            "file": "app/views/admin/settings/index.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/settings/index"
+      },
+      "user_input": "current_user.credentials.signature",
+      "confidence": "Weak",
+      "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "b80db455c4dd1ca640177dd5c9d1232eb638dbc2d29f46aababbaad11458f04f",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/admin/participants_controller.rb",
+      "line": 50,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params[:recipients].permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::ParticipantsController",
+        "method": "mail"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "The mass-assignment only is used to map over, the emailadresses will be checked later anyway"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "c4d9f2048289ae50cafbb403cdaf47fd86eb9730888be2bd0bc99b63e46b26fb",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/api/webhook_controller.rb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(IdealTransaction.find_by_token!(params[:token]).redirect_uri)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::WebhookController",
+        "method": "mollie_redirect"
+      },
+      "user_input": "IdealTransaction.find_by_token!(params[:token]).redirect_uri",
+      "confidence": "High",
+      "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "d2be482c78d4a736657a4132006c3abdc2cec2c7ae240313e8adaf682346654b",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/members/show.html.haml",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "I18n.t(:unconfirmed_email, :scope => \"activerecord.messages.member\", :email => Member.find(params[:id]).user.unconfirmed_email)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::MembersController",
+          "method": "show",
+          "line": 61,
+          "file": "app/controllers/admin/members_controller.rb",
+          "rendered": {
+            "name": "admin/members/show",
+            "file": "app/views/admin/members/show.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/members/show"
+      },
+      "user_input": "Member.find(params[:id]).user",
+      "confidence": "Weak",
+      "note": "Again we kind trust our admins here"
+    }
+  ],
+  "updated": "2020-06-10 16:10:03 +0200",
+  "brakeman_version": "4.8.2"
+}
