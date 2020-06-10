@@ -40,6 +40,9 @@ jobs:
       # codestyle check
       - run: bundle exec rubocop
 
+      # check for security vulnerabilities
+      - run: bunlde exec brakeman
+
       # wait for database, create and setup
       - run: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run: bundle exec rake db:create --trace
