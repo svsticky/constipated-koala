@@ -59,12 +59,14 @@ function confirm_enroll(activity) {
       cancelButtonText: I18n.t('members.activities.actions.cancel'),
     }).then(
     // on confirm
-    function () {
-      if (activity.has_un_enroll_date_passed())
-        confirm_un_enroll_date_passed(activity);
-      else {
-        activity.enroll();
-      }
+    function (result) {
+        if (result.value) {
+            if (activity.has_un_enroll_date_passed())
+                confirm_un_enroll_date_passed(activity);
+            else {
+                activity.enroll();
+            }
+        }
     }
   );
 }
@@ -103,8 +105,8 @@ function confirm_un_enroll(activity) {
 
     }).then(
     // anonymous function, because this is set to the sweetalert
-    function () {
-      activity.un_enroll();
+    function (result) {
+      if(result.value)activity.un_enroll();
     }
   );
 }
@@ -119,8 +121,8 @@ function confirm_update(activity) {
       cancelButtonText: I18n.t('members.activities.actions.cancel'),
     }).then(
     // anonymous function, because this is set to the sweetalert
-    function () {
-      activity.edit_enroll();
+    function (result) {
+        if(result.value) activity.edit_enroll();
     }
   );
 }
