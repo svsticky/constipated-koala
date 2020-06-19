@@ -11,6 +11,7 @@ nl:
     title: Onderwijs
   form:
     bank: Bank
+    finish_signup: Inschrijving afronden
     general: Algemene gegevens
     introduction: Introductie %{user}
     invalid_student_id: Studentnummer is niet geldig

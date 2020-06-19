@@ -241,7 +241,7 @@
                   .ui-select{ :style => 'margin-top: 5px;' }
                     = select_tag 'bank', options_for_select(IdealTransaction::issuers, @bank), :include_blank => ''
 
-          %button.btn.btn-success{type: 'submit'}= I18n.t(:subscribe, scope: 'headers')
+          %button.btn.btn-success{type: 'submit'}= I18n.t(:finish_signup, scope: 'form')
 
     %footer
       .container
