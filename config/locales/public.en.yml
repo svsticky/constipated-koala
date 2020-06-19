@@ -11,6 +11,7 @@ en:
     title: Education
   form:
     bank: Bank
+    finish_signup: Finish signing up
     general: General data
     introduction: Introduction %{user}
     invalid_student_id: Student number is not valid
