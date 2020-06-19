@@ -15,7 +15,8 @@ en:
     introduction: Introduction %{user}
     invalid_student_id: Student number is not valid
     more_info: More info
-    payment: Payment method
+    payment: Payment
+    payment_method: Payment method
     phone_required_underage: Emergency phone number is required under the age of 18
     study: Study information
   gezelligheid:

@@ -210,7 +210,7 @@
             .col-lg-6.activities
               %h4
                 %i.fa.fa-ticket-alt
-                = I18n.t(:activity, scope: 'navigation')
+                = I18n.t(:payment, scope: 'form')
               .row
                 .col-lg-6
                   .form-group
@@ -235,7 +235,7 @@
 
                 .col-lg-6
                   .ui-select
-                    %label{for: ''}= I18n.t(:payment, scope: 'form')
+                    %label{for: ''}= I18n.t(:payment_method, scope: 'form')
                     = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
                     %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
                   .ui-select{ :style => 'margin-top: 5px;' }

@@ -15,7 +15,8 @@ nl:
     introduction: Introductie %{user}
     invalid_student_id: Studentnummer is niet geldig
     more_info: Meer info
-    payment: Betaalmethode
+    payment: Betaling
+    payment_method: Betaalmethode
     phone_required_underage: Telefoonnummer voor calamiteiten is verplicht onder 18 jaar
     study: Studiegegevens
   gezelligheid:
