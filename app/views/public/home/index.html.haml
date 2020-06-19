@@ -162,19 +162,28 @@
                 %label.ui-checkbox
                   = f.check_box :mmm_subscribe, :checked => false
                   %span= I18n.t('mmm.name', scope: 'activerecord.annotations.member')
-                .help-block= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
+                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#mmm-info' }}
+                  = I18n.t(:more_info, scope: 'form')
+                #mmm-info.collapse
+                  .help-block= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
             .row
               .col-md-6
                 %label.ui-checkbox
                   = f.check_box :business_subscribe, :checked => false
                   %span= I18n.t('business.name', scope: 'activerecord.annotations.member')
-                .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
+                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#business-info'}}
+                  = I18n.t(:more_info, scope: 'form')
+                #business-info.collapse
+                  .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
             .row
               .col-md-6
                 %label.ui-checkbox
                   = f.check_box :lectures_subscribe, :checked => false
                   %span= I18n.t('lectures.name', scope: 'activerecord.annotations.member')
-                .help-block= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
+                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#lectures-info'}}
+                  = I18n.t(:more_info, scope: 'form')
+                #lectures-info.collapse
+                  .help-block= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
 
           .row
             .col-lg-6
