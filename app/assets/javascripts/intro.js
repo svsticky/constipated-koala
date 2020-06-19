@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery
-//= require turbolinks/dist/turbolinks
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validate
 //= require intl_tel_number
@@ -19,7 +18,7 @@
 //= require i18n/translations
 //= require language.js
 
-$(document).on('ready page:load turbolinks:load', function () {
+$(document).ready(function () {
   var disabledStudyOptions = null;
   var studyBlockers = {
     1: 3,

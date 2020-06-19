@@ -1,5 +1,6 @@
 //= require intl-tel-input/build/js/intlTelInput
 //= require intl-tel-input/build/js/utils
+//= require turbolinks/dist/turbolinks
 
 // international phone number input + validation
 
