@@ -1,10 +1,9 @@
 //= require intl-tel-input/build/js/intlTelInput
 //= require intl-tel-input/build/js/utils
-//= require turbolinks/dist/turbolinks
 
 // international phone number input + validation
 
-$(document).on('ready page:load turbolinks:load', function(){
+function setup_intl_tel_input() {
   var phone_input = document.querySelector('#member_phone_number');
   var emergency_phone_input = document.querySelector('#member_emergency_phone_number');
 
@@ -50,5 +49,4 @@ $(document).on('ready page:load turbolinks:load', function(){
       validate_phone_number(emergency_phone_input, iti_emergency_phone_input)
     });
   }
-
-});
+};

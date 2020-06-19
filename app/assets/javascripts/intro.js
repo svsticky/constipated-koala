@@ -154,4 +154,7 @@ $(document).ready(function () {
     $('.header-bg').css('height', (jumboHeight - scrolled) + 'px');
     $('.header-bg').css('height', (jumboHeight - scrolled) + 'px');
   });
+
+  setup_intl_tel_input();
+
 });

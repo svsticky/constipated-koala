@@ -5,6 +5,8 @@
 
 $(document).on('ready page:load turbolinks:load', function () {
 
+  setup_intl_tel_input();
+
   $('.education label a.close').bind('click', function () {
     var row = $('.education .copyable:last').clone().insertAfter($('.education .copyable:last'));
 
