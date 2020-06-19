@@ -25,11 +25,6 @@
             = link_to "Nederlands", {:l => 'nl'}, :class => 'dropdown-item'
             = link_to "English", {:l => 'en'}, :class => 'dropdown-item'
 
-        -# if I18n.locale == I18n.default_locale
-          = link_to image_tag('gb.png', { :style => 'height: 15px; width: 25px;' }), {:l => 'en'}, {:style => 'margin: 10px;'}
-        -# else
-          = link_to image_tag('nl.png', { :style => 'height: 15px; width: 25px;' }), {:l => 'nl'}, {:style => 'margin: 10px;'}
-
         %button.navbar-toggler{:type => 'button', :data => {:toggle => 'collapse', :target => '#intro-nav'}}
           %span.navbar-toggler-icon
         #intro-nav.collapse.navbar-collapse
