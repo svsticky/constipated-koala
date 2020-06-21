@@ -80,10 +80,11 @@ function confirm_un_enroll_date_passed(activity) {
       confirmButtonColor: rgbToHex(activity.enrollment_button.css('backgroundColor')),
       confirmButtonText: I18n.t('members.activities.actions.confirm'),
       cancelButtonText: I18n.t('members.activities.actions.cancel')
-    },
-    // anonymous function, because this is set to the sweetalert
-    function () {
-      activity.enroll();
+    }).then(
+    // on confirm
+    function (result) {
+        if (result.value) activity.enroll();
+        }
     }
   );
 }
