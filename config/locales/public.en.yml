@@ -9,6 +9,10 @@ en:
   education:
     text: From book sales to extra assistance and from teacher drinks to symposia, Sticky makes studying easy and fun
     title: Education
+  footer:
+    about_us: About us
+    contact: Contact
+    privacy: Privacy
   form:
     bank: Bank
     finish_signup: Finish signing up

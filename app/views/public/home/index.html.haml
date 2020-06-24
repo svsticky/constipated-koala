@@ -246,14 +246,24 @@
     %footer
       .container
         .row
-          .col-lg-6.offset-lg-3.text-center
-            %ul.list-inline
-              %li.list-inline-item
-                = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
-                  %i.fab.fa-facebook.fa-3x
-              %li.list-inline-item
-                =link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
-                  %i.fab.fa-linkedin.fa-3x
+          .col-lg-4.text-center
+            = link_to image_tag('//public.svsticky.nl/logos/hoofd_outline_wit.svg', {:style => 'height: 40px; width: 40px;'}), '//svsticky.nl', :target => '_blank'
+            = link_to I18n.t(:about_us, scope: 'footer'), '//svsticky.nl/vereniging/over-ons', :target => '_blank'
+            = link_to I18n.t(:contact, scope: 'footer'), '//svsticky.nl/vereniging/contact', :target => '_blank'
+
+          .col-lg-4.text-center
+            = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
+              %i.fab.fa-facebook-f.fa-2x
+            = link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
+              %i.fab.fa-linkedin-in.fa-2x
+            = link_to '//www.github.com/svsticky', :target => '_blank' do
+              %i.fab.fa-github.fa-2x
+
+          .col-lg-4.text-center
+            - if I18n.locale == :nl
+              = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement.pdf', :target => '_blank'
+            - else
+              = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement_english.pdf', :target => '_blank'
 
 - if @member.errors.any? || !flash[:error].nil?
   :javascript
