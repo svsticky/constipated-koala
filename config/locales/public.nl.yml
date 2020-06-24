@@ -9,6 +9,10 @@ nl:
   education:
     text: Van boekverkoop tot hulpmiddagen en van docentenborrel tot symposium, Sticky maakt studeren makkelijk en leuk
     title: Onderwijs
+  footer:
+    about_us: Over ons
+    contact: Contact
+    privacy: Privacy
   form:
     bank: Bank
     finish_signup: Inschrijving afronden

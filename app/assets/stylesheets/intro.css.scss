@@ -208,10 +208,6 @@ i.service-icon {
   height: 500px;
 }
 
-footer {
-  padding: 100px 0;
-}
-
 .top-scroll {
   margin-top: 50px;
 }
@@ -847,4 +843,24 @@ footer {
 
 #inschrijven {
   padding: 50px;
+}
+
+footer {
+  color: #fff;
+  background-color: #444;
+  padding: 10px 0 10px 0;
+}
+
+footer div {
+  align-items: center;
+}
+
+footer a {
+  color: #fff;
+  padding: 0 5px 0 5px;
+}
+
+footer a:hover {
+  color: #777;
+  text-decoration: none;
 }
