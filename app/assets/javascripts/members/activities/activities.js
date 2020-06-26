@@ -83,8 +83,7 @@ function confirm_un_enroll_date_passed(activity) {
     }).then(
     // on confirm
     function (result) {
-        if (result.value) activity.enroll();
-        }
+      if (result.value) activity.enroll();
     }
   );
 }
