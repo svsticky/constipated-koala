@@ -9,15 +9,14 @@
  */
 function find_in_object(object, checkFunction) {
   for (var p in object) {
-    if (object.hasOwnProperty(p) && checkFunction(object[p]))
-      return object[p];
+    if (object.hasOwnProperty(p) && checkFunction(object[p])) return object[p];
   }
 }
 
 var AlertTitles = {
-  'POST': I18n.t('members.activities.actions.enroll'),
-  'PATCH': I18n.t('members.activities.actions.edit'),
-  'DELETE': I18n.t('members.activities.actions.unenroll')
+  POST: I18n.t("members.activities.actions.enroll"),
+  PATCH: I18n.t("members.activities.actions.edit"),
+  DELETE: I18n.t("members.activities.actions.unenroll"),
 };
 
 /**
@@ -29,33 +28,28 @@ function Activity(activity_panel) {
   this.panel = activity_panel;
 }
 
-Activity.full_string = I18n.t('members.activities.full');
+Activity.full_string = I18n.t("members.activities.full");
 
 Activity.get_participant_count_from_string = function (fullness) {
-  if (!fullness.includes(Activity.full_string))
-    return fullness.match(/\d+/)[0];
+  if (!fullness.includes(Activity.full_string)) return fullness.match(/\d+/)[0];
 };
 
 Activity.get_participant_limit_from_string = function (fullness) {
   if (!fullness.includes(Activity.full_string)) {
     var numbers = fullness.match(/\d+/);
-    if (typeof numbers[1] !== 'undefined')
-      return numbers[1];
+    if (typeof numbers[1] !== "undefined") return numbers[1];
   }
 };
 
 Activity.get_fullness_from_count_and_limit = function (count, limit) {
-  if (limit === null)
-    return '' + count;
-  else if (count >= limit)
-    return Activity.full_string;
-  else
-    return count + ' / ' + limit;
+  if (limit === null) return "" + count;
+  else if (count >= limit) return Activity.full_string;
+  else return count + " / " + limit;
 };
 
 Activity.prototype = {
   get_panel_selector: function () {
-    return '.panel-activity[data-activity-id=' + this.id + ']';
+    return ".panel-activity[data-activity-id=" + this.id + "]";
   },
 
   /**
@@ -64,7 +58,7 @@ Activity.prototype = {
    */
   enroll: function () {
     var activity = this;
-    var request = this._remote_update_enrollment('POST').done(function () {
+    var request = this._remote_update_enrollment("POST").done(function () {
       //Normal enrollment
       if (request.status === 200) {
         activity._enrollment_status = Enrollment_stati.enrolled;
@@ -73,7 +67,7 @@ Activity.prototype = {
         activity._enrollment_status = Enrollment_stati.reservist;
       }
 
-      activity.update_notes_button.removeClass('d-none');
+      activity.update_notes_button.removeClass("d-none");
     });
 
     return request;
@@ -85,15 +79,14 @@ Activity.prototype = {
    */
   un_enroll: function () {
     var activity = this;
-    return this._remote_update_enrollment('DELETE').done(function () {
+    return this._remote_update_enrollment("DELETE").done(function () {
       if (activity._fullness === Activity.full_string) {
         activity._enrollment_status = Enrollment_stati.reservistable;
-      }
-      else {
+      } else {
         activity._enrollment_status = Enrollment_stati.un_enrolled;
       }
 
-      activity.update_notes_button.addClass('d-none');
+      activity.update_notes_button.addClass("d-none");
     });
   },
 
@@ -102,15 +95,21 @@ Activity.prototype = {
    * @returns jqXHR
    */
   edit_enroll: function () {
-    return this._remote_update_enrollment('PATCH');
+    return this._remote_update_enrollment("PATCH");
   },
 
   has_un_enroll_date_passed: function () {
-    return typeof this.un_enroll_date !== 'undefined' && new Date() > this.un_enroll_date;
+    return (
+      typeof this.un_enroll_date !== "undefined" &&
+      new Date() > this.un_enroll_date
+    );
   },
 
   is_enrollable: function () {
-    return this.enrollment_status === Enrollment_stati.un_enrolled || this.enrollment_status === Enrollment_stati.reservistable;
+    return (
+      this.enrollment_status === Enrollment_stati.un_enrolled ||
+      this.enrollment_status === Enrollment_stati.reservistable
+    );
   },
 
   has_notes: function () {
@@ -118,7 +117,7 @@ Activity.prototype = {
   },
 
   are_notes_filled: function () {
-    return ($.trim(this.notes.val()).length > 0);
+    return $.trim(this.notes.val()).length > 0;
   },
 
   /**
@@ -126,7 +125,7 @@ Activity.prototype = {
    * @returns {boolean}
    */
   is_first: function () {
-    return typeof this.prev_activity === 'undefined';
+    return typeof this.prev_activity === "undefined";
   },
 
   /**
@@ -134,8 +133,8 @@ Activity.prototype = {
    * @returns {boolean}
    */
   is_last: function () {
-    return typeof this.next_activity === 'undefined';
-  }
+    return typeof this.next_activity === "undefined";
+  },
 };
 
 /**
@@ -152,7 +151,7 @@ Object.defineProperties(Activity.prototype, {
     },
     set: function (value) {
       this.fullness_display.text(value);
-    }
+    },
   },
 
   _participant_count: {
@@ -161,7 +160,7 @@ Object.defineProperties(Activity.prototype, {
     },
     set: function (value) {
       this.attendee_count_display.html(value);
-    }
+    },
   },
 
   _reservist_count: {
@@ -170,7 +169,7 @@ Object.defineProperties(Activity.prototype, {
     },
     set: function (value) {
       this.reservist_count_display.html(value);
-    }
+    },
   },
 
   _remote_update_enrollment: {
@@ -182,151 +181,172 @@ Object.defineProperties(Activity.prototype, {
     value: function (method) {
       var activity = this;
       var request = $.ajax({
-        url: '/activities/' + activity.id + '/participants',
+        url: "/activities/" + activity.id + "/participants",
         type: method,
         data: {
           authenticity_token: token,
-          par_notes: this.notes.val()
-        }
-      }).done(function (response) {
-        //Alert user of  enrollment
-        Swal.fire({
-          title: AlertTitles[method],
-          text: response.message,
-          timer: 10000,
-          icon: "success"
+          par_notes: this.notes.val(),
+        },
+      })
+        .done(function (response) {
+          //Alert user of  enrollment
+          Swal.fire({
+            title: AlertTitles[method],
+            text: response.message,
+            timer: 10000,
+            icon: "success",
+          });
+
+          activity._fullness = Activity.get_fullness_from_count_and_limit(
+            response.participant_count,
+            response.participant_limit
+          );
+        })
+        .fail(function (data) {
+          var message;
+          switch (method) {
+            case "POST":
+              message = I18n.t("members.activities.error.enroll");
+              break;
+            case "DELETE":
+              message = I18n.t("members.activities.error.unenroll");
+              break;
+            case "PATCH":
+              message = I18n.t("members.activities.error.edit");
+              break;
+          }
+          if (data.responseJSON) {
+            message += data.responseJSON.message;
+          }
+
+          Swal.fire({
+            title: AlertTitles[method],
+            text: message,
+            icon: "error",
+          });
         });
 
-        activity._fullness = Activity.get_fullness_from_count_and_limit(response.participant_count,
-          response.participant_limit);
-      }).fail(function (data) {
-        var message;
-        switch (method) {
-          case "POST":
-            message = I18n.t('members.activities.error.enroll');
-            break;
-          case "DELETE":
-            message = I18n.t('members.activities.error.unenroll');
-            break;
-          case "PATCH":
-            message = I18n.t('members.activities.error.edit');
-            break;
-        }
-        if (data.responseJSON) {
-          message += data.responseJSON.message;
-        }
-
-        Swal.fire({
-          title: AlertTitles[method],
-          text: message,
-          icon: "error"
-        });
-      });
-
-      if (this.attendees_table_body.length === 0)
-        return request;
+      if (this.attendees_table_body.length === 0) return request;
       else
         return request.done(function () {
-          $.ajax('/api/activities/' + activity.id).done(function (response) {
-            activity.attendees_table_body.html('');
+          $.ajax("/api/activities/" + activity.id).done(function (response) {
+            activity.attendees_table_body.html("");
             response.attendees.forEach(function (participant) {
-              activity.attendees_table_body.append(participant_row_template.html()
-                                                                           .format(participant.name,
-                                                                             participant.notes === null ? '' : participant.notes));
+              activity.attendees_table_body.append(
+                participant_row_template
+                  .html()
+                  .format(
+                    participant.name,
+                    participant.notes === null ? "" : participant.notes
+                  )
+              );
             });
 
-            activity.reservists_table_body.html('');
+            activity.reservists_table_body.html("");
             response.reservists.forEach(function (participant) {
-              activity.reservists_table_body.append(participant_row_template.html()
-                                                                            .format(participant.name,
-                                                                              participant.notes === null ? '' : participant.notes));
+              activity.reservists_table_body.append(
+                participant_row_template
+                  .html()
+                  .format(
+                    participant.name,
+                    participant.notes === null ? "" : participant.notes
+                  )
+              );
             });
 
             activity._participant_count = response.attendees.length;
             activity._reservist_count = response.reservists.length;
           });
         });
-    }
-  }
+    },
+  },
 });
 
 /**
  * Public properties
  */
-Object.defineProperties(Activity.prototype, batch_edit_properties({
-    enrollment_status: {
-      get: function () {
-        return this._enrollment_status;
-      }
-    },
+Object.defineProperties(
+  Activity.prototype,
+  batch_edit_properties(
+    {
+      enrollment_status: {
+        get: function () {
+          return this._enrollment_status;
+        },
+      },
 
-    participant_count: {
-      get: function () {
-        return this._participant_count;
-      }
-    },
+      participant_count: {
+        get: function () {
+          return this._participant_count;
+        },
+      },
 
-    participant_limit: {
-      get: function () {
-        Activity.get_participant_limit_from_string(this._fullness);
-      }
-    },
+      participant_limit: {
+        get: function () {
+          Activity.get_participant_limit_from_string(this._fullness);
+        },
+      },
 
-    /**
-     * The text that denotes how full the activity is.
-     * Possible values: Vol!, <participantCount> or <participantCount>/<participantLimit>
-     */
-    fullness: {
-      get: function () {
-        return this._fullness;
-      }
-    },
+      /**
+       * The text that denotes how full the activity is.
+       * Possible values: Vol!, <participantCount> or <participantCount>/<participantLimit>
+       */
+      fullness: {
+        get: function () {
+          return this._fullness;
+        },
+      },
 
-    /**
-     * The div which is a child of activity_container and of which the panel of this activity is a child.
-     */
-    corresponding_activity_container_child: {
-      get: function () {
-        return get_activity_container().children(':has(' + this.get_panel_selector() + ')');
-      }
-    },
+      /**
+       * The div which is a child of activity_container and of which the panel of this activity is a child.
+       */
+      corresponding_activity_container_child: {
+        get: function () {
+          return get_activity_container().children(
+            ":has(" + this.get_panel_selector() + ")"
+          );
+        },
+      },
 
-    next_activity: {
-      get: function () {
-        var next = this.corresponding_activity_container_child.next().find('.panel-activity');
-        if (next.length !== 0)
-          return new Activity(next);
-        else
-          return undefined;
-      }
-    },
+      next_activity: {
+        get: function () {
+          var next = this.corresponding_activity_container_child
+            .next()
+            .find(".panel-activity");
+          if (next.length !== 0) return new Activity(next);
+          else return undefined;
+        },
+      },
 
-    prev_activity: {
-      get: function () {
-        var prev = this.corresponding_activity_container_child.prev().find('.panel-activity');
-        if (prev.length !== 0)
-          return new Activity(prev);
-        else
-          return undefined;
-      }
+      prev_activity: {
+        get: function () {
+          var prev = this.corresponding_activity_container_child
+            .prev()
+            .find(".panel-activity");
+          if (prev.length !== 0) return new Activity(prev);
+          else return undefined;
+        },
+      },
+    },
+    function (name, descriptor) {
+      descriptor.enumerable = true;
+      return descriptor;
     }
-  }, function (name, descriptor) {
-    descriptor.enumerable = true;
-    return descriptor;
-  })
+  )
 );
 
 /**
  * Public cached properties
  */
-Object.defineProperties(Activity.prototype,
+Object.defineProperties(
+  Activity.prototype,
   init_cached_properties(Activity.prototype, {
     id: function () {
-      return parseInt(this.panel.data('activity-id'));
+      return parseInt(this.panel.data("activity-id"));
     },
 
     enrollment_button: function () {
-      return this.panel.find('button.enrollment');
+      return this.panel.find("button.enrollment");
     },
 
     un_enroll_date: function () {
@@ -338,27 +358,27 @@ Object.defineProperties(Activity.prototype,
     },
 
     poster_source: function () {
-      return this.panel.find('.small-poster').attr('src');
+      return this.panel.find(".small-poster").attr("src");
     },
 
     more_info_href: function () {
-      return this.panel.find('.more-info').attr('href');
+      return this.panel.find(".more-info").attr("href");
     },
 
     title: function () {
-      return this.panel.find('.activity-title').html();
+      return this.panel.find(".activity-title").html();
     },
 
     notes: function () {
-      return this.panel.find('.notes');
+      return this.panel.find(".notes");
     },
 
     notes_mandatory: function () {
-      return this.panel.is('[data-notes-mandatory]');
+      return this.panel.is("[data-notes-mandatory]");
     },
 
     update_notes_button: function () {
-      return this.panel.find('.update-enrollment');
+      return this.panel.find(".update-enrollment");
     },
 
     _enrollment_status: {
@@ -367,34 +387,34 @@ Object.defineProperties(Activity.prototype,
       },
       write: function (enrollment_status) {
         this.enrollment_button
-            .removeClass(this._enrollment_status.classes)
-            .addClass(enrollment_status.classes)
-            .text(enrollment_status.button_text);
-      }
+          .removeClass(this._enrollment_status.classes)
+          .addClass(enrollment_status.classes)
+          .text(enrollment_status.button_text);
+      },
     },
 
     /**
      * The span that displays this activity's fullness
      */
     fullness_display: function () {
-      return this.panel.find('.fullness');
+      return this.panel.find(".fullness");
     },
 
     attendees_table_body: function () {
-      return $('#attendees_table').children('tbody');
+      return $("#attendees_table").children("tbody");
     },
 
     attendee_count_display: function () {
-      return $('#attendees-count');
+      return $("#attendees-count");
     },
 
     reservists_table_body: function () {
-      return $('#reservists_table').children('tbody');
+      return $("#reservists_table").children("tbody");
     },
 
     reservist_count_display: function () {
-      return $('#reservists-count');
-    }
+      return $("#reservists-count");
+    },
   })
 );
 
@@ -403,10 +423,22 @@ Object.defineProperties(Activity.prototype,
  * @type {{un_enrolled: Enrollment_status, enrolled: Enrollment_status, reservist: Enrollment_status, reservistable: Enrollment_status}}
  */
 var Enrollment_stati = {
-  un_enrolled: new Enrollment_status('btn-success', I18n.t('members.activities.actions.enroll')),
-  enrolled: new Enrollment_status('btn-danger', I18n.t('members.activities.actions.unenroll')),
-  reservist: new Enrollment_status('btn-warning', I18n.t('members.activities.actions.reservist_unenroll')),
-  reservistable: new Enrollment_status('btn-warning', I18n.t('members.activities.actions.reservist_enroll'))
+  un_enrolled: new Enrollment_status(
+    "btn-success",
+    I18n.t("members.activities.actions.enroll")
+  ),
+  enrolled: new Enrollment_status(
+    "btn-danger",
+    I18n.t("members.activities.actions.unenroll")
+  ),
+  reservist: new Enrollment_status(
+    "btn-warning",
+    I18n.t("members.activities.actions.reservist_unenroll")
+  ),
+  reservistable: new Enrollment_status(
+    "btn-warning",
+    I18n.t("members.activities.actions.reservist_enroll")
+  ),
 };
 
 function Enrollment_status(classes, buttonText) {
