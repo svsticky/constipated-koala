@@ -1,4 +1,4 @@
-var cached_prefix = '_cached_';
+var cached_prefix = "_cached_";
 
 function batch_edit_properties(obj, edit_function) {
   Object.keys(obj).forEach(function (key) {
@@ -10,10 +10,9 @@ function batch_edit_properties(obj, edit_function) {
 
 function get_cached_loader(load_function, cache_name) {
   return function () {
-    if (typeof this[cache_name] === 'undefined')
-      return this[cache_name] = load_function.call(this);
-    else
-      return this[cache_name];
+    if (typeof this[cache_name] === "undefined")
+      return (this[cache_name] = load_function.call(this));
+    else return this[cache_name];
   };
 }
 
@@ -27,16 +26,16 @@ function get_cached_writer(write_function, cache_name) {
 function init_cached_properties(obj, props) {
   batch_edit_properties(props, function (name, descriptor, obj) {
     var cache_name = cached_prefix + name;
-    if (typeof descriptor === 'function') {
+    if (typeof descriptor === "function") {
       descriptor.get = get_cached_loader(descriptor, cache_name);
-    } else if (typeof descriptor === 'object') {
+    } else if (typeof descriptor === "object") {
       descriptor.get = get_cached_loader(descriptor.load, cache_name);
 
       if (descriptor.write)
         descriptor.set = get_cached_writer(descriptor.write, cache_name);
     }
 
-    obj[cache_name] = {writable: true};
+    obj[cache_name] = { writable: true };
 
     return descriptor;
   });
