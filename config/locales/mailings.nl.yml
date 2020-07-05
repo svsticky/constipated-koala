@@ -62,6 +62,7 @@ nl:
       inform:
         activity_visited_html: Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%.
         payment_instructions_html: Zou je dit bedrag zo snel mogelijk willen overmaken naar NL61INGB0002877106 t.n.v. Studievereniging Sticky o.v.v. <i>"%{subject} - %recipient.name%"</i>?
+        activity_payable_unvisited_html: Je gaat mee naar <strong>%{subject}</strong>, deze activiteit kost %recipient.price%.
     removed: is direct verwijderd
     sent:
       'false': Mail is niet verstuurd!
