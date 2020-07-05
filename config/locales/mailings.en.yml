@@ -62,6 +62,7 @@ en:
       inform:
         activity_visited_html: You visited <strong>%{subject}</strong>, this activity cost %recipient.price%.
         payment_instructions_html: Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?
+        activity_payable_unvisited_html: You are going to visit <strong>%{subject}</strong>, this activity costs %recipient.price%.
     removed: is immediatly removed
     sent:
       'false': Mail has not been sent!
