@@ -48,20 +48,20 @@ module Mailings
         #{ I18n.t('mailings.devise.activation_instructions.about_sticky') }
 
         #{ I18n.t('mailings.devise.activation_instructions.activity_updates_html',
-                  facebook_group_link_start: raw('<a href="https://www.facebook.com/groups/814759978565158">'),
-                  facebook_page_link_start: raw('<a href="https://www.facebook.com/stickyutrecht">'),
-                  sticky_site_link_start: raw('<a href="https://svsticky.nl">'),
-                  link_end: raw('</a>')) }
+                  facebook_group_link_start: '<a href="https://www.facebook.com/groups/814759978565158">'.html_safe,
+                  facebook_page_link_start: '<a href="https://www.facebook.com/stickyutrecht">'.html_safe,
+                  sticky_site_link_start: '<a href="https://svsticky.nl">'.html_safe,
+                  link_end: '</a>'.html_safe) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.name') }
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.description_html',
-                  books_page_link_start: raw('<a href="https://svsticky.nl/boeken">'),
-                  link_end: raw('</a>')) }
+                  books_page_link_start: '<a href="https://svsticky.nl/boeken">'.html_safe,
+                  link_end: '</a>'.html_safe) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.business.name') }
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.business.description_html',
-                  job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
-                  link_end: raw('</a>')) }
+                  job_offer_page_link_start: '<a href="https://svsticky.nl/partners/vacatures">'.html_safe,
+                  link_end: '</a>'.html_safe) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.name') }
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.description') }
