@@ -391,15 +391,5 @@ class Member < ApplicationRecord
     return if student_id =~ /\F\d{6}/
     return if student_id.blank?
 
-    numbers = student_id.split("").map(&:to_i).reverse
-
-    sum = 0
-    numbers.each_with_index do |digit, i|
-      i += 1
-      sum += digit * i
-    end
-
-    # Errors are added direclty to the model, so it easy to show in the views. We are using I18n for translating purposes, a lot is still hardcoded dutch, but not the intro website and studies
-    errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.elfproef') if sum % 11 != 0
   end
 end
