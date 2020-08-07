@@ -390,6 +390,5 @@ class Member < ApplicationRecord
     # do not do the elfproef on a foreign student
     return if student_id =~ /\F\d{6}/
     return if student_id.blank?
-
   end
 end
