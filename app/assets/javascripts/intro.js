@@ -60,15 +60,6 @@ $(document).ready(function () {
       if (/\F\d{6}/.test(value)) {
         return true;
       }
-
-      var numbers = value.split("").reverse();
-
-      var sum = 0;
-      for (index = 0; index < numbers.length; ++index) {
-        sum += numbers[index] * (index + 1);
-      }
-
-      return sum % 11 === 0;
     },
     I18n.t("form.invalid_student_id")
   );
