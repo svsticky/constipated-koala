@@ -60,6 +60,7 @@ $(document).ready(function () {
       if (/\F\d{6}/.test(value)) {
         return true;
       }
+      return true;
     },
     I18n.t("form.invalid_student_id")
   );
