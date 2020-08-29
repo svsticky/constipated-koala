@@ -56,8 +56,10 @@
 
                   - if impression.impressionable.member.present?
                     = link_to impression.impressionable.member.name, impression.impressionable.member, :class => 'inline'
-                - else
+                - elsif impression.message
                   = impression.controller_name + ": " + impression.message
+                - else
+                  = impression.controller_name
 
               %td
                 - if !impression.message.nil?
