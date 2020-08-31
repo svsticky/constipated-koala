@@ -19,7 +19,10 @@ Rails.application.routes.draw do
 
         get 'download', to: 'home#download'
 
-        post 'mongoose', to: 'home#add_funds'
+        get 'member/payments', to: 'payments#index', as: :member_payments
+
+        post 'mongoose', to: 'payments#add_funds'
+        post 'pay_activities', to: 'payments#pay_activities'
 
         # TODO: should this be moved to nginx or
         # @deprated these old routes
@@ -100,7 +103,7 @@ Rails.application.routes.draw do
       end
 
       scope 'apps' do
-        get 'ideal',              to: 'apps#ideal'
+        get 'payments',           to: 'apps#payments', as: 'payment'
         get 'checkout',           to: 'apps#checkout'
         get 'payconiq',           to: 'apps#payconiq'
 
@@ -142,6 +145,8 @@ Rails.application.routes.draw do
         scope 'hook' do
           get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
           post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
+
+          post 'payconiq',      to: 'webhook#payconiq_hook',      as: 'payconiq_hook'
 
           get 'mailchimp/:token', to: 'webhook#mailchimp_confirm_callback', as: 'mailchimp_confirm'
           post 'mailchimp/:token', to: 'webhook#mailchimp', as: 'mailchimp'
