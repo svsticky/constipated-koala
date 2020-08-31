@@ -29,7 +29,13 @@
             = label(:group, I18n.t( :category, scope: 'activerecord.attributes.group' ))
             .ui-select
               = f.select :category, options_for_select( Group.categories.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.group.categories'), name] }, selected: group.category, disabled: ['board'] )
-
+        .row
+          .col-md-6
+            = f.label I18n.t( :ledgernr, scope: 'activerecord.attributes.group' )
+            = f.text_field :ledgernr, :value => group.ledgernr, :class => 'form-control'
+          .col-md-6
+            = f.label I18n.t( :cost_location, scope: 'activerecord.attributes.group' )
+            = f.text_field :cost_location, :value => group.cost_location, :class => 'form-control'
         .form-group
           = label(:group, I18n.t( :comments, scope: 'activerecord.attributes.group' ))
           = f.text_area :comments, :value => group.comments, :class => 'form-control', :rows => 5

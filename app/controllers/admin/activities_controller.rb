@@ -84,6 +84,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :is_enrollable,
                                      :is_viewable,
                                      :is_payable,
+                                     :VAT,
                                      :show_on_website,
                                      :is_masters,
                                      :is_freshmans,
