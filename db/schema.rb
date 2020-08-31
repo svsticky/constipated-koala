@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.boolean "show_on_website", default: false, null: false
     t.text "description_en"
     t.boolean "show_participants", default: true
+    t.boolean "is_payable", default: false
+    t.string "VAT", default: "21"
   end
 
   create_table "admins", id: :integer, force: :cascade do |t|
@@ -107,7 +109,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "items"
-    t.string "payment_method", limit: 16
+    t.string "payment_method", limit: 32
   end
 
   create_table "educations", id: :integer, force: :cascade do |t|
@@ -137,6 +139,8 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.text "comments", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "ledgernr", default: ""
+    t.string "cost_location", default: ""
   end
 
   create_table "ideal_transactions", id: false, force: :cascade do |t|
@@ -260,7 +264,6 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
   end
 
-  
   create_table "payconiq_transactions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "token", limit: 64
     t.string "description"
@@ -293,6 +296,8 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.datetime "updated_at"
     t.integer "transaction_type", default: 0
     t.integer "payment_type", default: 0
+    t.index ["token"], name: "index_payments_on_token", unique: true
+    t.index ["trxid"], name: "index_payments_on_trxid", unique: true
   end
   
 
