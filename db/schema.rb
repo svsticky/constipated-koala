@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_123642) do
+ActiveRecord::Schema.define(version: 2020_08_31_173249) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_123642) do
     t.boolean "show_on_website", default: false, null: false
     t.text "description_en"
     t.boolean "show_participants", default: true
+    t.boolean "is_payable", default: false
+    t.string "VAT", default: "21"
   end
 
   create_table "admins", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -106,7 +108,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_123642) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "items"
-    t.string "payment_method", limit: 16
+    t.string "payment_method", limit: 32
   end
 
   create_table "educations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -136,6 +138,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_123642) do
     t.text "comments", size: :medium
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "ledgernr", default: ""
+    t.string "cost_location", default: ""
   end
 
   create_table "impressions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -231,14 +235,6 @@ ActiveRecord::Schema.define(version: 2020_05_27_123642) do
     t.index ["access_grant_id"], name: "fk_rails_77114b3b09"
   end
 
-  create_table "participant_transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.bigint "member_id"
-    t.string "activity_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["member_id"], name: "index_participant_transactions_on_member_id"
-  end
-
   create_table "participants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "member_id"
     t.integer "activity_id"
@@ -249,25 +245,6 @@ ActiveRecord::Schema.define(version: 2020_05_27_123642) do
     t.boolean "reservist", default: false
     t.string "notes", limit: 30
     t.index ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
-  end
-
-  create_table "payconiq_transactions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "token", limit: 64
-    t.string "description"
-    t.decimal "amount", precision: 6, scale: 2
-    t.string "status", default: "PENDING"
-    t.bigint "member_id"
-    t.string "transaction_type"
-    t.string "transaction_id"
-    t.string "is_online"
-    t.string "trxid"
-    t.string "qrurl"
-    t.string "deeplink"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["member_id"], name: "index_payconiq_transactions_on_member_id"
-    t.index ["token"], name: "index_payconiq_transactions_on_token", unique: true
-    t.index ["trxid"], name: "index_payconiq_transactions_on_trxid", unique: true
   end
 
   create_table "payments", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -283,6 +260,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_123642) do
     t.datetime "updated_at"
     t.integer "transaction_type", default: 0
     t.integer "payment_type", default: 0
+    t.index ["token"], name: "index_payments_on_token", unique: true
+    t.index ["trxid"], name: "index_payments_on_trxid", unique: true
   end
 
   create_table "settings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

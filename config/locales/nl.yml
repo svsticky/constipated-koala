@@ -76,6 +76,8 @@ nl:
         category: Categorie
         comments: Opmerkingen
         former: oud-lid
+        ledgernr: Grootboekrekening
+        cost_location: Kostenplaats
         members:
           board: Bestuursleden
           committee: Commissieleden

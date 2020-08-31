@@ -51,6 +51,6 @@ class Admin::GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name, :category, :comments)
+    params.require(:group).permit(:name, :category, :comments, :ledgernr, :cost_location)
   end
 end
