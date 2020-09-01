@@ -1,5 +1,4 @@
 !!! 5
-= javascript_pack_tag 'application'
 
 %html
   %head
@@ -12,15 +11,18 @@
     %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
     %meta{content: 'width=device-width, initial-scale=1, user-scalable=no', name: 'viewport'}
 
+    = javascript_pack_tag 'application'
     = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'doorkeeper', 'data-turbolinks-track' => 'reload'
 
     = csrf_meta_tags
   %body
-    .container-fluid
-      .row
-        %h1.bg-gray-dark.rounded-lg.col-xl-6
-          = I18n.t :association_name
+    .flex.flex-col.w-screen.h-screen.items-center.justify-center
+      %img.w-64{src:"https://public.svsticky.nl/logos/logo_compact_kleur.svg"}
+
+      .shadow.px-10.py-4
+        %h1.text-center
+          = "Inloggen"
 
         - if current_user.present?
           %h2
@@ -30,7 +32,7 @@
             = link_to destroy_user_session_path, 'data-method' => :delete do
               = I18n.t('layouts.doorkeeper.click_here')
 
-      = yield
+        = yield
 
-    %span.version
-      = ConstipatedKoala::Application::VERSION.to_s
+      %span.fixed.right-0.bottom-0.p-2
+        = ConstipatedKoala::Application::VERSION.to_s

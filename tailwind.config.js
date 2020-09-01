@@ -7,7 +7,6 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
   },
   theme: {
-    extend: {},
     colors: {
       // this colors are copied from Yeti
       transparent: 'transparent',
@@ -40,7 +39,12 @@ module.exports = {
       'md': '768px',
       'lg': '992px',
       'xl': '1200px',
-    }
+    },
+    extend: {
+      spacing: {
+        '80': '20rem',
+      }
+    },
   },
   variants: {},
   plugins: [],
