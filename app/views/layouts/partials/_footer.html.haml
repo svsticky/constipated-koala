@@ -1,7 +1,7 @@
 %footer.w-full.flex.flex-row.bg-gray-dark.h-16
   .flex.flex-grow.m-auto.justify-center
     = link_to image_tag('//public.svsticky.nl/logos/hoofd_outline_wit.svg', {:style => 'height: 40px; width: 40px;'}), '//svsticky.nl', :target => '_blank'
-    .my-auto
+    .my-auto{:class => 'flex flex-col sm:flex-row'}
       = link_to '//svsticky.nl/vereniging/over-ons', :target => '_blank' do
         %span.text-white.px-2.align-middle
           = I18n.t(:about_us, scope: 'footer')

@@ -1,6 +1,5 @@
 .row
-  = form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'form-horizontal'} ) do |f|
-
+  = form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'form-horizontal w-full'} ) do |f|
     - if !resource.errors.full_messages.blank?
       - resource.errors.full_messages.each do |message|
         .alert.alert-danger
@@ -17,7 +16,7 @@
         %span
           = flash[:notice]
 
-    %fieldset.w-80
+    %fieldset.w-full
       .form-group
         .input-group
           .input-group-prepend
