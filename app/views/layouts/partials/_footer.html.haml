@@ -1,0 +1,28 @@
+%footer.w-full.flex.flex-row.bg-gray-800.h-16
+  .flex.flex-grow.m-auto.justify-center
+    = link_to image_tag('//public.svsticky.nl/logos/hoofd_outline_wit.svg', {:style => 'height: 40px; width: 40px;'}), '//svsticky.nl', :target => '_blank'
+    .my-auto
+      = link_to '//svsticky.nl/vereniging/over-ons', :target => '_blank' do
+        %span.text-white.px-2.align-middle
+          = I18n.t(:about_us, scope: 'footer')
+      = link_to '//svsticky.nl/vereniging/contact', :target => '_blank' do
+        %span.text-white.px-2.align-middle
+          = I18n.t(:contact, scope: 'footer')
+
+  .flex.flex-grow.m-auto.justify-center
+    = link_to '//www.facebook.com/stickyutrecht', :target => '_blank' do
+      %i.fab.fa-facebook-f.fa-lg.text-white.px-2.align-middle
+    = link_to '//www.linkedin.com/company/1125476', :target => '_blank' do
+      %i.fab.fa-linkedin-in.fa-lg.text-white.px-2.align-middle
+    = link_to '//www.github.com/svsticky', :target => '_blank' do
+      %i.fab.fa-github.fa-lg.text-white.px-2.align-middle
+
+  .flex.flex-grow.m-auto.justify-center
+    - if I18n.locale == :nl
+      = link_to '//public.svsticky.nl/privacystatement.pdf', :target => '_blank' do
+        %span.text-white.px-2.align-middle
+          = I18n.t(:privacy, scope: 'footer')
+    - else
+      = link_to '//public.svsticky.nl/privacystatement_english.pdf', :target => '_blank' do
+        %span.text-white.px-2.align-middle
+          = I18n.t(:privacy, scope: 'footer')
