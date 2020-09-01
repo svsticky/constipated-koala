@@ -11,6 +11,7 @@ gem 'rabl'
 gem 'coffee-rails'
 gem 'font_awesome5_rails'
 gem 'sassc-rails'
+gem 'webpacker', '~> 5.x'
 
 # authentication gems
 gem 'devise'

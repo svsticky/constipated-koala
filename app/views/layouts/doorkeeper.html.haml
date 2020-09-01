@@ -1,4 +1,6 @@
 !!! 5
+= javascript_pack_tag 'application'
+
 %html
   %head
     %title
@@ -17,7 +19,7 @@
   %body
     .container-fluid
       .row
-        %h1
+        %h1.bg-red-600.rounded-lg
           = I18n.t :association_name
 
         - if current_user.present?

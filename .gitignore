@@ -32,3 +32,9 @@ signing-key.pem
 
 .idea
 .byebug_history
+
+/public/packs
+/public/packs-test
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
