@@ -3,6 +3,9 @@ module.exports = {
     mode: 'production',
     content: ['./src/**/*.html'],
   },
+  future: {
+    removeDeprecatedGapUtilities: true,
+  },
   theme: {
     extend: {},
   },
