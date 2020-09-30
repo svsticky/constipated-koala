@@ -149,6 +149,7 @@ Rails.application.routes.draw do
         # NOTE legacy implementation for checkout without oauth
         scope 'checkout' do
           get  'card',          to: 'checkout#info'
+          get  'recent',        to: 'checkout#recent'
           post 'card',          to: 'checkout#create'
           get  'confirmation',  to: 'checkout#confirm'
 
