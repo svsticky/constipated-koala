@@ -1,8 +1,8 @@
 # Controller used for checkout before oauth was implemented
 # @deprecated controller, base controller should be replaced with oauth
 class Api::CheckoutController < ActionController::Base
-  protect_from_forgery except: %i[info purchase create products]
-  before_action :authenticate_checkout, only: %i[info purchase create products]
+  protect_from_forgery except: %i[info purchase create products recent]
+  before_action :authenticate_checkout, only: %i[info purchase create products recent]
 
   respond_to :json
 
@@ -10,9 +10,29 @@ class Api::CheckoutController < ActionController::Base
     @products = CheckoutProduct.where(active: true)
   end
 
+  def recent
+    recent = CheckoutTransaction.joins(:checkout_card).where(
+      checkout_card: CheckoutCard.find_by_uuid(params[:uuid])
+    ).order(created_at: :desc).limit(5).group(:items)
+
+    items = []
+    recent.each do |item|
+      item.items.each do |id|
+        items << CheckoutProduct.where(active: true).find_by_id(id)
+      end
+    end
+    render status: :ok, json: items.uniq[0, 5]
+  end
+
   def info
-    @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by(uuid: params[:uuid])
-    head :not_found unless @card
+    @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance, :active).find_by(uuid: params[:uuid])
+
+    return head :not_found unless @card
+
+    unless @card.active
+      render status: :unauthorized, json: 'card not yet activated'
+      return
+    end
   end
 
   def purchase
@@ -29,7 +49,7 @@ class Api::CheckoutController < ActionController::Base
       render status: :created, json: {
         uuid: card.uuid,
         first_name: card.member.first_name,
-        balance: card.checkout_balance.balance,
+        balance: card.checkout_balance.balance + transaction.price,
         created_at: transaction.created_at
       }
     else
