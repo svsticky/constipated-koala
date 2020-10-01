@@ -268,7 +268,7 @@ class Member < ApplicationRecord
     unless tag.nil?
       query.gsub!(/tag:([A-Za-z-]+)/, '')
 
-      tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == name[1].downcase.tr('-', ' ') }
+      tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == tag[1].downcase.tr('-', ' ') }
 
       records = Member.none if tag_name.nil?
       records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
