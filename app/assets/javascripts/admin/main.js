@@ -13,7 +13,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
 
   $(".page.search .input-group ul.dropdown-menu")
-    .find("li a")
+    .find("li")
     .on("mouseenter", function () {
       $(".page.search .input-group ul.dropdown-menu")
         .find("li.active")
@@ -30,7 +30,7 @@ $(document).on("ready page:load turbolinks:load", function () {
           .val()
           .replace(
             query,
-            query.split(":")[0] + ":" + $(this).attr("data-name") + " "
+            query.split(":")[0] + ":" + $(this).find("a").attr("data-name") + " "
           )
       );
 
