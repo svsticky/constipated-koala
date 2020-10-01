@@ -224,3 +224,8 @@ span.box-icon {
   vertical-align: middle;
   margin-top: 0 !important;
 }
+
+.search li.active {
+  color: #fff;
+  background: #008cba;
+}
