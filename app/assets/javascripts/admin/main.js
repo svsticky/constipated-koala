@@ -97,7 +97,7 @@ $(document).on("ready page:load turbolinks:load", function () {
         ).find("li.active");
         $(dropdown).show();
       } else {
-        tag = null;
+        state = null;
         $("ul.dropdown-menu[name=states]").delay(10).hide(1);
       }
 
