@@ -30,7 +30,10 @@ $(document).on("ready page:load turbolinks:load", function () {
           .val()
           .replace(
             query,
-            query.split(":")[0] + ":" + $(this).find("a").attr("data-name") + " "
+            query.split(":")[0] +
+              ":" +
+              $(this).find("a").attr("data-name") +
+              " "
           )
       );
 
