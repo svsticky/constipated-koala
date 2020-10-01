@@ -81,6 +81,7 @@ en:
         personal_data: Personal data
         transaction_costs: transaction costs charged
         upgrade: Top up
+        mongoose-info: Mongoose credit is not to pay for activities or membership. You can use mongoose credit to pay for product in Sticky's room.
     navigation:
       books: Books
       declarations: DigiDecs
