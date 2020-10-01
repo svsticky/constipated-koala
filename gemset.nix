@@ -310,6 +310,27 @@
     };
     version = "1.6.2";
   };
+  dotenv = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0iym172c5337sm1x2ykc2i3f961vj3wdclbyg1x6sxs3irgfsl94";
+      type = "gem";
+    };
+    version = "2.7.6";
+  };
+  dotenv-rails = {
+    dependencies = ["dotenv" "railties"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1my2jdmgmpf32rfxffkb9cyxh7ayis4q5ygpwjqj4vpp25y3a70c";
+      type = "gem";
+    };
+    version = "2.7.6";
+  };
   erubi = {
     groups = ["default" "development" "test"];
     platforms = [];

@@ -101,6 +101,10 @@ GEM
     doorkeeper-openid_connect (1.6.2)
       doorkeeper (>= 5.0)
       json-jwt (~> 1.6)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.9.0)
     execjs (2.7.0)
     faker (2.8.1)
@@ -306,6 +310,7 @@ DEPENDENCIES
   devise
   doorkeeper
   doorkeeper-openid_connect
+  dotenv-rails
   faker
   font_awesome5_rails
   fuzzily!

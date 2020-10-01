@@ -8,7 +8,6 @@ let
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
-    src = ./.;
     buildInputs = [
         gems
         pkgs.ruby
