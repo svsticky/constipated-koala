@@ -2,23 +2,24 @@
 let
   gems = pkgs.bundlerEnv {
     name = "koala";
-    ruby = pkgs.ruby_2_5;
+    ruby = pkgs.ruby;
     gemdir = ./.;
   };
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
     buildInputs = [
-        gems
-        pkgs.ruby
-        pkgs.yarn
-        pkgs.nodejs
-        pkgs.ruby
-        pkgs.yarn
-        pkgs.curl
-        pkgs.imagemagick
-        pkgs.ghostscript
-        pkgs.bundler];
+      gems
+      pkgs.yarn2nix
+      pkgs.nodejs
+      pkgs.ruby
+      pkgs.yarn
+      pkgs.curl
+      pkgs.imagemagick
+      pkgs.ghostscript
+      pkgs.bundler
+      pkgs.mupdf
+    ];
     installPhase = ''
       cp -r $src $out
     '';
