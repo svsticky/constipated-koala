@@ -7,7 +7,7 @@
 
       = link_to :members, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.member")
-        %i.fa.fa-user{:class => ('active' if current_page?(:members))}
+        %i.fa.fa-user{:class => ('active' if current_page?(controller: 'members')|| current_page?(controller: 'members', action: 'show'))}
 
       = link_to :groups, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.group")
