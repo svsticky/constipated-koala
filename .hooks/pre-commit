@@ -20,6 +20,8 @@ else
 	echo "Cannot check for new untranslated strings, no .i15r-cache"
 	echo "Run bin/cachei15r to enable this check."
 fi
+echo "Running i18n Normalize"
+i18n-tasks normalize
 
 echo "Running rubocop..."
 rubocop
