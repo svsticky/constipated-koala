@@ -77,7 +77,7 @@ nl:
       index:
         credit: Tegoed
         edit_profile: Gegevens bewerken
-        mongoose-info: Mongoose tegoed is niet het betalen van activiteiten of lidmaatschap. Mongoose kan je gebruiken om in de sticky gezelligheidskamer producten te kopen.
+        mongoose-info: Mongoose tegoed is niet voor het betalen van activiteiten of lidmaatschap. Mongoose kan je uitsluitend gebruiken om in de sticky gezelligheidskamer producten te kopen.
         outstanding_payments: Openstaande betalingen
         personal_data: Persoonsgegevens
         transaction_costs: transactiekosten in rekening gebracht
