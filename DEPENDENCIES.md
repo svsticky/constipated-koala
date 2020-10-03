@@ -1,7 +1,8 @@
 # Managing dependencies
 
 To manage dependencies for this project, [Nix] uses a few tricks.
-This includes replacing [Bundler] by [Bundix] and [Yarn] by [yarn2nix].
+This includes replacing [Bundler] by [Bundix].
+Rails relies on Yarn, so we can't use Nix here.
 
 [Bundler]: https://bundler.io
 [Nix]: https://nixos.org/
@@ -28,5 +29,8 @@ A restart of the Nix shell should install the new or updated packages.
 
 New node packages should be added to package.json.
 After that, run `yarn install` to update the lockfile.
-Updating packages can be done with `yarn upgrade`.
-To update yarn.nix, run `yarn2nix > yarn.nix`.
+Rails likes to compile its javascript and css dependencies itself:
+
+```console
+rails assets:precompile
+```

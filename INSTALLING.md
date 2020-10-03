@@ -33,6 +33,12 @@ nix-shell
 This should install all dependencies and launch a shell.
 Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
 
+To precompile the javascript and css packages, run
+
+```console
+rails assets:precompile
+```
+
 ## Configuring Koala
 
 To actually run Koala, you'll need a running copy of MariaDB or MySQL. In
