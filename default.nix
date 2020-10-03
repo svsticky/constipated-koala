@@ -19,6 +19,7 @@ in
       pkgs.ghostscript
       pkgs.bundler
       pkgs.mupdf
+      pkgs.cacert
     ];
     installPhase = ''
       cp -r $src $out
