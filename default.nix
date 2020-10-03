@@ -7,12 +7,19 @@ let
     ruby = pkgs.ruby;
     gemdir = ./.;
   };
+  yarnPackages = pkgs.mkYarnPackage {
+    name = "koala";
+    src = ./.;
+    packageJSON = ./package.json;
+    yarnLock = ./yarn.lock;
+    yarnNix = ./yarn.nix;
+  };
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
     buildInputs = [
       gems
-      pkgs.yarn2nix
+      yarnPackages
       pkgs.nodejs
       pkgs.ruby
       pkgs.yarn
