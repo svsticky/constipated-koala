@@ -1,98 +1,37 @@
 # Development setup for Constipated Koala
 
 Koala is written using the [Ruby on Rails] framework, which uses the
-programming language [Ruby]. We use [rbenv] to manage the version of Ruby that
-is used, and the package manager [Bundler] to manage dependencies.
+programming language [Ruby]. We use [Nix] to manage dependencies.
+(Also see the [dependency managment readme](/DEPENDENCIES.md)).
 Rails is based on the Model-View-Controller paradigm, and has an easy to
 understand file structure. On the production server, we use [Unicorn] to run
 the application with multiple threads, and [Nginx] as a proxy.
 In both development and production, we use [Mariadb] as the database.
 
-[Bundler]: https://bundler.io
+[Nix]: https://nixos.org/
 [Mariadb]: https://mariadb.org
 [Ruby on Rails]: https://guides.rubyonrails.org/getting_started.html
 [Ruby]: https://www.ruby-lang.org/
 [Unicorn]: https://bogomips.org/unicorn/
-[rbenv]: https://github.com/rbenv/rbenv
 
 ## Requirements
 
 To get started, you will need:
 
-- A Linux installation (we assume you're using Ubuntu 18.04)
+- Preferably a Linux installation, but MacOS or WSL2 should work too
 - Git (`sudo apt install git`)
-
-You'll install:
-
-- Dependencies to build Ruby and some extensions,
-- [rbenv], a Ruby version manager,
-- [Ruby] itself,
-- [Yarn], a JavaScript package manager,
-- Koala's dependencies.
+- Nix (<https://nixos.org/download.html>)
 
 To start, clone the project:
 
 ```console
 git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
 cd koala.svsticky.nl
+nix-shell
 ```
 
-Ruby is a programming language and requires an environment. We can set up the
-environment easily with the help of rbenv and its [tutorial][rbenv-tutorial].
-Follow this tutorial, and also do the optional step of installing ruby-build.
-
-[rbenv-tutorial]: https://github.com/rbenv/rbenv#basic-github-checkout
-
-After installing rbenv, you'll also need the rbenv-vars plugin, which is used
-to read a configuration file. Install it like so:
-
-```console
-git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
-```
-
-Once you've done this, install the dependencies you'll need to build Ruby, and
-then Ruby itself:
-
-```console
-# These dependencies copied from https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev mupdf-tools
-# Run this step in Koala's source directory, or rbenv won't know which version to install
-rbenv install
-```
-
-Note that installing Ruby will compile it from source, which can take a bit of
-time and will be intensive on your processor. If you're using a laptop, it's
-recommended to connect your charger for this.
-
-Once this is done, you'll also need some other packages to run Koala itself and
-to build its dependencies. Install these, and then install Koala's Ruby
-dependencies:
-
-```console
-sudo apt install curl libmariadbclient-dev imagemagick ghostscript
-
-gem install bundler -v 2.1.4
-
-bundle install
-rbenv rehash
-```
-
-Then follow the instructions on [this page][yarn-install] to install Yarn,
-a package manager for our JavaScript dependencies.
-
-[yarn-install]: https://yarnpkg.com/en/docs/install#debian-stable
-
-You should now be able to run the following command:
-
-```console
-yarn install
-rails assets:precompile
-```
-
-This will download our JavaScript and CSS dependencies, and confirm that you're
-able to build our CSS and JS bundles.
-
-If all of this worked, you're ready to run Koala!
+This should install all dependencies and launch a shell.
+Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
 
 ## Configuring Koala
 
@@ -126,12 +65,12 @@ databases `koala-development` and `koala-test`, this is out of scope for this
 tutorial.
 
 There is an example file in the root of this repository called
-`.rbenv-vars-sample`. This file is a template for the actual configuration file
-`.rbenv-vars`, which sets some configuration values for Koala. Copy
-`.rbenv-vars-sample` to `.rbenv-vars`, and edit it according to the
+`example.env`. This file is a template for the actual configuration file
+`.env`, which sets some configuration values for Koala. Copy
+`example.env` to `.env`, and edit it according to the
 instructions in the file.
 
-Once you're done, you can set up the database with this command:
+Once you're done, you can set up the database with this command (in the Nix shell):
 
 ```console
 rails db:setup
@@ -145,7 +84,7 @@ It generates two users that you can use:
 
 ## Running Koala
 
-You can run Koala itself by running this command:
+You can run Koala itself by running this command (again, in the Nix shell):
 
 ```console
 rails server
