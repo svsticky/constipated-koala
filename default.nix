@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ sources ? import ./nix/sources.nix
+, pkgs ? import sources.nixpkgs {}
+}:
 let
   gems = pkgs.bundlerEnv {
     name = "koala";
