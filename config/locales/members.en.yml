@@ -77,6 +77,7 @@ en:
       index:
         credit: Credit
         edit_profile: Edit profile
+        mongoose-info: Mongoose credit is not to pay for activities or membership. You can solely use mongoose credit to pay for product in Sticky's room.
         outstanding_payments: Outstanding payments
         personal_data: Personal data
         transaction_costs: transaction costs charged
