@@ -7,15 +7,15 @@
 
       = link_to :members, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.member")
-        %i.fa.fa-user{:class => ('active' if current_page?(:members))}
+        %i.fa.fa-user{:class => ('active' if controller_name == 'members')}
 
       = link_to :groups, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.group")
-        %i.fa.fa-users{:class => ('active' if current_page?(:groups))}
+        %i.fa.fa-users{:class => ('active' if controller_name == 'groups')}
 
       = link_to :activities, :class => 'list-group-item list-group-item-action'do
         %span= I18n.t("navigation.activity")
-        %i.fa.fa-ticket-alt{:class => ('active' if current_page?(:activities))}
+        %i.fa.fa-ticket-alt{:class => ('active' if controller_name == 'activities')}
 
       = link_to :payments, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.payments")
@@ -37,7 +37,7 @@
 
         = link_to :checkout_products, :class => 'list-group-item list-group-item-action' do
           %span= I18n.t("admin.navigation.products")
-          %i.fa.fa-caret-right{:class => ('active' if current_page?(:checkout_products))}
+          %i.fa.fa-caret-right{:class => ('active' if controller_name == 'checkout_products')}
 
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-settings' do
