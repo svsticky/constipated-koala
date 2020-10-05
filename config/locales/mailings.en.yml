@@ -46,8 +46,8 @@ en:
         reset_password: Reset password
     gdpr:
       consent: Manage personal information
-      enrolled: You are currently enrolled at Stucky assocation Sticly.
-      gdpr_instructions: You are a member of Study association Sticky, because you are studying or have studied at University Utrecht. It's very important to Sticky to keep your information up to date. At the link below you can update your information and if you're no longer a student indicate what we may do with your data.
+      enrolled: You are currently enrolled at Stucky assocation Sticky.
+      gdpr_instructions: You are a member of Study association Sticky, because you are studying or have studied at University Utrecht. At Sticky we want to know what we may do with your data after your membership has ended. At the link below you can indicate what our permissions are. We also like to keep your data up to date so it is also possible to correct any errors by following the same link.
     greeting: Hi
     membership: Membership Study association Sticky
     participants:
