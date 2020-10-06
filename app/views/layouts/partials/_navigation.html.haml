@@ -19,7 +19,7 @@
 
       = link_to :posts, :class => 'list-group-item list-group-item-action'do
         %span= I18n.t("admin.navigation.messages")
-        %i.fa.fa-ticket-alt{:class => ('active' if controller_name == 'posts')}
+        %i.fas.fa-stream{:class => ('active' if controller_name == 'posts')}
 
       = link_to :payments, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.payments")

@@ -134,12 +134,12 @@
                           %li
                             = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
 
-              .form-group.signature
-                = f.hidden_field :signature, value: @admin.signature
+              .form-group#mail
+                %label{for: ''}
+                = I18n.t('admin.settings.signature')
+                = render 'layouts/partials/editor'
 
-                %label{for: ''} Ondertekening
-
-                #editor
+                #textarea.form-control{ :contenteditable => 'true' }
                   != @admin.signature
 
                 = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'

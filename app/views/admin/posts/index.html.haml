@@ -103,8 +103,10 @@
               .form-group.post-content
                 = f.hidden_field :content, value: @post.content, id: 'post-content'
 
-                #editor
-                  != @post.content
+                -# #editor
+                -#   != @post.content
+
+                = f.text_area :content, :rows => 8, :value => @post.content, :class => 'form-control', :id => 'html'
 
               .btn-group
                 %button.btn.btn-success{type: 'submit'} Opslaan
@@ -114,3 +116,8 @@
               - if @post.id
                 = link_to post_path, 'data-method' => :delete, class: 'btn btn-danger float-right' do
                   verwijderen
+
+:javascript
+  $(document).on('ready page:load turbolinks:load', function(){
+    $('form.post-content').editor();
+  });

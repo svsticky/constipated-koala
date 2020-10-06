@@ -22,7 +22,7 @@ class Members::HomeController < ApplicationController
             .sum('activities.price ')
 
     @pinned = Post.published.pinned
-    @unpinned = Post.published.unpinned
+    @pagination, @unpinned = pagy(Post.published.unpinned)
 
     @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
     @participants =
