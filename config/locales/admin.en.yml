@@ -74,6 +74,7 @@ en:
       payments: Payments
       products: Products
       settings: Settings
+      messages: Messages
     payment:
       date: Date
       day_total: Daily total

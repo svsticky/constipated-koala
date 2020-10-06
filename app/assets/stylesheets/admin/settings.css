@@ -18,3 +18,15 @@ tr td a {
   display: block;
   width: 100%
 }
+
+.avatar-view {
+  height: 80px;
+}
+
+.avatar {
+  margin-top: 20px;
+  position: relative;
+  width: 50px;
+  border: 1px solid #000;
+  border-radius: 50%;
+}

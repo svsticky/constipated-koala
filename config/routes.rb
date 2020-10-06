@@ -87,6 +87,8 @@ Rails.application.routes.draw do
         get 'whatsapp/:member_id', to: 'payments#whatsapp_redirect', as: 'payment_whatsapp_redirect'
         get 'transactions',       to: 'payments#update_transactions'
       end
+      
+      resources :posts, only: [:index, :show, :create, :update, :destroy]
 
       resources :groups, only: [:index, :create, :show, :update, :destroy] do
         resources :group_members, only: [:create, :update, :destroy], path: 'members'

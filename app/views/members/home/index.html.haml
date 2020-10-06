@@ -1,7 +1,7 @@
 - content_for(:page, 'home')
 
 .row
-  .col-md-8
+  .col-md-6
     - @pinned.each do |post|
       .card
         .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
@@ -19,6 +19,7 @@
         .card-body.content
           = raw post.content
 
+  .col-lg-6.col-12.float-right
     .card.d-block.d-md-none
       .card-body.debt-card
         %i.fas.fa-calendar-week.fa-2x
@@ -67,7 +68,6 @@
                             I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize) |
 
 
-  .col-lg-6.col-12.float-right
     .card
       .card-header
         %span
