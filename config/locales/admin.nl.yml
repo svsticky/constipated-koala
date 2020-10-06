@@ -74,6 +74,7 @@ nl:
       payments: Betalingen
       products: Producten
       settings: Instellingen
+      messages: Berichten
     payment:
       date: Datum
       day_total: Dagtotaal
