@@ -89,6 +89,7 @@ en:
       products: Products
       settings: Settings
       transactions: Transactions
+      messages: Messages
     payment:
       all: All
       daily: Daily
