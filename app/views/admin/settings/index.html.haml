@@ -86,11 +86,7 @@
             .card-body
               = f.hidden_field :id, :value => @admin.id, :class => 'id'
 
-              .form-group
-                .image-group
-                  - if @admin.avatar.attached?
-                    = image_tag @admin.avatar, class: 'avatar'
-              
+              .form-group              
                 .row
                   .col-md-4
                     %label{for: ''}
@@ -113,26 +109,31 @@
                     = f.select :language, options_for_select([["Nederlands", :nl], ["English", :en]], selected: @user.language)
 
                 .row
-                  .col-lg-12
+                  .col-lg-12.avatar-view
                     = label(:admin, :avatar)
-                    .input-group
-                      %input#output.form-control{ :readonly => '', :value => ("#{@admin.avatar.filename}" if @admin.avatar.attached?) }
+                    .image-group
+                      - if @admin.avatar.attached?
+                        = image_tag @admin.avatar, class: 'avatar'
+                    
+                    .image-side
+                      .input-group
+                        %input#output.form-control{ :readonly => '', :value => ("#{@admin.avatar.filename}" if @admin.avatar.attached?) }
 
-                      .input-group-append
-                        %div.btn.btn-primary.file-input-wrapper
-                          %span
-                            = I18n.t('files.upload')
-                          = f.file_field :avatar, { 'data-ui-file-upload' => '' }
-                      .input-group-append
-                        %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @admin.avatar.attached? ) }
-                          %span.caret
-                        %ul.dropdown-menu
-                          %li
-                            - if @admin.avatar.attached?
-                              = link_to 'Download', @admin.avatar, :download => '', :class => 'dropdown-item'
-                          %li.divider
-                          %li
-                            = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
+                        .input-group-append
+                          %div.btn.btn-primary.file-input-wrapper
+                            %span
+                              = I18n.t('files.upload')
+                            = f.file_field :avatar, { 'data-ui-file-upload' => '' }
+                        .input-group-append
+                          %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @admin.avatar.attached? ) }
+                            %span.caret
+                          %ul.dropdown-menu
+                            %li
+                              - if @admin.avatar.attached?
+                                = link_to 'Download', @admin.avatar, :download => '', :class => 'dropdown-item'
+                            %li.divider
+                            %li
+                              = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
 
               .form-group#mail
                 %label{for: ''}

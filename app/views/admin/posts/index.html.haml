@@ -1,5 +1,5 @@
 - content_for(:page, 'posts')
-- content_for(:title, 'Berichten')
+- content_for(:title, I18n.t("admin.navigation.messages"))
 
 %section#content
 
@@ -9,7 +9,7 @@
         .card
           .card-header
             %i.fas.fa-fw.fa-stream
-            Berichten
+            = I18n.t("admin.navigation.messages")
 
         #posts
           - @posts.each do |post|
