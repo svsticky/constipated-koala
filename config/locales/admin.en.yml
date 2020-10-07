@@ -47,9 +47,11 @@ en:
     members:
       email: Emailaddress
       infix: Infix
+      mailinglists: Mailinglists
       members_per_page: members per page
       name: Name
       no_uu: This can not be an email from UU!
+      not_in_mailchimp: Member doesn't exist in Mailchimp
       phone: Phone number
       save_text: Please click on the save button to save your changes.
       show: Show

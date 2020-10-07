@@ -47,9 +47,11 @@ nl:
     members:
       email: E-mailadres
       infix: Tussenvoegsel
+      mailinglists: Mailinglijsten
       members_per_page: leden per pagina
       name: Voornaam
       no_uu: Dit kan niet een uu email zijn!
+      not_in_mailchimp: Lid bestaat niet in Mailchimp
       phone: Telefoonnummer
       save_text: Om een wijziging door te voeren moet je op de opslaan knop drukken.
       show: Toon
