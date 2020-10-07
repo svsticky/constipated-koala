@@ -71,10 +71,10 @@ nl:
       ideal: iDeal
       impressions: Logs
       member: Leden
+      messages: Berichten
       payments: Betalingen
       products: Producten
       settings: Instellingen
-      messages: Berichten
     payment:
       date: Datum
       day_total: Dagtotaal
@@ -102,6 +102,20 @@ nl:
         pay_to: Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand %{member}_?
         title: Hey! %{user} van Sticky hier :)
         total_of: Dit geeft een totaal van *%{amount}*
+    posts:
+      author: Auteur
+      content: Bericht tekst
+      create: Bericht aanmaken
+      edit: Bericht bewerken
+      published_at: Gepubliceerd op
+      status:
+        draft: Concept
+        pinned: Gepinned
+        published: Gepubliceerd
+        review: Review
+        scheduled: Gepland
+      status_text: Status
+      tags: Labels
     settings:
       action: Actie
       address: IP-adres
