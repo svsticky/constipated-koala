@@ -97,10 +97,12 @@
                     %span.label.label-info
                       = I18n.t('activerecord.attributes.education.status.active')
 
-            - unless ENV['MAILCHIMP_DATACENTER'].blank? || @member.mailchimp_interests.nil?
-              %dl.dl-horizontal
-                %dt Mailchimp lijsten
+            %dl.dl-horizontal
+              %dt= I18n.t('admin.members.mailinglists')
+              - unless ENV['MAILCHIMP_DATACENTER'].blank? || @member.mailchimp_interests.nil?
                 %dd= @member.mailchimp_interests&.select{ |_,v| v == true}&.map{ |k, _| Rails.configuration.mailchimp_interests.key(k) }&.join(', ')
+              - else
+                %dd= I18n.t('admin.members.not_in_mailchimp')
 
 
         .card
