@@ -20,16 +20,21 @@
 
                 .card-img-overlay
                   - if post.published?
-                    %span.ribbon.success published
+                    %span.ribbon.success
+                      = I18n.t("admin.posts.status.published")
                   - if post.draft?
-                    %span.ribbon draft
+                    %span.ribbon
+                      = I18n.t("admin.posts.status.draft")
                   - if post.review?
-                    %span.ribbon review
+                    %span.ribbon
+                      = I18n.t("admin.posts.status.review")
                   - if post.scheduled?
-                    %span.ribbon.warning scheduled
+                    %span.ribbon.warning
+                      = I18n.t("admin.posts.status.scheduled")
 
                   - if post.pinned?
-                    %span.ribbon pinned
+                    %span.ribbon
+                      = I18n.t("admin.posts.status.pinned")
 
                 %h4= post.author.name
                 %ul
@@ -60,9 +65,9 @@
             .card-header
               %i.fa.fa-fw.fa-paragraph
               - if @post.id
-                Bericht bewerken
+                = I18n.t("admin.posts.edit")
               - else
-                Bericht aanmaken
+                = I18n.t("admin.posts.create")
             .card-body
               = f.hidden_field :id, :value => @post.id
 
@@ -74,48 +79,51 @@
                         = image_tag @post.author.avatar_representation, class: 'avatar'
 
                     .image-side
-                      = f.label :author
+                      = f.label I18n.t("admin.posts.author")
                       = f.text_field :author, :value => @post.author.name, :disabled => true, :class => 'form-control'
 
                       = f.hidden_field :author_id, :value => @post.author_id
                       = f.hidden_field :author_type, :value => @post.author_type
 
                   .col-md-4.form-check
-                    = f.label :pinned
+                    = f.label I18n.t("admin.posts.status.pinned")
                     = f.check_box :pinned, checked: @post.pinned.nil? ? @post.pinned? : @post.pinned
 
               .form-group
                 .row
                   .col-lg-4
-                    = f.label :status
-                    = f.select :status, options_for_select(Post.statuses.keys, @post.status || Post.statuses.draft), {}, class: 'custom-select'
+                    = f.label I18n.t("admin.posts.status_text")
+                    = f.select :status, options_for_select([[I18n.t("admin.posts.status.published"), :published], [I18n.t("admin.posts.status.draft"), :draft], [I18n.t("admin.posts.status.review"), :review], [I18n.t("admin.posts.status.scheduled"), :scheduled] ], @post.status || Post.statuses.draft), {}, class: 'custom-select'
 
                   .col-lg-8.col-md-12
-                    = f.label :tags
+                    = f.label I18n.t("admin.posts.tags")
                     = f.text_field :tags, :value => @post.tags, :class => 'form-control'
 
               .form-group
                 .row
                   .col-lg-4
-                    = f.label :published_at
+                    = f.label I18n.t("admin.posts.published_at")
                     = f.datetime_local_field :published_at, :value => @post.published_at&.strftime('%FT%T'), :class => 'form-control'
 
               .form-group.post-content
+                = f.label I18n.t("admin.posts.content")
                 = f.hidden_field :content, value: @post.content, id: 'post-content'
 
+                -# This is the Quill editor which isn't working at the moment
                 -# #editor
                 -#   != @post.content
 
                 = f.text_area :content, :rows => 8, :value => @post.content, :class => 'form-control', :id => 'html'
 
               .btn-group
-                %button.btn.btn-success{type: 'submit'} Opslaan
+                %button.btn.btn-success{type: 'submit'} 
+                  = I18n.t('editing.save')
                 - if @post.id
                   = link_to 'terug', :posts, class: 'btn btn-default'
 
               - if @post.id
                 = link_to post_path, 'data-method' => :delete, class: 'btn btn-danger float-right' do
-                  verwijderen
+                  = I18n.t('editing.delete')
 
 :javascript
   $(document).on('ready page:load turbolinks:load', function(){

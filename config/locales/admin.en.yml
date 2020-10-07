@@ -71,10 +71,10 @@ en:
       ideal: iDeal
       impressions: Logs
       member: Members
+      messages: Posts
       payments: Payments
       products: Products
       settings: Settings
-      messages: Messages
     payment:
       date: Date
       day_total: Daily total
@@ -102,6 +102,20 @@ en:
         pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Outstanding %{member}_?
         title: Hey! %{user} from Sticky here :)
         total_of: This comes down to a total of *%{amount}*
+    posts:
+      author: Author
+      content: Post content
+      create: Create post
+      edit: Edit post
+      published_at: Published at
+      status:
+        draft: Draft
+        pinned: Pinned
+        published: Published
+        review: Review
+        scheduled: Scheduled
+      status_text: Status
+      tags: Tags
     settings:
       action: Action
       address: IP address
