@@ -79,7 +79,7 @@ class Admin::MembersController < ApplicationController
     if @member.update member_post_params.except 'mailchimp_interests'
 
       MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
-        ENV['MAILCHIMP_DATACENTER'].blank?
+      ENV['MAILCHIMP_DATACENTER'].blank? || params[:member][:mailchimp_interests].nil?
 
       impressionist @member
       redirect_to @member
