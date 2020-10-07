@@ -87,7 +87,7 @@ Rails.application.routes.draw do
         get 'transactions', to: 'payments#update_transactions'
         get 'transactions_export', to: 'payments#export_payments'
       end
-      
+
       resources :posts, only: [:index, :show, :create, :update, :destroy]
 
       resources :groups, only: [:index, :create, :show, :update, :destroy] do
