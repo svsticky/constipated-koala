@@ -245,6 +245,8 @@ en:
           attributes:
             status:
               invalid: The value is not valid
+            study:
+              required: A study name is required
         ideal_transaction:
           attributes:
             checkout: Mongoose credit

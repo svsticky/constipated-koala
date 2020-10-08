@@ -245,6 +245,8 @@ nl:
           attributes:
             status:
               invalid: Geen correcte waarde ingevuld
+            study:
+              required: Je moet een studienaam invullen
         ideal_transaction:
           attributes:
             checkout: Mongoose-tegoed
