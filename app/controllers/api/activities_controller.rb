@@ -4,7 +4,6 @@ class Api::ActivitiesController < ApiController
   # to activities. This is used to update the participant and reservists tables
   # when enrolling for an activity.
   before_action :authorize, only: [:show]
-  #before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:show]
 
   def index
     if params[:date].present?
