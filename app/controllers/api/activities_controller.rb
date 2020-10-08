@@ -1,6 +1,10 @@
 #:nodoc:
 class Api::ActivitiesController < ApiController
-  before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:show]
+  # doorkeeper_authorize! isn't used here so logged in users also have access
+  # to activities. This is used to update the participant and reservists tables
+  # when enrolling for an activity.
+  before_action :authorize, only: [:show]
+  #before_action -> { doorkeeper_authorize! 'activity-read' }, only: [:show]
 
   def index
     if params[:date].present?
@@ -25,5 +29,15 @@ class Api::ActivitiesController < ApiController
 
   def show
     @activity = Activity.find_by_id! params[:id]
+  end
+
+  private
+
+  def authorize
+    @_doorkeeper_scopes = Doorkeeper.configuration.default_scopes
+
+    return if valid_doorkeeper_token? || user_signed_in?
+
+    head :unauthorized
   end
 end
