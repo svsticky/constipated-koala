@@ -124,7 +124,7 @@ class Members::PaymentsController < ApplicationController
       )
 
       if payment.save
-        redirect_to ideal.ideal_uri
+        redirect_to payment.ideal_uri
       else
         flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
         redirect_to members_home_path
