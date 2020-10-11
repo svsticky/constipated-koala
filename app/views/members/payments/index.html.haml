@@ -1,0 +1,68 @@
+- content_for(:page, 'member_payments')
+.row
+  .col-lg-6.col-12
+    .card
+      = form_with :remote => true, :url => :pay_activities, :method=> :post, :class => 'form-validation', :id => "pay_activities_form" do |f|
+        .card-header
+          %span
+            %i.fa.fa-fw.fa-fw.fa-ticket-alt
+            = I18n.t("members.payments.unpaid_activity.title")
+            = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm', type: "submit", id: "pay-activity"
+            = submit_tag I18n.t("members.payments.unpaid_activity.checkall"), :type => 'button', class: "btn btn-success btn-sm", id: 'check-all'
+            = f.select :payment_type, [["Payconiq +€#{String(@payconiq_transaction_costs)}", 'Payconiq'],["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {}, { :id => 'payment_type_pay_activities' }
+        %table.table.table-striped
+          %tbody
+            - @participants.each do |activity|
+              %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
+                - if !activity.ended?
+                  %td= link_to activity.name, activity_path(activity)
+                - else
+                  %td= activity.name
+
+                - if !activity.start_date.nil?
+                  %td.hidden-xs
+                    - if activity.end_date.nil?
+                      = I18n.l activity.start_date
+                    - else
+                      #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
+                - if !activity.currency(@member).nil?
+                  %td= number_to_currency(activity.currency(@member), :unit => '€')
+                - else
+                  %tdl
+                %td
+                  = check_box_tag "activity_ids[]", activity.id, true if !activity.participants.where(:member => @member).first.paid && activity.currency(@member) > 0 && activity.is_payable
+                %td.text-center.d-none.d-sm-block
+                  - if !activity.currency(@member).nil? && activity.currency(@member) > 0
+                    - if activity.participants.where(:member => @member).first.paid
+                      %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
+                    - else
+                      %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
+            - if @participants.empty?
+              %tr
+                %td.text-center
+                  %em Er zijn geen activiteiten die je moet betalen!
+  .col-lg-6.col-12
+    .card
+      = form_with :url => :mongoose, :method=> :post, :class => 'form-validation', :remote => true, :id => "add_funds_form" do |f|
+        .card-header
+          %i.fa.fa-fw.fa-fw.fa-shopping-cart
+          %span= I18n.t("activerecord.models.checkout_transactions")
+          = f.select :payment_type, [["Payconiq +€#{String(@payconiq_transaction_costs)}", 'Payconiq'],["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {}, { :id => 'payment_type_add_funds' }
+          %table.table.card-body
+            %tbody
+              - @transactions.each do |transaction|
+                %tr
+                  %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
+                  %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
+                  %td.d-none.d-sm-table-cell= transaction.products
+                  %td
+                    = number_to_currency(transaction.price, :unit => '€')
+                    - if transaction.price > 0
+                      %span.fa.fa-sort-asc.float-right
+                    - else
+                      %span.fa.fa-sort-desc.float-right
+              %tr.form
+                %td.home_mongoose_form_element
+                  = f.number_field :amount, :placeholder => I18n.t('members.home.index.credit'), :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@payconiq_transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
+                %td.home_mongoose_form_element
+                  = f.submit I18n.t('members.home.index.upgrade'), class: "btn btn-success btn-sm", type: "submit"

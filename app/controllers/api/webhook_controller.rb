@@ -9,7 +9,7 @@ class Api::WebhookController < ApiController
 
     flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction') if transaction.message.blank?
 
-    redirect_to transaction.redirect_uri
+    redirect_to transaction.ideal_redirect_uri
   end
 
   def mollie_hook
