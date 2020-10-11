@@ -1,0 +1,61 @@
+name: "Tests"
+on:
+  pull_request:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+
+    env:
+      DATABASE_HOST: "127.0.0.1"
+      DATABASE_USER: root
+      DATABASE_PASSWORD: password
+      DATABASE_PORT: 3306
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: "install Nix"
+      uses: cachix/install-nix-action@v11
+
+    - name: "Cache Nix packages"
+      uses: actions/cache@v2
+      with:
+        path: /nix/store
+        key: nix-${{ hashFiles('**.nix') }}
+        restore-keys: |
+          nix-
+    
+    - name: "Cache Yarn packages"
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: yarn-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          yarn-
+
+    - name: "Execute Ruby linter"
+      run: nix-shell --run "bundle exec rubocop"
+    - name: "Execute Javascript linter"
+      run: nix-shell --run "npx prettier -c app/assets/javascripts/*"
+    
+    - name: "Check for security vulnerabilities"
+      run: nix-shell --run "bundle exec brakeman"
+
+    - name: "precompile assets"
+      run: nix-shell --run "bundle exec rake assets:precompile"
+
+    - name: "create database"
+      run: nix-shell --run "bundle exec rake db:create --trace"
+
+    - name: "setup database"
+      run: nix-shell --run "bundle exec rake db:setup --trace"
+
+    - name: "run tests"
+      run: nix-shell --run "bundle exec rake"
