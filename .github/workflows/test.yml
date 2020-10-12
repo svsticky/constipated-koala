@@ -25,12 +25,9 @@ jobs:
       uses: cachix/install-nix-action@v11
 
     - name: "Cache Nix packages"
-      uses: actions/cache@v2
+      uses: cachix/cachix-action@v6
       with:
-        path: /nix/store
-        key: nix-${{ hashFiles('**.nix') }}
-        restore-keys: |
-          nix-
+        name: svsticky-constipated-koala
     
     - name: "Cache Yarn packages"
       uses: actions/cache@v2
