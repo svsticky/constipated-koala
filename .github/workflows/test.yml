@@ -53,6 +53,11 @@ jobs:
     - name: "create database"
       run: nix-shell --run "bundle exec rake db:create --trace"
 
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.1.0
+      with:
+        redis-version: 5
+
     - name: "setup database"
       run: nix-shell --run "bundle exec rake db:setup --trace"
 
