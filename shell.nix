@@ -22,7 +22,8 @@ in
       pkgs.mupdf
       pkgs.cacert
     ];
-    installPhase = ''
-      cp -r $src $out
-    '';
+
+    shellHook = ''
+rails assets:precompile
+'';
   }

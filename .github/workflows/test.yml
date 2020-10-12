@@ -1,7 +1,6 @@
 name: "Tests"
 on:
   pull_request:
-  push:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,14 +40,12 @@ jobs:
 
     - name: "Execute Ruby linter"
       run: nix-shell --run "bundle exec rubocop"
+
     - name: "Execute Javascript linter"
       run: nix-shell --run "npx prettier -c app/assets/javascripts/*"
     
     - name: "Check for security vulnerabilities"
       run: nix-shell --run "bundle exec brakeman"
-
-    - name: "precompile assets"
-      run: nix-shell --run "bundle exec rake assets:precompile"
 
     - name: "create database"
       run: nix-shell --run "bundle exec rake db:create --trace"
