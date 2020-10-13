@@ -11,14 +11,16 @@ import jQuery from "jquery";
     if( $( this ).length == 0 )
       return
 
-    var modules = $.extend({}, $.fn.defaults, options);
-
-    // form-group containing hidden input to copy inner html to
-    let input = $(this).find('input:hidden');
+    let modules = $.extend({}, $.fn.defaults, options);
     let editor = $(this).find('#editor');
-
+    
     if( $( editor ).length == 0 )
       return
+    
+    // form-group containing hidden input to copy inner html to
+    let input = editor.parent().find('input:hidden');
+    
+    $(".ql-toolbar").remove();
 
     let quill = new Quill($(editor)[0], {
       modules: modules,
@@ -26,7 +28,7 @@ import jQuery from "jquery";
     });
 
     let store = function() {
-      $(input).first().val(quill.root.innerHTML)
+      $(input).first().val(quill.root.innerHTML);
     }
   
     $(quill.editor.scroll.domNode).on('blur', store)
@@ -36,8 +38,7 @@ import jQuery from "jquery";
   $.fn.defaults = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      ['clean']
+      ['bold', 'italic', 'underline', 'strike']
     ]
   };
 })(jQuery);
