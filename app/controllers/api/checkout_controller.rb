@@ -12,16 +12,16 @@ class Api::CheckoutController < ActionController::Base
 
   def recent
     recent = CheckoutTransaction.joins(:checkout_card).where(
-      checkout_card: CheckoutCard.find_by_uuid(params[:uuid])
-    ).order(created_at: :desc).limit(5).group(:items)
-
+      checkout_card: CheckoutCard.where(member_id: CheckoutCard.find_by_uuid(params[:uuid]).member_id)
+    ).order(created_at: :desc).limit(5)
     items = []
     recent.each do |item|
       item.items.each do |id|
-        items << CheckoutProduct.where(active: true).find_by_id(id)
+        items << id
       end
     end
-    render status: :ok, json: items.uniq[0, 5]
+    products = CheckoutProduct.where(id: items).limit(5).to_a;
+    @products = items.map { |id| products.find {|product| product.id == id}}
   end
 
   def info
