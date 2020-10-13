@@ -29,57 +29,61 @@ class Payment < ApplicationRecord
   validates :ideal_redirect_uri, presence: true, if: :ideal?
 
   after_validation(on: :create) do
-    self.amount += transaction_fee
-    case payment_type.to_sym
-    when :ideal
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
-      self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ ideal_redirect_uri }")
+    self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
+    if Rails.env.production?
 
-      request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
-                          :amount => amount,
-                          :description => description,
+      self.amount += transaction_fee
+      case payment_type.to_sym
+      when :ideal
+        http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+        self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ ideal_redirect_uri }")
 
-                          :method => 'ideal',
-                          :issuer => issuer,
+        request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
+                            :amount => amount,
+                            :description => description,
 
-                          :metadata => {
-                            :member => member.name,
-                            :transaction_type => transaction_type,
-                            :transaction_id => transaction_id
-                          },
+                            :method => 'ideal',
+                            :issuer => issuer,
 
-                          :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => token))
+                            :metadata => {
+                              :member => member.name,
+                              :transaction_type => transaction_type,
+                              :transaction_id => transaction_id
+                            },
 
-      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
-      response = http.send! request
+                            :redirectUrl => Rails.application.routes.url_helpers.mollie_redirect_url(:token => token))
 
-      self.trxid = response.id
-      self.ideal_uri = response.links.paymentUrl
-      # pin payment shouldn't have any extra work
-    when :pin
+        request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
+        response = http.send! request
 
-      # Payconiq payments
-    else
-      http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
-      self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
+        self.trxid = response.id
+        self.ideal_uri = response.links.paymentUrl
+        # pin payment shouldn't have any extra work
+      when :pin
 
-      request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
+        # Payconiq payments
+      else
+        http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
+        self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
 
-      request.body = { :amount => (amount * 100).to_i,
-                       :reference => payment_type,
-                       :description => description,
-                       :currency => 'EUR',
-                       :callbackUrl => Rails.env.development? ? "#{ ENV['PAYCONIQ_CALLBACKURL'] }/api/hook/payconiq" : Rails.application.url_helpers.payconiq_hook_url }.to_json
+        request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
 
-      request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
-      request.content_type = 'application/json'
-      request['Cache-Control'] = "no-cache"
+        request.body = { :amount => (amount * 100).to_i,
+                         :reference => payment_type,
+                         :description => description,
+                         :currency => 'EUR',
+                         :callbackUrl => Rails.env.development? ? "#{ ENV['PAYCONIQ_CALLBACKURL'] }/api/hook/payconiq" : Rails.application.url_helpers.payconiq_hook_url }.to_json
 
-      response = http.send! request
+        request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
+        request.content_type = 'application/json'
+        request['Cache-Control'] = "no-cache"
 
-      self.trxid = response.paymentId
-      self.payconiq_qrurl = response[:_links][:qrcode][:href]
-      self.payconiq_deeplink = response[:_links][:deeplink][:href]
+        response = http.send! request
+
+        self.trxid = response.paymentId
+        self.payconiq_qrurl = response[:_links][:qrcode][:href]
+        self.payconiq_deeplink = response[:_links][:deeplink][:href]
+      end
     end
   end
 
