@@ -29,6 +29,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: svsticky-constipated-koala
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
     
     - name: "Cache Yarn packages"
       uses: actions/cache@v2
