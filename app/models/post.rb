@@ -1,6 +1,8 @@
 # A post is a message viewable by members if published. The author is polymorphic however
 # for now only use from an admin user is possible
 class Post < ApplicationRecord
+  include Sidekiq::Worker
+
   belongs_to :author, :polymorphic => true
   serialize :tags
 
@@ -21,6 +23,11 @@ class Post < ApplicationRecord
 
   def pinned?
     Settings['posts.pinned'].include? id
+  end
+
+  def perform(id)
+    @post = Post.find_by_id id
+    @post.update(status: :published)
   end
 
   before_save do

@@ -107,7 +107,7 @@
 
               .form-group.post-content
                 = f.label I18n.t("admin.posts.content")
-                = f.hidden_field :content, value: @post.content, id: 'post-content'
+                = f.hidden_field :content, :class => 'form-control', :id => 'html'
 
                 #editor
                   != @post.content
