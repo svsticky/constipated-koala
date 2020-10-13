@@ -138,12 +138,10 @@
               .form-group#mail
                 %label{for: ''}
                 = I18n.t('admin.settings.signature')
-                = render 'layouts/partials/editor'
+                = f.hidden_field :signature, :class => 'form-control', :id => 'html'
 
-                #textarea.form-control{ :contenteditable => 'true' }
-                  != @admin.signature
-
-                = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'
+                #editor
+                  != @admin.signature 
 
               %button.btn.btn-success{type: 'submit'}
                 = I18n.t('editing.save')

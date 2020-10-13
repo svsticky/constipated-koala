@@ -26,11 +26,10 @@ class Admin::PostsController < ApplicationController
 
   def update
     @post = Post.find_by_id params[:id]
-
+    
     if @post.update(post_params)
       redirect_to @post
     else
-
       @pagination, @posts = pagy(Post.all)
       render 'index'
     end

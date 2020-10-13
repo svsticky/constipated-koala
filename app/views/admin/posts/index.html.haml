@@ -107,13 +107,10 @@
 
               .form-group.post-content
                 = f.label I18n.t("admin.posts.content")
-                = f.hidden_field :content, value: @post.content, id: 'post-content'
+                = f.hidden_field :content, :class => 'form-control', :id => 'html'
 
-                -# This is the Quill editor which isn't working at the moment
-                -# #editor
-                -#   != @post.content
-
-                = f.text_area :content, :rows => 8, :value => @post.content, :class => 'form-control', :id => 'html'
+                #editor
+                  != @post.content 
 
               .btn-group
                 %button.btn.btn-success{type: 'submit'} 
