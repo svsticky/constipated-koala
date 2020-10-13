@@ -20,8 +20,8 @@ class Api::CheckoutController < ActionController::Base
         items << id
       end
     end
-    products = CheckoutProduct.where(id: items).limit(5).to_a;
-    @products = items.map { |id| products.find {|product| product.id == id}}
+    products = CheckoutProduct.where(id: items).limit(5).to_a
+    @products = items.map { |id| products.find { |product| product.id == id } }
   end
 
   def info
