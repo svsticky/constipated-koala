@@ -29,8 +29,3 @@ A restart of the Nix shell should install the new or updated packages.
 
 New node packages should be added to package.json.
 After that, run `yarn install` to update the lockfile.
-Rails likes to compile its javascript and css dependencies itself:
-
-```console
-rails assets:precompile
-```
