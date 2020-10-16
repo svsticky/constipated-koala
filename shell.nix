@@ -24,6 +24,6 @@ in
     ];
 
     shellHook = ''
-rails assets:precompile
-'';
+      rails assets:precompile
+    '';
   }

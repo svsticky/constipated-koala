@@ -25,9 +25,25 @@ To get started, you will need:
 To start, clone the project:
 
 ```console
-git clone git@github.com:svsticky/constipated-koala.git koala.svsticky.nl
-cd koala.svsticky.nl
-nix-shell
+$ git clone git@github.com:svsticky/constipated-koala
+Cloning into 'constipated-koala'...
+```
+
+To speed up the build, you can install and set up Cachix
+
+```console
+$ nix-env -iA cachix -f https://cachix.org/api/v1/install
+installing 'cachix-0.3.8'
+
+$ cachix use svsticky-constipated-koala
+Configured https://svsticky-constipated-koala.cachix.org binary cache in ~/.config/nix/nix.conf
+```
+
+Now we can run nix-shell for the first time
+
+```console
+$ nix-shell
+[nix-shell:~/projects/koala.svsticky.nl]$
 ```
 
 This should install all dependencies and launch a shell.
@@ -65,9 +81,9 @@ databases `koala-development` and `koala-test`, this is out of scope for this
 tutorial.
 
 There is an example file in the root of this repository called
-`example.env`. This file is a template for the actual configuration file
+`sample.env`. This file is a template for the actual configuration file
 `.env`, which sets some configuration values for Koala. Copy
-`example.env` to `.env`, and edit it according to the
+`sample.env` to `.env`, and edit it according to the
 instructions in the file.
 
 Once you're done, you can set up the database with this command (in the Nix shell):
