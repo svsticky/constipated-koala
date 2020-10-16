@@ -8,7 +8,7 @@ function Copy_ICS() {
   /* Link to copy */
 
   var copy_text =
-    "webcal://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
+    "https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
 
   /* create a new element */
   var el = document.createElement("textarea");
