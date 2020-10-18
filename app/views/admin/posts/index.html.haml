@@ -103,7 +103,7 @@
                 .row
                   .col-lg-4
                     = f.label I18n.t("admin.posts.published_at")
-                    = f.datetime_local_field :published_at, :value => @post.published_at&.strftime('%FT%T'), :class => 'form-control'
+                    = f.text_field :published_at, :value => @post.published_at, :class => 'publish-datetime'
 
               .form-group.post-content
                 = f.label I18n.t("admin.posts.content")
