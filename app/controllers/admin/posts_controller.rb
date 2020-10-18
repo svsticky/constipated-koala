@@ -1,5 +1,5 @@
 #:nodoc:
-class Admin::PostsController < ApplicationController  
+class Admin::PostsController < ApplicationController
   def index
     # TODO: add filters, for pinned draft etc
     @pagination, @posts = pagy(Post.all)
@@ -26,7 +26,7 @@ class Admin::PostsController < ApplicationController
 
   def update
     @post = Post.find_by_id params[:id]
-    
+
     if @post.update(post_params)
       if post_params["status"] == "scheduled"
         @time_until_post = DateTime.parse(post_params[:published_at])

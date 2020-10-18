@@ -13,6 +13,7 @@
 //= require jquery/dist/jquery.min
 //= require jquery-ujs/src/rails
 //= require bootstrap-file-input
+//= require flatpickr
 //
 //= require toastr
 //
