@@ -46,7 +46,7 @@
                     %li= tag
 
               .card-body.content
-                = raw post.content
+                = sanitize post.content, tags: %w(strong em u s h1 h2 h3 h4)
 
 
         = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
@@ -110,7 +110,7 @@
                 = f.hidden_field :content, :class => 'form-control', :id => 'html'
 
                 #editor
-                  != @post.content
+                  = sanitize @post.content, tags: %w(strong em u s h1 h2 h3 h4)
 
               .btn-group
                 %button.btn.btn-success{type: 'submit'} 
