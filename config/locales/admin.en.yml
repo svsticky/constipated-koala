@@ -116,6 +116,7 @@ en:
         scheduled: Scheduled
       status_text: Status
       tags: Tags
+      title: Title
     settings:
       action: Action
       address: IP address

@@ -116,6 +116,7 @@ nl:
         scheduled: Gepland
       status_text: Status
       tags: Labels
+      title: Titel
     settings:
       action: Actie
       address: IP-adres

@@ -2,47 +2,42 @@
 
 .row
   .col-md-6
-    .card
-      .card-header
-        %i.fas.fa-fw.fa-stream
-        = I18n.t("admin.navigation.messages")
-
     #posts
       - @pinned.each do |post|
         .card
           .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
-            - if post.author.avatar.attached?
-              = image_tag post.author.avatar_representation, class: 'avatar'
-            %h4= post.author.name
-            %ul
-              %li= I18n.l(post.published_at, format: "%d %B %H:%m")
-              - post.tags&.each do |tag|
-                %li= tag
+            %h3= post.title
+
+            .post-info
+              - if post.author.avatar.attached?
+                = image_tag post.author.avatar_representation, class: 'avatar'
+              %h4= post.author.name
+              %ul
+                %li= I18n.l(post.published_at, format: "%d %B %H:%m")
+                - post.tags&.each do |tag|
+                  %li= tag
           .card-body.content
             = raw post.content
 
       - @unpinned.each do |post|
         .card
           .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
-            - if post.author.avatar.attached?
-              = image_tag post.author.avatar_representation, class: 'avatar'
-            %h4= post.author.name
-            %ul
-              %li= I18n.l(post.published_at, format: "%d %B %H:%m")
-              - post.tags&.each do |tag|
-                %li= tag
+            %h3= post.title
+
+            .post-info
+              - if post.author.avatar.attached?
+                = image_tag post.author.avatar_representation, class: 'avatar'
+              %h4= post.author.name
+              %ul
+                %li= I18n.l(post.published_at, format: "%d %B %H:%m")
+                - post.tags&.each do |tag|
+                  %li= tag
           .card-body.content
             = raw post.content
     
     = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
 
-  .col-lg-6.col-12.float-right
-    .card.d-block.d-md-none
-      .card-body.debt-card
-        %i.fas.fa-calendar-week.fa-2x
-        %span= number_to_currency(@debt, :precision => 2, :unit => '€ ', separator: ',', delimiter: '.')
-        %p= I18n.t('activerecord.models.checkout_balance')
-
+  .col-lg-6.float-right
     - unless @balance.blank?
       .card.card-box
         .row.no-gutters

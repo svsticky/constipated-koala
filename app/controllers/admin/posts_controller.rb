@@ -56,6 +56,7 @@ class Admin::PostsController < ApplicationController
       :pinned,
       :tags,
       :published_at,
+      :title,
       :content
     )
   end

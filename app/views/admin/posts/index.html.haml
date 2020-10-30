@@ -15,8 +15,7 @@
           - @posts.each do |post|
             .card
               = link_to post, class: 'card-header ' + ('avatar-padding' if post.author&.avatar&.attached?).to_s do
-                - if post.author&.avatar&.attached?
-                  = image_tag post.author.avatar_representation, class: 'avatar'
+                %h3= post.title
 
                 .card-img-overlay
                   - if post.published?
@@ -31,23 +30,24 @@
                   - if post.scheduled?
                     %span.ribbon.warning
                       = I18n.t("admin.posts.status.scheduled")
-
                   - if post.pinned?
                     %span.ribbon
                       = I18n.t("admin.posts.status.pinned")
 
-                %h4= post.author.name
-                %ul
-                  - if post.published_at.present?
-                    %li
-                      = I18n.l(post.published_at, format: "%d %B %H:%m")
+                .post-info
+                  - if post.author&.avatar&.attached?
+                    = image_tag post.author.avatar_representation, class: 'avatar'
+                  %h4= post.author.name
+                  %ul
+                    - if post.published_at.present?
+                      %li
+                        = I18n.l(post.published_at, format: "%d %B %H:%m")
 
-                  - post.tags&.each do |tag|
-                    %li= tag
+                    - post.tags&.each do |tag|
+                      %li= tag
 
               .card-body.content
                 = sanitize post.content, tags: %w(strong em u s h1 h2 h3 h4)
-
 
         = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
 
@@ -101,6 +101,10 @@
 
               .form-group
                 .row
+                  .col-lg-8
+                    = f.label I18n.t("admin.posts.title")
+                    = f.text_field :title, :value => @post.title, :class => 'form-control'
+
                   .col-lg-4
                     = f.label I18n.t("admin.posts.published_at")
                     = f.text_field :published_at, :value => @post.published_at, :class => 'publish-datetime'
