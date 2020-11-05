@@ -808,6 +808,17 @@
     };
     version = "2.0.8.1";
   };
+  rack-proxy = {
+    dependencies = ["rack"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1v40xd3xhzhbdqfynd03gn88j1pga2zhrv58xs9fl4hzrlbp096s";
+      type = "gem";
+    };
+    version = "0.6.5";
+  };
   rack-test = {
     dependencies = ["rack"];
     groups = ["default" "development" "test"];
@@ -1053,6 +1064,16 @@
     };
     version = "2.1.2";
   };
+  semantic_range = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "150wq0y749rags4pm0g3zljd575vk17nwdzp0m0q04s62977rd24";
+      type = "gem";
+    };
+    version = "2.3.0";
+  };
   sentry-raven = {
     dependencies = ["faraday"];
     groups = ["production" "staging"];
@@ -1253,6 +1274,17 @@
       type = "gem";
     };
     version = "4.0.1";
+  };
+  webpacker = {
+    dependencies = ["activesupport" "rack-proxy" "railties" "semantic_range"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1xgyv5ppljw3yq71nbrw2hj6hq9y8qbdavjrn53nsccpy7801wdx";
+      type = "gem";
+    };
+    version = "5.2.1";
   };
   websocket-driver = {
     dependencies = ["websocket-extensions"];
