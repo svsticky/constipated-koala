@@ -1,5 +1,6 @@
 //
 //= require bootstrap-file-input
+import $ from 'jquery';
 
 $(document).on("ready page:load turbolinks:load", function () {
   bind_flip();

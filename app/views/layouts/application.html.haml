@@ -13,7 +13,7 @@
     %meta{content: "yes", name:"apple-mobile-web-app-capable"}
 
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
     %link{:href => asset_path('apple-icon-koala-144.png'), :rel => "apple-touch-icon"}
     %link{:href => asset_path('apple-icon-koala-114.png'), :rel => "apple-touch-icon"}

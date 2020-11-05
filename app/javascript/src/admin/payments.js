@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $(document).on("ready page:load turbolinks:load", function () {
   //Initialise clipboard-rails for the whatsapp messages
   var clip = new Clipboard("#paymentmails .btn-clipboard", {

@@ -1,6 +1,6 @@
-//= require i18n
-//= require i18n/translations
-//= require js-cookie
+import I18n from "i18n-js"
+import "rails-translations-webpack-plugin"
+import Cookies from "js-cookie"
 
 // Language logic
 I18n.fallbacks = true;
