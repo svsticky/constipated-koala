@@ -15,4 +15,17 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+//import "jquery/dist/jquery.min"
+//import "jquery-ujs/src/rails"
+import "../../../vendor/assets/javascripts/bootstrap-file-input";
+import "toastr"
+import "dropdown"
+import "editor"
+import "mail"
+import "clipboard/dist/clipboard.min"
+import "turbolinks/dist/turbolinks"
+import "bootstrap/dist/js/bootstrap.bundle.min.js"
+import "../src/admin/index.js"
+import "../src/language.js"
+import "../src/application.js"
+import "jquery"

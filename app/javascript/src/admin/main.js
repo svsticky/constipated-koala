@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $(document).on("ready page:load turbolinks:load", function () {
   // Alerts for on the frontend, default type is info
   // script#alert is a template in de header file.

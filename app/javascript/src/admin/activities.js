@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 /*
  * Bind all handlers to the buttons
  */

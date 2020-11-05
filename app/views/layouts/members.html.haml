@@ -12,7 +12,7 @@
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 
     = stylesheet_link_tag 'members', media: 'all', 'data-turbolinks-track' => 'reload'
-    = javascript_include_tag 'members', 'data-turbolinks-track' => 'reload'
+    = javascript_pack_tag 'members', 'data-turbolinks-track': 'reload'
 
     %template#alert
       .toast{:class => "toast-{1}"}

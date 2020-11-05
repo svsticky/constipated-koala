@@ -1,9 +1,8 @@
-//= require intl-tel-input/build/js/intlTelInput
-//= require intl-tel-input/build/js/utils
+import "intl-tel-input"
 
 // international phone number input + validation
 
-function setup_intl_tel_input() {
+export function setup_intl_tel_input() {
   var phone_input = document.querySelector("#member_phone_number");
   var emergency_phone_input = document.querySelector(
     "#member_emergency_phone_number"
