@@ -9,6 +9,7 @@
     "Maarten van den Berg <>"
   ],
   "dependencies": {
+    "@rails/webpacker": "5.2.1",
     "bootstrap": "^4.3.1",
     "clipboard": "^1.6.1",
     "intl-tel-input": "^16.0.5",
@@ -18,5 +19,8 @@
     "sweetalert2": "^9.14.2",
     "toastr": "^2.1.4",
     "turbolinks": "^5.0.3"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
   }
 }
