@@ -24,6 +24,7 @@ in
     ];
 
     shellHook = ''
+      yarn install
       rails assets:precompile
     '';
   }
