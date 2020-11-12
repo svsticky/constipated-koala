@@ -1,7 +1,7 @@
-{ sources ? import ./nix/sources.nix
-, pkgs ? import sources.nixpkgs {}
+{ pkgs ? import ./nix {}
 }:
 let
+  node = import ./nix/node.nix {};
   gems = pkgs.bundlerEnv {
     name = "koala";
     ruby = pkgs.ruby;
@@ -23,8 +23,9 @@ in
       pkgs.cacert
     ];
 
+    NODE_PATH = "${node.shell.nodeDependencies}/lib/node_modules";
+
     shellHook = ''
-      yarn install
       rails assets:precompile
     '';
   }
