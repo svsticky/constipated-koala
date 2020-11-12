@@ -6,24 +6,34 @@ let
     name = "koala";
     ruby = pkgs.ruby;
     gemdir = ./.;
+    gemfile = ./Gemfile;
+    lockfile = ./Gemfile.lock;
   };
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
-    buildInputs = [
+    propagatedBuildInputs = [
       gems
       pkgs.nodejs
       pkgs.ruby
-      pkgs.yarn
       pkgs.curl
       pkgs.imagemagick
       pkgs.ghostscript
-      pkgs.bundler
       pkgs.mupdf
       pkgs.cacert
     ];
 
-    NODE_PATH = "${node.shell.nodeDependencies}/lib/node_modules";
+    buildPhase = ''
+      rails assets:precompile
+    '';
+
+    installPhase = ''
+      mv /build/koala.svsticky.nl $out
+    '';
+
+    src = pkgs.nix-gitignore.gitignoreSource [] ./.;
+
+    NODE_PATH = "${(node.shell.override{src = ./dependencies;}).nodeDependencies}/lib/node_modules";
 
     shellHook = ''
       rails assets:precompile
