@@ -9,6 +9,8 @@ let
     gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
   };
+  node-path = "${(node.shell.override{src = node-jail;}).nodeDependencies}/lib/node_modules";
+  node-jail = import ./nix/node-jail.nix {};
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
@@ -21,6 +23,16 @@ in
       pkgs.ghostscript
       pkgs.mupdf
       pkgs.cacert
+      pkgs.bundler
+      (pkgs.writeTextFile {
+        name = "koala-rails";
+        text = ''
+          #!/bin/bash
+          export NODE_PATH="${node-path}"
+          rails $@
+        '';
+        executable=true;
+      })
     ];
 
     buildPhase = ''
@@ -33,9 +45,13 @@ in
 
     src = pkgs.nix-gitignore.gitignoreSource [] ./.;
 
-    NODE_PATH = "${(node.shell.override{src = ./dependencies;}).nodeDependencies}/lib/node_modules";
+    NODE_PATH = node-path;
 
     shellHook = ''
       rails assets:precompile
     '';
+
+    LC_ALL = "C.UTF-8";
+
+    BUNDLER_IGNORE_CONFIG = "True";
   }
