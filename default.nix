@@ -24,23 +24,21 @@ in
       pkgs.mupdf
       pkgs.cacert
       pkgs.bundler
-      (pkgs.writeTextFile {
-        name = "koala-rails";
-        text = ''
-          #!/bin/bash
-          export NODE_PATH="${node-path}"
-          rails $@
-        '';
-        executable=true;
-      })
     ];
 
     buildPhase = ''
       rails assets:precompile
     '';
 
+    koala_rails_wrapper = pkgs.writeScript "koala" ''
+      #!/bin/bash
+      export NODE_PATH=${node-path}
+      ${gems.wrappedRuby}/bin/bundle exec rails $@
+    '';
+
     installPhase = ''
-      mv /build/koala.svsticky.nl $out
+      ln -s $koala_rails_wrapper /build/constipated-koala/bin/koala
+      mv /build/constipated-koala $out
     '';
 
     src = pkgs.nix-gitignore.gitignoreSource [] ./.;
@@ -52,6 +50,4 @@ in
     '';
 
     LC_ALL = "C.UTF-8";
-
-    BUNDLER_IGNORE_CONFIG = "True";
   }
