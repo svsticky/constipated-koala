@@ -1,5 +1,3 @@
-//= require i18n
-//= require i18n/translations
 import I18n from '../i18n.js.erb'
 
 /**
