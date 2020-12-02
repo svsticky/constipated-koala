@@ -1,6 +1,6 @@
 import $ from "jquery"
 import jQuery from "jquery"
-import I18n from '../i18n.js.erb'
+import I18n from './i18n.js.erb'
 import { setup_intl_tel_input } from "./intl_tel_number"
 
 $(document).on("ready page:load turbolinks:load", function () {
