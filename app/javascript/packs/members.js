@@ -14,3 +14,5 @@ import "../src/members/activities/activity"
 import "../src/members/activities/poster_modal"
 
 import "../src/language"
+
+require("turbolinks").start();
