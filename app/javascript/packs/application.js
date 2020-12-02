@@ -19,9 +19,9 @@
 //import "jquery-ujs/src/rails"
 import "../../../vendor/assets/javascripts/bootstrap-file-input";
 import "toastr"
-import "dropdown"
-import "editor"
-import "mail"
+import "../src/lib/dropdown"
+import "../src/lib/editor"
+import "../src/lib/mail"
 import "clipboard/dist/clipboard.min"
 import "turbolinks/dist/turbolinks"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
