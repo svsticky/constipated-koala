@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import I18n from '../i18n.js.erb'
+import I18n from '../i18n.js.erb';
+import toastr from "toastr";
 
 /*
  * Bind all handlers to the buttons
