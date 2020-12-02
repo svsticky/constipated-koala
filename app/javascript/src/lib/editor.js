@@ -5,6 +5,8 @@
  * @author Martijn Casteel
  */
 
+import jQuery from "jquery";
+
 (function($) {
   $.fn.editor = function(options) {
     var opts = $.extend({}, $.fn.editor.defaults, options);

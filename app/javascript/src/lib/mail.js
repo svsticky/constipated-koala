@@ -1,5 +1,8 @@
 import I18n from '../i18n.js.erb'
 
+import jQuery from "jquery";
+import toastr from "toastr";
+
 /**
  * @file mail.js
  * A mail pane using the wysiwyg editor for composing mails and calling a

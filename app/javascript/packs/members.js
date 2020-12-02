@@ -1,7 +1,6 @@
 import "jquery/dist/jquery.min"
 import "jquery-ujs/src/rails"
 
-import "turbolinks/dist/turbolinks"
 // import "bootstrap/dist/js/bootstrap"
 
 import "../src/intl_tel_number"

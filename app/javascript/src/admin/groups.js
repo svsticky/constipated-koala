@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import I18n from '../i18n.js.erb'
+import I18n from '../i18n.js.erb';
+import toastr from "toastr";
 
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.

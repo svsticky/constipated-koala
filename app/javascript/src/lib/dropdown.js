@@ -5,6 +5,8 @@
  * @author Martijn Casteel
  */
 
+import jQuery from "jquery";
+
 (function($) {
   $.fn.search = function(options) {
     var opts = $.extend({}, $.fn.search.defaults, options);
