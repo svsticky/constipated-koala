@@ -14,7 +14,6 @@
     "clipboard": "^1.6.1",
     "dropdown": "^0.2.0",
     "editor": "^1.0.0",
-    "i18n": "^0.13.2",
     "i18n-js": "^3.8.0",
     "intl-tel-input": "^16.0.5",
     "jquery": "^3.5.1",
@@ -23,7 +22,6 @@
     "mail": "^0.2.3",
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
-    "rails-translations-webpack-plugin": "^1.1.0",
     "sweetalert2": "^9.14.2",
     "toastr": "^2.1.4",
     "turbolinks": "^5.2.0"

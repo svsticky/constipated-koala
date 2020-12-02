@@ -1,5 +1,4 @@
 import I18n from "i18n-js"
-import "rails-translations-webpack-plugin"
 import Cookies from "js-cookie"
 
 // Language logic
