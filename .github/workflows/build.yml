@@ -23,14 +23,14 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: "install Nix"
-      uses: cachix/install-nix-action@v11
+      uses: cachix/install-nix-action@v12
 
     - name: "Cache Nix packages"
       uses: cachix/cachix-action@v6
       with:
         name: svsticky-constipated-koala
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-    
+
     - name: "Cache Yarn packages"
       uses: actions/cache@v2
       with:
@@ -47,7 +47,7 @@ jobs:
 
     - name: "Execute Javascript linter"
       run: nix-shell --run "npx prettier -c app/assets/javascripts/*"
-    
+
     - name: "Check for security vulnerabilities"
       run: nix-shell --run "bundle exec brakeman"
 
