@@ -3,14 +3,14 @@ import jQuery from "jquery"
 import I18n from "i18n-js"
 import { setup_intl_tel_input } from "./intl_tel_number"
 
-$(document).ready(function () {
+$(document).on("ready page:load turbolinks:load", function () {
   var disabledStudyOptions = null;
   var studyBlockers = {
     1: 3,
     3: 1,
   };
 
-  $("#menu-close").click(function (e) {
+  $("#menu-close").on("click", function (e) {
     e.preventDefault();
     $("#sidebar-wrapper").toggleClass("active");
   });
@@ -19,7 +19,7 @@ $(document).ready(function () {
     $(this).closest(".alert").remove();
   });
 
-  $("a[href*='#']").click(function () {
+  $("a[href*='#']").on("click",function () {
     if (
       location.pathname.replace(/^\//, "") ==
         this.pathname.replace(/^\//, "") ||
@@ -141,11 +141,11 @@ $(document).ready(function () {
 
   var jumboHeight = $(".header").outerHeight();
 
-  $(window).scroll(function (e) {
+  $(window).on( "scroll", (function (e) {
     var scrolled = $(window).scrollTop();
     $(".header-bg").css("height", jumboHeight - scrolled + "px");
     $(".header-bg").css("height", jumboHeight - scrolled + "px");
-  });
+  }));
 
   setup_intl_tel_input();
 });

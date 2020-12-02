@@ -1,5 +1,5 @@
 import "jquery/dist/jquery"
-// import "bootstrap";
+import "bootstrap";
 import "../../../vendor/assets/javascripts/jquery.validate.min.js"
 import "../src/intl_tel_number.js"
 import "i18n";
