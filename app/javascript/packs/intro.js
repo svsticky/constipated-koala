@@ -6,3 +6,5 @@ import "i18n";
 // import "i18n/translations";
 import "../src/language.js"
 import "../src/intro.js"
+
+require("turbolinks").start();

@@ -29,3 +29,5 @@ import "../src/admin/index.js"
 import "../src/language.js"
 import "../src/application.js"
 import "jquery"
+
+require("turbolinks").start();
