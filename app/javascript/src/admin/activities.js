@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import I18n from '../i18n.js.erb'
 
 /*
  * Bind all handlers to the buttons

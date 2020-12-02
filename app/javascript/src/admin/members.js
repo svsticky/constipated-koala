@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import I18n from '../i18n.js.erb'
 
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.

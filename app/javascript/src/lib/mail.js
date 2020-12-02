@@ -1,5 +1,7 @@
 //= require i18n
 //= require i18n/translations
+import I18n from '../i18n.js.erb'
+
 /**
  * @file mail.js
  * A mail pane using the wysiwyg editor for composing mails and calling a
