@@ -1,5 +1,6 @@
 //= require cache_helpers.js
 //= require language.js
+import I18n from '../../i18n.js.erb'
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.

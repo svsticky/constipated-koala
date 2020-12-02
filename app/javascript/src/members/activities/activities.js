@@ -1,6 +1,7 @@
 //= require sweetalert2/dist/sweetalert2.min
 //= require ./activity.js
 //= require members/activities/poster_modal
+import I18n from '../../i18n.js.erb'
 
 var token, modal, participant_row_template;
 

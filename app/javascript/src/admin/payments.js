@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import I18n from '../i18n.js.erb'
 
 $(document).on("ready page:load turbolinks:load", function () {
   //Initialise clipboard-rails for the whatsapp messages
