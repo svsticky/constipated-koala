@@ -21,6 +21,7 @@
     "jquery-ujs": "^1.2.2",
     "js-cookie": "^2.2.1",
     "mail": "^0.2.3",
+    "popper.js": "^1.16.1",
     "rails-translations-webpack-plugin": "^1.1.0",
     "sweetalert2": "^9.14.2",
     "toastr": "^2.1.4",
