@@ -1,6 +1,6 @@
 var cached_prefix = "_cached_";
 
-function batch_edit_properties(obj, edit_function) {
+export function batch_edit_properties(obj, edit_function) {
   Object.keys(obj).forEach(function (key) {
     obj[key] = edit_function(key, obj[key], obj);
   });
@@ -23,7 +23,7 @@ function get_cached_writer(write_function, cache_name) {
   };
 }
 
-function init_cached_properties(obj, props) {
+export function init_cached_properties(obj, props) {
   batch_edit_properties(props, function (name, descriptor, obj) {
     var cache_name = cached_prefix + name;
     if (typeof descriptor === "function") {

@@ -1,17 +1,13 @@
-import "jquery/dist/jquery.min"
-import "jquery-ujs/src/rails"
+import "bootstrap";
+import "toastr"
+import "jquery"
 
-// import "bootstrap/dist/js/bootstrap"
+require("@rails/ujs").start()
+require("turbolinks").start();
 
 import "../src/intl_tel_number"
-
-import "toastr"
-
 import "../src/members/main"
 import "../src/members/activities/activities"
 import "../src/members/activities/activity"
 import "../src/members/activities/poster_modal"
-
 import "../src/language"
-
-require("turbolinks").start();

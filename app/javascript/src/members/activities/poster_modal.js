@@ -1,4 +1,5 @@
-//= require cache_helpers.js
+import $ from "jquery"
+import {batch_edit_properties, init_cached_properties} from "../../cache_helpers.js"
 
 function Poster_modal(element, activity) {
   this.element = $(element);
