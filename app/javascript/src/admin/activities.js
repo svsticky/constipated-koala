@@ -110,7 +110,7 @@ var participant = {
         $(row).remove();
 
         //Move reservist to attendees if applicable
-        if (data.magic_reservists.length > 0) {
+        if ('magic_reservists' in data && data.magic_reservists.length > 0) {
           data.magic_reservists.forEach(function (item, index, array) {
             $("#reservists-table tbody tr:nth-child(2)").remove();
             participant.add(item, item.name);
