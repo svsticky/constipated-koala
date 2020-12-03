@@ -1,8 +1,10 @@
-//= require sweetalert2/dist/sweetalert2.min
-import "./activity.js"
-import "./poster_modal"
+import Swal from "sweetalert2"
 import $ from "jquery"
+
+import "./poster_modal"
 import I18n from '../../i18n.js.erb'
+
+import {Activity} from "./activity.js";
 
 var token, modal, participant_row_template;
 
@@ -157,7 +159,7 @@ function initialize_enrollment() {
   participant_row_template = $("template#participant_table_row_template");
 
   activity_container.find("button.enrollment").on("click", function () {
-    var activity = new Activity($(this).closest(".panel-activity"));
+    var activity = new Activity(token, $(this).closest(".panel-activity"));
     if (activity.is_enrollable()) {
       if (
         activity.notes_mandatory &&

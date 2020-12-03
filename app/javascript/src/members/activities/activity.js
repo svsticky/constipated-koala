@@ -1,6 +1,8 @@
+import Swal from "sweetalert2"
+import $ from "jquery"
+
 import {batch_edit_properties, init_cached_properties} from "../../cache_helpers.js"
 import "../../language.js"
-import $ from "jquery"
 import I18n from '../../i18n.js.erb'
 
 /**
@@ -26,39 +28,38 @@ var AlertTitles = {
  * @param activity_panel The panel from which to create the activity
  * @constructor
  */
-function Activity(activity_panel) {
-  this.panel = activity_panel;
-}
-
-Activity.full_string = I18n.t("members.activities.full");
-
-Activity.get_participant_count_from_string = function (fullness) {
-  if (!fullness.includes(Activity.full_string)) return fullness.match(/\d+/)[0];
-};
-
-Activity.get_participant_limit_from_string = function (fullness) {
-  if (!fullness.includes(Activity.full_string)) {
-    var numbers = fullness.match(/\d+/);
-    if (typeof numbers[1] !== "undefined") return numbers[1];
+export class Activity {
+  constructor(token, activity_panel) {
+    this.panel = activity_panel;
+    this.token = token;
   }
-};
-
-Activity.get_fullness_from_count_and_limit = function (count, limit) {
-  if (limit === null) return "" + count;
-  else if (count >= limit) return Activity.full_string;
-  else return count + " / " + limit;
-};
-
-Activity.prototype = {
-  get_panel_selector: function () {
+  static get_participant_count_from_string(fullness) {
+    if (!fullness.includes(Activity.full_string))
+      return fullness.match(/\d+/)[0];
+  }
+  static get_participant_limit_from_string(fullness) {
+    if (!fullness.includes(Activity.full_string)) {
+      var numbers = fullness.match(/\d+/);
+      if (typeof numbers[1] !== "undefined")
+        return numbers[1];
+    }
+  }
+  static get_fullness_from_count_and_limit(count, limit) {
+    if (limit === null)
+      return "" + count;
+    else if (count >= limit)
+      return Activity.full_string;
+    else
+      return count + " / " + limit;
+  }
+  get_panel_selector() {
     return ".panel-activity[data-activity-id=" + this.id + "]";
-  },
-
+  }
   /**
    * Enroll the current user for this Activity.
    * @returns jqXHR
    */
-  enroll: function () {
+  enroll() {
     var activity = this;
     var request = this._remote_update_enrollment("POST").done(function () {
       //Normal enrollment
@@ -73,13 +74,12 @@ Activity.prototype = {
     });
 
     return request;
-  },
-
+  }
   /**
    * Unenroll the current user for this Activity.
    * @returns jqXHR
    */
-  un_enroll: function () {
+  un_enroll() {
     var activity = this;
     return this._remote_update_enrollment("DELETE").done(function () {
       if (activity._fullness === Activity.full_string) {
@@ -90,54 +90,49 @@ Activity.prototype = {
 
       activity.update_notes_button.addClass("d-none");
     });
-  },
-
+  }
   /**
    * Updates the enrollment of the current user for this Activity.
    * @returns jqXHR
    */
-  edit_enroll: function () {
+  edit_enroll() {
     return this._remote_update_enrollment("PATCH");
-  },
-
-  has_un_enroll_date_passed: function () {
+  }
+  has_un_enroll_date_passed() {
     return (
       typeof this.un_enroll_date !== "undefined" &&
       new Date() > this.un_enroll_date
     );
-  },
-
-  is_enrollable: function () {
+  }
+  is_enrollable() {
     return (
       this.enrollment_status === Enrollment_stati.un_enrolled ||
       this.enrollment_status === Enrollment_stati.reservistable
     );
-  },
-
-  has_notes: function () {
+  }
+  has_notes() {
     return this.notes.length !== 0;
-  },
-
-  are_notes_filled: function () {
+  }
+  are_notes_filled() {
     return $.trim(this.notes.val()).length > 0;
-  },
-
+  }
   /**
    * Returns if this is the first activity in the view.
    * @returns {boolean}
    */
-  is_first: function () {
+  is_first() {
     return typeof this.prev_activity === "undefined";
-  },
-
+  }
   /**
    * Returns if this is the last activity in the view.
    * @returns {boolean}
    */
-  is_last: function () {
+  is_last() {
     return typeof this.next_activity === "undefined";
-  },
-};
+  }
+}
+
+Activity.full_string = I18n.t("members.activities.full");
 
 /**
  * Private properties
@@ -186,7 +181,7 @@ Object.defineProperties(Activity.prototype, {
         url: "/activities/" + activity.id + "/participants",
         type: method,
         data: {
-          authenticity_token: token,
+          authenticity_token: this.token,
           par_notes: this.notes.val(),
         },
       })
