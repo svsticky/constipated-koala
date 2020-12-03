@@ -1,5 +1,6 @@
-//= require cache_helpers.js
-//= require language.js
+import {batch_edit_properties, init_cached_properties} from "../../cache_helpers.js"
+import "../../language.js"
+import $ from "jquery"
 import I18n from '../../i18n.js.erb'
 
 /**

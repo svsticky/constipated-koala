@@ -1,6 +1,7 @@
 //= require sweetalert2/dist/sweetalert2.min
-//= require ./activity.js
-//= require members/activities/poster_modal
+import "./activity.js"
+import "./poster_modal"
+import $ from "jquery"
 import I18n from '../../i18n.js.erb'
 
 var token, modal, participant_row_template;
@@ -214,7 +215,7 @@ function initialize_modal() {
   });
 }
 
-equalheight = function (container) {
+function equalheight (container) {
   var currentTallest = 0,
     currentRowStart = 0,
     rowDivs = new Array(),

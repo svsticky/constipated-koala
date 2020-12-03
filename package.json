@@ -9,6 +9,7 @@
     "Maarten van den Berg <>"
   ],
   "dependencies": {
+    "@rails/ujs": "^6.0.3-4",
     "@rails/webpacker": "5.2.1",
     "bootstrap": "^4.5.3",
     "clipboard": "^1.6.1",
