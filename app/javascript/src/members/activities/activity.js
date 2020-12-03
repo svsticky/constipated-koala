@@ -1,9 +1,12 @@
-import Swal from "sweetalert2"
-import $ from "jquery"
+import Swal from "sweetalert2";
+import $ from "jquery";
 
-import {batch_edit_properties, init_cached_properties} from "../../cache_helpers.js"
-import "../../language.js"
-import I18n from '../../i18n.js.erb'
+import {
+  batch_edit_properties,
+  init_cached_properties,
+} from "../../cache_helpers.js";
+import "../../language.js";
+import I18n from "../../i18n.js.erb";
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.
@@ -40,17 +43,13 @@ export class Activity {
   static get_participant_limit_from_string(fullness) {
     if (!fullness.includes(Activity.full_string)) {
       var numbers = fullness.match(/\d+/);
-      if (typeof numbers[1] !== "undefined")
-        return numbers[1];
+      if (typeof numbers[1] !== "undefined") return numbers[1];
     }
   }
   static get_fullness_from_count_and_limit(count, limit) {
-    if (limit === null)
-      return "" + count;
-    else if (count >= limit)
-      return Activity.full_string;
-    else
-      return count + " / " + limit;
+    if (limit === null) return "" + count;
+    else if (count >= limit) return Activity.full_string;
+    else return count + " / " + limit;
   }
   get_panel_selector() {
     return ".panel-activity[data-activity-id=" + this.id + "]";

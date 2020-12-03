@@ -7,33 +7,27 @@
 
 import jQuery from "jquery";
 
-(function($) {
-  $.fn.editor = function(options) {
+(function ($) {
+  $.fn.editor = function (options) {
     var opts = $.extend({}, $.fn.editor.defaults, options);
 
     // div containing styled wysiwyg
     var textarea = $(this).find(opts.textarea);
     var form = $(this);
 
-    return this.each(function() {
-      $(this).on("submit", function(event) {
+    return this.each(function () {
+      $(this).on("submit", function (event) {
         if (!$(form).hasClass("html"))
-          $(form)
-            .find(opts.htmlarea)
-            .val(
-              $(form)
-                .find(opts.textarea)
-                .html()
-            );
+          $(form).find(opts.htmlarea).val($(form).find(opts.textarea).html());
       });
 
       // toggle buttons pending on location of the carrot
-      $(textarea).on("click keydown keyup blur", function(event) {
+      $(textarea).on("click keydown keyup blur", function (event) {
         $(form)
           .find(
             ".ta-toolbar > .btn-group > button:not(.dropdown-toggle):not(.disabled)"
           )
-          .each(function(iterator, button) {
+          .each(function (iterator, button) {
             $.fn.editor.active(button);
           });
       });
@@ -48,7 +42,7 @@ import jQuery from "jquery";
         .find(
           ".ta-toolbar > .btn-group > button:not(.dropdown-toggle):not(.disabled)"
         )
-        .on("click", function(event) {
+        .on("click", function (event) {
           $(textarea).trigger(event.currentTarget.name);
 
           if (
@@ -63,10 +57,10 @@ import jQuery from "jquery";
 
       $(this)
         .find(".ta-toolbar > .btn-group > ul.dropdown-menu > li > a")
-        .on("mousedown", function(event) {
+        .on("mousedown", function (event) {
           $(textarea).trigger(event.currentTarget.className, [
             event.currentTarget.name,
-            window.getSelection()
+            window.getSelection(),
           ]);
 
           $(textarea).focus();
@@ -74,32 +68,32 @@ import jQuery from "jquery";
         });
 
       // functions for the buttons
-      $(textarea).on("bold", function(event) {
+      $(textarea).on("bold", function (event) {
         //TODO somehting with selection
         document.execCommand("bold", false, true);
       });
 
-      $(textarea).on("italic", function(event) {
+      $(textarea).on("italic", function (event) {
         document.execCommand("italic", false, true);
       });
 
-      $(textarea).on("underline", function(event) {
+      $(textarea).on("underline", function (event) {
         document.execCommand("underline", false, true);
       });
 
-      $(textarea).on("strikethrough", function(event) {
+      $(textarea).on("strikethrough", function (event) {
         document.execCommand("strikethrough", false, true);
       });
 
-      $(textarea).on("ol", function(event) {
+      $(textarea).on("ol", function (event) {
         document.execCommand("insertOrderedList", false, true);
       });
 
-      $(textarea).on("ul", function(event) {
+      $(textarea).on("ul", function (event) {
         document.execCommand("insertUnorderedList", false, true);
       });
 
-      $(textarea).on("left", function(event) {
+      $(textarea).on("left", function (event) {
         $(form)
           .find('.ta-toolbar > .btn-group > button[name="center"]')
           .removeClass("active");
@@ -110,7 +104,7 @@ import jQuery from "jquery";
         document.execCommand("justifyLeft", false, true);
       });
 
-      $(textarea).on("center", function(event) {
+      $(textarea).on("center", function (event) {
         $(form)
           .find('.ta-toolbar > .btn-group > button[name="left"]')
           .removeClass("active");
@@ -121,7 +115,7 @@ import jQuery from "jquery";
         document.execCommand("justifyCenter", false, true);
       });
 
-      $(textarea).on("right", function(event) {
+      $(textarea).on("right", function (event) {
         $(form)
           .find('.ta-toolbar > .btn-group > button[name="left"]')
           .removeClass("active");
@@ -132,28 +126,16 @@ import jQuery from "jquery";
         document.execCommand("justifyRight", false, true);
       });
 
-      $(textarea).on("erase", function(event) {
+      $(textarea).on("erase", function (event) {
         document.execCommand("removeFormat", false, true);
       });
 
-      $(textarea).on("html", function(event) {
+      $(textarea).on("html", function (event) {
         // toggle html view
         if ($(form).hasClass("html"))
-          $(form)
-            .find(opts.textarea)
-            .html(
-              $(form)
-                .find(opts.htmlarea)
-                .val()
-            );
+          $(form).find(opts.textarea).html($(form).find(opts.htmlarea).val());
         else
-          $(form)
-            .find(opts.htmlarea)
-            .val(
-              $(form)
-                .find(opts.textarea)
-                .html()
-            );
+          $(form).find(opts.htmlarea).val($(form).find(opts.textarea).html());
 
         $(form).toggleClass("html");
         $(form)
@@ -166,12 +148,12 @@ import jQuery from "jquery";
       });
 
       // function for the dropdowns
-      $(textarea).on("font-family", function(event, font, selection) {
+      $(textarea).on("font-family", function (event, font, selection) {
         //TODO somehting with selection
         document.execCommand("fontName", false, $.fn.editor.fonts[font]);
       });
 
-      $(textarea).on("font-size", function(event, size, selection) {
+      $(textarea).on("font-size", function (event, size, selection) {
         if (size == "small") document.execCommand("fontSize", false, 1);
         else if (size == "large") document.execCommand("fontSize", false, 4);
         //font weghalen
@@ -182,7 +164,7 @@ import jQuery from "jquery";
 
   $.fn.editor.defaults = {
     htmlarea: "textarea#html",
-    textarea: "#textarea"
+    textarea: "#textarea",
   };
 
   $.fn.editor.functions = {
@@ -196,7 +178,7 @@ import jQuery from "jquery";
 
     left: "justifyLeft",
     center: "justifyCenter",
-    right: "justifyRight"
+    right: "justifyRight",
   };
 
   $.fn.editor.fonts = {
@@ -204,10 +186,10 @@ import jQuery from "jquery";
     georgia: "georgia",
     verdana: "verdana",
     tahoma: "tahome",
-    "comic sans": "comic sans ms"
+    "comic sans": "comic sans ms",
   };
 
-  $.fn.editor.active = function(button) {
+  $.fn.editor.active = function (button) {
     if ($(button).attr("name") == "html") return;
 
     if (

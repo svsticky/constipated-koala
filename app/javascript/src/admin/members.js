@@ -1,8 +1,8 @@
-import $ from 'jquery';
-import I18n from '../i18n.js.erb';
+import $ from "jquery";
+import I18n from "../i18n.js.erb";
 import toastr from "toastr";
 
-import { setup_intl_tel_input } from "../intl_tel_number"
+import { setup_intl_tel_input } from "../intl_tel_number";
 
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.

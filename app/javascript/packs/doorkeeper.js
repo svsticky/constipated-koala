@@ -1,3 +1,4 @@
-import "jquery/dist/jquery.min"
-// import "bootstrap/dist/js/bootstrap"
+import "jquery/dist/jquery.min";
+import "bootstrap";
+
 import "../src/language";

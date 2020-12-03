@@ -1,4 +1,4 @@
-import "toastr"
+import "toastr";
 
 $(document).on("ready page:load turbolinks:load", function () {
   toastr.options = {

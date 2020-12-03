@@ -1,5 +1,5 @@
-import $ from 'jquery';
-import I18n from '../i18n.js.erb'
+import $ from "jquery";
+import I18n from "../i18n.js.erb";
 
 $(document).on("ready page:load turbolinks:load", function () {
   // Alerts for on the frontend, default type is info

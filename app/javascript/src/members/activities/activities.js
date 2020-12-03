@@ -1,10 +1,10 @@
-import Swal from "sweetalert2"
-import $ from "jquery"
+import Swal from "sweetalert2";
+import $ from "jquery";
 
-import "./poster_modal"
-import I18n from '../../i18n.js.erb'
+import "./poster_modal";
+import I18n from "../../i18n.js.erb";
 
-import {Activity} from "./activity.js";
+import { Activity } from "./activity.js";
 
 var token, modal;
 
@@ -185,7 +185,7 @@ function initialize_modal() {
   posterModal.on("show.bs.modal", function (event) {
     var activity = new Activity(
       $(event.relatedTarget).closest(".panel-activity"),
-      token,
+      token
     );
     modal = new Poster_modal(this, activity);
   });
@@ -217,7 +217,7 @@ function initialize_modal() {
   });
 }
 
-function equalheight (container) {
+function equalheight(container) {
   var currentTallest = 0,
     currentRowStart = 0,
     rowDivs = new Array(),
@@ -245,7 +245,7 @@ function equalheight (container) {
       rowDivs[currentDiv].height(currentTallest);
     }
   });
-};
+}
 
 /**
  * Register all click handlers for activities

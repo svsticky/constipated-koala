@@ -1,5 +1,5 @@
-import I18n from "i18n-js"
-import Cookies from "js-cookie"
+import I18n from "i18n-js";
+import Cookies from "js-cookie";
 
 // Language logic
 I18n.fallbacks = true;
