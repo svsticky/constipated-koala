@@ -6,7 +6,7 @@ import I18n from '../../i18n.js.erb'
 
 import {Activity} from "./activity.js";
 
-var token, modal, participant_row_template;
+var token, modal;
 
 function Copy_ICS() {
   /* Link to copy */
@@ -156,10 +156,9 @@ function initialize_ui() {
 function initialize_enrollment() {
   var activity_container = get_activity_container();
   var view = activity_container.data("view");
-  participant_row_template = $("template#participant_table_row_template");
 
   activity_container.find("button.enrollment").on("click", function () {
-    var activity = new Activity(token, $(this).closest(".panel-activity"));
+    var activity = new Activity($(this).closest(".panel-activity"), token);
     if (activity.is_enrollable()) {
       if (
         activity.notes_mandatory &&
@@ -172,7 +171,7 @@ function initialize_enrollment() {
   });
 
   activity_container.find("button.update-enrollment").on("click", function () {
-    var activity = new Activity($(this).closest(".panel-activity"));
+    var activity = new Activity($(this).closest(".panel-activity"), token);
     confirm_update(activity);
   });
 }
@@ -185,7 +184,8 @@ function initialize_modal() {
   //Add event handler to poster to show the modal
   posterModal.on("show.bs.modal", function (event) {
     var activity = new Activity(
-      $(event.relatedTarget).closest(".panel-activity")
+      $(event.relatedTarget).closest(".panel-activity"),
+      token,
     );
     modal = new Poster_modal(this, activity);
   });

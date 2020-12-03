@@ -29,7 +29,7 @@ var AlertTitles = {
  * @constructor
  */
 export class Activity {
-  constructor(token, activity_panel) {
+  constructor(activity_panel, token = null) {
     this.panel = activity_panel;
     this.token = token;
   }
@@ -230,7 +230,7 @@ Object.defineProperties(Activity.prototype, {
             activity.attendees_table_body.html("");
             response.attendees.forEach(function (participant) {
               activity.attendees_table_body.append(
-                participant_row_template
+                $("template#participant_table_row_template")
                   .html()
                   .format(
                     participant.name,
@@ -242,7 +242,7 @@ Object.defineProperties(Activity.prototype, {
             activity.reservists_table_body.html("");
             response.reservists.forEach(function (participant) {
               activity.reservists_table_body.append(
-                participant_row_template
+                $("template#participant_table_row_template")
                   .html()
                   .format(
                     participant.name,
