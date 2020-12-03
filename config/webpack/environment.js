@@ -10,8 +10,6 @@ environment.plugins.prepend('Provide',
     jQuery: 'jquery',
     Popper: ['popper.js', 'default'],
     toastr: 'toastr/toastr',
-    ApexCharts: ['apexcharts', 'default'],
-    underscore: ['underscore', 'm'],
     Rails: ['@rails/ujs']
   })
 )
