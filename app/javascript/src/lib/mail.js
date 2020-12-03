@@ -1,4 +1,4 @@
-import I18n from '../i18n.js.erb'
+import I18n from "../i18n.js.erb";
 
 import jQuery from "jquery";
 import toastr from "toastr";
@@ -11,66 +11,84 @@ import toastr from "toastr";
  * @author Martijn Casteel
  */
 
-(function( $ ){
-
-  $.fn.mail = function( options ){
+(function ($) {
+  $.fn.mail = function (options) {
     var opts = $.extend({}, $.fn.mail.defaults, options);
-    var form = $( this );
+    var form = $(this);
 
     var recipients, debtors, attendees, reservists;
 
-    return this.each(function(){
-
+    return this.each(function () {
       // activate wysiwyg editor
-      $( this ).editor({ htmlarea: opts.message });
+      $(this).editor({ htmlarea: opts.message });
 
       // fill the lists of recipients and debtors
-      recipients = $.fn.mail.list( '#participants table tr[data-reservist]' );
-      attendees = $.fn.mail.list( '#participants table tr[data-reservist="false"]' );
-      reservists = $.fn.mail.list( '#participants table tr[data-reservist="true"]' );
-      debtors = $.fn.mail.list( '#participants table tr.in-debt' );
+      recipients = $.fn.mail.list("#participants table tr[data-reservist]");
+      attendees = $.fn.mail.list(
+        '#participants table tr[data-reservist="false"]'
+      );
+      reservists = $.fn.mail.list(
+        '#participants table tr[data-reservist="true"]'
+      );
+      debtors = $.fn.mail.list("#participants table tr.in-debt");
 
       // catch events from activities
-      $( this ).on( 'recipient_added', function( event, participant, name, email, price ){
-        var data = {id: participant, name: name, email: email};
+      $(this).on(
+        "recipient_added",
+        function (event, participant, name, email, price) {
+          var data = { id: participant, name: name, email: email };
 
-        recipients.push(data);
-        attendees.push(data);
-        reservists.remove(participant);
+          recipients.push(data);
+          attendees.push(data);
+          reservists.remove(participant);
 
-        if( price > 0 ){
-          debtors.push(data);
+          if (price > 0) {
+            debtors.push(data);
+          }
+
+          $(form)
+            .find("#recipients select")
+            .trigger("change", [$(form).find("#recipients select").val()]);
         }
-
-        $( form ).find( '#recipients select' ).trigger( 'change', [ $( form ).find( '#recipients select' ).val() ] );
-      });
+      );
 
       // or if the activity is free
-      $( this ).on( 'recipient_payed', function( event, participant, name, email ){
-        debtors.remove( participant );
-        $( form ).find( '#recipients select' ).trigger( 'change', [ $( form ).find( '#recipients select' ).val() ] );
+      $(this).on("recipient_payed", function (event, participant, name, email) {
+        debtors.remove(participant);
+        $(form)
+          .find("#recipients select")
+          .trigger("change", [$(form).find("#recipients select").val()]);
       });
 
       // or if somebody set on not paid
-      $( this ).on( 'recipient_unpayed', function( event, participant, name, email ){
-        debtors.push({
-          id: participant,
-          name: name,
-          email: email
-        });
+      $(this).on(
+        "recipient_unpayed",
+        function (event, participant, name, email) {
+          debtors.push({
+            id: participant,
+            name: name,
+            email: email,
+          });
 
-        $( form ).find( '#recipients select' ).trigger( 'change', [ $( form ).find( '#recipients select' ).val() ] );
-      });
+          $(form)
+            .find("#recipients select")
+            .trigger("change", [$(form).find("#recipients select").val()]);
+        }
+      );
 
-      $( this ).on( 'recipient_removed', function( event, participant, name, email ){
-        recipients.remove( participant );
-        attendees.remove( participant );
-        debtors.remove( participant );
-        reservists.remove( participant );
+      $(this).on(
+        "recipient_removed",
+        function (event, participant, name, email) {
+          recipients.remove(participant);
+          attendees.remove(participant);
+          debtors.remove(participant);
+          reservists.remove(participant);
 
-        $( form ).find( '#recipients select' ).trigger( 'change', [ $( form ).find( '#recipients select' ).val() ] );
-      });
-
+          $(form)
+            .find("#recipients select")
+            .trigger("change", [$(form).find("#recipients select").val()]);
+        }
+      );
 
       // catch events from mail form
       $( this ).find( '#recipients select' ).on( 'change', function( event, selector ){
@@ -93,77 +111,74 @@ import toastr from "toastr";
         }
       });
 
-      $( this ).on( 'submit', function( event ){
+      $(this).on("submit", function (event) {
         event.preventDefault();
 
-        if(!confirm( I18n.t('mailings.confirm') ))
-          return;
+        if (!confirm(I18n.t("mailings.confirm"))) return;
 
         var list;
-        if( $( form ).find( '#recipients select' ).val() == 'all' )
+        if ($(form).find("#recipients select").val() == "all")
           list = recipients;
-        else if( $( form ).find( '#recipients select' ).val() == 'debtors' )
+        else if ($(form).find("#recipients select").val() == "debtors")
           list = debtors;
-        else if( $( form ).find( '#recipients select' ).val() == 'attendees' )
+        else if ($(form).find("#recipients select").val() == "attendees")
           list = attendees;
-        else if( $( form ).find( '#recipients select' ).val() == 'reservists' )
-            list = reservists;
+        else if ($(form).find("#recipients select").val() == "reservists")
+          list = reservists;
 
         $.ajax({
-          url: '/activities/' + $( form ).attr( 'data-id' ) + '/participants/mail',
-          type: 'POST',
+          url: "/activities/" + $(form).attr("data-id") + "/participants/mail",
+          type: "POST",
           data: {
             recipients: list,
 
-            subject: $( form ).find( 'input#onderwerp' ).val(),
-            html: $( form ).find( opts.message ).val()
-            }
-        }).done(function( data ){
-          toastr.success(I18n.t('mailings.sent.true'));
-        }).fail(function( data ){
-          toastr.error(I18n.t('mailings.sent.false'));
-        });
+            subject: $(form).find("input#onderwerp").val(),
+            html: $(form).find(opts.message).val(),
+          },
+        })
+          .done(function (data) {
+            toastr.success(I18n.t("mailings.sent.true"));
+          })
+          .fail(function (data) {
+            toastr.error(I18n.t("mailings.sent.false"));
+          });
       });
-
     });
   };
 
-  $.fn.mail.list = function( selector ){
+  $.fn.mail.list = function (selector) {
     var list = [];
 
-    $( selector ).each( function( id, row ){
+    $(selector).each(function (id, row) {
       list.push({
-        id: $( row ).attr( 'data-id' ),
-        name: $( row ).find( 'a' ).html(),
-        email: $( row ).attr( 'data-email' )
+        id: $(row).attr("data-id"),
+        name: $(row).find("a").html(),
+        email: $(row).attr("data-email"),
       });
     });
 
     return list;
   };
 
-  $.fn.mail.format = function( array ){
-    var string = ''
+  $.fn.mail.format = function (array) {
+    var string = "";
 
-    $( array ).each( function( id, item ){
-      if( item === undefined)
-        return;
+    $(array).each(function (id, item) {
+      if (item === undefined) return;
 
-      string += item.name + ' <' + item.email + '>, '
+      string += item.name + " <" + item.email + ">, ";
     });
 
     return string;
   };
 
   $.fn.mail.defaults = {
-    message: 'textarea#html'
+    message: "textarea#html",
   };
 
-  Array.prototype.remove = function() {
+  Array.prototype.remove = function () {
     for (var i = 0; i < this.length; i++) {
-      if( this[i].id == arguments[0] )
-        return this.splice(i, 1);
+      if (this[i].id == arguments[0]) return this.splice(i, 1);
     }
   };
-
-}( jQuery ));
+})(jQuery);

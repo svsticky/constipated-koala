@@ -1,5 +1,5 @@
-import { setup_intl_tel_input } from "../intl_tel_number"
-import $ from "jquery"
+import { setup_intl_tel_input } from "../intl_tel_number";
+import $ from "jquery";
 
 $(document).on("ready page:load turbolinks:load", function () {
   setup_intl_tel_input();

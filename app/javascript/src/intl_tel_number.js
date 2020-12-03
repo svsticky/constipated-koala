@@ -1,4 +1,4 @@
-import intlTelInput from 'intl-tel-input';
+import intlTelInput from "intl-tel-input";
 
 // international phone number input + validation
 
@@ -13,14 +13,16 @@ export function setup_intl_tel_input() {
       preferredCountries: ["nl"],
       separateDialCode: true,
       hiddenInput: "phone_number",
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.5/js/utils.js",
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.5/js/utils.js",
     });
 
     var iti_emergency_phone_input = intlTelInput(emergency_phone_input, {
       preferredCountries: ["nl"],
       separateDialCode: true,
       hiddenInput: "emergency_phone_number",
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.5/js/utils.js",
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.5/js/utils.js",
     });
   }
 

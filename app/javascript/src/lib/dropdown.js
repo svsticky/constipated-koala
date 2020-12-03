@@ -7,57 +7,44 @@
 
 import jQuery from "jquery";
 
-(function($) {
-  $.fn.search = function(options) {
+(function ($) {
+  $.fn.search = function (options) {
     var opts = $.extend({}, $.fn.search.defaults, options);
     var thread = null;
 
-    return this.each(function() {
-      $(this).on("focusout", function() {
+    return this.each(function () {
+      $(this).on("focusout", function () {
         $("ul.dropdown-menu").hide(1);
       });
 
-      $(this).on("keydown", function(event) {
+      $(this).on("keydown", function (event) {
         var events = $(this);
 
         if (event.keyCode == 13) event.preventDefault();
 
         if (event.keyCode == 9) {
           // trigger selected for [TAB]
-          if (
-            $(this)
-              .next(opts.dropdown)
-              .find("li.active").length == 1
-          ) {
+          if ($(this).next(opts.dropdown).find("li.active").length == 1) {
             $(events).trigger(
               "selected",
               $.fn.search.retrieve(
-                $(this)
-                  .next(opts.dropdown)
-                  .find("li.active")
-                  .find("a")
+                $(this).next(opts.dropdown).find("li.active").find("a")
               )
             );
 
-            $("ul.dropdown-menu")
-              .delay(10)
-              .hide(1);
-            $(this)
-              .next(opts.dropdown)
-              .empty();
+            $("ul.dropdown-menu").delay(10).hide(1);
+            $(this).next(opts.dropdown).empty();
           }
 
           event.preventDefault();
         }
       });
 
-      $(this).on("selected", function() {
-        $(this)
-          .val("")
-          .focus();
+      $(this).on("selected", function () {
+        $(this).val("").focus();
       });
 
-      $(this).on("focusin keyup", function(event) {
+      $(this).on("focusin keyup", function (event) {
         var events = $(this);
         var dropdown = $(this).next(opts.dropdown);
         var selected = $(dropdown).find("li.active");
@@ -69,9 +56,7 @@ import jQuery from "jquery";
             "selected",
             $.fn.search.retrieve($(selected).find("a"))
           );
-          $(dropdown)
-            .hide()
-            .empty();
+          $(dropdown).hide().empty();
 
           event.preventDefault();
         } else if (event.keyCode == 40) {
@@ -95,18 +80,18 @@ import jQuery from "jquery";
           var data = $.extend(
             {},
             {
-              search: events.val()
+              search: events.val(),
             },
             opts.query
           );
 
           clearTimeout(thread);
-          thread = setTimeout(function() {
+          thread = setTimeout(function () {
             $.ajax({
               url: opts.source,
               type: "GET",
-              data: data
-            }).done(function(data) {
+              data: data,
+            }).done(function (data) {
               $(dropdown).empty();
 
               for (var item in data) {
@@ -119,23 +104,18 @@ import jQuery from "jquery";
               // add hover to select
               $(dropdown)
                 .find("li")
-                .on("mouseenter", function() {
-                  $(dropdown)
-                    .find("li.active")
-                    .removeClass("active");
+                .on("mouseenter", function () {
+                  $(dropdown).find("li.active").removeClass("active");
                   selected = $(this).addClass("active");
                 });
 
               // add click event
               $(dropdown)
                 .find("li a")
-                .on("mousedown", function() {
+                .on("mousedown", function () {
                   $(events).trigger("selected", $.fn.search.retrieve($(this)));
 
-                  $("ul.dropdown-menu")
-                    .delay(10)
-                    .hide(1)
-                    .empty();
+                  $("ul.dropdown-menu").delay(10).hide(1).empty();
                 });
 
               //show list
@@ -148,7 +128,7 @@ import jQuery from "jquery";
   };
 
   // override for different format
-  $.fn.search.format = function(member) {
+  $.fn.search.format = function (member) {
     if (!member.infix)
       return (
         "<a data-id=" +
@@ -173,7 +153,7 @@ import jQuery from "jquery";
   };
 
   // override if format is changed
-  $.fn.search.retrieve = function(member) {
+  $.fn.search.retrieve = function (member) {
     return [$(member).attr("data-id"), $(member).html()];
   };
 
@@ -181,6 +161,6 @@ import jQuery from "jquery";
     minlength: 2,
     timeout: 250,
     source: "/members/search",
-    dropdown: "ul.dropdown-menu"
+    dropdown: "ul.dropdown-menu",
   };
 })(jQuery);
