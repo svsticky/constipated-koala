@@ -15,21 +15,18 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-//import "jquery/dist/jquery.min"
-//import "jquery-ujs/src/rails"
-import "../../../vendor/assets/javascripts/bootstrap-file-input";
+import "bootstrap";
 import "toastr"
-import "../src/lib/dropdown"
-import "../src/lib/editor"
-import "../src/lib/mail"
-import "clipboard/dist/clipboard.min"
-import "bootstrap/dist/js/bootstrap.bundle.min.js"
-import "../src/admin/index.js"
-import "../src/language.js"
-import "../src/application.js"
 import "jquery"
 
 require("@rails/ujs").start()
 require("turbolinks").start();
-// require("@rails/activestorage").start()
-// require("channels")
+
+import "../../../vendor/assets/javascripts/bootstrap-file-input";
+
+import "../src/lib/dropdown"
+import "../src/lib/editor"
+import "../src/lib/mail"
+import "../src/admin/index.js"
+import "../src/language.js"
+import "../src/application.js"
