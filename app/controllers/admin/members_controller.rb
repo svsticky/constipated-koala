@@ -50,7 +50,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
-      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
+      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
         ENV['MAILCHIMP_DATACENTER'].blank?
 
       @member.tags_names = params[:member][:tags_names]
@@ -78,8 +78,8 @@ class Admin::MembersController < ApplicationController
 
     if @member.update member_post_params.except 'mailchimp_interests'
 
-      MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
-      ENV['MAILCHIMP_DATACENTER'].blank? || params[:member][:mailchimp_interests].nil?
+      MailchimpJob.perform_later email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
+        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       impressionist @member
       redirect_to @member
