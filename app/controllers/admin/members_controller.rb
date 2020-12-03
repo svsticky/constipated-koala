@@ -51,7 +51,7 @@ class Admin::MembersController < ApplicationController
 
     if @member.save
       MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
-        ENV['MAILCHIMP_DATACENTER'].blank?
+        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       @member.tags_names = params[:member][:tags_names]
 
