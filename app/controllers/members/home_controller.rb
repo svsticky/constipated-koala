@@ -69,8 +69,8 @@ class Members::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
-      ENV['MAILCHIMP_DATACENTER'].blank? || params[:member][:mailchimp_interests].nil?
+      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].select { |_, val| val == '1' } unless
+        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
@@ -145,7 +145,7 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :mailchimp_interests => [],
+                                   :mailchimp_interests => {},
                                    educations_attributes: [:id, :status])
   end
 
