@@ -46,7 +46,7 @@ jobs:
       run: nix-shell --run "yarn check --frozen-lockfile"
 
     - name: "Execute Javascript linter"
-      run: nix-shell --run "npx prettier -c app/assets/javascripts/*"
+      run: nix-shell --run "npx prettier -c app/javascript/*"
 
     - name: "Check for security vulnerabilities"
       run: nix-shell --run "bundle exec brakeman"
