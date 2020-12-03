@@ -1,4 +1,3 @@
-import "jquery";
 import "bootstrap";
 
 import "../../../vendor/assets/javascripts/jquery.validate.min.js";

@@ -1,6 +1,4 @@
 import "bootstrap";
-import "toastr";
-import "jquery";
 
 require("@rails/ujs").start();
 require("turbolinks").start();
