@@ -1,9 +1,9 @@
 
 module.exports = {
-  purge: {
-    mode: 'production',
-    content: ['./src/**/*.html'],
-  },
+  purge: [
+    './src/**/*.haml',
+    './src/javascript/**/*.js'
+  ],
   theme: {
     extend: {},
     colors: {
