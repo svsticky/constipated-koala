@@ -39,8 +39,7 @@ $ docker-compose up
 You can run Koala itself by running this command:
 
 ```console
-$ rails server
-# This works as well:
+$ nix-shell
 $ rails s
 ```
 
