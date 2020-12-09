@@ -2,4 +2,4 @@ import "bootstrap";
 
 import "../src/language";
 
-require('../stylesheets/tailwind.scss');
+require("../stylesheets/tailwind.scss");
