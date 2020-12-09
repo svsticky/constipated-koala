@@ -1,5 +1,8 @@
+%h1.text-center.text-2xl.mb-2
+  = t('devise.registrations.login')
+
 .row
-  = form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'form-horizontal w-full'} ) do |f|
+  = form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'w-full'} ) do |f|
 
     - if !resource.errors.full_messages.blank?
       - resource.errors.full_messages.each do |message|

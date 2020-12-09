@@ -54,7 +54,7 @@ nl:
       login: Inloggen
       new:
         instruction: Maak een Sticky account aan
-        submit: Wachtwoord aanvragen
+        submit: Account aanmaken
       not_found_in_database: Onbekend e-mailadres.
       password_recovery: Wachtwoord vergeten
       sign_up: Account registreren

@@ -1,5 +1,8 @@
+%h1.text-center.text-2xl.mb-2
+  = t('devise.registrations.sign_up')
+
 .row
-  = form_for :user, url: new_registration_path, method: :post, :html => { :class => 'form-horizontal'} do |f|
+  = form_for :user, url: new_registration_path, method: :post, :html => { :class => 'w-full'} do |f|
 
     - if @user.errors.any?
       - @user.errors.full_messages.each do |message|
@@ -17,9 +20,7 @@
         %span
           = flash[:notice]
 
-    %fieldset
-      %h4= I18n.t 'devise.registrations.new.instruction'
-
+    %fieldset.w-full
       .form-group
         .input-group
           .input-group-prepend

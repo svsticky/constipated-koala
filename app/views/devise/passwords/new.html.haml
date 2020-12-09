@@ -1,5 +1,8 @@
+%h1.text-center.text-2xl.mb-2
+  = t('devise.passwords.edit.change_password')
+
 .row
-  = form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :class => 'form-horizontal', :method => 'post'}) do |f|
+  = form_for(resource, as: resource_name, url: password_path(resource_name), :html => { :class => 'w-full', :method => 'post'}) do |f|
 
     - if !resource.errors.full_messages.blank?
       - resource.errors.full_messages.each do |message|
@@ -17,8 +20,8 @@
         %span
           = flash[:notice]
 
-    %fieldset
-      %h4= I18n.t 'devise.passwords.new.instruction'
+    %fieldset.w-full
+      %h4.my-1= I18n.t 'devise.passwords.new.instruction'
 
       .form-group
         .input-group
