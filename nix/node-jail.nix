@@ -7,6 +7,6 @@ pkgs.stdenv.mkDerivation {
   phases = ["buildPhase"];
   buildPhase = ''
     mkdir -p $out
-    mv $src $out/package.json
+    cp $src $out/package.json
   '';
 }
