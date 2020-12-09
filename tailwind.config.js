@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      // this colors are copied from Yeti
+      // these colors are copied from Yeti
+      board: 'fe7215',
       transparent: 'transparent',
       blue: '#008cba',
       indigo: '#6610f2',
@@ -32,7 +33,7 @@ module.exports = {
       dark: '#222',
     },
     screens: {
-      // this breakpoints are copied from Yeti
+      // these breakpoints are copied from Yeti
       // the xs breakpoint doesn't make much sense
       //xs: '0',
       sm: '576px',
