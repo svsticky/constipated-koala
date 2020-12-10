@@ -1,5 +1,5 @@
 # This job is used to update a user's email address in mailchimp
-class MailchimpUpdateMailJob < ApplicationJob
+class MailchimpUpdateAddressJob < ApplicationJob
     queue_as :default
 
     def perform(old_address, new_address)
