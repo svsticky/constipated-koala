@@ -36,5 +36,8 @@
           = render :template => "mailings/#{mail}", :locals => { subject: subject }
 
       .mail-actions
-        %button.btn.btn-primary{ type: 'submit' }= I18n.t('layouts.partials.mail.send')
+        - if recipients.length() > 0
+          %button.btn.btn-primary#btn-send{ type: 'submit' }= I18n.t('layouts.partials.mail.send')
+        - else
+          %button.btn.btn-primary#btn-send{ type: 'submit', :disabled => 'disabled' }= I18n.t('layouts.partials.mail.send')
         .btn.btn-default.disabled{ :disabled => 'disabled' }= I18n.t('layouts.partials.mail.draft')
