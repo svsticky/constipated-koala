@@ -1,2 +1,5 @@
 let sources = import ./sources.nix;
-in import sources.nixpkgs
+in {
+  nixpkgs = import sources.nixpkgs;
+  gitignore = import sources.gitignore;
+}
