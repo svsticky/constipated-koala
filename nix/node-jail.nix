@@ -1,4 +1,4 @@
-{ pkgs ? import ./. {}
+{ pkgs ? (import ./.).nixpkgs {}
 }:
 pkgs.stdenv.mkDerivation {
   name = "package-json-jail";

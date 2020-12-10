@@ -1,6 +1,8 @@
-{ pkgs ? import ./nix {}
+{ sources ? import ./nix
 }:
 let
+  pkgs = sources.nixpkgs {};
+  gitignore = sources.gitignore{ lib = pkgs.lib; };
   node = import ./nix/node.nix {};
   gems = pkgs.bundlerEnv {
     name = "koala";
@@ -41,7 +43,13 @@ in
       mv /build/constipated-koala $out
     '';
 
-    src = pkgs.nix-gitignore.gitignoreSource [] ./.;
+    #src = pkgs.nix-gitignore.gitignoreSource [] ./.;
+
+    src = builtins.path {
+      name = "constipated-koala";
+      path = ./.;
+      filter = gitignore.gitignoreFilter ./.;
+    };
 
     NODE_PATH = node-path;
 
