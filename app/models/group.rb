@@ -72,6 +72,7 @@ class Group < ApplicationRecord
   end
 
   def self.has_members # rubocop:disable Naming/PredicateName
-    joins(:group_members).select('`groups`.*, COUNT( `groups`.`id` ) as members').group('`groups`.`id`').having('members > 0')
+    #joins(:group_members).select('`groups`.*, COUNT( `groups`.`id` ) as members').group('`groups`.`id`').having('members > 0')
+    Group.where(id: GroupMember.all.select(:group_id).distinct)
   end
 end

@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_03_09_155656) do
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "active_storage_blobs", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "activities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "activities", id: :integer, force: :cascade do |t|
     t.string "name"
     t.date "start_date"
     t.time "start_time"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.boolean "show_participants", default: true
   end
 
-  create_table "admins", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "admins", id: :integer, force: :cascade do |t|
     t.string "first_name"
     t.string "infix"
     t.string "last_name"
@@ -70,14 +70,14 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.datetime "updated_at"
   end
 
-  create_table "checkout_balances", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "checkout_balances", id: :integer, force: :cascade do |t|
     t.decimal "balance", precision: 6, scale: 2, default: "0.0"
     t.integer "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "checkout_cards", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "checkout_cards", id: :integer, force: :cascade do |t|
     t.string "uuid", limit: 16, null: false
     t.text "description", size: :medium
     t.boolean "active", default: false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["uuid"], name: "index_checkout_cards_on_uuid", unique: true
   end
 
-  create_table "checkout_products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "checkout_products", id: :integer, force: :cascade do |t|
     t.string "name"
     t.integer "category"
     t.integer "parent"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.datetime "updated_at"
   end
 
-  create_table "checkout_transactions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "checkout_transactions", id: :integer, force: :cascade do |t|
     t.decimal "price", precision: 6, scale: 2, null: false
     t.integer "checkout_card_id"
     t.integer "checkout_balance_id"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.string "payment_method", limit: 7
   end
 
-  create_table "educations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "educations", id: :integer, force: :cascade do |t|
     t.integer "member_id"
     t.date "start_date"
     t.date "end_date"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["member_id", "study_id", "start_date"], name: "index_educations_on_member_id_and_study_id_and_start_date", unique: true
   end
 
-  create_table "group_members", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "group_members", id: :integer, force: :cascade do |t|
     t.integer "member_id"
     t.integer "group_id"
     t.integer "year"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["member_id", "group_id", "year"], name: "index_group_members_on_member_id_and_group_id_and_year", unique: true
   end
 
-  create_table "groups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "groups", id: :integer, force: :cascade do |t|
     t.string "name"
     t.integer "category"
     t.text "comments", size: :medium
@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.datetime "updated_at"
   end
 
-  create_table "ideal_transactions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "ideal_transactions", id: false, force: :cascade do |t|
     t.string "description"
     t.decimal "amount", precision: 6, scale: 2
     t.string "status", limit: 9, default: "open"
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["trxid"], name: "index_ideal_transactions_on_trxid", unique: true
   end
 
-  create_table "impressions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "impressions", id: :integer, force: :cascade do |t|
     t.string "impressionable_type"
     t.integer "impressionable_id"
     t.integer "user_id"
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
-  create_table "members", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "members", id: :integer, force: :cascade do |t|
     t.string "first_name"
     t.string "infix"
     t.string "last_name"
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["student_id"], name: "index_members_on_student_id", unique: true
   end
 
-  create_table "oauth_access_grants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "oauth_access_grants", id: :integer, force: :cascade do |t|
     t.integer "resource_owner_id", null: false
     t.integer "application_id", null: false
     t.string "token", null: false
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
   end
 
-  create_table "oauth_access_tokens", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "oauth_access_tokens", id: :integer, force: :cascade do |t|
     t.integer "resource_owner_id"
     t.integer "application_id"
     t.string "token", null: false
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
   end
 
-  create_table "oauth_applications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "oauth_applications", id: :integer, force: :cascade do |t|
     t.string "name", null: false
     t.string "uid", null: false
     t.string "secret", null: false
@@ -242,13 +242,13 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "oauth_openid_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "oauth_openid_requests", force: :cascade do |t|
     t.integer "access_grant_id", null: false
     t.string "nonce", null: false
     t.index ["access_grant_id"], name: "fk_rails_77114b3b09"
   end
 
-  create_table "participants", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "participants", id: :integer, force: :cascade do |t|
     t.integer "member_id"
     t.integer "activity_id"
     t.decimal "price", precision: 6, scale: 2
@@ -260,7 +260,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
   end
 
-  create_table "settings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "settings", id: :integer, force: :cascade do |t|
     t.string "var", null: false
     t.text "value", size: :medium
     t.integer "thing_id"
@@ -270,13 +270,13 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
-  create_table "studies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "studies", id: :integer, force: :cascade do |t|
     t.string "code"
     t.boolean "masters"
     t.boolean "active", default: true, null: false
   end
 
-  create_table "tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tags", id: false, force: :cascade do |t|
     t.integer "member_id"
     t.integer "name"
     t.datetime "created_at"
@@ -284,7 +284,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["member_id", "name"], name: "index_tags_on_member_id_and_name", unique: true
   end
 
-  create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tokens", force: :cascade do |t|
     t.string "token", null: false
     t.integer "intent", null: false
     t.string "object_type", null: false
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["object_type", "object_id"], name: "index_tokens_on_object_type_and_object_id"
   end
 
-  create_table "trigrams", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "trigrams", id: :integer, force: :cascade do |t|
     t.string "trigram", limit: 3
     t.integer "score", limit: 2
     t.integer "owner_id"
@@ -305,7 +305,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["owner_id", "owner_type"], name: "index_by_owner"
   end
 
-  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "users", id: :integer, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

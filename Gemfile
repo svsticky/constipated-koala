@@ -75,3 +75,6 @@ group :development, :test do
   # i18n checks
   gem 'i18n-tasks', '~> 0.9.31'
 end
+
+# Postgres dependency
+gem 'pg'
