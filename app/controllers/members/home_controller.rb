@@ -77,9 +77,6 @@ class Members::HomeController < ApplicationController
 
       cookies["locale"] = @user.language
 
-      # the translation location was used here but that conflicted with the way
-      # the translation was shown, as it was tried to translate it again there
-      flash[:warning] = I18n.t('members.home.edit.email_confirmation') if @member.email != params[:member][:email]
       redirect_to users_edit_path, :notice => I18n.t('members.home.edit.profile_saved')
       return
     end
