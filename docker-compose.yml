@@ -3,33 +3,33 @@
 # See the docs at https://docs.docker.com/compose/
 version: "3"
 services:
-  koala-development-database:
-    # We pin the database version to the exact version used on the live server.
-    # Bug the IT Crowd if you think this version changed.
-    image: mariadb:10.1.41-bionic
+  # koala-development-database:
+  #   # We pin the database version to the exact version used on the live server.
+  #   # Bug the IT Crowd if you think this version changed.
+  #   image: mariadb:10.1.41-bionic
 
-    # We set this service up to run on a nonstandard port, so that we don't
-    # interfere with a possibly already running Mariadb instance.
-    # Port 25838 = the digits above "STICK" on a keyboard.
-    # You are then able to connect using this command:
-    # mysql -P 25838 -u root -p
-    ports:
-      - "25838:3306"
+  #   # We set this service up to run on a nonstandard port, so that we don't
+  #   # interfere with a possibly already running Mariadb instance.
+  #   # Port 25838 = the digits above "STICK" on a keyboard.
+  #   # You are then able to connect using this command:
+  #   # mysql -P 25838 -u root -p
+  #   ports:
+  #     - "25838:3306"
 
-    # Configuration for how to connect, this should match Koala's config in
-    # ./config/database.yml!  See here for possible values:
-    # https://hub.docker.com/_/mariadb?tab=description#environment-variables
-    environment:
-      # We run Koala as the root user so that it can do anything it wants with
-      # the development database, and you don't need to manually create the
-      # development, test databases and grant permissions on it.
-      MYSQL_ROOT_PASSWORD: "koala123"
+  #   # Configuration for how to connect, this should match Koala's config in
+  #   # ./config/database.yml!  See here for possible values:
+  #   # https://hub.docker.com/_/mariadb?tab=description#environment-variables
+  #   environment:
+  #     # We run Koala as the root user so that it can do anything it wants with
+  #     # the development database, and you don't need to manually create the
+  #     # development, test databases and grant permissions on it.
+  #     MYSQL_ROOT_PASSWORD: "koala123"
 
-    # The .dev-database-conf directory contains a configuration file which
-    # enables extra features in MariaDB that we require. This directive
-    # includes this directory in the container as /etc/mysql/conf.d:
-    volumes:
-      - ".dev-database-conf:/etc/mysql/conf.d"
+  #   # The .dev-database-conf directory contains a configuration file which
+  #   # enables extra features in MariaDB that we require. This directive
+  #   # includes this directory in the container as /etc/mysql/conf.d:
+  #   volumes:
+  #     - ".dev-database-conf:/etc/mysql/conf.d"
 
   redis:
     image: 'bitnami/redis:5.0'
@@ -41,6 +41,16 @@ services:
       - '6379:6379'
     volumes:
       - 'redis_data:/bitnami/redis/data'
+
+  postgres-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: koala
+      POSTGRES_PASSWORD: "koala123"
+
+    ports:
+     - "5432:5432"
 
 volumes:
   redis_data:

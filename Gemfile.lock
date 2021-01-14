@@ -177,6 +177,7 @@ GEM
     parallel (1.19.1)
     parser (2.7.1.2)
       ast (~> 2.4.0)
+    pg (1.2.3)
     puma (4.3.5)
       nio4r (~> 2.0)
     rabl (0.14.2)
@@ -323,6 +324,7 @@ DEPENDENCIES
   listen
   mysql2 (= 0.5.1)
   pagy
+  pg
   puma
   rabl
   rails (~> 6.0)
