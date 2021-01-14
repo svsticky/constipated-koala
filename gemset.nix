@@ -767,6 +767,16 @@
     };
     version = "2.7.1.2";
   };
+  pg = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "13mfrysrdrh8cka1d96zm0lnfs59i5x2g6ps49r2kz5p3q81xrzj";
+      type = "gem";
+    };
+    version = "1.2.3";
+  };
   puma = {
     dependencies = ["nio4r"];
     groups = ["development"];

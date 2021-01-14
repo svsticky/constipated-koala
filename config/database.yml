@@ -1,29 +1,27 @@
 # Development
 # Running on local machine
 development:
-  adapter: mysql2
+  adapter: postgresql
   database: koala-development
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: <%= ENV['DATABASE_SOCKET'] %>
-  port: <%= ENV['DATABASE_PORT'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
+  socket: <%= ENV['POSTGRES_SOCKET'] %>
+  port: 5432
+  host: localhost
   pool: 5
   timeout: 5000
-  encoding: utf8mb4
 
 # test
 # Version used by circleci and the local tests
 test:
-  adapter: mysql2
+  adapter: postgresql
   database: koala-test
-  host:  127.0.0.1
+  host: localhost
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  port: <%= ENV['DATABASE_PORT'] %>
+  port: 5432
   pool: 5
   timeout: 5000
-  encoding: utf8mb4
 
 # Production
 # Version for public use running on svsticky.nl

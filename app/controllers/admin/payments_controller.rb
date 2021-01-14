@@ -14,7 +14,7 @@ class Admin::PaymentsController < ApplicationController
     end
 
     # Get checkout transactions that were purchased by pin of yesterday
-    @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = "Gepind"', 1.days.ago).order(created_at: :desc)
+    @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', 1.days.ago).order(created_at: :desc)
     @dat = @checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }.to_json
 
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
