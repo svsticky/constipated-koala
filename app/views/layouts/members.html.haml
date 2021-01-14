@@ -90,6 +90,9 @@
       .view-container
         %section
           .page#content
+            - if not current_user.unconfirmed_email.nil?
+              .alert.alert-warning
+                %span= I18n.t('members.home.edit.email_confirmation')
             = yield
 
     #toast-container.toast-bottom-right
