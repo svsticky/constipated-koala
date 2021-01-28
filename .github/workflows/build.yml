@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_USER: koala
         ports:
-          - 5432:5432
+          - 25838:5432
 
     env:
       DATABASE_HOST: "127.0.0.1"
