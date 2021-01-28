@@ -16,12 +16,13 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: password
+          POSTGRES_USER: koala
         ports:
           - 5432:5432
 
     env:
       DATABASE_HOST: "127.0.0.1"
-      DATABASE_USER: root
+      DATABASE_USER: koala
       DATABASE_PASSWORD: password
       DATABASE_PORT: 25838
 
