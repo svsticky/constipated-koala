@@ -17,7 +17,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: password
         ports:
-          - 25838:5432
+          - 5432:5432
 
     env:
       DATABASE_HOST: "127.0.0.1"
