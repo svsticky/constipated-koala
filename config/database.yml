@@ -6,7 +6,7 @@ development:
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: <%= ENV['POSTGRES_SOCKET'] %>
-  port: 5432
+  port: <%= ENV['DATABASE_PORT'] %>
   host: localhost
   pool: 5
   timeout: 5000
@@ -19,7 +19,7 @@ test:
   host: localhost
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  port: 5432
+  port: <%= ENV['DATABASE_PORT'] %>
   pool: 5
   timeout: 5000
 
