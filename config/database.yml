@@ -44,6 +44,6 @@ staging:
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: <%= ENV['DATABASE_SOCKET'] %>
-  host: localhost
+  host: ''
   pool: 5
   timeout: 5000
