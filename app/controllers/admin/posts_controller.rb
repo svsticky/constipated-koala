@@ -12,7 +12,6 @@ class Admin::PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
-
       @posts = Post.all
       render 'index'
     end
@@ -26,18 +25,8 @@ class Admin::PostsController < ApplicationController
 
   def update
     @post = Post.find_by_id params[:id]
-
-    if @post.update(post_params)
-      if post_params["status"] == "scheduled"
-        @time_until_post = DateTime.parse(post_params[:published_at])
-        Post.perform_at(@time_until_post, params[:id])
-      end
-
-      redirect_to @post
-    else
-      @pagination, @posts = pagy(Post.all)
-      render 'index'
-    end
+    @pagination, @posts = pagy(Post.all)
+    render 'index'
   end
 
   def destroy
@@ -56,6 +45,7 @@ class Admin::PostsController < ApplicationController
       :pinned,
       :tags,
       :published_at,
+      :title,
       :content
     )
   end

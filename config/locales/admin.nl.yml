@@ -137,9 +137,9 @@ art %{uuid} deactiveren?
         pinned: Gepinned
         published: Gepubliceerd
         review: Review
-        scheduled: Gepland
       status_text: Status
       tags: Labels
+      title: Titel
     settings:
       action: Actie
       address: IP-adres

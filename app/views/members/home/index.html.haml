@@ -19,13 +19,7 @@
         .card-body.content
           = raw post.content
 
-  .col-lg-6.col-12.float-right
-    .card.d-block.d-md-none
-      .card-body.debt-card
-        %i.fas.fa-calendar-week.fa-2x
-        %span= number_to_currency(@debt, :precision => 2, :unit => '€ ', separator: ',', delimiter: '.')
-        %p= I18n.t('activerecord.models.checkout_balance')
-
+  .col-lg-6.float-right
     - unless @balance.blank?
       .card.card-box
         .row.no-gutters

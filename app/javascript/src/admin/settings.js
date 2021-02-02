@@ -8,7 +8,7 @@ import toastr from "toastr";
 //= require bootstrap-file-input
 
 $(document).on("ready page:load turbolinks:load", function () {
-  $(".form-group.signature").editor();
+  $('form.signature').editor();
 
   $("#settings input[id^='options']").on("change", function (e) {
     var token = encodeURIComponent(
