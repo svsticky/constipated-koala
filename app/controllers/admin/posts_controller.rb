@@ -26,8 +26,18 @@ class Admin::PostsController < ApplicationController
 
   def update
     @post = Post.find_by_id params[:id]
-    @pagination, @posts = pagy(Post.all)
-    render 'index'
+
+    if @post.update(post_params)
+      if post_params["status"] == "scheduled"
+        @time_until_post = DateTime.parse(post_params[:published_at])
+        Post.perform_at(@time_until_post, params[:id])
+      end
+
+      redirect_to @post
+    else
+      @pagination, @posts = pagy(Post.all)
+      render 'index'
+    end
   end
 
   def destroy

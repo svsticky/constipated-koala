@@ -27,6 +27,9 @@
                   - if post.review?
                     %span.ribbon
                       = I18n.t("admin.posts.status.review")
+                  - if post.scheduled?
+                    %span.ribbon.warning
+                      = I18n.t("admin.posts.status.scheduled")
                   - if post.pinned?
                     %span.ribbon
                       = I18n.t("admin.posts.status.pinned")
@@ -90,7 +93,7 @@
                 .row
                   .col-lg-4
                     = f.label I18n.t("admin.posts.status_text")
-                    = f.select :status, options_for_select([[I18n.t("admin.posts.status.published"), :published], [I18n.t("admin.posts.status.draft"), :draft], [I18n.t("admin.posts.status.review"), :review] ], @post.status || Post.statuses.draft), {}, class: 'custom-select'
+                    = f.select :status, options_for_select([[I18n.t("admin.posts.status.published"), :published], [I18n.t("admin.posts.status.draft"), :draft], [I18n.t("admin.posts.status.review"), :review], [I18n.t("admin.posts.status.scheduled"), :scheduled] ], @post.status || Post.statuses.draft), {}, class: 'custom-select'
 
                   .col-lg-8.col-md-12
                     = f.label I18n.t("admin.posts.tags")

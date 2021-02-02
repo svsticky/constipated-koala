@@ -7,9 +7,9 @@ class Post < ApplicationRecord
   serialize :tags
 
   validates :status, presence: true
-  validates :published_at, presence: true
+  validates :published_at, presence: true, if: -> { scheduled? }
 
-  enum status: [:draft, :published, :review]
+  enum status: [:draft, :published, :review, :scheduled]
 
   default_scope { order('published_at IS NOT NULL, published_at DESC') }
   scope :pinned, -> { where(id: Settings['posts.pinned']) }
@@ -23,6 +23,11 @@ class Post < ApplicationRecord
 
   def pinned?
     Settings['posts.pinned'].include? id
+  end
+
+  def perform(id)
+    @post = Post.find_by_id id
+    @post.update(status: :published)
   end
 
   before_save do
