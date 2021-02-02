@@ -6,6 +6,7 @@ puts '-- Creating posts'
   created_at = Faker::Time.between(from: 2.years.ago, to: Date.yesterday)
 
   Post.create(
+    title: "Bestuurs bericht",
     status: [0,1].sample,
     tags: 'test test2',
 
@@ -29,4 +30,3 @@ end
 
 # Set first post to pinned
 Settings['posts.pinned'] = [Post.published&.first&.id]
-
