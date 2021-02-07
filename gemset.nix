@@ -389,10 +389,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0ql3h9891qvswrzh3nrj8kk6svjsna7gsv6nzz8aqnfyybwfykmm";
+      sha256 = "0abacmn0897v3b83zpy4xdiq6a9qakbwi2r8mm4pa9m8axqqznbz";
       type = "gem";
     };
-    version = "1.0.0";
+    version = "1.3.0";
   };
   fuzzily = {
     dependencies = ["activerecord"];

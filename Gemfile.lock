@@ -112,7 +112,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
-    font_awesome5_rails (1.0.0)
+    font_awesome5_rails (1.3.0)
       railties (>= 4.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -313,7 +313,7 @@ DEPENDENCIES
   doorkeeper-openid_connect
   dotenv-rails
   faker
-  font_awesome5_rails
+  font_awesome5_rails (~> 1.3)
   fuzzily!
   haml
   i15r (~> 0.5.5)
