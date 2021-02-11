@@ -88,7 +88,31 @@ class Members::HomeController < ApplicationController
     render 'edit'
     return
   end
+  def pay_activities
+    member = Member.find(current_user.credentials_id) 
+    unpaid = Participant
+                .where(paid: false, member: member, reservist: false)
+                .joins(:activity)
+                .where('activities.start_date < NOW()')
+                .select {|n| params[:activity_ids].map(&:to_i).include? n.activity_id}
 
+    amount = unpaid.sum(&:currency)
+
+    payconiq = PayconiqTransaction.new(
+      :description => 'Activiteiten-betaling',
+      :amount => amount,
+      :member => member,
+
+      :transaction_id => unpaid.pluck(:activity_id),
+      :transaction_type => 'activity'
+        )
+    if payconiq.save
+      render :json => {qrurl: payconiq.qrurl, amount: payconiq.amount, deeplink: payconiq.deeplink}.to_json
+    else
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
+      redirect_to members_home_path
+    end
+  end
   def add_funds
     member = Member.find(current_user.credentials_id)
     balance = CheckoutBalance.find_or_create_by!(member: member)
@@ -105,20 +129,17 @@ class Members::HomeController < ApplicationController
       return
     end
 
-    ideal = IdealTransaction.new(
+    payconiq = PayconiqTransaction.new(
       :description => I18n.t('activerecord.errors.models.ideal_transaction.attributes.checkout'),
-      :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
-      :issuer => ideal_transaction_params[:bank],
+      :amount => (payconiq_transaction_params[:amount].to_f),
       :member => member,
 
       :transaction_id => nil,
-      :transaction_type => 'CheckoutTransaction',
-
-      :redirect_uri => users_root_url
+      :transaction_type => 'CheckoutTransaction'
     )
 
-    if ideal.save
-      redirect_to ideal.mollie_uri
+    if payconiq.save
+       render :json => {qrurl: payconiq.qrurl, amount: payconiq.amount, deeplink: payconiq.deeplink}.to_json
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
       redirect_to members_home_path
@@ -149,11 +170,9 @@ class Members::HomeController < ApplicationController
                                    educations_attributes: [:id, :status])
   end
 
+  def payconiq_transaction_params
+    params.require(:payconiq_transaction).permit(:amount)
   def user_post_params
     params.require(:member).permit(:language)
-  end
-
-  def ideal_transaction_params
-    params.require(:ideal_transaction).permit(:bank, :amount)
   end
 end

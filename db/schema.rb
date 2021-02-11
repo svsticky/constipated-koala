@@ -260,6 +260,25 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.index ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
   end
 
+  
+  create_table "payconiq_transactions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "token", limit: 64
+    t.string "description"
+    t.decimal "amount", precision: 6, scale: 2
+    t.string "status", default: "PENDING"
+    t.bigint "member_id"
+    t.string "transaction_type"
+    t.string "transaction_id"
+    t.string "trxid"
+    t.string "qrurl"
+    t.string "deeplink"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_payconiq_transactions_on_member_id"
+    t.index ["token"], name: "index_payconiq_transactions_on_token", unique: true
+    t.index ["trxid"], name: "index_payconiq_transactions_on_trxid", unique: true
+  end
+
   create_table "settings", id: :integer, force: :cascade do |t|
     t.string "var", null: false
     t.text "value", size: :medium
