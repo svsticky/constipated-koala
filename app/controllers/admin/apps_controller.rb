@@ -15,4 +15,8 @@ class Admin::AppsController < ApplicationController
   def ideal
     @pagination, @transactions = pagy(IdealTransaction.order(created_at: :desc), items: params[:limit] ||= 20)
   end
+  def payconiq
+    @transactions = PayconiqTransaction.order(created_at: :desc)
+                        .paginate(page: params[:page], per_page: params[:limit] ||= 20)
+  end
 end
