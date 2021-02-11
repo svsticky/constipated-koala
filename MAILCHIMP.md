@@ -3,7 +3,7 @@
 TODO: sidekiq monitoring can be found at koala.svsticky.nl/sidekiq (admin only).
 
 Koala has integration with Mailchimp.
-This integration uses only one list, with are segmented with 4 groups: ALV, MMM, Business and Lectures.
+This integration uses only one list, with are segmented with 5 groups: ALV, MMM, Business, Lectures and Teacher.
 First name, last name and emailadress are synced, as are the alumni and pardon statusses.
 
 The solution uses activejob with redis and sidekiq to start jobs on in the background.
@@ -20,7 +20,7 @@ If you did not create an audience yet, do this first.
 In the audience settings, check if all merge tags allign with those in mailchimp_job.rb.
 
 In the group settings (manage contacts > groups > view groups) you need to create the groups (or interests) you want to sync.
-Currently this are ALV, MMM, Business and Lectures.
+Currently these are ALV, MMM, Business, Lectures and Teacher.
 The names here don't have to match, we will sync by id.
 
 Also create an api key (or use an existing one).
@@ -34,7 +34,7 @@ The webhook can be configured in Mailchimp under audience > settings > webhooks.
 The webhook url should be ```https://koala.svsticky.nl/api/hook/mailchipm/\<secret\>```
 Turn off email changes (this will result in errors otherwise), campaign sending and API changes.
 
-### Extracting the id's of the interests
+### Extracting the id's of the interests [OUT OF DATE]
 
 Using your api key you can log in on the Mailchimp [playground](https://us1.api.mailchimp.com/playground/).
 You can find the list_id under lists > your list.

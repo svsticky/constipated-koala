@@ -15,7 +15,7 @@
               .card-body.box-info
                 %h2.text-center
                   = @members
-                %p.text-muted 
+                %p.text-muted
                   = I18n.t('admin.members.title')
 
       .col-12.col-md-6
@@ -98,7 +98,34 @@
                   %td.text-center
                     %em
                       = I18n.t('admin.front.no_transactions')
+      %div.col-lg-3
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-shopping-cart
+            Laatste activity transacties vandaag
+          %table.table.table-striped.table-linked
+            %tbody
+              - @recentparticipants.each do |transaction|
+                %tr
+                  %td= I18n.l transaction.created_at, :format => :short
+                  %td{ :style => 'min-width: 80px;' }
+                    = number_to_currency(transaction.sum, :unit => '€')
+                    - if transaction.sum > 0
+                      %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
+                    - else
+                      %span.fa.fa-sort-desc.float-right
 
+                  %td{ :style => 'white-space: nowrap;' }
+                    = link_to "#{transaction.member.name}", transaction.member
+
+
+                  %td.d-none.d-md-table-cell
+                    = transaction.activities.map(&:name).join(', ')
+
+              - if @recentparticipants.empty?
+                %tr
+                  %td.text-center
+                    %em geen transacties vandaag
       %div.col-lg-3
         .card
           .card-header

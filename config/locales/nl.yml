@@ -19,6 +19,9 @@ nl:
           description: Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer.
           name: MaandagMorgenMail
         study: Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap.
+        teacher:
+          description: Door je voor deze lijst aan te melden zal je een paar keer per jaar mailtjes krijgen met allemaal verhalen van docenten. Zo kan je docenten leren kennen op een nieuwe manier.
+          name: Docentenmailing
     attributes:
       activity:
         comments: Opmerkingen (privé)
