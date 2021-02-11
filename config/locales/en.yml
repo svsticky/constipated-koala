@@ -19,6 +19,9 @@ en:
           description: When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more
           name: MondayMorningMail
         study: This is required to check if you are allowed to be a member of Sticky.
+        teacher:
+          description: When you sign up for this list you will receive emails a few times a year with stories from teachers. This provides a new way to get to know more about your teachers.
+          name: Teacher mailing
     attributes:
       activity:
         comments: Comments (private)
