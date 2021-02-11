@@ -49,7 +49,8 @@ module ConstipatedKoala
       alv: ENV['MAILCHIMP_ALV_ID'],
       business: ENV['MAILCHIMP_BUSINESS_ID'],
       mmm: ENV['MAILCHIMP_MMM_ID'],
-      lectures: ENV['MAILCHIMP_LECTURES_ID']
+      lectures: ENV['MAILCHIMP_LECTURES_ID'],
+      teacher: ENV['MAILCHIMP_TEACHER_ID']
     }
 
     config.mailchimp_tags = ["gratie", "alumni"]
