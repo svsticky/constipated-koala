@@ -54,7 +54,7 @@ in
     NODE_PATH = node-path;
 
     shellHook = ''
-      rails assets:precompile
+      dotenv rails assets:precompile
     '';
 
     LC_ALL = "C.UTF-8";
