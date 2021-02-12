@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_113340) do
     t.index ["member_id", "activity_id"], name: "index_participants_on_member_id_and_activity_id", unique: true
   end
 
-  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.integer "status", default: 0, null: false
@@ -269,7 +269,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_113340) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "published_at"
-    t.index ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id", length: { author_type: 191 }
+    t.index ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id"
   end
 
   create_table "settings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

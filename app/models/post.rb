@@ -11,7 +11,7 @@ class Post < ApplicationRecord
 
   enum status: [:draft, :published, :review]
 
-  default_scope { order('published_at IS NOT NULL, published_at DESC') }
+  default_scope { where.not(published_at: nil).order(published_at: :desc) }
   scope :pinned, -> { where(id: Settings['posts.pinned']) }
   scope :unpinned, -> { where.not(id: Settings['posts.pinned']) }
 
@@ -25,12 +25,8 @@ class Post < ApplicationRecord
     Settings['posts.pinned'].include? id
   end
 
-  before_save do
-    if published? && published_at.nil?
-      self.published_at = Time.now
-    elsif !published?
-      self.published_at = nil
-    end
+  before_validation(on: :create) do
+    self.published_at = Time.now if published_at.nil?
   end
 
   after_save do
