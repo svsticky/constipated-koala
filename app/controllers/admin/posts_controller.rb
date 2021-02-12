@@ -2,7 +2,7 @@
 class Admin::PostsController < ApplicationController
   def index
     # TODO: add filters, for pinned draft etc
-    @pagination, @posts = pagy(Post.all)
+    @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
     @post = Post.new author: current_user.credentials
   end
 
@@ -12,20 +12,21 @@ class Admin::PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
-      @posts = Post.all
+      @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
       render 'index'
     end
   end
 
   def show
-    @pagination, @posts = pagy(Post.all)
+    @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
     @post = Post.find_by_id params[:id]
     render 'index'
   end
 
   def update
     @post = Post.find_by_id params[:id]
-    @pagination, @posts = pagy(Post.all)
+    @post.update(post_params)
+    @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
     render 'index'
   end
 
