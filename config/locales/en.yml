@@ -171,19 +171,19 @@ en:
           treasurer: Treasurer
       study:
         names:
-          acsc: Advanced Computing Science
-          ads: Applied Data Science
-          ainm: Artificial Intelligence
-          atec: Technical Artificial Intelligence
-          ckem: Content & Knowledge Engineering
-          cosc: Computing Science
-          gmte: Game and Media Technology
-          gt: Gametechnology
-          hci: Human Computer Interaction
-          inca: Computer Science
-          inku: Information Science
-          mbim: Business Informatics
-          wisk: Mathematics
+          acsc: MSc Advanced Computing Science
+          ads: MSc Applied Data Science
+          ainm: MSc Artificial Intelligence
+          atec: MSc Technical Artificial Intelligence
+          ckem: MSc Content & Knowledge Engineering
+          cosc: MSc Computing Science
+          gmte: BSc Game and Media Technology
+          gt: BSc Gametechnology
+          hci: MSc Human Computer Interaction
+          inca: BSc Computer Science
+          inku: BSc Information Science
+          mbim: MSc Business Informatics
+          wisk: BSc Mathematics
       tag:
         names:
           donator: Donator

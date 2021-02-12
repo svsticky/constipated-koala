@@ -171,19 +171,19 @@ nl:
           treasurer: Penningmeester
       study:
         names:
-          acsc: Advanced Computing Science
-          ads: Applied Data Science
-          ainm: Artificial Intelligence
-          atec: Technical Artificial Intelligence
-          ckem: Content & Knowledge Engineering
-          cosc: Computing Science
-          gmte: Game and Media Technology
-          gt: Gametechnologie
-          hci: Human Computer Interaction
-          inca: Informatica
-          inku: Informatiekunde
-          mbim: Business Informatics
-          wisk: Wiskunde
+          acsc: MSc Advanced Computing Science
+          ads: MSc Applied Data Science
+          ainm: MSc Artificial Intelligence
+          atec: MSc Technical Artificial Intelligence
+          ckem: MSc Content & Knowledge Engineering
+          cosc: MSc Computing Science
+          gmte: MSc Game and Media Technology
+          gt: BSc Gametechnologie
+          hci: MSc Human Computer Interaction
+          inca: BSc Informatica
+          inku: BSc Informatiekunde
+          mbim: MSc Business Informatics
+          wisk: BSc Wiskunde
       tag:
         names:
           donator: Begunstiger
