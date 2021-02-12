@@ -37,7 +37,7 @@ dates.each do |start_date|
     end_time:          @part ? Faker::Time.between_dates(from: start_date, to: Date.today, period: :evening) : nil,
 
     location:          Faker::TvShows::FamilyGuy.location,
-    organized_by:      Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample : nil,
+    organized_by:      Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample.id : nil,
     description_nl:    Faker::Lorem.paragraph(sentence_count: 5),
     description_en:    Faker::Lorem.paragraph(sentence_count: 5),
 
