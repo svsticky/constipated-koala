@@ -34,12 +34,13 @@ The webhook can be configured in Mailchimp under audience > settings > webhooks.
 The webhook url should be ```https://koala.svsticky.nl/api/hook/mailchipm/\<secret\>```
 Turn off email changes (this will result in errors otherwise), campaign sending and API changes.
 
-### Extracting the id's of the interests [OUT OF DATE]
+### Extracting the IDs of the interests
 
-Using your api key you can log in on the Mailchimp [playground](https://us1.api.mailchimp.com/playground/).
-You can find the list_id under lists > your list.
-Interests can be found under lists > your list > subresources > interest-categories > subresources > interests.
-Record the id's of the list and the interest.
+If the Mailchimp Token is configured in your `.env` file, you can extract the interest IDs from Mailchimp by running the following: (assuming you are in the root folder)
+```console
+cd bin
+./get_mailchimp_interest_ids.sh
+```
 
 ### Environment variables
 
