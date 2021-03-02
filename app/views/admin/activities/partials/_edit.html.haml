@@ -15,7 +15,8 @@
       =activity_textfield
 
       %span
-        = link_to I18n.t('editing.save_as_csv'), @activity, :download => ''
+        - if @activity.id
+          = link_to I18n.t('editing.save_as_csv'), {summary_only: true}
     .card-body
       .form-group
         .row
