@@ -396,6 +396,7 @@ en:
     delete: Delete
     edit: Edit
     save: Save
+    save_as_csv: Save as CSV-file
     update: Updaten
     upload: Upload
   files:

@@ -14,6 +14,8 @@
       %i.fa.fa-fw.fa-ticket-alt
       =activity_textfield
 
+      %span
+        = link_to I18n.t('editing.save_as_csv'), @activity, :download => ''
     .card-body
       .form-group
         .row
