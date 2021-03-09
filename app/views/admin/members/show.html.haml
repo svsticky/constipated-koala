@@ -258,8 +258,14 @@
           %table.table.table-striped#cards
             %tbody
               - @member.checkout_cards.each do |card|
-                %tr{ :data => { :id => card.id, :uuid => card.uuid } }
+                %tr{ :data => { :uuid => card.uuid, :member_id => @member.id } }
                   %td= card.uuid
+                  - if !card.active
+                    %td.text-info= I18n.t('admin.cards.to_be_activated')
+                  - elsif card.disabled
+                    %td.text-muted= I18n.t('admin.cards.deactivated')
+                  - else
+                    %td= I18n.t('admin.cards.active')
                   %td
                     .btn-group
                       %button.btn.btn-danger.deactivate
