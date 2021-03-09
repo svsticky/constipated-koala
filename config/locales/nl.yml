@@ -399,6 +399,7 @@ nl:
     edit: Wijzig
     save: Opslaan
     save_as_csv: Opslaan als CSV-bestand
+    summarize: Vat activiteit inschrijvingen samen
     update: Updaten
     upload: Uploaden
   files:

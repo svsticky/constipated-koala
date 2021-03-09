@@ -397,6 +397,7 @@ en:
     edit: Edit
     save: Save
     save_as_csv: Save as CSV-file
+    summarize: Summarize enrollments
     update: Updaten
     upload: Upload
   files:
