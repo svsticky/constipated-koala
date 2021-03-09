@@ -249,3 +249,19 @@
                           %i.fa.fa-fw.fa-times
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash
+
+
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-credit-card
+            = I18n.t('admin.cards.cards')
+          %table.table.table-striped#cards
+            %tbody
+              - @member.checkout_cards.each do |card|
+                %tr
+                  %td= card.uuid
+                  %td
+                    .btn-group
+                      %button.btn.btn-danger
+                        %i.fa.fa-trash
+                        = I18n.t('admin.cards.deactivate')

@@ -15,6 +15,9 @@ en:
       save: Save activity?
       single: Activity
       title: Activities
+    cards:
+      cards: Cards
+      deactivate: Deactivate
     error:
       invalid_values: Oops, not everything was filled in correctly
     front:

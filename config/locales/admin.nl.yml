@@ -15,6 +15,9 @@ nl:
       save: Activiteit opslaan?
       single: Activiteit
       title: Activiteiten
+    cards:
+      cards: Kaarten
+      deactivate: Deactiveer
     error:
       invalid_values: Oeps, niet alles is goed ingevuld
     front:
