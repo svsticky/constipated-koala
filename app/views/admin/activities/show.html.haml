@@ -30,17 +30,23 @@
           %table#participants-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
             %thead
               %tr
-                %td
+                %td{ :style => 'min-width: 30%; width: 30%;' }
                   = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                   = I18n.t('activerecord.attributes.activity.price')
-                %td{ :style => 'min-width: 50%; width: 50%;' }
-                  -if @activity.notes
-                    =@activity.notes
-                %td.buttons
+                - if !@isSummarized.nil?
+                  %td
+                    = I18n.t('activerecord.attributes.activity.notes')
+                  %td
+                    = I18n.t('activerecord.attributes.activity.member_payed')
+                  %td
+                    = I18n.t('activerecord.attributes.activity.member_is_spare')
             %tbody
               - @attendees.each do |participant|
-                = render 'admin/activities/partials/attendee_table_row', participant: participant
+                - if !@isSummarized.nil?
+                  = render 'admin/activities/partials/attendee_table_row_summary', participant: participant
+                - else
+                  = render 'admin/activities/partials/attendee_table_row', participant: participant
 
               - if (@activity.end_date || @activity.start_date) > Date.today
                 - @activity.participants.where(:member_id => nil).each do |participant|
@@ -72,40 +78,41 @@
                 %td
                 %td
 
-        .card
-          .card-header
-            %i.fa.fa-fw.fa-user
-            %span#reservistcount
-              = @activity.reservists.count
-              = I18n.t('activerecord.models.participants.reservists.other')
+        - if @isSummarized.nil?
+          .card
+            .card-header
+              %i.fa.fa-fw.fa-user
+              %span#reservistcount
+                = @activity.reservists.count
+                = I18n.t('activerecord.models.participants.reservists.other')
 
-          %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
-            %thead
-              %tr
-                %td
-                  = I18n.t('activerecord.attributes.activity.name')
-                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  = I18n.t('activerecord.attributes.activity.price')
-                %td{ :style => 'min-width: 50%; width: 50%;' }
-                  -if @activity.notes
-                    =@activity.notes
-                %td.buttons
-
-            %tbody
-              - @reservists.each do |participant|
-                %tr{data: { id: participant.id, :'data-activities-id' => @activity.id, email: participant.member.email, member_id: participant.member.id, reservist: "true" }  }
-                  %td= link_to "#{participant.member.name}", participant.member
-                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
-                    %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
-                  %td.notes-td{ :style => 'min-width: 50%; width: 50%;' }
-                    -if participant.notes
-                      %p= participant.notes
-                    -else
-                      %p
-
+            %table#reservists-table.table.table-striped.table-linked{ :data => { 'id' => @activity.id }}
+              %thead
+                %tr
+                  %td
+                    = I18n.t('activerecord.attributes.activity.name')
+                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                    = I18n.t('activerecord.attributes.activity.price')
+                  %td{ :style => 'min-width: 50%; width: 50%;' }
+                    -if @activity.notes
+                      =@activity.notes
                   %td.buttons
-                    .btn-group
-                      %button.btn.btn-success.toparticipant
-                        %i.fa.fa-fw.fa-plus
-                      %button.btn.btn-default.destroy
-                        %i.fa.fa-fw.fa-trash
+
+              %tbody
+                - @reservists.each do |participant|
+                  %tr{data: { id: participant.id, :'data-activities-id' => @activity.id, email: participant.member.email, member_id: participant.member.id, reservist: "true" }  }
+                    %td= link_to "#{participant.member.name}", participant.member
+                    %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
+                      %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
+                    %td.notes-td{ :style => 'min-width: 50%; width: 50%;' }
+                      -if participant.notes
+                        %p= participant.notes
+                      -else
+                        %p
+
+                    %td.buttons
+                      .btn-group
+                        %button.btn.btn-success.toparticipant
+                          %i.fa.fa-fw.fa-plus
+                        %button.btn.btn-default.destroy
+                          %i.fa.fa-fw.fa-trash
