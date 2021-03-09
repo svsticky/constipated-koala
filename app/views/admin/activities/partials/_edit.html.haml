@@ -11,12 +11,15 @@
 
   .card
     .card-header
-      %i.fa.fa-fw.fa-ticket-alt
-      =activity_textfield
+      .row
+        .col-lg-12
+          %i.fa.fa-fw.fa-ticket-alt
+          =activity_textfield
 
-      %span
-        - if @activity.id
-          = link_to I18n.t('editing.save_as_csv'), {summary_only: 1}
+        .col-lg-12
+          %span
+            - if @activity.id
+              = link_to I18n.t('editing.summarize'), {summary_only: 1}
     .card-body
       .form-group
         .row
