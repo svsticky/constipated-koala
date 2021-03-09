@@ -10,6 +10,7 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def show
+    @isSummarized = params['summary_only']
     @activity = Activity.find params[:id]
     @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
