@@ -12,11 +12,11 @@
   .card
     .card-header
       .row
-        .col-lg-12
+        .col-sm
           %i.fa.fa-fw.fa-ticket-alt
           =activity_textfield
 
-        .col-lg-12
+        .col-sm.text-sm-right
           %span
             - if @activity.id
               = link_to I18n.t('editing.summarize'), {summary_only: 1}
