@@ -156,4 +156,20 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
 
   destroy(null);
+
+  $("#cards button.deactivate").on("click", deactivate);
+
+  function deactivate() {
+    let row = $(this).closest("tr");
+    let id = row.attr("data-id");
+    let uuid = row.attr("data-uuid");
+    let token = encodeURIComponent(
+        $(this).closest(".page").attr("data-authenticity-token")
+    );
+
+    if (!confirm(
+        I18n.t("admin.cards.deactivate_confirm",
+            { uuid: uuid })
+    )) return;
+  }
 });
