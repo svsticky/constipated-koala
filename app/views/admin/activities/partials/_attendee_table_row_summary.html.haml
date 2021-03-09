@@ -1,20 +1,19 @@
 -#
-  @param {participant} participant  - Participant for this row of the table
+  @param {member} {"entity", "is_reservist"} - Involved person for this row of the table
 
-%tr{ :data => { :id => participant.id || '{0}', :'data-activities-id' => @activity.id, :email => participant.member.email || '{3}', reservist: participant.reservist.to_s || 'false' }  }
+%tr{ :data => { :id => member["entity"].id || '{0}', :'data-activities-id' => @activity.id, :email => member["entity"].member.email || '{3}', reservist: member["entity"].reservist.to_s || 'false' }  }
   %td.name-td
-    = participant.member.name.blank? ? '-' : participant.member.name
+    = member["entity"].member.name.blank? ? '-' : member["entity"].member.name
 
   %td.price-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-    = number_to_currency(participant.currency, :unit => '')
+    = number_to_currency(member["entity"].currency, :unit => '')
 
   %td.notes-td
-    - if participant.notes
+    - if member["entity"].notes
       %p
-        = participant.notes
+        = member["entity"].notes
   %td.had-paid-td
-    = participant.paid ? '✓' : 'x'
+    = member["entity"].paid ? '✓' : 'x'
 
   %td.had-paid-td
-    -# = participant.spare ? '✓' : 'x'
-    = 'x'
+    = member["is_reservist"] ? '✓' : 'x'
