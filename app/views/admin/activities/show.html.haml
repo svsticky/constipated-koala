@@ -15,7 +15,7 @@
           .card-header
             %i.fa.fa-fw.fa-user
             -if @activity.participant_limit.nil?
-              - fullness = @activity.attendees.count
+              - fullness = @activity.attendees.count + @reservists.count
             -else
               - fullness = "#{@activity.attendees.count}/#{@activity.participant_limit}"
             %span#attendeecount
@@ -42,11 +42,12 @@
                   %td
                     = I18n.t('activerecord.attributes.activity.member_is_spare')
             %tbody
-              - @attendees.each do |participant|
+              - [@attendees.map {|participant| {"entity" => participant, "is_reservist" => false}},
+                 @reservists.map{| reservist | {"entity" => reservist,   "is_reservist" => true}}].reduce([], :concat).each do |member|
                 - if !@isSummarized.nil?
-                  = render 'admin/activities/partials/attendee_table_row_summary', participant: participant
-                - else
-                  = render 'admin/activities/partials/attendee_table_row', participant: participant
+                  = render 'admin/activities/partials/attendee_table_row_summary', member: member
+                - elsif !member["is_reservist"]
+                  = render 'admin/activities/partials/attendee_table_row', participant: member["entity"]
 
               - if (@activity.end_date || @activity.start_date) > Date.today
                 - @activity.participants.where(:member_id => nil).each do |participant|
