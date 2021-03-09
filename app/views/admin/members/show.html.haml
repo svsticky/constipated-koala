@@ -258,10 +258,10 @@
           %table.table.table-striped#cards
             %tbody
               - @member.checkout_cards.each do |card|
-                %tr
+                %tr{ :data => { :id => card.id, :uuid => card.uuid } }
                   %td= card.uuid
                   %td
                     .btn-group
-                      %button.btn.btn-danger
+                      %button.btn.btn-danger.deactivate
                         %i.fa.fa-trash
                         = I18n.t('admin.cards.deactivate')

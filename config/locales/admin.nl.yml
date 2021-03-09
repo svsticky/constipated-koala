@@ -18,6 +18,7 @@ nl:
     cards:
       cards: Kaarten
       deactivate: Deactiveer
+      deactivate_confirm: Kaart %{uuid} deactiveren en verwijderen?
     error:
       invalid_values: Oeps, niet alles is goed ingevuld
     front:

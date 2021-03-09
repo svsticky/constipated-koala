@@ -18,6 +18,7 @@ en:
     cards:
       cards: Cards
       deactivate: Deactivate
+      deactivate_confirm: Do you want to deactive and remove card %{uuid}?
     error:
       invalid_values: Oops, not everything was filled in correctly
     front:
