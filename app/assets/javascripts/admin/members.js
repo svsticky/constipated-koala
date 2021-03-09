@@ -174,7 +174,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     let entry = "admin.cards." + (tobeactivated ? "" : (disabled ? "re" : "de")) + "activate_confirm";
     if (!confirm(I18n.t(entry, { uuid: uuid }))) return;
 
-    let url = tobeactivated ? "/apps/card"
+    let url = tobeactivated ? "/apps/cards"
       : "/members/" + memberid + "/set_card_disabled/" + uuid;
     let successmsg = tobeactivated ? I18n.t("checkout.card.activated")
       : (disabled ? I18n.t("admin.cards.activate_success", { uuid: uuid })
