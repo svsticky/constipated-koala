@@ -16,9 +16,13 @@ nl:
       single: Activiteit
       title: Activiteiten
     cards:
+      active: Actief
       cards: Kaarten
       deactivate: Deactiveer
       deactivate_confirm: Kaart %{uuid} deactiveren en verwijderen?
+      deactivate_success: Kaart %{uuid} is gedeactiveerd
+      deactivated: Gedeactiveerd
+      to_be_activated: Nog niet geactiveerd
     error:
       invalid_values: Oeps, niet alles is goed ingevuld
     front:

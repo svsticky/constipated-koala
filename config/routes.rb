@@ -68,6 +68,7 @@ Rails.application.routes.draw do
         get   'payment_whatsapp'
         patch 'force_email_change'
         post  'email/:type', to: 'members#send_email', as: :mail
+        patch 'delete_card/:uuid', to: 'members#delete_card', as: 'delete_card'
 
         collection do
           get 'search'

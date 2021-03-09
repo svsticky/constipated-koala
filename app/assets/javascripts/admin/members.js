@@ -161,15 +161,27 @@ $(document).on("ready page:load turbolinks:load", function () {
 
   function deactivate() {
     let row = $(this).closest("tr");
-    let id = row.attr("data-id");
     let uuid = row.attr("data-uuid");
+    let memberid = row.attr("data-member-id");
     let token = encodeURIComponent(
-        $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token")
     );
 
     if (!confirm(
-        I18n.t("admin.cards.deactivate_confirm",
-            { uuid: uuid })
+      I18n.t("admin.cards.deactivate_confirm", { uuid: uuid })
     )) return;
+
+    $.ajax({
+      url: "/members/" + memberid + "/delete_card/" + uuid,
+      type: "PATCH",
+      data: {
+        authenticity_token: token
+      }
+    }).done(() => {
+      toastr.success(I18n.t("admin.cards.deactivate_success", { uuid: uuid }));
+      row.remove();
+    }).fail(e => {
+      toastr.error(e.statusText, e.status);
+    })
   }
 });
