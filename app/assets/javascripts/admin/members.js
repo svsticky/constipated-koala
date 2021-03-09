@@ -157,29 +157,61 @@ $(document).on("ready page:load turbolinks:load", function () {
 
   destroy(null);
 
-  $("#cards button.deactivate").on("click", deactivate);
+  $("#cards button").on("click", button_action);
 
-  function deactivate() {
+  function button_action() {
     let row = $(this).closest("tr");
+    let status = $(row).children('.cardstatus');
     let uuid = row.attr("data-uuid");
     let memberid = row.attr("data-member-id");
     let token = encodeURIComponent(
       $(this).closest(".page").attr("data-authenticity-token")
     );
 
-    if (!confirm(
-      I18n.t("admin.cards.deactivate_confirm", { uuid: uuid })
-    )) return;
+    let tobeactivated = row.attr("data-active") == 0;
+    let disabled = row.attr("data-disabled") == 1;
+
+    let entry = "admin.cards." + (tobeactivated ? "" : (disabled ? "re" : "de")) + "activate_confirm";
+    if (!confirm(I18n.t(entry, { uuid: uuid }))) return;
+
+    let url = tobeactivated ? "/apps/card"
+      : "/members/" + memberid + "/set_card_disabled/" + uuid;
+    let successmsg = tobeactivated ? I18n.t("checkout.card.activated")
+      : (disabled ? I18n.t("admin.cards.activate_success", { uuid: uuid })
+        : I18n.t("admin.cards.deactivate_success", { uuid: uuid }))
 
     $.ajax({
-      url: "/members/" + memberid + "/delete_card/" + uuid,
+      url: url,
       type: "PATCH",
       data: {
-        authenticity_token: token
+        authenticity_token: token,
+        uuid: uuid, // only needed for 'to be activated',
+        to: !disabled // only needed for toggling 'disabled'
       }
     }).done(() => {
-      toastr.success(I18n.t("admin.cards.deactivate_success", { uuid: uuid }));
-      row.remove();
+      // Remove current classes
+      if (tobeactivated) {
+        status.removeClass('text-info');
+        $(this).removeClass('activate btn-primary');
+      } else if (disabled) {
+        status.removeClass('text-muted');
+        $(this).removeClass('reactivate btn-warning');
+      } else {
+        $(this).removeClass('deacticate btn-danger');
+      }
+      // Add new classes & content
+      if (disabled ^ tobeactivated) {
+        status.empty().append(I18n.t("admin.cards.active"));
+        $(this).empty().append('<i class="fa fa-trash"></i>' + I18n.t("admin.cards.deactivate"))
+          .addClass('deactivate btn-danger');
+        row.attr("data-disabled", 0);
+      } else {
+        status.empty().append(I18n.t("admin.cards.deactivated")).addClass('text-muted');
+        $(this).empty().append('<i class="fa fa-sync-alt"></i>' + I18n.t("admin.cards.reactivate"))
+          .addClass('reactivate btn-warning');
+        row.attr("data-disabled", 1);
+      }
+      toastr.success(successmsg);
     }).fail(e => {
       toastr.error(e.statusText, e.status);
     })

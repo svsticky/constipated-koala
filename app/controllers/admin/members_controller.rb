@@ -150,10 +150,11 @@ class Admin::MembersController < ApplicationController
     render layout: false, content_type: "text/plain"
   end
 
-  def delete_card
+  def set_card_disabled
     @uuid = params[:uuid]
+    @to = params[:to]
     @card = CheckoutCard.find_by(uuid: @uuid)
-    @card.update(disabled: true)
+    @card.update(disabled: @to)
   end
 
   private

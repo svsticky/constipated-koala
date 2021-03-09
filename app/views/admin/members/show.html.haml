@@ -258,16 +258,25 @@
           %table.table.table-striped#cards
             %tbody
               - @member.checkout_cards.each do |card|
-                %tr{ :data => { :uuid => card.uuid, :member_id => @member.id } }
+                %tr{ :data => { :uuid => card.uuid, :member_id => @member.id, :active => card.active ? 1 : 0, :disabled => card.disabled ? 1 : 0 } }
                   %td= card.uuid
                   - if !card.active
-                    %td.text-info= I18n.t('admin.cards.to_be_activated')
+                    %td.cardstatus.text-info= I18n.t('admin.cards.to_be_activated')
                   - elsif card.disabled
-                    %td.text-muted= I18n.t('admin.cards.deactivated')
+                    %td.cardstatus.text-muted= I18n.t('admin.cards.deactivated')
                   - else
-                    %td= I18n.t('admin.cards.active')
+                    %td.cardstatus= I18n.t('admin.cards.active')
                   %td
                     .btn-group
-                      %button.btn.btn-danger.deactivate
-                        %i.fa.fa-trash
-                        = I18n.t('admin.cards.deactivate')
+                      - if !card.active
+                        %button.btn.btn-primary.activate
+                          %i.fa.fa-check-circle
+                          = I18n.t('admin.cards.activate')
+                      - elsif card.disabled
+                        %button.btn.btn-warning.reactivate
+                          %i.fa.fa-sync-alt
+                          = I18n.t('admin.cards.reactivate')
+                      - else
+                        %button.btn.btn-danger.deactivate
+                          %i.fa.fa-trash
+                          = I18n.t('admin.cards.deactivate')
