@@ -193,6 +193,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       if (tobeactivated) {
         status.removeClass('text-info');
         $(this).removeClass('activate btn-primary');
+        row.attr("data-active", 1);
       } else if (disabled) {
         status.removeClass('text-muted');
         $(this).removeClass('reactivate btn-warning');
