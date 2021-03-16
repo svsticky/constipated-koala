@@ -83,6 +83,7 @@ nl:
         transaction_costs: transactiekosten in rekening gebracht
         upgrade: Opwaarderen
     navigation:
+      payments: Betalingen
       books: Boeken
       declarations: DigiDecs
       discord: Discord server
@@ -92,3 +93,8 @@ nl:
       links: Externe links
       pictures: Foto's
       vacancies: Vacatures
+    payments:
+      unpaid_activity:
+        title: "Onbetaalde activiteiten"
+        pay: "Betaal activiteiten"
+        checkall: "Selecteer alle"

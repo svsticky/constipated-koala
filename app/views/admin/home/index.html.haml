@@ -68,7 +68,7 @@
                   %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
-      %div.col-lg-6
+      %div.col-lg-4
         .card
           .card-header
             %i.fa.fa-fw.fa-shopping-cart
@@ -98,19 +98,20 @@
                   %td.text-center
                     %em
                       = I18n.t('admin.front.no_transactions')
-      %div.col-lg-3
+      %div.col-lg-5
         .card
           .card-header
             %i.fa.fa-fw.fa-shopping-cart
+            /// TODO: Translation
             Laatste activity transacties vandaag
           %table.table.table-striped.table-linked
             %tbody
-              - @recentparticipants.each do |transaction|
+              - @recentactivities.each do |transaction|
                 %tr
                   %td= I18n.l transaction.created_at, :format => :short
                   %td{ :style => 'min-width: 80px;' }
-                    = number_to_currency(transaction.sum, :unit => '€')
-                    - if transaction.sum > 0
+                    = number_to_currency(transaction.amount, :unit => '€')
+                    - if transaction.amount > 0
                       %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
                     - else
                       %span.fa.fa-sort-desc.float-right
@@ -122,7 +123,7 @@
                   %td.d-none.d-md-table-cell
                     = transaction.activities.map(&:name).join(', ')
 
-              - if @recentparticipants.empty?
+              - if @recentactivities.empty?
                 %tr
                   %td.text-center
                     %em geen transacties vandaag

@@ -31,17 +31,13 @@
           %span= I18n.t("admin.navigation.checkout")
           %i.fa.fa-caret-right{:class => ('active' if current_page?(:checkout))}
 
-        = link_to :ideal, :class => 'list-group-item list-group-item-action' do
-          %span= I18n.t("admin.navigation.ideal")
-          %i.fa.fa-caret-right{:class => ('active' if current_page?(:ideal))}
-
         = link_to :checkout_products, :class => 'list-group-item list-group-item-action' do
           %span= I18n.t("admin.navigation.products")
           %i.fa.fa-caret-right{:class => ('active' if controller_name == 'checkout_products')}
 
-        = link_to :payconiq, :class => 'list-group-item list-group-item-action' do
-          %span= I18n.t("admin.navigation.payconiq")
-          %i.fa.fa-caret-right{:class => ('active' if current_page?(:payconiq))}
+        = link_to :paymenthandlers, :class => 'list-group-item list-group-item-action' do
+          %span= I18n.t("admin.navigation.transactions")
+          %i.fa.fa-caret-right{:class => ('active' if current_page?(:paymenthandlers))}
 
       = link_to '', :class => 'list-group-item list-group-item-action',
                     'data-toggle' => 'collapse', 'href' => '#sub-settings' do

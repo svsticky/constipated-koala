@@ -197,6 +197,22 @@ en:
           merit: Merit
           pardon: Pardon
           suspended: Suspended
+      payments:
+        transaction-type:
+          title: Transaction Types
+          checkout: Checkout
+          activity: Activity
+        payment-type:
+          title: Payment Types
+          ideal: Ideal
+          payconiq_display: Payconiq Checkout
+          payconiq_online: Payconiq Online
+          pin: Pin
+        payment-status:
+          title: Betaling status
+          successful: Succesful
+          in_progress: In progress
+          failed: Failed
       user:
         current_password: Current password
         email: e-mailaddress
@@ -256,14 +272,14 @@ en:
               invalid: The value is not valid
             study:
               required: A study name is required
-        ideal_transaction:
+        payment:
           attributes:
             checkout: Mongoose credit
             fees: iDEAL fee
-          blank: Transaction can't be blank
-          failed: Transaction has not been processed
-          processed: Transaction has already been processed
-          success: Transaction has been processed!
+          blank: Transactie kan niet leeg zijn
+          failed: Transactie is mislukt
+          processed: Transactie is al behandelt
+          success: Transactie is gelukt
         member:
           attributes:
             email:
@@ -443,6 +459,8 @@ en:
         anybody: anybody
         placeholder: search member by name, email, phone number or student number, or use study:[name], year:[year], state:[state] and tag:[type]
         studying: studying
+      search_payments:
+        placeholder: "Search by transaction ID, Name, Date or Description."
   navigation:
     activity: Activities
     back: Back

@@ -31,6 +31,7 @@ class Admin::SettingsController < ApplicationController
 
     elsif ['payconiq_transaction_costs'].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
+
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
 
     elsif ['begin_study_year'].include? params[:setting]

@@ -45,7 +45,7 @@ class Members::HomeController < ApplicationController
              .where(:participants => { member: @member, reservist: false })
              .order('start_date DESC')
 
-    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) #ParticipantTransaction.all #
+    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @payconiq_transaction_costs = Settings.payconiq_transaction_costs
     @transaction_costs = Settings.mongoose_ideal_costs
   end
@@ -116,6 +116,8 @@ class Members::HomeController < ApplicationController
 
   def transaction_params
     params.permit(:amount, :issuer, :payment_type)
+  end
+
   def user_post_params
     params.require(:member).permit(:language)
   end

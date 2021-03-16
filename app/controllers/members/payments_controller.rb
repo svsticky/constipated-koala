@@ -21,9 +21,7 @@ class Members::PaymentsController < ApplicationController
     #    ).uniq
     #      .sort_by(&:start_date)
     #      .reverse!
-    @participants =
-      @member.payable_unpaid_activities
-
+    @participants = @member.unpaid_activities
     @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @payconiq_transaction_costs = Settings.payconiq_transaction_costs
     @transaction_costs = Settings.mongoose_ideal_costs
@@ -32,113 +30,68 @@ class Members::PaymentsController < ApplicationController
   def pay_activities
     member = Member.find(current_user.credentials_id)
     unpaid = Participant
-             .where(paid: false, member: member, reservist: false)
+             .where(activity_id: params[:activity_ids], member: member, reservist: false)
              .joins(:activity)
              .where(:activities => { is_payable: true })
-             .select { |n| params[:activity_ids].map(&:to_i).include? n.activity_id }
-    description = "Activiteiten - #{ unpaid.map{|p| "#{p.activity.id}"
+    description = "Activiteiten - #{ unpaid.map { |p| p.activity.id.to_s } }"
     amount = unpaid.sum(&:currency)
-    if transaction_params[:payment_type] == "Payconiq"
-      payconiq = Payment.new(
-        :description => description,
-        :amount => amount,
-        :member => member,
-        :payment_type => :payconiq_online,
-        :transaction_id => unpaid.pluck(:activity_id),
-        :transaction_type => :activity
-      )
-      if payconiq.save
-        render :json => { qrurl: payconiq.payconiq_qrurl, amount: payconiq.amount, deeplink: payconiq.payconiq_deeplink }.to_json
-      else
-        flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-        redirect_to members_home_path
-      end
+    payment = Payment.new(
+      :description => description,
+      :amount => amount,
+      :issuer => transaction_params[:payment_type] == 'Ideal' ? transaction_params[:bank] : nil,
+      :member => member,
+      :payment_type => transaction_params[:payment_type] == 'Payconiq' ? :payconiq_online : :ideal,
+      :transaction_id => unpaid.pluck(:activity_id),
+      :transaction_type => :activity,
+      :redirect_uri => member_payments_path
+    )
+    if payment.save
+      redirect_to payment.payment_uri
     else
-      ideal = Payment.new(
-        :description => description,
-        :amount => (transaction_params[:amount].to_f + Settings.mongoose_ideal_costs),
-        :issuer => transaction_params[:bank],
-        :member => member,
-        :payment_type => :ideal,
-        :transaction_id => unpaid.pluck(:activity_id),
-        :transaction_type => :activity,
-
-        :ideal_redirect_uri => users_root_url
-      )
-
-      if ideal.save
-        redirect_to ideal.ideal_uri
-      else
-        flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-        redirect_to members_home_path
-      end
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
+      redirect_to member_payments_path
     end
   end
 
   def add_funds
     member = Member.find(current_user.credentials_id)
     balance = CheckoutBalance.find_or_create_by!(member: member)
-    description = I18n.t('activerecord.errors.models.ideal_transaction.attributes.checkout')
+    description = I18n.t('activerecord.errors.models.payment.attributes.checkout')
 
     if transaction_params[:amount].to_f <= Settings.mongoose_ideal_costs
-      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to members_home_path
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
+      redirect_to member_payments_path
       return
     end
 
     if balance.nil?
-      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-      redirect_to members_home_path
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
+      redirect_to member_payments_path
       return
     end
 
-    if transaction_params[:payment_type] == "Payconiq"
-      payment = Payment.new(
-        :description => description,
-        :amount => transaction_params[:amount].to_f,
-        :member => member,
-        :payment_type => :payconiq_online,
+    payment = Payment.new(
+      :description => description,
+      :amount => transaction_params[:amount].to_f,
+      :member => member,
+      :issuer => transaction_params[:payment_type] == 'Ideal' ? transaction_params[:bank] : nil,
+      :payment_type => transaction_params[:payment_type] == "Payconiq" ? :payconiq_online : :ideal,
 
-        :transaction_id => nil,
-        :transaction_type => :checkout
-      )
-
-      if payment.save
-        render json: { qrurl: payment.payconiq_qrurl, amount: payment.amount, deeplink: payment.payconiq_deeplink }
-      else
-        flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-        redirect_to members_home_path
-      end
+      :transaction_id => nil,
+      :transaction_type => :checkout,
+      :redirect_uri => member_payments_path
+    )
+    if payment.save
+      redirect_to payment.payment_uri
     else
-      payment = Payment.new(
-        :description => description,
-        :amount => transaction_params[:amount].to_f,
-        :issuer => transaction_params[:bank],
-        :member => member,
-        :payment_type => :ideal,
-
-        :transaction_id => nil,
-        :transaction_type => :checkout,
-
-        :ideal_redirect_uri => users_root_url
-      )
-
-      if payment.save
-        redirect_to payment.ideal_uri
-      else
-        flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.ideal_transaction')
-        redirect_to members_home_path
-      end
+      flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
+      redirect_to members_home_path
     end
   end
 
   private
 
   def transaction_params
-    params.permit(:amount, :issuer, :payment_type)
-  end
-
-  def user_post_params
-    params.require(:member).permit(:language)
+    params.permit(:amount, :bank, :activity_ids, :payment_type)
   end
 end

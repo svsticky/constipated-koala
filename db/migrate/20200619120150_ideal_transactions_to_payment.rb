@@ -1,7 +1,6 @@
 class IdealTransactionsToPayment < ActiveRecord::Migration[6.0]
   def change
     rename_table :ideal_transactions, :payments
-    rename_column :payments, :redirect_uri, :ideal_redirect_uri
 
     remove_column :payments, :transaction_type, :string
 

@@ -1,4 +1,4 @@
-class AddLedgerNrToGroups < ActiveRecord::Migration[6.0]
+class AddPayconiqFinancingattributes < ActiveRecord::Migration[6.0]
   def up
     add_column :groups, :ledgernr, :string, default: ""
     add_column  :groups,  :cost_location, :string, default: ""
