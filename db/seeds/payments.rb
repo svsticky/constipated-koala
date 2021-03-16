@@ -2,6 +2,7 @@ require Rails.root.join('db', 'seeds', 'members.rb')
 require Rails.root.join('db', 'seeds', 'activities.rb')
 
 puts '-- member transaction creation'
+
 Member.all.sample(30).each do |member|
 
   5.times do
@@ -18,14 +19,16 @@ Member.all.sample(30).each do |member|
       transaction_id = [1]
     end
     description = transactiontype == 0 ? "Mongoose Opwaardering" : "Activiteiten - #{transaction_id}"
-    Payment.create(member: member,
+
+    @payment =Payment.create(member: member,
                    transaction_type: transactiontype,
                    payment_type: paymenttype ,
                    transaction_id: transaction_id,
                    description: description,
                    amount: Faker::Number.within(range: 1.0..10.0),
                    status: status,
-                   trxid: Digest::MD5.hexdigest(description + Time.now.to_f.to_s)
-    ).save
+                   trxid: Digest::MD5.hexdigest(description + Time.now.to_f.to_s),
+                   message: 'seeding'
+    )
   end
 end
