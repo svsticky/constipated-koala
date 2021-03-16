@@ -1,0 +1,33 @@
+.page.page-item
+  %section.panel.panel-default
+    .card.card-body
+      = form_with url: paymenthandlers_path, method: 'get', local: true do |form|
+        .input-group
+          = form.text_field :search,  placeholder: I18n.t('layouts.partials.search_payments.placeholder'), class: 'form-control', :autocomplete => 'off', :disabled => true
+          .input-group-btn
+          //= button_tag 'Dropdown', :class => "btn btn-default dropdown-toggle", :type => "dropdown", data: {:toggle => "dropdown"}
+          .input-group-append
+            = button_tag :class => "button btn btn-primary" do
+              %i.fa.fa-search
+        .row
+          .col-md-2
+            .form-element
+              %label= I18n.t('admin.transactions.payment_type.title')
+              - Payment.payment_types.keys.each_with_index.map { |transaction, index | [I18n.t(transaction, scope:'admin.transactions.payment_type'), index] }.each do |val,index|
+                .form-element.input-checkbox
+                  = form.check_box 'payment-type', {:multiple => true}, index, nil
+                  %label= val
+          .col-md-2
+            .form-element
+              %label= I18n.t('admin.transactions.transaction_type.title')
+              - Payment.transaction_types.keys.each_with_index.map { |val, index | [I18n.t(val, scope:'admin.transactions.transaction_type'), index] }.each do |val,index|
+                .form-element.input-checkbox
+                  = form.check_box 'transaction-type', {:multiple => true}, index, nil
+                  %label= val
+          .col-md-2
+            .form-element
+              %label= I18n.t('admin.transactions.state.title')
+              - Payment.statuses.keys.each_with_index.map { |val, index | [I18n.t(val, scope:'admin.transactions.state'), index] }.each do |val,index|
+                .form-element.input-checkbox
+                = form.check_box 'status', {:multiple => true}, index, nil
+                %label= val

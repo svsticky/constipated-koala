@@ -12,11 +12,15 @@ class Admin::AppsController < ApplicationController
     @products = CheckoutProduct.where(:active => true).count
   end
 
-  def ideal
-    @pagination, @transactions = pagy(IdealTransaction.order(created_at: :desc), items: params[:limit] ||= 20)
+  def transactions
+    @transactions = Payment.order(created_at: :desc)
+    @transactions = @transactions.where(transaction_type: params[:transaction_type]) unless params[:transaction_type].blank?
+    @transactions = @transactions.where(payment_type: params[:payment_type]) unless params[:payment_type].blank?
+    @transactions = @transactions.where(status: params[:status]) unless params[:status].blank?
+    @pagination, @transactions = pagy(@transactions, items: params[:limit] ||= 20)
   end
-  def payconiq
-    @transactions = PayconiqTransaction.order(created_at: :desc)
-                        .paginate(page: params[:page], per_page: params[:limit] ||= 20)
+
+  def transactions_params
+    params.require(:payment).permit(:transaction_type, :payment_type, :status, :search)
   end
 end

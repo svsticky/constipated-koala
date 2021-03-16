@@ -1,29 +1,30 @@
 $(document).on('ready page:load turbolinks:load', function() {
+
+    // Selects all the activities
     $('#check-all').on("click", function(){
         var cbxs = $('input[type="checkbox"]');
         cbxs.prop("checked", !cbxs.prop("checked"));
-        $("#pay-activity").prop("disabled", $(':checkbox:checked').length == 0);
+        cbxs.change();
     });
+
     $('#payment_type_add_funds').on('change', function(){
         var form = $('#add_funds_form');
         if (this.value == "Payconiq"){
-            form.removeData("remote");
-            form.attr("data-remote","true");
+            $('.payconiq-mongoose').show(); $('.ideal-mongoose').hide();
+
         }
         else{
-            form.removeAttr('data-remote');
-            form.removeData('remote'); // ADDED LINE
+            $('.ideal-mongoose').show(); $('.payconiq-mongoose').hide();
         }
     })
+
     $('#payment_type_pay_activities').on('change', function(){
         var form = $('#pay_activities_form');
         if (this.value == "Payconiq"){
-            form.removeData("remote");
-            form.attr("data-remote","true");
+            $('.payconiq-activities').show(); $('.ideal-activities').hide();
         }
         else{
-            form.removeAttr('data-remote');
-            form.removeData('remote'); // ADDED LINE
+            $('.ideal-activities').show(); $('.payconiq-activities').hide();
         }
     })
     $('#payment_type_add_funds').change();
@@ -31,25 +32,9 @@ $(document).on('ready page:load turbolinks:load', function() {
     $("#pay-activity").prop("disabled", $(':checkbox:checked').length == 0)
 
     $(":checkbox").
-    on('click', function() {
+    on('change', function() {
         $("#pay-activity").prop("disabled", $(':checkbox:checked').length == 0);
     })
-});
-
-$(document).on('ajax:success', function(event, data){
-    if (window.mobileAndTabletCheck()){
-        window.location.href = data.deeplink;
-    } else {
-        Swal.fire({
-            title: I18n.t("members.payments.payconiq_instructions.title"),
-            text: I18n.t("members.payments.payconiq_instructions.description", {amount: data.amount}),
-            imageWidth: 400,
-            imageHeight: 400,
-            imageUrl: data.qrurl + "&s=L",
-        }).then(() => {
-            location.reload();
-        })
-    }
 });
 
 window.mobileAndTabletCheck = function() {

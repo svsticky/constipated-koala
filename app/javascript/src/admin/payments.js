@@ -89,7 +89,7 @@ function getPayconiqTransactions(button) {
     })
         .done(function (data, status) {
             var clipboard = document.querySelector("#copy_transactions_pq .btn-clipboard")
-            clipboard.setAttribute('data-clipboard-text', JSON.stringify(data.activiteiten));
+            clipboard.setAttribute('data-clipboard-text', JSON.stringify(data.exact));
             $("#payment_total").text("€" + parseFloat(data.total).toFixed(2))
             $("#payment_online").text(data.online)
             $("#payment_display").text(data.display)

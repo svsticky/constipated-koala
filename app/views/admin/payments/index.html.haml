@@ -107,7 +107,7 @@
                     = I18n.t('editing.update')
               .col-sm-3.col-6
                 %span.input-group-btn#copy_transactions_pq
-                  %button.btn.btn-clipboard{ :"data-clipboard-text" => @payment_clipboard[:activiteiten] }
+                  %button.btn.btn-clipboard{ :"data-clipboard-text" => @payment_clipboard.to_json }
                     %i.fa.fa-copy
                     = I18n.t('editing.copy')
             %table.table.table-striped.table-linked#activity_table

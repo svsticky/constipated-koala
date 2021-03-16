@@ -60,9 +60,11 @@ class Member < ApplicationRecord
            :through => :participants,
            :source => :activity
   has_many :unpaid_activities,
-           -> { where('participants.reservist IS FALSE AND ( (activities.price IS NOT NULL AND participants.paid IS FALSE AND (participants.price IS NULL OR participants.price > 0) ) OR ( activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))') },
+           -> { where('participants.reservist IS FALSE AND activities.is_payable IS TRUE AND ( (activities.price IS NOT NULL AND participants.paid IS FALSE AND (participants.price IS NULL OR participants.price > 0) ) OR ( activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))') },
            :through => :participants,
            :source => :activity
+
+  scope :payable_unpaid_activities, -> { unpaid_activities.where(:activity_isPayable => true) }
 
   has_many :group_members, :dependent => :nullify
   has_many :groups, :through => :group_members

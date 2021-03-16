@@ -32,6 +32,9 @@ Rails.application.configure do
     :port => 3000
   }
 
+  # For possible testing of webhooks
+  config.hosts << ENV['NGROK_HOST'] if ENV['NGROK_HOST'].present?
+
   config.hosts << 'koala.rails.local'
   config.hosts << 'intro.rails.local'
   config.hosts << 'leden.rails.local'

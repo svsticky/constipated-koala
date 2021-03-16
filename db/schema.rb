@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "items"
-    t.string "payment_method", limit: 32
+    t.string "payment_method", limit: 16
   end
 
   create_table "educations", id: :integer, force: :cascade do |t|
@@ -286,16 +286,16 @@ ActiveRecord::Schema.define(version: 2021_03_09_155656) do
   create_table "payments", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "description"
     t.decimal "amount", precision: 6, scale: 2
-    t.string "status", limit: 9, default: "open"
     t.integer "member_id"
     t.string "transaction_id"
-    t.string "ideal_redirect_uri"
+    t.string "redirect_uri"
     t.string "trxid"
     t.string "token", limit: 64
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "transaction_type", default: 0
     t.integer "payment_type", default: 0
+    t.integer "status", default: 0
     t.index ["token"], name: "index_payments_on_token", unique: true
     t.index ["trxid"], name: "index_payments_on_trxid", unique: true
   end

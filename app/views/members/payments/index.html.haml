@@ -1,19 +1,26 @@
 - content_for(:page, 'member_payments')
+- if flash[:notice]
+  .alert.alert-success
+    %span= flash[:notice]
+- if flash[:warning]
+  .alert.alert-warning
+    %span= flash[:warning]
 .row
   .col-lg-6.col-12
     .card
-      = form_with :remote => true, :url => :pay_activities, :method=> :post, :class => 'form-validation', :id => "pay_activities_form" do |f|
+      = form_with :url => :pay_activities, :local => true, :method=> :post, :class => 'form-validation', :id => "pay_activities_form" do |f|
         .card-header
           %span
             %i.fa.fa-fw.fa-fw.fa-ticket-alt
             = I18n.t("members.payments.unpaid_activity.title")
+            = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important', class:'ideal-activities'}
             = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm', type: "submit", id: "pay-activity"
             = submit_tag I18n.t("members.payments.unpaid_activity.checkall"), :type => 'button', class: "btn btn-success btn-sm", id: 'check-all'
             = f.select :payment_type, [["Payconiq +€#{String(@payconiq_transaction_costs)}", 'Payconiq'],["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {}, { :id => 'payment_type_pay_activities' }
         %table.table.table-striped
           %tbody
             - @participants.each do |activity|
-              %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
+              %tr
                 - if !activity.ended?
                   %td= link_to activity.name, activity_path(activity)
                 - else
@@ -43,7 +50,7 @@
                   %em Er zijn geen activiteiten die je moet betalen!
   .col-lg-6.col-12
     .card
-      = form_with :url => :mongoose, :method=> :post, :class => 'form-validation', :remote => true, :id => "add_funds_form" do |f|
+      = form_with :url => :mongoose, :local => true, :method=> :post, :class => 'form-validation', :id => "add_funds_form" do |f|
         .card-header
           %i.fa.fa-fw.fa-fw.fa-shopping-cart
           %span= I18n.t("activerecord.models.checkout_transactions")
@@ -64,5 +71,8 @@
               %tr.form
                 %td.home_mongoose_form_element
                   = f.number_field :amount, :placeholder => I18n.t('members.home.index.credit'), :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@payconiq_transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
+                %td.home_mongoose_form_element
+                  .ui-select.ideal-mongoose{ :style => 'margin-top: 5px;' }
+                    = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important'}
                 %td.home_mongoose_form_element
                   = f.submit I18n.t('members.home.index.upgrade'), class: "btn btn-success btn-sm", type: "submit"

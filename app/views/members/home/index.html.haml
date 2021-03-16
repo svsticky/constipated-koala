@@ -47,49 +47,40 @@
 
   .col-lg-6.col-12.float-right
     .card
-      = form_with :remote => true, :url => :pay_activities, :method=> :post, :class => 'form-validation' do |f|
-        .card-header
-          %span
-            %i.fa.fa-fw.fa-fw.fa-ticket-alt
-            = I18n.t("navigation.activity")
-            = select_tag :year, options_for_select( @years), class: 'year-selector'
-            = f.submit "betaal activiteiten", class: 'button btn btn-success btn-sm', type: "submit", id: "pay-activity"
-            = submit_tag 'checkall', :type => 'button', class: "btn btn-success btn-sm", id: 'check-all'
-            = select_tag :payment_type, options_for_select([%w[Payconiq Payconiq],%w[Ideal Ideal]])
-        %table.table.table-striped
-          %tbody
-            - @participants.each do |activity|
-              %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
-                - if !activity.ended?
-                  %td= link_to activity.name, activity_path(activity)
-                - else
-                  %td= activity.name
+      .card-header
+        %span
+          %i.fa.fa-fw.fa-fw.fa-ticket-alt
+          = I18n.t("navigation.activity")
+          = select_tag :year, options_for_select( @years), class: 'year-selector'
+      %table.table.table-striped
+        %tbody
+          - @participants.each do |activity|
+            %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
+              - if !activity.ended?
+                %td= link_to activity.name, activity_path(activity)
+              - else
+                %td= activity.name
 
-                - if !activity.start_date.nil?
-                  %td.hidden-xs
-                    - if activity.end_date.nil?
-                      = I18n.l activity.start_date
-                    - else
-                      #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
-                - if !activity.currency(@member).nil?
-                  %td= number_to_currency(activity.currency(@member), :unit => '€')
-                - else
-                  %tdl
-                %td
-                  = check_box_tag "activity_ids[]", activity.id, true if !activity.participants.where(:member => @member).first.paid && activity.currency(@member) > 0 && activity.is_payable
-                %td.text-center.d-none.d-sm-block
-                  - if !activity.currency(@member).nil? && activity.currency(@member) > 0
-                    - if activity.participants.where(:member => @member).first.paid
-                      %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
-                    - else
-                      %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
-
-
+              - if !activity.start_date.nil?
+                %td.hidden-xs
+                  - if activity.end_date.nil?
+                    = I18n.l activity.start_date
+                  - else
+                    #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
+              - if !activity.currency(@member).nil?
+                %td= number_to_currency(activity.currency(@member), :unit => '€')
+              - else
+                %tdl
+              %td.text-center.d-none.d-sm-block
+                - if !activity.currency(@member).nil? && activity.currency(@member) > 0
+                  - if activity.participants.where(:member => @member).first.paid
+                    %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
+                  - else
+                    %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
     .card
       .card-header
         %i.fa.fa-fw.fa-fw.fa-shopping-cart
-        %span= I18n.t("activerecord.models.transactions")
-        = select("", "payment-type", [["Payconiq","Payconiq"],["Ideal","Ideal"]])
+        %span= I18n.t("activerecord.models.checkout_transactions")
       %table.table.card-body
         %tbody
           - @transactions.each do |transaction|
@@ -103,22 +94,3 @@
                   %span.fa.fa-sort-asc.float-right
                 - else
                   %span.fa.fa-sort-desc.float-right
-          = form_with :remote => true, :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
-            = f.hidden_field(:payment_type, :value => "Payconiq")
-            %tr.form.payconiq
-              %td.home_mongoose_form_element
-                = f.number_field :amount, :placeholder => I18n.t('members.home.index.credit'), :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
-              %td.home_mongoose_form_element
-              %td.home_mongoose_form_element
-                %button.btn.btn-success.btn-sm{ :type => 'submit'}= I18n.t('members.home.index.upgrade')
-
-          = form_with :url => :mongoose, :method=> :post, :class => 'form-validation' do |f|
-            = f.hidden_field(:payment_type, :value => "Payconiq")
-            %tr.form.ideal
-              %td.home_mongoose_form_element
-                = f.number_field :amount, :placeholder => I18n.t('members.home.index.credit'), :min => 1, :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
-              %td.home_mongoose_form_element
-                .ui-select{ :style => 'margin-top: 5px;' }
-                  = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important'}
-              %td.home_mongoose_form_element
-                %button.btn.btn-success.btn-sm{ :type => 'submit'}= I18n.t('members.home.index.upgrade')

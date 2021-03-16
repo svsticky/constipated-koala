@@ -199,6 +199,22 @@ nl:
           merit: Lid van Verdienste
           pardon: Gratie
           suspended: Geschorst
+      payments:
+        transaction-type:
+          title: Transactie types
+          checkout: Checkout
+          activity: Activity
+        payment-type:
+          title: Payment types
+          ideal: Ideal
+          payconiq_display: Payconiq Checkout
+          payconiq_online: Payconiq Online
+          pin: Pin
+        payment-status:
+          title: Payment status
+          successful: Geslaagd
+          in_progress: In uitvoering
+          failed: Mislukt
       user:
         current_password: Huidig wachtwoord
         email: E-mailadres
@@ -258,7 +274,7 @@ nl:
               invalid: Geen correcte waarde ingevuld
             study:
               required: Je moet een studienaam invullen
-        ideal_transaction:
+        payment:
           attributes:
             checkout: Mongoose-tegoed
             fees: iDEAL-kosten
@@ -445,6 +461,8 @@ nl:
         anybody: iedereen
         placeholder: Zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]
         studying: studerend
+      search_payments:
+        placeholder: "Zoek op transactie ID, Naam, Datum of Beschrijvijng."
   navigation:
     activity: Activiteiten
     back: Terug

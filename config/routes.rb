@@ -87,10 +87,10 @@ Rails.application.routes.draw do
       end
 
       scope 'payments' do
-        get 'payments', to: 'payments#index'
+        get '/', to: 'payments#index', as: "payments"
         get 'whatsapp/:member_id', to: 'payments#whatsapp_redirect', as: 'payment_whatsapp_redirect'
         get 'transactions',       to: 'payments#update_transactions'
-        get 'transactions_pq',    to: 'payments#get_payconiq_transactions'
+        get 'transactions_pq',    to: 'payments#update_payments'
       end
 
       resources :groups, only: [:index, :create, :show, :update, :destroy] do
@@ -105,9 +105,8 @@ Rails.application.routes.draw do
       end
 
       scope 'apps' do
-        get 'payments',           to: 'apps#payments', as: 'payment'
+        get 'payments',           to: 'apps#transactions', as: 'paymenthandlers'
         get 'checkout',           to: 'apps#checkout'
-        get 'payconiq',           to: 'apps#payconiq'
 
         # json checkout urls
         patch  'cards',           to: 'checkout_products#activate_card'
@@ -145,9 +144,9 @@ Rails.application.routes.draw do
         end
 
         scope 'hook' do
-          get 'mollie/:token',  to: 'webhook#mollie_redirect',    as: 'mollie_redirect'
-          post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
+          get 'payment/:token', to: 'webhook#payment_redirect', as: 'payment_redirect'
 
+          post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
           post 'payconiq',      to: 'webhook#payconiq_hook',      as: 'payconiq_hook'
 
           get 'mailchimp/:token', to: 'webhook#mailchimp_confirm_callback', as: 'mailchimp_confirm'

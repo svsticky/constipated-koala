@@ -48,14 +48,14 @@
       "file": "app/controllers/members/home_controller.rb",
       "line": 121,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.ideal_transaction.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri)",
+      "code": "redirect_to(IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri)",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Members::HomeController",
         "method": "add_funds"
       },
-      "user_input": "IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.ideal_transaction.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri",
+      "user_input": "IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri",
       "confidence": "High",
       "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
     },

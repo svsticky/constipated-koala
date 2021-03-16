@@ -17,7 +17,7 @@ class Admin::PaymentsController < ApplicationController
     @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', 1.days.ago).order(created_at: :desc)
     @dat = @checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }.to_json
 
-    @payment_clipboard = get_payments
+    @payment_clipboard = retrieve_payments
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
     @late_activities = Activity.debtors.select { |activity| activity.impressionist_count(message: "mail", start_date: activity.start) >= 4 && activity.is_payble }
     @late_payments =
@@ -51,18 +51,18 @@ class Admin::PaymentsController < ApplicationController
     render :json => data
   end
 
-  def get_payments
+  def retrieve_payments
     payments = if params[:start_date].blank?
                  Payment.where(updated_at: 1.weeks.ago..1.days.from_now, payment_type: [:payconiq_online, :payconiq_display], status: 'SUCCEEDED')
                else
                  Payment.where(updated_at: Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d"), payment_type: [:payconiq_online, :payconiq_display], status: 'SUCCEEDED')
 
                end
-    activitysum = Hash.new {|h,k| h[k] = Hash.new(&h.default_proc) }
+    activitysum = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     payments.where(:transaction_type => :activity).map do |payment|
       payment.transaction_id.each do |activity_id|
         p = Participant.where(member: payment.member, activity_id: activity_id).first
-        activitysum[payment.member.id][p.activity.name][:price]= "#{p.currency}"
+        activitysum[payment.member.id][p.activity.name][:price] = p.currency.to_s
 
         if p.activity.group.nil?
           activitysum[payment.member.id][p.activity.name][:ledgernr] = Group.first.ledgernr
@@ -72,12 +72,13 @@ class Admin::PaymentsController < ApplicationController
           activitysum[payment.member.id][p.activity.name][:cost_location] = p.activity.group.cost_location
         end
         activitysum[payment.member.id][p.activity.name][:VAT] = p.activity.VAT
-
       end
     end
     mongoose_payments = payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount)
-    return { total: payments.sum(:amount), exact: {activiteiten:activitysum, mongoose:mongoose_payments}, online: payments.payconiq_online.count, display: payments.payconiq_display.count }
+    return { total: payments.sum(:amount), exact: { activiteiten: activitysum, mongoose: mongoose_payments }, online: payments.payconiq_online.count, display: payments.payconiq_display.count }
   end
 
-
+  def update_payments
+    render json: retrieve_payments.to_json
+  end
 end

@@ -83,6 +83,7 @@ en:
         transaction_costs: transaction costs charged
         upgrade: Top up
     navigation:
+      payments: Payments
       books: Books
       declarations: DigiDecs
       discord: Discord server
@@ -92,3 +93,8 @@ en:
       links: External links
       pictures: Pictures
       vacancies: Vacancies
+    payments:
+      unpaid_activity:
+        title: "Unpaid activities"
+        pay: "Pay activities"
+        checkall: "Select all"
