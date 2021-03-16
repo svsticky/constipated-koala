@@ -6,6 +6,9 @@ import toastr from "toastr";
 
 $(document).on("ready page:load turbolinks:load", function () {
   bind_flip();
+    $(document).on('click', '.allow-focus', function (e) {
+        e.stopPropagation();
+    });
 
   $('form .input-group-btn .file-input-wrapper input[type="file"]').on(
     "change",
