@@ -82,33 +82,12 @@ nl:
       checkout: Checkout
       general: Algemeen
       group: Groepen
-      transactions: Transacties
       impressions: Logs
       member: Leden
       payments: Betalingen
       products: Producten
       settings: Instellingen
-    transactions:
-      date: Datum
-      member: Lid
-      trxid: Transactie ID
-      description: Omschrijving
-      amount: Prijs
-      payment_type:
-        title: Betaalmethode
-        ideal: Ideal
-        payconiq_online: Payconiq online
-        payconiq_display: Payconiq display
-        pin: Gepind
-      transaction_type:
-        title: Transactie type
-        checkout: Checkout
-        activity: Activiteiten
-      state:
-        title: Status
-        in_progress: Bezig
-        failed: Mislukt
-        successful: Geslaagd
+      transactions: Transacties
     payment:
       date: Datum
       day_total: Dagtotaal
@@ -150,3 +129,24 @@ nl:
       show: Toon
       signature: Ondertekening
       user: Gebruiker
+    transactions:
+      amount: Prijs
+      date: Datum
+      description: Omschrijving
+      member: Lid
+      payment_type:
+        ideal: Ideal
+        payconiq_display: Payconiq display
+        payconiq_online: Payconiq online
+        pin: Gepind
+        title: Betaalmethode
+      state:
+        failed: Mislukt
+        in_progress: Bezig
+        successful: Geslaagd
+        title: Status
+      transaction_type:
+        activity: Activiteiten
+        checkout: Checkout
+        title: Transactie type
+      trxid: Transactie ID

@@ -82,33 +82,12 @@ en:
       checkout: Checkout
       general: General
       group: Groups
-      transactions: Transactions
       impressions: Logs
       member: Members
       payments: Payments
       products: Products
       settings: Settings
-    transactions:
-      date: Date
-      member: Member
-      trxid: Transaction ID
-      description: Description
-      amount: Price
-      payment_type:
-        title: Payment Method
-        ideal: Ideal
-        payconiq_online: Payconiq online
-        payconiq_display: Payconiq display
-        pin: Pinned
-      transaction_type:
-        title: Transaction type
-        checkout: Checkout
-        activity: Activities
-      state:
-        title: Status
-        in_progress: In progress
-        failed: Failed
-        successful: Successful
+      transactions: Transactions
     payment:
       date: Date
       day_total: Daily total
@@ -150,3 +129,24 @@ en:
       show: Show
       signature: Signature
       user: User
+    transactions:
+      amount: Price
+      date: Date
+      description: Description
+      member: Member
+      payment_type:
+        ideal: Ideal
+        payconiq_display: Payconiq display
+        payconiq_online: Payconiq online
+        pin: Pinned
+        title: Payment Method
+      state:
+        failed: Failed
+        in_progress: In progress
+        successful: Successful
+        title: Status
+      transaction_type:
+        activity: Activities
+        checkout: Checkout
+        title: Transaction type
+      trxid: Transaction ID
