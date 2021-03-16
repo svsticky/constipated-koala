@@ -34,8 +34,8 @@ nl:
         is_enrollable: Inschrijfbaar
         is_freshmans: Eerstejaars
         is_masters: Masters
-        is_viewable: Toon in Koala
         is_payable: Betaalbaar
+        is_viewable: Toon in Koala
         location: Locatie
         member_is_spare: Is reserve
         member_payed: Heeft betaald
@@ -77,9 +77,9 @@ nl:
           other: overig
         category: Categorie
         comments: Opmerkingen
+        cost_location: Kostenplaats
         former: oud-lid
         ledgernr: Grootboekrekening
-        cost_location: Kostenplaats
         members:
           board: Bestuursleden
           committee: Commissieleden
@@ -144,6 +144,22 @@ nl:
         paid:
           'false': Niet betaald
           'true': Betaald
+      payments:
+        payment-status:
+          failed: Mislukt
+          in_progress: In uitvoering
+          successful: Geslaagd
+          title: Payment status
+        payment-type:
+          ideal: Ideal
+          payconiq_display: Payconiq Checkout
+          payconiq_online: Payconiq Online
+          pin: Pin
+          title: Payment types
+        transaction-type:
+          activity: Activity
+          checkout: Checkout
+          title: Transactie types
       settings:
         additional_committee_positions:
           description: Rollen die naast voorzitter, penningmeester en bestuurslid worden toegevoegd aan alle commissies.
@@ -199,22 +215,6 @@ nl:
           merit: Lid van Verdienste
           pardon: Gratie
           suspended: Geschorst
-      payments:
-        transaction-type:
-          title: Transactie types
-          checkout: Checkout
-          activity: Activity
-        payment-type:
-          title: Payment types
-          ideal: Ideal
-          payconiq_display: Payconiq Checkout
-          payconiq_online: Payconiq Online
-          pin: Pin
-        payment-status:
-          title: Payment status
-          successful: Geslaagd
-          in_progress: In uitvoering
-          failed: Mislukt
       user:
         current_password: Huidig wachtwoord
         email: E-mailadres
@@ -274,14 +274,6 @@ nl:
               invalid: Geen correcte waarde ingevuld
             study:
               required: Je moet een studienaam invullen
-        payment:
-          attributes:
-            checkout: Mongoose-tegoed
-            fees: iDEAL-kosten
-          blank: Transactie kan niet leeg zijn
-          failed: Transactie is nog niet verwerkt.
-          processed: Transactie is al verwerkt.
-          success: Transactie is verwerkt!
         member:
           attributes:
             email:
@@ -303,6 +295,14 @@ nl:
             checkout_emptied: Het checkout tegoed was %{balance}, dit is nu van de balance afgehaald.
             info: "%{name} is succesvol verwijderd. Commissieleden, gevolgde opleidingen, deelname aan activiteiten en checkout transacties zijn geanonimiseerd voor de statistieken."
             mailchimp_queued: Mailchimp gegevens worden automatisch verwijderd.
+        payment:
+          attributes:
+            checkout: Mongoose-tegoed
+            fees: iDEAL-kosten
+          blank: Transactie kan niet leeg zijn
+          failed: Transactie is nog niet verwerkt.
+          processed: Transactie is al verwerkt.
+          success: Transactie is verwerkt!
         unpermitted: is niet geldig
         user:
           attributes:
@@ -462,7 +462,7 @@ nl:
         placeholder: Zoek lid op naam, e-mailadres, telefoonnummer of studentnummer, of gebruik studie:[naam], jaargang:[jaartal], status:[status], en tag:[type]
         studying: studerend
       search_payments:
-        placeholder: "Zoek op transactie ID, Naam, Datum of Beschrijvijng."
+        placeholder: Zoek op transactie ID, Naam, Datum of Beschrijvijng.
   navigation:
     activity: Activiteiten
     back: Terug

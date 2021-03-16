@@ -34,8 +34,8 @@ en:
         is_enrollable: Enrollable
         is_freshmans: First year students
         is_masters: Masters
-        is_viewable: Viewable
         is_payable: Payable
+        is_viewable: Viewable
         location: Location
         member_is_spare: Is spare
         member_payed: Member payed
@@ -142,6 +142,22 @@ en:
         paid:
           'false': Not paid
           'true': Paid
+      payments:
+        payment-status:
+          failed: Failed
+          in_progress: In progress
+          successful: Succesful
+          title: Betaling status
+        payment-type:
+          ideal: Ideal
+          payconiq_display: Payconiq Checkout
+          payconiq_online: Payconiq Online
+          pin: Pin
+          title: Payment Types
+        transaction-type:
+          activity: Activity
+          checkout: Checkout
+          title: Transaction Types
       settings:
         additional_committee_positions:
           description: Roles besides chairman, treasurer and board member that will be added to the committees.
@@ -197,22 +213,6 @@ en:
           merit: Merit
           pardon: Pardon
           suspended: Suspended
-      payments:
-        transaction-type:
-          title: Transaction Types
-          checkout: Checkout
-          activity: Activity
-        payment-type:
-          title: Payment Types
-          ideal: Ideal
-          payconiq_display: Payconiq Checkout
-          payconiq_online: Payconiq Online
-          pin: Pin
-        payment-status:
-          title: Betaling status
-          successful: Succesful
-          in_progress: In progress
-          failed: Failed
       user:
         current_password: Current password
         email: e-mailaddress
@@ -272,14 +272,6 @@ en:
               invalid: The value is not valid
             study:
               required: A study name is required
-        payment:
-          attributes:
-            checkout: Mongoose credit
-            fees: iDEAL fee
-          blank: Transactie kan niet leeg zijn
-          failed: Transactie is mislukt
-          processed: Transactie is al behandelt
-          success: Transactie is gelukt
         member:
           attributes:
             email:
@@ -301,6 +293,15 @@ en:
             checkout_emptied: The checkout balance was %{balance}, this has been removed from their account.
             info: "%{name} is deleted. Committee, educations, activity participation, and checkout transactions are anonymous for stats."
             mailchimp_queued: Mailchimp account is automatically removed.
+        payment:
+          attributes:
+            checkout: Mongoose credit
+            fees: iDEAL fee
+          blank: Transactie kan niet leeg zijn
+          failed: Transactie is mislukt
+          processed: Transactie is al behandelt
+          success: Transactie is gelukt
+        transactions: Transactions
         unpermitted: is not permitted
         user:
           attributes:
@@ -314,7 +315,6 @@ en:
             password_confirmation:
               confirmation: isn't repeated correctly
           blank: can't be blank
-        transactions: Transactions
       no_connection: No connection available with %{url}, not all %{name} are complete and will be shown!
       no_consent: You are no longer a student, indicate what we may do with your data.
       record_invalid: Error! The data is invalid.
@@ -460,7 +460,7 @@ en:
         placeholder: search member by name, email, phone number or student number, or use study:[name], year:[year], state:[state] and tag:[type]
         studying: studying
       search_payments:
-        placeholder: "Search by transaction ID, Name, Date or Description."
+        placeholder: Search by transaction ID, Name, Date or Description.
   navigation:
     activity: Activities
     back: Back
