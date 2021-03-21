@@ -19,7 +19,10 @@
         .col-sm.text-sm-right
           %span
             - if @activity.id
-              = link_to I18n.t('editing.summarize'), {summary_only: 1}
+              - if !@isSummarized.nil?
+                = link_to I18n.t('editing.revert')
+              - else
+                = link_to I18n.t('editing.summarize'), {summary_only: 1}
     .card-body
       .form-group
         .row
