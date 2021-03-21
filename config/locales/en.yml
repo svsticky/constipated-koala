@@ -395,6 +395,7 @@ en:
     copy: Copy
     delete: Delete
     edit: Edit
+    revert: Sike
     save: Save
     save_as_csv: Save as CSV-file
     summarize: Summarize enrollments
