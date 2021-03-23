@@ -395,9 +395,9 @@ en:
     copy: Copy
     delete: Delete
     edit: Edit
-    revert: Sike
+    revert: Go back
     save: Save
-    save_as_csv: Save as CSV-file
+    show_as_csv: Show as CSV
     summarize: Summarize enrollments
     update: Updaten
     upload: Upload

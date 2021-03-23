@@ -397,9 +397,9 @@ nl:
     copy: Kopieer
     delete: Verwijderen
     edit: Wijzig
-    revert: Oh nee toch niet
+    revert: Ga terug
     save: Opslaan
-    save_as_csv: Oh toch wel, CSV-stijl
+    show_as_csv: Weergeven als CSV
     summarize: Vat activiteit inschrijvingen samen
     update: Updaten
     upload: Uploaden
