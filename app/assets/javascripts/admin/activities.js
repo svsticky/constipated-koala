@@ -372,6 +372,8 @@ $(document).on("ready page:load turbolinks:load", function () {
   posterHandlers();
   if (window.location.href.indexOf("summary_only") !== -1)
       makeTableCollapsable();
+  if (window.location.href.indexOf("summary_csv") !== -1)
+      formatTableAsCSV();
 
   $("form#mail").mail();
 
@@ -404,6 +406,14 @@ $(document).on("ready page:load turbolinks:load", function () {
 function makeTableCollapsable() {
     addColumnClassToColumns()
     addCollapseCallbackToTableHeader();
+}
+
+function formatTableAsCSV() {
+    $('#participants-table > tbody > tr').each(function (_) {
+        $(this).find('td').last().siblings().each(function (__) {
+            $(this).append(',')
+        });
+    });
 }
 
 function addColumnClassToColumns() {
