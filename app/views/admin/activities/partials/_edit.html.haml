@@ -19,7 +19,7 @@
         .col-sm.text-sm-right
           %span
             - if @activity.id
-              - if !@isSummarized.nil?
+              - if !@is_summarized.nil?
                 = link_to I18n.t('editing.revert')
                 = ','
                 = link_to I18n.t('editing.show_as_csv'), {summary_csv: 1}

@@ -371,10 +371,10 @@ $(document).on("ready page:load turbolinks:load", function () {
 
   posterHandlers();
   if (window.location.href.indexOf("summary_only") !== -1)
-      makeTableCollapsable();
+    makeTableCollapsable();
   if (window.location.href.indexOf("summary_csv") !== -1) {
-      formatTableAsCSV();
-      makeTableCollapsable();
+    formatTableAsCSV();
+    makeTableCollapsable();
   }
 
   $("form#mail").mail();
@@ -406,37 +406,47 @@ $(document).on("ready page:load turbolinks:load", function () {
 });
 
 function makeTableCollapsable() {
-    addColumnClassToColumns()
-    addCollapseCallbackToTableHeader();
+  addColumnClassToColumns();
+  addCollapseCallbackToTableHeader();
 }
 
 function formatTableAsCSV() {
-    $('#participants-table > tbody > tr').each(function (_) {
-        $(this).find('td').last().siblings().each(function (__) {
-            $(this).append(',')
-        });
-    });
+  $("#participants-table > tbody > tr").each(function (_) {
+    $(this)
+      .find("td")
+      .last()
+      .siblings()
+      .each(function (__) {
+        $(this).append(",");
+      });
+  });
 }
 
 function addColumnClassToColumns() {
-    $('#participants-table > thead > tr, #participants-table > tbody > tr').each(function (_) {
-        $(this).children().each(function (i) {
-            $(this).addClass(`col-${i}`);
+  $("#participants-table > thead > tr, #participants-table > tbody > tr").each(
+    function (_) {
+      $(this)
+        .children()
+        .each(function (i) {
+          $(this).addClass(`col-${i}`);
         });
-    });
+    }
+  );
 }
 
 function addCollapseCallbackToTableHeader() {
-    $('#participants-table > thead > tr').find('td').each(function (_) {
-        $(this).append('✂️')
-        const columnClass = $(this)[0].className
-        $(this).on('click', () =>
-            $('#participants-table > tbody > tr')
-                .find(`.${columnClass}`)
-                .each(function (_) {
-                    $(this).toggleClass('activity_table-row--hidden')
-                })
-        );
+  $("#participants-table > thead > tr")
+    .find("td")
+    .each(function (_) {
+      $(this).append("✂️");
+      const columnClass = $(this)[0].className;
+      $(this).on("click", () =>
+        $("#participants-table > tbody > tr")
+          .find(`.${columnClass}`)
+          .each(function (_) {
+            $(this).toggleClass("activity_table-row--hidden");
+          })
+      );
     });
 }
 /*

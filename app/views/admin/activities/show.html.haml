@@ -34,7 +34,7 @@
                   = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                   = I18n.t('activerecord.attributes.activity.price')
-                - if !@isSummarized.nil?
+                - if !@is_summarized.nil?
                   %td
                     = I18n.t('activerecord.attributes.activity.notes')
                   %td
@@ -44,7 +44,7 @@
             %tbody
               - [@attendees.map {|participant| {"entity" => participant, "is_reservist" => false}},
                  @reservists.map{| reservist | {"entity" => reservist,   "is_reservist" => true}}].reduce([], :concat).each do |member|
-                - if !@isSummarized.nil?
+                - if !@is_summarized.nil?
                   = render 'admin/activities/partials/attendee_table_row_summary', member: member
                 - elsif !member["is_reservist"]
                   = render 'admin/activities/partials/attendee_table_row', participant: member["entity"]
@@ -79,7 +79,7 @@
                 %td
                 %td
 
-        - if @isSummarized.nil?
+        - if @is_summarized.nil?
           .card
             .card-header
               %i.fa.fa-fw.fa-user
