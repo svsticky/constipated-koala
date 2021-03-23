@@ -372,8 +372,10 @@ $(document).on("ready page:load turbolinks:load", function () {
   posterHandlers();
   if (window.location.href.indexOf("summary_only") !== -1)
       makeTableCollapsable();
-  if (window.location.href.indexOf("summary_csv") !== -1)
+  if (window.location.href.indexOf("summary_csv") !== -1) {
       formatTableAsCSV();
+      makeTableCollapsable();
+  }
 
   $("form#mail").mail();
 
