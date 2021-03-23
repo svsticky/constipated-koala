@@ -136,4 +136,5 @@
 
 .activity_table-row--hidden {
     color: transparent;
+    user-select: none;
 }
