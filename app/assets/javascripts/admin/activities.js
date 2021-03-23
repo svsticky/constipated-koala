@@ -370,6 +370,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     });
 
   posterHandlers();
+  makeTableCollapsable();
 
   $("form#mail").mail();
 
@@ -399,6 +400,32 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
 });
 
+function makeTableCollapsable() {
+    addColumnClassToColumns()
+    addCollapseCallbackToTableHeader();
+}
+
+function addColumnClassToColumns() {
+    $('#participants-table > thead > tr, #participants-table > tbody > tr').each(function (_) {
+        $(this).children().each(function (i) {
+            $(this).addClass(`col-${i}`);
+        });
+    });
+}
+
+function addCollapseCallbackToTableHeader() {
+    $('#participants-table > thead > tr').find('td').each(function (_) {
+        $(this).append('✂️')
+        const columnClass = $(this)[0].className
+        $(this).on('click', () =>
+            $('#participants-table > tbody > tr')
+                .find(`.${columnClass}`)
+                .each(function (_) {
+                    $(this).toggleClass('activity_table-row--hidden')
+                })
+        );
+    });
+}
 /*
  * Contains the poster related handlers
  */

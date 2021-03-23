@@ -133,3 +133,7 @@
   table-layout: fixed;
   overflow: hidden;
 }
+
+.activity_table-row--hidden {
+    color: transparent;
+}
