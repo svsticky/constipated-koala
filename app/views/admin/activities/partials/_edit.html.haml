@@ -21,6 +21,8 @@
             - if @activity.id
               - if !@isSummarized.nil?
                 = link_to I18n.t('editing.revert')
+                = ','
+                = link_to I18n.t('editing.save_as_csv'), {summary_csv: 1}
               - else
                 = link_to I18n.t('editing.summarize'), {summary_only: 1}
     .card-body

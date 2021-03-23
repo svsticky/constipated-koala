@@ -10,7 +10,8 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def show
-    @isSummarized = params['summary_only']
+    @isSummarized = params['summary_only'] || params['summary_csv']
+    @isSummarizedAsCSV = params['summary_csv']
     @activity = Activity.find params[:id]
     @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
