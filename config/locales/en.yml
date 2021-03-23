@@ -36,6 +36,8 @@ en:
         is_masters: Masters
         is_viewable: Viewable
         location: Location
+        member_is_spare: Is spare
+        member_payed: Member payed
         name: Name
         notes: Extra notes
         notes_mandatory: Mandatory
