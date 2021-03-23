@@ -370,7 +370,8 @@ $(document).on("ready page:load turbolinks:load", function () {
     });
 
   posterHandlers();
-  makeTableCollapsable();
+  if (window.location.href.indexOf("summary_only") !== -1)
+      makeTableCollapsable();
 
   $("form#mail").mail();
 
