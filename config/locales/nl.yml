@@ -36,8 +36,8 @@ nl:
         is_masters: Masters
         is_viewable: Toon in Koala
         location: Locatie
-        member_payed: Heeft betaald
         member_is_spare: Is reserve
+        member_payed: Heeft betaald
         name: Naam
         notes: Extra specificatie
         notes_mandatory: Verplicht
