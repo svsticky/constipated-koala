@@ -628,10 +628,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1qfqb9w76kmpb48frbzbyvjc0dfxh5qiw1kxdbv2y2kp6fxpa1kf";
+      sha256 = "0dfvs5bjck1j6rpfgma77501xkm5sxg311b54bikkdl3dffn5mdx";
       type = "gem";
     };
-    version = "0.3.5";
+    version = "0.3.6";
   };
   mini_magick = {
     groups = ["default"];
