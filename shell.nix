@@ -4,7 +4,7 @@
 let
   gems = pkgs.bundlerEnv {
     name = "koala";
-    ruby = pkgs.ruby;
+    ruby = pkgs.ruby_3_0;
     gemdir = ./.;
   };
 in
@@ -13,7 +13,7 @@ in
     buildInputs = [
       gems
       pkgs.nodejs
-      pkgs.ruby
+      pkgs.ruby_3_0
       pkgs.yarn
       pkgs.curl
       pkgs.imagemagick
