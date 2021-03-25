@@ -21,6 +21,9 @@
             %span#attendeecount
               = fullness
             = t 'activerecord.models.participants.attendees.other'
+            - if !@is_summarized.nil?
+              %button.btn.btn-info#btn-copy-table{ :style => 'margin-left: 8px;'}
+                = I18n.t('editing.copy') + '📋'
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
 

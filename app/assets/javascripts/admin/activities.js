@@ -370,11 +370,14 @@ $(document).on("ready page:load turbolinks:load", function () {
     });
 
   posterHandlers();
-  if (window.location.href.indexOf("summary_only") !== -1)
+  if (window.location.href.indexOf("summary_only") !== -1) {
     makeTableCollapsable();
+    addCopyTableCallBack();
+  }
   if (window.location.href.indexOf("summary_csv") !== -1) {
     formatTableAsCSV();
     makeTableCollapsable();
+    addCopyTableCallBack();
   }
 
   $("form#mail").mail();
@@ -421,6 +424,20 @@ function formatTableAsCSV() {
           $(this).addClass("activity_table-cell--pseudo-hidden");
         $(this).append(",");
       });
+  });
+}
+
+function addCopyTableCallBack() {
+  $("#btn-copy-table").on("click", function () {
+    const range = document.createRange();
+
+    const table = $("#participants-table")[0];
+    range.selectNodeContents(table);
+    const select = window.getSelection();
+    select.removeAllRanges();
+    select.addRange(range);
+    document.execCommand("copy");
+    setTimeout(() => select.removeAllRanges(), 250);
   });
 }
 
