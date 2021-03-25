@@ -10,6 +10,11 @@ let
     gemdir = ./.;
     gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
+    gemConfig = pkgs.defaultGemConfig // {
+      mimemagic = attrs: {
+        FREEDESKTOP_MIME_TYPES_PATH = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
+      };
+    };
   };
   node-path = "${(node.shell.override{src = node-jail;}).nodeDependencies}/lib/node_modules";
   node-jail = import ./nix/node-jail.nix {};
@@ -17,6 +22,7 @@ in
   pkgs.stdenv.mkDerivation {
     name = "koala";
     propagatedBuildInputs = [
+      pkgs.shared-mime-info
       gems
       pkgs.nodejs
       pkgs.ruby
@@ -27,6 +33,7 @@ in
       pkgs.cacert
       pkgs.bundler
     ];
+
 
     buildPhase = ''
       rails assets:precompile

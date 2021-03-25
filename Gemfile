@@ -14,6 +14,9 @@ gem 'coffee-rails'
 gem 'font_awesome5_rails'
 gem 'sassc-rails'
 
+# mimemagic
+gem 'mimemagic', '0.3.9'
+
 # authentication gems
 gem 'devise'
 gem 'doorkeeper'
