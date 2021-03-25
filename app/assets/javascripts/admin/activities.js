@@ -417,6 +417,8 @@ function formatTableAsCSV() {
       .last()
       .siblings()
       .each(function (__) {
+        if ($(this).text().length <= 1)
+          $(this).addClass("activity_table-cell--pseudo-hidden");
         $(this).append(",");
       });
   });
