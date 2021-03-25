@@ -145,3 +145,7 @@
     color: transparent;
     user-select: none;
 }
+
+.activity_table-cell--pseudo-hidden {
+    color: transparent;
+}
