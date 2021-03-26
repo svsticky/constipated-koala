@@ -161,7 +161,9 @@ GEM
     mime-types (3.3)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.0904)
-    mimemagic (0.3.5)
+    mimemagic (0.3.9)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.9.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -329,6 +331,7 @@ DEPENDENCIES
   image_processing
   impressionist!
   listen
+  mimemagic (= 0.3.9)
   mysql2 (= 0.5.1)
   pagy
   puma

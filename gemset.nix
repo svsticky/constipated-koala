@@ -624,14 +624,16 @@
     version = "3.2019.0904";
   };
   mimemagic = {
+    dependencies = ["nokogiri" "rake"];
     groups = ["default"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1qfqb9w76kmpb48frbzbyvjc0dfxh5qiw1kxdbv2y2kp6fxpa1kf";
+      sha256 = "1lkgabpaf3xm0h8w15p3pq1izx3k53xzp2pl128qiqpqqs8ywzi1";
       type = "gem";
     };
-    version = "0.3.5";
+    
+    version = "0.3.9";
   };
   mini_magick = {
     groups = ["default"];
