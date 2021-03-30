@@ -126,9 +126,9 @@ class Api::CheckoutController < ActionController::Base
   end
 
   def authenticate_card
-    render status: :not_found if @card.nil?
     @uuid = params[:uuid]
     @card = CheckoutCard.find_by(uuid: @uuid)
+    render status: :not_found && return if @card.nil?
     render status: :unauthorized, json: I18n.t('checkout.error.not_activated') unless @card.active
     render status: :unauthorized, json: I18n.t('checkout.error.disabled') if @card.disabled
     (@card.active and !@card.disabled)
