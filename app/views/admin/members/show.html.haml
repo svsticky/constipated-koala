@@ -255,7 +255,7 @@
           .card-header
             %i.fa.fa-fw.fa-credit-card
             = I18n.t('admin.cards.cards')
-          %table.table.table-striped#cards
+          %table.table.table-striped#memberscards
             %tbody
               - @member.checkout_cards.each do |card|
                 %tr{ :data => { :uuid => card.uuid, :member_id => @member.id, :active => card.active ? 1 : 0, :disabled => card.disabled ? 1 : 0 } }

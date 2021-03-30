@@ -157,7 +157,7 @@ $(document).on("ready page:load turbolinks:load", function () {
 
   destroy(null);
 
-  $("#cards button").on("click", button_action);
+  $("#memberscards button").on("click", button_action);
 
   function button_action() {
     let row = $(this).closest("tr");
