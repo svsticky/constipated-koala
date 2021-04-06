@@ -1,3 +1,5 @@
+// source: https://www.npmjs.com/package/rails-erb-loader
+
 module.exports = {
   test: /\.erb$/,
   enforce: 'pre',
@@ -5,7 +7,7 @@ module.exports = {
   use: [{
     loader: 'rails-erb-loader',
     options: {
-      runner: (/^win/.test(process.platform) ? 'ruby ' : '') + 'bin/rails runner'
+      runner: './bin/rails runner'
     }
   }]
 }
