@@ -92,7 +92,7 @@
         .card
           .card-header
             %i.fas.fa-fw.fa-qrcode
-            Payconiq export
+            =I18n.t('admin.payment.export')
           .card-body
             .input-group#transaction_dates_pq
               .col-6.col-sm-3
@@ -113,13 +113,13 @@
             %table.table.table-striped.table-linked#activity_table
               %tbody
                 %tr
-                  %td= "Total transaction cost"
+                  %td= I18n.t('admin.payment.total')
                   %td.d-none.d-md-block#payment_total= number_to_currency(@payment_clipboard[:total], :unit => '€')
                 %tr
-                  %td= "Payconiq Online amount"
+                  %td= I18n.t('admin.payment.payconiq_online')
                   %td.d-none.d-md-block#payment_online= @payment_clipboard[:online]
                 %tr
-                  %td= "Payconiq Display amount"
+                  %td= I18n.t('admin.payment.payconiq_display')
                   %td.d-none.d-md-block#payment_display= @payment_clipboard[:display]
 
 
