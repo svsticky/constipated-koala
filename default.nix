@@ -32,11 +32,14 @@ in
       pkgs.mupdf
       pkgs.cacert
       pkgs.bundler
+      pkgs.yarn
     ];
 
 
     buildPhase = ''
+      ln -s ${ pkgs.lib.lists.head (pkgs.lib.strings.splitString ":" node-path)} node_modules
       rails assets:precompile
+      rm node_modules
     '';
 
     koala_rails_wrapper = pkgs.writeScript "koala" ''
