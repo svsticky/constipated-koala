@@ -93,6 +93,7 @@ nl:
       day_total: Dagtotaal
       days: Dagen
       description: Omschrijving
+      export: Exporteer transacties
       found: Transacties gevonden
       ideal: iDeal transacties
       mails: Betalingsmails
@@ -103,11 +104,14 @@ nl:
       not_paid: Niet betaalde activiteiten
       overdue: Achterstallige betalingen (> 4 mails)
       paid: Betaald
+      payconiq_display: Payconiq display totaalbedrag
+      payconiq_online: Payconiq online totaal
       per_page: transacties per pagina
       pinned: Gepinde Checkout transacties
       price: Prijs
       show: Toon
       state: Status
+      total: Totaalbedrag
       whatsapp:
         copy: Bericht gekopieerd naar klembord
         copy_error: Bericht kon niet worden opgehaald

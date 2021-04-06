@@ -93,6 +93,7 @@ en:
       day_total: Daily total
       days: Days
       description: Description
+      export: Export transactions
       found: Transactions found
       ideal: iDeal transactions
       mails: Paymentmails
@@ -103,11 +104,14 @@ en:
       not_paid: Unpaid for activities
       overdue: Overdue payments (> 4 mails)
       paid: Paid
+      payconiq_display: Payconiq display total
+      payconiq_online: Payconiq display total
       per_page: transactions per page
       pinned: Pinned Checkout transactions
       price: Price
       show: Show
       state: State
+      total: Total
       whatsapp:
         copy: Message copied to clipboard
         copy_error: Message could not be retrieved
