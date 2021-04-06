@@ -35,10 +35,20 @@ in
       pkgs.yarn
     ];
 
+    nativeBuildInputs = [ pkgs.breakpointHook ];
+
+    rails_wrapper = pkgs.writeScript "rails" ''
+      #!${pkgs.ruby}/bin/ruby
+      APP_PATH = File.expand_path('../config/application', __dir__)
+      require_relative '../config/boot'
+      require 'rails/commands'
+    '';
 
     buildPhase = ''
       ln -s ${ pkgs.lib.lists.head (pkgs.lib.strings.splitString ":" node-path)} node_modules
-      rails assets:precompile
+      rm bin/rails
+      cp $rails_wrapper bin/rails
+      bundle exec "bin/rails assets:precompile"
       rm node_modules
     '';
 
@@ -52,8 +62,6 @@ in
       ln -s $koala_rails_wrapper /build/constipated-koala/bin/koala
       mv /build/constipated-koala $out
     '';
-
-    #src = pkgs.nix-gitignore.gitignoreSource [] ./.;
 
     src = builtins.path {
       name = "constipated-koala";
