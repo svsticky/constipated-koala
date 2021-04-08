@@ -72,6 +72,7 @@ in
     NODE_PATH = node-path;
 
     shellHook = ''
+      rm node_modules
       ln -s ${ pkgs.lib.lists.head (pkgs.lib.strings.splitString ":" node-path)} node_modules
       dotenv rails assets:precompile
     '';
