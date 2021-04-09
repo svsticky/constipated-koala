@@ -15,6 +15,20 @@ en:
       save: Save activity?
       single: Activity
       title: Activities
+    cards:
+      activate: Activate
+      activate_confirm: Do you want to activate card %{uuid}?
+      activate_success: Card %{uuid} was activated
+      active: Active
+      cards: Cards
+      deactivate: Deactivate
+      deactivate_confirm: Do you want to deactivate card %{uuid}?
+      deactivate_success: Card %{uuid} was deactivated
+      deactivated: Deactivated
+      reactivate: Reactivate
+      reactivate_confirm: Do you want to reactivate card %{uuid}?
+      reactivate_success: Card %{uuid} was reactivated
+      to_be_activated: To be activated
     error:
       invalid_values: Oops, not everything was filled in correctly
     front:

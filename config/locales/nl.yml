@@ -36,6 +36,8 @@ nl:
         is_masters: Masters
         is_viewable: Toon in Koala
         location: Locatie
+        member_is_spare: Is reserve
+        member_payed: Heeft betaald
         name: Naam
         notes: Extra specificatie
         notes_mandatory: Verplicht
@@ -395,7 +397,10 @@ nl:
     copy: Kopieer
     delete: Verwijderen
     edit: Wijzig
+    revert: Ga terug
     save: Opslaan
+    show_as_csv: Weergeven als CSV
+    summarize: Vat activiteit inschrijvingen samen
     update: Updaten
     upload: Uploaden
   files:

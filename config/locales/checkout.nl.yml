@@ -14,6 +14,7 @@ nl:
       removed: Kaart verwijderd
       to_be_activated: Niet geactiveerde kaarten
     error:
+      disabled: Kaart is gedeactiveerd
       identifier: Geen ID gegeven
       not_activated: Kaart is nog niet geactiveerd
       numeric: Het bedrag moet numeriek zijn

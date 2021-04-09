@@ -21,6 +21,9 @@
       .media-left.poster-thumbnail.col-12.col-sm-6
         %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
           =image_tag activity.thumbnail_representation, class: "small-poster"
+          .mask.d-flex.justify-content-center
+            %span.align-self-center{'style': 'color: White'}
+              %i.fas.fa-search.fa-3x
     .media-body.col-12.col-sm-6
       - if activity.start_date != activity.end_date
         %strong= I18n.t("activerecord.labels.activities.when")

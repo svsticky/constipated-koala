@@ -208,7 +208,20 @@ div.container.col-md-9 {
   flex-wrap: wrap;
   flex-direction: row;
 }
+.poster-thumbnail .mask {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 140px;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(62, 53, 53, 0.5);
+}
+.poster-thumbnail:hover .mask {
+    opacity: 1;
+    cursor: pointer;
 
+}
 .flexwrap {
 	flex-wrap: wrap;
 	flex-direction: column;

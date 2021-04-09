@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_212139) do
+ActiveRecord::Schema.define(version: 2021_03_09_155656) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_212139) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "confirmation_token"
+    t.boolean "disabled", default: false
     t.index ["uuid"], name: "index_checkout_cards_on_uuid", unique: true
   end
 

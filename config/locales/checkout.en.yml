@@ -10,10 +10,11 @@ en:
       not_activated: Card could not be activated!
       not_found: No card was found
       not_removed: Card was not removed
-      remove: verwijder
+      remove: remove
       removed: Card removed
       to_be_activated: To be activated cards
     error:
+      disabled: Card was deactivated
       identifier: No identifier given
       not_activated: Card is not yet activated
       numeric: The amount should be numeric

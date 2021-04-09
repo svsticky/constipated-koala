@@ -15,6 +15,20 @@ nl:
       save: Activiteit opslaan?
       single: Activiteit
       title: Activiteiten
+    cards:
+      activate: Activeer
+      activate_confirm: Kaart %{uuid} activeren?
+      activate_success: Kaart %{uuid} is geactiveerd
+      active: Actief
+      cards: Kaarten
+      deactivate: Deactiveer
+      deactivate_confirm: Kaart %{uuid} deactiveren?
+      deactivate_success: Kaart %{uuid} is gedeactiveerd
+      deactivated: Gedeactiveerd
+      reactivate: Reactiveer
+      reactivate_confirm: Kaart %{uuid} heractiveren?
+      reactivate_success: Kaart %{uuid} is heractiveerd
+      to_be_activated: Nog niet geactiveerd
     error:
       invalid_values: Oeps, niet alles is goed ingevuld
     front:
