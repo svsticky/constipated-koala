@@ -7,6 +7,7 @@ import {
 } from "../../cache_helpers.js";
 import "../../language.js";
 import I18n from "../../i18n.js.erb";
+import { get_activity_container } from "./activities";
 
 /**
  * Checks if an object has a property that satisfies the checkfuntion.

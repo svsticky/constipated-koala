@@ -4,20 +4,20 @@ import {
   init_cached_properties,
 } from "../../cache_helpers.js";
 
-function Poster_modal(element, activity) {
-  this.element = $(element);
-  this.load_activity_data(activity);
-}
-
-Poster_modal.prototype = {
-  load_activity_data: function (activity) {
+export class Poster_modal {
+  constructor(element, activity) {
+    this.element = $(element);
+    this.load_activity_data(activity);
+  }
+  load_activity_data(activity) {
     this.current_activity = activity;
 
     //Load the poster of the panel activity in the modal
     this.img.attr("src", "/api/activities/" + activity.id + "/poster");
 
     //set the more info href
-    if (!inMoreInfoView()) this.more_info.attr("href", activity.more_info_href);
+    if (!inMoreInfoView())
+      this.more_info.attr("href", activity.more_info_href);
 
     //Load the title of the panel activity in the modal
     this.title.html(activity.title);
@@ -25,22 +25,28 @@ Poster_modal.prototype = {
     this.activityId = activity.id;
 
     //Check if there are previous activities to go to
-    if (activity.is_first()) this.prevButton.css("display", "none");
-    else this.prevButton.css("display", "inline-block");
+    if (activity.is_first())
+      this.prevButton.css("display", "none");
+    else
+      this.prevButton.css("display", "inline-block");
 
     //Check if there are any next activities to go to
-    if (activity.is_last()) this.nextButton.css("display", "none");
-    else this.nextButton.css("display", "inline-block");
-  },
-
-  nextActivity: function () {
+    if (activity.is_last())
+      this.nextButton.css("display", "none");
+    else
+      this.nextButton.css("display", "inline-block");
+  }
+  nextActivity() {
     this.load_activity_data(this.current_activity.next_activity);
-  },
-
-  prevActivity: function () {
+  }
+  prevActivity() {
     this.load_activity_data(this.current_activity.prev_activity);
-  },
-};
+  }
+}
+
+function inMoreInfoView() {
+  return $(".enrollment-show").length === 1;
+}
 
 Object.defineProperties(
   Poster_modal.prototype,
