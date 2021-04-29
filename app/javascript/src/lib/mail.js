@@ -91,25 +91,31 @@ import toastr from "toastr";
       );
 
       // catch events from mail form
-      $( this ).find( '#recipients select' ).on( 'change', function( event, selector ){
-        submitBtn = $( form ).find( '#btn-send' );
+      $(this)
+        .find("#recipients select")
+        .on("change", function (event, selector) {
+          submitBtn = $(form).find("#btn-send");
 
-        if( selector == 'debtors' || $(this).val() == 'debtors' ) {
-          if (debtors.length > 0)
-            submitBtn.prop('disabled', false);
-          else
-            submitBtn.prop('disabled', true);
-          $( form ).find( '#recipients input' ).val( $.fn.mail.format( debtors ));
-        } else {
-          submitBtn.prop('disabled', false);
-          if( selector == 'all' || $(this).val() == 'all' )
-            $( form ).find( '#recipients input' ).val( $.fn.mail.format( recipients ));
-          if( selector == 'attendees' || $(this).val() == 'attendees' )
-            $( form ).find( '#recipients input' ).val( $.fn.mail.format( attendees ));
-          if( selector == 'reservists' || $(this).val() == 'reservists' )
-            $( form ).find( '#recipients input' ).val( $.fn.mail.format( reservists ));
-        }
-      });
+          if (selector == "debtors" || $(this).val() == "debtors") {
+            if (debtors.length > 0) submitBtn.prop("disabled", false);
+            else submitBtn.prop("disabled", true);
+            $(form).find("#recipients input").val($.fn.mail.format(debtors));
+          } else {
+            submitBtn.prop("disabled", false);
+            if (selector == "all" || $(this).val() == "all")
+              $(form)
+                .find("#recipients input")
+                .val($.fn.mail.format(recipients));
+            if (selector == "attendees" || $(this).val() == "attendees")
+              $(form)
+                .find("#recipients input")
+                .val($.fn.mail.format(attendees));
+            if (selector == "reservists" || $(this).val() == "reservists")
+              $(form)
+                .find("#recipients input")
+                .val($.fn.mail.format(reservists));
+          }
+        });
 
       $(this).on("submit", function (event) {
         event.preventDefault();

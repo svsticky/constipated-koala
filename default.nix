@@ -35,8 +35,6 @@ in
       pkgs.yarn
     ];
 
-    nativeBuildInputs = [ pkgs.breakpointHook ];
-
     rails_wrapper = pkgs.writeScript "rails" ''
       #!${pkgs.ruby}/bin/ruby
       APP_PATH = File.expand_path('../config/application', __dir__)
