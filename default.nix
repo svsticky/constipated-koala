@@ -69,9 +69,8 @@ in
     NODE_PATH = node-path;
 
     shellHook = ''
-      if [ -h node_modules ]; then
-        rm node_modules
-        ln -s ${node-path} node_modules
+      if [[ ( ! -e node_modules ) || ( -h node_modules ) ]]; then
+        ln -sf ${node-path} node_modules
         dotenv rails assets:precompile
       else
         echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
