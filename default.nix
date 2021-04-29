@@ -43,11 +43,10 @@ in
     '';
 
     buildPhase = ''
-      ln -s ${ pkgs.lib.lists.head (pkgs.lib.strings.splitString ":" node-path)} node_modules
+      ln -s -f ${node-path} node_modules
       rm bin/rails
       cp $rails_wrapper bin/rails
       bundle exec "bin/rails assets:precompile"
-      rm node_modules
     '';
 
     koala_rails_wrapper = pkgs.writeScript "koala" ''
@@ -70,9 +69,13 @@ in
     NODE_PATH = node-path;
 
     shellHook = ''
-      rm node_modules
-      ln -s ${ pkgs.lib.lists.head (pkgs.lib.strings.splitString ":" node-path)} node_modules
-      dotenv rails assets:precompile
+      if [ -h node_modules ]; then
+        rm node_modules
+        ln -s ${node-path} node_modules
+        dotenv rails assets:precompile
+      else
+        echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
+      fi
     '';
 
     LC_ALL = "C.UTF-8";
