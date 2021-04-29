@@ -3,7 +3,7 @@ class Admin::PaymentsController < ApplicationController
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @last_impressions = Activity.debtors.map do |activity|
-      impression = Impression.where(impressionable_type: Activity).where(impressionable_id: activity.id).where(message: "mail").where('created_at > ?', activity.start).last
+      impression = Impression.where(impressionable_type: 'Activity').where(impressionable_id: activity.id).where(message: "mail").where('created_at > ?', activity.start).last
 
       days = if impression
                Integer(Date.today - impression.created_at.to_date)
