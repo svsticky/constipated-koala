@@ -46,6 +46,9 @@ $ rails s
 This will start a server that listens until you press Ctrl-C in the window
 where it's running.
 
+It might be neccesary to remove your existing node_modules folder, if it exists.
+Yarn might fail otherwise.
+
 When editing JavaScript, it might be usefull to run the webpack development server.
 This is started with:
 
