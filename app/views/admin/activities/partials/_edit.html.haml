@@ -11,9 +11,20 @@
 
   .card
     .card-header
-      %i.fa.fa-fw.fa-ticket-alt
-      =activity_textfield
+      .row
+        .col-sm
+          %i.fa.fa-fw.fa-ticket-alt
+          =activity_textfield
 
+        .col-sm.text-sm-right
+          %span
+            - if @activity.id
+              - if !@is_summarized.nil?
+                = link_to I18n.t('editing.revert')
+                = ','
+                = link_to I18n.t('editing.show_as_csv'), {summary_csv: 1}
+              - else
+                = link_to I18n.t('editing.summarize'), {summary_only: 1}
     .card-body
       .form-group
         .row

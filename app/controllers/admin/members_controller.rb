@@ -50,8 +50,8 @@ class Admin::MembersController < ApplicationController
     @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
-      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
-        ENV['MAILCHIMP_DATACENTER'].blank?
+      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
+        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       @member.tags_names = params[:member][:tags_names]
 
@@ -74,12 +74,11 @@ class Admin::MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
-    email = @member.email
 
     if @member.update member_post_params.except 'mailchimp_interests'
 
-      MailchimpJob.perform_later email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
-      ENV['MAILCHIMP_DATACENTER'].blank? || params[:member][:mailchimp_interests].nil?
+      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
+        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       impressionist @member
       redirect_to @member
@@ -90,6 +89,8 @@ class Admin::MembersController < ApplicationController
 
   def force_email_change
     @member = Member.find(params[:member_id])
+
+    MailchimpUpdateAddressJob.perform_later @member.email, @member.user.unconfirmed_email
 
     Mailings::Devise.forced_confirm_email(@member, current_user).deliver_later
     @member.user.force_confirm_email!
@@ -147,6 +148,13 @@ class Admin::MembersController < ApplicationController
     @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
     render layout: false, content_type: "text/plain"
+  end
+
+  def set_card_disabled
+    @uuid = params[:uuid]
+    @to = params[:to]
+    @card = CheckoutCard.find_by(uuid: @uuid)
+    @card.update(disabled: @to)
   end
 
   private

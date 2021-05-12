@@ -19,6 +19,9 @@ en:
           description: When you sign up for this list you will receive our weekly newsletter, the MondayMorningMail. This email offers you updates about the association, nice pictures of past activities, a list of upcoming activities, and more
           name: MondayMorningMail
         study: This is required to check if you are allowed to be a member of Sticky.
+        teacher:
+          description: When you sign up for this list you will receive emails a few times a year with stories from teachers. This provides a new way to get to know more about your teachers.
+          name: Teacher mailing
     attributes:
       activity:
         comments: Comments (private)
@@ -33,6 +36,8 @@ en:
         is_masters: Masters
         is_viewable: Viewable
         location: Location
+        member_is_spare: Is spare
+        member_payed: Member payed
         name: Name
         notes: Extra notes
         notes_mandatory: Mandatory
@@ -168,19 +173,19 @@ en:
           treasurer: Treasurer
       study:
         names:
-          acsc: Advanced Computing Science
-          ads: Applied Data Science
-          ainm: Artificial Intelligence
-          atec: Technical Artificial Intelligence
-          ckem: Content & Knowledge Engineering
-          cosc: Computing Science
-          gmte: Game and Media Technology
-          gt: Gametechnology
-          hci: Human Computer Interaction
-          inca: Computer Science
-          inku: Information Science
-          mbim: Business Informatics
-          wisk: Mathematics
+          acsc: MSc Advanced Computing Science
+          ads: MSc Applied Data Science
+          ainm: MSc Artificial Intelligence
+          atec: MSc Technical Artificial Intelligence
+          ckem: MSc Content & Knowledge Engineering
+          cosc: MSc Computing Science
+          gmte: BSc Game and Media Technology
+          gt: BSc Gametechnology
+          hci: MSc Human Computer Interaction
+          inca: BSc Computer Science
+          inku: BSc Information Science
+          mbim: MSc Business Informatics
+          wisk: BSc Mathematics
       tag:
         names:
           donator: Donator
@@ -392,7 +397,10 @@ en:
     copy: Copy
     delete: Delete
     edit: Edit
+    revert: Go back
     save: Save
+    show_as_csv: Show as CSV
+    summarize: Summarize enrollments
     update: Updaten
     upload: Upload
   files:

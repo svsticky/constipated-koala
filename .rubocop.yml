@@ -8,6 +8,7 @@ AllCops:
     - 'db/**/*'
     - 'vendor/**/*'
     - 'config/initializers/*'
+    - 'result/**/*'
     - 'node_modules/**/*'
 
 # Longer class length

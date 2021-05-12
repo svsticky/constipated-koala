@@ -1,0 +1,21 @@
+-#
+  @param {member} {"entity", "is_reservist"} - Involved person for this row of the table
+
+- entity = member["entity"]
+- is_reservist = member["is_reservist"]
+
+%tr{ :data => { :id => entity.id || '{0}', :'data-activities-id' => @activity.id, :email => entity.member.email || '{3}', reservist: entity.reservist.to_s || 'false' }  }
+  %td.name-td
+    = entity.member.name.blank? ? '-' : entity.member.name
+
+  %td.price-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+    = number_to_currency(entity.currency, :unit => '')
+
+  %td.notes-td
+    - if entity.notes
+      = entity.notes
+  %td.had-paid-td
+    = entity.paid ? '✓' : 'x'
+
+  %td.had-paid-td
+    = is_reservist ? '✓' : 'x'

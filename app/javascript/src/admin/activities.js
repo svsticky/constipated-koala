@@ -374,6 +374,15 @@ $(document).on("ready page:load turbolinks:load", function () {
     });
 
   posterHandlers();
+  if (window.location.href.indexOf("summary_only") !== -1) {
+    makeTableCollapsable();
+    addCopyTableCallBack();
+  }
+  if (window.location.href.indexOf("summary_csv") !== -1) {
+    formatTableAsCSV();
+    makeTableCollapsable();
+    addCopyTableCallBack();
+  }
 
   $("form#mail").mail();
 
@@ -403,6 +412,66 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
 });
 
+function makeTableCollapsable() {
+  addColumnClassToColumns();
+  addCollapseCallbackToTableHeader();
+}
+
+function formatTableAsCSV() {
+  $("#participants-table > tbody > tr").each(function (_) {
+    $(this)
+      .find("td")
+      .last()
+      .siblings()
+      .each(function (__) {
+        if ($(this).text().length <= 1)
+          $(this).addClass("activity_table-cell--pseudo-hidden");
+        $(this).append(",");
+      });
+  });
+}
+
+function addCopyTableCallBack() {
+  $("#btn-copy-table").on("click", function () {
+    const range = document.createRange();
+
+    const table = $("#participants-table")[0];
+    range.selectNodeContents(table);
+    const select = window.getSelection();
+    select.removeAllRanges();
+    select.addRange(range);
+    document.execCommand("copy");
+    setTimeout(() => select.removeAllRanges(), 250);
+  });
+}
+
+function addColumnClassToColumns() {
+  $("#participants-table > thead > tr, #participants-table > tbody > tr").each(
+    function (_) {
+      $(this)
+        .children()
+        .each(function (i) {
+          $(this).addClass(`col-${i}`);
+        });
+    }
+  );
+}
+
+function addCollapseCallbackToTableHeader() {
+  $("#participants-table > thead > tr")
+    .find("td")
+    .each(function (_) {
+      $(this).append("✂️");
+      const columnClass = $(this)[0].className;
+      $(this).on("click", () =>
+        $("#participants-table > tbody > tr")
+          .find(`.${columnClass}`)
+          .each(function (_) {
+            $(this).toggleClass("activity_table-row--hidden");
+          })
+      );
+    });
+}
 /*
  * Contains the poster related handlers
  */

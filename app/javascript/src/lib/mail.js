@@ -94,14 +94,27 @@ import toastr from "toastr";
       $(this)
         .find("#recipients select")
         .on("change", function (event, selector) {
-          if (selector == "all" || $(this).val() == "all")
-            $(form).find("#recipients input").val($.fn.mail.format(recipients));
-          if (selector == "debtors" || $(this).val() == "debtors")
+          submitBtn = $(form).find("#btn-send");
+
+          if (selector == "debtors" || $(this).val() == "debtors") {
+            if (debtors.length > 0) submitBtn.prop("disabled", false);
+            else submitBtn.prop("disabled", true);
             $(form).find("#recipients input").val($.fn.mail.format(debtors));
-          if (selector == "attendees" || $(this).val() == "attendees")
-            $(form).find("#recipients input").val($.fn.mail.format(attendees));
-          if (selector == "reservists" || $(this).val() == "reservists")
-            $(form).find("#recipients input").val($.fn.mail.format(reservists));
+          } else {
+            submitBtn.prop("disabled", false);
+            if (selector == "all" || $(this).val() == "all")
+              $(form)
+                .find("#recipients input")
+                .val($.fn.mail.format(recipients));
+            if (selector == "attendees" || $(this).val() == "attendees")
+              $(form)
+                .find("#recipients input")
+                .val($.fn.mail.format(attendees));
+            if (selector == "reservists" || $(this).val() == "reservists")
+              $(form)
+                .find("#recipients input")
+                .val($.fn.mail.format(reservists));
+          }
         });
 
       $(this).on("submit", function (event) {

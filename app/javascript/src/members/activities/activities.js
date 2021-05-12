@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import $ from "jquery";
 
-import "./poster_modal";
+import { Poster_modal } from "./poster_modal";
 import I18n from "../../i18n.js.erb";
 
 import { Activity } from "./activity.js";
@@ -31,12 +31,8 @@ function Copy_ICS() {
   document.body.removeChild(el);
 }
 
-function get_activity_container() {
+export function get_activity_container() {
   return $("#activity-container");
-}
-
-function inMoreInfoView() {
-  return $(".enrollment-show").length === 1;
 }
 
 /** TODO WHY?

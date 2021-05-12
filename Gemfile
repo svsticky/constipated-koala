@@ -15,6 +15,9 @@ gem 'font_awesome5_rails'
 gem 'sassc-rails'
 gem 'webpacker'
 
+# mimemagic
+gem 'mimemagic', '0.3.9'
+
 # authentication gems
 gem 'devise'
 gem 'doorkeeper'

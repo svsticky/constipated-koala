@@ -69,17 +69,17 @@ class Members::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later @member.email, @member, params[:member][:mailchimp_interests].reject(&:blank?) unless
-      ENV['MAILCHIMP_DATACENTER'].blank? || params[:member][:mailchimp_interests].nil?
+      MailchimpJob.perform_later @member.email, @member, (member_post_params[:mailchimp_interests].select { |_, val| val == '1' }) unless
+        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
       cookies["locale"] = @user.language
 
-      # use the translation location instead of the actual translated string so
-      # the correct translation can be displayed if the user changed the language
-      flash[:warning] = 'members.home.edit.email_confirmation' if @member.email != params[:member][:email]
-      redirect_to users_edit_path, :notice => 'members.home.edit.profile_saved'
+      # the translation location was used here but that conflicted with the way
+      # the translation was shown, as it was tried to translate it again there
+      flash[:warning] = I18n.t('members.home.edit.email_confirmation') if @member.email != params[:member][:email]
+      redirect_to users_edit_path, :notice => I18n.t('members.home.edit.profile_saved')
       return
     end
 
@@ -145,7 +145,7 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :mailchimp_interests => [],
+                                   :mailchimp_interests => {},
                                    educations_attributes: [:id, :status])
   end
 

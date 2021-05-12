@@ -4,13 +4,12 @@ import {
   init_cached_properties,
 } from "../../cache_helpers.js";
 
-function Poster_modal(element, activity) {
-  this.element = $(element);
-  this.load_activity_data(activity);
-}
-
-Poster_modal.prototype = {
-  load_activity_data: function (activity) {
+export class Poster_modal {
+  constructor(element, activity) {
+    this.element = $(element);
+    this.load_activity_data(activity);
+  }
+  load_activity_data(activity) {
     this.current_activity = activity;
 
     //Load the poster of the panel activity in the modal
@@ -31,16 +30,18 @@ Poster_modal.prototype = {
     //Check if there are any next activities to go to
     if (activity.is_last()) this.nextButton.css("display", "none");
     else this.nextButton.css("display", "inline-block");
-  },
-
-  nextActivity: function () {
+  }
+  nextActivity() {
     this.load_activity_data(this.current_activity.next_activity);
-  },
-
-  prevActivity: function () {
+  }
+  prevActivity() {
     this.load_activity_data(this.current_activity.prev_activity);
-  },
-};
+  }
+}
+
+function inMoreInfoView() {
+  return $(".enrollment-show").length === 1;
+}
 
 Object.defineProperties(
   Poster_modal.prototype,

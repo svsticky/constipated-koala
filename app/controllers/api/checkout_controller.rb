@@ -3,6 +3,7 @@
 class Api::CheckoutController < ActionController::Base
   protect_from_forgery except: %i[info purchase create products recent]
   before_action :authenticate_checkout, only: %i[info purchase create products recent]
+  before_action :authenticate_card, only: %i[info purchase]
 
   respond_to :json
 
@@ -28,20 +29,10 @@ class Api::CheckoutController < ActionController::Base
     @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance, :active).find_by(uuid: params[:uuid])
 
     return head :not_found unless @card
-
-    unless @card.active
-      render status: :unauthorized, json: 'card not yet activated'
-      return
-    end
   end
 
   def purchase
     card = CheckoutCard.find_by_uuid!(params[:uuid])
-
-    unless card.active
-      render status: :unauthorized, json: I18n.t('checkout.error.not_activated')
-      return
-    end
 
     transaction = CheckoutTransaction.new(items: ahelper(params[:items]), checkout_card: card)
 
@@ -132,5 +123,14 @@ class Api::CheckoutController < ActionController::Base
       head :forbidden
       nil
     end
+  end
+
+  def authenticate_card
+    @uuid = params[:uuid]
+    @card = CheckoutCard.find_by(uuid: @uuid)
+    render status: :not_found && return if @card.nil?
+    render status: :unauthorized, json: I18n.t('checkout.error.not_activated') unless @card.active
+    render status: :unauthorized, json: I18n.t('checkout.error.disabled') if @card.disabled
+    (@card.active and !@card.disabled)
   end
 end

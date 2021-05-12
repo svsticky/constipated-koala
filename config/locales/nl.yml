@@ -19,6 +19,9 @@ nl:
           description: Door je voor deze lijst aan te melden zul je iedere maandagochtend onze nieuwsbrief ontvangen, de MaandagMorgenMail. In deze mail vind je altijd een paar leuke foto's, een tekstje van één van de bestuurders, de aankomende activiteiten, en nog meer.
           name: MaandagMorgenMail
         study: Deze gegevens zijn nodig om te controleren of je voldoet aan de voorwaarden voor het lidmaatschap.
+        teacher:
+          description: Door je voor deze lijst aan te melden zal je een paar keer per jaar mailtjes krijgen met allemaal verhalen van docenten. Zo kan je docenten leren kennen op een nieuwe manier.
+          name: Docentenmailing
     attributes:
       activity:
         comments: Opmerkingen (privé)
@@ -33,6 +36,8 @@ nl:
         is_masters: Masters
         is_viewable: Toon in Koala
         location: Locatie
+        member_is_spare: Is reserve
+        member_payed: Heeft betaald
         name: Naam
         notes: Extra specificatie
         notes_mandatory: Verplicht
@@ -168,19 +173,19 @@ nl:
           treasurer: Penningmeester
       study:
         names:
-          acsc: Advanced Computing Science
-          ads: Applied Data Science
-          ainm: Artificial Intelligence
-          atec: Technical Artificial Intelligence
-          ckem: Content & Knowledge Engineering
-          cosc: Computing Science
-          gmte: Game and Media Technology
-          gt: Gametechnologie
-          hci: Human Computer Interaction
-          inca: Informatica
-          inku: Informatiekunde
-          mbim: Business Informatics
-          wisk: Wiskunde
+          acsc: MSc Advanced Computing Science
+          ads: MSc Applied Data Science
+          ainm: MSc Artificial Intelligence
+          atec: MSc Technical Artificial Intelligence
+          ckem: MSc Content & Knowledge Engineering
+          cosc: MSc Computing Science
+          gmte: MSc Game and Media Technology
+          gt: BSc Gametechnologie
+          hci: MSc Human Computer Interaction
+          inca: BSc Informatica
+          inku: BSc Informatiekunde
+          mbim: MSc Business Informatics
+          wisk: BSc Wiskunde
       tag:
         names:
           donator: Begunstiger
@@ -392,7 +397,10 @@ nl:
     copy: Kopieer
     delete: Verwijderen
     edit: Wijzig
+    revert: Ga terug
     save: Opslaan
+    show_as_csv: Weergeven als CSV
+    summarize: Vat activiteit inschrijvingen samen
     update: Updaten
     upload: Uploaden
   files:
