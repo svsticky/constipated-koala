@@ -23,7 +23,7 @@
     "postcss": "~7",
     "rails-erb-loader": "~5.5.2",
     "sweetalert2": "~9.14.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "@tailwindcss/postcss7-compat": "2.1.2",
     "toastr": "~2.1.4",
     "turbolinks": "~5.2.0",
     "webpack-dev-server": "~3.11.0"

@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
+@import "@tailwindcss/postcss7-compat/base";
+@import "@tailwindcss/postcss7-compat/components";
 
 // You can add your own custom components/styles here
 
-@import "tailwindcss/utilities";
+@import "@tailwindcss/postcss7-compat/utilities";
