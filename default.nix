@@ -70,6 +70,7 @@ in
 
     shellHook = ''
       if [[ ( ! -e node_modules ) || ( -h node_modules ) ]]; then
+        rm node_modules
         ln -sf ${node-path} node_modules
         dotenv rails assets:precompile
       else
