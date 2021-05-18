@@ -238,6 +238,8 @@ nl:
               before_start_time: kan niet voor de starttijd zijn
             unenroll_date:
               after_start_date: kan niet na de startdatum zijn
+            is_payable:
+              before_unenroll_date: kan niet betaalbaar worden voor de uitschrijfdeadline
           backup_enrolled: Je bent op de reservelijst gezet van %{activity}.
           blank: kan niet leeg zijn
           blank_and_end_time: kan niet leeg zijn als er een eindtijd is
