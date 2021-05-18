@@ -13,12 +13,12 @@ class Members::HomeController < ApplicationController
     @debt = Participant
             .where(paid: false, member: @member, reservist: false)
             .joins(:activity)
-            .where('activities.start_date < NOW()')
+            .where('activities.is_payable')
             .sum(:price) \
      + Participant # The plus makes it work for all activities where the member does NOT have a modified price.
             .where(paid: false, price: nil, member: @member, reservist: false)
             .joins(:activity)
-            .where('activities.start_date < NOW()')
+            .where('activities.is_payable')
             .sum('activities.price ')
 
     # @participants =
