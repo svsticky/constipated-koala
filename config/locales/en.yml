@@ -236,6 +236,8 @@ en:
               before_start_time: can't be before the start time
             unenroll_date:
               after_start_date: can't be after the start date
+            is_payable:
+              before_unenroll_date: can't become payable before unenroll date
           backup_enrolled: You have been added to the spares list of %{activity}
           blank: can't be blank
           blank_and_end_time: can't be blank if the end time is set
