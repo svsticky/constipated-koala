@@ -36,7 +36,7 @@
             %tr
               %td= I18n.l impression.created_at
               %td
-                - if !impression.user_id.nil? && impression.action_name != "destroy"
+                - if !impression.user_id.nil? && User.find(impression.user_id).exists?
                   = User.find( impression.user_id ).email
               %td
                 - if ['Member', 'Group', 'Activity'].include? impression.impressionable_type
