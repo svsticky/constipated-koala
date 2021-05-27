@@ -26,15 +26,14 @@ test:
 # Production
 # Version for public use running on svsticky.nl
 production:
-  adapter: mysql2
+  adapter: postgresql
   database: koala
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: <%= ENV['DATABASE_SOCKET'] %>
-  host: localhost
+  host: ''
   pool: 5
   timeout: 5000
-  encoding: utf8mb4
 
 # Staging
 # Version for QA running on dev.svsticky.nl
