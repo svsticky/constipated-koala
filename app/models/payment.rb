@@ -49,6 +49,7 @@ class Payment < ApplicationRecord
                               :transaction_id => transaction_id
 
                             },
+                            :webhookUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.url_helpers.mollie_hook_url,
                             :redirectUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token))
 
         request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
