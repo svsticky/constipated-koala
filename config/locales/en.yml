@@ -183,6 +183,24 @@ en:
         payconiq_transaction_costs:
           description: The costs of an Payconiq transaction. They can be calculated separately in the Payconiq overview this way.
           name: Payconiq transaction costs
+        payconiq_relation_code:
+          description: >-
+            The relation code of payconiq for the export transaction feature. 
+            This code can be found in ExactOnline and is only relevant for the treasurer.
+          name: Payconiq Relation Code
+        ideal_transaction_costs:
+          description: >-
+            The relation code of ideal for the export transaction feature. 
+            This code can be found in ExactOnline and is only relevant for the treasurer.
+          name: Payconiq Relation Code
+        payment_condition_code:
+          description: >-
+            The payment code for the export transaction feature. This code is used in ExactOnline.
+          name: Payment Condition Code
+        mongoose_ledger_nr:
+          description: >-
+            The ledger number of mongoose funds upgrades. 
+            This number can be found in our finance account on ExactOnline.
         positions:
           board: Board member
           chairman: Chairman

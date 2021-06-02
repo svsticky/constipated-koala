@@ -13,25 +13,6 @@
             = I18n.t('admin.navigation.settings')
           %ul.list-group#settings
             = form_tag settings_url do
-
-              %li.list-group-item
-                .container.row
-                  .col-md-6
-                    %b= I18n.t 'mongoose_ideal_costs.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'mongoose_ideal_costs.description', scope: 'activerecord.attributes.settings'
-
-                  .col-md-6
-                    %input.form-control{ :id => 'options_mongoose_ideal_costs', :name => 'mongoose_ideal_costs', :value => Settings.mongoose_ideal_costs, :placeholder => '' }
-
-              %li.list-group-item
-                .container.row
-                  .col-md-6
-                    %b= I18n.t 'payconiq_transaction_costs.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'payconiq_transaction_costs.description', scope: 'activerecord.attributes.settings'
-
-                  .col-md-6
-                    %input.form-control{ :id => 'options_payconiq_transaction_costs', :name => 'payconiq_transaction_costs', :value => Settings.payconiq_transaction_costs, :placeholder => '' }
-
               %li.list-group-item
                 .container.row
                   .col-md-6
@@ -85,6 +66,50 @@
 
                   .col-md-6
                     %input.form-control{ :id => 'options_additional_moot_positions', :name => 'additional_positions.moot', :value => Settings['additional_positions.moot'].join(', '), :placeholder => I18n.t('admin.settings.separate') }
+              %li.list-group-item
+                .container.row
+                  .col-md-6
+                    %b= I18n.t 'mongoose_ideal_costs.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'mongoose_ideal_costs.description', scope: 'activerecord.attributes.settings'
+
+                  .col-md-6
+                    %input.form-control{ :id => 'options_mongoose_ideal_costs', :name => 'mongoose_ideal_costs', :value => Settings.mongoose_ideal_costs, :placeholder => '' }
+              %li.list-group-item
+                .container.row
+                  .col-md-6
+                    %b= I18n.t 'payconiq_transaction_costs.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'payconiq_transaction_costs.description', scope: 'activerecord.attributes.settings'
+                  .col-md-6
+                    %input.form-control{ :id => 'options_payconiq_transaction_costs', :name => 'payconiq_transaction_costs', :value => Settings.payconiq_transaction_costs, :placeholder => '' }
+              %li.list-group-item
+                .container.row
+                  .col-md-6
+                    %b= I18n.t 'payconiq_relation_code.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'payconiq_relation_code.description', scope: 'activerecord.attributes.settings'
+                  .col-md-6
+                    %input.form-control{ :id => 'options_payconiq_relation_code', :name => 'payconiq_relation_code', :value => Settings.payconiq_relation_code, :placeholder => '' }
+              %li.list-group-item
+                .container.row
+                  .col-md-6
+                    %b= I18n.t 'ideal_relation_code.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'ideal_relation_code.description', scope: 'activerecord.attributes.settings'
+                  .col-md-6
+                    %input.form-control{ :id => 'options_ideal_relation_code', :name => 'ideal_relation_code', :value => Settings.ideal_relation_code, :placeholder => '' }
+              %li.list-group-item
+                .container.row
+                  .col-md-6
+                    %b= I18n.t 'payment_condition_code.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'payment_condition_code.description', scope: 'activerecord.attributes.settings'
+                  .col-md-6
+                    %input.form-control{ :id => 'options_payment_condition_code', :name => 'payment_condition_code', :value => Settings.payment_condition_code, :placeholder => '' }
+              %li.list-group-item
+                .container.row
+                  .col-md-6
+                    %b= I18n.t 'mongoose_ledger_number.name', scope: 'activerecord.attributes.settings'
+                    %p= I18n.t 'mongoose_ledger_number.description', scope: 'activerecord.attributes.settings'
+                  .col-md-6
+                    %input.form-control{ :id => 'options_mongoose_ledger_number', :name => 'mongoose_ledger_number', :value => Settings.mongoose_ledger_number, :placeholder => '' }
+
 
       .col-md-6
         = form_for :admin, :url => profile_settings_path, method: :patch, :html => { :class => 'form-validation signature' } do |f|

@@ -5,6 +5,11 @@ defaults: &defaults
   payconiq_transaction_costs: 0.12
   mongoose_ideal_costs: 0.29
   liquor_time: '16:00'
+  payconiq_relation_code: "963"
+  ideal_relation_code: "473"
+  payment_condition_code: "02"
+  mongoose_ledger_number: "8002"
+
 
   intro:
     membership: [1]
