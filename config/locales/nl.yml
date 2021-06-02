@@ -418,6 +418,7 @@ nl:
     - november
     - december
   editing:
+    download: Download
     cancel: Annuleren
     copy: Kopieer
     delete: Verwijderen

@@ -89,38 +89,27 @@
                 %td
                   %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
                     %i.fa.fa-fw.fa-copy
-        .card
-          .card-header
-            %i.fas.fa-fw.fa-qrcode
-            =I18n.t('admin.payment.export')
-          .card-body
-            .input-group#transaction_dates_pq
-              .col-6.col-sm-3
-                Van
-                %input#pq-start-date{ :type => 'date', :value =>  1.weeks.ago.strftime('%Y-%m-%d') }
-              .col-6.col-sm-3
-                Tot
-                %input#pq-end-date{ :type => 'date', :value =>  1.days.from_now.strftime('%Y-%m-%d') }
-              .col-sm-3.col-6
-                %span.input-group-btn#update_transactions_pq
-                  %button.btn.btn-warning
-                    = I18n.t('editing.update')
-              .col-sm-3.col-6
-                %span.input-group-btn#copy_transactions_pq
-                  %button.btn.btn-clipboard{ :"data-clipboard-text" => @payment_clipboard.to_json }
-                    %i.fa.fa-copy
-                    = I18n.t('editing.copy')
-            %table.table.table-striped.table-linked#activity_table
-              %tbody
-                %tr
-                  %td= I18n.t('admin.payment.total')
-                  %td.d-none.d-md-block#payment_total= number_to_currency(@payment_clipboard[:total], :unit => '€')
-                %tr
-                  %td= I18n.t('admin.payment.payconiq_online')
-                  %td.d-none.d-md-block#payment_online= @payment_clipboard[:online]
-                %tr
-                  %td= I18n.t('admin.payment.payconiq_display')
-                  %td.d-none.d-md-block#payment_display= @payment_clipboard[:display]
+        = form_with url: transactions_export_path, method: :get do |f|
+          .card
+            .card-header
+              %i.fas.fa-fw.fa-qrcode
+              =I18n.t('admin.payment.export')
+            .card-body
+              .input-group
+                .col-6.col-sm-3 
+                  = f.select :payment_type, ["Ideal","Payconiq"]                    
+                .col-6.col-sm-3
+                  =I18n.t('admin.payment.from')
+                  = f.date_field :start_date, value:1.weeks.ago.strftime('%Y-%m-%d')
+                .col-6.col-sm-3
+                  =I18n.t('admin.payment.till')
+                  = f.date_field :end_date, value: 1.days.from_now.strftime('%Y-%m-%d')
+                .col-sm-3.col-6
+                  %span.input-group-btn
+                    = f.button nil, {class: "btn btn-success", type:"submit"} do
+                      %i.fa.fa-download
+                      =I18n.t('editing.download')
+                    
 
 
         .card

@@ -90,7 +90,7 @@ Rails.application.routes.draw do
         get '/', to: 'payments#index', as: "payments"
         get 'whatsapp/:member_id', to: 'payments#whatsapp_redirect', as: 'payment_whatsapp_redirect'
         get 'transactions',       to: 'payments#update_transactions'
-        get 'transactions_pq',    to: 'payments#update_payments'
+        get 'transactions_export',    to: 'payments#export_payments'
       end
 
       resources :groups, only: [:index, :create, :show, :update, :destroy] do

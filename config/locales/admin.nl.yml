@@ -94,6 +94,8 @@ nl:
       days: Dagen
       description: Omschrijving
       export: Exporteer transacties
+      from: Van
+      till: Tot
       found: Transacties gevonden
       ideal: iDeal transacties
       mails: Betalingsmails
