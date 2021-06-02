@@ -94,22 +94,24 @@
             .card-header
               %i.fas.fa-fw.fa-qrcode
               =I18n.t('admin.payment.export')
-            .card-body
-              .input-group
-                .col-6.col-sm-3 
+            .card-body.container
+              .row.mb-3
+                .col-5
+                  %small.form-text=I18n.t('admin.payment.from')
+                  =f.date_field :start_date, value:1.weeks.ago.strftime('%Y-%m-%d'), :class => "form-control col-sm-10"
+                .col-5
+                  %small.form-text=I18n.t('admin.payment.till')
+                  =f.date_field :end_date, value: 1.days.from_now.strftime('%Y-%m-%d'), :class => "form-control"
+              .row
+              .row
+                .col-5
                   = f.select :payment_type, ["Ideal","Payconiq"]                    
-                .col-6.col-sm-3
-                  =I18n.t('admin.payment.from')
-                  = f.date_field :start_date, value:1.weeks.ago.strftime('%Y-%m-%d')
-                .col-6.col-sm-3
-                  =I18n.t('admin.payment.till')
-                  = f.date_field :end_date, value: 1.days.from_now.strftime('%Y-%m-%d')
-                .col-sm-3.col-6
+                .col-5
                   %span.input-group-btn
                     = f.button nil, {class: "btn btn-success", type:"submit"} do
                       %i.fa.fa-download
                       =I18n.t('editing.download')
-                    
+                  
 
 
         .card
