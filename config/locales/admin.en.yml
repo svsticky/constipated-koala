@@ -94,6 +94,8 @@ en:
       days: Days
       description: Description
       export: Export transactions
+      from: From
+      till: Till
       found: Transactions found
       ideal: iDeal transactions
       mails: Paymentmails

@@ -1,4 +1,5 @@
 #:nodoc:
+require 'csv'
 class Admin::PaymentsController < ApplicationController
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
@@ -17,7 +18,6 @@ class Admin::PaymentsController < ApplicationController
     @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', 1.days.ago).order(created_at: :desc)
     @dat = @checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }.to_json
 
-    @payment_clipboard = retrieve_payments
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
     @late_activities = Activity.debtors.select { |activity| activity.impressionist_count(message: "mail", start_date: activity.start) >= 4 && activity.is_payble }
     @late_payments =
@@ -51,34 +51,38 @@ class Admin::PaymentsController < ApplicationController
     render :json => data
   end
 
-  def retrieve_payments
+  def export_payments
     payments = if params[:start_date].blank?
-                 Payment.where(updated_at: 1.weeks.ago..1.days.from_now, payment_type: [:payconiq_online, :payconiq_display], status: 'SUCCEEDED')
+                 Payment.where(updated_at: 1.weeks.ago..1.days.from_now, payment_type: params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal], status: 'SUCCEEDED')
                else
                  Payment.where(updated_at: Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d"), payment_type: [:payconiq_online, :payconiq_display], status: 'SUCCEEDED')
-
                end
-    activitysum = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-    payments.where(:transaction_type => :activity).map do |payment|
-      payment.transaction_id.each do |activity_id|
-        p = Participant.where(member: payment.member, activity_id: activity_id).first
-        activitysum[payment.member.id][p.activity.name][:price] = p.currency.to_s
+    
+    @transaction_file = csv_string = CSV.generate do |csv|
+      # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
+      csv << ["Factuurdatum",Date.today, "#{params[:payment_type]} - #{Date.strptime(params[:start_date], "%Y-%m-%d")} / #{Date.strptime(params[:end_date], "%Y-%m-%d")}", 02, (params[:payment_type] == "Payconiq" ? 923 : 473)]
+      payments.where(:transaction_type => :activity).each do |payment|
+        payment.transaction_id.each do |activity_id|
+          p = Participant.where(member: payment.member, activity_id: activity_id).first
+          # now create every transaction row with the following date: Blank, ledger account, transaction description, VAT number, amount, cost_location ()          
 
-        if p.activity.group.nil?
-          activitysum[payment.member.id][p.activity.name][:ledgernr] = Group.first.ledgernr
-          activitysum[payment.member.id][p.activity.name][:cost_location] = Group.first.cost_location
-        else
-          activitysum[payment.member.id][p.activity.name][:ledgernr] = p.activity.group.ledgernr
-          activitysum[payment.member.id][p.activity.name][:cost_location] = p.activity.group.cost_location
+          if p.activity.group.nil?
+            csv << ["",Group.first.ledgernr, "#{p.member_id} - #{p.activity.name}", p.activity.VAT, p.currency, Group.first.cost_location]
+          else
+            csv << ["",p.activity.group.ledgernr, "#{p.member_id} - #{p.activity.name}", p.activity.VAT, p.currency, p.activity.group.cost_location]
+          end
         end
-        activitysum[payment.member.id][p.activity.name][:VAT] = p.activity.VAT
       end
-    end
-    mongoose_payments = payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount)
-    return { total: payments.sum(:amount), exact: { activiteiten: activitysum, mongoose: mongoose_payments }, online: payments.payconiq_online.count, display: payments.payconiq_display.count }
-  end
 
-  def update_payments
-    render json: retrieve_payments.to_json
+      mongoose_payments = payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount).each do |payment|
+      # Add all mongoose charge ups
+      csv << ["", 8002, "Mongoose - #{payment.member_id}", "", payment.amount ,""]
+      end
+      
+    end
+    respond_to do |format|
+      format.csv {send_data @transaction_file, filename: "payments_#{Date.strptime(params[:start_date], "%Y-%m-%d")}_#{Date.strptime(params[:end_date], "%Y-%m-%d")}.csv"}
+      format.js {render :js => "window.open(\"#{transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: params[:payment_type])}\", \"_blank\")"}
+      end
   end
 end

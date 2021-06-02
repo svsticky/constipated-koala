@@ -31,35 +31,13 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
 
   //Update shown transactions with a start date
-  $(".input-group#transaction_dates #update_transactions button").bind(
-    "click",
-    function () {
-      getCheckoutTransactions($(this));
-    }
-  );
-
-    //Update clipboard of payconiq
-    $(".input-group#transaction_dates_pq #update_transactions_pq button").bind(
-        "click",
-        function () {
-            getPayconiqTransactions($(this));
-        }
-    );
-    $("#copy_transactions_pq .btn-clipboard").bind(
-        "click",
-        function(){
-            toastr.success(I18n.t("admin.payment.whatsapp.copy")
-            );
-        }
-    );
+  
   //Initialise clipboard-rails for the checkout transactions
   (function () {
     new Clipboard("#copy_transactions .btn-clipboard");
   })();
 
-  (function () {
-       new Clipboard("#copy_transactions_pq .btn-clipboard");
-  })();
+
 });
 
 //Requests whatsapp message from server for member
@@ -76,32 +54,6 @@ function getWhatsappText(url) {
   }).responseText;
 }
 
-function getPayconiqTransactions(button) {
-    var startdate = $("#pq-start-date").val();
-    var enddate = $("#pq-end-date").val();
-    $.ajax({
-        url: "/payments/transactions_pq",
-        type: "GET",
-        data: {
-            start_date: startdate,
-            end_date: enddate
-        },
-    })
-        .done(function (data, status) {
-            var clipboard = document.querySelector("#copy_transactions_pq .btn-clipboard")
-            clipboard.setAttribute('data-clipboard-text', JSON.stringify(data.exact));
-            $("#payment_total").text("€" + parseFloat(data.total).toFixed(2))
-            $("#payment_online").text(data.online)
-            $("#payment_display").text(data.display)
-            toastr.success(I18n.t("admin.payment.found"))
-
-
-        })
-        .fail(function () {
-            toastr.error(I18n.t("admin.payment.no_update"));
-        });
-
-}
 //Requests all checkout transactions for a given date
 function getCheckoutTransactions(button) {
   var start_date = $("#pin-total-date").val();
@@ -159,3 +111,5 @@ function getCheckoutTransactions(button) {
       toastr.error(I18n.t("admin.payment.no_update"));
     });
 }
+
+
