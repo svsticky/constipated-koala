@@ -57,10 +57,10 @@ class Admin::PaymentsController < ApplicationController
                else
                  Payment.where(updated_at: Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d"), payment_type: [:payconiq_online, :payconiq_display], status: 'SUCCEEDED')
                end
-    
+     
     @transaction_file = csv_string = CSV.generate do |csv|
       # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
-      csv << ["Factuurdatum",Date.today, "#{params[:payment_type]} - #{Date.strptime(params[:start_date], "%Y-%m-%d")} / #{Date.strptime(params[:end_date], "%Y-%m-%d")}", 02, (params[:payment_type] == "Payconiq" ? 923 : 473)]
+      csv << ["Factuurdatum",Date.today, "#{params[:payment_type]} - #{Date.strptime(params[:start_date], "%Y-%m-%d")} / #{Date.strptime(params[:end_date], "%Y-%m-%d")}", ""+Settings.payment_condition_code, (params[:payment_type] == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)]
       payments.where(:transaction_type => :activity).each do |payment|
         payment.transaction_id.each do |activity_id|
           p = Participant.where(member: payment.member, activity_id: activity_id).first
@@ -76,7 +76,7 @@ class Admin::PaymentsController < ApplicationController
 
       mongoose_payments = payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount).each do |payment|
       # Add all mongoose charge ups
-      csv << ["", 8002, "Mongoose - #{payment.member_id}", "", payment.amount ,""]
+      csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{payment.member_id}", "", payment.amount ,""]
       end
       
     end
