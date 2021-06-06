@@ -29,13 +29,11 @@ $(document).on("ready page:load turbolinks:load", function () {
       else $(table).addClass("d-none");
     });
   });
-  
+
   //Initialise clipboard-rails for the checkout transactions
   (function () {
     new Clipboard("#copy_transactions .btn-clipboard");
   })();
-
-
 });
 
 //Requests whatsapp message from server for member
@@ -109,5 +107,3 @@ function getCheckoutTransactions(button) {
       toastr.error(I18n.t("admin.payment.no_update"));
     });
 }
-
-

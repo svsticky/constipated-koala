@@ -6,7 +6,7 @@ class Activity < ApplicationRecord
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
   validate :unenroll_before_start, unless: proc { |a| a.unenroll_date.nil? }
-  validate :is_payable_before_unenroll_date
+  validate :payable_before_unenroll_date?
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
