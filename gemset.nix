@@ -266,6 +266,16 @@
     };
     version = "1.0.6";
   };
+  csv = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "07mgyalwdxaxnff86j5p6n5szmhqz7nrlkb40826mzggrmva8v1m";
+      type = "gem";
+    };
+    version = "3.1.9";
+  };
   devise = {
     dependencies = ["bcrypt" "orm_adapter" "railties" "responders" "warden"];
     groups = ["default"];
@@ -632,7 +642,6 @@
       sha256 = "1lkgabpaf3xm0h8w15p3pq1izx3k53xzp2pl128qiqpqqs8ywzi1";
       type = "gem";
     };
-    
     version = "0.3.9";
   };
   mini_magick = {

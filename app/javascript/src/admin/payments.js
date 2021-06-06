@@ -29,8 +29,6 @@ $(document).on("ready page:load turbolinks:load", function () {
       else $(table).addClass("d-none");
     });
   });
-
-  //Update shown transactions with a start date
   
   //Initialise clipboard-rails for the checkout transactions
   (function () {

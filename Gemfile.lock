@@ -88,6 +88,7 @@ GEM
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     crass (1.0.6)
+    csv (3.1.9)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -318,6 +319,7 @@ DEPENDENCIES
   brakeman
   byebug
   coffee-rails
+  csv
   devise
   doorkeeper
   doorkeeper-openid_connect
@@ -354,4 +356,4 @@ DEPENDENCIES
   webpacker
 
 BUNDLED WITH
-   2.1.4
+   2.2.15

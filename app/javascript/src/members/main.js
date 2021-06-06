@@ -12,7 +12,8 @@ $(document).on("ready page:load turbolinks:load", function () {
     });
   };
 
-  $('.toggle-min').click(function(event){
+  // Callback handler for menu
+  $(".toggle-min").click(function (event) {
     event.preventDefault();
 
     $("#app").children("div").toggleClass("nav-min");
@@ -23,6 +24,5 @@ $(document).on("ready page:load turbolinks:load", function () {
 
     params.year = $(this).val();
     location.search = $.param(params);
-    });
-
+  });
 });

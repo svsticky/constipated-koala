@@ -3,7 +3,7 @@ class Api::WebhookController < ApiController
   def payment_redirect
     transaction = Payment.find_by_token!(params[:token])
     transaction.finalize! if transaction.update_transaction!
-    
+
     flash[:notice] = transaction.message if transaction.successful? || transaction.in_progress?
 
     logger.debug transaction.message.inspect

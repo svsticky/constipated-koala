@@ -102,8 +102,7 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-shopping-cart
-            /// TODO: Translation
-            Laatste activity transacties vandaag
+            = I18n.t('admin.front.activity_transactions_today')
           %table.table.table-striped.table-linked
             %tbody
               - @recentactivities.each do |transaction|
@@ -126,7 +125,7 @@
               - if @recentactivities.empty?
                 %tr
                   %td.text-center
-                    %em geen transacties vandaag
+                    %em=I18n.t('admin.front.no_transactions')
       %div.col-lg-3
         .card
           .card-header

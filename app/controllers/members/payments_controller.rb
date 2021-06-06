@@ -6,21 +6,6 @@ class Members::PaymentsController < ApplicationController
   layout 'members'
   def index
     @member = Member.find(current_user.credentials_id)
-
-    # @participants =
-    #   (
-    #    @member.activities
-    #      .study_year( params['year'] )
-    #      .distinct
-    #      .joins(:participants)
-    #      .where(:participants => { :member => @member }) \
-    #    +
-    #     @member.activities
-    #       .joins(:participants)
-    #       .where("participants.paid = FALSE AND participants.price > 0")
-    #    ).uniq
-    #      .sort_by(&:start_date)
-    #      .reverse!
     @participants = @member.unpaid_activities
     @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @payconiq_transaction_costs = Settings.payconiq_transaction_costs
@@ -57,7 +42,7 @@ class Members::PaymentsController < ApplicationController
     member = Member.find(current_user.credentials_id)
     balance = CheckoutBalance.find_or_create_by!(member: member)
     description = I18n.t('activerecord.errors.models.payment.attributes.checkout')
-    amount =  transaction_params[:amount].gsub(",",".").to_f
+    amount =  transaction_params[:amount].gsub(",", ".").to_f
     if amount <= Settings.mongoose_ideal_costs || amount < 1
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to member_payments_path
