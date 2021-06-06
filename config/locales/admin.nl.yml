@@ -38,6 +38,7 @@ nl:
       outstanding_payments: Openstaande betalingen
       studies: Studies
       transactions_today: Laatste transacties vandaag
+      activity_transactions_today: Laatste activiteit transacties vandaag
     general:
       confirmation: Weet u het zeker?
       remove: Wil je %{user} verwijderen?

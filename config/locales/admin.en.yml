@@ -38,6 +38,7 @@ en:
       outstanding_payments: Outstanding payments
       studies: Studies
       transactions_today: Latest transactions today
+      activity_transactions_today: Latest activity transactions today
     general:
       confirmation: Are you sure?
       remove: Do you want to remove %{user}?

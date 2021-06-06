@@ -149,15 +149,15 @@ nl:
           failed: Mislukt
           in_progress: In uitvoering
           successful: Geslaagd
-          title: Payment status
+          title: Betaling status
         payment-type:
           ideal: Ideal
           payconiq_display: Payconiq Checkout
           payconiq_online: Payconiq Online
           pin: Pin
-          title: Payment types
+          title: Betaling type
         transaction-type:
-          activity: Activity
+          activity: Activiteiten
           checkout: Checkout
           title: Transactie types
       settings:

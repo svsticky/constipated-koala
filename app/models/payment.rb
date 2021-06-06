@@ -30,66 +30,66 @@ class Payment < ApplicationRecord
     self.amount += transaction_fee
 
     # To make seeding possible, possible cleaner way to do this but couldn't find it easily
-    if message != 'seeding'
-      case payment_type.to_sym
-      when :ideal
-        http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
-        self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
+    return unless message != 'seeding'
 
-        request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
-                            :amount => amount,
-                            :description => description,
+    case payment_type.to_sym
+    when :ideal
+      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
 
-                            :method => 'ideal',
-                            :issuer => issuer,
+      request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
+                          :amount => amount,
+                          :description => description,
 
-                            :metadata => {
-                              :member => member.name,
-                              :transaction_type => transaction_type,
-                              :transaction_id => transaction_id
+                          :method => 'ideal',
+                          :issuer => issuer,
 
-                            },
-                            :webhookUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.url_helpers.mollie_hook_url,
-                            :redirectUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token))
+                          :metadata => {
+                            :member => member.name,
+                            :transaction_type => transaction_type,
+                            :transaction_id => transaction_id
 
-        request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
-        response = http.send! request
+                          },
+                          :webhookUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.url_helpers.mollie_hook_url,
+                          :redirectUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token))
 
-        self.trxid = response.id
-        self.payment_uri = response.links.paymentUrl
-        self.status = :in_progress
-        # pin payment shouldn't have any extra work
-      when :pin
+      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
+      response = http.send! request
 
-        # Payconiq payments
-      else
-        http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
-        self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
+      self.trxid = response.id
+      self.payment_uri = response.links.paymentUrl
+      self.status = :in_progress
+    # pin payment shouldn't have any extra work
+    when :pin
 
-        request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
+    # Payconiq payments
+    else
+      http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
+      self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
 
-        request.body = { :amount => (amount * 100).to_i,
-                         :reference => payment_type,
-                         :description => description,
-                         :currency => 'EUR',
-                         :callbackUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.url_helpers.payconiq_hook_url,
-                         :returnUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token) }.to_json
+      request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
 
-        request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
-        request.content_type = 'application/json'
-        request['Cache-Control'] = "no-cache"
+      request.body = { :amount => (amount * 100).to_i,
+                       :reference => payment_type,
+                       :description => description,
+                       :currency => 'EUR',
+                       :callbackUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.url_helpers.payconiq_hook_url,
+                       :returnUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token) }.to_json
 
-        response = http.send! request
+      request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
+      request.content_type = 'application/json'
+      request['Cache-Control'] = "no-cache"
 
-        self.trxid = response.paymentId
-        self.payconiq_qrurl = response[:_links][:qrcode][:href]
-        self.payconiq_deeplink = response[:_links][:deeplink][:href]
-        self.payment_uri = response[:_links][:checkout][:href]
+      response = http.send! request
 
-        # Currently the test environment has an error where the link goes to the production environment while the transaction only exists in the test environment this fixes it for now.
-        self.payment_uri = payment_uri.gsub(/payconiq/, 'ext.payconiq') if Rails.env.development?
-        self.status = :in_progress
-      end
+      self.trxid = response.paymentId
+      self.payconiq_qrurl = response[:_links][:qrcode][:href]
+      self.payconiq_deeplink = response[:_links][:deeplink][:href]
+      self.payment_uri = response[:_links][:checkout][:href]
+
+      # Currently the test environment has an error where the link goes to the production environment while the transaction only exists in the test environment this fixes it for now.
+      self.payment_uri = payment_uri.gsub(/payconiq/, 'ext.payconiq') if Rails.env.development?
+      self.status = :in_progress
     end
   end
 

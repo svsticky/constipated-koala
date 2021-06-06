@@ -42,8 +42,8 @@ gem 'rails-settings-cached', '~> 0.7'
 # phone number validation
 gem 'telephone_number'
 
+gem 'csv'
 gem 'i18n-js'
-
 gem 'sidekiq'
 
 group :production, :staging do

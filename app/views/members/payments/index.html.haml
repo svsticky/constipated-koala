@@ -47,7 +47,7 @@
             - if @participants.empty?
               %tr
                 %td.text-center
-                  %em Er zijn geen activiteiten die je moet betalen!
+                  %em=I18n.t("members.payments.unpaid_activity.no_unpaid")
   .col-lg-6.col-12
     .card
       = form_with :url => :mongoose, :local => true, :method=> :post, :class => 'form-validation', :id => "add_funds_form" do |f|
@@ -70,7 +70,7 @@
                       %span.fa.fa-sort-desc.float-right
               %tr.form
                 %td.home_mongoose_form_element
-                  = f.text_field :amount, :placeholder => I18n.t('members.home.index.credit'), :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Er wordt €' + String(@payconiq_transaction_costs) + " #{ I18n.t('members.home.index.transaction_costs')}", :required => ''
+                  = f.text_field :amount, :placeholder => I18n.t('members.home.index.credit'), :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :required => ''
                 %td.home_mongoose_form_element
                   .ui-select.ideal-mongoose{ :style => 'margin-top: 5px;' }
                     = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important'}

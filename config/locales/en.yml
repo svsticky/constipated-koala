@@ -147,7 +147,7 @@ en:
           failed: Failed
           in_progress: In progress
           successful: Succesful
-          title: Betaling status
+          title: Payment status
         payment-type:
           ideal: Ideal
           payconiq_display: Payconiq Checkout
@@ -317,10 +317,10 @@ en:
           attributes:
             checkout: Mongoose credit
             fees: iDEAL fee
-          blank: Transactie kan niet leeg zijn
-          failed: Transactie is mislukt
-          processed: Transactie is al behandelt
-          success: Transactie is gelukt
+          blank: Transaction cannot be empty
+          failed: Transactie has failed
+          processed: Transactie has already been processed
+          success: Transactie has succeeded
         transactions: Transactions
         unpermitted: is not permitted
         user:

@@ -95,6 +95,7 @@ en:
       vacancies: Vacancies
     payments:
       unpaid_activity:
+        no_unpaid: There are no activities to pay!
         checkall: Select all
         pay: Pay activities
         title: Unpaid activities
