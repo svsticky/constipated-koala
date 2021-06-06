@@ -32,13 +32,13 @@ en:
     error:
       invalid_values: Oops, not everything was filled in correctly
     front:
+      activity_transactions_today: Latest activity transactions today
       checkout: Checkout transactions
       defaulters: Defaulters
       no_transactions: No transactions today
       outstanding_payments: Outstanding payments
       studies: Studies
       transactions_today: Latest transactions today
-      activity_transactions_today: Latest activity transactions today
     general:
       confirmation: Are you sure?
       remove: Do you want to remove %{user}?
@@ -95,9 +95,8 @@ en:
       days: Days
       description: Description
       export: Export transactions
-      from: From
-      till: Till
       found: Transactions found
+      from: From
       ideal: iDeal transactions
       mails: Paymentmails
       member: Member
@@ -114,6 +113,7 @@ en:
       price: Price
       show: Show
       state: State
+      till: Till
       total: Total
       whatsapp:
         copy: Message copied to clipboard

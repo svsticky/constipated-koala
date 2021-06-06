@@ -32,13 +32,13 @@ nl:
     error:
       invalid_values: Oeps, niet alles is goed ingevuld
     front:
+      activity_transactions_today: Laatste activiteit transacties vandaag
       checkout: Checkout transacties
       defaulters: Wanbetalers
       no_transactions: Geen transacties vandaag
       outstanding_payments: Openstaande betalingen
       studies: Studies
       transactions_today: Laatste transacties vandaag
-      activity_transactions_today: Laatste activiteit transacties vandaag
     general:
       confirmation: Weet u het zeker?
       remove: Wil je %{user} verwijderen?
@@ -95,9 +95,8 @@ nl:
       days: Dagen
       description: Omschrijving
       export: Exporteer transacties
-      from: Van
-      till: Tot
       found: Transacties gevonden
+      from: Van
       ideal: iDeal transacties
       mails: Betalingsmails
       member: Lid
@@ -114,6 +113,7 @@ nl:
       price: Prijs
       show: Toon
       state: Status
+      till: Tot
       total: Totaalbedrag
       whatsapp:
         copy: Bericht gekopieerd naar klembord
