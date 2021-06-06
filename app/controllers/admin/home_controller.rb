@@ -9,7 +9,7 @@ class Admin::HomeController < ApplicationController
     @transactions = CheckoutTransaction.count(:all)
 
     @recent = CheckoutTransaction.where("created_at >= ?", Time.zone.now.beginning_of_day).order(created_at: :desc).take(12)
-    @recentactivities = Payment.where("created_at >= ?", Time.zone.now.beginning_of_day).where(transaction_type: :activity, status: :paid).take(12)
+    @recentactivities = Payment.where("created_at >= ?", Time.zone.now.beginning_of_day).where(transaction_type: :activity, status: :successful).take(12)
 
     @unpayed = Participant.where(:reservist => false, :paid => false).joins(:activity).where('activities.start_date < NOW()').sum(:price) + Participant.where(:reservist => false, :paid => false, :price => nil).joins(:activity).where('activities.start_date < NOW() AND activities.price IS NOT NULL').sum('activities.price')
 

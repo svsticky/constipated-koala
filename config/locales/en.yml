@@ -77,7 +77,9 @@ en:
           other: Other
         category: Category
         comments: Comments
+        cost_location: Cost Location
         former: removed member
+        ledgernr: Ledger number
         members:
           board: Board members
           committee: Committee members
@@ -168,6 +170,9 @@ en:
         begin_study_year:
           description: The start of next study year. On this date a new year will be automatically started.
           name: Study year
+        ideal_relation_code:
+          description: The payment code for the export transaction feature. This code is used in ExactOnline.
+          name: Payment Condition Code
         intro_activities:
           description: Activities during the introduction period for which new members can enroll at the introduction form.
           name: Introduction activities
@@ -180,27 +185,18 @@ en:
         mongoose_ideal_costs:
           description: The costs of an iDEAL transaction. They can be calculated separately in the iDEAL overview this way.
           name: IDeal transaction costs
+        mongoose_ledger_number:
+          description: The ledger number of mongoose funds upgrades.  This number can be found in our finance account on ExactOnline.
+          name: Mongoose ledger number
+        payconiq_relation_code:
+          description: The relation code of payconiq for the export transaction feature.  This code can be found in ExactOnline and is only relevant for the treasurer.
+          name: Payconiq Relation Code
         payconiq_transaction_costs:
           description: The costs of an Payconiq transaction. They can be calculated separately in the Payconiq overview this way.
           name: Payconiq transaction costs
-        payconiq_relation_code:
-          description: >-
-            The relation code of payconiq for the export transaction feature. 
-            This code can be found in ExactOnline and is only relevant for the treasurer.
-          name: Payconiq Relation Code
-        ideal_transaction_costs:
-          description: >-
-            The relation code of ideal for the export transaction feature. 
-            This code can be found in ExactOnline and is only relevant for the treasurer.
-          name: Payconiq Relation Code
         payment_condition_code:
-          description: >-
-            The payment code for the export transaction feature. This code is used in ExactOnline.
+          description: The payment code for the export transaction feature. This code is used in ExactOnline.
           name: Payment Condition Code
-        mongoose_ledger_nr:
-          description: >-
-            The ledger number of mongoose funds upgrades. 
-            This number can be found in our finance account on ExactOnline.
         positions:
           board: Board member
           chairman: Chairman
@@ -252,10 +248,10 @@ en:
               before_start_date: can't be before the start date
             end_time:
               before_start_time: can't be before the start time
-            unenroll_date:
-              after_start_date: can't be after the start date
             is_payable:
               before_unenroll_date: can't become payable before unenroll date
+            unenroll_date:
+              after_start_date: can't be after the start date
           backup_enrolled: You have been added to the spares list of %{activity}
           blank: can't be blank
           blank_and_end_time: can't be blank if the end time is set
@@ -321,7 +317,6 @@ en:
           failed: Transactie has failed
           processed: Transactie has already been processed
           success: Transactie has succeeded
-        transactions: Transactions
         unpermitted: is not permitted
         user:
           attributes:
@@ -405,6 +400,7 @@ en:
           other: Spares
       settings: Settings
       study: Study/Studies
+      transactions: Transactions
   association_name: Study association Sticky
   date:
     day_names:
@@ -437,6 +433,7 @@ en:
     cancel: Cancel
     copy: Copy
     delete: Delete
+    download: Download
     edit: Edit
     revert: Go back
     save: Save

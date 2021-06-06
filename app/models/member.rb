@@ -50,6 +50,7 @@ class Member < ApplicationRecord
 
   has_many :participants, :dependent => :nullify
   has_many :activities, :through => :participants
+  has_many :payments, :dependent => :nullify
 
   has_many :confirmed_activities,
            -> { where(participants: { reservist: false }) },

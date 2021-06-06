@@ -95,7 +95,7 @@ nl:
       vacancies: Vacatures
     payments:
       unpaid_activity:
-        no_unpaid: Er zijn geen activiteiten om te betalen!
         checkall: Selecteer alle
+        no_unpaid: Er zijn geen activiteiten om te betalen!
         pay: Betaal activiteiten
         title: Onbetaalde activiteiten
