@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [[ -f .i15r-cache ]]; then
+	# Run i15r check and compare to last cached result
+	echo "Checking for new untranslated strings..."
+	bundle exec i15r --dry-run > .i15r-output
+	diff -sq .i15r-cache .i15r-output
+
+	if [ $? != 0 ]; then
+		echo "New untranslated strings found, or old ones removed!"
+		echo "(See 'diff .i15r-cache .i15r-output' for details)"
+		echo "Run bin/cachei15r if this is intentional."
+
+		exit 1
+	else
+		echo "Done, none found."
+	fi
+else
+	# No output cached so nothing to compare
+	echo "Cannot check for new untranslated strings, no .i15r-cache"
+	echo "Run bin/cachei15r to enable this check."
+fi
+echo "Running i18n Normalize"
+i18n-tasks normalize
+
+echo "Running rubocop..."
+rubocop
+
+if [ $? -ne 0 ]; then
+	echo "Rubocop failed!"
+	echo "Fix this or skip the verification with 'git commit --no-verify' (will trigger Slack spam!)"
+	exit 1
+fi
