@@ -87,7 +87,7 @@
             %tr
               %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
               %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
-              %td.d-none.d-sm-table-cell= transaction.products #activities.map(&:name).join(', ')
+              %td.d-none.d-sm-table-cell= transaction.products
               %td
                 = number_to_currency(transaction.price, :unit => '€')
                 - if transaction.price > 0

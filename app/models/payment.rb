@@ -15,7 +15,6 @@ class Payment < ApplicationRecord
   enum :payment_type => [:ideal, :payconiq_online, :payconiq_display, :pin]
   enum :transaction_type => [:checkout, :activity]
   belongs_to :member
-  # validates :member, presence: true
 
   validates :transaction_type, presence: true
 
