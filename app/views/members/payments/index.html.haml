@@ -14,7 +14,7 @@
             %i.fa.fa-fw.fa-fw.fa-ticket-alt
             = I18n.t("members.payments.unpaid_activity.title")
             = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important', class:'ideal-activities'}
-            = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm', type: "submit", id: "pay-activity"
+            = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm activity-payment', type: "submit"
             = submit_tag I18n.t("members.payments.unpaid_activity.checkall"), :type => 'button', class: "btn btn-success btn-sm", id: 'check-all'
             = f.select :payment_type, [["Payconiq +€#{String(@payconiq_transaction_costs)}", 'Payconiq'],["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {}, { :id => 'payment_type_pay_activities' }
         %table.table.table-striped

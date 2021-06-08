@@ -16,7 +16,7 @@ Member.all.sample(30).each do |member|
       amount = 0
       participants.map{ |p| amount += p.currency}
     else
-      transaction_id = [1]
+      transaction_id = []
     end
     description = transactiontype == 0 ? "Mongoose Opwaardering" : "Activiteiten - #{transaction_id}"
 

@@ -29,10 +29,10 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
   $("#payment_type_add_funds").change();
   $("#payment_type_pay_activities").change();
-  $("#pay-activity").prop("disabled", $(":checkbox:checked").length == 0);
+  $(".activity-payment").prop("disabled", $(":checkbox:checked").length == 0);
 
   $(":checkbox").on("change", function () {
-    $("#pay-activity").prop("disabled", $(":checkbox:checked").length == 0);
+    $(".activity-payment").prop("disabled", $(":checkbox:checked").length == 0);
   });
 });
 

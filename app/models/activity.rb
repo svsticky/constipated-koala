@@ -6,7 +6,6 @@ class Activity < ApplicationRecord
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
   validate :unenroll_before_start, unless: proc { |a| a.unenroll_date.nil? }
-  validate :payable_before_unenroll_date?
   validates :participant_limit, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
@@ -184,10 +183,6 @@ class Activity < ApplicationRecord
 
   def unenroll_before_start
     errors.add(:unenroll_date, :after_start_date) if start_date < unenroll_date
-  end
-
-  def payable_before_unenroll_date?
-    errors.add(:is_payable, :before_unenroll_date) if unenroll_date > Date.today && is_payable
   end
 
   def enroll_reservists!

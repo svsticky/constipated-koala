@@ -20,6 +20,12 @@ class Members::PaymentsController < ApplicationController
              .where(:activities => { is_payable: true })
     description = "Activiteiten - #{ unpaid.map { |p| p.activity.id.to_s } }"
     amount = unpaid.sum(&:currency)
+
+    if amount < 1
+      flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
+      redirect_to member_payments_path
+      return
+    end
     payment = Payment.new(
       :description => description,
       :amount => amount,
@@ -43,7 +49,8 @@ class Members::PaymentsController < ApplicationController
     balance = CheckoutBalance.find_or_create_by!(member: member)
     description = I18n.t('activerecord.errors.models.payment.attributes.checkout')
     amount =  transaction_params[:amount].gsub(",", ".").to_f
-    if amount <= Settings.mongoose_ideal_costs || amount < 1
+
+    if amount < 1
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to member_payments_path
       return

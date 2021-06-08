@@ -49,7 +49,7 @@ class Payment < ApplicationRecord
                             :transaction_id => transaction_id
 
                           },
-                          :webhookUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.url_helpers.mollie_hook_url,
+                          :webhookUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.routes.url_helpers.mollie_hook_url,
                           :redirectUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token))
 
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
@@ -72,7 +72,7 @@ class Payment < ApplicationRecord
                        :reference => payment_type,
                        :description => description,
                        :currency => 'EUR',
-                       :callbackUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.url_helpers.payconiq_hook_url,
+                       :callbackUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.routes.url_helpers.payconiq_hook_url,
                        :returnUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token) }.to_json
 
       request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
@@ -87,7 +87,7 @@ class Payment < ApplicationRecord
       self.payment_uri = response[:_links][:checkout][:href]
 
       # Currently the test environment has an error where the link goes to the production environment while the transaction only exists in the test environment this fixes it for now.
-      self.payment_uri = payment_uri.gsub(/payconiq/, 'ext.payconiq') if Rails.env.development?
+      self.payment_uri = payment_uri.gsub(/payconiq/, 'ext.payconiq') if Rails.env.development? || Rails.env.staging?
       self.status = :in_progress
     end
   end
