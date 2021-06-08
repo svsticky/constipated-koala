@@ -53,8 +53,8 @@ dates.each do |start_date|
     VAT:               ["0","9","21"].sample,
 
     notes:             notes,
-    notes_mandatory:   notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.2) : false,
-    notes_public:      notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : true
+    notes_mandatory:   !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.2) : false,
+    notes_public:      !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : false
   )
 
   puts("   -> #{ activity.name } (#{ start_date })#{', enrollable' if enrollable}" )

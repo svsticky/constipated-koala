@@ -8,4 +8,5 @@ import "../src/members/main";
 import "../src/members/activities/activities";
 import "../src/members/activities/activity";
 import "../src/members/activities/poster_modal";
+import "../src/members/payments";
 import "../src/language";
