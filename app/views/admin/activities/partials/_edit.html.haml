@@ -94,6 +94,14 @@
             = f.time_field :end_time, :value => (I18n.l(@activity.end_time, :format => :short) unless @activity.end_time.nil?), :class => 'form-control'
       .form-group
         .row
+          .col-md-6
+            = label(:activity, :open_date)
+            = f.date_field :open_date, :value => @activity.open_date, :class => 'form-control'
+          .col-md-6
+            = label(:activity, :open_time)
+            = f.time_field :open_time, :value => (I18n.l(@activity.open_time, :format => :short) unless @activity.open_time.nil?), :class => 'form-control'
+      .form-group
+        .row
           .col-md-12
             = label(:activity, :unenroll_date)
             = f.date_field :unenroll_date, :value => @activity.unenroll_date, :class => 'form-control'
