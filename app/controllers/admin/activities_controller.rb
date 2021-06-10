@@ -73,6 +73,8 @@ class Admin::ActivitiesController < ApplicationController
                                      :start_time,
                                      :end_date,
                                      :end_time,
+                                     :open_date,
+                                     :open_time,
                                      :unenroll_date,
                                      :comments,
                                      :price,

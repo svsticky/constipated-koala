@@ -43,6 +43,7 @@ class Activity < ApplicationRecord
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
+    self.open_date = Date.today if open_date.blank?
     self.unenroll_date = start_date - 2.days if unenroll_date.blank?
   end
 
@@ -181,6 +182,10 @@ class Activity < ApplicationRecord
 
   def end
     Activity.combine_dt(end_date, end_time)
+  end
+
+  def open
+    Activity.combine_dt(open_date, open_time)
   end
 
   def end_is_possible
