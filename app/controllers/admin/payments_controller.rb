@@ -78,6 +78,10 @@ class Admin::PaymentsController < ApplicationController
         # Add all mongoose charge ups
         input << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "", payment[1], ""]
       end
+
+      transaction_cost_description = "Transaction costs #{ params[:payment_type] == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.accountancy_cost_location } x #{ @payments.where(:transaction_type => :activity).count }"
+      transaction_cost_amount = ((params[:payment_type] == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.mongoose_ideal_costs) * @payments.where(:transaction_type => :activity).count).to_s
+      input << ["", Settings.accountancy_ledger_number, transaction_cost_description, "21", transaction_cost_amount, Settings.accountancy_cost_location]
     end
     respond_to do |format|
       format.html { redirect_to payments_path }
