@@ -161,6 +161,12 @@ nl:
           checkout: Checkout
           title: Transactie types
       settings:
+        accountancy_cost_location:
+          description: Boekhouding kostenplaats voor de export transacties functie. Deze functie wordt gebruikt in ExactOnline.
+          name: Boekhouding kostenplaats
+        accountancy_ledger_number:
+          description: Boekhouding grootboekrekeningnummer voor de export transacties functie. Deze functie wordt gebruikt in exactOnline.
+          name: Boekhouding grootboekrekeningnummer
         additional_committee_positions:
           description: Rollen die naast voorzitter, penningmeester en bestuurslid worden toegevoegd aan alle commissies.
           name: Extra commissierollen

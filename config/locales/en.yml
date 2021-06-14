@@ -161,6 +161,12 @@ en:
           checkout: Checkout
           title: Transaction Types
       settings:
+        accountancy_cost_location:
+          description: Accountancy cost location . This code is used in ExactOnline.
+          name: Accountancy cost location
+        accountancy_ledger_number:
+          description: accountancy ledger number used for the export transaction feature. This code is used in ExactOnline.
+          name: Accountancy ledger number
         additional_committee_positions:
           description: Roles besides chairman, treasurer and board member that will be added to the committees.
           name: Additional committee roles

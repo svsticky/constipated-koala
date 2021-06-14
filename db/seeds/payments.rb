@@ -16,7 +16,7 @@ Member.all.sample(30).each do |member|
       amount = 0
       participants.map{ |p| amount += p.currency}
     else
-      transaction_id = []
+      transaction_id = [1]
     end
     description = transactiontype == 0 ? "Mongoose Opwaardering" : "Activiteiten - #{transaction_id}"
 
@@ -28,7 +28,8 @@ Member.all.sample(30).each do |member|
                    amount: Faker::Number.within(range: 1.0..10.0),
                    status: status,
                    trxid: Digest::MD5.hexdigest(description + Time.now.to_f.to_s),
-                   message: 'seeding'
+                   message: 'seeding',
+                   redirect_uri: ENV['KOALA_DOMAIN']
     )
   end
 end
