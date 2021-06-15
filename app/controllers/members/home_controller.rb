@@ -50,6 +50,20 @@ class Members::HomeController < ApplicationController
     @transaction_costs = Settings.mongoose_ideal_costs
   end
 
+  def fetch_activities
+    @member = Member.find(current_user.credentials_id)
+    @participants =
+      @member.activities
+             .study_year(params['year'])
+             .distinct
+             .joins(:participants)
+             .where(:participants => { member: @member, reservist: false })
+             .order('start_date DESC')
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
     @user = User.find_by_email(current_user.email)

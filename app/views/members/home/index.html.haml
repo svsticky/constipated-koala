@@ -51,32 +51,10 @@
         %span
           %i.fa.fa-fw.fa-fw.fa-ticket-alt
           = I18n.t("navigation.activity")
-          = select_tag :year, options_for_select( @years), class: 'year-selector'
-      %table.table.table-striped
-        %tbody
-          - @participants.each do |activity|
-            %tr{ :class => ('red' unless activity.currency(@member).nil? || activity.currency(@member) == 0 || activity.participants.where(:member => @member).first.paid)}
-              - if !activity.ended?
-                %td= link_to activity.name, activity_path(activity)
-              - else
-                %td= activity.name
-
-              - if !activity.start_date.nil?
-                %td.hidden-xs
-                  - if activity.end_date.nil?
-                    = I18n.l activity.start_date
-                  - else
-                    #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
-              - if !activity.currency(@member).nil?
-                %td= number_to_currency(activity.currency(@member), :unit => '€')
-              - else
-                %tdl
-              %td.text-center.d-none.d-sm-block
-                - if !activity.currency(@member).nil? && activity.currency(@member) > 0
-                  - if activity.participants.where(:member => @member).first.paid
-                    %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
-                  - else
-                    %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
+          = form_with url: fetch_activities_path, method: :post do |f|
+            = f.select :year, options_for_select( @years), {}, :id => "year"
+      %table.table.table-striped#activity_list
+        = render 'members/home/partials/activity_list', locals: {member: @member, activities: @activities}
     .card
       .card-header
         %i.fa.fa-fw.fa-fw.fa-shopping-cart

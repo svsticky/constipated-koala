@@ -12,15 +12,16 @@ Rails.application.routes.draw do
     authenticate :user, ->(u) { !u.admin? } do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
-
+        
         get   'edit',                           to: 'home#edit', as: :users_edit
         post  'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
+        post   'fetch_activities',               to: 'home#fetch_activities'
+
 
         get 'download', to: 'home#download'
 
         get 'member/payments', to: 'payments#index', as: :member_payments
-
         post 'mongoose', to: 'payments#add_funds'
         post 'pay_activities', to: 'payments#pay_activities'
 

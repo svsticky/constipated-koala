@@ -1,0 +1,1 @@
+document.querySelector("#activity_list").innerHTML = "<%= escape_javascript(render partial: 'members/home/partials/activity_list', locals: { member: @member, participants: @participants } ) %>"
