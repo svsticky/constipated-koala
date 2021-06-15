@@ -320,7 +320,7 @@ en:
             checkout: Mongoose credit
             fees: iDEAL fee
           blank: Transaction cannot be empty
-          failed: Transactie has failed
+          failed: Transaction has failed
           processed: Transactie has already been processed
           success: Transactie has succeeded
         unpermitted: is not permitted

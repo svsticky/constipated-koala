@@ -3,6 +3,26 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
+      "fingerprint": "29914a5ab2e071e86f64854c9a7e76f0acc29b98485c33f42817d8cf6c5d1d69",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/public/home_controller.rb",
+      "line": 70,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Payment.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => :activity, :payment_type => :ideal, :redirect_uri => public_url).payment_uri)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Public::HomeController",
+        "method": "create"
+      },
+      "user_input": "Payment.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => :activity, :payment_type => :ideal, :redirect_uri => public_url).payment_uri",
+      "confidence": "High",
+      "note": "Have to redirect for payment"
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
       "fingerprint": "30b78607ab65fa6d3cfd1421a89095d5e289b45f6a118346451c16bca130b14e",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
@@ -137,7 +157,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/admin/settings/index.html.haml",
-      "line": 151,
+      "line": 165,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "current_user.credentials.signature",
       "render_path": [
@@ -208,7 +228,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/members/payments_controller.rb",
-      "line": 70,
+      "line": 77,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Payment.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => transaction_params[:amount].gsub(\",\", \".\").to_f, :member => Member.find(current_user.credentials_id), :issuer => (if (transaction_params[:payment_type] == \"Ideal\") then\n  transaction_params[:bank]\nelse\n  nil\nend), :payment_type => (if (transaction_params[:payment_type] == \"Payconiq\") then\n  :payconiq_online\nelse\n  :ideal\nend), :transaction_id => nil, :transaction_type => :checkout, :redirect_uri => member_payments_path).payment_uri)",
       "render_path": null,
@@ -259,7 +279,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/members/payments_controller.rb",
-      "line": 34,
+      "line": 40,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Payment.new(:description => (\"Activiteiten - #{Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).map do\n p.activity.id.to_s\n end}\"), :amount => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).sum(&:currency), :issuer => (if (transaction_params[:payment_type] == \"Ideal\") then\n  transaction_params[:bank]\nelse\n  nil\nend), :member => Member.find(current_user.credentials_id), :payment_type => (if (transaction_params[:payment_type] == \"Payconiq\") then\n  :payconiq_online\nelse\n  :ideal\nend), :transaction_id => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).pluck(:activity_id), :transaction_type => :activity, :redirect_uri => member_payments_path).payment_uri)",
       "render_path": null,
@@ -273,6 +293,6 @@
       "note": "Have to redirect users to Ideal or payconiq"
     }
   ],
-  "updated": "2021-06-06 13:01:22 +0200",
+  "updated": "2021-06-15 11:52:26 +0200",
   "brakeman_version": "4.8.2"
 }

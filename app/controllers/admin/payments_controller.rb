@@ -52,10 +52,11 @@ class Admin::PaymentsController < ApplicationController
   end
 
   def export_payments
+    payment_type = params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal]
     @payments = if params[:start_date].blank?
-                  Payment.where(updated_at: 1.weeks.ago..1.days.from_now, payment_type: params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal], status: :successful)
+                  Payment.where(updated_at: 1.weeks.ago..1.days.from_now, payment_type: payment_type, status: :successful)
                 else
-                  Payment.where(updated_at: Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d"), payment_type: [:payconiq_online, :payconiq_display], status: :successful)
+                  Payment.where(updated_at: Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d"), payment_type: payment_type, status: :successful)
                 end
 
     @transaction_file = CSV.generate do |input|
