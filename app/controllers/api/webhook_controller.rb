@@ -10,7 +10,7 @@ class Api::WebhookController < ApiController
 
     flash[:warning] = transaction.message if transaction.failed?
 
-    redirect_to member_payments_path
+    redirect_to transaction.redirect_uri
   end
 
   def mollie_hook
