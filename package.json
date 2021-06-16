@@ -11,6 +11,7 @@
   "dependencies": {
     "@rails/ujs": "~6.0.3-4",
     "@rails/webpacker": "~5.2.1",
+    "autoprefixer": "~9",
     "bootstrap": "~4.3.1",
     "clipboard": "~1.6.1",
     "i18n-js": "~3.8.0",
@@ -19,8 +20,10 @@
     "jquery-ujs": "~1.2.2",
     "js-cookie": "~2.2.1",
     "popper.js": "~1.16.1",
+    "postcss": "~7",
     "rails-erb-loader": "~5.5.2",
     "sweetalert2": "~9.14.2",
+    "@tailwindcss/postcss7-compat": "~2.1.2",
     "toastr": "~2.1.4",
     "turbolinks": "~5.2.0",
     "webpack-dev-server": "~3.11.0"

@@ -1,5 +1,7 @@
 module.exports = {
   plugins: [
+    require('@tailwindcss/postcss7-compat'),
+    require('autoprefixer'),
     require('postcss-import'),
     require('postcss-flexbugs-fixes'),
     require('postcss-preset-env')({
