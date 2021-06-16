@@ -1,5 +1,5 @@
 !!! 5
-%html
+%html.h-full
   %head
     %title
       - if content_for?(:title)
@@ -11,14 +11,15 @@
     %meta{content: 'width=device-width, initial-scale=1, user-scalable=no', name: 'viewport'}
 
     = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => 'reload'
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_pack_tag 'doorkeeper', 'data-turbolinks-track': 'reload'
 
     = csrf_meta_tags
-  %body
-    .container-fluid
-      .row
-        %h1
-          = I18n.t :association_name
+  %body.h-full.flex.flex-col
+    .flex-grow.flex.flex-col.flex-grow.w-full.max-h-full.items-center.justify-center
+      %img.w-64{src:"https://public.svsticky.nl/logos/logo_compact_kleur.svg"}
+
+      .shadow.px-10.py-4.mt-5.rounded-md
 
         - if current_user.present?
           %h2
@@ -28,7 +29,9 @@
             = link_to destroy_user_session_path, 'data-method' => :delete do
               = I18n.t('layouts.doorkeeper.click_here')
 
-      = yield
+        = yield
 
-    %span.version
-      = ConstipatedKoala::Application::VERSION.to_s
+      %span.right-0.bottom-0.p-2.text-black
+        = "Koala " + ConstipatedKoala::Application::VERSION.to_s
+
+    = render 'layouts/partials/footer'
