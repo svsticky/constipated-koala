@@ -16,10 +16,10 @@
 
     = csrf_meta_tags
   %body.h-full.flex.flex-col.bg-light
-    .flex-grow.flex.flex-col.flex-grow.w-full.max-h-full.items-center.justify-center
-      %img.w-64{src:"https://public.svsticky.nl/logos/logo_compact_kleur.svg"}
+    .flex.flex-col.flex-grow.justify-center
+      %img.w-64.mx-auto.p-4{src:"https://public.svsticky.nl/logos/logo_compact_kleur.svg"}
 
-      .shadow.px-10.py-4.mt-5.rounded-md.bg-white
+      .shadow.px-10.py-4.rounded-md.bg-white.mx-auto
 
         - if current_user.present?
           %h2
@@ -31,7 +31,7 @@
 
         = yield
 
-      %span.right-0.bottom-0.p-2.text-black
+      %span.p-2.text-black.mx-auto
         = "Koala " + ConstipatedKoala::Application::VERSION.to_s
 
     = render 'layouts/partials/footer'
