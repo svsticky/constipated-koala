@@ -15,11 +15,11 @@
     = javascript_pack_tag 'doorkeeper', 'data-turbolinks-track': 'reload'
 
     = csrf_meta_tags
-  %body.h-full.flex.flex-col
+  %body.h-full.flex.flex-col.bg-light
     .flex-grow.flex.flex-col.flex-grow.w-full.max-h-full.items-center.justify-center
       %img.w-64{src:"https://public.svsticky.nl/logos/logo_compact_kleur.svg"}
 
-      .shadow.px-10.py-4.mt-5.rounded-md
+      .shadow.px-10.py-4.mt-5.rounded-md.bg-white
 
         - if current_user.present?
           %h2
