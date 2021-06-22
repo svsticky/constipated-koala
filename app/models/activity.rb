@@ -189,16 +189,6 @@ class Activity < ApplicationRecord
   end
 
   def is_open
-    puts "today"
-    puts DateTime.now
-    puts "open"
-    puts when_open
-    puts "enroll"
-    puts is_enrollable
-    puts "open"
-    puts DateTime.now > when_open
-    puts "total"
-    puts is_enrollable || DateTime.now > when_open
     return is_enrollable || DateTime.now > when_open
   end
 
@@ -225,7 +215,7 @@ class Activity < ApplicationRecord
     #
     # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
-    return unless is_enrollable && unenroll_date.end_of_day >= Time.now
+    return unless is_open && unenroll_date.end_of_day >= Time.now
 
     return unless reservists.count > 0
 
@@ -259,7 +249,7 @@ class Activity < ApplicationRecord
 
   def fullness
     # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
-    return '' unless is_enrollable
+    return '' unless is_open
 
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if participant_limit
