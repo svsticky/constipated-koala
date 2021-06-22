@@ -8,12 +8,14 @@ nl:
       new:
         instruction: Bevestig jouw e-mailadres voor jouw Sticky-account.
         submit: Versturen
+      no_token: Je kunt deze pagina niet bereiken als je geen e-mail hebt ontvangen met email bevestigingsinstructies. Mocht je dit wel hebben ontvangen kijk dan het URL na in je mail of vraag de instructies opnieuw aan.
       send_instructions: Je zult een e-mail met instructies ontvangen over hoe je jouw account moet bevestigen over een paar minuten.
       send_paranoid_instructions: Als je e-mail bestaat in onze database, zul je een e-mail met instructies ontvangen over hoe je jouw account moet bevestigen over een paar minuten.
     failure:
       already_authenticated: Je bent al ingelogd.
       inactive: Je account is nog niet geactiveerd.
       invalid: Ongeldig e-mail of wachtwoord.
+      invalid_password: Ongeldig wachtwoord.
       invalid_token: Ongeldig authenticiteit token.
       last_attempt: Je hebt nog een poging voor je account wordt vergrendeld.
       locked: Je account is vergrendeld.
