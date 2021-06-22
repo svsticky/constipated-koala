@@ -8,12 +8,14 @@ en:
       new:
         instruction: Confirm the email address for your sticky account
         submit: Submit
+      no_token: You can't access this page without coming from an email confirmation link. If you do come from an email confirmation link, please make sure you used the full URL provided.
       send_instructions: You will receive an email with instructions about how to confirm your account in a few minutes.
       send_paranoid_instructions: If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.
     failure:
       already_authenticated: You are already signed in.
       inactive: Your account is not activated yet.
       invalid: Invalid email or password.
+      invalid_password: Invalid password.
       invalid_token: Invalid authenticity token.
       last_attempt: You have one more attempt before your account will be locked.
       locked: Your account is locked.
