@@ -73,7 +73,7 @@ GEM
     aes_key_wrap (1.0.1)
     ast (2.4.0)
     bcrypt (3.1.13)
-    bindata (2.4.4)
+    bindata (2.4.10)
     bindex (0.8.1)
     brakeman (4.8.2)
     builder (3.2.4)
