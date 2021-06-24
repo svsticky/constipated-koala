@@ -40,7 +40,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     unless user.nil? || user.unconfirmed_email.nil? || user.admin?
       MailchimpUpdateAddressJob.perform_later user.email, user.unconfirmed_email
       user.credentials.update_column(:email, user.unconfirmed_email)
-      user.credentials.update_fuzzy_query!
       user.confirm
       user.confirmation_token = nil
     end

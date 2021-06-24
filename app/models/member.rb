@@ -28,7 +28,7 @@ class Member < ApplicationRecord
 
   enum consent: [:pending, :yearly, :indefinite]
 
-  fuzzily_searchable :query
+  # fuzzily_searchable :query
   is_impressionable :dependent => :ignore
 
   # NOTE: prepend true is required, so that it is executed before dependent => destroy
@@ -198,7 +198,7 @@ class Member < ApplicationRecord
     return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
 
     records = filter(query)
-    return records.find_by_fuzzy_query(query) unless query.blank?
+    # return records.find_by_fuzzy_query(query) unless query.blank?
 
     return records
   end

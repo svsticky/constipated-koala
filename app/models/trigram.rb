@@ -1,4 +1,4 @@
 #:nodoc:
 class Trigram < ApplicationRecord
-  include Fuzzily::Model
+  # include Fuzzily::Model
 end
