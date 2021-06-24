@@ -719,10 +719,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0gnmvbryr521r135yz5bv8354m7xn6miiapfgpg1bnwsvxz8xj6c";
+      sha256 = "00fwz0qq7agd2xkdz02i8li236qvwhma3p0jdn5bdvc21b7ydzd5";
       type = "gem";
     };
-    version = "2.5.2";
+    version = "2.5.7";
   };
   nokogiri = {
     dependencies = ["mini_portile2"];
@@ -792,10 +792,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0cly51sqlz4ydpi5cshbrgjqgmysy26yca01lpnvhqvfvb4y9gl8";
+      sha256 = "1mzv0lkp9fdrjzvivlbhymxq4gnv0mrnl8wi0llad1cq2s0g245b";
       type = "gem";
     };
-    version = "4.3.5";
+    version = "4.3.8";
   };
   rabl = {
     dependencies = ["activesupport"];
