@@ -60,26 +60,6 @@
       "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
     },
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "3d256a3750c67158d1c5fa66e30e5e07fa242ecb5bb8146376846d4dd7918557",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/members/home_controller.rb",
-      "line": 121,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Members::HomeController",
-        "method": "add_funds"
-      },
-      "user_input": "IdealTransaction.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => (ideal_transaction_params[:amount].to_f + Settings.mongoose_ideal_costs), :issuer => ideal_transaction_params[:bank], :member => Member.find(current_user.credentials_id), :transaction_id => nil, :transaction_type => \"CheckoutTransaction\", :redirect_uri => users_root_url).mollie_uri",
-      "confidence": "High",
-      "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "49b99fb6bf70bc433c99ac49400e2a8fb485000efde1696fc26e8bfd9e69e1aa",
@@ -109,26 +89,6 @@
       "user_input": "Member.includes(:educations).includes(:tags)",
       "confidence": "Weak",
       "note": "We kinda trust our admins to not put code in an emailadress"
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "655d6702388e12806bfc4a3e194dd9b031f35805f1c1600d24c31870e091afcb",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/public/home_controller.rb",
-      "line": 69,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(IdealTransaction.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => \"Activity\", :redirect_uri => public_url).mollie_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Public::HomeController",
-        "method": "create"
-      },
-      "user_input": "IdealTransaction.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => \"Activity\", :redirect_uri => public_url).mollie_uri",
-      "confidence": "High",
-      "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
     },
     {
       "warning_type": "SQL Injection",
@@ -220,26 +180,6 @@
       "user_input": null,
       "confidence": "Medium",
       "note": "The mass-assignment only is used to map over, the emailadresses will be checked later anyway"
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "c4d9f2048289ae50cafbb403cdaf47fd86eb9730888be2bd0bc99b63e46b26fb",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/api/webhook_controller.rb",
-      "line": 12,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(IdealTransaction.find_by_token!(params[:token]).redirect_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Api::WebhookController",
-        "method": "mollie_redirect"
-      },
-      "user_input": "IdealTransaction.find_by_token!(params[:token]).redirect_uri",
-      "confidence": "High",
-      "note": "We don't really have a choice but to redirect our iDeal users to the link Mollie gives us"
     },
     {
       "warning_type": "Redirect",
