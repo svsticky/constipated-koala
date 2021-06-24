@@ -86,6 +86,11 @@ class Member < ApplicationRecord
   scope :studying, -> { where(id: Education.where(status: :active)) }
   scope :alumni, -> { where.not(id: Education.where(status: :active)) }
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+                  against: [:first_name, :infix, :last_name],
+                  using: {tsearch: { prefix: true }}
+
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
     write_attribute(:first_name, first_name.downcase.titleize)
@@ -198,7 +203,7 @@ class Member < ApplicationRecord
     return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
 
     records = filter(query)
-    # return records.find_by_fuzzy_query(query) unless query.blank?
+    return records.search_by_name(query) unless query.blank?
 
     return records
   end
