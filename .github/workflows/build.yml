@@ -1,17 +1,10 @@
 name: "Build & Test"
-on:
-  pull_request:
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
 
     services:
-      # mysql:
-      #   image: mysql:5.7
-      #   env:
-      #     MYSQL_ROOT_PASSWORD: password
-      #   ports:
-      #     - 25838:3306
       postgres:
         image: postgres
         env:
