@@ -33,6 +33,7 @@ in
       pkgs.cacert
       pkgs.bundler
       pkgs.yarn
+      pkgs.postgresql_13
     ];
 
     rails_wrapper = pkgs.writeScript "rails" ''
