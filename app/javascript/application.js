@@ -27,3 +27,5 @@ import "./src/lib/mail";
 import "./src/admin/index.js";
 import "./src/language.js";
 import "./src/application.js";
+import "./src/posts";
+import "./src/admin/datepicker";

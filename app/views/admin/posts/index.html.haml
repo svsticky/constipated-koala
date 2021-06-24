@@ -123,7 +123,7 @@
                 = link_to post_path, 'data-method' => :delete, class: 'btn btn-danger float-right' do
                   = I18n.t('editing.delete')
 
-:javascript
-  $(document).on('ready page:load turbolinks:load', function(){
-    $('form.post-content').editor();
-  });
+-# :javascript
+-#   $(document).on('ready page:load turbolinks:load', function(){
+-#     $('form.post-content').editor();
+-#   });

@@ -66,7 +66,7 @@ class Admin::SettingsController < ApplicationController
   private
 
   def admin_post_params
-    params.require(:admin).permit(:first_name, :infix, :last_name, :signature)
+    params.require(:admin).permit(:first_name, :infix, :last_name, :signature, :avatar)
   end
 
   def user_post_params
