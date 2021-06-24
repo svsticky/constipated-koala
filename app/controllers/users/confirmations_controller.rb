@@ -28,7 +28,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     end
 
     # require valid password to confirm email
-    if not user.valid_password?(confirmation_params[:password])
+    unless user.valid_password?(confirmation_params[:password])
       flash[:alert] = I18n.t 'devise.failure.invalid_password'
       redirect_to user_confirmation_path(:confirmation_token => confirmation_params[:confirmation_token])
       return
@@ -51,5 +51,4 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def confirmation_params
     params.require(:user).permit(:email, :password, :confirmation_token)
   end
-
 end
