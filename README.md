@@ -3,7 +3,8 @@
 </p>
 
 # Operation Constipated Koala
-![Build & Tests](https://github.com/svsticky/constipated-koala/actions/workflows/build.yml/badge.svg)
+![Master:](https://github.com/svsticky/constipated-koala/actions/workflows/build.yml/badge.svg?branch=master)
+![Development:](https://github.com/svsticky/constipated-koala/actions/workflows/build.yml/badge.svg)
 
 
 This is the repository of the admin system used by Study Association Sticky. It has been
