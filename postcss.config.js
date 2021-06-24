@@ -14,7 +14,8 @@ module.exports = {
       content: [
         "./app/**/*.haml",
         "./app/javascript/**/*.js"
-      ]
+      ],
+      defaultExtractor: content => content.match(/[^<>"{\.'`\s]*[^<>"{\.'`\s:]/g) || []
     })
   ]
 }
