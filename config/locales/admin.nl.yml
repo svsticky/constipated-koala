@@ -21,8 +21,8 @@ nl:
       activate_success: Kaart %{uuid} is geactiveerd
       active: Actief
       cards: Kaarten
-      deactivate: Deactiveer  create_table "settings", id: :serial, force: :cascade do |t|
-art %{uuid} deactiveren?
+      deactivate: Deactiveer
+      deactivate_confirm: Kaart %{uuid} deactiveren?
       deactivate_success: Kaart %{uuid} is gedeactiveerd
       deactivated: Gedeactiveerd
       reactivate: Reactiveer
@@ -90,7 +90,6 @@ art %{uuid} deactiveren?
       products: Producten
       settings: Instellingen
       transactions: Transacties
-      messages: Berichten
     payment:
       all: Alle
       daily: Dagelijks
