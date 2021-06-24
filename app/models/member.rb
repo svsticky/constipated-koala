@@ -28,7 +28,6 @@ class Member < ApplicationRecord
 
   enum consent: [:pending, :yearly, :indefinite]
 
-  # fuzzily_searchable :query
   is_impressionable :dependent => :ignore
 
   # NOTE: prepend true is required, so that it is executed before dependent => destroy
