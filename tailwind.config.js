@@ -1,8 +1,5 @@
 module.exports = {
-  purge: [
-    './src/**/*.haml',
-    './src/javascript/**/*.js'
-  ],
+  purge: [],
   theme: {
     extend: {},
     colors: {

@@ -9,6 +9,12 @@ module.exports = {
         flexbox: 'no-2009'
       },
       stage: 3
+    }),
+    require("@fullhuman/postcss-purgecss")({
+      content: [
+        "./app/**/*.haml",
+        "./app/javascript/**/*.js"
+      ]
     })
   ]
 }
