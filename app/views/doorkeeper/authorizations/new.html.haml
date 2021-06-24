@@ -36,7 +36,7 @@
         = submit_tag t('doorkeeper.authorizations.buttons.deny'), class: "btn btn-danger btn-block"
 
 .row
-  .text-center
+  .text-center.mx-auto
     = link_to (I18n.t 'devise.registrations.password_recovery'), new_user_password_path
     |
     = link_to (I18n.t 'devise.registrations.sign_up'), new_registration_path
