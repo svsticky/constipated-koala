@@ -182,6 +182,26 @@
       "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
     },
     {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "8c08dc71a8af936322aef7b0bb64fade45df68eaa90f7a0b077ed739749e8f00",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/api/webhook_controller.rb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Payment.find_by_token!(params[:token]).redirect_uri)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::WebhookController",
+        "method": "payment_redirect"
+      },
+      "user_input": "Payment.find_by_token!(params[:token]).redirect_uri",
+      "confidence": "High",
+      "note": "Required to validate transaction after coming back from the payment provider"
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "b80db455c4dd1ca640177dd5c9d1232eb638dbc2d29f46aababbaad11458f04f",
@@ -293,6 +313,6 @@
       "note": "Have to redirect users to Ideal or payconiq"
     }
   ],
-  "updated": "2021-06-15 11:52:26 +0200",
+  "updated": "2021-06-24 09:50:53 +0200",
   "brakeman_version": "4.8.2"
 }
