@@ -404,19 +404,6 @@
     };
     version = "1.0.0";
   };
-  fuzzily = {
-    dependencies = ["activerecord"];
-    groups = ["default"];
-    platforms = [];
-    source = {
-      fetchSubmodules = false;
-      rev = "9deddd48a79892ff19aff09bc2efafdfe4552b2e";
-      sha256 = "16rqki2f25pkrgkhjmryygia97n88xxy9kkaci619c0qd9jpnllf";
-      type = "git";
-      url = "https://github.com/svsticky/fuzzily.git";
-    };
-    version = "0.4.0";
-  };
   globalid = {
     dependencies = ["activesupport"];
     groups = ["default"];
@@ -785,6 +772,17 @@
       type = "gem";
     };
     version = "1.2.3";
+  };
+  pg_search = {
+    dependencies = ["activerecord" "activesupport"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0ynilnqfcpvip0gq6aqi5s4k51rrifbgqlya58f87xlaiabpix6g";
+      type = "gem";
+    };
+    version = "2.3.5";
   };
   puma = {
     dependencies = ["nio4r"];

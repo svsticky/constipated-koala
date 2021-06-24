@@ -41,12 +41,12 @@ namespace :admin do
     puts "#{ args[:email] } removed" if user.credentials.destroy
   end
 
-  desc 'Reindex fuzzily for all members'
-  task :reindex_members => :environment do
-    puts 'reindex members..'
-    Member.bulk_update_fuzzy_query
-    puts 'reindex done!'
-  end
+  # desc 'Reindex fuzzily for all members'
+  # task :reindex_members => :environment do
+  #   puts 'reindex members..'
+  #   Member.bulk_update_fuzzy_query
+  #   puts 'reindex done!'
+  # end
 
   desc 'Start a new year, create a new membership activity if given and set in config'
   task :start_year, [:membership, :price] => :environment do |_, args|

@@ -28,8 +28,6 @@ gem 'impressionist', :github => 'charlotte-ruby/impressionist'
 # rests calls for mailgun
 gem 'rest-client'
 
-# search engine
-gem 'fuzzily', :github => 'svsticky/fuzzily'
 gem 'responders'
 
 # pagination
@@ -45,6 +43,12 @@ gem 'telephone_number'
 gem 'csv'
 gem 'i18n-js'
 gem 'sidekiq'
+
+# Database
+gem 'pg'
+
+# Full text search
+gem 'pg_search'
 
 group :production, :staging do
   gem 'sentry-raven'
@@ -75,6 +79,3 @@ group :development, :test do
   # i18n checks
   gem 'i18n-tasks', '~> 0.9.31'
 end
-
-# Postgres dependency
-gem 'pg'

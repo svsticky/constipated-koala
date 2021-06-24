@@ -37,7 +37,7 @@ class User < ApplicationRecord
     confirm
 
     credentials.update_column(:email, email)
-    credentials.update_fuzzy_query!
+    # credentials.update_fuzzy_query!
   end
 
   def self.create_on_member_enrollment!(member)
