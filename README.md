@@ -3,7 +3,8 @@
 </p>
 
 # Operation Constipated Koala
-[![Circle CI](https://circleci.com/gh/svsticky/constipated-koala/tree/master.svg?style=svg&circle-token=21e53c86a26918537111d53fa15ba2e66f35a851)](https://circleci.com/gh/svsticky/constipated-koala/tree/master)
+![Build & Tests](https://github.com/svsticky/constipated-koala/actions/workflows/build.yml/badge.svg)
+
 
 This is the repository of the admin system used by Study Association Sticky. It has been
 written in Ruby with the help of the Rails framework and some libraries.
