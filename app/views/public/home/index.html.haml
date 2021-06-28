@@ -185,6 +185,16 @@
                 #lectures-info.collapse
                   .help-block= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
 
+            .row
+              .col-md-6
+                %label.ui-checkbox
+                  = f.check_box :teachers_subscribe, :checked => false
+                  %span= I18n.t('teachers.name', scope: 'activerecord.annotations.member')
+                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#teachers-info'}}
+                  = I18n.t(:more_info, scope: 'form')
+                #teachers-info.collapse
+                  .help-block= I18n.t('teachers.description', scope: 'activerecord.annotations.member')
+
           .row
             .col-lg-6
               %h4
