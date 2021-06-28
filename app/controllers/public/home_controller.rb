@@ -106,6 +106,7 @@ class Public::HomeController < PublicController
     interests.push Rails.configuration.mailchimp_interests[:mmm] if member[:mmm_subscribe] == "1"
     interests.push Rails.configuration.mailchimp_interests[:business] if member[:business_subscribe] == "1"
     interests.push Rails.configuration.mailchimp_interests[:lectures] if member[:lectures_subscribe] == "1"
+    interests.push Rails.configuration.mailchimp_interests[:teacher] if member[:teachers_subscribe] == "1"
     interests
   end
 
