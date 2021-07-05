@@ -1457,6 +1457,13 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: member_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX member_email ON public.members USING gin (phone_number public.gin_trgm_ops);
+
+
+--
 -- Name: member_first_names; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1464,10 +1471,31 @@ CREATE INDEX member_first_names ON public.members USING gin (first_name public.g
 
 
 --
+-- Name: member_infices; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX member_infices ON public.members USING gin (infix public.gin_trgm_ops);
+
+
+--
 -- Name: member_last_names; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX member_last_names ON public.members USING gin (last_name public.gin_trgm_ops);
+
+
+--
+-- Name: member_phone_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX member_phone_number ON public.members USING gin (phone_number public.gin_trgm_ops);
+
+
+--
+-- Name: member_student_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX member_student_id ON public.members USING gin (student_id public.gin_trgm_ops);
 
 
 --
