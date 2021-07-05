@@ -87,7 +87,7 @@ class Member < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_by_name,
-                  against: [:first_name, :infix, :last_name],
+                  against: [:first_name, :infix, :last_name, :phone_number],
                   using: {
                     trigram: {
                       threshold: 0.1
@@ -198,9 +198,6 @@ class Member < ApplicationRecord
   def self.search(query)
     student_id = query.match(/^\F?\d{6,7}$/i)
     return where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
-
-    phone_number = query.match(/^(?:\+\d{2}|00\d{2}|0)(\d{9})$/)
-    return where("phone_number like ?", "%#{ phone_number[1] }") unless phone_number.nil?
 
     # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
     return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
