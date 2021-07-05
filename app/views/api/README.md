@@ -38,7 +38,7 @@ Content-Type → application/json; charset=utf-8
 
 
 ## Checkout
-All checkout endpoints require a secret called `token` declared in the configuration of [.rbenv-vars](/.rbenv-vars-sample). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.
+All checkout endpoints require a secret called `token` declared in the configuration of [.env](/sample.env). A generic response because of this would be a forbidden response meaning that the secret does not correspond with the secret of koala.
 ```json
 HTTP/1.1 403 FORBIDDEN
 Content-Type → application/json; charset=utf-8

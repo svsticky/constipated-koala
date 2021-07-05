@@ -1,10 +1,15 @@
-## Contributing
+# Contributing
 
 So you want to contribute? Awesome! You are most welcome to. We do however have our
 own peculiarities, please try to follow them. It will be much obliged and will smoothen
 over the process greatly.
 
-From this point on we are going to use the **[semantic versioning](http://semver.org/)**. This will be the first major release, any fixes increment accordingly `v1.1.9 -> v1.1.10`. Adding functionality in a backwards compatible manner is done like this; `v1.1.10 -> v1.2.0`. And a major release to `v2` is done if there are changes that are not backwards compatible.
+## Versioning
+
+We use **[semantic versioning](http://semver.org/)**.
+Bugfixes increment the version like this: `v1.1.9 -> v1.1.10`.
+Adding functionality in a backwards compatible manner is done like this; `v1.1.10 -> v1.2.0`.
+Major releases are done if there are changes that are not backwards compatible.
 
 ### Git hooks
 
@@ -17,7 +22,11 @@ A template for new pages can be found at app/views/layouts/\_blank.html.haml.
 
 ### Translations
 
-When working on the application you might find or introduce some new text. If this is the case, please replace or put the translation in the correct translation files. To help you with this, we are using the [i18n-tasks](https://github.com/glebm/i18n-tasks) gem. Run the `i18n-tasks health` command to check whether something is wrong with the translations or to see if you forgot to add a translation. For other commands please check out their [Home page](https://glebm.github.io/i18n-tasks/).
+When working on the application you might find or introduce some new text.
+If this is the case, please replace or put the translation in the correct translation files.
+To help you with this, we are using the [i18n-tasks](https://github.com/glebm/i18n-tasks) gem.
+Run the `i18n-tasks health` command to check whether something is wrong with the translations or to see if you forgot to add a translation.
+For other commands please check out their [Home page](https://glebm.github.io/i18n-tasks/).
 
 ### Branching strategy
 
@@ -32,8 +41,8 @@ This leaves us with the following workflow:
 1. Want to work on something? Create a topic branch.
 1. Push the topic branch to GitHub when you want to show something.
 1. Open a pull request. Gather feedback. Improve the patch.
-1. Occasionally pull from master to ensure you didn't created merge errors.
-1. Wait for the PR to be merged into `master`. Then update local history.
+1. Occasionally pull from `development` to ensure you didn't created merge errors.
+1. Wait for the PR to be merged into `development`. Then update local history.
 
 Please make sure to write a descriptive commit message. [Here][commit-messages] you
 can find some tips for better commit messages.
@@ -42,7 +51,8 @@ can find some tips for better commit messages.
 
 ### Branch naming
 
-Try to be descriptive. Use the following prefixes for the names depending on the type
+Try to be descriptive.
+Use the following prefixes for the names depending on the type
 of work:
 
 - `feature/` for new features.

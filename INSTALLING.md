@@ -51,14 +51,11 @@ Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
 
 ## Configuring Koala
 
-To actually run Koala, you'll need a running copy of MariaDB or MySQL. In
-production, we run MariaDB, and to prevent problems we run the same database in
-development as well.
-
-To easily start the database, you can run MariaDB in a container via Docker.
+To actually run Koala, you'll need a running copy of PostgreSQL and Redis
+To easily start both, you can run these in a container via Docker.
 Follow these steps to install Docker and start the database:
 
-```console
+``` shell
 # Install Docker and Docker Compose
 sudo apt install docker.io docker-compose
 
@@ -71,14 +68,14 @@ sudo usermod -aG docker $USER
 docker-compose up -d
 ```
 
-MariaDB will now set itself up in the background, and will be available in
-a minute or so. You'll need to run the `docker-compose up` command again if you
+PostgreSQL and Redis will now set itself up in the background, and will be available in
+a minute or so.
+You'll need to run the `docker-compose up` command again if you
 reboot your computer to start the database again.
 
-If you're already running a copy of MariaDB, you can use this copy to contain
-Koala's files as well. You'll need to create a user with all privileges for the
-databases `koala-development` and `koala-test`, this is out of scope for this
-tutorial.
+If you're already running a copy of PostgreSQL, you can use this too.
+You'll need to create a user with all privileges for the
+databases `koala-development` and `koala-test`, and set this in the `.env` file.
 
 There is an example file in the root of this repository called
 `sample.env`. This file is a template for the actual configuration file
