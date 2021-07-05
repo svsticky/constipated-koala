@@ -43,7 +43,7 @@ class Activity < ApplicationRecord
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
-    self.open_date = self.end_date if open_date.blank?
+    self.open_date = self.end_date + 1.day if open_date.blank?
     self.unenroll_date = start_date - 2.days if unenroll_date.blank?
   end
 
