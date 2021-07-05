@@ -87,7 +87,7 @@ class Member < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_by_name,
-                  against: [:first_name, :infix, :last_name, :phone_number],
+                  against: [:first_name, :infix, :last_name, :phone_number, :email, :student_id],
                   using: {
                     trigram: {
                       threshold: 0.1
@@ -196,12 +196,10 @@ class Member < ApplicationRecord
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
-    student_id = query.match(/^\F?\d{6,7}$/i)
-    return where("student_id like ?", "%#{ student_id }%") unless student_id.nil?
-
-    # If query is blank, no need to filter. Default behaviour would be to return Member class, so we override by passing all
+    # If query is blank, no need to filter. Default behaviour would be to return Member class, but we override by passing all active and studying members
     return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
 
+    # Otherwise we apply the filters and perform a fuzzy search on full name, phone number and email address
     records = filter(query)
     return records.search_by_name(query) unless query.blank?
 
