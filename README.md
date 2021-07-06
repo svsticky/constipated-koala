@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/5732642/15008505/fa32a904-11e0-11e6-900a-98622e3f797a.png" alt="constipated-Koala" style="max-width:100%;">
+<img src="https://cloud.githubusercontent.com/assets/5732642/15008505/fa32a904-11e0-11e6-900a-98622e3f797a.png" alt="constipated-koala" style="max-width:100%;">
 </p>
 
 # Operation Constipated Koala
@@ -33,7 +33,7 @@ Most notably, Koala integrates with MailChimp, MailGun, Mollie and PayConiq.
 
 ```shell
 # Add hosts for different subdomains on your own computer for development
-$ echo "127.0.0.1 Koala.rails.local intro.rails.local" >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
 ```
 
 ## Running Koala
