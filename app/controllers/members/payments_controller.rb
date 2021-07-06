@@ -18,7 +18,11 @@ class Members::PaymentsController < ApplicationController
              .where(activity_id: params[:activity_ids], member: member, reservist: false)
              .joins(:activity)
              .where(:activities => { is_payable: true })
-    description = "Activiteiten - #{ unpaid.map { |p| p.activity.id.to_s } }"
+    activity_names_for_unpaid = unpaid.map { |p| p.activity.name }
+
+    description_prefix = "Activiteiten - "
+    description_length_remaining = 140 - description_prefix.length
+    description = "#{ description_prefix }#{ join_with_char_limit(activity_names_for_unpaid, ', ', description_length_remaining) }"
     amount = unpaid.sum(&:currency)
 
     if amount < 1
@@ -42,6 +46,24 @@ class Members::PaymentsController < ApplicationController
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to member_payments_path
     end
+  end
+
+  def join_with_char_limit(collection, separator, maxlength)
+    suffix_mkr = ->(cnt) { " & #{ cnt } meer" }
+    suffix = suffix_mkr.call(collection.length)
+
+    acc = collection[0]
+    remaining_length = maxlength - (suffix.length - acc.length)
+    i = 1
+    while i < collection.length
+      remaining_length -= collection[i].length + separator.length
+      break unless remaining_length > 0
+
+      acc += separator + collection[i]
+      i += 1
+    end
+
+    acc + (collection.length != i ? suffix_mkr.call(collection.length - i) : "")
   end
 
   def add_funds
