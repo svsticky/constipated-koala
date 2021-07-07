@@ -34,4 +34,26 @@ class PaymentsControllerTest < ActiveSupport::TestCase
     assert_not_includes too_little_space, coll[0]
     assert_not_includes too_little_space, coll[1]
   end
+
+  test 'should exclude last activity name when suffix is shorter than last string and total would otherwise exceed maxLength' do
+    coll = %w[C1 C2 SomeArbitraryLargeString]
+    val = Members::PaymentsController.join_with_char_limit(coll, ", ", 15)
+
+    assert_includes val, "C1"
+    assert_includes val, "C2"
+    assert_not_includes val, "SomeArbitraryLargeString"
+    assert_includes val, "1 meer"
+    assert val.length <= 15
+  end
+
+  test 'should exclude multiple small activity-names when suffix will be present' do
+    coll = %w[C1 C2 C3 SomeArbitraryLargeString]
+    val = Members::PaymentsController.join_with_char_limit(coll, ", ", 15)
+    assert_includes val, "C1"
+    assert_includes val, "C2"
+    assert_not_includes val, "C3"
+    assert_not_includes val, "SomeArbitraryLargeString"
+    assert_includes val, "2 meer"
+    assert val.length <= 15
+  end
 end

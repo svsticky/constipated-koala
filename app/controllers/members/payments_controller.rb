@@ -52,34 +52,23 @@ class Members::PaymentsController < ApplicationController
     all_joined = collection.join separator
     return all_joined if all_joined.length <= maxlength
 
-    remaining_length = maxlength
-    index = 0
-    while index < collection.length
-      break unless remaining_length >= 0
+    suffix_mkr = ->(cnt) { " & #{ cnt } meer" }
+    remaining_length = maxlength - (collection[0].length + suffix_mkr.call(collection.length).length)
 
+    return ".. & #{ collection.length } meer" if remaining_length < 0
+
+    index = 1
+    while index < collection.length - 1
       remaining_length -= collection[index].length + separator.length
-      break unless remaining_length >= 0
-
-      index += 1
-    end
-
-    remaining_length += collection[index].length
-
-    suffix_empty_mkr = ->(cnt) { ".. & #{ cnt } meer" }
-    return suffix_empty_mkr.call(1) if index < 0
-
-    suffix_empty = suffix_empty_mkr.call(collection.length)
-
-    remaining_length -= suffix_empty.length # worst case suffix length
-
-    while remaining_length <= 0
-      remaining_length += collection[index].length + separator.length
+      if remaining_length < collection[index - 1].length + separator.length
+        index += 1
+        slice = collection.slice(0, index)
+        return "#{ slice.join separator } & #{ collection.length - index } meer"
+      end
       index -= 1
     end
-    index += 1
 
-    slice = collection.slice(0, index)
-    return "#{ (slice || ['..']).join separator } & #{ collection.length - index } meer"
+    return ".. & #{ collection.length } meer"
   end
 
   def add_funds
