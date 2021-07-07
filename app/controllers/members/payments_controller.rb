@@ -48,22 +48,38 @@ class Members::PaymentsController < ApplicationController
     end
   end
 
-  def join_with_char_limit(collection, separator, maxlength)
-    suffix_mkr = ->(cnt) { " & #{ cnt } meer" }
-    suffix = suffix_mkr.call(collection.length)
+  def self.join_with_char_limit(collection, separator, maxlength)
+    all_joined = collection.join separator
+    return all_joined if all_joined.length <= maxlength
 
-    acc = collection[0]
-    remaining_length = maxlength - (suffix.length - acc.length)
-    i = 1
-    while i < collection.length
-      remaining_length -= collection[i].length + separator.length
-      break unless remaining_length > 0
+    remaining_length = maxlength
+    index = 0
+    while index < collection.length
+      break unless remaining_length >= 0
 
-      acc += separator + collection[i]
-      i += 1
+      remaining_length -= collection[index].length + separator.length
+      break unless remaining_length >= 0
+
+      index += 1
     end
 
-    acc + (collection.length != i ? suffix_mkr.call(collection.length - i) : "")
+    remaining_length += collection[index].length
+
+    suffix_empty_mkr = ->(cnt) { ".. & #{ cnt } meer" }
+    return suffix_empty_mkr.call(1) if index < 0
+
+    suffix_empty = suffix_empty_mkr.call(collection.length)
+
+    remaining_length -= suffix_empty.length # worst case suffix length
+
+    while remaining_length <= 0
+      remaining_length += collection[index].length + separator.length
+      index -= 1
+    end
+    index += 1
+
+    slice = collection.slice(0, index)
+    return "#{ (slice || ['..']).join separator } & #{ collection.length - index } meer"
   end
 
   def add_funds
