@@ -50,7 +50,6 @@ default: &default
 
 development:
   <<: *default
-    # Staging depends on precompilation of packs prior to booting for performance.
   compile: true
 
   # Extract and emit a css file
