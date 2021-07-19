@@ -197,8 +197,8 @@ class Member < ApplicationRecord
 
   # Functions starting with self are functions on the model not an instance. For example we can now search for members by calling Member.search with a query
   def self.search(query)
-    # If query is blank, no need to filter. Default behaviour would be to return Member class, but we override by passing all active and studying members
-    return where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id))) if query.blank?
+    # return all active members if query is empty
+    return Member.active if query.blank?
 
     # Otherwise we apply the filters and perform a fuzzy search on full name, phone number and email address
     records = filter(query)
