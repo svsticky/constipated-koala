@@ -53,7 +53,7 @@ class Activity < ApplicationRecord
     # Strip an activity name from all characters banks do not support
 
     # Remove all non-ascii characters (no language extension)
-    ascii = name.encode('ASCII', :invalid => :replace, :undef => :replace, :replace => '' )
+    ascii = name.encode('ASCII', :invalid => :replace, :undef => :replace, :replace => '')
 
     # Remove the other illegal characters
     # Non-printable characters are ignored
