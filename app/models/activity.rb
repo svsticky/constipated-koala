@@ -49,6 +49,18 @@ class Activity < ApplicationRecord
     write_attribute(:name, name.strip)
   end
 
+  def escaped_name
+    # Strip an activity name from all characters banks do not support
+
+    # Remove all non-ascii characters (no language extension)
+    ascii = name.encode('ASCII', :invalid => :replace, :undef => :replace, :replace => '' )
+
+    # Remove the other illegal characters
+    # Non-printable characters are ignored
+    # source: https://www.sepaforcorporates.com/sepa-implementation/valid-xml-characters-sepa-payments/
+    return ascii.delete "!\"#$%&*;<=>@[\\]^_`{|}~"
+  end
+
   def self.study_year(year)
     year = year.blank? ? Date.today.study_year : year.to_i
     where('start_date >= ? AND start_date < ?', Date.to_date(year), Date.to_date(year + 1))
