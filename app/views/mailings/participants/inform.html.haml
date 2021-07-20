@@ -11,17 +11,7 @@
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      -  # Strip an activity name from all characters banks do not support
-      -
-      -  # Remove all non-ascii characters (no language extension)
-      -  ascii_encoding_options = { :invalid => :replace, :undef => :replace, :replace => '' }
-      -  ascii = @activity.name.encode(Encoding.find('ASCII'), ascii_encoding_options)
-      -
-      - # Remove the other illegal characters
-      - # Non-printable characters are ignored
-      - # source: https://www.sepaforcorporates.com/sepa-implementation/valid-xml-characters-sepa-payments/
-      - bank_name = ascii.delete "!\"#$%&*;<=>@[\\]^_`{|}~"
-      = t('mailings.participants.inform.payment_instructions_html', subject: bank_name)
+      = t('mailings.participants.inform.payment_instructions_html', subject: @activity.escaped_name)
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
