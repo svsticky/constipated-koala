@@ -57,15 +57,14 @@ class Members::PaymentsController < ApplicationController
 
     return ".. & #{ collection.length } meer" if remaining_length < 0
 
-    index = 1
+    index = 0
     while index < collection.length - 1
+      index += 1
       remaining_length -= collection[index].length + separator.length
-      if remaining_length < collection[index - 1].length + separator.length
-        index += 1
+      if remaining_length < 0
         slice = collection.slice(0, index)
         return "#{ slice.join separator } & #{ collection.length - index } meer"
       end
-      index -= 1
     end
 
     return ".. & #{ collection.length } meer"
