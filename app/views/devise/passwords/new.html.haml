@@ -1,4 +1,4 @@
-%h1.text-center.text-2xl.mb-2
+%h1.text-center.text-2xl.mb-2.dark:text-white
   = t('devise.passwords.edit.change_password')
 
 .row
@@ -34,7 +34,7 @@
         = f.submit I18n.t('devise.passwords.new.submit'), :class => 'btn btn-primary btn-block'
 
 .row
-  .text-center.mx-auto
+  .text-center.mx-auto.dark:text-white
     = link_to (I18n.t 'devise.registrations.login'), new_user_session_path
     |
     = link_to (I18n.t 'devise.registrations.sign_up'), new_registration_path

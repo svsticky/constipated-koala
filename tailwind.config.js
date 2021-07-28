@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'media',
   purge: [],
   theme: {
     extend: {
@@ -16,6 +17,10 @@ module.exports = {
       xl: '1200px',
     }
   },
-  variants: {},
+  variants: {
+    display: [
+      'dark'
+    ]
+  },
   plugins: [],
 }
