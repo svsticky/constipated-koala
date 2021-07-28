@@ -22,7 +22,7 @@
       .shadow.px-10.py-4.rounded-md.bg-white.mx-auto
 
         - if current_user.present?
-          %h2
+          %h2.mt-2
             =I18n.t('layouts.doorkeeper.hi')
             %b= current_user.credentials.first_name
             = I18n.t('layouts.doorkeeper.identity_confirmation', name: current_user.credentials.name)
