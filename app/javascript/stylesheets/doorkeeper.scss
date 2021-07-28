@@ -19,13 +19,21 @@
 }
 
 .input-group-prepend {
-    @apply w-12 flex bg-gray-200 rounded-l border border-gray-300;
+    @apply w-12 flex bg-gray-200 rounded-l border border-gray-300 dark:bg-gray-700 dark:border-black dark:text-white;
 }
 
 .form-control {
-    @apply py-2 px-4 rounded-r border border-l-0 border-gray-300 w-full;
+    @apply py-2 px-4 rounded-r border border-l-0 border-gray-300 w-full dark:bg-gray-600 dark:border-black dark:text-white;
 }
 
 .input-group-text {
     @apply m-auto;
+}
+
+// This is a hack because browsers do not follow the CSS standard with respect to specifity of display rules
+// see: https://stackoverflow.com/questions/68206422/tailwinds-darkhidden-darkblock-wont-override-its-own-hidden-selector
+@media (prefers-color-scheme: dark) {
+    .dark\:block {
+      display: block;
+    }
 }

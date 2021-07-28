@@ -1,4 +1,4 @@
-%h1.text-center.text-2xl.mb-2
+%h1.text-center.text-2xl.mb-2.dark:text-white
   = t('devise.registrations.login')
 
 .row
@@ -35,7 +35,7 @@
           = f.password_field :password, autocomplete: 'off', placeholder: t('devise.placeholders.password'), :class => 'form-control'
       .form-group
         .center
-          %span
+          %span.dark:text-white
             = f.check_box :remember_me
             = f.label(:remember_me, I18n.t('devise.sessions.new.remember_me'), :class => 'remember_label')
 
@@ -43,7 +43,7 @@
         = f.submit I18n.t('devise.sessions.new.sign_in'), :class => 'btn btn-primary btn-block'
 
 .row
-  .text-center.mx-auto
+  .text-center.mx-auto.dark:text-white
     = link_to (I18n.t 'devise.registrations.password_recovery'), new_user_password_path
     |
     = link_to (I18n.t 'devise.registrations.sign_up'), new_registration_path
