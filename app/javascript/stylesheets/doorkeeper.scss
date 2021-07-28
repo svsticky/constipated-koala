@@ -11,7 +11,7 @@
 }
 
 .form-group {
-    @apply py-4;
+    @apply py-2;
 }
 
 .input-group {
@@ -23,7 +23,7 @@
 }
 
 .form-control {
-    @apply py-2 px-4 rounded-r border border-l-0 border-gray-300;
+    @apply py-2 px-4 rounded-r border border-l-0 border-gray-300 w-full;
 }
 
 .input-group-text {
