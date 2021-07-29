@@ -90,6 +90,7 @@ class Member < ApplicationRecord
                   against: [:first_name, :infix, :last_name, :phone_number, :email, :student_id],
                   using: {
                     trigram: {
+                      only: [:first_name, :last_name, :phone_number, :email, :student_id],
                       threshold: 0.1
                     }
                   }

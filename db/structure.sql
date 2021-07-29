@@ -1471,13 +1471,6 @@ CREATE INDEX member_first_names ON public.members USING gin (first_name public.g
 
 
 --
--- Name: member_infices; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX member_infices ON public.members USING gin (infix public.gin_trgm_ops);
-
-
---
 -- Name: member_last_names; Type: INDEX; Schema: public; Owner: -
 --
 
