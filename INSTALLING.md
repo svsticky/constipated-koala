@@ -139,10 +139,8 @@ To utilize and set up the mailchimp synchronization have a look at [MAILCHIMP.md
 
 ## Background jobs
 
-There are three background jobs that need to be run periodically in production:
+There are some background jobs that need to be run periodically in production:
 
-- `rails admin:reindex_members`, which rebuilds the search index, which ensures
-  that the member search works properly,
 - `rails admin:start_year['Lidmaatschap',7.5]`, which starts a new study year
   when it's appropriate to do so.
 - `rails status:mail`, which should be run once a year, preferably in the summer
