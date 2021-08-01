@@ -14,6 +14,20 @@ let
       mimemagic = attrs: {
         FREEDESKTOP_MIME_TYPES_PATH = "${pkgs.shared-mime-info}/share/mime/packages/freedesktop.org.xml";
       };
+      nokogiri = attrs: {
+        # Stolen from nixpkgs 21.05 branch, can be removed after upgrade
+        buildFlags = [
+          "--use-system-libraries"
+          "--with-zlib-lib=${pkgs.zlib.out}/lib"
+          "--with-zlib-include=${pkgs.zlib.dev}/include"
+          "--with-xml2-lib=${pkgs.libxml2.out}/lib"
+          "--with-xml2-include=${pkgs.libxml2.dev}/include/libxml2"
+          "--with-xslt-lib=${pkgs.libxslt.out}/lib"
+          "--with-xslt-include=${pkgs.libxslt.dev}/include"
+          "--with-exslt-lib=${pkgs.libxslt.out}/lib"
+          "--with-exslt-include=${pkgs.libxslt.dev}/include"
+        ];
+      };
     };
   };
   node-path = "${(node.shell.override{src = node-jail;}).nodeDependencies}/lib/node_modules";
