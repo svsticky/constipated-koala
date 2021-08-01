@@ -223,6 +223,22 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
+      "warning_code": 106,
+      "fingerprint": "c8adc1c0caf2c9251d1d8de588fb949070212d0eed5e1580aee88bab2287b772",
+      "check_name": "SanitizeMethods",
+      "message": "loofah gem 2.11.0 is vulnerable (CVE-2018-8048). Upgrade to 2.2.1",
+      "file": "Gemfile.lock",
+      "line": 151,
+      "link": "https://github.com/flavorjones/loofah/issues/144",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "Brakeman parses version numbers incorrectly, thinking version 2.11.0 is equal to 2.1.1. The currently installed version of loofah is not vulnerable to CVE listed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "d2be482c78d4a736657a4132006c3abdc2cec2c7ae240313e8adaf682346654b",
       "check_name": "CrossSiteScripting",
@@ -273,6 +289,6 @@
       "note": "Have to redirect users to Ideal or payconiq"
     }
   ],
-  "updated": "2021-07-06 21:09:44 +0200",
+  "updated": "2021-08-01 21:15:00 +0200",
   "brakeman_version": "4.8.2"
 }
