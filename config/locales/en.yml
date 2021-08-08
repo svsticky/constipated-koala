@@ -62,7 +62,7 @@ en:
         category: Category
         image: Image
         name: Name
-        price: Price
+        price: PriceNaam
       education:
         status:
           active: Studying
@@ -484,6 +484,19 @@ en:
         studying: studying
       search_payments:
         placeholder: Search by transaction ID, Name, Date or Description.
+  members:
+    payments:
+      unpaid_activity:
+        footer:
+          bank: Bank
+          paymentmethod: 'Payment method:'
+          subtotal: 'Subtotal:'
+          total: 'Total:'
+          transactioncosts: 'Transaction costs:'
+        header:
+          date: Date
+          name: Name
+          price: Price
   navigation:
     activity: Activities
     back: Back

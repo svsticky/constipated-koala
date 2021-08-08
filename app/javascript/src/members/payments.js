@@ -1,13 +1,7 @@
 $(document).on("ready page:load turbolinks:load", function () {
   // Selects all the activities
-  $("#check-all").on("click", function () {
-    var cbxs = $('input[type="checkbox"]');
-    cbxs.prop("checked", !cbxs.prop("checked"));
-    cbxs.change();
-  });
 
   $("#payment_type_add_funds").on("change", function () {
-    var form = $("#add_funds_form");
     if (this.value == "Payconiq") {
       $(".payconiq-mongoose").show();
       $(".ideal-mongoose").hide();
@@ -18,7 +12,6 @@ $(document).on("ready page:load turbolinks:load", function () {
   });
 
   $("#payment_type_pay_activities").on("change", function () {
-    var form = $("#pay_activities_form");
     if (this.value == "Payconiq") {
       $(".payconiq-activities").show();
       $(".ideal-activities").hide();
@@ -26,15 +19,67 @@ $(document).on("ready page:load turbolinks:load", function () {
       $(".ideal-activities").show();
       $(".payconiq-activities").hide();
     }
+    calculatetotals();
   });
   $("#payment_type_add_funds").change();
   $("#payment_type_pay_activities").change();
-  $(".activity-payment").prop("disabled", $(":checkbox:checked").length == 0);
+  calculatetotals();
 
-  $(":checkbox").on("change", function () {
-    $(".activity-payment").prop("disabled", $(":checkbox:checked").length == 0);
+  // Check/uncheck all activities if the header checkbox gets checked or unchecked
+  $("#check_all_activities").on("click", function () {
+    var cbxs = $(".activity_checkbox:checkbox");
+    cbxs.prop("checked", $("#check_all_activities").is(":checked")).change();
+  });
+
+  // First time running the change events so it looks good initially
+  $("#check_all_activities").prop(
+    "checked",
+    $(".activity_checkbox:checkbox:checked ").length ==
+      $(".activity_checkbox:checkbox").length
+  );
+  $(".activity-payment").prop(
+    "disabled",
+    $(".activity_checkbox:checkbox:checked ").length == 0
+  );
+
+  // when an activity checkbox changes, check/uncheck the checkall checkbox and disable/enable the payment button
+  $(".activity_checkbox:checkbox").on("change", function () {
+    $("#check_all_activities").prop(
+      "checked",
+      $(".activity_checkbox:checkbox:checked ").length ==
+        $(".activity_checkbox:checkbox").length
+    );
+    $(".activity-payment").prop(
+      "disabled",
+      $(".activity_checkbox:checkbox:checked ").length == 0
+    );
+    calculatetotals();
   });
 });
+
+function calculatetotals() {
+  var cbxs = $(".activity_checkbox:checkbox:checked");
+  var subtotal = 0;
+  cbxs.each(function (i) {
+    var amount = $(this).parent().closest("td").prev().attr("price");
+    subtotal += parseFloat(amount);
+  });
+  $("#subtotal_activities").text(
+    subtotal.toLocaleString("en-US", {
+      style: "currency",
+      currency: "eur",
+    })
+  );
+  console.log(".transaction_cost_activities:visible");
+  var transactioncost = $(".transaction_cost_activities:visible").attr("price");
+  var total = subtotal + parseFloat(transactioncost);
+  $("#total_activities").text(
+    total.toLocaleString("en-US", {
+      style: "currency",
+      currency: "eur",
+    })
+  );
+}
 
 window.mobileAndTabletCheck = function () {
   let check = false;

@@ -13,11 +13,55 @@
           %span
             %i.fa.fa-fw.fa-fw.fa-ticket-alt
             = I18n.t("members.payments.unpaid_activity.title")
-            = f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: 'min-width: 0px !important', class:'ideal-activities'}
-            = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm activity-payment', type: "submit"
-            = submit_tag I18n.t("members.payments.unpaid_activity.checkall"), :type => 'button', class: "btn btn-success btn-sm", id: 'check-all'
-            = f.select :payment_type, [["Payconiq +€#{String(@payconiq_transaction_costs)}", 'Payconiq'],["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {}, { :id => 'payment_type_pay_activities' }
-        %table.table.table-striped
+        %table.table
+          %thead
+            %tr
+              %th
+                = I18n.t("members.payments.unpaid_activity.header.name")
+              %th.d-none.d-xl-table-cell
+                = I18n.t("members.payments.unpaid_activity.header.date")
+              %th
+                = I18n.t("members.payments.unpaid_activity.header.price")
+              %th
+                = check_box_tag 'check_all_activities'
+          %tfoot
+            %tr
+              %td
+              %td
+              %td
+              %td
+            %tr
+              %td
+                = I18n.t("members.payments.unpaid_activity.footer.paymentmethod")
+                .float-xl-right
+                  =f.select :payment_type, [["Payconiq +€#{String(@payconiq_transaction_costs)}", 'Payconiq'],["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {},{:id => 'payment_type_pay_activities'}
+              %td
+                = I18n.t("members.payments.unpaid_activity.footer.subtotal")
+              %td#subtotal_activities
+              %td
+            %tr
+              %td
+                .ideal-activities
+                  =I18n.t("members.payments.unpaid_activity.footer.bank")
+                  .float-xl-right= f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: '', class:'ideal-activities'}
+              %td
+                = I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
+              %td#transaction_cost_activities
+                %span.transaction_cost_activities.ideal-activities{:price =>@transaction_costs}= number_to_currency(@transaction_costs, :unit => '€')
+                %span.transaction_cost_activities.payconiq-activities{:price =>@payconiq_transaction_costs}= number_to_currency(@payconiq_transaction_costs, :unit => '€')
+              %td
+            %tr
+              %td
+              %td  
+                %strong= I18n.t("members.payments.unpaid_activity.footer.total")
+              %td#total_activities
+              %td
+            %tr
+              %td
+              %td 
+              %td
+                = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm activity-payment', type: "submit"
+              %td
           %tbody
             - @participants.each do |activity|
               %tr
@@ -27,27 +71,22 @@
                   %td= activity.name
 
                 - if !activity.start_date.nil?
-                  %td.hidden-xs
+                  %td.d-none.d-xl-table-cell
                     - if activity.end_date.nil?
                       = I18n.l activity.start_date
                     - else
                       #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
                 - if !activity.currency(@member).nil?
-                  %td= number_to_currency(activity.currency(@member), :unit => '€')
+                  %td{:price =>(activity.currency(@member))}= number_to_currency(activity.currency(@member), :unit => '€')
                 - else
                   %tdl
                 %td
-                  = check_box_tag "activity_ids[]", activity.id, true if !activity.participants.where(:member => @member).first.paid && activity.currency(@member) > 0 && activity.is_payable
-                %td.text-center.d-none.d-sm-block
-                  - if !activity.currency(@member).nil? && activity.currency(@member) > 0
-                    - if activity.participants.where(:member => @member).first.paid
-                      %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
-                    - else
-                      %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
+                  = check_box_tag "activity_ids[]", activity.id, true, {:class => "activity_checkbox"}
             - if @participants.empty?
               %tr
                 %td.text-center
                   %em=I18n.t("members.payments.unpaid_activity.no_unpaid")
+
   .col-lg-6.col-12
     .card
       = form_with :url => :mongoose, :local => true, :method=> :post, :class => 'form-validation', :id => "add_funds_form" do |f|
