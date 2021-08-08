@@ -3,7 +3,7 @@
     .card.card-body
       = form_with url: paymenthandlers_path, method: 'get', local: true do |form|
         .input-group
-          = form.text_field :search,  placeholder: I18n.t('layouts.partials.search_payments.placeholder'), class: 'form-control', :autocomplete => 'off', :disabled => true
+          = form.text_field :search,  placeholder: I18n.t('layouts.partials.search_payments.placeholder'),  class: 'form-control', :autocomplete => 'off',value: params[:search] || ""
           .input-group-append
             .form-element
             %button.btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false'}= I18n.t('admin.transactions.payment_type.title')

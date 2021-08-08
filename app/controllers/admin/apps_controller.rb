@@ -14,6 +14,8 @@ class Admin::AppsController < ApplicationController
 
   def transactions
     @transactions = Payment.order(created_at: :desc)
+
+    @transactions = @transactions.search_by_name(params[:search]) unless params[:search].blank?
     @transactions = @transactions.where(transaction_type: params[:transaction_type]) unless params[:transaction_type].blank?
     @transactions = @transactions.where(payment_type: params[:payment_type]) unless params[:payment_type].blank?
     @transactions = @transactions.where(status: params[:status]) unless params[:status].blank?
