@@ -2,6 +2,7 @@
 #:nodoc:
 class Activity < ApplicationRecord
   validates :name, presence: true
+  validates_length_of :name, :maximum => 52
 
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
