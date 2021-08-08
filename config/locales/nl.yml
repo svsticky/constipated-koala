@@ -484,6 +484,19 @@ nl:
         studying: studerend
       search_payments:
         placeholder: Zoek op transactie ID, Naam, Datum of Beschrijvijng.
+  members:
+    payments:
+      unpaid_activity:
+        footer:
+          bank: Bank
+          paymentmethod: 'Betaalmethode:'
+          subtotal: 'Subtotaal:'
+          total: 'Totaal:'
+          transactioncosts: 'Transactiekosten:'
+        header:
+          date: Datum
+          name: Naam
+          price: Prijs
   navigation:
     activity: Activiteiten
     back: Terug
