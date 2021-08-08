@@ -11,6 +11,13 @@ $(document).on("ready page:load turbolinks:load", function () {
     },
   });
 
+  $(".input-group#transaction_dates #update_transactions button").bind(
+    "click",
+    function () {
+      getCheckoutTransactions($(this));
+    }
+  );
+
   //Update search
   $("input#search").on("keyup", function () {
     var query = new RegExp($(this).val(), "i");
