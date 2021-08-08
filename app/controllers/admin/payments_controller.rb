@@ -68,9 +68,9 @@ class Admin::PaymentsController < ApplicationController
           p = Participant.where(member: payment.member, activity_id: activity_id).first
           # now create every transaction row with the following date: Blank, ledger account, transaction description, VAT number, amount, cost_location ()
           input <<  if p.activity.group.nil? || Group.first.ledgernr.blank?
-                      ["", "1302", "#{ p.activity.name } - #{p.member_id }", p.activity.VAT, p.currency, ""]
+                      ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, ""]
                     else
-                      ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{p.member_id }", p.activity.VAT, p.currency, p.activity.group.cost_location]
+                      ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, p.activity.group.cost_location]
                     end
         end
       end

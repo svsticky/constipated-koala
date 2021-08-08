@@ -61,7 +61,7 @@ function calculatetotals() {
   var cbxs = $(".activity_checkbox:checkbox:checked");
   var subtotal = 0;
   cbxs.each(function (i) {
-    var amount = $(this).parent().closest("td").prev().attr("price");
+    var amount = $(this).parent().siblings(".price").attr("price");
     subtotal += parseFloat(amount);
   });
   $("#subtotal_activities").text(
@@ -70,7 +70,6 @@ function calculatetotals() {
       currency: "eur",
     })
   );
-  console.log(".transaction_cost_activities:visible");
   var transactioncost = $(".transaction_cost_activities:visible").attr("price");
   var total = subtotal + parseFloat(transactioncost);
   $("#total_activities").text(

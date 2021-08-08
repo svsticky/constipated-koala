@@ -94,8 +94,24 @@ en:
       pictures: Pictures
       vacancies: Vacancies
     payments:
+      mongoose:
+        credit: Credit
+        subtitle: You can solely use mongoose credit to pay for product in Sticky's room.
+        transaction_costs: transaction costs charged
+        upgrade: Top up
       unpaid_activity:
         checkall: Select all
+        footer:
+          bank: Bank
+          paymentmethod: 'Payment method:'
+          subtotal: 'Subtotal:'
+          total: 'Total:'
+          transactioncosts: 'Transaction costs:'
+        header:
+          date: Date
+          name: Name
+          price: Price
         no_unpaid: There are no activities to pay!
         pay: Pay activities
+        subtitle: Here you can pay for unpaid activities.
         title: Unpaid activities

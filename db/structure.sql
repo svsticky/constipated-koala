@@ -132,7 +132,7 @@ ALTER SEQUENCE public.active_storage_variant_records_id_seq OWNED BY public.acti
 
 CREATE TABLE public.activities (
     id integer NOT NULL,
-    name character varying,
+    name character varying(52),
     start_date date,
     start_time time without time zone,
     end_date date,
@@ -1662,6 +1662,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210624155209'),
 ('20210624155358'),
 ('20210801152003'),
-('20210801152004');
+('20210801152004'),
+('20210808184948');
 
 

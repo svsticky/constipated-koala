@@ -24,14 +24,10 @@ class Admin::SettingsController < ApplicationController
       }
       return
 
-    elsif ['mongoose_ideal_costs'].include? params[:setting]
+    elsif %w[mongoose_ideal_costs payconiq_transaction_costs].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
-
-    elsif ['payconiq_transaction_costs'].include? params[:setting]
-      head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
-
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
 
     elsif ['begin_study_year'].include? params[:setting]
@@ -43,7 +39,7 @@ class Admin::SettingsController < ApplicationController
       head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value]
-    elsif ['payconiq_relation_code','ideal_relation_code','payment_condition_code','mongoose_ledger_number','accountancy_ledger_number'].include? params[:setting]
+    elsif %w[payconiq_relation_code ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d+/).nil?
 
       Settings[params[:setting]] = params[:value]
@@ -62,7 +58,7 @@ class Admin::SettingsController < ApplicationController
     @admin.update(admin_post_params)
 
     return redirect_to users_root_path(l: @user.language)
-  end   
+  end
 
   def logs
     @limit = params[:limit] ? params[:limit].to_i : 50

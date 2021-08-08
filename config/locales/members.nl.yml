@@ -75,13 +75,13 @@ nl:
         study: Studiegegevens
         underage_phone: Als je minderjarig bent is het verplicht om een telefoonnummer in te vullen voor noodgevallen.
       index:
-        credit: Tegoed
+        credit: Credit
         edit_profile: Gegevens bewerken
-        mongoose-info: Mongoose tegoed is niet voor het betalen van activiteiten of lidmaatschap. Mongoose kan je uitsluitend gebruiken om in de sticky gezelligheidskamer producten te kopen.
+        mongoose-info: Mongoose credit is not to pay for activities or membership. You can solely use mongoose credit to pay for product in Sticky's room.
         outstanding_payments: Openstaande betalingen
         personal_data: Persoonsgegevens
-        transaction_costs: transactiekosten in rekening gebracht
-        upgrade: Opwaarderen
+        transaction_costs: transaction costs charged
+        upgrade: Top up
     navigation:
       books: Boeken
       declarations: DigiDecs
@@ -94,8 +94,24 @@ nl:
       pictures: Foto's
       vacancies: Vacatures
     payments:
+      mongoose:
+        credit: Tegoed
+        subtitle: Mongoose kan je uitsluitend gebruiken om in de sticky gezelligheidskamer producten te kopen.
+        transaction_costs: transactiekosten in rekening gebracht
+        upgrade: Opwaarderen
       unpaid_activity:
         checkall: Selecteer alle
+        footer:
+          bank: Bank
+          paymentmethod: 'Betaalmethode:'
+          subtotal: 'Subtotaal:'
+          total: 'Totaal:'
+          transactioncosts: 'Transactiekosten:'
+        header:
+          date: Datum
+          name: Naam
+          price: Prijs
         no_unpaid: Er zijn geen activiteiten om te betalen!
         pay: Betaal activiteiten
+        subtitle: Hier kan je onbetaalde activiteiten betalen.
         title: Onbetaalde activiteiten
