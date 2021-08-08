@@ -24,6 +24,19 @@ class Payment < ApplicationRecord
 
   after_validation :request_payment, on: :create
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+                  against: [:trxid],
+                  associated_against: {
+                    member: [:first_name, :infix, :last_name]
+                  },
+                  using: {
+                    trigram: {
+                      only: [:first_name, :last_name, :trxid],
+                      threshold: 0.1
+                    }
+                  }
+
   def request_payment
     self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
     self.amount += transaction_fee
