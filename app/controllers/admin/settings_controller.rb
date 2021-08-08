@@ -40,14 +40,16 @@ class Admin::SettingsController < ApplicationController
       Settings[params[:setting]] = Date.parse(params[:value])
 
     elsif ['liquor_time'].include? params[:setting]
-      logger.debug params[:value].inspect
-      logger.debug((params[:value] =~ /\d{2}:\d{2}/).inspect)
-
       head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value]
-    end
+    elsif ['payconiq_relation_code','ideal_relation_code','payment_condition_code','mongoose_ledger_number','accountancy_ledger_number'].include? params[:setting]
+      head(:bad_request) && return if (params[:value] =~ /\d+/).nil?
 
+      Settings[params[:setting]] = params[:value]
+    elsif ['accountancy_cost_location'].include? params[:setting]
+      Settings[params[:setting]] = params[:value]
+    end
     head :ok
     return
   end
@@ -60,7 +62,7 @@ class Admin::SettingsController < ApplicationController
     @admin.update(admin_post_params)
 
     return redirect_to users_root_path(l: @user.language)
-  end
+  end   
 
   def logs
     @limit = params[:limit] ? params[:limit].to_i : 50
