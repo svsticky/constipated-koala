@@ -11,10 +11,11 @@ class Admin::ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
+    puts @participant
 
     if params[:reservist].present?
       message = params[:reservist].to_b ? 'reservist' : 'participant'
-      @participant.update_attributes(:reservist => params[:reservist])
+      @participant.update(params[:reservist])
 
       # notify participant of enrollment
       Mailings::Participants.enrolled(@participant).deliver_later
@@ -22,12 +23,12 @@ class Admin::ParticipantsController < ApplicationController
 
     if params[:paid].present?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
-      @participant.update_attribute(:paid, params[:paid]) unless @participant.currency.nil?
+      @participant.update(params[:paid]) unless @participant.currency.nil?
     elsif params[:price].present?
       raise 'not a number' unless params[:price].is_number?
 
       message = 'price'
-      @participant.update_attributes(:price => params[:price])
+      @participant.update(params[:price])
     end
 
     if @participant.save
