@@ -92,7 +92,7 @@ class Admin::CheckoutProductsController < ApplicationController
       return
     end
 
-    card.update_attribute(:active, true)
+    card.update(active: true)
 
     if card.save
       impressionist card

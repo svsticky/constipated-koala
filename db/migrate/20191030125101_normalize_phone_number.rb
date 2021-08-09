@@ -9,9 +9,9 @@ class NormalizePhoneNumber < ActiveRecord::Migration[5.2]
       comments << "\nMember had invalid phone number #{m.phone_number}" if new_phone_number.nil?
       comments << "\nMember had invalid emergency phone number #{m.emergency_phone_number}" if new_phone_number.nil? && m.emergency_phone_number.present?
 
-      m.update_attribute :phone_number, new_phone_number
-      m.update_attribute :emergency_phone_number, new_emergency_phone_number
-      m.update_attribute :comments, comments
+      m.update phone_number: new_phone_number
+      m.update emergency_phone_number: new_emergency_phone_number
+      m.update comments: comments
     end
   end
 
