@@ -11,6 +11,13 @@ $(document).on("ready page:load turbolinks:load", function () {
     },
   });
 
+  $("#export-transactions").bind(
+    "ajax:error",
+    function (event, xhr, status, error) {
+      toastr.error(I18n.t("admin.payment.not_found"));
+    }
+  );
+
   $(".input-group#transaction_dates #update_transactions button").bind(
     "click",
     function () {
