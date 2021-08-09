@@ -53,41 +53,54 @@ class Admin::PaymentsController < ApplicationController
 
   def export_payments
     payment_type = params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal]
-    @payments = if params[:start_date].blank?
-                  Payment.where(updated_at: 1.weeks.ago..1.days.from_now, payment_type: payment_type, status: :successful)
-                else
-                  Payment.where(updated_at: Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d"), payment_type: payment_type, status: :successful)
-                end
+    export_type = params[:export_type]
 
     @transaction_file = CSV.generate do |input|
-      # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
-      input << ["Factuurdatum", Date.today, "#{ params[:payment_type] } - #{ Date.strptime(params[:start_date], '%Y-%m-%d') } / #{ Date.strptime(params[:end_date], '%Y-%m-%d') }", "" + Settings.payment_condition_code, (params[:payment_type] == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)]
-
-      @payments.where(:transaction_type => :activity).each do |payment|
-        payment.transaction_id.each do |activity_id|
-          p = Participant.where(member: payment.member, activity_id: activity_id).first
-          # now create every transaction row with the following date: Blank, ledger account, transaction description, VAT number, amount, cost_location ()
-          input <<  if p.activity.group.nil? || Group.first.ledgernr.blank?
-                      ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, ""]
-                    else
-                      ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, p.activity.group.cost_location]
-                    end
+      if params[:export_type] == "daily"
+        (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date],"%Y-%m-%d")).each do |day|
+          puts day
+          @payments = Payment.where(updated_at: day..(day+1.day), payment_type: payment_type, status: :successful) 
+          puts @payments.count
+          createInvoice(input, @payments, params[:payment_type], day)
         end
       end
-
-      @payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount).each do |payment|
-        # Add all mongoose charge ups
-        input << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "", payment[1], ""]
-      end
-
-      transaction_cost_description = "Transaction costs #{ params[:payment_type] == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.accountancy_cost_location } x #{ @payments.where(:transaction_type => :activity).count }"
-      transaction_cost_amount = ((params[:payment_type] == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.mongoose_ideal_costs) * @payments.where(:transaction_type => :activity).count).to_s
-      input << ["", Settings.accountancy_ledger_number, transaction_cost_description, "21", transaction_cost_amount, Settings.accountancy_cost_location]
     end
+
     respond_to do |format|
       format.html { redirect_to payments_path }
       format.csv { send_data @transaction_file, filename: "payments_#{ Date.strptime(params[:start_date], '%Y-%m-%d') }_#{ Date.strptime(params[:end_date], '%Y-%m-%d') }.csv" }
-      format.js { render :js => "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: params[:payment_type]) }\", \"_blank\")" }
+      format.js { render :js => "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: params[:payment_type], export_type: params[:export_type]) }\", \"_blank\")" }
     end
+  end
+
+  private 
+  def createInvoice(csv,payments, payment_type, start_date, end_date = nil )
+    return unless !payments.empty? 
+
+    # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
+    csv << ["Factuurdatum", Date.today, "#{ payment_type } - #{ end_date.nil? ? Date.strptime(params[:start_date], '%Y-%m-%d') : "#{Date.strptime(start_date, '%Y-%m-%d')} / #{ Date.strptime(end_date, '%Y-%m-%d') }"}", "" + Settings.payment_condition_code, (payment_type == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)]
+
+    payments.where(:transaction_type => :activity).each do |payment|
+      payment.transaction_id.each do |activity_id|
+        p = Participant.where(member: payment.member, activity_id: activity_id).first
+        puts activity_id
+        puts p
+        # now create every transaction row with the following date: Blank, ledger account, transaction description, VAT number, amount, cost_location ()
+        csv <<  if p.activity.group.nil? || Group.first.ledgernr.blank?
+                    ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, ""]
+                  else
+                    ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, p.activity.group.cost_location]
+                  end
+      end
+    end
+
+    payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount).each do |payment|
+      # Add all mongoose charge ups
+      csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "", payment[1], ""]
+    end
+
+    transaction_cost_description = "Transaction costs #{ payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.accountancy_cost_location } x #{ payments.where(:transaction_type => :activity).count }"
+    transaction_cost_amount = ((payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.mongoose_ideal_costs) * payments.where(:transaction_type => :activity).count).to_s
+    csv << ["", Settings.accountancy_ledger_number, transaction_cost_description, "21", transaction_cost_amount, Settings.accountancy_cost_location]
   end
 end
