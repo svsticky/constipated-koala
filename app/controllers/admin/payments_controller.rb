@@ -52,17 +52,19 @@ class Admin::PaymentsController < ApplicationController
   end
 
   def export_payments
+    return head(:bad_request) unless !params[:export_type].blank? && !params[:payment_type].blank? && !params[:start_date].blank? && !params[:end_date].blank?
+
     payment_type = params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal]
-    export_type = params[:export_type]
 
     @transaction_file = CSV.generate do |input|
       if params[:export_type] == "daily"
-        (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date],"%Y-%m-%d")).each do |day|
-          puts day
-          @payments = Payment.where(updated_at: day..(day+1.day), payment_type: payment_type, status: :successful) 
-          puts @payments.count
-          createInvoice(input, @payments, params[:payment_type], day)
+        (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d")).each do |day|
+          @payments = Payment.where(created_at: day..(day + 1.day), payment_type: payment_type, status: :successful)
+          create_invoice(input, @payments, params[:payment_type], day)
         end
+      else
+        @payments = Payment.where(created_at: (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d")), payment_type: payment_type, status: :successful)
+        create_invoice(input, @payments, params[:payment_type], params[:start_date], params[:end_date])
       end
     end
 
@@ -73,24 +75,25 @@ class Admin::PaymentsController < ApplicationController
     end
   end
 
-  private 
-  def createInvoice(csv,payments, payment_type, start_date, end_date = nil )
-    return unless !payments.empty? 
+  private
+
+  def create_invoice(csv, payments, payment_type, start_date, end_date = nil)
+    return if payments.empty?
 
     # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
-    csv << ["Factuurdatum", Date.today, "#{ payment_type } - #{ end_date.nil? ? Date.strptime(params[:start_date], '%Y-%m-%d') : "#{Date.strptime(start_date, '%Y-%m-%d')} / #{ Date.strptime(end_date, '%Y-%m-%d') }"}", "" + Settings.payment_condition_code, (payment_type == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)]
+    description = "#{ payment_type } - #{ end_date.nil? ? Date.strptime(start_date, '%Y-%m-%d') : "#{ Date.strptime(start_date, '%Y-%m-%d') } / #{ Date.strptime(end_date, '%Y-%m-%d') }" }"
+    relation_code = (payment_type == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)
+    csv << ["Factuurdatum", Date.today, description, "" + Settings.payment_condition_code, relation_code]
 
     payments.where(:transaction_type => :activity).each do |payment|
       payment.transaction_id.each do |activity_id|
         p = Participant.where(member: payment.member, activity_id: activity_id).first
-        puts activity_id
-        puts p
         # now create every transaction row with the following date: Blank, ledger account, transaction description, VAT number, amount, cost_location ()
         csv <<  if p.activity.group.nil? || Group.first.ledgernr.blank?
-                    ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, ""]
-                  else
-                    ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, p.activity.group.cost_location]
-                  end
+                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, ""]
+                else
+                  ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, p.activity.group.cost_location]
+                end
       end
     end
 

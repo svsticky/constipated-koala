@@ -90,6 +90,8 @@ en:
       settings: Settings
       transactions: Transactions
     payment:
+      all: All
+      daily: Daily
       date: Date
       day_total: Daily total
       days: Days

@@ -90,6 +90,8 @@ nl:
       settings: Instellingen
       transactions: Transacties
     payment:
+      all: Alle
+      daily: Dagelijks
       date: Datum
       day_total: Dagtotaal
       days: Dagen
