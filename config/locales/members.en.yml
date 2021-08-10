@@ -96,8 +96,8 @@ en:
     payments:
       mongoose:
         credit: Credit
-        subtitle: You can solely use mongoose credit to pay for product in Sticky's room.
-        transaction_costs: transaction costs charged
+        subtitle: You can only use Mongoose credit to pay for product in Sticky's room.
+        transaction_costs: Transaction costs charged
         upgrade: Top up
       unpaid_activity:
         checkall: Select all

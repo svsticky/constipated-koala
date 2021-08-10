@@ -8,4 +8,8 @@ class LimitActivityCharacters < ActiveRecord::Migration[6.0]
   
     change_column :activities, :name, :string, :limit => 52
   end
+
+  def down
+    change_column :activities, :name, :string, :limit => nil
+  end
 end
