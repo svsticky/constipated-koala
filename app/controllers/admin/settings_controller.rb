@@ -23,18 +23,14 @@ class Admin::SettingsController < ApplicationController
         warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
       }
       return
-
     elsif %w[mongoose_ideal_costs payconiq_transaction_costs].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
-      Settings[params[:setting]] = params[:value].sub(',', '.').to_f
-
     elsif ['begin_study_year'].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
 
       Settings[params[:setting]] = Date.parse(params[:value])
-
     elsif ['liquor_time'].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
 

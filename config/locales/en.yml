@@ -62,7 +62,7 @@ en:
         category: Category
         image: Image
         name: Name
-        price: PriceNaam
+        price: Price
       education:
         status:
           active: Studying
