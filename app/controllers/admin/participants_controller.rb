@@ -15,7 +15,7 @@ class Admin::ParticipantsController < ApplicationController
 
     if params[:reservist].present?
       message = params[:reservist].to_b ? 'reservist' : 'participant'
-      @participant.update(params[:reservist])
+      @participant.update(:reservist => params[:reservist])
 
       # notify participant of enrollment
       Mailings::Participants.enrolled(@participant).deliver_later
@@ -23,12 +23,12 @@ class Admin::ParticipantsController < ApplicationController
 
     if params[:paid].present?
       message = params[:paid].to_b ? 'paid' : 'unpaid'
-      @participant.update(params[:paid]) unless @participant.currency.nil?
+      @participant.update(:paid => params[:paid]) unless @participant.currency.nil?
     elsif params[:price].present?
       raise 'not a number' unless params[:price].is_number?
 
       message = 'price'
-      @participant.update(params[:price])
+      @participant.update(:price => params[:price])
     end
 
     if @participant.save
