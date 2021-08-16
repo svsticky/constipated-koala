@@ -104,9 +104,13 @@ class Members::ParticipantsController < ApplicationController
       reason_for_spare_message = I18n.t(:participant_no_masters,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
-    elsif !@member.freshman? && @activity.is_freshmans?
+    elsif !((@activity.is_freshmans? && @member.freshmans?) || (@activity.is_penultimates? && @member.penultimate?) || (@activity.is_senior? && @member.is_senior?) || (@activity.is_masters? && @member.masters?))
       reservist = true
-      reason_for_spare_message = I18n.t(:participant_no_freshman,
+      reason = :participant_no_freshman unless @activity.is_freshmans? && !@member.freshman?
+      reason = :participant_no_penultimate unless @activity.is_penultimates? && !@member.penultimate?
+      reason = :participant_no_seniors unless @activity.is_seniors? && !@member.senior?
+      reason = :participant_no_masters unless @activity.is_freshmans? && !@member.master?
+      reason_for_spare_message = I18n.t(reason,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
     end

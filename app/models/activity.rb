@@ -248,8 +248,14 @@ class Activity < ApplicationRecord
     # Filter non-masters if masters-only, non-freshmen if freshman-only.
     # Note: this will leave nobody if someone enables both is_masters and
     # is_freshmans, as freshman? explicitly rejects masters.
-    reservistpool.select! { |m| m.member.masters? } if is_masters?
-    reservistpool.select! { |m| m.member.freshman? } if is_freshmans?
+    if is_freshmans? || is_penultimates? || is_seniors? || is_masters?
+      pool = []
+      pool += reservistpool.select { |m| m.member.master? } if is_masters?
+      pool += reservistpool.select { |m| m.member.freshmans? } if is_freshmans?
+      pool += reservistpool.select { |m| m.member.penultimate? } if is_penultimates?
+      pool += reservistpool.select { |m| m.member.senior? } if is_seniors?
+      reservistpool = pool
+    end
 
     luckypeople = reservistpool.first(spots)
 

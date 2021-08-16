@@ -147,9 +147,6 @@
           .col-md-4
             = f.check_box :show_on_website, checked: @activity.show_on_website, disabled: !@activity.is_viewable, data: {original: @activity.show_on_website}
             = f.label :show_on_website
-          .col-md-4
-            = f.check_box :is_freshmans, checked: @activity.is_freshmans
-            = f.label :is_freshmans
 
         .row
           .col-md-4
@@ -169,6 +166,21 @@
           .col-lg-6
             = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, data: {original: @activity.participant_limit}, id: "participant_limit"
+        .row 
+          .col-md-4
+            .form-check
+              = f.check_box :is_freshmans, checked: @activity.is_freshmans
+              = f.label :is_freshmans
+            .form-check
+              = f.check_box :is_penultimates, checked: @activity.is_penultimates
+              = f.label :is_freshmans
+            .form-check
+              = f.check_box :is_seniors, checked: @activity.is_seniors
+              = f.label :is_freshmans
+            .form-check
+              = f.check_box :is_masters, checked: @activity.is_masters
+              = f.label :is_masters
+          
         %hr.my-4
         .row
           .col-md-4

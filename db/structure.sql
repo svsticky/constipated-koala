@@ -160,7 +160,9 @@ CREATE TABLE public.activities (
     is_payable boolean DEFAULT false,
     "VAT" character varying DEFAULT '21'::character varying,
     open_date date,
-    open_time time without time zone
+    open_time time without time zone,
+    is_penultimates boolean,
+    is_seniors boolean
 );
 
 
@@ -1731,5 +1733,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211012104341'),
 ('20220221195220'),
 ('20220406092056');
+('20210816185700');
 
 

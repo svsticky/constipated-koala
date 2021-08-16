@@ -46,6 +46,8 @@ dates.each do |start_date|
     is_viewable:       viewable,
     is_alcoholic:      Faker::Boolean.boolean(true_ratio: 0.2),
     is_freshmans:      Faker::Boolean.boolean(true_ratio: 0.2),
+    is_penultimates:   Faker::Boolean.boolean(true_ratio: 0.2),
+    is_seniors:        Faker::Boolean.boolean(true_ratio: 0.2),
     is_payable:        Faker::Boolean.boolean(true_ratio: 0.8),
 
     participant_limit: enrollable && Faker::Boolean.boolean(true_ratio: 0.5) ? Faker::Number.within(range: 2..18) : nil,
