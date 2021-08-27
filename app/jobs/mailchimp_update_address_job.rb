@@ -2,11 +2,12 @@
 class MailchimpUpdateAddressJob < ApplicationJob
   queue_as :default
 
-  def perform(old_address, new_address)
+  def perform(old_address, new_address, mailchimp_status = 'subscribed')
     return if ENV['MAILCHIMP_DATACENTER'].blank?
 
     request = {
-      email_address: new_address
+      email_address: new_address,
+      status_if_new: mailchimp_status
     }
 
     logger.debug request.inspect
