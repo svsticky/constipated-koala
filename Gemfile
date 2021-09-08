@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'mysql2', '0.5.1'
 gem 'rails', '~> 6.0'
 
 # use of Haml and rabl
