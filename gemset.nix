@@ -680,16 +680,6 @@
     };
     version = "2.1.1";
   };
-  mysql2 = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "1sg4mq40pnnd38qx195gsaxxw4g0blpvlbhagysd18f3xhfpajzc";
-      type = "gem";
-    };
-    version = "0.5.1";
-  };
   netrc = {
     groups = ["default"];
     platforms = [];
