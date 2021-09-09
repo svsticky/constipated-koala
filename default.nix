@@ -3,7 +3,7 @@
 let
   pkgs = sources.nixpkgs {};
   gitignore = sources.gitignore{ lib = pkgs.lib; };
-  node = import ./nix/node.nix {};
+  node = import ./nix/node.nix { inherit pkgs; };
   gems = pkgs.bundlerEnv {
     name = "koala";
     ruby = pkgs.ruby;
