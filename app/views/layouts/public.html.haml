@@ -7,7 +7,11 @@
     %meta{content: "width=device-width, initial-scale=1, user-scalable=no", name: "viewport"}
 
     = stylesheet_link_tag 'public', media: 'all', 'data-turbolinks-track' => 'reload'
-    = javascript_pack_tag 'public', 'data-turbolinks-track': 'reload'
+
+    - if ENV['RAILS_ENV'] == "production" || ENV['RAILS_ENV'] == "staging"
+      %script{src: "/packs/js/public.js"}
+    - else
+      = javascript_pack_tag 'public', 'data-turbolinks-track': 'reload'
 
     = csrf_meta_tags
 
