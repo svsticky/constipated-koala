@@ -8,11 +8,11 @@ namespace :webpacker do
       system({}, "bundle exec ./bin/webpack")
 
       if ENV['NODE_ENV'] == 'production' || ENV['NODE_ENV'] == 'staging'
-        for jspack in ['application', 'doorkeeper', 'public', 'intro', 'members'] do
-          system({}, "ln -f ./public$(jq -r '.entrypoints.#{jspack}.js[0]' public/packs/manifest.json) public/packs/js/#{jspack}.js")
+        %w[application doorkeeper public intro members].each do |jspack|
+          system({}, "ln -f ./public$(jq -r '.entrypoints.#{ jspack }.js[0]' public/packs/manifest.json) public/packs/js/#{ jspack }.js")
         end
-        for csspack in ['doorkeeper'] do
-          system({}, "ln -f ./public$(jq -r '.entrypoints.#{csspack}.css[0]' public/packs/manifest.json) public/packs/css/#{csspack}.css")
+        ['doorkeeper'].each do |csspack|
+          system({}, "ln -f ./public$(jq -r '.entrypoints.#{ csspack }.css[0]' public/packs/manifest.json) public/packs/css/#{ csspack }.css")
         end
       end
     end
