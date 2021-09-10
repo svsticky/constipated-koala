@@ -7,7 +7,7 @@ namespace :webpacker do
     Dir.chdir(Rails.root) do
       system({}, "bundle exec ./bin/webpack")
 
-      if ENV['NODE_ENV'] == 'production' || ENV['NODE_ENV'] == 'staging'
+      if ENV['RAILS_ENV'] == 'production' || ENV['RAILS_ENV'] == 'staging'
         %w[application doorkeeper public intro members].each do |jspack|
           system({}, "ln -f ./public$(jq -r '.entrypoints.#{ jspack }.js[0]' public/packs/manifest.json) public/packs/js/#{ jspack }.js")
         end
