@@ -74,17 +74,9 @@ in
       if [[ ( ! -e node_modules ) || ( -h node_modules ) ]]; then
         rm node_modules
         ln -sf ${node-path} node_modules
-        NODE_ENV=production RAILS_ENV=production dotenv rails assets:precompile
-        ln -f ./public$(jq -r '.entrypoints.application.js[0]' public/packs/manifest.json) public/packs/js/application.js
-        ln -f ./public$(jq -r '.entrypoints.intro.js[0]' public/packs/manifest.json) public/packs/js/intro.js
-        ln -f ./public$(jq -r '.entrypoints.members.js[0]' public/packs/manifest.json) public/packs/js/members.js
-        ln -f ./public$(jq -r '.entrypoints.public.js[0]' public/packs/manifest.json) public/packs/js/public.js
-        ln -f ./public$(jq -r '.entrypoints.doorkeeper.js[0]' public/packs/manifest.json) public/packs/js/doorkeeper.js
-        ln -f ./public$(jq -r '.entrypoints.doorkeeper.css[0]' public/packs/manifest.json) public/packs/css/doorkeeper.css
       else
         echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
       fi
-
     '';
 
     LC_ALL = "C.UTF-8";
