@@ -95,6 +95,12 @@ It generates two users that you can use:
 - `dev@svsticky.nl`, an admin user (password is `sticky123`),
 - `test@svsticky.nl`, a member user (same password).
 
+Then precompile the assets (in the Nix shell):
+
+``` bash
+dotenv rails assets:precompile
+```
+
 ## Running Koala
 
 You can run Koala itself by running this command (again, in the Nix shell):
