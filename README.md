@@ -55,8 +55,14 @@ This will start a server that listens until you press Ctrl-C in the window where
 It might be neccesary to remove your existing node_modules folder, if it exists.
 Yarn might fail otherwise.
 
-When editing JavaScript, it might be usefull to run the webpack development server.
-This is started with:
+To precompile the assets, run (in the Nix shell):
+
+``` bash
+dotenv rails assets:precompile
+```
+
+When editing JavaScript or CSS that is managed by Webpack, run the webpack development server.
+This can be started with (again in the Nix shell):
 
 ``` bash
 bundle exec bin/webpack-dev-server
