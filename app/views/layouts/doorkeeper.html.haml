@@ -12,6 +12,8 @@
 
     = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => 'reload'
 
+    // This is a hack to circumvent Webpacker in production environments
+    // For more details see lib/tasks/webpacker.rake
     - if ENV['RAILS_ENV'] == "production" || ENV['RAILS_ENV'] == "staging"
       %link{rel: "stylesheet", href: "/packs/css/doorkeeper.css"}
       %script{src: "/packs/js/doorkeeper.js"}
