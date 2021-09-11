@@ -7,6 +7,8 @@
 
     = stylesheet_link_tag 'intro', media: 'all', 'data-turbolinks-track' => 'reload'
 
+    // This is a hack to circumvent Webpacker in production environments
+    // For more details see lib/tasks/webpacker.rake
     - if ENV['RAILS_ENV'] == "production" || ENV['RAILS_ENV'] == "staging"
       %script{src: "/packs/js/intro.js"}
     - else
