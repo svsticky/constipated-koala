@@ -82,8 +82,8 @@ class Member < ApplicationRecord
   ))
   }
 
-  scope :studying, -> { where(id: Education.where(status: :active)) }
-  scope :alumni, -> { where.not(id: Education.where(status: :active)) }
+  scope :studying, -> { where(educations: Education.where(status: :active)) }
+  scope :alumni, -> { where.not(educations: Education.where(status: :active)) }
 
   include PgSearch::Model
   pg_search_scope :search_by_name,
