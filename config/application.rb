@@ -41,6 +41,9 @@ module ConstipatedKoala
 
     config.active_job.queue_adapter = :sidekiq
 
+    # Enable raw sql in database migrations
+    config.active_record.schema_format = :sql
+
     # Custom configuration
     config.mailgun = ENV['MAILGUN_TOKEN']
     config.checkout = ENV['CHECKOUT_TOKEN']
