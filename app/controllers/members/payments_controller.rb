@@ -22,7 +22,7 @@ class Members::PaymentsController < ApplicationController
 
     description_prefix = "Activiteiten - "
     description_length_remaining = 140 - description_prefix.length
-    description = "#{ description_prefix }#{ join_with_char_limit(activity_names_for_unpaid, ', ', description_length_remaining) }"
+    description = "#{ description_prefix }#{ self.class.join_with_char_limit(activity_names_for_unpaid, ', ', description_length_remaining) }"
     amount = unpaid.sum(&:currency)
 
     if amount < 1
