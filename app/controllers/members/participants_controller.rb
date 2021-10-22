@@ -58,7 +58,7 @@ class Members::ParticipantsController < ApplicationController
     end
 
     # Deny if activity not enrollable
-    unless @activity.is_open
+    unless @activity.open?
       render status: :locked, json: {
         message: I18n.t(:not_enrollable, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,
@@ -194,7 +194,7 @@ class Members::ParticipantsController < ApplicationController
   def destroy
     # Unenrollment is denied if the activity is not or no longer enrollable by
     # users, or if the unenroll date has passed.
-    not_enrollable = !@activity.is_open
+    not_enrollable = !@activity.open?
     deadline_passed = @activity.unenroll_date&.end_of_day &&
                       @activity.unenroll_date.end_of_day < Time.now
 
