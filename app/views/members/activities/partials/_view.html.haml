@@ -57,7 +57,7 @@
         %strong= I18n.t("activerecord.attributes.activity.location")
         = activity.location
         <br/>
-      - if !activity.unenroll_date.nil? && activity.is_open
+      - if !activity.unenroll_date.nil? && activity.open?
         %strong= I18n.t("activerecord.attributes.activity.unenroll_date")
         %span.activity-unenroll
           = l(activity.unenroll_date, format: "%A %d/%m/%Y")
@@ -97,7 +97,7 @@
       - if activity.notes.present? && view == 'show'
         %button.btn.btn-info.update-enrollment.col-9.col-sm-6{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
           = I18n.t("members.activities.actions.update_info")
-      - if activity.is_open
+      - if activity.open?
         - if @member.confirmed_activities.ids.include? activity.id
           - button_text = I18n.t("members.activities.actions.unenroll")
           - button_class = 'btn-danger col-12 col-sm-6'
