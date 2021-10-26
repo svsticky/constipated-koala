@@ -3,7 +3,7 @@
 @import "@tailwindcss/postcss7-compat/utilities";
 
 .btn {
-  @apply bg-blue-500 text-white p-2 rounded w-full cursor-pointer hover:bg-blue-600 transition-colors; 
+  @apply bg-blue-500 text-white p-2 rounded w-full cursor-pointer hover:bg-blue-600 transition-colors;
 }
 
 .alert-danger {
