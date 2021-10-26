@@ -34,6 +34,10 @@
   @apply m-auto;
 }
 
+footer > div {
+  margin: 0 auto;
+}
+
 // This is a hack because browsers do not follow the CSS standard with respect to specifity of display rules
 // see: https://stackoverflow.com/questions/68206422/tailwinds-darkhidden-darkblock-wont-override-its-own-hidden-selector
 @media (prefers-color-scheme: dark) {
