@@ -24,6 +24,8 @@ jobs:
 
     - name: "install Nix"
       uses: cachix/install-nix-action@v12
+      with:
+        install_url: "https://releases.nixos.org/nix/nix-2.3.16/install"
 
     - name: "Cache Nix packages"
       uses: cachix/cachix-action@v8
