@@ -10,14 +10,5 @@ module.exports = {
       },
       stage: 3
     }),
-    // don't purge css in development
-    process.env.NODE_ENV === 'development' ? null :
-    require("@fullhuman/postcss-purgecss")({
-      content: [
-        "./app/**/*.haml",
-        "./app/javascript/**/*.js"
-      ],
-      defaultExtractor: content => content.match(/[^<>"{\.'`\s]*[^<>"{\.'`\s:]/g) || []
-    })
   ]
 }
