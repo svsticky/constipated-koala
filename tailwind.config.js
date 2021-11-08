@@ -1,6 +1,9 @@
 module.exports = {
   darkMode: 'media',
-  purge: [],
+  // jit mode, this is still in preview but speeds up build
+  // not compatible with semantic versioning yet
+  mode: 'jit',
+  purge: ["app/**/*.haml", "app/javascript/**/*.js"],
   theme: {
     extend: {
       colors: {
