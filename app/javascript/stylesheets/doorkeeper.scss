@@ -1,6 +1,6 @@
-@import "@tailwindcss/postcss7-compat/base";
-@import "@tailwindcss/postcss7-compat/components";
-@import "@tailwindcss/postcss7-compat/utilities";
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
 
 .btn {
   @apply bg-blue-500 text-white p-2 rounded w-full cursor-pointer hover:bg-blue-600 transition-colors;
@@ -45,3 +45,5 @@ footer > div {
     display: block;
   }
 }
+
+@import "tailwindcss/utilities";
