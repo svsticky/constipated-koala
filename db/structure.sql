@@ -770,6 +770,43 @@ CREATE TABLE public.payments (
 
 
 --
+-- Name: posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.posts (
+    id bigint NOT NULL,
+    title character varying,
+    content text,
+    status integer DEFAULT 0 NOT NULL,
+    tags character varying,
+    author_type character varying NOT NULL,
+    author_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    published_at timestamp without time zone
+);
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1075,6 +1112,13 @@ ALTER TABLE ONLY public.participants ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_id_seq'::regclass);
+
+
+--
 -- Name: settings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1260,6 +1304,14 @@ ALTER TABLE ONLY public.oauth_openid_requests
 
 ALTER TABLE ONLY public.participants
     ADD CONSTRAINT participants_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1464,6 +1516,13 @@ CREATE UNIQUE INDEX index_payments_on_trxid ON public.payments USING btree (trxi
 
 
 --
+-- Name: index_posts_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_posts_on_author_type_and_author_id ON public.posts USING btree (author_type, author_id);
+
+
+--
 -- Name: index_settings_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1656,6 +1715,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200428194948'),
 ('20200429072750'),
 ('20200505212139'),
+('20200607113340'),
 ('20210309155656'),
 ('20210602141705'),
 ('20210602141706'),

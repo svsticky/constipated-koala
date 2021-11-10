@@ -140,11 +140,11 @@
                     %label{for: ''}
                     = I18n.t('admin.members.name')
                     = f.text_field :first_name, :value => @admin.first_name, :class => 'form-control'
-                  .col-md-3
+                  .col-md-5
                     %label{for: ''}
                     = I18n.t('admin.members.infix')
                     = f.text_field :infix, :value => @admin.infix, :class => 'form-control'
-                  .col-md-5
+                  .col-md-7
                     %label{for: ''}
                     = I18n.t('admin.members.surname')
                     = f.text_field :last_name, :value => @admin.last_name, :class => 'form-control'
