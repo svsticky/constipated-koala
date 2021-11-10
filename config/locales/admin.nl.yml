@@ -109,7 +109,6 @@ nl:
       not_paid: Niet betaalde activiteiten
       overdue: Achterstallige betalingen (> 4 mails)
       paid: Betaald
-
       per_page: transacties per pagina
       pinned: Gepinde Checkout transacties
       price: Prijs
