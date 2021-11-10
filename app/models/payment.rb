@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
 
   self.primary_key = :token
 
-  attr_accessor :issuer, :payment_uri, :message, :payconiq_qrurl, :payconiq_deeplink
+  attr_accessor :issuer, :payment_uri, :message
 
   validates :description, presence: true
   validates :amount, presence: true, numericality: true
@@ -12,7 +12,7 @@ class Payment < ApplicationRecord
   validates :payment_type, presence: true
 
   enum status: { failed: 0, in_progress: 1, successful: 2 }
-  enum payment_type: { ideal: 0, payconiq_online: 1, payconiq_display: 2, pin: 3 }
+  enum payment_type: { ideal: 0, pin: 3 }
   enum transaction_type: { checkout: 0, activity: 1 }
   belongs_to :member
 
@@ -20,7 +20,7 @@ class Payment < ApplicationRecord
 
   serialize :transaction_id, Array
 
-  validates :redirect_uri, presence: true, if: :ideal? || :payconiq_online
+  validates :redirect_uri, presence: true, if: :ideal?
 
   after_validation :request_payment, on: :create
 
@@ -73,35 +73,6 @@ class Payment < ApplicationRecord
       self.status = :in_progress
     # pin payment shouldn't have any extra work
     when :pin
-
-    # Payconiq payments
-    else
-      http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
-      self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
-
-      request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
-
-      request.body = { amount: (amount * 100).to_i,
-                       reference: payment_type,
-                       description: description,
-                       currency: 'EUR',
-                       callbackUrl: Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.routes.url_helpers.payconiq_hook_url,
-                       returnUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token) }.to_json
-
-      request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
-      request.content_type = 'application/json'
-      request['Cache-Control'] = "no-cache"
-
-      response = http.send! request
-
-      self.trxid = response.paymentId
-      self.payconiq_qrurl = response[:_links][:qrcode][:href]
-      self.payconiq_deeplink = response[:_links][:deeplink][:href]
-      self.payment_uri = response[:_links][:checkout][:href]
-
-      # Currently the test environment has an error where the link goes to the production environment while the transaction only exists in the test environment this fixes it for now.
-      self.payment_uri = payment_uri.gsub(/payconiq/, 'ext.payconiq') if Rails.env.development? || Rails.env.staging?
-      self.status = :in_progress
     end
   end
 
@@ -131,29 +102,6 @@ class Payment < ApplicationRecord
 
       return false
     when :pin
-    else
-      http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
-      @status = status
-
-      request = http.get("/#{ ENV['PAYCONIQ_VERSION'] }/payments/#{ trxid }")
-      request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
-      request.content_type = 'application/json'
-
-      response = http.send! request
-
-      status_update(response.status)
-
-      save!
-
-      # first time paid as a response
-      if successful? && @status != :successful
-        I18n.t('success', scope: 'activerecord.errors.models.payment')
-        return true
-      end
-
-      self.message = I18n.t('processed', scope: 'activerecord.errors.models.payment') if successful?
-      self.message = I18n.t('failed', scope: 'activerecord.errors.models.payment') if failed?
-      return false
     end
   end
 
@@ -190,10 +138,7 @@ class Payment < ApplicationRecord
     case payment_type.to_sym
     when :ideal
       return Settings.mongoose_ideal_costs
-    when :payconiq_online
-      return Settings.payconiq_transaction_costs
-    else
-      # :pin, :payconiq_display
+    when :pin
       return 0
     end
   end

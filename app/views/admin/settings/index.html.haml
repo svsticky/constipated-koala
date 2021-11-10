@@ -77,20 +77,6 @@
               %li.list-group-item
                 .container.row
                   .col-md-6
-                    %b= I18n.t 'payconiq_transaction_costs.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'payconiq_transaction_costs.description', scope: 'activerecord.attributes.settings'
-                  .col-md-6
-                    %input.form-control{ :id => 'options_payconiq_transaction_costs', :name => 'payconiq_transaction_costs', :value => Settings.payconiq_transaction_costs, :placeholder => '' }
-              %li.list-group-item
-                .container.row
-                  .col-md-6
-                    %b= I18n.t 'payconiq_relation_code.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'payconiq_relation_code.description', scope: 'activerecord.attributes.settings'
-                  .col-md-6
-                    %input.form-control{ :id => 'options_payconiq_relation_code', :name => 'payconiq_relation_code', :value => Settings.payconiq_relation_code, :placeholder => '' }
-              %li.list-group-item
-                .container.row
-                  .col-md-6
                     %b= I18n.t 'ideal_relation_code.name', scope: 'activerecord.attributes.settings'
                     %p= I18n.t 'ideal_relation_code.description', scope: 'activerecord.attributes.settings'
                   .col-md-6

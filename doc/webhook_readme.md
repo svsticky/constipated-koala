@@ -1,6 +1,6 @@
 
 ## Webhook setup
-When you want to test Mollie or Payconiq while developing there are certain webhooks that need to be available to public networks.  For this we use ngrok to tunnel our local network securly to the internet. Here is a small guide on how to set this up.
+When you want to test Mollie while developing there are certain webhooks that need to be available to public networks.  For this we use ngrok to tunnel our local network securly to the internet. Here is a small guide on how to set this up.
 
 1. install ngrok [Here](https://ngrok.com/download).
 2. Run this command ``ngrok http -host-header=koala.rails.local koala.rails.local:3000``
@@ -24,6 +24,6 @@ HTTP Requests
 -------------      
 ```
 4. Copy the first "Forwarding" ngrok link (in this case http://bf68e1ab4469.ngrok.io) and paste it in your `.env` at the var NGROK_HOST.
-5. Restart koala and you should be able to test Payconiq & Mollie
+5. Restart koala and you should be able to test Mollie
 
 

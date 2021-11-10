@@ -23,7 +23,7 @@ class Admin::SettingsController < ApplicationController
         warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
       }
       return
-    elsif %w[mongoose_ideal_costs payconiq_transaction_costs].include? params[:setting]
+    elsif %w[mongoose_ideal_costs].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
@@ -35,7 +35,7 @@ class Admin::SettingsController < ApplicationController
       head(:bad_request) && return if (params[:value] =~ /\d{2}:\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value]
-    elsif %w[payconiq_relation_code ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include? params[:setting]
+    elsif %w[ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include? params[:setting]
       head(:bad_request) && return if (params[:value] =~ /\d+/).nil?
 
       Settings[params[:setting]] = params[:value]

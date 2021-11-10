@@ -7,7 +7,7 @@ Member.all.sample(30).each do |member|
 
   15.times do
     transactiontype = Faker::Number.within(range: 0..1)
-    paymenttype = Faker::Number.within(range:0..3)
+    paymenttype = Faker::Number.within(range:0..1)
     status = Faker::Number.within(range:0..2)
     if transactiontype == 1 && status == 0
       participants = Participant.where(member:member).where.not(activity:[nil,1]).select{|p| p.currency != nil}.sample(Faker::Number.within(range:1..6))
