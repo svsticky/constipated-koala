@@ -5,6 +5,8 @@ require 'rails/all'
 # you've limited to :test, :development, :staging or :production.
 Bundler.require(*Rails.groups)
 
+Webpacker::Compiler.env["TAILWIND_MODE"] = "build"
+
 #:nodoc:
 module ConstipatedKoala
   #:nodoc:

@@ -12,7 +12,7 @@ gem 'rabl'
 gem 'coffee-rails'
 gem 'font_awesome5_rails'
 gem 'sassc-rails'
-gem 'webpacker'
+gem 'webpacker', '6.0.0.rc.6'
 
 # mimemagic
 gem 'mimemagic', '0.3.9'

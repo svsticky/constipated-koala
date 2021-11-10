@@ -832,10 +832,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1v40xd3xhzhbdqfynd03gn88j1pga2zhrv58xs9fl4hzrlbp096s";
+      sha256 = "0jdr2r5phr3q7d6k9cnxjwlkaps0my0n43wq9mzw3xdqhg9wa3d6";
       type = "gem";
     };
-    version = "0.6.5";
+    version = "0.7.0";
   };
   rack-test = {
     dependencies = ["rack"];
@@ -1087,10 +1087,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "150wq0y749rags4pm0g3zljd575vk17nwdzp0m0q04s62977rd24";
+      sha256 = "1dlp97vg95plrsaaqj7x8l7z9vsjbhnqk4rw1l30gy26lmxpfrih";
       type = "gem";
     };
-    version = "2.3.0";
+    version = "3.0.0";
   };
   sentry-raven = {
     dependencies = ["faraday"];
@@ -1289,10 +1289,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1xgyv5ppljw3yq71nbrw2hj6hq9y8qbdavjrn53nsccpy7801wdx";
+      sha256 = "1f1g5y0dwwzgcvffgsicp2hh1cglxqz4ks39f79zq823715z2mvl";
       type = "gem";
     };
-    version = "5.2.1";
+    version = "6.0.0.rc.6";
   };
   websocket-driver = {
     dependencies = ["websocket-extensions"];
