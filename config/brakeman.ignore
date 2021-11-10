@@ -106,7 +106,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/admin/settings/index.html.haml",
-      "line": 192,
+      "line": 151,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "current_user.credentials.signature",
       "render_path": [
