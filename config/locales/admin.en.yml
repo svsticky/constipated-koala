@@ -109,8 +109,6 @@ en:
       not_paid: Unpaid for activities
       overdue: Overdue payments (> 4 mails)
       paid: Paid
-      payconiq_display: Payconiq display total
-      payconiq_online: Payconiq display total
       per_page: transactions per page
       pinned: Pinned Checkout transactions
       price: Price
@@ -159,8 +157,6 @@ en:
       member: Member
       payment_type:
         ideal: Ideal
-        payconiq_display: Payconiq display
-        payconiq_online: Payconiq online
         pin: Pinned
         title: Payment Method
       state:

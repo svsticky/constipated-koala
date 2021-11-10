@@ -54,18 +54,11 @@ class Admin::PaymentsController < ApplicationController
   def export_payments
     return head(:bad_request) unless params[:export_type].present? && params[:payment_type].present? && params[:start_date].present? && params[:end_date].present?
 
-    payment_type = params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal]
+    payment_type = [:ideal]
 
     @transaction_file = CSV.generate do |input|
-      if params[:export_type] == "daily"
-        (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d")).each do |day|
-          @payments = Payment.where(created_at: day..(day + 1.day), payment_type: payment_type, status: :successful)
-          create_invoice(input, @payments, params[:payment_type], day)
-        end
-      else
-        @payments = Payment.where(created_at: (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d")), payment_type: payment_type, status: :successful)
-        create_invoice(input, @payments, params[:payment_type], params[:start_date], params[:end_date])
-      end
+      @payments = Payment.where(created_at: (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d")), payment_type: payment_type, status: :successful)
+      create_invoice(input, @payments, params[:payment_type], params[:start_date], params[:end_date])
     end
 
     respond_to do |format|
@@ -82,7 +75,7 @@ class Admin::PaymentsController < ApplicationController
 
     # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
     description = "#{ payment_type } - #{ end_date.nil? ? Date.strptime(start_date, '%Y-%m-%d') : "#{ Date.strptime(start_date, '%Y-%m-%d') } / #{ Date.strptime(end_date, '%Y-%m-%d') }" }"
-    relation_code = (payment_type == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)
+    relation_code = Settings.ideal_relation_code
     csv << ["Factuurdatum", Date.today, description, Settings.payment_condition_code.to_s, relation_code]
 
     payments.where(transaction_type: :activity).each do |payment|
@@ -102,8 +95,9 @@ class Admin::PaymentsController < ApplicationController
       csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "9", payment[1], ""]
     end
 
-    transaction_cost_description = "Transaction costs #{ payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.accountancy_cost_location } x #{ payments.count }"
-    transaction_cost_amount = ((payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.mongoose_ideal_costs) * payments.count).to_s
+    activity_amount = payments.where(transaction_type: :activity).count
+    transaction_cost_description = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
+    transaction_cost_amount = Settings.mongoose_ideal_costs * activity_amount
     csv << ["", Settings.accountancy_ledger_number, transaction_cost_description, "21", transaction_cost_amount, Settings.accountancy_cost_location]
   end
 end

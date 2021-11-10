@@ -109,8 +109,7 @@ nl:
       not_paid: Niet betaalde activiteiten
       overdue: Achterstallige betalingen (> 4 mails)
       paid: Betaald
-      payconiq_display: Payconiq display totaalbedrag
-      payconiq_online: Payconiq online totaal
+
       per_page: transacties per pagina
       pinned: Gepinde Checkout transacties
       price: Prijs
@@ -159,8 +158,6 @@ nl:
       member: Lid
       payment_type:
         ideal: Ideal
-        payconiq_display: Payconiq display
-        payconiq_online: Payconiq online
         pin: Gepind
         title: Betaalmethode
       state:

@@ -14,7 +14,7 @@ Currently, it implements methods to track several things within the association:
 
 - Members and membership status;
 - Activities and participants;
-- Payments via iDeal and Payconiq;
+- Payments via iDeal;
 - Committees and other groups;
 - Operation Dead Mongoose (TM) and Mongoose credit
 - [OAuth authentication](/app/controllers/api) and authorization endpoint;
@@ -29,7 +29,7 @@ Koala has an [api](/app/views/api), it is used by [Radio](https://github.com/svs
 Koala is quite a large program, and has many integrations.
 To test and use some of the functionality, access to external api's is needed.
 Credentials can be found in the IT Crowd or CommIT password managers.
-Most notably, Koala integrates with MailChimp, MailGun, Mollie and PayConiq.
+Most notably, Koala integrates with MailChimp, MailGun and Mollie.
 
 ```shell
 # Add hosts for different subdomains on your own computer for development

@@ -152,8 +152,6 @@ en:
           title: Payment status
         payment-type:
           ideal: Ideal
-          payconiq_display: Payconiq Checkout
-          payconiq_online: Payconiq Online
           pin: Pin
           title: Payment Types
         transaction-type:
@@ -194,12 +192,6 @@ en:
         mongoose_ledger_number:
           description: The ledger number of mongoose funds upgrades.  This number can be found in our finance account on ExactOnline.
           name: Mongoose ledger number
-        payconiq_relation_code:
-          description: The relation code of payconiq for the export transaction feature.  This code can be found in ExactOnline and is only relevant for the treasurer.
-          name: Payconiq Relation Code
-        payconiq_transaction_costs:
-          description: The costs of an Payconiq transaction. They can be calculated separately in the Payconiq overview this way.
-          name: Payconiq transaction costs
         payment_condition_code:
           description: The payment code for the export transaction feature. This code is used in ExactOnline.
           name: Payment Condition Code

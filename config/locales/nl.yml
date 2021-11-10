@@ -152,8 +152,6 @@ nl:
           title: Betaling status
         payment-type:
           ideal: Ideal
-          payconiq_display: Payconiq Checkout
-          payconiq_online: Payconiq Online
           pin: Pin
           title: Betaling type
         transaction-type:
@@ -194,12 +192,6 @@ nl:
         mongoose_ledger_number:
           description: Het mongoose opwaarderingen grootboeknummer. Dit is nodig voor de export transacties functie en alleen relevant voor de penningmeester.
           name: Mongoose grootboekrekeningnummer
-        payconiq_relation_code:
-          description: De relatie code van Payconiq. Dit is nodig voor de export transacties functie en alleen relevant voor de penningmeester.
-          name: Payconiq relatienummer
-        payconiq_transaction_costs:
-          description: De kosten van een Payconiq-transactie, zodat deze apart kunnen worden berekend in het Payconiq-overzicht.
-          name: Payconiq transactie kosten
         payment_condition_code:
           description: De betalingsconditie. Dit is nodig voor de export transacties functie en alleen relevant voor de penningmeester.
           name: Betalingsconditie

@@ -105,7 +105,7 @@
               .row
               .row.form-group
                 .col-2
-                  = f.select :payment_type, ["Ideal","Payconiq"],{} ,{class:'form-control'}
+                  = f.select :payment_type, ["Ideal"],{} ,{class:'form-control'}
                 .col-3
                   = f.radio_button :export_type, "all", :checked => true
                   = f.label I18n.t('admin.payment.all')
