@@ -15,7 +15,7 @@ services:
       - 'redis_data:/bitnami/redis/data'
 
   postgres-db:
-    image: postgres
+    image: postgres:13
     restart: always
     environment:
       POSTGRES_USER: koala

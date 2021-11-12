@@ -3,7 +3,7 @@
 let
   pkgs = sources.nixpkgs {};
   gitignore = sources.gitignore{ lib = pkgs.lib; };
-  node = import ./nix/node.nix {};
+  node = import ./nix/node.nix { inherit pkgs; };
   gems = pkgs.bundlerEnv {
     name = "koala";
     ruby = pkgs.ruby;
@@ -21,19 +21,20 @@ let
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
-    propagatedBuildInputs = [
-      pkgs.shared-mime-info
+    propagatedBuildInputs = with pkgs; [
+      shared-mime-info
       gems
-      pkgs.nodejs
-      pkgs.ruby
-      pkgs.curl
-      pkgs.imagemagick
-      pkgs.ghostscript
-      pkgs.mupdf
-      pkgs.cacert
-      pkgs.bundler
-      pkgs.yarn
-      pkgs.postgresql_13
+      nodejs
+      ruby
+      curl
+      imagemagick
+      ghostscript
+      mupdf
+      cacert
+      bundler
+      yarn
+      postgresql_13
+      jq
     ];
 
     rails_wrapper = pkgs.writeScript "rails" ''
@@ -73,7 +74,6 @@ in
       if [[ ( ! -e node_modules ) || ( -h node_modules ) ]]; then
         rm node_modules
         ln -sf ${node-path} node_modules
-        dotenv rails assets:precompile
       else
         echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
       fi

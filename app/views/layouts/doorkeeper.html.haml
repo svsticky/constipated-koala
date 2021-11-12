@@ -11,13 +11,20 @@
     %meta{content: 'width=device-width, initial-scale=1, user-scalable=no', name: 'viewport'}
 
     = stylesheet_link_tag 'doorkeeper', media: 'all', 'data-turbolinks-track' => 'reload'
-    = stylesheet_pack_tag 'doorkeeper', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'doorkeeper', 'data-turbolinks-track': 'reload'
+
+    // This is a hack to circumvent Webpacker in production environments
+    // For more details see lib/tasks/webpacker.rake
+    - if ENV['RAILS_ENV'] == "production" || ENV['RAILS_ENV'] == "staging"
+      %link{rel: "stylesheet", href: "/packs/css/doorkeeper.css"}
+      %script{src: "/packs/js/doorkeeper.js"}
+    - else
+      = stylesheet_pack_tag 'doorkeeper', 'data-turbolinks-track': 'reload'
+      = javascript_pack_tag 'doorkeeper', 'data-turbolinks-track': 'reload'
 
     = csrf_meta_tags
   %body.h-full.flex.flex-col.bg-gray-100.dark:bg-gray-900
     .flex.flex-col.flex-grow.justify-center
-      %img.w-64.mx-auto.p-4.dark:hidden{src:"https://public.svsticky.nl/logos/logo_compact_kleur.svg"}
+      %img.w-64.mx-auto.p-4.dark:hidden{src:"https://public.svsticky.nl/logos/logo_compact_outline_kleur.svg"}
       %img.w-64.mx-auto.p-4.hidden.dark:block{src:"https://public.svsticky.nl/logos/logo_compact_outline_wit.svg"}
 
       .shadow.px-10.py-4.rounded-md.bg-white.mx-auto.dark:bg-gray-800.dark

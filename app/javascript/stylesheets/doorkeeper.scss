@@ -3,7 +3,7 @@
 @import "@tailwindcss/postcss7-compat/utilities";
 
 .btn {
-  @apply bg-blue-500 text-white p-2 rounded w-full;
+  @apply bg-blue-500 text-white p-2 rounded w-full cursor-pointer hover:bg-blue-600 transition-colors;
 }
 
 .alert-danger {
@@ -32,6 +32,10 @@
 
 .input-group-text {
   @apply m-auto;
+}
+
+footer > div {
+  margin: 0 auto;
 }
 
 // This is a hack because browsers do not follow the CSS standard with respect to specifity of display rules

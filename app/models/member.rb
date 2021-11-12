@@ -88,12 +88,12 @@ class Member < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :search_by_name,
                   against: [:first_name, :infix, :last_name, :phone_number, :email, :student_id],
-                  using: {
-                    trigram: {
-                      only: [:first_name, :last_name, :phone_number, :email, :student_id],
-                      threshold: 0.1
-                    }
-                  }
+                  using:
+                    { :trigram => {
+                      only: [:first_name, :last_name, :student_id, :phone_number, :email],
+                      threshold: 0.05
+                    },
+                      :tsearch => { prefix: true } }
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)

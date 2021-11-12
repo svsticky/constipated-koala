@@ -183,6 +183,14 @@ class Activity < ApplicationRecord
     Activity.combine_dt(end_date, end_time)
   end
 
+  def when_open
+    Activity.combine_dt(open_date, open_time)
+  end
+
+  def open?
+    return is_enrollable || (open_date.present? && open_time.present? && DateTime.now > when_open)
+  end
+
   def end_is_possible
     errors.add(:end_date, :before_start_date) if end_date < start_date
 
@@ -206,7 +214,7 @@ class Activity < ApplicationRecord
     #
     # This uses a magic instance variable to list any reservists that were
     # enrolled, ignore at your own risk.
-    return unless is_enrollable && unenroll_date.end_of_day >= Time.now
+    return unless open? && unenroll_date.end_of_day >= Time.now
 
     return unless reservists.count > 0
 
@@ -240,7 +248,7 @@ class Activity < ApplicationRecord
 
   def fullness
     # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
-    return '' unless is_enrollable
+    return '' unless open?
 
     # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
     if participant_limit
