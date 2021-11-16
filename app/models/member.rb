@@ -231,7 +231,7 @@ class Member < ApplicationRecord
     !adult?
   end
 
-  def masters?
+  def master?
     !educations.empty? && educations.any? { |education| Study.find(education.study_id).masters }
   end
 
