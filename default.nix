@@ -35,6 +35,7 @@ in
       yarn
       postgresql_13
       jq
+      nodePackages.node2nix
     ];
 
     rails_wrapper = pkgs.writeScript "rails" ''
