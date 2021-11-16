@@ -14,12 +14,7 @@
 
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
 
-    // This is a hack to circumvent Webpacker in production environments
-    // For more details see lib/tasks/webpacker.rake
-    - if ENV['RAILS_ENV'] == "production" || ENV['RAILS_ENV'] == "staging"
-      %script{src: "/packs/js/application.js"}
-    - else
-      = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
     %link{:href => asset_path('apple-icon-koala-144.png'), :rel => "apple-touch-icon"}
     %link{:href => asset_path('apple-icon-koala-114.png'), :rel => "apple-touch-icon"}

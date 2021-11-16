@@ -8,12 +8,7 @@
 
     = stylesheet_link_tag 'public', media: 'all', 'data-turbolinks-track' => 'reload'
 
-    // This is a hack to circumvent Webpacker in production environments
-    // For more details see lib/tasks/webpacker.rake
-    - if ENV['RAILS_ENV'] == "production" || ENV['RAILS_ENV'] == "staging"
-      %script{src: "/packs/js/public.js"}
-    - else
-      = javascript_pack_tag 'public', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'public', 'data-turbolinks-track': 'reload'
 
     = csrf_meta_tags
 
