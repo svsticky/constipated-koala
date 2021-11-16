@@ -251,12 +251,11 @@ class Activity < ApplicationRecord
     if is_freshmans? || is_sophomores? || is_seniors? || is_masters?
       pool = []
       pool += reservistpool.select { |m| m.member.master? } if is_masters?
-      pool += reservistpool.select { |m| m.member.freshmans? } if is_freshmans?
+      pool += reservistpool.select { |m| m.member.freshman? } if is_freshmans?
       pool += reservistpool.select { |m| m.member.sophomore? } if is_sophomores?
       pool += reservistpool.select { |m| m.member.senior? } if is_seniors?
-      reservistpool = pool
+      reservistpool = pool.sort_by {|participant| [participant.created_at]}
     end
-
     luckypeople = reservistpool.first(spots)
 
     Participant.where(id: luckypeople.pluck(:id)).update_all(reservist: false)
