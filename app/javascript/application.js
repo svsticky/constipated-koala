@@ -19,11 +19,11 @@ import "bootstrap";
 require("@rails/ujs").start();
 require("turbolinks").start();
 
-import "../../../vendor/assets/javascripts/bootstrap-file-input";
+import "../../vendor/assets/javascripts/bootstrap-file-input";
 
-import "../src/lib/dropdown";
-import "../src/lib/editor";
-import "../src/lib/mail";
-import "../src/admin/index.js";
-import "../src/language.js";
-import "../src/application.js";
+import "./src/lib/dropdown";
+import "./src/lib/editor";
+import "./src/lib/mail";
+import "./src/admin/index.js";
+import "./src/language.js";
+import "./src/application.js";
