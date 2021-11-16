@@ -33,10 +33,10 @@ nl:
         is_alcoholic: Alcohol (18+)
         is_enrollable: Inschrijfbaar
         is_freshmans: Eerstejaars
-        is_sophomore: Tweedejaars
-        is_senior: Derdejaars of hoger
         is_masters: Masters
         is_payable: Betaalbaar
+        is_seniors: Derdejaars of hoger
+        is_sophomores: Tweedejaars
         is_viewable: Toon in Koala
         location: Locatie
         member_is_spare: Is reserve

@@ -4,6 +4,8 @@ nl:
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
       ended: Afgelopen
+      filters: Filters
+      financial: Financieel
       has_not_paid: heeft nog niet betaald
       has_paid: heeft betaald
       info:
@@ -15,8 +17,6 @@ nl:
       save: Activiteit opslaan?
       single: Activiteit
       title: Activiteiten
-      financial: Financieel
-      filters: Filters
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?
