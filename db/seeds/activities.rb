@@ -71,7 +71,7 @@ dates.each do |start_date|
 
   # select freshmans or masters
   eligible = eligible.select(&:freshman?) if activity.is_freshmans
-  eligible = eligible.select(&:masters?) if activity.is_masters
+  eligible = eligible.select(&:master?) if activity.is_masters
 
   response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(true_ratio: 0.3)) ? Faker::Measurement.height : nil
 

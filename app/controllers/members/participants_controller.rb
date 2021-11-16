@@ -19,7 +19,7 @@ class Members::ParticipantsController < ApplicationController
   # [POST] /activities/:id/participants
   # Create a new Participant if that's allowed.
   def create
-    # Don't allow activities for old activities
+    # Don't allow signups for old activities
     if @activity.ended?
       render status: :gone, json: {
         message: I18n.t(:activity_ended, scope: @activity_errors_scope)
@@ -28,6 +28,8 @@ class Members::ParticipantsController < ApplicationController
     end
 
     @member = Member.find(current_user.credentials_id)
+    @notes = params[:par_notes]
+    reservist = false
 
     # Deny if already enrolled
     if Participant.exists?(activity: @activity, member: @member)
@@ -35,50 +37,41 @@ class Members::ParticipantsController < ApplicationController
         message: I18n.t(:already_enrolled, scope: @activity_errors_scope)
       }
       return
-    end
-
-    # Deny members that don't study, except if they tagged
-    unless @member.may_enroll?
+    # Deny members that don't have an active study, unless the member is a
+    # pardon, merit or honary member or donator.
+    elsif !@member.may_enroll?
       render status: :failed_dependency, json: {
         message: I18n.t(:participant_no_student, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
       return
-    end
-
     # Deny suspended members
-    if Tag.exists?(member: @member, name: Tag.names[:suspended])
+    elsif Tag.exists?(member: @member, name: Tag.names[:suspended])
       render status: :failed_dependency, json: {
         message: I18n.t(:participant_suspended, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
       return
-    end
-
     # Deny if activity not enrollable
-    unless @activity.open?
+    elsif !@activity.open?
       render status: :locked, json: {
         message: I18n.t(:not_enrollable, scope: @activity_errors_scope),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
       return
-    end
-
     # Deny minors from alcoholic activities
-    if @activity.is_alcoholic? && @member.underage?
-      render status: :unavailable_for_legal_reasons, json: { # Unavailable for legal reasons
+    elsif participant_alcohol_check?
+      render status: :unavailable_for_legal_reasons, json: {
         message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }
       return
-    end
-
     # Check if notes are present and deny if absent and required.
-    if @activity.notes.present? && @activity.notes_mandatory && params[:par_notes].blank?
+    elsif participant_notes_check?
       # Notify that notes are required
       render status: :precondition_failed, json: {
         message: I18n.t(
@@ -90,32 +83,27 @@ class Members::ParticipantsController < ApplicationController
         participant_count: @activity.participants.count
       }
       return
-    end
-
-    @notes = params[:par_notes]
-    reservist = false
-    if !@activity.participant_limit.nil? && @activity.attendees.count >= @activity.participant_limit
+    elsif participant_limit_check?
       reservist = true
       reason_for_spare_message = I18n.t(:participant_limit_reached,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
-    elsif !@member.masters? && @activity.is_masters?
+    elsif !participant_filter_check?
       reservist = true
-      reason_for_spare_message = I18n.t(:participant_no_masters,
-                                        scope: @activity_errors_scope,
-                                        activity: @activity.name)
-    elsif !((@activity.is_freshmans? && @member.freshman?) || (@activity.is_sophomores? && @member.sophomore?) || (@activity.is_senior? && @member.senior?) || (@activity.is_masters? && @member.master?))
-      reservist = true
-      reason = :participant_no_freshman unless @activity.is_freshmans? && !@member.freshman?
-      reason = :participant_no_sophomore unless @activity.is_sophomores? && !@member.sophomore?
-      reason = :participant_no_seniors unless @activity.is_seniors? && !@member.senior?
-      reason = :participant_no_masters unless @activity.is_freshmans? && !@member.master?
+      if !participant_freshman_check?
+        reason = :participant_no_freshman
+      elsif !participant_sophomore_check?
+        reason = :participant_no_sophomore
+      elsif !participant_senior_check?
+        reason = :participant_no_seniors
+      elsif !participant_master_check?
+        reason = :participant_no_masters
+      end
       reason_for_spare_message = I18n.t(reason,
                                         scope: @activity_errors_scope,
                                         activity: @activity.name)
     end
 
-    # Reservist if no spots left or masters activity or freshmans activity
     if reservist
       @new_enrollment = Participant.new(
         member_id: @member.id,
@@ -154,6 +142,39 @@ class Members::ParticipantsController < ApplicationController
         participant_count: @activity.participants.count
       }
     end
+  end
+
+  # Helper functions to decrease the complexity of create
+  def participant_filter_check?
+    participant_freshman_check? || participant_sophomore_check? || participant_senior_check? || participant_master_check?
+  end
+
+  def participant_freshman_check?
+    @activity.is_freshmans? && @member.freshman?
+  end
+
+  def participant_sophomore_check?
+    @activity.is_sophomores? && @member.sophomore?
+  end
+
+  def participant_senior_check?
+    @activity.is_seniors? && @member.senior?
+  end
+
+  def participant_master_check?
+    @activity.is_masters? && @member.master?
+  end
+
+  def participant_notes_check?
+    @activity.notes.present? && @activity.notes_mandatory && params[:par_notes].blank?
+  end
+
+  def participant_limit_check?
+    !@activity.participant_limit.nil? && @activity.attendees.count >= @activity.participant_limit
+  end
+
+  def participant_alcohol_check?
+    @activity.is_alcoholic? && @member.underage?
   end
 
   # [PATCH] /activities/:id/participants

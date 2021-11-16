@@ -4,6 +4,8 @@ en:
     activities:
       added_reservist: has been placed on the participants list
       ended: Ended
+      filters: Filters
+      financial: Financial
       has_not_paid: has not yet paid
       has_paid: has paid
       info:
@@ -15,8 +17,6 @@ en:
       save: Save activity?
       single: Activity
       title: Activities
-      financial: Financial
-      filters: Filters
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?

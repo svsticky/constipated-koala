@@ -246,15 +246,13 @@ class Activity < ApplicationRecord
     reservistpool = reservists.order(:created_at).to_a # to_a because in-place `select!`
 
     # Filter non-masters if masters-only, non-freshmen if freshman-only.
-    # Note: this will leave nobody if someone enables both is_masters and
-    # is_freshmans, as freshman? explicitly rejects masters.
-    if is_freshmans? || is_sophomores? || is_seniors? || is_masters?
+    if filters?
       pool = []
       pool += reservistpool.select { |m| m.member.master? } if is_masters?
       pool += reservistpool.select { |m| m.member.freshman? } if is_freshmans?
       pool += reservistpool.select { |m| m.member.sophomore? } if is_sophomores?
       pool += reservistpool.select { |m| m.member.senior? } if is_seniors?
-      reservistpool = pool.sort_by {|participant| [participant.created_at]}
+      reservistpool = pool.sort_by { |participant| [participant.created_at] }
     end
     luckypeople = reservistpool.first(spots)
 
@@ -262,6 +260,10 @@ class Activity < ApplicationRecord
     luckypeople.each { |p| Mailings::Participants.enrolled(p).deliver_later }
     @magic_enrolled_reservists = luckypeople
     return luckypeople
+  end
+
+  def filters?
+    is_freshmans? || is_sophomores? || is_seniors? || is_masters?
   end
 
   def participant_counts
