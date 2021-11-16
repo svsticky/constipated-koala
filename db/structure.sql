@@ -161,7 +161,7 @@ CREATE TABLE public.activities (
     "VAT" character varying DEFAULT '21'::character varying,
     open_date date,
     open_time time without time zone,
-    is_penultimates boolean,
+    is_sophomores boolean,
     is_seniors boolean
 );
 

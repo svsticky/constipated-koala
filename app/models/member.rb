@@ -241,8 +241,8 @@ class Member < ApplicationRecord
     end
   end
 
-  def penultimate?
-    educations.any? do |education|
+  def sophomore?
+    !freshman? && educations.any? do |education|
       education.status == 'active' && 2.year.ago < education.start_date && !Study.find(education.study_id).masters
     end
   end

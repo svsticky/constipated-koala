@@ -33,7 +33,7 @@ nl:
         is_alcoholic: Alcohol (18+)
         is_enrollable: Inschrijfbaar
         is_freshmans: Eerstejaars
-        is_penultimate: Tweedejaars
+        is_sophomore: Tweedejaars
         is_senior: Derdejaars of hoger
         is_masters: Masters
         is_payable: Betaalbaar
