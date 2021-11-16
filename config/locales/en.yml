@@ -33,7 +33,7 @@ en:
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
         is_freshmans: First year students
-        is_penultimates: Second year students
+        is_sophomores: Second year students
         is_seniors: Third year students or higher
         is_masters: Masters
         is_payable: Payable
