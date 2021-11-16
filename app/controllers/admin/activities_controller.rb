@@ -92,6 +92,8 @@ class Admin::ActivitiesController < ApplicationController
                                      :show_on_website,
                                      :is_masters,
                                      :is_freshmans,
+                                     :is_sophomores,
+                                     :is_seniors,
                                      :participant_limit,
                                      :show_participants,
                                      :_destroy)

@@ -15,6 +15,8 @@ en:
       save: Save activity?
       single: Activity
       title: Activities
+      financial: Financial
+      filters: Filters
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?
