@@ -222,9 +222,9 @@ class Members::ParticipantsController < ApplicationController
       member_id: @member.id,
       activity_id: @activity.id
     )
-
+    activity = @enrollment.activity
     @enrollment.destroy!
-    @activity.enroll_reservists!
+    activity.enroll_reservists!
 
     render status: 200, json: {
       message: I18n.t(
