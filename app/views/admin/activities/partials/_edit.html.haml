@@ -152,13 +152,6 @@
           .col-md-4
             = f.check_box :is_enrollable, checked: @activity.open?, disabled: !@activity.is_viewable, data: {original: @activity.open?}
             = f.label :is_enrollable
-          .col-md-4
-            = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
-            = f.label :is_alcoholic
-          .col-md-4
-            = f.check_box :is_masters, checked: @activity.is_masters
-            = f.label :is_masters
-        .row
           .col-lg-6
             = f.check_box :show_participants, checked: @activity.show_participants
             = f.label :show_participants
@@ -166,22 +159,38 @@
           .col-lg-6
             = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, data: {original: @activity.participant_limit}, id: "participant_limit"
+        .row
+          .col
+            %hr
+          .col-auto
+            = I18n.t('admin.activities.filters')
+          .col
+            %hr
         .row 
+          .col-md-6
+            = f.check_box :is_freshmans, checked: @activity.is_freshmans
+            = f.label :is_freshmans
+          .col-md-6
+            = f.check_box :is_sophomores, checked: @activity.is_sophomores
+            = f.label :is_sophomores
+        .row
+          .col-md-6
+            = f.check_box :is_seniors, checked: @activity.is_seniors
+            = f.label :is_seniors
+          .col-md-6
+            = f.check_box :is_masters, checked: @activity.is_masters
+            = f.label :is_masters
+        .row
           .col-md-4
-            .form-check
-              = f.check_box :is_freshmans, checked: @activity.is_freshmans
-              = f.label :is_freshmans
-            .form-check
-              = f.check_box :is_sophomores, checked: @activity.is_sophomores
-              = f.label :is_freshmans
-            .form-check
-              = f.check_box :is_seniors, checked: @activity.is_seniors
-              = f.label :is_freshmans
-            .form-check
-              = f.check_box :is_masters, checked: @activity.is_masters
-              = f.label :is_masters
-          
-        %hr.my-4
+            = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
+            = f.label :is_alcoholic
+        .row
+          .col
+            %hr
+          .col-auto
+            = I18n.t('admin.activities.financial')
+          .col
+            %hr
         .row
           .col-md-4
             = f.check_box :is_payable, checked: @activity.is_payable
