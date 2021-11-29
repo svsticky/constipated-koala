@@ -99,11 +99,11 @@ class Admin::PaymentsController < ApplicationController
 
     payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount).each do |payment|
       # Add all mongoose charge ups
-      csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "", payment[1], ""]
+      csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "9", payment[1], ""]
     end
 
     transaction_cost_description = "Transaction costs #{ payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.accountancy_cost_location } x #{ payments.where(:transaction_type => :activity).count }"
-    transaction_cost_amount = ((payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.mongoose_ideal_costs) * payments.where(:transaction_type => :activity).count).to_s
+    transaction_cost_amount = ((payment_type == 'Payconiq' ? Settings.payconiq_transaction_costs : Settings.mongoose_ideal_costs) * payments.count).to_s
     csv << ["", Settings.accountancy_ledger_number, transaction_cost_description, "21", transaction_cost_amount, Settings.accountancy_cost_location]
   end
 end
