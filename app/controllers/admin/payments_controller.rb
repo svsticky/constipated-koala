@@ -37,7 +37,7 @@ class Admin::PaymentsController < ApplicationController
     @member = Member.find(params[:member_id])
     @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
-    msg = render_to_string template: 'admin/members/payment_whatsapp.html.erb', layout: false, content_type: "text/plain"
+    msg = render_to_string template: 'admin/members/payment_whatsapp.html.haml', layout: false, content_type: "text/plain"
 
     pn = @member.phone_number
 
