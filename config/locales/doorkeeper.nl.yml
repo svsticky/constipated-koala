@@ -8,12 +8,12 @@ nl:
       new:
         able_to: Deze applicatie kan de volgende acties ondernemen
         prompt: "%{client_name} toestaan uw account te gebruiken?"
+    errors:
+      messages:
+        invalid_redirect_uri: ongeldige omleiding
     scopes:
       activity-read: activiteiten bekijken
       group-read: uw commissies en andere groepen inzien
       member-read: uw naam, adres, en contactgegevens lezen
       participant-read: deelgenomen activiteiten bekijken
       participant-write: inschrijven voor een activiteit
-    errors:
-      messages:
-        invalid_redirect_uri: ongeldige omleiding

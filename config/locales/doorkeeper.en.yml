@@ -8,12 +8,12 @@ en:
       new:
         able_to: This application will be able to
         prompt: Authorize %{client_name} to use your account?
+    errors:
+      messages:
+        invalid_redirect_uri: invalid redirect URI
     scopes:
       activity-read: view activities
       group-read: view your committees and other groups
       member-read: read your name, address, and contact information
       participant-read: view participated activities
       participant-write: enroll for an activity
-    errors:
-      messages:
-        invalid_redirect_uri: invalid redirect URI
