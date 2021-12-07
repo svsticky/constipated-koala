@@ -245,6 +245,7 @@ nl:
       info: Het is gelukt
       messages:
         blank: kan niet leeg zijn
+        record_invalid: gegevens niet geldig
       models:
         activity:
           activity_ended: Deze activiteit is niet (meer) beschikbaar

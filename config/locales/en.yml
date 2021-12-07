@@ -245,6 +245,7 @@ en:
       info: Success
       messages:
         blank: can't be blank
+        record_invalid: data is invalid
       models:
         activity:
           activity_ended: This activity is not or no longer available
