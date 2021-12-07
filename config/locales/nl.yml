@@ -504,7 +504,7 @@ nl:
         remove_info: "<span>Verwijderen</span> persoonsgegevens"
         save: Opslaan
         save_note: Na opslaan van bovenstaande gegevens is de gebruikte link onbruikbaar, ga naar koala om je gegevens te bekijken of verwijderen.
-        store_description: Geen student meer? Studievereniging Sticky slaat je data op totdat je aangeeft dat je dit niet lang wil. Hieronder kan je aangeven wat we doen met jouw data; we kunnen het opsaaln, moeten we het volgend jaar opnieuw vragen of wil je meteen al je data laten verwijderen. Als je later besluit om toch je data te laten verwijderen, je kan altijd dit doen via de leden pagina of neem contact op met %{url}.
+        store_description: Geen student meer? Studievereniging Sticky slaat je data op totdat je aangeeft dat je dit niet lang wil. Hieronder kan je aangeven wat we doen met jouw data; we kunnen het opslaan, moeten we het volgend jaar opnieuw vragen of wil je meteen al je data laten verwijderen. Als je later besluit om toch je data te laten verwijderen, je kan altijd dit doen via de leden pagina of neem contact op met %{url}.
         store_info: "<span>Opslag</span> persoonlijke data"
         warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
         yearly: Als je niet zeker weet wat je moet doen, kunnen wij het altijd nog volgend jaar weer vragen,

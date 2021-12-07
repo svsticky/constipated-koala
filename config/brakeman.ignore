@@ -21,33 +21,13 @@
       "note": "Have to redirect for payment"
     },
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "30b78607ab65fa6d3cfd1421a89095d5e289b45f6a118346451c16bca130b14e",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/admin/payments_controller.rb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(\"https://web.whatsapp.com/send?phone=#{Member.find(params[:member_id]).phone_number}&text=#{ERB::Util.url_encode(render_to_string(:template => \"admin/members/payment_whatsapp.html.erb\", :layout => false, :content_type => \"text/plain\"))}\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Admin::PaymentsController",
-        "method": "whatsapp_redirect"
-      },
-      "user_input": "Member.find(params[:member_id]).phone_number",
-      "confidence": "High",
-      "note": "Not the most beautiful code, but only the phone number and message in the redirect can be edited by the same admin that is using the link"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "3b8d54ccdfe03e13e9d1cd35e1640ed0a68e7505d339a35e79d8d25b531e6775",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/mailings/participants/inform.html.haml",
-      "line": 28,
+      "line": 18,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "current_user.credentials.signature",
       "render_path": null,
@@ -162,13 +142,33 @@
       "note": "Required to validate transaction after coming back from the payment provider"
     },
     {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "9cc91332d5d2f54e3ae1b67048c6d1f5bc8a5fc6b55f64c789d04124b7d7a73f",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/admin/payments_controller.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(\"https://web.whatsapp.com/send?phone=#{Member.find(params[:member_id]).phone_number}&text=#{ERB::Util.url_encode(render_to_string(:template => \"admin/members/payment_whatsapp.html.haml\", :layout => false, :content_type => \"text/plain\"))}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::PaymentsController",
+        "method": "whatsapp_redirect"
+      },
+      "user_input": "Member.find(params[:member_id]).phone_number",
+      "confidence": "High",
+      "note": "Have to redirect to whatsapp for this function"
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "b80db455c4dd1ca640177dd5c9d1232eb638dbc2d29f46aababbaad11458f04f",
       "check_name": "MassAssignment",
       "message": "Parameters should be whitelisted for mass assignment",
       "file": "app/controllers/admin/participants_controller.rb",
-      "line": 51,
+      "line": 52,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params[:recipients].permit!",
       "render_path": null,
@@ -269,6 +269,6 @@
       "note": "Have to redirect users to Ideal or payconiq"
     }
   ],
-  "updated": "2021-09-17 15:20:53 +0200",
+  "updated": "2021-12-02 21:55:48 +0100",
   "brakeman_version": "4.8.2"
 }

@@ -225,7 +225,7 @@ class Activity < ApplicationRecord
 
     return if spots == 0
 
-    reservistpool = reservists.to_a # to_a because in-place `select!`
+    reservistpool = reservists.order(:created_at).to_a # to_a because in-place `select!`
 
     # Filter non-masters if masters-only, non-freshmen if freshman-only.
     # Note: this will leave nobody if someone enables both is_masters and

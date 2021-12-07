@@ -10,3 +10,6 @@ Rails.application.config.assets.paths << ENV['NODE_PATH'].split(':')[0]
 Rabl.configure do |config|
   config.view_paths = [Rails.root.join('app', 'views')]
 end
+
+# Add node_modules folder to the asset load path.
+Rails.application.config.assets.paths << Rails.root.join("node_modules")
