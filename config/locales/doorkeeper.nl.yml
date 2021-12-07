@@ -14,3 +14,6 @@ nl:
       member-read: uw naam, adres, en contactgegevens lezen
       participant-read: deelgenomen activiteiten bekijken
       participant-write: inschrijven voor een activiteit
+    errors:
+      messages:
+        invalid_redirect_uri: ongeldige omleiding
