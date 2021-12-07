@@ -14,3 +14,6 @@ en:
       member-read: read your name, address, and contact information
       participant-read: view participated activities
       participant-write: enroll for an activity
+    errors:
+      messages:
+        invalid_redirect_uri: invalid redirect URI
