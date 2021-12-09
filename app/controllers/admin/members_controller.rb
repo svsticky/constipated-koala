@@ -70,6 +70,7 @@ class Admin::MembersController < ApplicationController
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
     @member.educations.build(id: '-1') if @member.educations.empty?
+    WebhookJob.perform_later "member", params[:id]
   end
 
   def update
