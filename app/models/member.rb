@@ -28,6 +28,7 @@ class Member < ApplicationRecord
 
   enum consent: { pending: 0, yearly: 1, indefinite: 2 }
   after_save :fire_webhook
+  after_destroy :fire_webhook
 
   is_impressionable dependent: :ignore
 
@@ -398,17 +399,6 @@ class Member < ApplicationRecord
   end
 
   def fire_webhook
-    webhook = {:type => "member", :id => id}
-    ENV['WEBHOOK_URLS'].split(';').each{|url|
-      begin
-        RestClient.post(
-          url,
-          webhook.to_json,
-          'User-Agent': 'constipated-koala'
-        )
-      rescue RestClient::ExceptionWithResponse => err
-        logger.error("ERROR: WEBHOOK " + url + " RETURNED: " + err.to_s)
-      end
-    }
+    # WebhookJob.perform_later "member", id
   end
 end
