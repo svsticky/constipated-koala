@@ -159,7 +159,8 @@ Rails.application.routes.draw do
         end
 
         scope 'internal' do
-          get 'mongoose_user',  to: 'internal#mongoose_user'
+          get 'member_by_id',        to: 'internal#member_by_id'
+          get 'member_by_studentid', to: 'internal#member_by_studentid'
         end
       end
     end
