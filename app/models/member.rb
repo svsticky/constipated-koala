@@ -399,6 +399,6 @@ class Member < ApplicationRecord
   end
 
   def fire_webhook
-    # WebhookJob.perform_later "member", id
+    WebhookJob.perform_later("member", id)
   end
 end

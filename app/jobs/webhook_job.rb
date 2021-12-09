@@ -1,8 +1,9 @@
 class WebhookJob < ApplicationJob
     queue_as :default
-  
+
   def perform(type, id)
-  
+    return if ENV['WEBHOOK_URLS'].blank?
+
     request = {
       type: type,
       id: id
