@@ -1,15 +1,15 @@
 # Internal API controller
 class Api::InternalController < ActionController::Base
-    protect_from_forgery except: %i[mongoose_user]
-    before_action :authenticate_internal, only: %i[mongoose_user]
+  protect_from_forgery except: %i[mongoose_user]
+  before_action :authenticate_internal, only: %i[mongoose_user]
     # before_action :authenticate_card, only: %i[info purchase]
-  
-    respond_to :json
-  
-    def mongoose_user
-      @mongoose_user = Member.select(:id, :first_name, :last_name, :birth_date).find_by_student_id(params[:student_number])
-      return head :not_found unless @mongoose_user
-    end
+
+  respond_to :json
+
+  def mongoose_user
+    @mongoose_user = Member.select(:id, :first_name, :last_name, :birth_date).find_by_student_id(params[:student_number])
+    return head :not_found unless @mongoose_user
+  end
     # def products
     #   @products = CheckoutProduct.where(active: true)
     # end
@@ -121,20 +121,20 @@ class Api::InternalController < ActionController::Base
     # end
   
     # TODO: implement for OAuth client credentials
-    def authenticate_internal
-      if params[:token] != ENV['CHECKOUT_TOKEN']
-        head :forbidden
-        nil
-      end
-    end
-  
-    def authenticate_card
-      @uuid = params[:uuid]
-      @card = CheckoutCard.find_by(uuid: @uuid)
-      render status: :not_found && return if @card.nil?
-      render status: :unauthorized, json: I18n.t('checkout.error.not_activated') unless @card.active
-      render status: :unauthorized, json: I18n.t('checkout.error.disabled') if @card.disabled
-      (@card.active and !@card.disabled)
+  def authenticate_internal
+    if params[:token] != ENV['CHECKOUT_TOKEN']
+      head :forbidden
+      nil
     end
   end
+  
+  def authenticate_card
+    @uuid = params[:uuid]
+    @card = CheckoutCard.find_by(uuid: @uuid)
+    render status: :not_found && return if @card.nil?
+    render status: :unauthorized, json: I18n.t('checkout.error.not_activated') unless @card.active
+    render status: :unauthorized, json: I18n.t('checkout.error.disabled') if @card.disabled
+    (@card.active and !@card.disabled)
+  end
+end
   
