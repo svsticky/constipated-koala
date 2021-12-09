@@ -5,13 +5,18 @@ class Api::InternalController < ActionController::Base
 
   respond_to :json
 
-  def mongoose_user
+  def member_by_studentid
     @mongoose_user = Member.select(:id, :first_name, :last_name, :birth_date).find_by_student_id(params[:student_number])
     return head :not_found unless @mongoose_user
   end
 
+  def member_by_id
+    @mongoose_user = Member.select(:id, :first_name, :last_name, :birth_date).find_by_id!(params[:id])
+    return head :not_found unless @mongoose_user
+  end
+
   def authenticate_internal
-    return unless params[:token] != ENV['CHECKOUT_TOKEN']
+    return unless request.headers['Authorization'] != ENV['CHECKOUT_TOKEN']
 
     head :forbidden
     nil

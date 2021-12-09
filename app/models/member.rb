@@ -27,6 +27,7 @@ class Member < ApplicationRecord
   validates :join_date, presence: true
 
   enum consent: { pending: 0, yearly: 1, indefinite: 2 }
+  after_save :fire_webhook
 
   is_impressionable dependent: :ignore
 
@@ -394,5 +395,20 @@ class Member < ApplicationRecord
     # do not do the elfproef on a foreign student
     return if student_id =~ /\F\d{6}/
     return if student_id.blank?
+  end
+
+  def fire_webhook
+    webhook = {:type => "member", :id => id}
+    ENV['WEBHOOK_URLS'].split(';').each{|url|
+      begin
+        RestClient.post(
+          url,
+          webhook.to_json,
+          'User-Agent': 'constipated-koala'
+        )
+      rescue RestClient::ExceptionWithResponse => err
+        logger.error("ERROR: WEBHOOK " + url + " RETURNED: " + err.to_s)
+      end
+    }
   end
 end
