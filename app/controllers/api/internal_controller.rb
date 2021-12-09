@@ -9,14 +9,14 @@ class Api::InternalController < ActionController::Base
     @mongoose_user = Member.select(:id, :first_name, :last_name, :birth_date).find_by_student_id(params[:student_number])
     return head :not_found unless @mongoose_user
   end
-  
+
   def authenticate_internal
-    if params[:token] != ENV['CHECKOUT_TOKEN']
-      head :forbidden
-      nil
-    end
+    return unless params[:token] != ENV['CHECKOUT_TOKEN']
+
+    head :forbidden
+    nil
   end
-  
+
   def authenticate_card
     @uuid = params[:uuid]
     @card = CheckoutCard.find_by(uuid: @uuid)
@@ -26,4 +26,3 @@ class Api::InternalController < ActionController::Base
     (@card.active and !@card.disabled)
   end
 end
-  
