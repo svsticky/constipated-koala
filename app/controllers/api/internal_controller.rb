@@ -7,12 +7,12 @@ class Api::InternalController < ActionController::Base
 
   def member_by_studentid
     @mongoose_user = Member.select(:id, :first_name, :infix, :last_name, :birth_date).find_by_student_id(params[:student_number])
-    return head :not_found unless @mongoose_user
+    return head :no_content unless @mongoose_user
   end
 
   def member_by_id
     @mongoose_user = Member.select(:id, :first_name, :infix, :last_name, :birth_date).find_by_id!(params[:id])
-    return head :not_found unless @mongoose_user
+    return head :no_content unless @mongoose_user
   end
 
   def authenticate_internal
