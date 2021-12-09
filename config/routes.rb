@@ -157,6 +157,10 @@ Rails.application.routes.draw do
           get  'products',      to: 'checkout#products'
           post 'transaction',   to: 'checkout#purchase'
         end
+
+        scope 'internal' do
+          get 'mongoose_user',  to: 'internal#mongoose_user'
+        end
       end
     end
   end
