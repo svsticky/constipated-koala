@@ -25,7 +25,7 @@ in
       shared-mime-info
       gems
       nodejs
-      ruby
+      ruby_3_0
       curl
       imagemagick
       ghostscript
