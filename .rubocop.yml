@@ -10,6 +10,7 @@ AllCops:
     - 'config/initializers/*'
     - 'result/**/*'
     - 'node_modules/**/*'
+  TargetRubyVersion: "3.0"
 
 # Longer class length
 Metrics/AbcSize:
