@@ -153,7 +153,7 @@ Rails.application.routes.draw do
           post 'mailchimp/:token', to: 'webhook#mailchimp', as: 'mailchimp'
         end
 
-        # NOTE legacy implementation for checkout without oauth
+        # NOTE: legacy implementation for checkout without oauth
         scope 'checkout' do
           get  'card',          to: 'checkout#info'
           get  'recent',        to: 'checkout#recent'

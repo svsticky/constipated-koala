@@ -223,13 +223,13 @@ class Payment < ApplicationRecord
   private
 
   def status_update(new_status)
-    case new_status.downcase
-    when "succeeded", "paid"
-      self.status = :successful
-    when "expired", "canceled", "failed", "cancelled", "expired", "authorization_failed"
-      self.status = :failed
-    else
-      self.status = :in_progress
-    end
+    self.status = case new_status.downcase
+                  when "succeeded", "paid"
+                    :successful
+                  when "expired", "canceled", "failed", "cancelled", "expired", "authorization_failed"
+                    :failed
+                  else
+                    :in_progress
+                  end
   end
 end

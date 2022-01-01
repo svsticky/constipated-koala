@@ -183,12 +183,9 @@ class Member < ApplicationRecord
   end
 
   before_update do
-    if email_changed?
-      # abort email change if email is already used for another account
-      if User.exists?(email: email.downcase) || User.exists?(unconfirmed_email: email.downcase)
-        errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
-        raise ActiveRecord::Rollback
-      end
+    if email_changed? && (User.exists?(email: email.downcase) || User.exists?(unconfirmed_email: email.downcase))
+      errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
+      raise ActiveRecord::Rollback
     end
 
     # update consent_at when consent is given

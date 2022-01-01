@@ -11,6 +11,7 @@ AllCops:
     - 'result/**/*'
     - 'node_modules/**/*'
   TargetRubyVersion: "3.0"
+  NewCops: enable
 
 # Longer class length
 Metrics/AbcSize:
@@ -81,3 +82,7 @@ Lint/RaiseException:
 
 Lint/StructNewOverride:
   Enabled: true
+
+# At the time of writing, this only influences :nodoc comments
+Layout/LeadingCommentSpace:
+  Enabled: false

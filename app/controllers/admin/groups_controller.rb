@@ -40,11 +40,11 @@ class Admin::GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
 
-    if @group.category != "board"
+    if @group.category == "board"
+      redirect_to group_path
+    else
       @group.destroy
       redirect_to groups_path
-    else
-      redirect_to group_path
     end
   end
 
