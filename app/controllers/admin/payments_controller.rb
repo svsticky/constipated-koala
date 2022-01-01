@@ -83,7 +83,7 @@ class Admin::PaymentsController < ApplicationController
     # Initial row of data for every invoice, Billing date, invoice description, Payment code, relationnumber.
     description = "#{ payment_type } - #{ end_date.nil? ? Date.strptime(start_date, '%Y-%m-%d') : "#{ Date.strptime(start_date, '%Y-%m-%d') } / #{ Date.strptime(end_date, '%Y-%m-%d') }" }"
     relation_code = (payment_type == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)
-    csv << ["Factuurdatum", Date.today, description, "" + Settings.payment_condition_code, relation_code]
+    csv << ["Factuurdatum", Date.today, description, Settings.payment_condition_code.to_s, relation_code]
 
     payments.where(:transaction_type => :activity).each do |payment|
       payment.transaction_id.each do |activity_id|

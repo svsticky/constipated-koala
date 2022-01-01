@@ -127,7 +127,7 @@ class Members::ParticipantsController < ApplicationController
                                   activity: @activity.name)
 
       render status: :accepted, json: {
-        message: reason_for_spare_message + ' ' + spare_list_message,
+        message: "#{ reason_for_spare_message } #{ spare_list_message }",
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
       }

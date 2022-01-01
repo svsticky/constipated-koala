@@ -21,9 +21,9 @@ require 'optparse'
 require 'set'
 
 # Global variables
-$log = Logger.new(STDOUT)
+$log = Logger.new($stdout)
 
-$study_cache = Study.all.map { |s| [s.code, s] }.to_h
+$study_cache = Study.all.to_h { |s| [s.code, s] }
 $studies     = $study_cache.keys
 
 def read_input
