@@ -28,11 +28,11 @@ class Admin::SettingsController < ApplicationController
 
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
     elsif ['begin_study_year'].include? params[:setting]
-      head(:bad_request) && return if (params[:value] =~ /\d{4}\-\d{2}\-\d{2}/).nil?
+      head(:bad_request) && return if (params[:value] =~ /\d{4}-\d{2}-\d{2}/).nil?
 
       Settings[params[:setting]] = Date.parse(params[:value])
     elsif ['liquor_time'].include? params[:setting]
-      head(:bad_request) && return if (params[:value] =~ /\d{2}\:\d{2}/).nil?
+      head(:bad_request) && return if (params[:value] =~ /\d{2}:\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value]
     elsif %w[payconiq_relation_code ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include? params[:setting]

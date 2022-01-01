@@ -19,7 +19,7 @@ class Activity < ApplicationRecord
 
   validate :content_type
   def content_type
-    # NOTE required to be an pdf, jpg, png or gif but file can also be empty
+    # NOTE: required to be an pdf, jpg, png or gif but file can also be empty
     return unless poster.attached?
 
     errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png image/gif')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png', 'image/gif'])
@@ -168,12 +168,12 @@ class Activity < ApplicationRecord
 
   def paid_sum
     return participants.where(:reservist => false, :paid => true).sum(:price) +
-           participants.where(:reservist => false, :paid => true, :price => nil).count * price
+           (participants.where(:reservist => false, :paid => true, :price => nil).count * price)
   end
 
   def price_sum
     return participants.where(:reservist => false).sum(:price) +
-           participants.where(:reservist => false, :price => nil).count * price
+           (participants.where(:reservist => false, :price => nil).count * price)
   end
 
   def start

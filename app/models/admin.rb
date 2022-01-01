@@ -2,9 +2,7 @@
 class Admin < ApplicationRecord
   has_one :user, as: :credentials
 
-  attr_accessor :email
-  attr_accessor :password
-  attr_accessor :password_confirmation
+  attr_accessor :email, :password, :password_confirmation
 
   def language; end
 

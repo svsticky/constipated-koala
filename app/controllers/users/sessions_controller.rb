@@ -2,7 +2,7 @@
 class Users::SessionsController < Devise::SessionsController
   skip_before_action :authenticate_admin!, only: [:create, :destroy]
 
-  # NOTE overwrite create method, once a user is authenticated we can verify
+  # NOTE: overwrite create method, once a user is authenticated we can verify
   # it has worked, othersie we can create a fatal log rule.
   def create
     # perform default create from devise sessioncontroller

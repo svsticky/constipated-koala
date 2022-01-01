@@ -145,7 +145,9 @@ def leguiddit(studydata)
         .pluck(:code)
         .to_set
 
-      if active_db_studies != active_codes
+      if active_db_studies == active_codes
+        noop += 1
+      else
         to_deactivate = active_db_studies - active_codes
         # The set of studies that this person stopped doing is the set of
         # active studies in the database, minus the set of active studies given
@@ -166,8 +168,6 @@ def leguiddit(studydata)
         end
 
         switched += 1
-      else
-        noop += 1
       end
 
     else
@@ -213,13 +213,13 @@ def dryrun(studydata)
         .pluck(:code)
         .to_set
 
-      if active_db_studies != active_codes
+      if active_db_studies == active_codes
+        noop += 1
+      else
         to_deactivate = active_db_studies - active_codes
         to_activate = active_codes - active_db_studies
         $log.info "Would switch #{ m.student_id } (-: #{ to_deactivate.to_a.join(', ') }, +: #{ to_activate.to_a.join(', ') })"
         switched += 1
-      else
-        noop += 1
       end
     else
       noop += 1
