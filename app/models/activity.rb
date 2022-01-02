@@ -193,18 +193,18 @@ class Activity < ApplicationRecord
   end
 
   def open?
-    return is_enrollable && ((not open_present?) || DateTime.now > when_open)
+    return is_enrollable && (!open_present? || DateTime.now > when_open)
   end
 
-  #used for the is_enrollable checkmark
+  # used for the is_enrollable checkmark
   def validate_enrollable
-    if open_present? && DateTime.now < when_open #activity has open date, but is has not opened yet
-      if self.is_enrollable #we want to open the activity anyway (override)
-        self.open_date = nil
-        self.open_time = nil
-      else #open? will give the checkmark a value of false, but we want is_enrollable to stay true as long as there is an open date pending
-        self.is_enrollable = true
-      end
+    return unless open_present? && DateTime.now < when_open # activity does not have open date or is already opened
+
+    if is_enrollable # we want to open the activity anyway (override)
+      self.open_date = nil
+      self.open_time = nil
+    else # open? will give the checkmark a value of false, but we want is_enrollable to stay true as long as there is an open date pending
+      self.is_enrollable = true
     end
   end
 
