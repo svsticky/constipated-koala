@@ -40,6 +40,7 @@ class Activity < ApplicationRecord
 
   attr_accessor :magic_enrolled_reservists
 
+  before_validation :validate_enrollable
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
@@ -187,8 +188,24 @@ class Activity < ApplicationRecord
     Activity.combine_dt(open_date, open_time)
   end
 
+  def open_present?
+    return open_date.present? && open_time.present?
+  end
+
   def open?
-    return is_enrollable || (open_date.present? && open_time.present? && DateTime.now > when_open)
+    return is_enrollable && ((not open_present?) || DateTime.now > when_open)
+  end
+
+  #used for the is_enrollable checkmark
+  def validate_enrollable
+    if open_present? && DateTime.now < when_open #activity has open date, but is has not opened yet
+      if self.is_enrollable #we want to open the activity anyway (override)
+        self.open_date = nil
+        self.open_time = nil
+      else #open? will give the checkmark a value of false, but we want is_enrollable to stay true as long as there is an open date pending
+        self.is_enrollable = true
+      end
+    end
   end
 
   def end_is_possible
