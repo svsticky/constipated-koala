@@ -33,9 +33,9 @@ class Members::PaymentsController < ApplicationController
     payment = Payment.new(
       :description => description,
       :amount => amount,
-      :issuer => transaction_params[:payment_type] == 'Ideal' ? transaction_params[:bank] : nil,
+      :issuer => transaction_params[:bank],
       :member => member,
-      :payment_type => transaction_params[:payment_type] == 'Payconiq' ? :payconiq_online : :ideal,
+      :payment_type => :ideal,
       :transaction_id => unpaid.pluck(:activity_id),
       :transaction_type => :activity,
       :redirect_uri => member_payments_path
@@ -92,8 +92,8 @@ class Members::PaymentsController < ApplicationController
       :description => description,
       :amount => amount,
       :member => member,
-      :issuer => transaction_params[:payment_type] == 'Ideal' ? transaction_params[:bank] : nil,
-      :payment_type => transaction_params[:payment_type] == "Payconiq" ? :payconiq_online : :ideal,
+      :issuer => transaction_params[:bank],
+      :payment_type => :ideal,
 
       :transaction_id => nil,
       :transaction_type => :checkout,

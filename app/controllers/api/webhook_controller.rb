@@ -20,13 +20,6 @@ class Api::WebhookController < ApiController
     head :ok
   end
 
-  def payconiq_hook
-    transaction = Payment.find_by_trxid!(params[:paymentId])
-    transaction.finalize! if transaction.update_transaction!
-
-    head :ok
-  end
-
   # send ok status to convince mailchimp everything works
   def mailchimp_confirm_callback
     head(:unauthorized) && return unless params[:token] == ENV['MAILCHIMP_SECRET']
