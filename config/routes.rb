@@ -24,11 +24,6 @@ Rails.application.routes.draw do
         post 'mongoose', to: 'payments#add_funds'
         post 'pay_activities', to: 'payments#pay_activities'
 
-        # TODO: should this be moved to nginx or
-        # @deprated these old routes
-        get 'enrollments',                      to: redirect('/activities')
-        get 'enrollments/:activity_id',         to: redirect('/activities/%{activity_id}')
-
         resources :activities, only: [:index, :show] do
           resource :participants, only: [:create, :update, :destroy]
         end

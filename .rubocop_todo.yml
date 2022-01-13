@@ -6,23 +6,10 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-# Configuration parameters: IgnoreLiteralBranches, IgnoreConstantBranches.
-Lint/DuplicateBranch:
-  Exclude:
-    - 'app/models/group.rb'
-    - 'app/models/payment.rb'
-
 # Offense count: 1
-Lint/DuplicateCaseCondition:
-  Exclude:
-    - 'app/models/payment.rb'
-
-# Offense count: 2
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
 Lint/EmptyBlock:
   Exclude:
-    - 'app/mailers/mailings/studystatus.rb'
     - 'test/controllers/admin/members_controller_test.rb'
 
 # Offense count: 1
@@ -51,25 +38,6 @@ Metrics/PerceivedComplexity:
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
   Enabled: false
-
-# Offense count: 1
-# Configuration parameters: MaxUnannotatedPlaceholdersAllowed, IgnoredMethods.
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  EnforcedStyle: template
-
-# Offense count: 120
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, always_true, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-# Offense count: 20
-# Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Exclude:
-    - 'bin/update_active_members.rb'
 
 # Offense count: 3
 # Configuration parameters: MinBodyLength.

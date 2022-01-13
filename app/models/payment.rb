@@ -190,13 +190,10 @@ class Payment < ApplicationRecord
     case payment_type.to_sym
     when :ideal
       return Settings.mongoose_ideal_costs
-    when :pin
-      return 0
     when :payconiq_online
       return Settings.payconiq_transaction_costs
-    when :payconiq_display
-      return 0
     else
+      # :pin, :payconiq_display
       return 0
     end
   end
@@ -226,7 +223,7 @@ class Payment < ApplicationRecord
     self.status = case new_status.downcase
                   when "succeeded", "paid"
                     :successful
-                  when "expired", "canceled", "failed", "cancelled", "expired", "authorization_failed"
+                  when "expired", "canceled", "failed", "cancelled", "authorization_failed"
                     :failed
                   else
                     :in_progress
