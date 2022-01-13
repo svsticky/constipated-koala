@@ -86,3 +86,15 @@ Lint/StructNewOverride:
 # At the time of writing, this only influences :nodoc comments
 Layout/LeadingCommentSpace:
   Enabled: false
+
+# Configuration parameters: IgnoreLiteralBranches, IgnoreConstantBranches.
+Lint/DuplicateBranch:
+  IgnoreLiteralBranches: true
+
+# This cop adds this comments to the top of all files containing string literals:
+# frozen_string_literal: true
+# which should help with upgrading to Ruby 3.0, where that is the default
+# (see docs: https://www.rubydoc.info/gems/rubocop/0.36.0/RuboCop/Cop/Style/FrozenStringLiteralComment)
+# We already have upgrade to Ruby 3.0
+Style/FrozenStringLiteralComment:
+  Enabled: false

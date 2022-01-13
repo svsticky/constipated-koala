@@ -11,9 +11,6 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
     @member = members(:yorici)
   end
 
-  teardown do
-  end
-
   test 'should show active members' do
     get members_url
     assert_response :success
