@@ -6,7 +6,7 @@ class Api::InternalController < ActionController::Base
   respond_to :json
 
   def member_by_studentid
-    @mongoose_user = Member.select(:id, :first_name, :infix, :last_name, :birth_date).find_by_student_id(params[:student_number])
+    @mongoose_user = Member.select(:id, :first_name, :infix, :last_name, :birth_date, :email).find_by_student_id(params[:student_number])
     return head :no_content unless @mongoose_user
   end
 
