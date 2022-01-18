@@ -3,13 +3,7 @@ module.exports = {
   // jit mode, this is still in preview but speeds up build
   // not compatible with semantic versioning yet
   mode: "jit",
-  purge: {
-    content: ["app/**/*.html.haml", "app/javascript/**/*.js"],
-    preserveHtmlElements: false,
-    options: {
-      defaultExtractor: (content) => content.match(/[^%#=<>"{\.'`\s]*[^%#=<>"{}\.'`\s:]/g) || [],
-    },
-  },
+  content: ["app/**/*.html.haml", "app/javascript/**/*.js"],
   theme: {
     extend: {
       colors: {
