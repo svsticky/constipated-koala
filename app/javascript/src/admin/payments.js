@@ -103,14 +103,14 @@ function getCheckoutTransactions(button) {
           if (t.price.indexOf("-") > 0) t.price = "-€" + t.price.substring(2);
           table.append(
             '<tr style="height: 36px; line-height: 36px;"><td><a href="/members/' +
-            t.member_id +
-            '">' +
-            t.name +
-            "</a></td><td>" +
-            t.price +
-            "</td><td>" +
-            t.date +
-            "</td></tr>"
+              t.member_id +
+              '">' +
+              t.name +
+              "</a></td><td>" +
+              t.price +
+              "</td><td>" +
+              t.date +
+              "</td></tr>"
           );
         });
         toastr.success(I18n.t("admin.payment.found"));

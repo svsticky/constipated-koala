@@ -34,9 +34,9 @@ $(document).on("ready page:load turbolinks:load", function () {
           .replace(
             query,
             query.split(":")[0] +
-            ":" +
-            $(this).find("a").attr("data-name") +
-            " "
+              ":" +
+              $(this).find("a").attr("data-name") +
+              " "
           )
       );
 
@@ -169,14 +169,14 @@ $(document).on("ready page:load turbolinks:load", function () {
         var items = $.unique(
           $(
             ".page.search .input-group ul.dropdown-menu[name=studies] li a[data-name!=" +
-            study[2] +
-            "][data-name^=" +
-            study[2] +
-            "], .page.search .input-group ul.dropdown-menu[name=studies] li a[data-code!=" +
-            study[2] +
-            "][data-code^=" +
-            study[2] +
-            "]"
+              study[2] +
+              "][data-name^=" +
+              study[2] +
+              "], .page.search .input-group ul.dropdown-menu[name=studies] li a[data-code!=" +
+              study[2] +
+              "][data-code^=" +
+              study[2] +
+              "]"
           )
         );
 
@@ -189,10 +189,10 @@ $(document).on("ready page:load turbolinks:load", function () {
       } else if (tag !== null && event.type != "keyup" && event.keyCode != 8) {
         var items = $(
           ".page.search .input-group ul.dropdown-menu[name=tags] li a[data-name!=" +
-          tag[2] +
-          "][data-name^=" +
-          tag[2] +
-          "]"
+            tag[2] +
+            "][data-name^=" +
+            tag[2] +
+            "]"
         );
 
         if ($(items).length != 1) return;
@@ -208,10 +208,10 @@ $(document).on("ready page:load turbolinks:load", function () {
       ) {
         var items = $(
           ".page.search .input-group ul.dropdown-menu[name=states] li a[data-name!=" +
-          state[2] +
-          "][data-name^=" +
-          state[2] +
-          "]"
+            state[2] +
+            "][data-name^=" +
+            state[2] +
+            "]"
         );
 
         if ($(items).length != 1) return;

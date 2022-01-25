@@ -26,7 +26,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       .done(function (data, status) {
         toastr.success(
           $(obj).parents(".list-group-item").find(".col-md-6 b").html() +
-          " aangepast"
+            " aangepast"
         );
 
         if (!data) return;

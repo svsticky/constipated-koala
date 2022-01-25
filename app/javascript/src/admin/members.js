@@ -189,8 +189,8 @@ $(document).on("ready page:load turbolinks:load", function () {
     let successmsg = tobeactivated
       ? I18n.t("checkout.card.activated")
       : disabled
-        ? I18n.t("admin.cards.activate_success", { uuid: uuid })
-        : I18n.t("admin.cards.deactivate_success", { uuid: uuid });
+      ? I18n.t("admin.cards.activate_success", { uuid: uuid })
+      : I18n.t("admin.cards.deactivate_success", { uuid: uuid });
 
     $.ajax({
       url: url,
@@ -232,7 +232,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             .empty()
             .append(
               '<i class="fa fa-sync-alt"></i>' +
-              I18n.t("admin.cards.reactivate")
+                I18n.t("admin.cards.reactivate")
             )
             .addClass("reactivate btn-warning");
           row.attr("data-disabled", 1);
