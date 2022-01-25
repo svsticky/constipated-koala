@@ -1,5 +1,5 @@
 import $ from "jquery";
-import I18n from "../i18n.js";
+import I18n from "../translations.js";
 
 $(document).on("ready page:load turbolinks:load", function () {
   // Alerts for on the frontend, default type is info

@@ -1,6 +1,6 @@
 import $ from "jquery";
 import jQuery from "jquery";
-import I18n from "./i18n.js";
+import I18n from "./translations.js";
 import { setup_intl_tel_input } from "./intl_tel_number";
 
 $(document).on("ready page:load turbolinks:load", function () {

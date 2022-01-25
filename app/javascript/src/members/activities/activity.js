@@ -6,7 +6,7 @@ import {
   init_cached_properties,
 } from "../../cache_helpers.js";
 import "../../language.js";
-import I18n from "../../i18n.js";
+import I18n from "../../translations.js";
 import { get_activity_container } from "./activities";
 
 /**

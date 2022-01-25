@@ -6,6 +6,8 @@ js_available_locales: ["en", "nl"]
 
 translations:
   - file: "app/javascript/src/translations.js"
+    prefix: "import I18n from 'i18n-js';\n"
+    suffix: "export default I18n;\n"
     only:
       - "en"
       - "nl"
