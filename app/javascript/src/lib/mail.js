@@ -1,4 +1,4 @@
-import I18n from "../i18n.js.erb";
+import I18n from "../i18n.js";
 
 import jQuery from "jquery";
 import toastr from "toastr";

@@ -1,5 +1,5 @@
 import $ from "jquery";
-import I18n from "../i18n.js.erb";
+import I18n from "../i18n.js";
 import toastr from "toastr";
 
 // Place all the behaviors and hooks related to the matching controller here.
@@ -26,7 +26,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       .done(function (data, status) {
         toastr.success(
           $(obj).parents(".list-group-item").find(".col-md-6 b").html() +
-            " aangepast"
+          " aangepast"
         );
 
         if (!data) return;

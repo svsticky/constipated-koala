@@ -98,7 +98,7 @@ It generates two users that you can use:
 Then precompile the assets (in the Nix shell):
 
 ``` bash
-dotenv rails assets:precompile
+rails assets:precompile
 ```
 
 ## Running Koala

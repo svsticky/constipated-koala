@@ -43,3 +43,7 @@ signing-key.pem
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# generated translations
+app/javascript/src/translations.js
+public/javascripts

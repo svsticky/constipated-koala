@@ -68,5 +68,8 @@ module ConstipatedKoala
 
     # Store files locally.
     config.active_storage.service = :local
+
+    # Generate translations.json
+    config.middleware.use I18n::JS::Middleware
   end
 end

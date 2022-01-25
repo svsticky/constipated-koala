@@ -1,6 +1,6 @@
 import $ from "jquery";
 import jQuery from "jquery";
-import I18n from "./i18n.js.erb";
+import I18n from "./i18n.js";
 import { setup_intl_tel_input } from "./intl_tel_number";
 
 $(document).on("ready page:load turbolinks:load", function () {
@@ -22,7 +22,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   $("a[href*='#']").on("click", function () {
     if (
       location.pathname.replace(/^\//, "") ==
-        this.pathname.replace(/^\//, "") ||
+      this.pathname.replace(/^\//, "") ||
       location.hostname == this.hostname
     ) {
       var target = $(this.hash);
@@ -94,7 +94,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       },
     },
     errorClass: "invalid",
-    errorPlacement: function (error, element) {},
+    errorPlacement: function (error, element) { },
   });
 
   $("select#method").on("change", function () {

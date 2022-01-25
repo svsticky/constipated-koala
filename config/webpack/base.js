@@ -10,12 +10,7 @@ const baseConfig = {
       toastr: "toastr/toastr",
       Rails: ["@rails/ujs"],
     })
-  ],
-  module: {
-    rules: [
-      require("./loaders/erb")
-    ]
-  }
+  ]
 };
 
 module.exports = merge(webpackConfig, baseConfig);

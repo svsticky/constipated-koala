@@ -1,0 +1,11 @@
+---
+
+fallbacks: false
+
+js_available_locales: ["en", "nl"]
+
+translations:
+  - file: "app/javascript/src/translations.js"
+    only:
+      - "en"
+      - "nl"

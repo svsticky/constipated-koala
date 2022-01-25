@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import $ from "jquery";
 
 import { Poster_modal } from "./poster_modal";
-import I18n from "../../i18n.js.erb";
+import I18n from "../../i18n.js";
 
 import { Activity } from "./activity.js";
 
