@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   use_doorkeeper_openid_connect
 
-  constraints :subdomain => ['intro', 'intro.dev'] do
+  constraints subdomain: ['intro', 'intro.dev'] do
     scope module: 'public' do
       get  '/', to: 'home#index', as: 'public'
       post '/', to: 'home#create'
     end
   end
 
-  constraints :subdomain => ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
+  constraints subdomain: ['koala', 'koala.dev', 'leden', 'leden.dev', 'members', 'members.dev'] do
     authenticate :user, ->(u) { !u.admin? } do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     get     'members/home', to: redirect('/')
 
     # Devise routes
-    devise_for :users, :path => '', :skip => [:registrations], :controllers => {
+    devise_for :users, path: '', skip: [:registrations], controllers: {
       confirmations: 'users/confirmations',
       sessions: 'users/sessions',
       passwords: 'users/passwords'

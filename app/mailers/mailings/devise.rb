@@ -8,7 +8,7 @@ module Mailings
       puts confirmation_url(record, confirmation_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
-      html = render_to_string :locals => {
+      html = render_to_string locals: {
         name: record.credentials.name,
         confirmation_url: confirmation_url(record, confirmation_token: token),
         subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.confirmation_instructions.confirm_email') }"
@@ -32,7 +32,7 @@ module Mailings
       puts url if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
-      html = render_to_string :locals => {
+      html = render_to_string locals: {
         name: record.credentials.first_name,
         activation_url: url,
         subject: "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }"
@@ -83,7 +83,7 @@ module Mailings
       puts edit_password_url(record, reset_password_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
-      html = render_to_string :locals => {
+      html = render_to_string locals: {
         name: record.credentials.name,
         reset_url: edit_password_url(record, reset_password_token: token),
         subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.reset_passwords_instructions.reset_password') }"
@@ -107,7 +107,7 @@ module Mailings
       puts "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
-      html = render_to_string :locals => {
+      html = render_to_string locals: {
         name: record.name,
         email: record.user.unconfirmed_email,
         sendername: current_user.credentials.name,

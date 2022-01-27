@@ -2,7 +2,7 @@
 #:nodoc:
 class Activity < ApplicationRecord
   validates :name, presence: true
-  validates_length_of :name, :maximum => 52
+  validates_length_of :name, maximum: 52
 
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
@@ -22,7 +22,7 @@ class Activity < ApplicationRecord
     # NOTE: required to be an pdf, jpg, png or gif but file can also be empty
     return unless poster.attached?
 
-    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', :type => poster.content_type.to_s, :allowed => 'application/pdf image/jpeg image/png image/gif')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png', 'image/gif'])
+    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', type: poster.content_type.to_s, allowed: 'application/pdf image/jpeg image/png image/gif')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png', 'image/gif'])
   end
 
   validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
@@ -33,10 +33,10 @@ class Activity < ApplicationRecord
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
 
   has_one_attached :poster
-  has_one :group, :as => :organized_by
+  has_one :group, as: :organized_by
 
-  has_many :participants, :dependent => :destroy
-  has_many :members, :through => :participants
+  has_many :participants, dependent: :destroy
+  has_many :members, through: :participants
 
   attr_accessor :magic_enrolled_reservists
 
@@ -55,7 +55,7 @@ class Activity < ApplicationRecord
     # Strip an activity name from all characters banks do not support
 
     # Remove all non-ascii characters (no language extension)
-    ascii = name.encode('ASCII', :invalid => :replace, :undef => :replace, :replace => '')
+    ascii = name.encode('ASCII', invalid: :replace, undef: :replace, replace: '')
 
     # Remove the other illegal characters
     # Non-printable characters are ignored
@@ -136,7 +136,7 @@ class Activity < ApplicationRecord
   end
 
   def currency(member)
-    participants.where(:member => member).first.price ||= price
+    participants.where(member: member).first.price ||= price
   end
 
   def attendees
@@ -167,13 +167,13 @@ class Activity < ApplicationRecord
   end
 
   def paid_sum
-    return participants.where(:reservist => false, :paid => true).sum(:price) +
-           (participants.where(:reservist => false, :paid => true, :price => nil).count * price)
+    return participants.where(reservist: false, paid: true).sum(:price) +
+           (participants.where(reservist: false, paid: true, price: nil).count * price)
   end
 
   def price_sum
-    return participants.where(:reservist => false).sum(:price) +
-           (participants.where(:reservist => false, :price => nil).count * price)
+    return participants.where(reservist: false).sum(:price) +
+           (participants.where(reservist: false, price: nil).count * price)
   end
 
   def start

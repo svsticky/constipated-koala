@@ -1,6 +1,6 @@
 #:nodoc:
 class Token < ApplicationRecord
-  belongs_to :object, :polymorphic => true
+  belongs_to :object, polymorphic: true
   enum intent: [:consent]
 
   after_find do

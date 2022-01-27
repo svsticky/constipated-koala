@@ -34,7 +34,7 @@ class Admin::MembersController < ApplicationController
     @limit = params[:limit] ? params[:limit].to_i : 10
 
     @pagination, @transactions = pagy(CheckoutTransaction
-      .where(:checkout_balance => CheckoutBalance
+      .where(checkout_balance: CheckoutBalance
       .find_by_member_id(params[:id]))
       .order(created_at: :desc), items: 10)
   end
@@ -43,7 +43,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.new
 
     # Construct a education so that there is always one visible to fill in
-    @member.educations.build(:id => '-1')
+    @member.educations.build(id: '-1')
   end
 
   def create
@@ -61,7 +61,7 @@ class Admin::MembersController < ApplicationController
     else
 
       # If the member hasn't filled in a study, again show an empty field
-      @member.educations.build(:id => '-1') if @member.educations.empty?
+      @member.educations.build(id: '-1') if @member.educations.empty?
 
       render 'new'
     end
@@ -69,7 +69,7 @@ class Admin::MembersController < ApplicationController
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
-    @member.educations.build(:id => '-1') if @member.educations.empty?
+    @member.educations.build(id: '-1') if @member.educations.empty?
   end
 
   def update
@@ -133,8 +133,8 @@ class Admin::MembersController < ApplicationController
     flash[:notice] = []
 
     if @member.destroy
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', balance: view_context.number_to_currency(@member.checkout_balance.balance, unit: '€')) unless @member.checkout_balance.nil?
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued') unless @member.mailchimp_interests.nil?
 
       redirect_to root_url
@@ -175,8 +175,8 @@ class Admin::MembersController < ApplicationController
                                    :birth_date,
                                    :join_date,
                                    :comments,
-                                   :tags_names => [],
-                                   :mailchimp_interests => [],
+                                   tags_names: [],
+                                   mailchimp_interests: [],
                                    educations_attributes: [:id, :study_id, :status, :start_date, :end_date, :_destroy])
   end
 end

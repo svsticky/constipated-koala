@@ -48,7 +48,7 @@ class Admin::PaymentsController < ApplicationController
     checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', params[:start_date]).order(created_at: :desc)
     data = checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }
 
-    render :json => data
+    render json: data
   end
 
   def export_payments
@@ -71,7 +71,7 @@ class Admin::PaymentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to payments_path }
       format.csv { send_data @transaction_file, filename: "payments_#{ Date.strptime(params[:start_date], '%Y-%m-%d') }_#{ Date.strptime(params[:end_date], '%Y-%m-%d') }.csv" }
-      format.js { render :js => "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: params[:payment_type], export_type: params[:export_type]) }\", \"_blank\")" }
+      format.js { render js: "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: params[:payment_type], export_type: params[:export_type]) }\", \"_blank\")" }
     end
   end
 
@@ -85,7 +85,7 @@ class Admin::PaymentsController < ApplicationController
     relation_code = (payment_type == "Payconiq" ? Settings.payconiq_relation_code : Settings.ideal_relation_code)
     csv << ["Factuurdatum", Date.today, description, Settings.payment_condition_code.to_s, relation_code]
 
-    payments.where(:transaction_type => :activity).each do |payment|
+    payments.where(transaction_type: :activity).each do |payment|
       payment.transaction_id.each do |activity_id|
         p = Participant.where(member: payment.member, activity_id: activity_id).first
         # now create every transaction row with the following date: Blank, ledger account, transaction description, VAT number, amount, cost_location ()
@@ -97,7 +97,7 @@ class Admin::PaymentsController < ApplicationController
       end
     end
 
-    payments.where(:transaction_type => :checkout).group(:member_id).sum(:amount).each do |payment|
+    payments.where(transaction_type: :checkout).group(:member_id).sum(:amount).each do |payment|
       # Add all mongoose charge ups
       csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "9", payment[1], ""]
     end

@@ -42,10 +42,10 @@ class Members::HomeController < ApplicationController
              .study_year(params['year'])
              .distinct
              .joins(:participants)
-             .where(:participants => { member: @member, reservist: false })
+             .where(participants: { member: @member, reservist: false })
              .order('start_date DESC')
 
-    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
+    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @payconiq_transaction_costs = Settings.payconiq_transaction_costs
     @transaction_costs = Settings.mongoose_ideal_costs
   end
@@ -55,7 +55,7 @@ class Members::HomeController < ApplicationController
     @user = User.find_by_email(current_user.email)
     @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
-    @member.educations.build(:id => '-1') if @member.educations.empty?
+    @member.educations.build(id: '-1') if @member.educations.empty?
   end
 
   def revoke
@@ -77,7 +77,7 @@ class Members::HomeController < ApplicationController
 
       cookies["locale"] = @user.language
 
-      redirect_to users_edit_path, :notice => I18n.t('members.home.edit.profile_saved')
+      redirect_to users_edit_path, notice: I18n.t('members.home.edit.profile_saved')
       return
     end
 
@@ -89,12 +89,12 @@ class Members::HomeController < ApplicationController
 
   def download
     @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
-    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc)
+    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc)
 
-    send_data render_to_string(:layout => false),
-              :filename => "#{ @member.name.downcase.tr(' ', '-') }.html",
-              :type => 'application/html',
-              :disposition => 'attachment'
+    send_data render_to_string(layout: false),
+              filename: "#{ @member.name.downcase.tr(' ', '-') }.html",
+              type: 'application/html',
+              disposition: 'attachment'
   end
 
   private
@@ -107,7 +107,7 @@ class Members::HomeController < ApplicationController
                                    :phone_number,
                                    :emergency_phone_number,
                                    :email,
-                                   :mailchimp_interests => {},
+                                   mailchimp_interests: {},
                                    educations_attributes: [:id, :status])
   end
 

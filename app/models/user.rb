@@ -2,7 +2,7 @@
 class User < ApplicationRecord
   is_impressionable
 
-  belongs_to :credentials, :polymorphic => true
+  belongs_to :credentials, polymorphic: true
 
   enum language: [:nl, :en]
 

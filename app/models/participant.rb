@@ -6,7 +6,7 @@ class Participant < ApplicationRecord
   validates :notes, length: { maximum: 30 }
 
   before_destroy :rewrite_logs_before_delete!, prepend: true
-  is_impressionable :dependent => :ignore
+  is_impressionable dependent: :ignore
 
   def price=(price)
     write_attribute(:price, price.to_s.tr(',', '.').to_f) unless price.blank?

@@ -6,7 +6,7 @@ class Public::StatusController < PublicController
     # adding intent so that you're not on the wrong page.
     @token = Token.find_by!(token: params[:token], intent: :consent)
     @member = @token.object
-    @member.educations.build(:id => -1)
+    @member.educations.build(id: -1)
   end
 
   def update
@@ -22,7 +22,7 @@ class Public::StatusController < PublicController
         @member.errors.add(:base, I18n.t('activerecord.errors.no_consent'))
         flash[:errors] = @member.errors.messages
 
-        @member.educations.build(:id => -1)
+        @member.educations.build(id: -1)
         render 'edit'
         return
       end
@@ -35,7 +35,7 @@ class Public::StatusController < PublicController
     end
 
     flash[:errors] = @member.errors.messages
-    @member.educations.build(:id => -1)
+    @member.educations.build(id: -1)
     render 'edit'
   end
 
@@ -52,14 +52,14 @@ class Public::StatusController < PublicController
     if @member.destroy
       @token.destroy
 
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', :name => @member.name)
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', :balance => view_context.number_to_currency(@member.checkout_balance.balance, :unit => '€')) unless @member.checkout_balance.nil?
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', balance: view_context.number_to_currency(@member.checkout_balance.balance, unit: '€')) unless @member.checkout_balance.nil?
 
       redirect_to users_root_url
     else
       flash[:errors] = @member.errors.messages
 
-      @member.educations.build(:id => -1)
+      @member.educations.build(id: -1)
       redirect_to status_path(token: params[:token])
     end
   end

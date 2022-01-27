@@ -22,7 +22,7 @@ gem 'devise'
 gem 'doorkeeper'
 gem 'doorkeeper-openid_connect'
 
-gem 'impressionist', :github => 'charlotte-ruby/impressionist'
+gem 'impressionist', github: 'charlotte-ruby/impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'

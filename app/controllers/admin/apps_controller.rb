@@ -6,10 +6,10 @@ class Admin::AppsController < ApplicationController
     @pagination, @transactions = pagy(CheckoutTransaction.includes(:checkout_card)
       .order(created_at: :desc), items: params[:limit] ||= 20)
 
-    @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(:active => false)
+    @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(active: false)
 
     @credit = CheckoutBalance.sum(:balance)
-    @products = CheckoutProduct.where(:active => true).count
+    @products = CheckoutProduct.where(active: true).count
   end
 
   def transactions

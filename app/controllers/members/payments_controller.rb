@@ -7,7 +7,7 @@ class Members::PaymentsController < ApplicationController
   def index
     @member = Member.find(current_user.credentials_id)
     @participants = @member.unpaid_activities
-    @transactions = CheckoutTransaction.where(:checkout_balance => CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
+    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @payconiq_transaction_costs = Settings.payconiq_transaction_costs
     @transaction_costs = Settings.mongoose_ideal_costs
   end
@@ -17,7 +17,7 @@ class Members::PaymentsController < ApplicationController
     unpaid = Participant
              .where(activity_id: params[:activity_ids], member: member, reservist: false)
              .joins(:activity)
-             .where(:activities => { is_payable: true })
+             .where(activities: { is_payable: true })
     activity_names_for_unpaid = unpaid.map { |p| p.activity.name }
 
     description_prefix = "Activiteiten - "
@@ -31,14 +31,14 @@ class Members::PaymentsController < ApplicationController
       return
     end
     payment = Payment.new(
-      :description => description,
-      :amount => amount,
-      :issuer => transaction_params[:bank],
-      :member => member,
-      :payment_type => :ideal,
-      :transaction_id => unpaid.pluck(:activity_id),
-      :transaction_type => :activity,
-      :redirect_uri => member_payments_path
+      description: description,
+      amount: amount,
+      issuer: transaction_params[:bank],
+      member: member,
+      payment_type: :ideal,
+      transaction_id: unpaid.pluck(:activity_id),
+      transaction_type: :activity,
+      redirect_uri: member_payments_path
     )
     if payment.save
       redirect_to payment.payment_uri
@@ -89,15 +89,15 @@ class Members::PaymentsController < ApplicationController
     end
 
     payment = Payment.new(
-      :description => description,
-      :amount => amount,
-      :member => member,
-      :issuer => transaction_params[:bank],
-      :payment_type => :ideal,
+      description: description,
+      amount: amount,
+      member: member,
+      issuer: transaction_params[:bank],
+      payment_type: :ideal,
 
-      :transaction_id => nil,
-      :transaction_type => :checkout,
-      :redirect_uri => member_payments_path
+      transaction_id: nil,
+      transaction_type: :checkout,
+      redirect_uri: member_payments_path
     )
     if payment.save
       redirect_to payment.payment_uri

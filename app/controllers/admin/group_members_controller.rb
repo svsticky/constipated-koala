@@ -1,18 +1,18 @@
 #:nodoc:
 class Admin::GroupMembersController < ApplicationController
   def create
-    @member = GroupMember.new(:member => Member.find_by_id(params[:member]), :group => Group.find_by_id(params[:group_id]), :year => params[:year])
+    @member = GroupMember.new(member: Member.find_by_id(params[:member]), group: Group.find_by_id(params[:group_id]), year: params[:year])
 
     head :bad_request unless @member.save
 
     impressionist @member
-    render :status => :created
+    render status: :created
   end
 
   def update
     @member = GroupMember.find_by_id(params[:id])
 
-    head :bad_request unless @member.update(:position => params[:position])
+    head :bad_request unless @member.update(position: params[:position])
 
     impressionist @member
     head :no_content

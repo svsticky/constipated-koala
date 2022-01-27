@@ -18,7 +18,7 @@ class Admin::SettingsController < ApplicationController
     elsif ['intro.membership', 'intro.activities'].include? params[:setting]
       Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
 
-      render :status => :ok, :json => {
+      render status: :ok, json: {
         activities: Settings[params[:setting]],
         warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
       }

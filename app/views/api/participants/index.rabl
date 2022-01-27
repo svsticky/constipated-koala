@@ -12,4 +12,4 @@ else
 end
 
 attributes :paid, :created_at
-attribute :currency => :price
+attribute currency: :price

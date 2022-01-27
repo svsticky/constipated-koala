@@ -8,7 +8,7 @@ module Mailings
 
       subject_name = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.checkout.subject') }"
 
-      html = render_to_string(:layout => 'mailer', :locals => {
+      html = render_to_string(layout: 'mailer', locals: {
                                 name: card.member.first_name,
                                 confirmation_url: confirmation_url,
                                 subject: subject_name

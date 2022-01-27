@@ -9,7 +9,7 @@ module Mailings
         # TODO: This does not have a body, currently recipients will be emtpy
       end
 
-      html = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: I18n.t('mailings.membership') }
+      html = render_to_string inline: html, layout: 'mailer', locals: { subject: I18n.t('mailings.membership') }
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } %recipient.first_name%,

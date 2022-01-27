@@ -10,14 +10,14 @@ module Mailings
 
       participants.each do |participant|
         variables[participant.member.email] = {
-          :name => participant.member.name,
+          name: participant.member.name,
 
-          :first_name => participant.member.first_name,
-          :price => ActionController::Base.helpers.number_to_currency(participant.currency, :unit => '€')
+          first_name: participant.member.first_name,
+          price: ActionController::Base.helpers.number_to_currency(participant.currency, unit: '€')
         }
       end
 
-      view = render_to_string :inline => html, :layout => 'mailer', :locals => { subject: subject }
+      view = render_to_string inline: html, layout: 'mailer', locals: { subject: subject }
       return mails(variables, sender, subject, view, text || strip_html(html.clone))
     end
 
@@ -39,7 +39,7 @@ module Mailings
               end
 
       subject = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.participants.enrolled.subject', activity: activity.name) }"
-      html = render_to_string(:layout => 'mailer', :locals => {
+      html = render_to_string(layout: 'mailer', locals: {
                                 name: member.first_name,
                                 activity: activity,
                                 starts_at: starts_at,

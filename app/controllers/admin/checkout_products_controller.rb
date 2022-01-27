@@ -44,7 +44,7 @@ class Admin::CheckoutProductsController < ApplicationController
       product = CheckoutProduct.find_by_parent(@product.id)
       prod_id = product ? product.id.to_s : @product.id.to_s
 
-      redirect_to checkout_product_path(product || @product.id, :anchor => "product_#{ prod_id }")
+      redirect_to checkout_product_path(product || @product.id, anchor: "product_#{ prod_id }")
     else
       @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
       @products = CheckoutProduct.order(:category, :name).last_version
@@ -62,19 +62,19 @@ class Admin::CheckoutProductsController < ApplicationController
   def change_funds
     if params[:uuid]
       card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
-      transaction = CheckoutTransaction.new(:price => params[:amount], :checkout_card => card)
+      transaction = CheckoutTransaction.new(price: params[:amount], checkout_card: card)
 
     elsif params[:member_id]
-      transaction = CheckoutTransaction.new(:price => params[:amount], :checkout_balance => CheckoutBalance.find_by_member_id!(params[:member_id]), :payment_method => params[:payment_method])
+      transaction = CheckoutTransaction.new(price: params[:amount], checkout_balance: CheckoutBalance.find_by_member_id!(params[:member_id]), payment_method: params[:payment_method])
 
     else
-      render :status => :bad_request, :json => I18n.t('checkout.error.identifier')
+      render status: :bad_request, json: I18n.t('checkout.error.identifier')
       return
     end
 
     if transaction.save
       impressionist transaction
-      render :status => :created, :json => transaction
+      render status: :created, json: transaction
     else
       render status: :bad_request, json: {
         errors: transaction.errors
@@ -88,7 +88,7 @@ class Admin::CheckoutProductsController < ApplicationController
     if params[:_destroy]
       card.destroy
 
-      render :status => :no_content, :json => ''
+      render status: :no_content, json: ''
       return
     end
 
@@ -96,9 +96,9 @@ class Admin::CheckoutProductsController < ApplicationController
 
     if card.save
       impressionist card
-      render :status => :ok, :json => card.to_json
+      render status: :ok, json: card.to_json
     else
-      render :status => :bad_request, :json => card.errors.full_messages
+      render status: :bad_request, json: card.errors.full_messages
     end
   end
 

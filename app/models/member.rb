@@ -12,15 +12,15 @@ class Member < ApplicationRecord
   validates :city, presence: true
 
   validates :phone_number, presence: true, phone_number: true
-  validates :emergency_phone_number, :allow_blank => true, phone_number: true
+  validates :emergency_phone_number, allow_blank: true, phone_number: true
   validates :emergency_phone_number, presence: true, if: :underage?
 
-  validates :email, presence: true, uniqueness: { :case_sensitive => false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
 
-  validates :student_id, presence: false, uniqueness: true, :allow_blank => true, format: { with: /\A\F\d{6}\z|\A\d{7}\z/ }
+  validates :student_id, presence: false, uniqueness: true, allow_blank: true, format: { with: /\A\F\d{6}\z|\A\d{7}\z/ }
   validate :valid_student_id
 
   validates :birth_date, presence: true
@@ -28,56 +28,56 @@ class Member < ApplicationRecord
 
   enum consent: [:pending, :yearly, :indefinite]
 
-  is_impressionable :dependent => :ignore
+  is_impressionable dependent: :ignore
 
   # NOTE: prepend true is required, so that it is executed before dependent => destroy
   before_destroy :before_destroy, prepend: true
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
   # `delete_all` is used because there is no primary key, poor choice on my end
-  has_many :tags, :dependent => :delete_all, :autosave => true
-  accepts_nested_attributes_for :tags, :reject_if => :all_blank, :allow_destroy => true
+  has_many :tags, dependent: :delete_all, autosave: true
+  accepts_nested_attributes_for :tags, reject_if: :all_blank, allow_destroy: true
 
-  has_many :checkout_cards, :dependent => :destroy
-  has_one :checkout_balance, :dependent => :nullify
+  has_many :checkout_cards, dependent: :destroy
+  has_one :checkout_balance, dependent: :nullify
 
-  has_many :educations, :dependent => :nullify
-  has_many :studies, :through => :educations
+  has_many :educations, dependent: :nullify
+  has_many :studies, through: :educations
   accepts_nested_attributes_for :educations,
-                                :reject_if => proc { |attributes| attributes['study_id'].blank? && attributes['status'].blank? },
-                                :allow_destroy => true
+                                reject_if: proc { |attributes| attributes['study_id'].blank? && attributes['status'].blank? },
+                                allow_destroy: true
 
-  has_many :participants, :dependent => :nullify
-  has_many :activities, :through => :participants
-  has_many :payments, :dependent => :nullify
+  has_many :participants, dependent: :nullify
+  has_many :activities, through: :participants
+  has_many :payments, dependent: :nullify
 
   has_many :confirmed_activities,
            -> { where(participants: { reservist: false }) },
-           :through => :participants,
-           :source => :activity
+           through: :participants,
+           source: :activity
   has_many :reservist_activities,
            -> { where(participants: { reservist: true }) },
-           :through => :participants,
-           :source => :activity
+           through: :participants,
+           source: :activity
   has_many :unpaid_activities,
            -> { where('participants.reservist IS FALSE AND activities.is_payable IS TRUE AND ( (activities.price IS NOT NULL AND participants.paid IS FALSE AND (participants.price IS NULL OR participants.price > 0) ) OR ( activities.price IS NULL AND participants.paid IS FALSE AND participants.price IS NOT NULL))') },
-           :through => :participants,
-           :source => :activity
+           through: :participants,
+           source: :activity
 
-  scope :payable_unpaid_activities, -> { unpaid_activities.where(:activity_isPayable => true) }
+  scope :payable_unpaid_activities, -> { unpaid_activities.where(activity_isPayable: true) }
 
-  has_many :group_members, :dependent => :nullify
-  has_many :groups, :through => :group_members
+  has_many :group_members, dependent: :nullify
+  has_many :groups, through: :group_members
 
-  has_one :user, as: :credentials, :dependent => :destroy
+  has_one :user, as: :credentials, dependent: :destroy
 
   scope :active, lambda {
-    where(:id => (
+    where(id: (
     Education.select(:member_id)
      .where('status = 0')
      .map(&:member_id) +
     Tag.select(:member_id)
-      .where(:name => Tag.active_by_tag)
+      .where(name: Tag.active_by_tag)
       .map(&:member_id)
   ))
   }
@@ -89,11 +89,11 @@ class Member < ApplicationRecord
   pg_search_scope :search_by_name,
                   against: [:first_name, :infix, :last_name, :phone_number, :email, :student_id],
                   using:
-                    { :trigram => {
+                    { trigram: {
                       only: [:first_name, :last_name, :student_id, :phone_number, :email],
                       threshold: 0.05
                     },
-                      :tsearch => { prefix: true } }
+                      tsearch: { prefix: true } }
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
@@ -146,7 +146,7 @@ class Member < ApplicationRecord
     tags.each do |tag|
       next if tag.empty?
 
-      puts Tag.where(:member_id => id, :name => Tag.names[tag]).first_or_create!
+      puts Tag.where(member_id: id, name: Tag.names[tag]).first_or_create!
     end
   end
 
@@ -168,7 +168,7 @@ class Member < ApplicationRecord
         groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
       end
 
-      groups.merge!(group_member.group.id => { :id => group_member.group.id, :name => group_member.group.name, :years => [group_member.year], :positions => [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
+      groups.merge!(group_member.group.id => { id: group_member.group.id, name: group_member.group.name, years: [group_member.year], positions: [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
     end
 
     return groups.values
@@ -264,7 +264,7 @@ class Member < ApplicationRecord
       end
 
       records = Member.none if code.nil? # TODO: add active to the selector if status is not in the query
-      records = records.where(:id => Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
+      records = records.where(id: Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
     end
 
     tag = query.match(/tag:([A-Za-z-]+)/)
@@ -275,7 +275,7 @@ class Member < ApplicationRecord
       tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == tag[1].downcase.tr('-', ' ') }
 
       records = Member.none if tag_name.nil?
-      records = records.where(:id => Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
+      records = records.where(id: Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
     end
 
     year = query.match(/(year|jaargang):(\d+)/)
@@ -292,15 +292,15 @@ class Member < ApplicationRecord
       if status.nil? || status[2].casecmp('actief').zero?
         # if already filtered on study, that particular study should be active
         if code.present?
-          records.where(:id => Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map(&:member_id))
+          records.where(id: Education.select(:member_id).where('status = 0 AND study_id = ?', code.id).map(&:member_id))
         else
-          records.where(:id => (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(:name => Tag.active_by_tag).map(&:member_id)))
+          records.where(id: (Education.select(:member_id).where('status = 0').map(&:member_id) + Tag.select(:member_id).where(name: Tag.active_by_tag).map(&:member_id)))
         end
 
       elsif status[2].casecmp('alumni').zero?
-        records.where.not(:id => Education.select(:member_id).where('status = 0').map(&:member_id))
+        records.where.not(id: Education.select(:member_id).where('status = 0').map(&:member_id))
       elsif status[2].casecmp('studerend').zero?
-        records.where(:id => Education.select(:member_id).where('status = 0').map(&:member_id))
+        records.where(id: Education.select(:member_id).where('status = 0').map(&:member_id))
       elsif status[2].casecmp('iedereen').zero?
         Member.all
       else
@@ -363,10 +363,10 @@ class Member < ApplicationRecord
     Participant.where(activity_id: confirmed_activities.where('activities.price IS NULL AND participants.price IS NULL AND activities.start_date > ?', Date.today).pluck(:id), member_id: id).destroy_all
 
     # remove all participant notes
-    Participant.where(:member_id => id).update_all(notes: nil)
+    Participant.where(member_id: id).update_all(notes: nil)
 
     # set not updated studies to inactive
-    Education.where(:member_id => id, :status => :active).update_all(status: :inactive)
+    Education.where(member_id: id, status: :active).update_all(status: :inactive)
 
     # remove from mailchimp, unless mailchimp env vars not set
     unless ENV['MAILCHIMP_DATACENTER'].blank?

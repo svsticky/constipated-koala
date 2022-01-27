@@ -5,12 +5,12 @@ class Group < ApplicationRecord
 
   enum category: { board: 1, committee: 2, moot: 3, other: 4 }
 
-  has_many :activities, :foreign_key => :organized_by
+  has_many :activities, foreign_key: :organized_by
 
   has_many :group_members,
-           :dependent => :destroy
+           dependent: :destroy
   has_many :members,
-           :through => :group_members
+           through: :group_members
 
   is_impressionable
 
@@ -38,7 +38,7 @@ class Group < ApplicationRecord
     year = year.nil? ? Date.today.study_year : year.to_i
 
     # Sort on position, then name, then fallback to natural occurring order
-    group_members.where(:year => year).sort do |a, b|
+    group_members.where(year: year).sort do |a, b|
       if a.position.present? && b.position.present?
         if a.position == b.position
           if a.member.nil?

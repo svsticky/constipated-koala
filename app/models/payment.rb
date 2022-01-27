@@ -11,9 +11,9 @@ class Payment < ApplicationRecord
   validates :status, presence: true
   validates :payment_type, presence: true
 
-  enum :status => [:failed, :in_progress, :successful]
-  enum :payment_type => [:ideal, :payconiq_online, :payconiq_display, :pin]
-  enum :transaction_type => [:checkout, :activity]
+  enum status: [:failed, :in_progress, :successful]
+  enum payment_type: [:ideal, :payconiq_online, :payconiq_display, :pin]
+  enum transaction_type: [:checkout, :activity]
   belongs_to :member
 
   validates :transaction_type, presence: true
@@ -50,20 +50,20 @@ class Payment < ApplicationRecord
       self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
 
       request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
-                          :amount => amount,
-                          :description => description,
+                          amount: amount,
+                          description: description,
 
-                          :method => 'ideal',
-                          :issuer => issuer,
+                          method: 'ideal',
+                          issuer: issuer,
 
-                          :metadata => {
-                            :member => member.name,
-                            :transaction_type => transaction_type,
-                            :transaction_id => transaction_id
+                          metadata: {
+                            member: member.name,
+                            transaction_type: transaction_type,
+                            transaction_id: transaction_id
 
                           },
-                          :webhookUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.routes.url_helpers.mollie_hook_url,
-                          :redirectUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token))
+                          webhookUrl: Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.routes.url_helpers.mollie_hook_url,
+                          redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token))
 
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
       response = http.send! request
@@ -81,12 +81,12 @@ class Payment < ApplicationRecord
 
       request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
 
-      request.body = { :amount => (amount * 100).to_i,
-                       :reference => payment_type,
-                       :description => description,
-                       :currency => 'EUR',
-                       :callbackUrl => Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.routes.url_helpers.payconiq_hook_url,
-                       :returnUrl => Rails.application.routes.url_helpers.payment_redirect_url(:token => token) }.to_json
+      request.body = { amount: (amount * 100).to_i,
+                       reference: payment_type,
+                       description: description,
+                       currency: 'EUR',
+                       callbackUrl: Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.routes.url_helpers.payconiq_hook_url,
+                       returnUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token) }.to_json
 
       request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
       request.content_type = 'application/json'
@@ -176,7 +176,7 @@ class Payment < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the Payment as processed
       Payment.transaction do
-        transaction = CheckoutTransaction.create!(:price => (amount - transaction_fee), :checkout_balance => CheckoutBalance.find_by_member_id!(member), :payment_method => payment_type)
+        transaction = CheckoutTransaction.create!(price: (amount - transaction_fee), checkout_balance: CheckoutBalance.find_by_member_id!(member), payment_method: payment_type)
 
         self.transaction_id = [transaction.id]
         save!

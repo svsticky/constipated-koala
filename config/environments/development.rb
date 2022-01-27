@@ -23,13 +23,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   config.action_mailer.default_url_options = {
-    :host => 'koala.rails.local',
-    :port => 3000
+    host: 'koala.rails.local',
+    port: 3000
   }
 
   Rails.application.routes.default_url_options = {
-    :host => 'koala.rails.local',
-    :port => 3000
+    host: 'koala.rails.local',
+    port: 3000
   }
 
   config.hosts << 'koala.rails.local'

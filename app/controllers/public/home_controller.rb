@@ -4,8 +4,8 @@ class Public::HomeController < PublicController
 
   def index
     @member = Member.new
-    @member.educations.build(:id => '-1')
-    @member.educations.build(:id => '-2')
+    @member.educations.build(id: '-1')
+    @member.educations.build(id: '-2')
 
     @membership = Activity.find Settings['intro.membership']
     @activities = Activity.find Settings['intro.activities']
@@ -48,22 +48,22 @@ class Public::HomeController < PublicController
       end
 
       activities.each do |activity|
-        participant = Participant.create(:member => @member, :activity => activity)
+        participant = Participant.create(member: @member, activity: activity)
         total += participant.currency
       end
 
       if params[:method] == 'IDEAL'
         transaction = Payment.new(
-          :description => I18n.t("form.introduction", user: @member.name),
-          :amount => total,
-          :issuer => params[:bank],
-          :member => @member,
+          description: I18n.t("form.introduction", user: @member.name),
+          amount: total,
+          issuer: params[:bank],
+          member: @member,
 
-          :transaction_id => activities.map(&:id),
-          :transaction_type => :activity,
-          :payment_type => :ideal,
+          transaction_id: activities.map(&:id),
+          transaction_type: :activity,
+          payment_type: :ideal,
 
-          :redirect_uri => public_url
+          redirect_uri: public_url
         )
 
         if transaction.save
@@ -83,8 +83,8 @@ class Public::HomeController < PublicController
       @member.educations.each_with_index { |education, index| education.id = ((index + 1) * -1) }
 
       # create empty study field if not present
-      @member.educations.build(:id => '-1') if @member.educations.empty?
-      @member.educations.build(:id => '-2') if @member.educations.length < 2
+      @member.educations.build(id: '-1') if @member.educations.empty?
+      @member.educations.build(id: '-2') if @member.educations.length < 2
 
       @membership = Activity.find(Settings['intro.membership'])
 

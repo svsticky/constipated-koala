@@ -245,8 +245,8 @@ class Members::ParticipantsController < ApplicationController
 
     # Don't allow activities for old activities
     if @activity.ended? || !@activity.is_viewable? # rubocop:disable Style/GuardClause
-      render :status => :gone,
-             :plain => I18n.t(
+      render status: :gone,
+             plain: I18n.t(
                :activity_ended,
                scope: 'activerecord.errors.models.activity'
              )

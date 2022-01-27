@@ -1,6 +1,6 @@
 namespace :oauthproxy do
   desc 'Create/update OAuth Proxy application according to environment variables'
-  task :create_application => :environment do
+  task create_application: :environment do
     unless ENV['OAUTH_PROXY_UID'] && ENV['OAUTH_PROXY_SECRET'] && ENV['OAUTH_PROXY_REDIRECTS']
       puts 'Secrets incomplete, no action taken.'
       return

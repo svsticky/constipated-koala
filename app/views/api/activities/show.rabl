@@ -34,7 +34,7 @@ node :reservists do |activity|
 end
 
 glue :group do
-  attribute :name => :group
+  attribute name: :group
 end
 
 node :enrollable do |activity|

@@ -2,7 +2,7 @@
 class CheckoutProduct < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true
-  validates :price, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   has_one_attached :image
   validate :content_type, unless: :skip_image_validation
@@ -11,7 +11,7 @@ class CheckoutProduct < ApplicationRecord
   def content_type
     return if !image.attached? || image.content_type.in?(['image/jpeg', 'image/png'])
 
-    errors.add(:image, I18n.t('activerecord.errors.unsupported_content_type', :type => image.content_type.to_s, :allowed => 'image/jpeg image/png'))
+    errors.add(:image, I18n.t('activerecord.errors.unsupported_content_type', type: image.content_type.to_s, allowed: 'image/jpeg image/png'))
   end
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
@@ -29,7 +29,7 @@ class CheckoutProduct < ApplicationRecord
       record.parent   = id
 
       reload
-      update_columns(:active => false)
+      update_columns(active: false)
 
       record.save
     end
@@ -52,7 +52,7 @@ class CheckoutProduct < ApplicationRecord
   def parents
     return [] if parent.nil?
 
-    return CheckoutProduct.where(:id => parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(parent).parents
+    return CheckoutProduct.where(id: parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(parent).parents
   end
 
   def sales(year = nil)

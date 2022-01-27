@@ -5,5 +5,5 @@ class CheckoutBalance < ApplicationRecord
 
   belongs_to :member
   has_many :checkout_cards,
-           :dependent => :destroy
+           dependent: :destroy
 end

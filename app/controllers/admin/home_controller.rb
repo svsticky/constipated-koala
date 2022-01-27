@@ -11,10 +11,10 @@ class Admin::HomeController < ApplicationController
     @recent = CheckoutTransaction.where("created_at >= ?", Time.zone.now.beginning_of_day).order(created_at: :desc).take(12)
     @recentactivities = Payment.where("created_at >= ?", Time.zone.now.beginning_of_day).where(transaction_type: :activity, status: :successful).take(12)
 
-    @unpayed = Participant.where(:reservist => false, :paid => false).joins(:activity).where('activities.start_date < NOW()').sum(:price) + Participant.where(:reservist => false, :paid => false, :price => nil).joins(:activity).where('activities.start_date < NOW() AND activities.price IS NOT NULL').sum('activities.price')
+    @unpayed = Participant.where(reservist: false, paid: false).joins(:activity).where('activities.start_date < NOW()').sum(:price) + Participant.where(reservist: false, paid: false, price: nil).joins(:activity).where('activities.start_date < NOW() AND activities.price IS NOT NULL').sum('activities.price')
 
-    @defaulters = Participant.where(:reservist => false, :paid => false).joins(:activity, :member).where('activities.start_date < NOW()').group(:member_id).sum(:price).merge( \
-      Participant.where(:reservist => false, :paid => false, :price => nil).joins(:activity, :member).where('activities.start_date < NOW()').group(:member_id).sum('activities.price ')
-    ) { |_, sum_a, sum_b| sum_a + sum_b }.sort_by { |_, sum| -sum }.map { |k, v| [Member.where(:id => k).select(:id, :first_name, :infix, :last_name).first, v] }.take(12).delete_if { |_, v| v == 0 }
+    @defaulters = Participant.where(reservist: false, paid: false).joins(:activity, :member).where('activities.start_date < NOW()').group(:member_id).sum(:price).merge( \
+      Participant.where(reservist: false, paid: false, price: nil).joins(:activity, :member).where('activities.start_date < NOW()').group(:member_id).sum('activities.price ')
+    ) { |_, sum_a, sum_b| sum_a + sum_b }.sort_by { |_, sum| -sum }.map { |k, v| [Member.where(id: k).select(:id, :first_name, :infix, :last_name).first, v] }.take(12).delete_if { |_, v| v == 0 }
   end
 end
