@@ -6,7 +6,7 @@ let
   node = import ./nix/node.nix { inherit pkgs; };
   gems = pkgs.bundlerEnv {
     name = "koala";
-    ruby = pkgs.ruby;
+    ruby = pkgs.ruby_3_0;
     gemdir = ./.;
     gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
