@@ -39,6 +39,10 @@ class User < ApplicationRecord
     credentials.update_column(:email, email)
   end
 
+  def active_for_authentication?
+    super && !deleted_at
+  end
+
   def self.create_on_member_enrollment!(member)
     password = Devise.friendly_token 128
 

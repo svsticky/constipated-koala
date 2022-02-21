@@ -916,7 +916,8 @@ CREATE TABLE public.users (
     credentials_id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    language integer DEFAULT 0 NOT NULL
+    language integer DEFAULT 0 NOT NULL,
+    deleted_at timestamp without time zone
 );
 
 
@@ -1666,6 +1667,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210801152003'),
 ('20210801152004'),
 ('20210808184948'),
-('20211012104341');
+('20211012104341'),
+('20220221195220');
 
 

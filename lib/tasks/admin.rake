@@ -33,12 +33,12 @@ namespace :admin do
   task :delete, [:email] => :environment do |_, args|
     user = User.find_by_email args[:email]
 
-    if user.nil? || !user.admin?
+    if user.nil? || !user.admin?r
       puts "#{ args[:email] } not found"
       exit
     end
-
-    puts "#{ args[:email] } removed" if user.credentials.destroy
+    
+    puts "#{ args[:email] } removed" if user.update(deleted_at:DateTime.now)
   end
 
   desc 'Start a new year, create a new membership activity if given and set in config'
