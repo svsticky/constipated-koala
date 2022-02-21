@@ -383,8 +383,9 @@ en:
         when: When
     messages:
       member:
+        confirmation_sent: 'A confirmation mail is send to '
         force_unconfirmed_email: Or <a data-method='patch' href='%{link}'>force</a> the change here.
-        unconfirmed_email: A confirmation mail is send to <b>%{email}</b>, once confirmed the e-mailadress will be updated.
+        once_confirmed: " once confirmed the e-mailadress will be updated."
       participant:
         paid: "%{name} has paid for %{activity}"
         price: "%{activity} has been changed for %{name}"

@@ -60,37 +60,6 @@
       "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "49b99fb6bf70bc433c99ac49400e2a8fb485000efde1696fc26e8bfd9e69e1aa",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/admin/members/edit.html.haml",
-      "line": 73,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "I18n.t(:unconfirmed_email, :scope => \"activerecord.messages.member\", :email => Member.includes(:educations).includes(:tags).find(params[:id]).user.unconfirmed_email, :link => member_force_email_change_path(Member.includes(:educations).includes(:tags).find(params[:id])))",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::MembersController",
-          "method": "edit",
-          "line": 73,
-          "file": "app/controllers/admin/members_controller.rb",
-          "rendered": {
-            "name": "admin/members/edit",
-            "file": "app/views/admin/members/edit.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/members/edit"
-      },
-      "user_input": "Member.includes(:educations).includes(:tags)",
-      "confidence": "Weak",
-      "note": "We kinda trust our admins to not put code in an emailadress"
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "62cd8ff24cdeadc799dac0f8520b40aa94078756aaf273bcd6c9b97b5bb5dca5",
@@ -236,37 +205,6 @@
       "user_input": null,
       "confidence": "Medium",
       "note": "Brakeman parses version numbers incorrectly, thinking version 2.11.0 is equal to 2.1.1. The currently installed version of loofah is not vulnerable to CVE listed."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "d2be482c78d4a736657a4132006c3abdc2cec2c7ae240313e8adaf682346654b",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/admin/members/show.html.haml",
-      "line": 22,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "I18n.t(:unconfirmed_email, :scope => \"activerecord.messages.member\", :email => Member.find(params[:id]).user.unconfirmed_email)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Admin::MembersController",
-          "method": "show",
-          "line": 37,
-          "file": "app/controllers/admin/members_controller.rb",
-          "rendered": {
-            "name": "admin/members/show",
-            "file": "app/views/admin/members/show.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "admin/members/show"
-      },
-      "user_input": "Member.find(params[:id]).user",
-      "confidence": "Weak",
-      "note": "Again we kind trust our admins here"
     }
   ],
   "updated": "2022-01-03 13:23:22 +0100",
