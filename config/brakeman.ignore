@@ -1,46 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "04ade6f355e595ec334a54c16157d4174338254b85c75a17b741279b30851b59",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/members/payments_controller.rb",
-      "line": 44,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.new(:description => (\"#{\"Activiteiten - \"}#{self.class.join_with_char_limit(Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).map do\n p.activity.name\n end, \", \", (140 - \"Activiteiten - \".length))}\"), :amount => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).sum(&:currency), :issuer => transaction_params[:bank], :member => Member.find(current_user.credentials_id), :payment_type => :ideal, :transaction_id => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).pluck(:activity_id), :transaction_type => :activity, :redirect_uri => member_payments_path).payment_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Members::PaymentsController",
-        "method": "pay_activities"
-      },
-      "user_input": "Payment.new(:description => (\"#{\"Activiteiten - \"}#{self.class.join_with_char_limit(Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).map do\n p.activity.name\n end, \", \", (140 - \"Activiteiten - \".length))}\"), :amount => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).sum(&:currency), :issuer => transaction_params[:bank], :member => Member.find(current_user.credentials_id), :payment_type => :ideal, :transaction_id => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).pluck(:activity_id), :transaction_type => :activity, :redirect_uri => member_payments_path).payment_uri",
-      "confidence": "High",
-      "note": "Have to redirect to get to mollie payment portal"
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "29914a5ab2e071e86f64854c9a7e76f0acc29b98485c33f42817d8cf6c5d1d69",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/public/home_controller.rb",
-      "line": 70,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => :activity, :payment_type => :ideal, :redirect_uri => public_url).payment_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Public::HomeController",
-        "method": "create"
-      },
-      "user_input": "Payment.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => :activity, :payment_type => :ideal, :redirect_uri => public_url).payment_uri",
-      "confidence": "High",
-      "note": "Have to redirect for payment"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "3b8d54ccdfe03e13e9d1cd35e1640ed0a68e7505d339a35e79d8d25b531e6775",
@@ -133,26 +93,6 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "8c08dc71a8af936322aef7b0bb64fade45df68eaa90f7a0b077ed739749e8f00",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/api/webhook_controller.rb",
-      "line": 13,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.find_by_token!(params[:token]).redirect_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Api::WebhookController",
-        "method": "payment_redirect"
-      },
-      "user_input": "Payment.find_by_token!(params[:token]).redirect_uri",
-      "confidence": "High",
-      "note": "Required to validate transaction after coming back from the payment provider"
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
       "fingerprint": "9cc91332d5d2f54e3ae1b67048c6d1f5bc8a5fc6b55f64c789d04124b7d7a73f",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
@@ -207,6 +147,6 @@
       "note": "Brakeman parses version numbers incorrectly, thinking version 2.11.0 is equal to 2.1.1. The currently installed version of loofah is not vulnerable to CVE listed."
     }
   ],
-  "updated": "2022-01-03 13:23:22 +0100",
+  "updated": "2022-02-21 21:49:32 +0100",
   "brakeman_version": "4.8.2"
 }
