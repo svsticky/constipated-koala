@@ -20,26 +20,6 @@
       "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
     },
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "62cd8ff24cdeadc799dac0f8520b40aa94078756aaf273bcd6c9b97b5bb5dca5",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/members/payments_controller.rb",
-      "line": 103,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => transaction_params[:amount].gsub(\",\", \".\").to_f, :member => Member.find(current_user.credentials_id), :issuer => transaction_params[:bank], :payment_type => :ideal, :transaction_id => nil, :transaction_type => :checkout, :redirect_uri => member_payments_path).payment_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Members::PaymentsController",
-        "method": "add_funds"
-      },
-      "user_input": "Payment.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => transaction_params[:amount].gsub(\",\", \".\").to_f, :member => Member.find(current_user.credentials_id), :issuer => transaction_params[:bank], :payment_type => :ideal, :transaction_id => nil, :transaction_type => :checkout, :redirect_uri => member_payments_path).payment_uri",
-      "confidence": "High",
-      "note": "Have to redirect to mollie payment portal"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "7627b4a6d06014a919a69d798701940bc0938376d285cc17e9d6dbfde550f778",
@@ -147,6 +127,6 @@
       "note": "Brakeman parses version numbers incorrectly, thinking version 2.11.0 is equal to 2.1.1. The currently installed version of loofah is not vulnerable to CVE listed."
     }
   ],
-  "updated": "2022-02-21 21:49:32 +0100",
+  "updated": "2022-02-21 22:28:22 +0100",
   "brakeman_version": "4.8.2"
 }
