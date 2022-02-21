@@ -19,7 +19,10 @@
       .col-lg-6
         - if @member.user && @member.user.unconfirmed_email
           .callout.callout-warning
-            = raw I18n.t( :unconfirmed_email, scope: 'activerecord.messages.member', email: @member.user.unconfirmed_email )
+            = I18n.t('activerecord.messages.member.confirmation_sent')
+            %b
+              = @member.user.unconfirmed_email
+            = I18n.t('activerecord.messages.member.once_confirmed')
             = raw I18n.t( :force_unconfirmed_email, scope: 'activerecord.messages.member', link: member_force_email_change_path(@member) )
 
         .card

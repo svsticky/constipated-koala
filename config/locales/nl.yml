@@ -383,8 +383,9 @@ nl:
         when: Wanneer
     messages:
       member:
+        confirmation_sent: 'Een bevestigingsmail is verstuurd naar '
         force_unconfirmed_email: Of <a data-method='patch' href='%{link}'>forceer</a> de wijziging.
-        unconfirmed_email: Een bevestigingsmail is verstuurd naar <b>%{email}</b>, zodra deze wordt bevestigd wordt het e-mailadres aangepast.
+        once_confirmed: ", zodra deze wordt bevestigd wordt het e-mailadres aangepast."
       participant:
         paid: "%{name} heeft betaald voor %{activity}"
         price: "%{activity} is veranderd voor %{name}"
