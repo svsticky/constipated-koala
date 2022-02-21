@@ -20,12 +20,10 @@ jobs:
       DATABASE_PORT: 25838
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: "actions/checkout@v2.4.0"
 
     - name: "install Nix"
-      uses: cachix/install-nix-action@v12
-      with:
-        install_url: "https://releases.nixos.org/nix/nix-2.3.16/install"
+      uses: "cachix/install-nix-action@v16"
 
     - name: "Cache Nix packages"
       uses: cachix/cachix-action@v8
