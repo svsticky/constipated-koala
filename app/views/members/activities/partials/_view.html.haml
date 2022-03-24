@@ -76,7 +76,7 @@
         = simple_format(activity.description_en)
       - elsif !activity.description_nl.blank?
         = simple_format(activity.description_nl)
-      - elsif !activity.description_en.black?
+      - elsif !activity.description_en.blank?
         = simple_format(activity.description_en)
       - else
         = I18n.t("activerecord.missing_value_placeholders.activity.description")
