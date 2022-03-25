@@ -90,7 +90,7 @@ class Admin::MembersController < ApplicationController
   def force_email_change
     @member = Member.find(params[:member_id])
 
-    MailchimpUpdateAddressJob.perform_later @member.email, @member.user.unconfirmed_email, member_post_params[:mailchimp_interests].reject(&:blank?) unless
+    MailchimpUpdateAddressJob.perform_later(@member.email, @member.user.unconfirmed_email) unless
       @member.mailchimp_interests.nil? || ENV['MAILCHIMP_DATACENTER'].blank?
 
     Mailings::Devise.forced_confirm_email(@member, current_user).deliver_later
