@@ -94,27 +94,28 @@ import toastr from "toastr";
       $(this)
         .find("#recipients select")
         .on("change", function (event, selector) {
-          submitBtn = $(form).find("#btn-send");
-
-          if (selector == "debtors" || $(this).val() == "debtors") {
-            if (debtors.length > 0) submitBtn.prop("disabled", false);
-            else submitBtn.prop("disabled", true);
-            $(form).find("#recipients input").val($.fn.mail.format(debtors));
-          } else {
-            submitBtn.prop("disabled", false);
-            if (selector == "all" || $(this).val() == "all")
-              $(form)
-                .find("#recipients input")
-                .val($.fn.mail.format(recipients));
-            if (selector == "attendees" || $(this).val() == "attendees")
-              $(form)
-                .find("#recipients input")
-                .val($.fn.mail.format(attendees));
-            if (selector == "reservists" || $(this).val() == "reservists")
-              $(form)
-                .find("#recipients input")
-                .val($.fn.mail.format(reservists));
+          var mail_recipients;
+          switch ($(this).val()) {
+            case "debtors":
+              mail_recipients = debtors;
+              break;
+            case "all":
+              mail_recipients = recipients;
+              break;
+            case "attendees":
+              mail_recipients = attendees;
+              break;
+            case "reservists":
+              mail_recipients = reservists;
+              break;
           }
+
+          const submitBtn = $(form).find("#btn-send");
+          submitBtn.prop("disabled", mail_recipients.length == 0);
+
+          $(form)
+            .find("#recipients input")
+            .val($.fn.mail.format(mail_recipients));
         });
 
       $(this).on("submit", function (event) {
