@@ -214,7 +214,8 @@ class Activity < ApplicationRecord
     errors.add(:start_time, :blank_and_end_time) if start_time.nil? &&
                                                     end_time.present?
 
-    errors.add(:end_time, :before_start_time) if end_time.present? &&
+    errors.add(:end_time, :before_start_time) if start_time.present? &&
+                                                 end_time.present? &&
                                                  end_date == start_date &&
                                                  end_time < start_time
   end
