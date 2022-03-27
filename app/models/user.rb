@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   belongs_to :credentials, polymorphic: true
 
-  enum language: [:nl, :en]
+  enum language: { nl: 0, en: 1 }
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable

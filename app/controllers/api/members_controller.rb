@@ -12,6 +12,6 @@ class Api::MembersController < ApiController
   end
 
   def show
-    @member = Member.find_by_id!(params[:id])
+    @member = Member.find(params[:id])
   end
 end

@@ -2,7 +2,7 @@
 #:nodoc:
 class Activity < ApplicationRecord
   validates :name, presence: true
-  validates_length_of :name, maximum: 52
+  validates :name, length: { maximum: 52 }
 
   validates :start_date, presence: true
   validate :end_is_possible, unless: proc { |a| a.start_date.nil? }
@@ -29,8 +29,9 @@ class Activity < ApplicationRecord
 
   is_impressionable
 
-  before_destroy :rewrite_logs_before_delete, prepend: true
+  before_validation :validate_enrollable
   after_update :enroll_reservists!, if: proc { |a| a.saved_change_to_participant_limit }
+  before_destroy :rewrite_logs_before_delete, prepend: true
 
   has_one_attached :poster
   has_one :group, as: :organized_by
@@ -40,7 +41,6 @@ class Activity < ApplicationRecord
 
   attr_accessor :magic_enrolled_reservists
 
-  before_validation :validate_enrollable
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?

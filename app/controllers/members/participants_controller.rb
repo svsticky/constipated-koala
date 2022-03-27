@@ -69,7 +69,7 @@ class Members::ParticipantsController < ApplicationController
 
     # Deny minors from alcoholic activities
     if @activity.is_alcoholic? && @member.underage?
-      render status: 451, json: { # Unavailable for legal reasons
+      render status: :unavailable_for_legal_reasons, json: { # Unavailable for legal reasons
         message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
         participant_limit: @activity.participant_limit,
         participant_count: @activity.participants.count
@@ -142,7 +142,7 @@ class Members::ParticipantsController < ApplicationController
 
       @new_enrollment.save!
 
-      render status: 200, json: {
+      render status: :ok, json: {
         message: I18n.t(:enrolled, scope:
           @activity_errors_scope, activity:
                           @activity.name),
@@ -162,7 +162,7 @@ class Members::ParticipantsController < ApplicationController
       activity_id: @activity.id
     )
 
-    if @activity.notes.blank? || !params[:par_notes].blank?
+    if @activity.notes.blank? || params[:par_notes].present?
       @enrollment.update(notes: params[:par_notes])
       @enrollment.save
       render status: :accepted, json: {
@@ -226,7 +226,7 @@ class Members::ParticipantsController < ApplicationController
     @enrollment.destroy!
     activity.enroll_reservists!
 
-    render status: 200, json: {
+    render status: :ok, json: {
       message: I18n.t(
         :unenrolled,
         scope: @activity_errors_scope,

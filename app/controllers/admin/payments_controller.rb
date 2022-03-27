@@ -15,7 +15,7 @@ class Admin::PaymentsController < ApplicationController
     end
 
     # Get checkout transactions that were purchased by pin of yesterday
-    @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', 1.days.ago).order(created_at: :desc)
+    @checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', 1.day.ago).order(created_at: :desc)
     @dat = @checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }.to_json
 
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
@@ -52,7 +52,7 @@ class Admin::PaymentsController < ApplicationController
   end
 
   def export_payments
-    return head(:bad_request) unless !params[:export_type].blank? && !params[:payment_type].blank? && !params[:start_date].blank? && !params[:end_date].blank?
+    return head(:bad_request) unless params[:export_type].present? && params[:payment_type].present? && params[:start_date].present? && params[:end_date].present?
 
     payment_type = params[:payment_type] == "Payconiq" ? [:payconiq_online, :payconiq_display] : [:ideal]
 

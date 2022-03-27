@@ -26,7 +26,7 @@ class Member < ApplicationRecord
   validates :birth_date, presence: true
   validates :join_date, presence: true
 
-  enum consent: [:pending, :yearly, :indefinite]
+  enum consent: { pending: 0, yearly: 1, indefinite: 2 }
 
   is_impressionable dependent: :ignore
 
@@ -199,7 +199,7 @@ class Member < ApplicationRecord
 
     # Otherwise we apply the filters and perform a fuzzy search on full name, phone number and email address
     records = filter(query)
-    return records.search_by_name(query) unless query.blank?
+    return records.search_by_name(query) if query.present?
 
     return records
   end
@@ -369,7 +369,7 @@ class Member < ApplicationRecord
     Education.where(member_id: id, status: :active).update_all(status: :inactive)
 
     # remove from mailchimp, unless mailchimp env vars not set
-    unless ENV['MAILCHIMP_DATACENTER'].blank?
+    if ENV['MAILCHIMP_DATACENTER'].present?
       RestClient.post(
         "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(email.downcase) }/actions/delete-permanent",
         {},
