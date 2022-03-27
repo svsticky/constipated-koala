@@ -1,5 +1,8 @@
 inherit_from: '.rubocop_todo.yml'
 
+# Load extra rails-specific checks
+require: rubocop-rails
+
 # Display reason and how to do it better.
 # Ignore auto-generated schema file
 AllCops:
