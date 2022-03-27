@@ -73,6 +73,7 @@ end
 group :development, :test do
   gem 'brakeman'
   gem 'rubocop'
+  gem 'rubocop-rails'
   gem 'spring'
 
   # i18n checks
