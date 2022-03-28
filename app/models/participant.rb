@@ -9,19 +9,19 @@ class Participant < ApplicationRecord
   is_impressionable dependent: :ignore
 
   def price=(price)
-    write_attribute(:price, price.to_s.tr(',', '.').to_f) unless price.blank?
+    write_attribute(:price, price.to_s.tr(',', '.').to_f) if price.present?
     write_attribute(:price, nil) if price.blank?
   end
 
   def currency
-    return activity.price if read_attribute(:price).nil?
+    return activity.price if self[:price].nil?
 
     self.price ||= 0
   end
 
   before_validation do
     self.paid = false if price_changed?
-    write_attribute(:price, nil) if activity.price == self.price
+    self[:price] = nil if activity.price == self.price
   end
 
   # Update logs before deleting a Participant to keep what happened

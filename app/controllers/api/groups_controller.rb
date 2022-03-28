@@ -9,6 +9,6 @@ class Api::GroupsController < ApiController
   end
 
   def show
-    @group = Group.find_by_id!(params[:id])
+    @group = Group.find(params[:id])
   end
 end

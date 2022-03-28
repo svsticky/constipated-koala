@@ -11,9 +11,9 @@ class Payment < ApplicationRecord
   validates :status, presence: true
   validates :payment_type, presence: true
 
-  enum status: [:failed, :in_progress, :successful]
-  enum payment_type: [:ideal, :payconiq_online, :payconiq_display, :pin]
-  enum transaction_type: [:checkout, :activity]
+  enum status: { failed: 0, in_progress: 1, successful: 2 }
+  enum payment_type: { ideal: 0, payconiq_online: 1, payconiq_display: 2, pin: 3 }
+  enum transaction_type: { checkout: 0, activity: 1 }
   belongs_to :member
 
   validates :transaction_type, presence: true

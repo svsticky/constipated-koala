@@ -27,7 +27,7 @@ class Api::ActivitiesController < ApiController
   end
 
   def show
-    @activity = Activity.find_by_id! params[:id]
+    @activity = Activity.find(params[:id])
   end
 
   private

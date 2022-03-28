@@ -15,7 +15,7 @@ class CheckoutTransaction < ApplicationRecord
 
   before_validation do
     # add items for a price
-    calculate_price unless items.blank?
+    calculate_price if items.present?
 
     self.checkout_balance = checkout_card.checkout_balance if checkout_balance.nil?
   end

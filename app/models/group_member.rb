@@ -12,7 +12,5 @@ class GroupMember < ApplicationRecord
     write_attribute(:position, nil) if position.blank? || position == '-'
   end
 
-  def name
-    member.name
-  end
+  delegate :name, to: :member
 end
