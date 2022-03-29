@@ -52,19 +52,19 @@ class Admin::PaymentsController < ApplicationController
   end
 
   def export_payments
-    return head(:bad_request) unless params[:export_type].present? && params[:payment_type].present? && params[:start_date].present? && params[:end_date].present?
+    return head(:bad_request) unless params[:export_type].present? && params[:start_date].present? && params[:end_date].present?
 
-    payment_type = [:ideal]
+    payment_type = :ideal
 
     @transaction_file = CSV.generate do |input|
       @payments = Payment.where(created_at: (Date.strptime(params[:start_date], "%Y-%m-%d")..Date.strptime(params[:end_date], "%Y-%m-%d")), payment_type: payment_type, status: :successful)
-      create_invoice(input, @payments, params[:payment_type], params[:start_date], params[:end_date])
+      create_invoice(input, @payments, payment_type, params[:start_date], params[:end_date])
     end
 
     respond_to do |format|
       format.html { redirect_to payments_path }
       format.csv { send_data @transaction_file, filename: "payments_#{ Date.strptime(params[:start_date], '%Y-%m-%d') }_#{ Date.strptime(params[:end_date], '%Y-%m-%d') }.csv" }
-      format.js { render js: "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: params[:payment_type], export_type: params[:export_type]) }\", \"_blank\")" }
+      format.js { render js: "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: payment_type, export_type: params[:export_type]) }\", \"_blank\")" }
     end
   end
 

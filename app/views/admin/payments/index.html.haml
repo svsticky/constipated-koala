@@ -104,9 +104,7 @@
                   =f.date_field :end_date, value: 1.days.from_now.strftime('%Y-%m-%d'), :class => "form-control", :required => true
               .row
               .row.form-group
-                .col-2
-                  = f.select :payment_type, ["Ideal"],{} ,{class:'form-control'}
-                .col-3
+                .col-5
                   = f.radio_button :export_type, "all", :checked => true
                   = f.label I18n.t('admin.payment.all')
                   = f.radio_button :export_type, "daily"
