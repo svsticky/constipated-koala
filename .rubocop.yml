@@ -101,3 +101,7 @@ Lint/DuplicateBranch:
 # We already have upgrade to Ruby 3.0
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/BlockDelimiters:
+  Exclude: 
+    - 'app/jobs/webhook_job.rb'
