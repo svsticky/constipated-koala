@@ -19,7 +19,7 @@ class WebhookJob < ApplicationJob
           'User-Agent': 'constipated-koala'
         )
       rescue RestClient::ExceptionWithResponse => e
-        logger.error("ERROR: WEBHOOK " + url + " RETURNED: " + e.to_s)
+        logger.error("ERROR: WEBHOOK #{ url } RETURNED: #{ e }")
       end
     }
   end

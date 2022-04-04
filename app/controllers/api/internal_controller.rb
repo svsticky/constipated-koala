@@ -1,5 +1,5 @@
 # Internal API controller
-class Api::InternalController < ActionController::Base
+class Api::InternalController < ApplicationController
   protect_from_forgery except: %i[mongoose_user]
   before_action :authenticate_internal, only: %i[mongoose_user]
 
@@ -11,7 +11,7 @@ class Api::InternalController < ActionController::Base
   end
 
   def member_by_id
-    @mongoose_user = Member.select(:id, :first_name, :infix, :last_name, :birth_date).find_by_id!(params[:id])
+    @mongoose_user = Member.select(:id, :first_name, :infix, :last_name, :birth_date).find(params[:id])
     return head :no_content unless @mongoose_user
   end
 
