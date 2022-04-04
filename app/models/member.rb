@@ -27,13 +27,12 @@ class Member < ApplicationRecord
   validates :join_date, presence: true
 
   enum consent: { pending: 0, yearly: 1, indefinite: 2 }
-  after_save :fire_webhook
-  after_destroy :fire_webhook
-
-  is_impressionable dependent: :ignore
-
   # NOTE: prepend true is required, so that it is executed before dependent => destroy
   before_destroy :before_destroy, prepend: true
+  after_destroy :fire_webhook
+  after_save :fire_webhook
+
+  is_impressionable dependent: :ignore
 
   # In the model relations are defined (but created in the migration) so that you don't have to do an additional query for for example tags, using these relations rails does the queries for you
   # `delete_all` is used because there is no primary key, poor choice on my end
