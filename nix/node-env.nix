@@ -3,6 +3,9 @@
 {lib, stdenv, nodejs, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript}:
 
 let
+  # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
+  utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
+
   python = if nodejs ? python then nodejs.python else python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
@@ -95,7 +98,7 @@ let
       ''
       + (lib.concatMapStrings (dependency:
         ''
-          if [ ! -e "${dependency.name}" ]; then
+          if [ ! -e "${dependency.packageName}" ]; then
               ${composePackage dependency}
           fi
         ''
@@ -111,7 +114,7 @@ let
       installPackage "${packageName}" "${src}"
       ${includeDependencies { inherit dependencies; }}
       cd ..
-      ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+      ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
     '';
 
   pinpointDependencies = {dependencies, production}:
@@ -172,12 +175,12 @@ let
     ''
       node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
-      ${stdenv.lib.optionalString (dependencies != [])
+      ${lib.optionalString (dependencies != [])
         ''
           if [ -d node_modules ]
           then
               cd node_modules
-              ${stdenv.lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
+              ${lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
               cd ..
           fi
         ''}
@@ -194,7 +197,7 @@ let
           cd "${packageName}"
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
-          ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
       fi
     '';
 
@@ -253,9 +256,9 @@ let
       if(fs.existsSync("./package-lock.json")) {
           var packageLock = JSON.parse(fs.readFileSync("./package-lock.json"));
 
-          if(packageLock.lockfileVersion !== 1) {
-             process.stderr.write("Sorry, I only understand lock file version 1!\n");
-             process.exit(1);
+          if(![1, 2].includes(packageLock.lockfileVersion)) {
+            process.stderr.write("Sorry, I only understand lock file versions 1 and 2!\n");
+            process.exit(1);
           }
 
           if(packageLock.dependencies !== undefined) {
@@ -355,8 +358,8 @@ let
         cd "${packageName}"
         runHook preRebuild
 
-        ${stdenv.lib.optionalString bypassCache ''
-          ${stdenv.lib.optionalString reconstructLock ''
+        ${lib.optionalString bypassCache ''
+          ${lib.optionalString reconstructLock ''
             if [ -f package-lock.json ]
             then
                 echo "WARNING: Reconstruct lock option enabled, but a lock file already exists!"
@@ -372,14 +375,14 @@ let
           node ${addIntegrityFieldsScript}
         ''}
 
-        npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${stdenv.lib.optionalString production "--production"} rebuild
+        npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} rebuild
 
         if [ "''${dontNpmInstall-}" != "1" ]
         then
             # NPM tries to download packages even when they already exist if npm-shrinkwrap is used.
             rm -f npm-shrinkwrap.json
 
-            npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${stdenv.lib.optionalString production "--production"} install
+            npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} install
         fi
     '';
 
@@ -387,7 +390,7 @@ let
   buildNodePackage =
     { name
     , packageName
-    , version
+    , version ? null
     , dependencies ? []
     , buildInputs ? []
     , production ? true
@@ -406,10 +409,10 @@ let
       extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "preRebuild" "unpackPhase" "buildPhase" "meta" ];
     in
     stdenv.mkDerivation ({
-      name = "${name}-${version}";
+      name = "${name}${if version == null then "" else "-${version}"}";
       buildInputs = [ tarWrapper python nodejs ]
-        ++ stdenv.lib.optional (stdenv.isLinux) utillinux
-        ++ stdenv.lib.optional (stdenv.isDarwin) libtool
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool
         ++ buildInputs;
 
       inherit nodejs;
@@ -438,6 +441,14 @@ let
         if [ -d "$out/lib/node_modules/.bin" ]
         then
             ln -s $out/lib/node_modules/.bin $out/bin
+
+            # Patch the shebang lines of all the executables
+            ls $out/bin/* | while read i
+            do
+                file="$(readlink -f "$i")"
+                chmod u+rwx "$file"
+                patchShebangs "$file"
+            done
         fi
 
         # Create symlinks to the deployed manual page folders, if applicable
@@ -464,11 +475,11 @@ let
       } // meta;
     } // extraArgs);
 
-  # Builds a development shell
-  buildNodeShell =
+  # Builds a node environment (a node_modules folder and a set of binaries)
+  buildNodeDependencies =
     { name
     , packageName
-    , version
+    , version ? null
     , src
     , dependencies ? []
     , buildInputs ? []
@@ -484,13 +495,13 @@ let
 
     let
       extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
-
-      nodeDependencies = stdenv.mkDerivation ({
-        name = "node-dependencies-${name}-${version}";
+    in
+      stdenv.mkDerivation ({
+        name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
 
         buildInputs = [ tarWrapper python nodejs ]
-          ++ stdenv.lib.optional (stdenv.isLinux) utillinux
-          ++ stdenv.lib.optional (stdenv.isDarwin) libtool
+          ++ lib.optional (stdenv.isLinux) utillinux
+          ++ lib.optional (stdenv.isDarwin) libtool
           ++ buildInputs;
 
         inherit dontStrip; # Stripping may fail a build for some package deployments
@@ -512,7 +523,7 @@ let
           # Create fake package.json to make the npm commands work properly
           cp ${src}/package.json .
           chmod 644 package.json
-          ${stdenv.lib.optionalString bypassCache ''
+          ${lib.optionalString bypassCache ''
             if [ -f ${src}/package-lock.json ]
             then
                 cp ${src}/package-lock.json .
@@ -521,23 +532,45 @@ let
 
           # Go to the parent folder to make sure that all packages are pinpointed
           cd ..
-          ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
 
           ${prepareAndInvokeNPM { inherit packageName bypassCache reconstructLock npmFlags production; }}
 
           # Expose the executables that were installed
           cd ..
-          ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
 
           mv ${packageName} lib
           ln -s $out/lib/node_modules/.bin $out/bin
         '';
       } // extraArgs);
-    in
-    stdenv.mkDerivation {
-      name = "node-shell-${name}-${version}";
 
-      buildInputs = [ python nodejs ] ++ stdenv.lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
+  # Builds a development shell
+  buildNodeShell =
+    { name
+    , packageName
+    , version ? null
+    , src
+    , dependencies ? []
+    , buildInputs ? []
+    , production ? true
+    , npmFlags ? ""
+    , dontNpmInstall ? false
+    , bypassCache ? false
+    , reconstructLock ? false
+    , dontStrip ? true
+    , unpackPhase ? "true"
+    , buildPhase ? "true"
+    , ... }@args:
+
+    let
+      nodeDependencies = buildNodeDependencies args;
+      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "unpackPhase" "buildPhase" ];
+    in
+    stdenv.mkDerivation ({
+      name = "node-shell-${name}${if version == null then "" else "-${version}"}";
+
+      buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF
@@ -550,14 +583,15 @@ let
 
       # Provide the dependencies in a development shell through the NODE_PATH environment variable
       inherit nodeDependencies;
-      shellHook = stdenv.lib.optionalString (dependencies != []) ''
+      shellHook = lib.optionalString (dependencies != []) ''
         export NODE_PATH=${nodeDependencies}/lib/node_modules
         export PATH="${nodeDependencies}/bin:$PATH"
       '';
-    };
+    } // extraArgs);
 in
 {
-  buildNodeSourceDist = stdenv.lib.makeOverridable buildNodeSourceDist;
-  buildNodePackage = stdenv.lib.makeOverridable buildNodePackage;
-  buildNodeShell = stdenv.lib.makeOverridable buildNodeShell;
+  buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;
+  buildNodePackage = lib.makeOverridable buildNodePackage;
+  buildNodeDependencies = lib.makeOverridable buildNodeDependencies;
+  buildNodeShell = lib.makeOverridable buildNodeShell;
 }

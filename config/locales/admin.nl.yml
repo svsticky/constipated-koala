@@ -127,7 +127,7 @@ nl:
         total_of: Dit geeft een totaal van *%{amount}*
     posts:
       author: Auteur
-      content: Bericht tekst
+      content: Bericht
       create: Bericht aanmaken
       edit: Bericht bewerken
       published_at: Gepubliceerd op
