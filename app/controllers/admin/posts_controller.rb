@@ -1,8 +1,8 @@
 #:nodoc:
 class Admin::PostsController < ApplicationController
   def index
-    # TODO: add filters, for pinned draft etc
-    @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
+    @pagination, @posts = pagination_posts()
+    p @pagination
     @post = Post.new author: current_user.credentials
   end
 
@@ -12,13 +12,13 @@ class Admin::PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
-      @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
+      @pagination, @posts = pagination_posts()
       render 'index'
     end
   end
 
   def show
-    @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
+    @pagination, @posts = pagination_posts()
     @post = Post.find_by_id params[:id]
     render 'index'
   end
@@ -26,7 +26,7 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.find_by_id params[:id]
     @post.update(post_params)
-    @pagination, @posts = pagy(Post.all.order(:published_at), items: 10)
+    @pagination, @posts = pagination_posts()
     render 'index'
   end
 
@@ -36,6 +36,12 @@ class Admin::PostsController < ApplicationController
   end
 
   private
+
+  def pagination_posts
+    @posts_array = Post.pinned + Post.unpinned.order(:published_at)
+    p @posts_array
+    return pagy_array(@posts_array, items: 10)
+  end
 
   def post_params
     params.require(:post).permit(

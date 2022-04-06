@@ -24,12 +24,9 @@
                   - if post.draft?
                     %span.ribbon
                       = I18n.t("admin.posts.status.draft")
-                  - if post.review?
-                    %span.ribbon
-                      = I18n.t("admin.posts.status.review")
                   - if post.pinned?
                     %span.ribbon
-                      = I18n.t("admin.posts.status.pinned")
+                      %i.service-icon.fa.fa-map-pin
 
                 .post-info
                   - if post.author&.avatar&.attached?
@@ -38,7 +35,7 @@
                   %ul
                     - if post.published_at.present?
                       %li
-                        = I18n.l(post.published_at, format: "%d %B %H:%m")
+                        = I18n.l(post.published_at, format: "%H:%m - %d %B %Y")
 
                     - post.tags&.each do |tag|
                       %li= tag
@@ -90,7 +87,7 @@
                 .row
                   .col-lg-4
                     = f.label I18n.t("admin.posts.status_text")
-                    = f.select :status, options_for_select([[I18n.t("admin.posts.status.published"), :published], [I18n.t("admin.posts.status.draft"), :draft], [I18n.t("admin.posts.status.review"), :review] ], @post.status || Post.statuses.draft), {}, class: 'custom-select'
+                    = f.select :status, options_for_select([[I18n.t("admin.posts.status.published"), :published], [I18n.t("admin.posts.status.draft"), :draft] ], @post.status || Post.statuses.draft), {}, class: 'custom-select'
 
                   .col-lg-8.col-md-12
                     = f.label I18n.t("admin.posts.tags")

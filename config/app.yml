@@ -20,9 +20,6 @@ defaults: &defaults
   additional_positions:
     committee: ['fotograaf','pr']
     moot: []
-
-  posts:
-    pinned: []
     
 development:
   <<: *defaults

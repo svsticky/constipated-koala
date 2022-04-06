@@ -135,7 +135,6 @@ en:
         draft: Draft
         pinned: Pinned
         published: Published
-        review: Review
       status_text: Status
       tags: Tags
       title: Title
