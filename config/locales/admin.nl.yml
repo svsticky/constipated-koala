@@ -157,6 +157,7 @@ nl:
       member: Lid
       payment_type:
         ideal: Ideal
+        payconiq_online: PayConiq
         pin: Gepind
         title: Betaalmethode
       state:

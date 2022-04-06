@@ -157,6 +157,7 @@ en:
       member: Member
       payment_type:
         ideal: Ideal
+        payconiq_online: PayConiq
         pin: Pinned
         title: Payment Method
       state:
