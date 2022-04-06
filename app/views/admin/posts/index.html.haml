@@ -35,7 +35,7 @@
                   %ul
                     - if post.published_at.present?
                       %li
-                        = I18n.l(post.published_at, format: "%H:%m - %d %B %Y")
+                        = I18n.l(post.published_at, format: "%H:%M - %d %B %Y")
 
                     - post.tags&.each do |tag|
                       %li= tag
@@ -112,7 +112,7 @@
                   = sanitize @post.content, tags: %w(strong em u s a br p span ol ul li h1 h2 h3 h4 h5 h6), attributes: %w(style href title)
 
               .btn-group
-                %button.btn.btn-success{type: 'submit'} 
+                %button.btn.btn-success{type: 'submit'}
                   = I18n.t('editing.save')
                 - if @post.id
                   = link_to 'terug', :posts, class: 'btn btn-default'
