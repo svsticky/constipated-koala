@@ -17,7 +17,7 @@
         %span= I18n.t("navigation.activity")
         %i.fa.fa-ticket-alt{:class => ('active' if controller_name == 'activities')}
 
-      = link_to :posts, :class => 'list-group-item list-group-item-action'do
+      = link_to :posts, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.messages")
         %i.fa.fa-file-alt{:class => ('active' if controller_name == 'posts')}
 

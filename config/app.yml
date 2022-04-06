@@ -20,7 +20,7 @@ defaults: &defaults
   additional_positions:
     committee: ['fotograaf','pr']
     moot: []
-    
+
 development:
   <<: *defaults
 
