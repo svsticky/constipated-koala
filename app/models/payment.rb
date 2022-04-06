@@ -138,9 +138,11 @@ class Payment < ApplicationRecord
   def transaction_fee
     case payment_type.to_sym
     when :ideal
-      return Settings.mongoose_ideal_costs
+      Settings.mongoose_ideal_costs
+    when :payconiq_online
+      0
     when :pin
-      return 0
+      0
     end
   end
 
