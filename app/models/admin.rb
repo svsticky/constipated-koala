@@ -14,7 +14,7 @@ class Admin < ApplicationRecord
   end
 
   def avatar_representation
-    avatar.representation(resize: '50x50!') if avatar.attached?
+    avatar.representation(resize: '250x250!') if avatar.attached?
   end
 
   after_create do
