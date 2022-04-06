@@ -135,7 +135,6 @@ nl:
         draft: Concept
         pinned: Gepinned
         published: Gepubliceerd
-        review: Review
       status_text: Status
       tags: Labels
       title: Titel

@@ -19,6 +19,3 @@ puts '-- Creating posts'
   )
 
 end
-
-# Set first post to pinned
-Settings['posts.pinned'] = [Post.published&.first&.id]

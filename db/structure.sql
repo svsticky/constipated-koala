@@ -783,7 +783,8 @@ CREATE TABLE public.posts (
     author_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    published_at timestamp without time zone
+    published_at timestamp without time zone,
+    pinned boolean DEFAULT false
 );
 
 
@@ -1728,6 +1729,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210801152004'),
 ('20210808184948'),
 ('20211012104341'),
-('20220221195220');
+('20220221195220'),
+('20220406092056');
 
 

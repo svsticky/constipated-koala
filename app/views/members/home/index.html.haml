@@ -8,12 +8,17 @@
           .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
             %h3= post.title
 
+            .card-img-overlay
+              - if post.pinned?
+                %span.ribbon
+                  %i.service-icon.fa.fa-map-pin
+
             .post-info
               - if post.author.avatar.attached?
                 = image_tag post.author.avatar_representation, class: 'avatar'
               %h4= post.author.name
               %ul
-                %li= I18n.l(post.published_at, format: "%d %B %H:%m")
+                %li= I18n.l(post.published_at, format: "%H:%m - %d %B %Y")
                 - post.tags&.each do |tag|
                   %li= tag
           .card-body.content
