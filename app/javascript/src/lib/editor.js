@@ -38,7 +38,9 @@ import Quill from "quill";
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
       ["bold", "italic", "underline", "strike"],
-      ["link"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", { color: [] }],
+      ["clean"],
     ],
   };
 })(jQuery);
