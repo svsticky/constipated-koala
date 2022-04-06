@@ -3,7 +3,7 @@
 
 %section#content
 
-  .page.page-form
+  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
     .row
       .col-md-6
         .card
@@ -107,6 +107,7 @@
                     = f.text_field :published_at, :value => @post.published_at, :class => 'publish-datetime'
 
               .form-group.post-content
+                %label{for: ''}
                 = f.label I18n.t("admin.posts.content")
                 = f.hidden_field :content, :class => 'form-control', :id => 'html'
 
