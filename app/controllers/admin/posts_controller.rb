@@ -1,8 +1,7 @@
 #:nodoc:
 class Admin::PostsController < ApplicationController
   def index
-    @pagination, @posts = pagination_posts()
-    p @pagination
+    @pagination, @posts = pagination_posts
     @post = Post.new author: current_user.credentials
   end
 
@@ -12,13 +11,13 @@ class Admin::PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
-      @pagination, @posts = pagination_posts()
+      @pagination, @posts = pagination_posts
       render 'index'
     end
   end
 
   def show
-    @pagination, @posts = pagination_posts()
+    @pagination, @posts = pagination_posts
     @post = Post.find_by_id params[:id]
     render 'index'
   end
@@ -26,7 +25,7 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.find_by_id params[:id]
     @post.update(post_params)
-    @pagination, @posts = pagination_posts()
+    @pagination, @posts = pagination_posts
     render 'index'
   end
 
@@ -39,7 +38,6 @@ class Admin::PostsController < ApplicationController
 
   def pagination_posts
     @posts_array = Post.pinned + Post.unpinned.order(:published_at)
-    p @posts_array
     return pagy_array(@posts_array, items: 10)
   end
 
