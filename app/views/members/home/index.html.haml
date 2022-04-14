@@ -18,7 +18,7 @@
                 = image_tag post.author.avatar_representation, class: 'avatar'
               %h4= post.author.name
               %ul
-                %li= I18n.l(post.published_at, format: "%H:%m - %d %B %Y")
+                %li= I18n.l(post.published_at, format: "%H:%M - %d %B %Y")
                 - post.tags&.each do |tag|
                   %li= tag
           .card-body.content
