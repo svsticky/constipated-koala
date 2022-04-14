@@ -108,3 +108,6 @@ Style/BlockDelimiters:
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+
+Rails/ApplicationController:
+  Enabled: false

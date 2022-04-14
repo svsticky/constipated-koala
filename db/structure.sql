@@ -784,7 +784,7 @@ CREATE TABLE public.posts (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     published_at timestamp without time zone,
-    pinned boolean DEFAULT false
+    pinned boolean DEFAULT false NOT NULL
 );
 
 
