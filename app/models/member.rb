@@ -232,7 +232,9 @@ class Member < ApplicationRecord
   end
 
   def master?
-    !educations.empty? && educations.any? { |education| Study.find(education.study_id).masters }
+    educations.any? do |education|
+      education.status == 'active' && Study.find(education.study_id).masters
+    end
   end
 
   def freshman?
@@ -243,13 +245,13 @@ class Member < ApplicationRecord
 
   def sophomore?
     !freshman? && educations.any? do |education|
-      education.status == 'active' && 2.year.ago < education.start_date && !Study.find(education.study_id).masters
+      education.status == 'active' && 2.years.ago < education.start_date && !Study.find(education.study_id).masters
     end
   end
 
   def senior?
     educations.any? do |education|
-      education.status == 'active' && 2.year.ago > education.start_date && !Study.find(education.study_id).masters
+      education.status == 'active' && 2.years.ago > education.start_date && !Study.find(education.study_id).masters
     end
   end
 
