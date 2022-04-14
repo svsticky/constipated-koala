@@ -1,5 +1,5 @@
 # Internal API controller
-class Api::InternalController < ApplicationController
+class Api::InternalController < ActionController::Base
   protect_from_forgery except: %i[mongoose_user]
   before_action :authenticate_internal, only: %i[mongoose_user]
 
