@@ -11,5 +11,7 @@ translations:
     prefix: "import I18n from 'i18n-js';\n"
     suffix: "export default I18n;\n"
     only:
-      - "en"
-      - "nl"
+      - "*.admin"
+      - "*.checkout"
+      - "*.mailings"
+      - "*.members"
