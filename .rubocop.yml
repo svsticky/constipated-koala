@@ -103,7 +103,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/BlockDelimiters:
-  Exclude: 
+  Exclude:
     - 'app/jobs/webhook_job.rb'
 
 Rails/LexicallyScopedActionFilter:
@@ -111,3 +111,7 @@ Rails/LexicallyScopedActionFilter:
 
 Rails/ApplicationController:
   Enabled: false
+
+# Let Rubocop know we have a staging environment
+Rails/UnknownEnv:
+  Environments: development, test, staging, production
