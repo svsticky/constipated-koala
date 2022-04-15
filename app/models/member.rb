@@ -265,7 +265,7 @@ class Member < ApplicationRecord
       end
 
       records = Member.none if code.nil? # TODO: add active to the selector if status is not in the query
-      records = records.where(id: Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
+      records = records.where(id: Education.select(:member_id).where(study_id: code.id)) unless code.nil?
     end
 
     tag = query.match(/tag:([A-Za-z-]+)/)
@@ -276,7 +276,7 @@ class Member < ApplicationRecord
       tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == tag[1].downcase.tr('-', ' ') }
 
       records = Member.none if tag_name.nil?
-      records = records.where(id: Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
+      records = records.where(id: Tag.select(:member_id).where(name: tag_name.values[0])) unless tag_name.nil?
     end
 
     year = query.match(/(year|jaargang):(\d+)/)

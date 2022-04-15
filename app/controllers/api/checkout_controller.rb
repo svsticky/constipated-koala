@@ -83,7 +83,7 @@ class Api::CheckoutController < ActionController::Base
   end
 
   def confirm
-    card = CheckoutCard.where(['confirmation_token = ?', params['confirmation_token']]).first
+    card = CheckoutCard.where(confirmation_token: params['confirmation_token']).first
     redirect_to :new_user_session
 
     if card.nil?

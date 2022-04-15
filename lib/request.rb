@@ -18,7 +18,7 @@ module ConstipatedKoala
     end
 
     def get(path, query = {})
-      path = "#{ path.chomp('/') }?#{ URI.encode_www_form(query) }" unless query.blank?
+      path = "#{ path.chomp('/') }?#{ URI.encode_www_form(query) }" if query.present?
 
       request = Net::HTTP::Get.new(path.chomp('/'))
       request['Accept'] = 'application/json'
