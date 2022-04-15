@@ -93,6 +93,7 @@ en:
       payments: Payments
       pictures: Pictures
       vacancies: Vacancies
+      wiki: Stickypedia
     payments:
       mongoose:
         credit: Credit
