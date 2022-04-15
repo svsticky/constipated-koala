@@ -198,7 +198,16 @@ class Members::ParticipantsController < ApplicationController
     deadline_passed = @activity.unenroll_date&.end_of_day &&
                       @activity.unenroll_date.end_of_day < Time.now
 
-    if not_enrollable || deadline_passed
+    @member = Member.find(current_user.credentials_id)
+
+    # Raises RecordNotFound if not enrolled
+    @enrollment = Participant.find_by!(
+      member_id: @member.id,
+      activity_id: @activity.id
+    )
+
+    # A reservist can unroll after the deadline, a participant cannot
+    if not_enrollable || (deadline_passed && !@enrollment.reservist)
       message = I18n.t(:not_unenrollable, scope: @activity_errors_scope)
 
       if not_enrollable
@@ -215,13 +224,6 @@ class Members::ParticipantsController < ApplicationController
       return
     end
 
-    @member = Member.find(current_user.credentials_id)
-
-    # Raises RecordNotFound if not enrolled
-    @enrollment = Participant.find_by!(
-      member_id: @member.id,
-      activity_id: @activity.id
-    )
     activity = @enrollment.activity
     @enrollment.destroy!
     activity.enroll_reservists!

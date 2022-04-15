@@ -95,7 +95,7 @@ function confirm_un_enroll_date_passed(activity) {
 }
 
 function confirm_un_enroll(activity) {
-  if (activity.has_un_enroll_date_passed()) {
+  if (activity.has_un_enroll_date_passed() && !activity.is_reservist()) {
     Swal.fire(
       I18n.t("members.activities.error.unenroll_failed"),
       I18n.t("members.activities.error.unenroll_deadline"),
