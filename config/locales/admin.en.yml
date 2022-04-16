@@ -120,7 +120,7 @@ en:
         copy: Message copied to clipboard
         copy_error: Message could not be retrieved
         open_activities: You still have not paid for the following activities
-        pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Outstanding %{member}_?
+        pay_to: Please pay this as soon as possible via the payment portal (https://koala.svsticky.nl/member/payments)
         title: Hey! %{user} from Sticky here :)
         total_of: This comes down to a total of *%{amount}*
     posts:
