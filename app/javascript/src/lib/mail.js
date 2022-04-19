@@ -20,7 +20,7 @@ import toastr from "toastr";
 
     return this.each(function () {
       // activate wysiwyg editor
-      $(this).editor({ htmlarea: opts.message });
+      $(this).editor();
 
       // fill the lists of recipients and debtors
       recipients = $.fn.mail.list("#participants table tr[data-reservist]");
@@ -140,7 +140,7 @@ import toastr from "toastr";
             recipients: list,
 
             subject: $(form).find("input#onderwerp").val(),
-            html: $(form).find(opts.message).val(),
+            html: $(form).find("input#html").val(),
           },
         })
           .done(function (data) {

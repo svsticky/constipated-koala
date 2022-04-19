@@ -25,15 +25,10 @@
         .col-lg-10.col-sm-12
           %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "#{I18n.t('association_name')} | #{subject}" }
 
-      = render 'layouts/partials/editor'
-
-      #textarea.form-control{ :contenteditable => 'true' }
+      %input#html.form-control{ type: "hidden", name: "html" }
+      #editor.form-control
         - if mail.present?
-          = render :template => "mailings/#{mail}", :locals => { subject: subject }
-
-      %textarea#html.form-control
-        - if mail.present?
-          = render :template => "mailings/#{mail}", :locals => { subject: subject }
+          = render :template => "mailings/participants/inform", :locals => { subject: subject }
 
       .mail-actions
         - if recipients.length() > 0
