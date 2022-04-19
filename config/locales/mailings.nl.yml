@@ -62,7 +62,7 @@ nl:
       inform:
         activity_payable_unvisited_html: Je gaat mee naar <strong>%{subject}</strong>, deze activiteit kost %recipient.price%.
         activity_visited_html: Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%.
-        payment_instructions_html: Zou je dit bedrag zo snel mogelijk via het <a href="https://koala.svsticky.nl/member/payments>betalingsportaal op Koala</a> willen betalen?
+        payment_instructions_html: Zou je dit bedrag zo snel mogelijk via het <a href="https://koala.svsticky.nl/member/payments">betalingsportaal op Koala</a> willen betalen?
     removed: is direct verwijderd
     sent:
       'false': Mail is niet verstuurd!
