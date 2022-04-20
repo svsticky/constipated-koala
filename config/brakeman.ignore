@@ -21,25 +21,6 @@
       "note": "Needed for processing payments"
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "3b8d54ccdfe03e13e9d1cd35e1640ed0a68e7505d339a35e79d8d25b531e6775",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/mailings/participants/inform.html.haml",
-      "line": 18,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "current_user.credentials.signature",
-      "render_path": null,
-      "location": {
-        "type": "template",
-        "template": "mailings/participants/inform"
-      },
-      "user_input": "current_user.credentials.signature",
-      "confidence": "Weak",
-      "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
-    },
-    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "62cd8ff24cdeadc799dac0f8520b40aa94078756aaf273bcd6c9b97b5bb5dca5",
@@ -86,7 +67,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/admin/settings/index.html.haml",
-      "line": 151,
+      "line": 178,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "current_user.credentials.signature",
       "render_path": [
@@ -169,8 +150,59 @@
       "user_input": null,
       "confidence": "Medium",
       "note": "The mass-assignment only is used to map over, the emailadresses will be checked later anyway"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "c8241c2edb00e469e09ce71600bb87d1649ba62b7abf84df7f25aef4accedc93",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/mailings/participants/inform.html.haml",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "current_user.credentials.signature",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::ActivitiesController",
+          "method": "show",
+          "line": 19,
+          "file": "app/controllers/admin/activities_controller.rb",
+          "rendered": {
+            "name": "admin/activities/show",
+            "file": "app/views/admin/activities/show.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/activities/show",
+          "line": 11,
+          "file": "app/views/admin/activities/show.html.haml",
+          "rendered": {
+            "name": "layouts/partials/_mail",
+            "file": "app/views/layouts/partials/_mail.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "layouts/partials/_mail",
+          "line": 31,
+          "file": "app/views/layouts/partials/_mail.html.haml",
+          "rendered": {
+            "name": "mailings/participants/inform",
+            "file": "app/views/mailings/participants/inform.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "mailings/participants/inform"
+      },
+      "user_input": "current_user.credentials.signature",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2022-03-29 22:14:59 +0200",
+  "updated": "2022-04-20 12:28:27 +0200",
   "brakeman_version": "5.2.1"
 }
