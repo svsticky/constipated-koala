@@ -72,7 +72,7 @@
 
                     - else
                       = I18n.t impression.action_name, scope: [ :activerecord, :attributes, :impression, impression.impressionable_type.downcase], message: impression.message
-                  
+
                   - else
                     = impression.action_name + ": " + impression.message
 

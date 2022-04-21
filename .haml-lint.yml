@@ -1,1 +1,7 @@
 inherit_from: '.haml-lint_todo.yml'
+
+linters:
+  # Merging consecutive comments does not make the code clearer.
+  # Instead it can make the indentation look quite weird.
+  ConsecutiveComments:
+    enabled: false

@@ -14,7 +14,7 @@
       .row
         .col-sm
           %i.fa.fa-fw.fa-ticket-alt
-          =activity_textfield
+          = activity_textfield
 
         .col-sm.text-sm-right
           %span
@@ -59,7 +59,7 @@
               %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.filename}" if @activity.poster.attached?) }
 
               .input-group-append
-                %div.btn.btn-primary.file-input-wrapper
+                .btn.btn-primary.file-input-wrapper
                   %span
                     = I18n.t('files.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }

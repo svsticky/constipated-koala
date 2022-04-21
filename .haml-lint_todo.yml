@@ -28,20 +28,6 @@ linters:
   RuboCop:
     enabled: false
 
-  # Offense count: 31
-  SpaceBeforeScript:
-    exclude:
-      - "app/views/admin/activities/index.html.haml"
-      - "app/views/admin/activities/partials/_edit.html.haml"
-      - "app/views/admin/activities/show.html.haml"
-      - "app/views/admin/apps/products.html.haml"
-      - "app/views/admin/home/index.html.haml"
-      - "app/views/admin/payments/index.html.haml"
-      - "app/views/layouts/doorkeeper.html.haml"
-      - "app/views/layouts/partials/_search_payments.html.haml"
-      - "app/views/members/activities/partials/_view.html.haml"
-      - "app/views/members/payments/index.html.haml"
-
   # Offense count: 161
   InlineStyles:
     enabled: false
@@ -73,14 +59,6 @@ linters:
       - "app/views/members/activities/show.html.haml"
       - "app/views/public/home/index.html.haml"
 
-  # Offense count: 8
-  ImplicitDiv:
-    exclude:
-      - "app/views/admin/activities/partials/_edit.html.haml"
-      - "app/views/admin/apps/products.html.haml"
-      - "app/views/admin/home/index.html.haml"
-      - "app/views/admin/settings/index.html.haml"
-
   # Offense count: 18
   ViewLength:
     enabled: false
@@ -95,56 +73,12 @@ linters:
       - "app/views/admin/settings/logs.html.haml"
       - "app/views/members/activities/partials/_view.html.haml"
 
-  # Offense count: 13
-  TrailingWhitespace:
-    exclude:
-      - "app/views/admin/apps/checkout.html.haml"
-      - "app/views/admin/apps/products.html.haml"
-      - "app/views/admin/payments/index.html.haml"
-      - "app/views/admin/settings/index.html.haml"
-      - "app/views/admin/settings/logs.html.haml"
-      - "app/views/devise/confirmations/edit.html.haml"
-      - "app/views/members/home/download.html.haml"
-      - "app/views/members/home/index.html.haml"
-
-  # Offense count: 3
-  UnnecessaryInterpolation:
-    exclude:
-      - "app/views/admin/apps/checkout.html.haml"
-      - "app/views/admin/members/show.html.haml"
-      - "app/views/members/home/download.html.haml"
-
   # Offense count: 9
   RepeatedId:
     exclude:
       - "app/views/admin/apps/products.html.haml"
       - "app/views/admin/payments/index.html.haml"
       - "app/views/layouts/partials/_mail.html.haml"
-
-  # Offense count: 10
-  MultilinePipe:
-    exclude:
-      - "app/views/admin/home/index.html.haml"
-      - "app/views/admin/members/show.html.haml"
-      - "app/views/members/home/download.html.haml"
-      - "app/views/members/home/index.html.haml"
-
-  # Offense count: 1
-  LeadingCommentSpace:
-    exclude:
-      - "app/views/admin/payments/index.html.haml"
-
-  # Offense count: 1
-  ConsecutiveComments:
-    exclude:
-      - "app/views/layouts/partials/_pagination.html.haml"
-
-  # Offense count: 3
-  FinalNewline:
-    exclude:
-      - "app/views/layouts/partials/_pagination.html.haml"
-      - "app/views/layouts/partials/_search_payments.html.haml"
-      - "app/views/members/activities/index.html.haml"
 
   # Offense count: 2
   UnnecessaryStringOutput:

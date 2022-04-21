@@ -148,13 +148,13 @@
                     .image-group
                       - if @admin.avatar.attached?
                         = image_tag @admin.avatar, class: 'preview-avatar avatar'
-                    
+
                     .image-side
                       .input-group
                         %input#output.form-control{ :readonly => '', :value => ("#{@admin.avatar.filename}" if @admin.avatar.attached?) }
 
                         .input-group-append
-                          %div.btn.btn-primary.file-input-wrapper
+                          .btn.btn-primary.file-input-wrapper
                             %span
                               = I18n.t('files.upload')
                             = f.file_field :avatar, { 'data-ui-file-upload' => '' }

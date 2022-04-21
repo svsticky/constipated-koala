@@ -31,7 +31,7 @@
 
               - @transactions.each do |transaction|
                 %tr
-                  %td #{I18n.l transaction.created_at}
+                  %td= I18n.l transaction.created_at
                   %td
                     = number_to_currency(transaction.price, :unit => '€')
                     - if transaction.price > 0
@@ -86,9 +86,9 @@
                 %p= link_to "#{card.member.name}", card.member
                 %p.uuid= card.uuid
                 .btn-group
-                  %button.btn.btn-primary 
+                  %button.btn.btn-primary
                     = I18n.t('checkout.card.activate')
-                  %button.btn.btn-line-primary 
+                  %button.btn.btn-line-primary
                     = I18n.t('checkout.card.remove')
             - if @cards.length == 0
               %li.list-group-item
