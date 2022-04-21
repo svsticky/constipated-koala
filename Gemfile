@@ -72,6 +72,7 @@ end
 
 group :development, :test do
   gem 'brakeman'
+  gem 'haml-lint'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'spring'
