@@ -65,12 +65,14 @@ class Member < ApplicationRecord
            through: :participants,
            source: :activity
 
-  scope :payable_unpaid_activities, -> { unpaid_activities.where(activity_isPayable: true) }
-
   has_many :group_members, dependent: :nullify
   has_many :groups, through: :group_members
 
   has_one :user, as: :credentials, dependent: :destroy
+
+  scope :debtors, -> {
+    joins(:unpaid_activities).uniq()
+  }
 
   scope :active, lambda {
     where(id: (
@@ -116,8 +118,16 @@ class Member < ApplicationRecord
     write_attribute(:email, email.downcase) if user.nil?
   end
 
+  def participant_by_activity(activity)
+    participants.where(activity_id: activity.id).first()
+  end
+
   def language
-    return user.language
+    if user
+      user.language
+    else
+      :nl
+    end
   end
 
   def address=(address)
