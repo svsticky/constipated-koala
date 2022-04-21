@@ -57,8 +57,8 @@ class CheckoutTransaction < ApplicationRecord
 
     counts = {}
     items.each do |item|
-      counts[CheckoutProduct.find_by_id(item).name] = 0 unless counts.key?(CheckoutProduct.find_by_id(item).name)
-      counts[CheckoutProduct.find_by_id(item).name] += 1
+      counts[CheckoutProduct.find_by(id: item).name] = 0 unless counts.key?(CheckoutProduct.find_by(id: item).name)
+      counts[CheckoutProduct.find_by(id: item).name] += 1
     end
 
     strings = counts.map do |item, count|

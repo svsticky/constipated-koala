@@ -30,7 +30,7 @@ class Members::ActivitiesController < ApplicationController
   # field.
   def show
     @member = Member.find(current_user.credentials_id)
-    @user = Member.find_by_email(current_user.email)
+    @user = Member.find_by(email: current_user.email)
     @activity = Activity.find(params[:id])
 
     # Don't allow activities for old activities

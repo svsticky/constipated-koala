@@ -18,12 +18,12 @@ class Admin::PostsController < ApplicationController
 
   def show
     @pagination, @posts = pagination_posts
-    @post = Post.find_by_id params[:id]
+    @post = Post.find_by id: params[:id]
     render 'index'
   end
 
   def update
-    @post = Post.find_by_id params[:id]
+    @post = Post.find_by id: params[:id]
     @post.update(post_params)
     @pagination, @posts = pagination_posts
     render 'index'

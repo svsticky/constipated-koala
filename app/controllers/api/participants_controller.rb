@@ -5,7 +5,7 @@ class Api::ParticipantsController < ApiController
 
   def index
     if params[:activity_id].present?
-      @participants = Participant.where(activity: Activity.find_by_id(params[:activity_id])).includes(:activity, :member)
+      @participants = Participant.where(activity: Activity.find_by(id: params[:activity_id])).includes(:activity, :member)
 
     elsif params[:member_id].present?
       head(:unauthorized) && return unless Authorization._member.id == params[:member_id].to_i
@@ -31,7 +31,7 @@ class Api::ParticipantsController < ApiController
 
   # TODO: uitschrijfdeadline hierin meenemen
   def destroy
-    participant = Participant.find_by_member_id_and_activity_id! Authorization._member.id, params[:activity_id]
+    participant = Participant.find_by! member_id: Authorization._member.id, activity_id: params[:activity_id]
 
     head(:locked) && return if participant.paid
     head(:locked) && return if participant.activity.start_date <= Date.today

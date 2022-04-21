@@ -2,8 +2,8 @@
 class Admin::ParticipantsController < ApplicationController
   def create
     @participant = Participant.new(
-      member: Member.find_by_id(params[:member]),
-      activity: Activity.find_by_id(params[:activity_id])
+      member: Member.find_by(id: params[:member]),
+      activity: Activity.find_by(id: params[:activity_id])
     )
 
     impressionist(@participant) if @participant.save
@@ -11,7 +11,6 @@ class Admin::ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
-    puts @participant
 
     if params[:reservist].present?
       message = params[:reservist].to_b ? 'reservist' : 'participant'

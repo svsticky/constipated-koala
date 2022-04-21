@@ -13,7 +13,7 @@ class Api::CheckoutController < ActionController::Base
 
   def recent
     recent = CheckoutTransaction.joins(:checkout_card).where(
-      checkout_card: CheckoutCard.where(member_id: CheckoutCard.find_by_uuid(params[:uuid]).member_id)
+      checkout_card: CheckoutCard.where(member_id: CheckoutCard.find_by(uuid: params[:uuid]).member_id)
     ).order(created_at: :desc).limit(5)
     items = []
     recent.each do |item|
@@ -32,7 +32,7 @@ class Api::CheckoutController < ActionController::Base
   end
 
   def purchase
-    card = CheckoutCard.find_by_uuid!(params[:uuid])
+    card = CheckoutCard.find_by!(uuid: params[:uuid])
 
     transaction = CheckoutTransaction.new(items: ahelper(params[:items]), checkout_card: card)
 
@@ -70,13 +70,13 @@ class Api::CheckoutController < ActionController::Base
   end
 
   def create
-    head(:conflict) && return unless CheckoutCard.find_by_uuid(params[:uuid]).nil?
+    head(:conflict) && return unless CheckoutCard.find_by(uuid: params[:uuid]).nil?
 
-    card = CheckoutCard.new(uuid: params[:uuid], member: Member.find_by_student_id!(params[:student]), description: params[:description])
+    card = CheckoutCard.new(uuid: params[:uuid], member: Member.find_by!(student_id: params[:student]), description: params[:description])
 
     if card.save
       card.send_confirmation!
-      render status: :created, json: CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by_uuid!(params[:uuid]).to_json
+      render status: :created, json: CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by!(uuid: params[:uuid]).to_json
     else
       head :conflict
     end

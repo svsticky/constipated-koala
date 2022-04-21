@@ -40,11 +40,11 @@ class CheckoutProduct < ApplicationRecord
 
     return nil if parent.nil?
 
-    return CheckoutProduct.find_by_id(parent).url
+    return CheckoutProduct.find_by(id: parent).url
   end
 
   def children?
-    return true unless CheckoutProduct.find_by_parent(id).nil?
+    return true unless CheckoutProduct.find_by(parent: id).nil?
 
     return false
   end
@@ -52,7 +52,7 @@ class CheckoutProduct < ApplicationRecord
   def parents
     return [] if parent.nil?
 
-    return CheckoutProduct.where(id: parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(parent).parents
+    return CheckoutProduct.where(id: parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by(id: parent).parents
   end
 
   def sales(year = nil)
@@ -64,7 +64,7 @@ class CheckoutProduct < ApplicationRecord
 
     return [{ self => count }] if parent.nil?
 
-    return [{ self => count }] + CheckoutProduct.find_by_id(parent).sales(year)
+    return [{ self => count }] + CheckoutProduct.find_by(id: parent).sales(year)
   end
 
   def self.last_version

@@ -125,7 +125,7 @@ class Payment < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the Payment as processed
       Payment.transaction do
-        transaction = CheckoutTransaction.create!(price: (amount - transaction_fee), checkout_balance: CheckoutBalance.find_by_member_id!(member), payment_method: payment_type)
+        transaction = CheckoutTransaction.create!(price: (amount - transaction_fee), checkout_balance: CheckoutBalance.find_by!(member_id: member), payment_method: payment_type)
 
         self.transaction_id = [transaction.id]
         save!
@@ -148,7 +148,7 @@ class Payment < ApplicationRecord
 
   def self.ideal_issuers
     # cache the payment issuers for 12 hours, don't request it to often. Stored in tmp/cache
-    return [] unless ENV['MOLLIE_TOKEN'].present?
+    return [] if ENV['MOLLIE_TOKEN'].blank?
 
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
       http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']

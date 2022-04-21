@@ -132,7 +132,7 @@ class Activity < ApplicationRecord
   end
 
   def group
-    Group.find_by_id organized_by
+    Group.find_by id: organized_by
   end
 
   def currency(member)

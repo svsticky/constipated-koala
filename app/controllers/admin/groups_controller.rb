@@ -10,7 +10,7 @@ class Admin::GroupsController < ApplicationController
 
   def show
     @groups = Group.all.order(:category, :name)
-    @group = Group.find_by_id params[:id]
+    @group = Group.find_by id: params[:id]
   end
 
   def create
@@ -26,7 +26,7 @@ class Admin::GroupsController < ApplicationController
   end
 
   def update
-    @group = Group.find_by_id params[:id]
+    @group = Group.find_by id: params[:id]
 
     if @group.update(group_params)
       impressionist @group

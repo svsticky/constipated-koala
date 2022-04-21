@@ -147,7 +147,7 @@ class Member < ApplicationRecord
     tags.each do |tag|
       next if tag.empty?
 
-      puts Tag.where(member_id: id, name: Tag.names[tag]).first_or_create!
+      Tag.where(member_id: id, name: Tag.names[tag]).first_or_create!
     end
   end
 
@@ -256,12 +256,12 @@ class Member < ApplicationRecord
     unless study.nil?
       query.gsub!(/(studie|study):([A-Za-z-]+)/, '')
 
-      code = Study.find_by_code(study[2])
+      code = Study.find_by(code: study[2])
 
       # Lookup using full names
       if code.nil?
         study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == study[2].downcase.tr('-', ' ') }
-        code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
+        code = Study.find_by(code: study_name.values[0]) unless study_name.nil?
       end
 
       records = Member.none if code.nil? # TODO: add active to the selector if status is not in the query

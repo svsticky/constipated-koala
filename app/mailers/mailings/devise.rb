@@ -5,7 +5,7 @@ module Mailings
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, _opts = {})
-      puts confirmation_url(record, confirmation_token: token) if Rails.env.development?
+      Rails.logger.debug confirmation_url(record, confirmation_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
@@ -29,7 +29,7 @@ module Mailings
 
     def activation_instructions(record, token, _opts = {})
       url = new_member_confirmation_url(confirmation_token: token)
-      puts url if Rails.env.development?
+      Rails.logger.debug url if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
@@ -80,7 +80,7 @@ module Mailings
     end
 
     def reset_password_instructions(record, token, _opts = {})
-      puts edit_password_url(record, reset_password_token: token) if Rails.env.development?
+      Rails.logger.debug edit_password_url(record, reset_password_token: token) if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
@@ -104,7 +104,7 @@ module Mailings
     end
 
     def forced_confirm_email(record, current_user, _opts = {})
-      puts "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" if Rails.env.development?
+      Rails.logger.debug { "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" } if Rails.env.development?
       return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
