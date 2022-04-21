@@ -58,18 +58,18 @@
                 - days = tupel[1]
                 %tr{ :style => 'height: 36px; line-height: 36px;' }
                   - if days.is_a? Numeric and days < 7
-                    %td=link_to activity.name, activity
-                    %td=days
+                    %td= link_to activity.name, activity
+                    %td= days
                   - else
-                    %td=link_to activity.name, activity, { :style => 'color:red'}
-                    %td{ :style => 'color:red'}=days
+                    %td= link_to activity.name, activity, { :style => 'color:red'}
+                    %td{ :style => 'color:red'}= days
 
         .card
           .card-header
             %i.fab.fa-fw.fa-whatsapp
             = I18n.t('admin.payment.overdue')
 
-          -#TODO: check whatsapp button
+          -# TODO: check whatsapp button
           %table.table.table-striped.table-linked#paymentmails
             %thead
               %th
@@ -93,15 +93,15 @@
           .card
             .card-header
               %i.fas.fa-fw.fa-qrcode
-              =I18n.t('admin.payment.export')
+              = I18n.t('admin.payment.export')
             .card-body.container
               .row.mb-3
                 .col-5
-                  %small.form-text=I18n.t('admin.payment.from')
-                  =f.date_field :start_date, value:1.weeks.ago.strftime('%Y-%m-%d'), :class => "form-control col-sm-10", :required => true
+                  %small.form-text= I18n.t('admin.payment.from')
+                  = f.date_field :start_date, value:1.weeks.ago.strftime('%Y-%m-%d'), :class => "form-control col-sm-10", :required => true
                 .col-5
-                  %small.form-text=I18n.t('admin.payment.till')
-                  =f.date_field :end_date, value: 1.days.from_now.strftime('%Y-%m-%d'), :class => "form-control", :required => true
+                  %small.form-text= I18n.t('admin.payment.till')
+                  = f.date_field :end_date, value: 1.days.from_now.strftime('%Y-%m-%d'), :class => "form-control", :required => true
               .row
               .row.form-group
                 .col-5
@@ -113,8 +113,7 @@
                   %span.input-group-btn
                     = f.button :export, {class: "btn btn-success", type:"submit"} do
                       %i.fa.fa-download
-                      =I18n.t('editing.download')
-                  
+                      = I18n.t('editing.download')
 
 
         .card

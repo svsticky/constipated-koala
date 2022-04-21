@@ -55,7 +55,7 @@
                   = I18n.t('admin.front.outstanding_payments')
 
     .row
-      %div.col-lg-3.d-none.d-sm-block
+      .col-lg-3.d-none.d-sm-block
         .card
           .card-header
             %i.fa.fa-fw.fa-graduation-cap
@@ -63,12 +63,12 @@
 
           %table.table.table-striped.table-linked
             %tbody
-              - @studies.each do | code, count |
+              - @studies.each do |code, count|
                 %tr
                   %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
-      %div.col-lg-4
+      .col-lg-4
         .card
           .card-header
             %i.fa.fa-fw.fa-shopping-cart
@@ -98,7 +98,7 @@
                   %td.text-center
                     %em
                       = I18n.t('admin.front.no_transactions')
-      %div.col-lg-5
+      .col-lg-5
         .card
           .card-header
             %i.fa.fa-fw.fa-shopping-cart
@@ -125,15 +125,15 @@
               - if @recentactivities.empty?
                 %tr
                   %td.text-center
-                    %em=I18n.t('admin.front.no_transactions')
-      %div.col-lg-3
+                    %em= I18n.t('admin.front.no_transactions')
+      .col-lg-3
         .card
           .card-header
             %i.fa.fa-fw.fa-ticket-alt
             = I18n.t('admin.front.defaulters')
           %table.table.table-striped.table-linked
             %tbody
-              - @defaulters.each do | member, amount |
+              - @defaulters.each do |member, amount|
                 %tr
                   %td= link_to member.name, member
                   %td= number_to_currency( amount, :unit => '€' )

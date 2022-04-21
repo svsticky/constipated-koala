@@ -6,7 +6,7 @@
     %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}
     %meta{content: 'width=device-width, initial-scale=1, user-scalable=no', name: 'viewport'}
 
-    - @member.export do | export, checksum |
+    - @member.export do |export, checksum|
       %script{ :checksum => checksum }
         = raw export
 
@@ -253,8 +253,8 @@
                 %td= Date.years( group[ :years ].sort )
 
                 %td
-                  - group[ :positions ].each do | position |
-                    - position.each do | position, year |
+                  - group[ :positions ].each do |position|
+                    - position.each do |position, year|
                       - unless position.nil?
                         = I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize )
 
@@ -291,12 +291,12 @@
           %tbody
             - @transactions.each do |transaction|
               %tr
-                %td #{I18n.l transaction.created_at}
+                %td= I18n.l transaction.created_at
                 %td= number_to_currency(transaction.price, :unit => '€', :negative_format => "%u%n -")
                 %td= transaction.products
 
       %span.footer
-        = I18n.t('members.home.edit.download.generated') 
-        = I18n.l(Time.now) 
-        = I18n.t('members.home.edit.download.for') 
+        = I18n.t('members.home.edit.download.generated')
+        = I18n.l(Time.now)
+        = I18n.t('members.home.edit.download.for')
         = @member.name

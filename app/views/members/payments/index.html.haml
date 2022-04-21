@@ -43,7 +43,7 @@
                   %td
                   %td
                     .ideal-activities
-                      =I18n.t("members.payments.unpaid_activity.footer.bank")
+                      = I18n.t("members.payments.unpaid_activity.footer.bank")
                       .float-xl-right= f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: '', class:'ideal-activities'}
                   %td
                     %div

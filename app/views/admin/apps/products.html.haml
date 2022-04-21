@@ -14,9 +14,9 @@
             .card-header-text
               %i.fa.fa-fw.fa-ticket-alt
               = I18n.t('checkout.products.title')
-            
-            =link_to "+", checkout_products_path, class: "new-product btn btn-success"
-            
+
+            = link_to "+", checkout_products_path, class: "new-product btn btn-success"
+
           %table.table.table-striped.table-linked#products
             %tbody
               - @products.each do |product|
@@ -74,14 +74,14 @@
                           %input#output.form-control{ :readonly => ''}
 
                           .input-group-btn
-                            %div.btn.btn-primary.file-input-wrapper{ disabled: @product.children?}
+                            .btn.btn-primary.file-input-wrapper{ disabled: @product.children?}
                               %span
                               = I18n.t('checkout.products.upload')
                               = f.file_field :image, { 'data-ui-file-upload' => '' }
 
                   %span.thumb.d-none.d-sm-block
                     - if @product.url.present?
-                      =image_tag @product.url
+                      = image_tag @product.url
 
                   %button.btn.btn-success.wait.save-btn{ type: 'submit', disabled: @product.children? }
                     = I18n.t('editing.save')
@@ -135,12 +135,12 @@
                           %input#output.form-control{ :readonly => ''}
 
                           .input-group-btn
-                            %div.btn.btn-primary.file-input-wrapper
+                            .btn.btn-primary.file-input-wrapper
                               %span
                               = I18n.t('checkout.products.upload')
                               = f.file_field :image, { 'data-ui-file-upload' => '' }
 
-                  %button.btn.btn-success.wait.save-btn{type: 'submit'} 
+                  %button.btn.btn-success.wait.save-btn{type: 'submit'}
                     = I18n.t('editing.save')
 
         - unless @product.nil? || @total.nil?
@@ -157,7 +157,7 @@
                 - @product.sales( params['year'] ).each do |sale|
                   - if sale.first[1].to_i > 0
                     %tr
-                      %td=link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
+                      %td= link_to sale.first[0].name, checkout_product_path(sale.first[0].id)
                       %td= number_to_currency( sale.first[0].price, :unit => '€')
                       %td.text-right= number_to_currency( sale.first[0].price * sale.first[1].to_i, :unit => '€' )
 
