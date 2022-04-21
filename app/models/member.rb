@@ -70,8 +70,8 @@ class Member < ApplicationRecord
 
   has_one :user, as: :credentials, dependent: :destroy
 
-  scope :debtors, -> {
-    joins(:unpaid_activities).uniq()
+  scope :debtors, lambda {
+    joins(:unpaid_activities).uniq
   }
 
   scope :active, lambda {
@@ -119,7 +119,7 @@ class Member < ApplicationRecord
   end
 
   def participant_by_activity(activity)
-    participants.where(activity_id: activity.id).first()
+    participants.where(activity_id: activity.id).first
   end
 
   def language
