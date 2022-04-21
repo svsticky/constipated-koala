@@ -1,7 +1,7 @@
 #:nodoc:
 class Admin::GroupMembersController < ApplicationController
   def create
-    @member = GroupMember.new(member: Member.find_by_id(params[:member]), group: Group.find_by_id(params[:group_id]), year: params[:year])
+    @member = GroupMember.new(member: Member.find_by(id: params[:member]), group: Group.find_by(id: params[:group_id]), year: params[:year])
 
     head :bad_request unless @member.save
 
@@ -10,7 +10,7 @@ class Admin::GroupMembersController < ApplicationController
   end
 
   def update
-    @member = GroupMember.find_by_id(params[:id])
+    @member = GroupMember.find_by(id: params[:id])
 
     head :bad_request unless @member.update(position: params[:position])
 

@@ -9,7 +9,7 @@ class Members::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     # information of the middlebar
-    @balance = CheckoutBalance.find_by_member_id(current_user.credentials_id)
+    @balance = CheckoutBalance.find_by(member_id: current_user.credentials_id)
     @debt = Participant
             .where(paid: false, member: @member, reservist: false)
             .joins(:activity)
@@ -33,13 +33,13 @@ class Members::HomeController < ApplicationController
              .where(participants: { member: @member, reservist: false })
              .order('start_date DESC')
 
-    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
+    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @transaction_costs = Settings.mongoose_ideal_costs
   end
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(current_user.credentials_id)
-    @user = User.find_by_email(current_user.email)
+    @user = User.find_by(email: current_user.email)
     @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
     @member.educations.build(id: '-1') if @member.educations.empty?
@@ -51,7 +51,7 @@ class Members::HomeController < ApplicationController
   end
 
   def update
-    @user = User.find_by_email(current_user.email)
+    @user = User.find_by(email: current_user.email)
     @user.update(user_post_params)
 
     @member = Member.find(current_user.credentials_id)
@@ -76,7 +76,7 @@ class Members::HomeController < ApplicationController
 
   def download
     @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
-    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc)
+    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)).order(created_at: :desc)
 
     send_data render_to_string(layout: false),
               filename: "#{ @member.name.downcase.tr(' ', '-') }.html",

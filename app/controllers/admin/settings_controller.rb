@@ -4,7 +4,7 @@ class Admin::SettingsController < ApplicationController
 
   def index
     @admin = current_user.credentials
-    @user = User.find_by_email(current_user.email)
+    @user = User.find_by(email: current_user.email)
 
     @studies = Study.all
 
@@ -47,7 +47,7 @@ class Admin::SettingsController < ApplicationController
   end
 
   def profile
-    @user = User.find_by_email(current_user.email)
+    @user = User.find_by(email: current_user.email)
     @user.update(user_post_params)
 
     @admin = Admin.find(current_user.credentials_id)

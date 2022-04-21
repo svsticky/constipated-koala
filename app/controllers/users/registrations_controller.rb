@@ -27,7 +27,7 @@ class Users::RegistrationsController < ActionController::Base
     end
 
     @user = User.new sign_up_params
-    @user.credentials = Member.find_by_email sign_up_params[:email]
+    @user.credentials = Member.find_by email: sign_up_params[:email]
 
     flash[:alert] = nil
 

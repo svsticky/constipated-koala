@@ -17,7 +17,7 @@ class Admin::CheckoutProductsController < ApplicationController
     @products = CheckoutProduct.order(active: :desc, category: :asc, name: :asc).last_version
     @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
-    @product = CheckoutProduct.find_by_id(params[:id])
+    @product = CheckoutProduct.find_by(id: params[:id])
     @total = @product.sales(params['year']).map { |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+)
 
     render 'admin/apps/products'
@@ -37,11 +37,11 @@ class Admin::CheckoutProductsController < ApplicationController
   end
 
   def update
-    @product = CheckoutProduct.find_by_id params[:id]
+    @product = CheckoutProduct.find_by id: params[:id]
 
     if @product.update(product_post_params)
       # if a new product is created redirect to it
-      product = CheckoutProduct.find_by_parent(@product.id)
+      product = CheckoutProduct.find_by(parent: @product.id)
       prod_id = product ? product.id.to_s : @product.id.to_s
 
       redirect_to checkout_product_path(product || @product.id, anchor: "product_#{ prod_id }")
@@ -61,11 +61,11 @@ class Admin::CheckoutProductsController < ApplicationController
 
   def change_funds
     if params[:uuid]
-      card = CheckoutCard.joins(:checkout_balance).find_by_uuid(params[:uuid])
+      card = CheckoutCard.joins(:checkout_balance).find_by(uuid: params[:uuid])
       transaction = CheckoutTransaction.new(price: params[:amount], checkout_card: card)
 
     elsif params[:member_id]
-      transaction = CheckoutTransaction.new(price: params[:amount], checkout_balance: CheckoutBalance.find_by_member_id!(params[:member_id]), payment_method: params[:payment_method])
+      transaction = CheckoutTransaction.new(price: params[:amount], checkout_balance: CheckoutBalance.find_by!(member_id: params[:member_id]), payment_method: params[:payment_method])
 
     else
       render status: :bad_request, json: I18n.t('checkout.error.identifier')
@@ -83,7 +83,7 @@ class Admin::CheckoutProductsController < ApplicationController
   end
 
   def activate_card
-    card = CheckoutCard.find_by_uuid!(params[:uuid])
+    card = CheckoutCard.find_by!(uuid: params[:uuid])
 
     if params[:_destroy]
       card.destroy

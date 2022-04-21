@@ -35,7 +35,7 @@ class Admin::MembersController < ApplicationController
 
     @pagination, @transactions = pagy(CheckoutTransaction
       .where(checkout_balance: CheckoutBalance
-      .find_by_member_id(params[:id]))
+      .find_by(member_id: params[:id]))
       .order(created_at: :desc), items: 10)
   end
 
@@ -50,7 +50,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.new member_post_params.except 'mailchimp_interests'
 
     if @member.save
-      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
+      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].compact_blank unless
         ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       @member.tags_names = params[:member][:tags_names]
@@ -78,7 +78,7 @@ class Admin::MembersController < ApplicationController
 
     if @member.update member_post_params.except 'mailchimp_interests'
 
-      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].reject(&:blank?) unless
+      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].compact_blank unless
         ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       impressionist @member
