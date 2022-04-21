@@ -35,6 +35,9 @@ jobs:
     - name: "Execute Ruby linter"
       run: nix-shell --run "bundle exec rubocop"
 
+    - name: "Execute Haml linter"
+      run: nix-shell --run "bundle exec haml-lint"
+
     - name: "Execute Javascript linter"
       run: nix-shell --run "npx prettier -c app/javascript/*"
 
