@@ -447,6 +447,28 @@
     };
     version = "5.2.2";
   };
+  haml-lint = {
+    dependencies = ["haml_lint"];
+    groups = ["development" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "15g3g47bxvdjx6z6awl6wqqw1ddvf5vzjb09x8hb43dvdp8ba7sv";
+      type = "gem";
+    };
+    version = "0.999.999";
+  };
+  haml_lint = {
+    dependencies = ["haml" "parallel" "rainbow" "rubocop" "sysexits"];
+    groups = ["default" "development" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "03dh8pi38hqlgmgqzm92rfvj724mac0c4ncys4x106yidw1cff9q";
+      type = "gem";
+    };
+    version = "0.40.0";
+  };
   highline = {
     groups = ["default" "development" "test"];
     platforms = [];
@@ -1167,6 +1189,16 @@
       type = "gem";
     };
     version = "3.4.2";
+  };
+  sysexits = {
+    groups = ["default" "development" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0qjng6pllznmprzx8vb0zg0c86hdrkyjs615q41s9fjpmv2430jr";
+      type = "gem";
+    };
+    version = "1.2.0";
   };
   telephone_number = {
     groups = ["default"];
