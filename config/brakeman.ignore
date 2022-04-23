@@ -94,20 +94,20 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "8c08dc71a8af936322aef7b0bb64fade45df68eaa90f7a0b077ed739749e8f00",
+      "fingerprint": "cdbd2ad3a4f8f2282f40f239c4213bb9dced1eaca9c2da15f5a553bcdee85171",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/api/webhook_controller.rb",
       "line": 13,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.find_by_token!(params[:token]).redirect_uri)",
+      "code": "redirect_to(Payment.find_by!(:token => params[:token]).redirect_uri)",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Api::WebhookController",
         "method": "payment_redirect"
       },
-      "user_input": "Payment.find_by_token!(params[:token]).redirect_uri",
+      "user_input": "Payment.find_by!(:token => params[:token]).redirect_uri",
       "confidence": "High",
       "note": "Needed for processing payments"
     },
@@ -138,7 +138,7 @@
       "check_name": "MassAssignment",
       "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/admin/participants_controller.rb",
-      "line": 52,
+      "line": 51,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params[:recipients].permit!",
       "render_path": null,
@@ -203,6 +203,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-04-20 12:28:27 +0200",
+  "updated": "2022-04-21 22:14:12 +0200",
   "brakeman_version": "5.2.1"
 }
