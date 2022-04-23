@@ -6,7 +6,6 @@ module Mailings
 
     def confirmation_instructions(record, token, _opts = {})
       Rails.logger.debug confirmation_url(record, confirmation_token: token) if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
         name: record.credentials.name,
@@ -30,7 +29,6 @@ module Mailings
     def activation_instructions(record, token, _opts = {})
       url = new_member_confirmation_url(confirmation_token: token)
       Rails.logger.debug url if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
         name: record.credentials.first_name,
@@ -81,7 +79,6 @@ module Mailings
 
     def reset_password_instructions(record, token, _opts = {})
       Rails.logger.debug edit_password_url(record, reset_password_token: token) if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
         name: record.credentials.name,
@@ -105,7 +102,6 @@ module Mailings
 
     def forced_confirm_email(record, current_user, _opts = {})
       Rails.logger.debug { "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" } if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].blank?
 
       html = render_to_string locals: {
         name: record.name,
