@@ -64,10 +64,10 @@ nl:
         activity_visited_html: Je bent meegeweest naar <strong>%{subject}</strong>, deze activiteit kostte %recipient.price%.
         payment_instructions_html: Zou je dit bedrag zo snel mogelijk via het <a href="https://koala.svsticky.nl/member/payments">betalingsportaal op Koala</a> willen betalen?
     payment:
-      subject: 'Openstaande betalingen'
       open_activities: 'Je hebt de volgende activiteiten nog niet betaald:'
-      total_of: Dit geeft een totaal van %{amount}
       payment_instruction: Zou je dit bedrag zo snel mogelijk via het <a href="https://koala.svsticky.nl/member/payments">betalingsportaal op Koala</a> willen betalen?
+      subject: Openstaande betalingen
+      total_of: Dit geeft een totaal van %{amount}
     removed: is direct verwijderd
     sent:
       'false': Mail is niet verstuurd!

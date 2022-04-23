@@ -64,10 +64,10 @@ en:
         activity_visited_html: You visited <strong>%{subject}</strong>, this activity cost %recipient.price%.
         payment_instructions_html: Please pay this as soon as possible via the <a href="https://koala.svsticky.nl/member/payments">payment portal</a>
     payment:
-      subject: 'Open payments'
       open_activities: 'You have the following unpaid activities:'
-      total_of: This adds up to €%{amount}
       payment_instruction: Pleas pay this as soon as possible via the <a href="https://koala.svsticky.nl/member/payments">payment portal</a>.
+      subject: Open payments
+      total_of: This adds up to €%{amount}
     removed: is immediatly removed
     sent:
       'false': Mail has not been sent!
