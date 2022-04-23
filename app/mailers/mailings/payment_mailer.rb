@@ -11,21 +11,23 @@ module Mailings
 
       subject = I18n.t('mailings.payment.subject')
 
-      activities = member.unpaid_activities.map {|x| x.name}
+      activities = member.unpaid_activities.map(&:name)
 
-      prices = member.unpaid_activities.map { |activity|
+      prices = member.unpaid_activities.map do |activity|
         member.participant_by_activity(activity).currency
-      }
+      end
 
       total = prices.sum
 
       # Render the html version of the email
-      html = render_to_string(locals: {
-        name: member.first_name,
-        activities: activities,
-        prices: prices,
-        total: total
-      })
+      html = render_to_string(
+        locals: {
+          name: member.first_name,
+          activities: activities,
+          prices: prices,
+          total: total
+        }
+      )
 
       # Render the plaintext version of the email
       text = render_to_string(

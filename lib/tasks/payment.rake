@@ -5,7 +5,7 @@ namespace :payment do
     debtors = Member.debtors
 
     debtors.each do |debtor|
-      Mailings::PaymentMailer.requestmail(debtor).deliver_later()
+      Mailings::PaymentMailer.requestmail(debtor).deliver_later
     end
   end
 end
