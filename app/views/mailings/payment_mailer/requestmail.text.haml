@@ -1,0 +1,13 @@
+#{I18n.t('mailings.greeting')} #{name}
+
+= I18n.t('mailings.payment.open_activities')
+- activities.zip(prices).each do |activity, price|
+  #{activity}: €#{price}
+
+= I18n.t('mailings.payment.total_of', amount: total)
+
+= raw I18n.t('mailings.payment.payment_instruction')
+
+= I18n.t('mailings.best_regards')
+
+= I18n.t('mailings.signature')
