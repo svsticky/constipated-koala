@@ -22,7 +22,6 @@ module Mailings
     end
 
     def enrolled(participant)
-
       member = participant.member
       activity = participant.activity
       url = activity_url activity.id

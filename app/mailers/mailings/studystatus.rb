@@ -3,7 +3,6 @@ module Mailings
   # Used for sending an mail to members that should consent
   class Studystatus < ApplicationMailer
     def update(members)
-
       recipients = members.map do |member|
         # TODO: This does not have a body, currently recipients will be emtpy
       end
