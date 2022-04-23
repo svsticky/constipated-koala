@@ -29,7 +29,7 @@ class ApplicationMailer < ActionMailer::Base
 
     if ENV['MAILGUN_DOMAIN'].blank? || ENV['MAILGUN_TOKEN'].blank?
       Logger.error "mailgun credentials not send, cannot send email"
-      exit
+      return
     end
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
@@ -48,7 +48,7 @@ class ApplicationMailer < ActionMailer::Base
 
     if ENV['MAILGUN_DOMAIN'].blank? || ENV['MAILGUN_TOKEN'].blank?
       Logger.error "mailgun credentials not send, cannot send email"
-      exit
+      return
     end
 
     return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
