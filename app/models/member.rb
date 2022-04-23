@@ -70,6 +70,7 @@ class Member < ApplicationRecord
 
   has_one :user, as: :credentials, dependent: :destroy
 
+  # returns a list of all members that have an outstanding payment
   scope :debtors, lambda {
     joins(:unpaid_activities).uniq
   }
@@ -118,6 +119,8 @@ class Member < ApplicationRecord
     write_attribute(:email, email.downcase) if user.nil?
   end
 
+  # Returns the participant that belongs to this member and the given activity.
+  # Do not pass an activity to this method that this member is not a participant of!
   def participant_by_activity(activity)
     participants.where(activity_id: activity.id).first
   end
