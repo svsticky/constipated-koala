@@ -22,7 +22,6 @@ module Mailings
     end
 
     def enrolled(participant)
-      return if ENV['MAILGUN_TOKEN'].blank?
 
       member = participant.member
       activity = participant.activity
