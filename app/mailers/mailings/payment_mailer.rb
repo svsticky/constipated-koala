@@ -19,6 +19,11 @@ module Mailings
 
       total = prices.sum
 
+      if total == 0
+        Rails.logger.error "Payment email was requested for #{ member.name }, but they don't have open payments"
+        return nil
+      end
+
       # Render the html version of the email
       html = render_to_string(
         locals: {
