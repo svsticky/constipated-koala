@@ -247,7 +247,7 @@
                 .col-lg-6
                   .ui-select
                     %label{for: ''}= I18n.t(:payment_method, scope: 'form')
-                    = select_tag 'method', options_for_select(['IDEAL', 'Cash/PIN'], @method)
+                    = select_tag 'method', options_for_select(['IDEAL'], @method)
                     %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
                   .ui-select{ :style => 'margin-top: 5px;' }
                     = select_tag 'bank', options_for_select(Payment::ideal_issuers, @bank), :include_blank => ''
