@@ -40,7 +40,7 @@ module Mailings
         }
       )
 
-      return mail(member.email, nil, subject, html, text)
+      return mail(member.email, "penningmeester@svsticky.nl", subject, html, text)
     end
   end
 end

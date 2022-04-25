@@ -66,6 +66,7 @@ en:
     payment:
       open_activities: 'You have the following unpaid activities:'
       payment_instruction: Please pay this as soon as possible via the <a href="https://koala.svsticky.nl/member/payments">payment portal</a>.
+      signature: The treasurer
       subject: Open payments
       total_of: This adds up to €%{amount}
     removed: is immediatly removed
