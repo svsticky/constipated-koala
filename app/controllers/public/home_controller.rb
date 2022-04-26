@@ -52,26 +52,24 @@ class Public::HomeController < PublicController
         total += participant.currency
       end
 
-      if params[:method] == 'IDEAL'
-        transaction = Payment.new(
-          description: I18n.t("form.introduction", user: @member.name),
-          amount: total,
-          issuer: params[:bank],
-          member: @member,
+      transaction = Payment.new(
+        description: I18n.t("form.introduction", user: @member.name),
+        amount: total,
+        issuer: params[:bank],
+        member: @member,
 
-          transaction_id: activities.map(&:id),
-          transaction_type: :activity,
-          payment_type: :ideal,
+        transaction_id: activities.map(&:id),
+        transaction_type: :activity,
+        payment_type: :ideal,
 
-          redirect_uri: public_url
-        )
+        redirect_uri: public_url
+      )
 
-        if transaction.save
-          redirect_to transaction.payment_uri
-          return
-        else
-          flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
-        end
+      if transaction.save
+        redirect_to transaction.payment_uri
+        return
+      else
+        flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
       end
 
       redirect_to public_path
