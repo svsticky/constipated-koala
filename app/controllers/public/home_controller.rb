@@ -21,8 +21,8 @@ class Public::HomeController < PublicController
     total = 0
 
     # if bank is empty report and test model for additional errors
-    flash[:error] = nil
-    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL' && @member.educations.none? { |education| Study.find(education.study_id).masters }
+    flash[:error] = I18n.t(:deprecated, scope: 'activerecord.attributes.payments.payment-type') unless params[:method] == 'IDEAL' # Cash/PIN
+    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && @member.educations.none? { |education| Study.find(education.study_id).masters }
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save

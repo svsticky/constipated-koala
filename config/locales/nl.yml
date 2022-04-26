@@ -151,6 +151,7 @@ nl:
           successful: Geslaagd
           title: Betaling status
         payment-type:
+          deprecated: Dit betalingstype wordt niet meer ondersteund
           ideal: Ideal
           pin: Pin
           title: Betaling type
