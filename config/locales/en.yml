@@ -151,7 +151,6 @@ en:
           successful: Succesful
           title: Payment status
         payment-type:
-          deprecated: This payment type has been deprecated
           ideal: Ideal
           pin: Pin
           title: Payment Types
