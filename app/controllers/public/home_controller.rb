@@ -20,9 +20,7 @@ class Public::HomeController < PublicController
     activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |_, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |_, participant| participant['id'].to_i })
     total = 0
 
-    # if bank is empty report and test model for additional errors
-    flash[:error] = I18n.t(:deprecated, scope: 'activerecord.attributes.payments.payment-type') unless params[:method] == 'IDEAL' # Cash/PIN
-    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && @member.educations.none? { |education| Study.find(education.study_id).masters }
+    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if non_master_omits_bank
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save
@@ -89,7 +87,6 @@ class Public::HomeController < PublicController
       @activities = Activity.find(Settings['intro.activities'])
       @participate = public_post_params[:participant_attributes].to_h.map { |key, value| key.to_i if value['participate'] == '1' }.compact
 
-      @method = params[:method]
       @bank = params[:bank]
 
       render 'index'
@@ -122,9 +119,12 @@ class Public::HomeController < PublicController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-                                   :method,
                                    :bank,
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
+  end
+
+  def non_master_omits_bank
+    params[:bank].blank? && @member.educations.none? { |education| Study.find(education.study_id).masters }
   end
 end
