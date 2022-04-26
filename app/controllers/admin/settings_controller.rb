@@ -53,7 +53,7 @@ class Admin::SettingsController < ApplicationController
     @admin = Admin.find(current_user.credentials_id)
     @admin.update(admin_post_params)
 
-    return redirect_to users_root_path(l: @user.language)
+    return redirect_to request.referer, notice: I18n.t("activerecord.errors.info")
   end
 
   def logs
