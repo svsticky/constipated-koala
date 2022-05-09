@@ -68,8 +68,8 @@ en:
       payment_instruction: Please pay this as soon as possible via the <a href="https://koala.svsticky.nl/member/payments">payment portal</a>.
       signature: The treasurer
       subject: Open payments
-      total_of: This adds up to €%{amount}
-    removed: is immediatly removed
+      total_of: This adds up to
+    removed: is immediately removed
     sent:
       'false': Mail has not been sent!
       'true': Mail has been sent
