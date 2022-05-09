@@ -90,18 +90,15 @@ class Members::ParticipantsController < ApplicationController
                                         activity: @activity.name)
     elsif !participant_filter_check?
       reservist = true
-      if !participant_freshman_check?
-        reason = :participant_no_freshman
-      elsif !participant_sophomore_check?
-        reason = :participant_no_sophomore
-      elsif !participant_senior_check?
-        reason = :participant_no_seniors
-      elsif !participant_master_check?
-        reason = :participant_no_masters
-      end
-      reason_for_spare_message = I18n.t(reason,
+      groups = []
+      groups << I18n.t(:freshmen, scope: @activity_errors_scope) if @activity.is_freshmans?
+      groups << I18n.t(:sophomores, scope: @activity_errors_scope) if @activity.is_sophomores?
+      groups << I18n.t(:seniors, scope: @activity_errors_scope) if @activity.is_seniors?
+      groups << I18n.t(:masters, scope: @activity_errors_scope) if @activity.is_masters?
+
+      reason_for_spare_message = I18n.t(:participant_no_target,
                                         scope: @activity_errors_scope,
-                                        activity: @activity.name)
+                                        groups: groups.to_sentence(locale: @member.language))
     end
 
     if reservist

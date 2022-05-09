@@ -258,16 +258,19 @@ nl:
           blank_and_end_time: kan niet leeg zijn als er een eindtijd is
           blank_and_start_time: kan niet leeg zijn als er een starttijd is
           enrolled: Je bent ingeschreven voor %{activity}.
+          freshmen: eerstejaars
+          masters: masterstudenten
           not_enrollable: Activiteit is niet inschrijfbaar.
           not_unenrollable: Activiteit niet uitschrijfbaar.
           participant_limit_reached: "%{activity} zit vol!"
-          participant_no_freshman: Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit.
-          participant_no_masters: Je bent geen masters student. Deze activiteit is een masters-activiteit.
           participant_no_student: Je bent niet ingeschreven bij een studie. Deze activiteit is alleen voor studenten.
+          participant_no_target: Je bent geen onderdeel van de doelgroep van deze activiteit. Deze activiteit is alleen open voor %{groups}.
           participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voordat je je inschrijft.
           participant_notes_updated: Informatie bijgewerkt.
           participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky.
           participant_underage: Deze activiteit is alleen voor grote mensen ;) ;) ;)
+          seniors: ouderejaars
+          sophomores: tweedejaars
           unenroll_date_passed: De uitschrijfdeadline is verstreken.
           unenrolled: Je bent uitgeschreven voor %{activity}.
         checkout_product:
@@ -504,6 +507,10 @@ nl:
         warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
         yearly: Als je niet zeker weet wat je moet doen, kunnen wij het altijd nog volgend jaar weer vragen,
         yearly_consent: Ik geef mijn toestemming om mijn data te bewaren voor nog een jaar.
+  support:
+    array:
+      last_word_connector: " en "
+      two_words_connector: " en "
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
