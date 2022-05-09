@@ -258,16 +258,19 @@ en:
           blank_and_end_time: can't be blank if the end time is set
           blank_and_start_time: can't be blank if the start time is set
           enrolled: You are enrolled for %{activity}
+          freshmen: freshmen
+          masters: masters
           not_enrollable: Activity not enrollable
           not_unenrollable: Activity not un-enrollable
           participant_limit_reached: "%{activity} is full!"
-          participant_no_freshman: You are not a freshman student. This is a freshmen-only activity.
-          participant_no_masters: You are not a masters student. This is a masters-only activity.
           participant_no_student: You are not enrolled in a study. This activity is for students only
+          participant_no_target: You are not part of the target audience of this activity. This activity is open to %{groups} only.
           participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
           participant_notes_updated: Information updated
           participant_suspended: You have been suspended. Contact the board of Sticky
           participant_underage: This activity is for adults only ;) ;) ;)
+          seniors: seniors
+          sophomores: sophomores
           unenroll_date_passed: The un-enrollment deadline has passed.
           unenrolled: You have been un-enrolled for %{activity}.
         checkout_product:
@@ -504,6 +507,10 @@ en:
         warning: You are about to delete all your personal data at Study Association Sticky, are you sure?
         yearly: Not quite sure what you want, we can ask you the question again in a year.
         yearly_consent: I give my permission to keep my data for another year.
+  support:
+    array:
+      last_word_connector: " and "
+      two_words_connector: " and "
   time:
     formats:
       default: "%d-%m-%Y %H:%M"
