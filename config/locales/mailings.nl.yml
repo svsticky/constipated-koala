@@ -68,7 +68,7 @@ nl:
       payment_instruction: Zou je dit bedrag zo snel mogelijk via het <a href="https://koala.svsticky.nl/member/payments">betalingsportaal op Koala</a> willen betalen?
       signature: De penningmeester
       subject: Openstaande betalingen
-      total_of: Dit geeft een totaal van €%{amount}
+      total_of: Dit geeft een totaal van
     removed: is direct verwijderd
     sent:
       'false': Mail is niet verstuurd!

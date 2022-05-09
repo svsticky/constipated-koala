@@ -2,9 +2,9 @@
 
 = I18n.t('mailings.payment.open_activities')
 - activities.zip(prices).each do |activity, price|
-  #{activity}: €#{price}
+  #{activity}: #{number_to_currency(price, unit: '€')}
 
-= I18n.t('mailings.payment.total_of', amount: total)
+= "#{I18n.t('mailings.payment.total_of')} #{number_to_currency(total, unit: '€')}"
 
 = raw I18n.t('mailings.payment.payment_instruction')
 
