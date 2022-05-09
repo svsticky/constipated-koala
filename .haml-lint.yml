@@ -5,3 +5,8 @@ linters:
   # Instead it can make the indentation look quite weird.
   ConsecutiveComments:
     enabled: false
+
+  # This warning is not always valid, and can break the code when multiple
+  # interpolations are within a string.
+  UnnecessaryStringOutput:
+    enabled: false
