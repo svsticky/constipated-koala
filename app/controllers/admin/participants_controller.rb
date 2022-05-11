@@ -24,7 +24,7 @@ class Admin::ParticipantsController < ApplicationController
       message = params[:paid].to_b ? 'paid' : 'unpaid'
       @participant.update(paid: params[:paid]) unless @participant.currency.nil?
     elsif params[:price].present?
-      raise 'not a number' unless params[:price].is_number?
+      raise('not a number') unless params[:price].is_number?
 
       message = 'price'
       @participant.update(price: params[:price])
@@ -32,23 +32,23 @@ class Admin::ParticipantsController < ApplicationController
 
     if @participant.save
       impressionist(@participant, message)
-      render status: :ok
+      render(status: :ok)
     end
   end
 
   def destroy
-    ghost = Participant.destroy params[:id]
+    ghost = Participant.destroy(params[:id])
 
     @activity = ghost.activity
     @reservists = @activity.enroll_reservists!
 
-    render status: :ok
+    render(status: :ok)
   end
 
   def mail
     # TODO: it looks like the http post response is returned to the user, if that is the case it should be changed to `head :ok`
     @activity = Activity.find(params[:activity_id])
-    render json: Mailings::Participants.inform(@activity, params[:recipients].permit!.to_h.map { |_, item| item['email'] }, current_user.sender, params[:subject], params[:html]).deliver_later
+    render(json: Mailings::Participants.inform(@activity, params[:recipients].permit!.to_h.map { |_, item| item['email'] }, current_user.sender, params[:subject], params[:html]).deliver_later)
     impressionist(@activity, "mail")
   end
 end

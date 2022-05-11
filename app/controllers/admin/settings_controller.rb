@@ -12,37 +12,37 @@ class Admin::SettingsController < ApplicationController
   end
 
   def create
-    if ['additional_positions.moot', 'additional_positions.committee'].include? params[:setting]
+    if ['additional_positions.moot', 'additional_positions.committee'].include?(params[:setting])
       Settings[params[:setting]] = params[:value].downcase.split(',').each(&:strip!)
 
-    elsif ['intro.membership', 'intro.activities'].include? params[:setting]
+    elsif ['intro.membership', 'intro.activities'].include?(params[:setting])
       Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
 
-      render status: :ok, json: {
-        activities: Settings[params[:setting]],
-        warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
-      }
+      render(status: :ok, json: {
+               activities: Settings[params[:setting]],
+               warning: params[:value].split(',').map(&:to_i).count != Settings[params[:setting]].count
+             })
       return
-    elsif %w[mongoose_ideal_costs].include? params[:setting]
+    elsif %w[mongoose_ideal_costs].include?(params[:setting])
       head(:bad_request) && return if (params[:value] =~ /\d{1,}[,.]\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value].sub(',', '.').to_f
-    elsif ['begin_study_year'].include? params[:setting]
+    elsif ['begin_study_year'].include?(params[:setting])
       head(:bad_request) && return if (params[:value] =~ /\d{4}-\d{2}-\d{2}/).nil?
 
       Settings[params[:setting]] = Date.parse(params[:value])
-    elsif ['liquor_time'].include? params[:setting]
+    elsif ['liquor_time'].include?(params[:setting])
       head(:bad_request) && return if (params[:value] =~ /\d{2}:\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value]
-    elsif %w[ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include? params[:setting]
+    elsif %w[ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include?(params[:setting])
       head(:bad_request) && return if (params[:value] =~ /\d+/).nil?
 
       Settings[params[:setting]] = params[:value]
-    elsif ['accountancy_cost_location'].include? params[:setting]
+    elsif ['accountancy_cost_location'].include?(params[:setting])
       Settings[params[:setting]] = params[:value]
     end
-    head :ok
+    head(:ok)
     return
   end
 
@@ -53,7 +53,7 @@ class Admin::SettingsController < ApplicationController
     @admin = Admin.find(current_user.credentials_id)
     @admin.update(admin_post_params)
 
-    return redirect_to request.referer, notice: I18n.t("activerecord.errors.info")
+    return redirect_to(request.referer, notice: I18n.t("activerecord.errors.info"))
   end
 
   def logs

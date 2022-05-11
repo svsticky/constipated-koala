@@ -7,41 +7,41 @@ class Users::RegistrationsController < ActionController::Base
 
   def new
     @user = User.new
-    render 'devise/registrations/new'
+    render('devise/registrations/new')
   end
 
   def create
-    @user = User.find_by email: sign_up_params[:email]
+    @user = User.find_by(email: sign_up_params[:email])
     if @user && !@user.confirmed_at
-      @user.resend_confirmation! :confirmation_instructions
-      flash[:notice] = I18n.t 'devise.registrations.already_signed_up_unconfirmed'
+      @user.resend_confirmation!(:confirmation_instructions)
+      flash[:notice] = I18n.t('devise.registrations.already_signed_up_unconfirmed')
 
-      redirect_to :new_user_session
+      redirect_to(:new_user_session)
       return
     elsif @user&.confirmed_at
       @user.send_reset_password_instructions
-      flash[:notice] = I18n.t 'devise.passwords.send_instructions'
+      flash[:notice] = I18n.t('devise.passwords.send_instructions')
 
-      redirect_to :new_user_session
+      redirect_to(:new_user_session)
       return
     end
 
-    @user = User.new sign_up_params
-    @user.credentials = Member.find_by email: sign_up_params[:email]
+    @user = User.new(sign_up_params)
+    @user.credentials = Member.find_by(email: sign_up_params[:email])
 
     flash[:alert] = nil
 
     if @user.credentials.nil?
-      flash[:alert] = I18n.t :not_found_in_database, scope: 'devise.registrations'
-      render 'devise/registrations/new'
+      flash[:alert] = I18n.t(:not_found_in_database, scope: 'devise.registrations')
+      render('devise/registrations/new')
       return
     end
 
     if @user.save
-      flash[:notice] = I18n.t :signed_up_but_unconfirmed, scope: 'devise.registrations'
-      redirect_to :new_user_session
+      flash[:notice] = I18n.t(:signed_up_but_unconfirmed, scope: 'devise.registrations')
+      redirect_to(:new_user_session)
     else
-      render 'devise/registrations/new'
+      render('devise/registrations/new')
     end
   end
 
@@ -50,18 +50,18 @@ class Users::RegistrationsController < ActionController::Base
     @user = User.find_by(confirmation_token: params[:confirmation_token])
 
     if @user.nil?
-      flash[:alert] = I18n.t 'devise.passwords.no_token'
-      redirect_to :new_user_session
+      flash[:alert] = I18n.t('devise.passwords.no_token')
+      redirect_to(:new_user_session)
       return
     end
 
     if @user.confirmed?
-      flash[:notice] = "#{ @user.email } #{ I18n.t 'errors.messages.already_confirmed' }"
-      redirect_to :new_user_session
+      flash[:notice] = "#{ @user.email } #{ I18n.t('errors.messages.already_confirmed') }"
+      redirect_to(:new_user_session)
       return
     end
 
-    render 'devise/confirmations/edit'
+    render('devise/confirmations/edit')
   end
 
   # update newly chosen password
@@ -72,12 +72,12 @@ class Users::RegistrationsController < ActionController::Base
     if @user.save
       @user.confirm # confirm account
 
-      flash[:notice] = I18n.t :confirmed, scope: 'devise.confirmations'
-      redirect_to :new_user_session
+      flash[:notice] = I18n.t(:confirmed, scope: 'devise.confirmations')
+      redirect_to(:new_user_session)
       return
     end
 
-    render 'devise/confirmations/edit'
+    render('devise/confirmations/edit')
   end
 
   private
@@ -85,8 +85,8 @@ class Users::RegistrationsController < ActionController::Base
   def authenticate
     return if params[:confirmation_token].present?
 
-    flash[:alert] = I18n.t 'devise.passwords.no_token'
-    redirect_to :new_user_session
+    flash[:alert] = I18n.t('devise.passwords.no_token')
+    redirect_to(:new_user_session)
     return
   end
 

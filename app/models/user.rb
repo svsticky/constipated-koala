@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def self.create_on_member_enrollment!(member)
-    password = Devise.friendly_token 128
+    password = Devise.friendly_token(128)
 
     user = User.new(
       credentials: member,

@@ -12,7 +12,7 @@ module ConstipatedKoala
   #:nodoc:
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults(5.1)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -32,12 +32,12 @@ module ConstipatedKoala
     # Set layout for controllers from gems, own controllers set the alternative layout
     # in the controller itself, for example Members::RegistrationsController
     config.to_prepare do
-      Devise::SessionsController.layout 'doorkeeper'
-      Devise::RegistrationsController.layout 'doorkeeper'
-      Devise::ConfirmationsController.layout 'doorkeeper'
-      Devise::UnlocksController.layout 'doorkeeper'
-      Devise::PasswordsController.layout 'doorkeeper'
-      Doorkeeper::AuthorizationsController.layout 'doorkeeper'
+      Devise::SessionsController.layout('doorkeeper')
+      Devise::RegistrationsController.layout('doorkeeper')
+      Devise::ConfirmationsController.layout('doorkeeper')
+      Devise::UnlocksController.layout('doorkeeper')
+      Devise::PasswordsController.layout('doorkeeper')
+      Doorkeeper::AuthorizationsController.layout('doorkeeper')
     end
 
     config.active_job.queue_adapter = :sidekiq
@@ -69,6 +69,6 @@ module ConstipatedKoala
     config.active_storage.service = :local
 
     # Generate translations.json
-    config.middleware.use I18n::JS::Middleware
+    config.middleware.use(I18n::JS::Middleware)
   end
 end

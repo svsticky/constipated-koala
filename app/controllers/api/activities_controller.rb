@@ -17,13 +17,13 @@ class Api::ActivitiesController < ApiController
   end
 
   def poster
-    @activity = Activity.find params[:activity_id]
-    redirect_to url_for @activity.poster_representation
+    @activity = Activity.find(params[:activity_id])
+    redirect_to(url_for(@activity.poster_representation))
   end
 
   def thumbnail
-    @activity = Activity.find params[:activity_id]
-    redirect_to url_for @activity.thumbnail_representation
+    @activity = Activity.find(params[:activity_id])
+    redirect_to(url_for(@activity.thumbnail_representation))
   end
 
   def show
@@ -37,6 +37,6 @@ class Api::ActivitiesController < ApiController
 
     return if valid_doorkeeper_token? || user_signed_in?
 
-    head :unauthorized
+    head(:unauthorized)
   end
 end

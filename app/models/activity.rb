@@ -60,7 +60,7 @@ class Activity < ApplicationRecord
     # Remove the other illegal characters
     # Non-printable characters are ignored
     # source: https://www.sepaforcorporates.com/sepa-implementation/valid-xml-characters-sepa-payments/
-    return ascii.delete "!\"#$%&*;<=>@[\\]^_`{|}~"
+    return ascii.delete("!\"#$%&*;<=>@[\\]^_`{|}~")
   end
 
   def self.study_year(year)
@@ -132,7 +132,7 @@ class Activity < ApplicationRecord
   end
 
   def group
-    Group.find_by id: organized_by
+    Group.find_by(id: organized_by)
   end
 
   def currency(member)

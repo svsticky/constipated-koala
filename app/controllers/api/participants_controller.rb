@@ -1,7 +1,7 @@
 #:nodoc:
 class Api::ParticipantsController < ApiController
-  before_action -> { doorkeeper_authorize! 'participant-read' }, only: :index
-  before_action -> { doorkeeper_authorize! 'participant-write' }, only: [:create, :update, :destroy]
+  before_action -> { doorkeeper_authorize!('participant-read') }, only: :index
+  before_action -> { doorkeeper_authorize!('participant-write') }, only: [:create, :update, :destroy]
 
   def index
     if params[:activity_id].present?
@@ -13,7 +13,7 @@ class Api::ParticipantsController < ApiController
       @participants = Participant.where(member: Authorization._member).includes(:activity, :member)
 
     else
-      head :bad_request
+      head(:bad_request)
       return
     end
   end
@@ -22,21 +22,21 @@ class Api::ParticipantsController < ApiController
     @participant = Participant.new(member: Authorization._member, activity: Activity.find(params[:activity_id]))
     head(:bad_request) && return unless @participant.save
 
-    render status: :created
+    render(status: :created)
   end
 
   def update
-    raise NotImplementedError
+    raise(NotImplementedError)
   end
 
   # TODO: uitschrijfdeadline hierin meenemen
   def destroy
-    participant = Participant.find_by! member_id: Authorization._member.id, activity_id: params[:activity_id]
+    participant = Participant.find_by!(member_id: Authorization._member.id, activity_id: params[:activity_id])
 
     head(:locked) && return if participant.paid
     head(:locked) && return if participant.activity.start_date <= Date.today
 
     participant.destroy!
-    head :no_content
+    head(:no_content)
   end
 end

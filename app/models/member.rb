@@ -198,7 +198,7 @@ class Member < ApplicationRecord
 
   before_update do
     if email_changed? && (User.exists?(email: email.downcase) || User.exists?(unconfirmed_email: email.downcase))
-      errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
+      errors.add(:email, I18n.t('activerecord.errors.models.member.attributes.email.taken'))
       raise ActiveRecord::Rollback
     end
 
@@ -363,7 +363,7 @@ class Member < ApplicationRecord
 
     export.compact
 
-    yield [export.to_json, Digest::MD5.hexdigest(export.to_s)] if block_given?
+    yield([export.to_json, Digest::MD5.hexdigest(export.to_s)]) if block_given?
   end
 
   def self.import(import, checksum); end
@@ -380,8 +380,8 @@ class Member < ApplicationRecord
   def before_destroy
     # check if all activities are paid
     unless unpaid_activities.empty?
-      errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
-      raise ActiveRecord::Rollback
+      errors.add(:participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities'))
+      raise(ActiveRecord::Rollback)
     end
 
     # remove reservist
@@ -406,9 +406,9 @@ class Member < ApplicationRecord
       )
     end
   rescue RestClient::BadRequest => e
-    logger.debug JSON.parse(e.response.body)
+    logger.debug(JSON.parse(e.response.body))
   rescue RestClient::NotFound
-    logger.debug "Unable to delete Mailchimp user: user not found"
+    logger.debug("Unable to delete Mailchimp user: user not found")
 
     # create transaction for emptying checkout_balance
     CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0
@@ -417,7 +417,7 @@ class Member < ApplicationRecord
   # Perform an elfproef to verify the student_id
   def valid_student_id
     # on the intro website student_id is required
-    errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
+    errors.add(:student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid')) if require_student_id && student_id.blank?
 
     # do not do the elfproef on a foreign student
     return if student_id =~ /\F\d{6}/

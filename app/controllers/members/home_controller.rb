@@ -46,8 +46,8 @@ class Members::HomeController < ApplicationController
   end
 
   def revoke
-    Doorkeeper::AccessToken.revoke_all_for params[:id], current_user
-    redirect_to :users_edit
+    Doorkeeper::AccessToken.revoke_all_for(params[:id], current_user)
+    redirect_to(:users_edit)
   end
 
   def update
@@ -56,21 +56,21 @@ class Members::HomeController < ApplicationController
 
     @member = Member.find(current_user.credentials_id)
 
-    if @member.update member_post_params.except 'mailchimp_interests'
-      MailchimpJob.perform_later @member.email, @member, (member_post_params[:mailchimp_interests].select { |_, val| val == '1' }) unless
+    if @member.update(member_post_params.except('mailchimp_interests'))
+      MailchimpJob.perform_later(@member.email, @member, (member_post_params[:mailchimp_interests].select { |_, val| val == '1' })) unless
         ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
       cookies["locale"] = @user.language
 
-      redirect_to users_edit_path, notice: I18n.t('members.home.edit.profile_saved')
+      redirect_to(users_edit_path, notice: I18n.t('members.home.edit.profile_saved'))
       return
     end
 
     @applications = [] # TODO: Doorkeeper::Application.authorized_for(current_user)
 
-    render 'edit'
+    render('edit')
     return
   end
 
@@ -78,10 +78,10 @@ class Members::HomeController < ApplicationController
     @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
     @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)).order(created_at: :desc)
 
-    send_data render_to_string(layout: false),
+    send_data(render_to_string(layout: false),
               filename: "#{ @member.name.downcase.tr(' ', '-') }.html",
               type: 'application/html',
-              disposition: 'attachment'
+              disposition: 'attachment')
   end
 
   private

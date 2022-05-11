@@ -5,13 +5,13 @@ module Mailings
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, _opts = {})
-      Rails.logger.debug confirmation_url(record, confirmation_token: token) if Rails.env.development?
+      Rails.logger.debug(confirmation_url(record, confirmation_token: token)) if Rails.env.development?
 
-      html = render_to_string locals: {
-        name: record.credentials.name,
-        confirmation_url: confirmation_url(record, confirmation_token: token),
-        subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.confirmation_instructions.confirm_email') }"
-      }
+      html = render_to_string(locals: {
+                                name: record.credentials.name,
+                                confirmation_url: confirmation_url(record, confirmation_token: token),
+                                subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.confirmation_instructions.confirm_email') }"
+                              })
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
@@ -28,13 +28,13 @@ module Mailings
 
     def activation_instructions(record, token, _opts = {})
       url = new_member_confirmation_url(confirmation_token: token)
-      Rails.logger.debug url if Rails.env.development?
+      Rails.logger.debug(url) if Rails.env.development?
 
-      html = render_to_string locals: {
-        name: record.credentials.first_name,
-        activation_url: url,
-        subject: "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }"
-      }
+      html = render_to_string(locals: {
+                                name: record.credentials.first_name,
+                                activation_url: url,
+                                subject: "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }"
+                              })
 
       text = <<~MARKDOWN
         #{ I18n.t('mailings.greeting') } #{ record.credentials.first_name },
@@ -78,13 +78,13 @@ module Mailings
     end
 
     def reset_password_instructions(record, token, _opts = {})
-      Rails.logger.debug edit_password_url(record, reset_password_token: token) if Rails.env.development?
+      Rails.logger.debug(edit_password_url(record, reset_password_token: token)) if Rails.env.development?
 
-      html = render_to_string locals: {
-        name: record.credentials.name,
-        reset_url: edit_password_url(record, reset_password_token: token),
-        subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.reset_passwords_instructions.reset_password') }"
-      }
+      html = render_to_string(locals: {
+                                name: record.credentials.name,
+                                reset_url: edit_password_url(record, reset_password_token: token),
+                                subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.reset_passwords_instructions.reset_password') }"
+                              })
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
@@ -103,12 +103,12 @@ module Mailings
     def forced_confirm_email(record, current_user, _opts = {})
       Rails.logger.debug { "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" } if Rails.env.development?
 
-      html = render_to_string locals: {
-        name: record.name,
-        email: record.user.unconfirmed_email,
-        sendername: current_user.credentials.name,
-        subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.changed_instructions.changed_email') }"
-      }
+      html = render_to_string(locals: {
+                                name: record.name,
+                                email: record.user.unconfirmed_email,
+                                sendername: current_user.credentials.name,
+                                subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.changed_instructions.changed_email') }"
+                              })
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } #{ record.name },

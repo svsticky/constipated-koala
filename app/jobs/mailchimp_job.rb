@@ -39,7 +39,7 @@ class MailchimpJob < ApplicationJob
     # set interests from mailchimp_interests (MMM/ALV/..) if interests not nil
     request[:interests] = Rails.configuration.mailchimp_interests.values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
 
-    logger.debug request.inspect
+    logger.debug(request.inspect)
 
     RestClient.put(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }",
@@ -64,8 +64,8 @@ class MailchimpJob < ApplicationJob
     Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless interests.nil?
 
     tags = []
-    tags.push('alumni') unless member.educations.any? { |s| ['active'].include? s.status }
-    tags.push('gratie') if member.tags.any? { |t| ['merit', 'pardon'].include? t.name }
+    tags.push('alumni') unless member.educations.any? { |s| ['active'].include?(s.status) }
+    tags.push('gratie') if member.tags.any? { |t| ['merit', 'pardon'].include?(t.name) }
 
     RestClient.post(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }/tags",
@@ -74,8 +74,8 @@ class MailchimpJob < ApplicationJob
       'User-Agent': 'constipated-koala'
     )
   rescue RestClient::BadRequest => e
-    logger.debug JSON.parse(e.response.body)
+    logger.debug(JSON.parse(e.response.body))
   rescue RestClient::NotFound
-    logger.debug 'record not found'
+    logger.debug('record not found')
   end
 end

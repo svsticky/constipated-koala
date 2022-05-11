@@ -3,7 +3,7 @@ module Mailings
   #:nodoc:
   class Checkout < ApplicationMailer
     def confirmation_instructions(card, confirmation_url)
-      Rails.logger.debug confirmation_url if Rails.env.development?
+      Rails.logger.debug(confirmation_url) if Rails.env.development?
 
       subject_name = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.checkout.subject') }"
 

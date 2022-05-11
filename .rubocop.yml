@@ -33,10 +33,10 @@ Metrics/MethodLength:
 
 # Allow 'some.variable == 0' and others
 Style/NumericPredicate:
-  Enabled: False
+  Enabled: false
 
 Layout/LineLength:
-  Enabled: True
+  Enabled: true
 
 # Require spaces in string interpolation "#{ meme }" instead of "#{meme}"
 Layout/SpaceInsideStringInterpolation:
@@ -115,3 +115,6 @@ Rails/ApplicationController:
 # Let Rubocop know we have a staging environment
 Rails/UnknownEnv:
   Environments: development, test, staging, production
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: true
