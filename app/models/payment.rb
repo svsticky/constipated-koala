@@ -47,7 +47,7 @@ class Payment < ApplicationRecord
 
     case payment_type.to_sym
     when :ideal
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
 
       request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
@@ -67,7 +67,7 @@ class Payment < ApplicationRecord
                           redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token))
 
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
-      response = http.send! request
+      response = http.send!(request)
 
       self.trxid = response.id
       self.payment_uri = response.links.paymentUrl
@@ -80,13 +80,13 @@ class Payment < ApplicationRecord
   def update_transaction!
     case payment_type.to_sym
     when :ideal
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       @status = status
 
       request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ trxid }")
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
-      response = http.send! request
+      response = http.send!(request)
 
       status_update(response.status)
 
@@ -151,12 +151,12 @@ class Payment < ApplicationRecord
     return [] if ENV['MOLLIE_TOKEN'].blank?
 
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
 
       request = http.get("/#{ ENV['MOLLIE_VERSION'] }/issuers")
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
-      response = http.send! request
+      response = http.send!(request)
       response.data.map { |issuer| [issuer.name, issuer.id] }
     end
   end

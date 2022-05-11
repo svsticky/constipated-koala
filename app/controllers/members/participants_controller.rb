@@ -21,9 +21,9 @@ class Members::ParticipantsController < ApplicationController
   def create
     # Don't allow signups for old activities
     if @activity.ended?
-      render status: :gone, json: {
-        message: I18n.t(:activity_ended, scope: @activity_errors_scope)
-      }
+      render(status: :gone, json: {
+               message: I18n.t(:activity_ended, scope: @activity_errors_scope)
+             })
       return
     end
 
@@ -33,55 +33,55 @@ class Members::ParticipantsController < ApplicationController
 
     # Deny if already enrolled
     if Participant.exists?(activity: @activity, member: @member)
-      render status: :conflict, json: {
-        message: I18n.t(:already_enrolled, scope: @activity_errors_scope)
-      }
+      render(status: :conflict, json: {
+               message: I18n.t(:already_enrolled, scope: @activity_errors_scope)
+             })
       return
     # Deny members that don't have an active study, unless the member is a
     # pardon, merit or honary member or donator.
     elsif !@member.may_enroll?
-      render status: :failed_dependency, json: {
-        message: I18n.t(:participant_no_student, scope: @activity_errors_scope),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :failed_dependency, json: {
+               message: I18n.t(:participant_no_student, scope: @activity_errors_scope),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     # Deny suspended members
     elsif Tag.exists?(member: @member, name: Tag.names[:suspended])
-      render status: :failed_dependency, json: {
-        message: I18n.t(:participant_suspended, scope: @activity_errors_scope),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :failed_dependency, json: {
+               message: I18n.t(:participant_suspended, scope: @activity_errors_scope),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     # Deny if activity not enrollable
     elsif !@activity.open?
-      render status: :locked, json: {
-        message: I18n.t(:not_enrollable, scope: @activity_errors_scope),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :locked, json: {
+               message: I18n.t(:not_enrollable, scope: @activity_errors_scope),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     # Deny minors from alcoholic activities
     elsif participant_alcohol_check?
-      render status: :unavailable_for_legal_reasons, json: {
-        message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :unavailable_for_legal_reasons, json: {
+               message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     # Check if notes are present and deny if absent and required.
     elsif participant_notes_check?
       # Notify that notes are required
-      render status: :precondition_failed, json: {
-        message: I18n.t(
-          :participant_notes_not_filled,
-          scope: @activity_errors_scope,
-          activity: @activity.name
-        ),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :precondition_failed, json: {
+               message: I18n.t(
+                 :participant_notes_not_filled,
+                 scope: @activity_errors_scope,
+                 activity: @activity.name
+               ),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     elsif participant_limit_check?
       reservist = true
@@ -115,11 +115,11 @@ class Members::ParticipantsController < ApplicationController
                                   scope: @activity_errors_scope,
                                   activity: @activity.name)
 
-      render status: :accepted, json: {
-        message: "#{ reason_for_spare_message } #{ spare_list_message }",
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :accepted, json: {
+               message: "#{ reason_for_spare_message } #{ spare_list_message }",
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     else
       @new_enrollment = Participant.new(
@@ -131,13 +131,13 @@ class Members::ParticipantsController < ApplicationController
 
       @new_enrollment.save!
 
-      render status: :ok, json: {
-        message: I18n.t(:enrolled, scope:
-          @activity_errors_scope, activity:
-                          @activity.name),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :ok, json: {
+               message: I18n.t(:enrolled, scope:
+                 @activity_errors_scope, activity:
+                                 @activity.name),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
     end
   end
 
@@ -187,25 +187,25 @@ class Members::ParticipantsController < ApplicationController
     if @activity.notes.blank? || params[:par_notes].present?
       @enrollment.update(notes: params[:par_notes])
       @enrollment.save
-      render status: :accepted, json: {
-        message: I18n.t(
-          :participant_notes_updated,
-          scope: @activity_errors_scope,
-          activity: @activity.name
-        ),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :accepted, json: {
+               message: I18n.t(
+                 :participant_notes_updated,
+                 scope: @activity_errors_scope,
+                 activity: @activity.name
+               ),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
     else
-      render status: :precondition_failed, json: {
-        message: I18n.t(
-          :participant_notes_not_filled,
-          scope: @activity_errors_scope,
-          activity: @activity.name
-        ),
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :precondition_failed, json: {
+               message: I18n.t(
+                 :participant_notes_not_filled,
+                 scope: @activity_errors_scope,
+                 activity: @activity.name
+               ),
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
     end
   end
 
@@ -238,11 +238,11 @@ class Members::ParticipantsController < ApplicationController
         message = I18n.t(:unenroll_date_passed, scope: @activity_errors_scope)
       end
 
-      render status: :locked, json: {
-        message: message,
-        participant_limit: @activity.participant_limit,
-        participant_count: @activity.participants.count
-      }
+      render(status: :locked, json: {
+               message: message,
+               participant_limit: @activity.participant_limit,
+               participant_count: @activity.participants.count
+             })
       return
     end
 
@@ -250,15 +250,15 @@ class Members::ParticipantsController < ApplicationController
     @enrollment.destroy!
     activity.enroll_reservists!
 
-    render status: :ok, json: {
-      message: I18n.t(
-        :unenrolled,
-        scope: @activity_errors_scope,
-        activity: @activity.name
-      ),
-      participant_limit: @activity.participant_limit,
-      participant_count: @activity.participants.count
-    }
+    render(status: :ok, json: {
+             message: I18n.t(
+               :unenrolled,
+               scope: @activity_errors_scope,
+               activity: @activity.name
+             ),
+             participant_limit: @activity.participant_limit,
+             participant_count: @activity.participants.count
+           })
   end
 
   private
@@ -269,11 +269,11 @@ class Members::ParticipantsController < ApplicationController
 
     # Don't allow activities for old activities
     if @activity.ended? || !@activity.is_viewable? # rubocop:disable Style/GuardClause
-      render status: :gone,
+      render(status: :gone,
              plain: I18n.t(
                :activity_ended,
                scope: 'activerecord.errors.models.activity'
-             )
+             ))
     end
   end
 end

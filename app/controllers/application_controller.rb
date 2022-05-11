@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin!
     if !current_user.nil? && !current_user.admin?
-      head :forbidden
+      head(:forbidden)
       return
     end
   end

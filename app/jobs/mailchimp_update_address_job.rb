@@ -10,7 +10,7 @@ class MailchimpUpdateAddressJob < ApplicationJob
       status_if_new: mailchimp_status
     }
 
-    logger.debug request.inspect
+    logger.debug(request.inspect)
 
     RestClient.put(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(old_address.downcase) }",

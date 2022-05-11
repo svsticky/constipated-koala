@@ -37,18 +37,18 @@ class Admin::PaymentsController < ApplicationController
     @member = Member.find(params[:member_id])
     @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
-    msg = render_to_string template: 'admin/members/payment_whatsapp.html.haml', layout: false, content_type: "text/plain"
+    msg = render_to_string(template: 'admin/members/payment_whatsapp.html.haml', layout: false, content_type: "text/plain")
 
     pn = @member.phone_number
 
-    redirect_to "https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode msg }"
+    redirect_to("https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode(msg) }")
   end
 
   def update_transactions
     checkout_transactions = CheckoutTransaction.where('DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', params[:start_date]).order(created_at: :desc)
     data = checkout_transactions.map { |x| { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price, date: x.created_at.to_date } }
 
-    render json: data
+    render(json: data)
   end
 
   def export_payments
@@ -62,9 +62,9 @@ class Admin::PaymentsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to payments_path }
-      format.csv { send_data @transaction_file, filename: "payments_#{ Date.strptime(params[:start_date], '%Y-%m-%d') }_#{ Date.strptime(params[:end_date], '%Y-%m-%d') }.csv" }
-      format.js { render js: "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: payment_type, export_type: params[:export_type]) }\", \"_blank\")" }
+      format.html { redirect_to(payments_path) }
+      format.csv { send_data(@transaction_file, filename: "payments_#{ Date.strptime(params[:start_date], '%Y-%m-%d') }_#{ Date.strptime(params[:end_date], '%Y-%m-%d') }.csv") }
+      format.js { render(js: "window.open(\"#{ transactions_export_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date], payment_type: payment_type, export_type: params[:export_type]) }\", \"_blank\")") }
     end
   end
 

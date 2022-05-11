@@ -16,34 +16,34 @@ class Public::StatusController < PublicController
     flash[:notice] = []
 
     if @member.update(member_post_params)
-      impressionist @member
+      impressionist(@member)
 
-      if @member.educations.none?(&:active?) && !(%w[yearly indefinite].include? @member.consent)
+      if @member.educations.none?(&:active?) && %w[yearly indefinite].exclude?(@member.consent)
         @member.errors.add(:base, I18n.t('activerecord.errors.no_consent'))
         flash[:errors] = @member.errors.messages
 
         @member.educations.build(id: -1)
-        render 'edit'
+        render('edit')
         return
       end
 
       @token.destroy
       flash[:notice] << 'success!'
 
-      redirect_to users_root_url
+      redirect_to(users_root_url)
       return
     end
 
     flash[:errors] = @member.errors.messages
     @member.educations.build(id: -1)
-    render 'edit'
+    render('edit')
   end
 
   def destroy
     @token = Token.find_by!(token: params[:token], intent: :consent)
     @member = Member.includes(:checkout_balance).find(@token.object.id)
 
-    impressionist @member
+    impressionist(@member)
     flash[:notice] = []
 
     # update studies one last time if possible
@@ -55,12 +55,12 @@ class Public::StatusController < PublicController
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', balance: view_context.number_to_currency(@member.checkout_balance.balance, unit: '€')) unless @member.checkout_balance.nil?
 
-      redirect_to users_root_url
+      redirect_to(users_root_url)
     else
       flash[:errors] = @member.errors.messages
 
       @member.educations.build(id: -1)
-      redirect_to status_path(token: params[:token])
+      redirect_to(status_path(token: params[:token]))
     end
   end
 

@@ -17,17 +17,17 @@ module Mailings
         }
       end
 
-      view = render_to_string inline: html, layout: 'mailer', locals: { subject: subject }
+      view = render_to_string(inline: html, layout: 'mailer', locals: { subject: subject })
       return mails(variables, sender, subject, view, text || strip_html(html.clone))
     end
 
     def enrolled(participant)
       member = participant.member
       activity = participant.activity
-      url = activity_url activity.id
+      url = activity_url(activity.id)
 
-      starts_at = I18n.l activity.start_date, format: :day_month
-      starts_at += ", #{ I18n.l activity.start_time, format: :short }" if activity.start_time
+      starts_at = I18n.l(activity.start_date, format: :day_month)
+      starts_at += ", #{ I18n.l(activity.start_time, format: :short) }" if activity.start_time
 
       price = activity.price
       price = if price > 0

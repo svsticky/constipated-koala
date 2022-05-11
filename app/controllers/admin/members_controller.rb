@@ -47,44 +47,44 @@ class Admin::MembersController < ApplicationController
   end
 
   def create
-    @member = Member.new member_post_params.except 'mailchimp_interests'
+    @member = Member.new(member_post_params.except('mailchimp_interests'))
 
     if @member.save
-      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].compact_blank unless
+      MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].compact_blank) unless
         ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
       @member.tags_names = params[:member][:tags_names]
 
       # impressionist is the logging system
       impressionist(@member, 'nieuwe lid')
-      redirect_to @member
+      redirect_to(@member)
     else
 
       # If the member hasn't filled in a study, again show an empty field
       @member.educations.build(id: '-1') if @member.educations.empty?
 
-      render 'new'
+      render('new')
     end
   end
 
   def edit
     @member = Member.includes(:educations).includes(:tags).find(params[:id])
     @member.educations.build(id: '-1') if @member.educations.empty?
-    WebhookJob.perform_later "member", params[:id]
+    WebhookJob.perform_later("member", params[:id])
   end
 
   def update
     @member = Member.find(params[:id])
 
-    if @member.update member_post_params.except 'mailchimp_interests'
+    if @member.update(member_post_params.except('mailchimp_interests'))
 
-      MailchimpJob.perform_later @member.email, @member, member_post_params[:mailchimp_interests].compact_blank unless
+      MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].compact_blank) unless
         ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
 
-      impressionist @member
-      redirect_to @member
+      impressionist(@member)
+      redirect_to(@member)
     else
-      render 'edit'
+      render('edit')
     end
   end
 
@@ -97,7 +97,7 @@ class Admin::MembersController < ApplicationController
     Mailings::Devise.forced_confirm_email(@member, current_user).deliver_later
     @member.user.force_confirm_email!
 
-    redirect_to @member
+    redirect_to(@member)
   end
 
   # Send appropriate email to user for account access, either password reset, user creation, or activation mail.
@@ -106,31 +106,31 @@ class Admin::MembersController < ApplicationController
 
     case params[:type]
     when 'create_user'
-      user = User.create_on_member_enrollment! @member
-      user.resend_confirmation! :activation_instructions
-      flash[:success] = I18n.t 'admin.member_account_status.email_sent'
+      user = User.create_on_member_enrollment!(@member)
+      user.resend_confirmation!(:activation_instructions)
+      flash[:success] = I18n.t('admin.member_account_status.email_sent')
 
     when 'resend_confirmation'
-      @member.user.resend_confirmation! :confirmation_instructions
-      flash[:success] = I18n.t 'admin.member_account_status.email_sent'
+      @member.user.resend_confirmation!(:confirmation_instructions)
+      flash[:success] = I18n.t('admin.member_account_status.email_sent')
 
     when 'password_reset'
       @member.user.send_reset_password_instructions
-      flash[:success] = I18n.t 'admin.member_account_status.email_sent'
+      flash[:success] = I18n.t('admin.member_account_status.email_sent')
 
     when 'consent'
       Mailings::Status.consent([@member].pluck(:id, :first_name, :infix, :last_name, :email)).deliver_later
-      flash[:success] = I18n.t 'admin.member_account_status.consent_sent'
+      flash[:success] = I18n.t('admin.member_account_status.consent_sent')
 
     end
 
-    redirect_to member_path @member
+    redirect_to(member_path(@member))
   end
 
   def destroy
     @member = Member.includes(:checkout_balance).find(params[:id])
 
-    impressionist @member
+    impressionist(@member)
     flash[:notice] = []
 
     if @member.destroy
@@ -138,10 +138,10 @@ class Admin::MembersController < ApplicationController
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', balance: view_context.number_to_currency(@member.checkout_balance.balance, unit: '€')) unless @member.checkout_balance.nil?
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued') unless @member.mailchimp_interests.nil?
 
-      redirect_to root_url
+      redirect_to(root_url)
     else
       flash[:errors] = @member.errors.messages
-      redirect_to @member
+      redirect_to(@member)
     end
   end
 
@@ -149,7 +149,7 @@ class Admin::MembersController < ApplicationController
     @member = Member.find(params[:member_id])
     @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
-    render layout: false, content_type: "text/plain"
+    render(layout: false, content_type: "text/plain")
   end
 
   def set_card_disabled

@@ -9,7 +9,7 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
     get '/api/activities'
     assert_response :success
 
-    data = JSON.parse @response.body # @response is set automagically on get
+    data = JSON.parse(@response.body) # @response is set automagically on get
 
     # Assert that we see all activities we should
     should_see = Activity.where(is_viewable: true).to_a

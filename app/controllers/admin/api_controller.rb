@@ -9,7 +9,7 @@ class Admin::ApiController < ApplicationController
 
   # are these functions even used? I can't find them in routes, I suggest moving it the controllers/api
   def activities
-    render status: :ok,
-           json: Activity.list.only(:name, :start_date, :end_date, :poster)
+    render(status: :ok,
+           json: Activity.list.only(:name, :start_date, :end_date, :poster))
   end
 end

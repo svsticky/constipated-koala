@@ -16,7 +16,7 @@ namespace :admin do
 
   desc 'Delete a normal user, that is it\'s login access'
   task :remove, [:email] => :environment do |_, args|
-    user = User.find_by email: args[:email]
+    user = User.find_by(email: args[:email])
 
     if user.nil?
       puts "#{ args[:email] } not found"
@@ -31,7 +31,7 @@ namespace :admin do
 
   desc 'Delete an admin account and user'
   task :delete, [:email] => :environment do |_, args|
-    user = User.find_by email: args[:email]
+    user = User.find_by(email: args[:email])
 
     if user.nil? || !user.admin?
       puts "#{ args[:email] } not found"

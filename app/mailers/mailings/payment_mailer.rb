@@ -20,7 +20,7 @@ module Mailings
       total = prices.sum
 
       if total == 0
-        Rails.logger.error "Payment email was requested for #{ member.name }, but they don't have open payments"
+        Rails.logger.error("Payment email was requested for #{ member.name }, but they don't have open payments")
         return nil
       end
 

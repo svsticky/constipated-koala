@@ -14,7 +14,7 @@ module Mailings
         }
       end
 
-      html = render_to_string layout: 'mailer', locals: { subject: I18n.t('mailings.membership') }
+      html = render_to_string(layout: 'mailer', locals: { subject: I18n.t('mailings.membership') })
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } %recipient.first_name%,
