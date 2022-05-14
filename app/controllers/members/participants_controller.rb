@@ -143,7 +143,7 @@ class Members::ParticipantsController < ApplicationController
 
   # Helper functions to decrease the complexity of create
   def participant_filter_check?
-    participant_freshman_check? || participant_sophomore_check? || participant_senior_check? || participant_master_check?
+    !@activity.filters? || participant_freshman_check? || participant_sophomore_check? || participant_senior_check? || participant_master_check?
   end
 
   def participant_freshman_check?
