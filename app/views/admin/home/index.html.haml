@@ -136,4 +136,4 @@
               - @defaulters.each do |member, amount|
                 %tr
                   %td= link_to member.name, member
-                  %td= number_to_currency( amount, :unit => '€' )
+                  %td= number_to_currency( member.total_outstanding_payments, :unit => '€' )
