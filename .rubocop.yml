@@ -36,7 +36,17 @@ Style/NumericPredicate:
   Enabled: false
 
 Layout/LineLength:
-  Enabled: true
+  IgnoredPatterns:
+    - "https://.*"
+  Max: 120
+  # TODO: enable this linter for all files
+  Exclude:
+    - "app/models/member.rb"
+    - "app/mailers/mailings/devise.rb"
+    - "app/controllers/users/sessions_controller.rb"
+    - "app/controllers/public/home_controller.rb"
+    - "app/controllers/admin/home_controller.rb"
+
 
 # Require spaces in string interpolation "#{ meme }" instead of "#{meme}"
 Layout/SpaceInsideStringInterpolation:
