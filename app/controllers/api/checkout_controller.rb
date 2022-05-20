@@ -26,7 +26,8 @@ class Api::CheckoutController < ActionController::Base
   end
 
   def info
-    @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance, :active).find_by(uuid: params[:uuid])
+    @card = CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name,
+                                                                  :balance, :active).find_by(uuid: params[:uuid])
 
     return head(:not_found) unless @card
   end
@@ -72,11 +73,18 @@ class Api::CheckoutController < ActionController::Base
   def create
     head(:conflict) && return unless CheckoutCard.find_by(uuid: params[:uuid]).nil?
 
-    card = CheckoutCard.new(uuid: params[:uuid], member: Member.find_by!(student_id: params[:student]), description: params[:description])
+    card = CheckoutCard.new(uuid: params[:uuid],
+                            member: Member.find_by!(student_id: params[:student]), description: params[:description])
 
     if card.save
       card.send_confirmation!
-      render(status: :created, json: CheckoutCard.joins(:member, :checkout_balance).select(:id, :uuid, :first_name, :balance).find_by!(uuid: params[:uuid]).to_json)
+      render(status: :created,
+             json: CheckoutCard.joins(:member, :checkout_balance).select(
+               :id,
+               :uuid,
+               :first_name,
+               :balance
+             ).find_by!(uuid: params[:uuid]).to_json)
     else
       head(:conflict)
     end

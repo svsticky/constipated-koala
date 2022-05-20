@@ -18,7 +18,9 @@ class Admin::CheckoutProductsController < ApplicationController
     @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
 
     @product = CheckoutProduct.find_by(id: params[:id])
-    @total = @product.sales(params['year']).map { |sale| sale.first[0].price * sale.first[1] unless sale.first[1].nil? }.compact.inject(:+)
+    @total = @product.sales(params['year']).map do |sale|
+      sale.first[0].price * sale.first[1] unless sale.first[1].nil?
+    end.compact.inject(:+)
 
     render('admin/apps/products')
   end
@@ -30,7 +32,9 @@ class Admin::CheckoutProductsController < ApplicationController
       redirect_to(checkout_product_path(@new))
     else
       @products = CheckoutProduct.order(:category, :name).last_version
-      @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+      @years = (2015..Date.today.study_year).map do |year|
+        ["#{ year }-#{ year + 1 }", year]
+      end.reverse
 
       render('admin/apps/products')
     end
@@ -46,7 +50,9 @@ class Admin::CheckoutProductsController < ApplicationController
 
       redirect_to(checkout_product_path(product || @product.id, anchor: "product_#{ prod_id }"))
     else
-      @years = (2015..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+      @years = (2015..Date.today.study_year).map do |year|
+        ["#{ year }-#{ year + 1 }", year]
+      end.reverse
       @products = CheckoutProduct.order(:category, :name).last_version
 
       render('admin/apps/products')
@@ -65,7 +71,11 @@ class Admin::CheckoutProductsController < ApplicationController
       transaction = CheckoutTransaction.new(price: params[:amount], checkout_card: card)
 
     elsif params[:member_id]
-      transaction = CheckoutTransaction.new(price: params[:amount], checkout_balance: CheckoutBalance.find_by!(member_id: params[:member_id]), payment_method: params[:payment_method])
+      transaction = CheckoutTransaction.new(
+        price: params[:amount],
+        checkout_balance: CheckoutBalance.find_by!(member_id: params[:member_id]),
+        payment_method: params[:payment_method]
+      )
 
     else
       render(status: :bad_request, json: I18n.t('checkout.error.identifier'))

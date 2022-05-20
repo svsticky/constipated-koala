@@ -36,7 +36,9 @@ module Mailings
                 I18n.t('mailings.participants.enrolled.free')
               end
 
-      subject = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.participants.enrolled.subject', activity: activity.name) }"
+      subject = "#{ I18n.t('association_name') } | #{ I18n.t(
+        'mailings.participants.enrolled.subject', activity: activity.name
+      ) }"
       html = render_to_string(layout: 'mailer', locals: {
                                 name: member.first_name,
                                 activity: activity,

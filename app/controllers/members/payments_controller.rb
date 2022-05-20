@@ -7,7 +7,11 @@ class Members::PaymentsController < ApplicationController
   def index
     @member = Member.find(current_user.credentials_id)
     @participants = @member.unpaid_activities
-    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
+    @transactions = CheckoutTransaction.where(
+      checkout_balance: CheckoutBalance.find_by(
+        member_id: current_user.credentials_id
+      )
+    ).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @transaction_costs = Settings.mongoose_ideal_costs
   end
 
@@ -21,7 +25,9 @@ class Members::PaymentsController < ApplicationController
 
     description_prefix = "Activiteiten - "
     description_length_remaining = 140 - description_prefix.length
-    description = "#{ description_prefix }#{ self.class.join_with_char_limit(activity_names_for_unpaid, ', ', description_length_remaining) }"
+    description = "#{ description_prefix }#{ self.class.join_with_char_limit(
+      activity_names_for_unpaid, ', ', description_length_remaining
+    ) }"
     amount = unpaid.sum(&:currency)
 
     if amount < 1

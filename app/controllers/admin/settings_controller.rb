@@ -16,7 +16,8 @@ class Admin::SettingsController < ApplicationController
       Settings[params[:setting]] = params[:value].downcase.split(',').each(&:strip!)
 
     elsif ['intro.membership', 'intro.activities'].include?(params[:setting])
-      Settings[params[:setting]] = Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
+      Settings[params[:setting]] =
+        Activity.where(id: params[:value].split(',').map(&:to_i)).collect(&:id)
 
       render(status: :ok, json: {
                activities: Settings[params[:setting]],
@@ -35,7 +36,8 @@ class Admin::SettingsController < ApplicationController
       head(:bad_request) && return if (params[:value] =~ /\d{2}:\d{2}/).nil?
 
       Settings[params[:setting]] = params[:value]
-    elsif %w[ideal_relation_code payment_condition_code mongoose_ledger_number accountancy_ledger_number].include?(params[:setting])
+    elsif %w[ideal_relation_code payment_condition_code mongoose_ledger_number
+             accountancy_ledger_number].include?(params[:setting])
       head(:bad_request) && return if (params[:value] =~ /\d+/).nil?
 
       Settings[params[:setting]] = params[:value]
@@ -59,7 +61,8 @@ class Admin::SettingsController < ApplicationController
   def logs
     @limit = params[:limit] ? params[:limit].to_i : 50
 
-    @pagination, @impressions = pagy(Impression.all.order(created_at: :desc), items: params[:limit] ||= 50)
+    @pagination, @impressions = pagy(Impression.all.order(created_at: :desc),
+                                     items: params[:limit] ||= 50)
     @total_log_items = Impression.count
   end
 

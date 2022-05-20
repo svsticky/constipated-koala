@@ -65,7 +65,8 @@ class Members::ParticipantsController < ApplicationController
     # Deny minors from alcoholic activities
     elsif participant_alcohol_check?
       render(status: :unavailable_for_legal_reasons, json: {
-               message: I18n.t(:participant_underage, scope: @activity_errors_scope, activity: @activity.name),
+               message: I18n.t(:participant_underage, scope: @activity_errors_scope,
+                                                      activity: @activity.name),
                participant_limit: @activity.participant_limit,
                participant_count: @activity.participants.count
              })
@@ -143,7 +144,11 @@ class Members::ParticipantsController < ApplicationController
 
   # Helper functions to decrease the complexity of create
   def participant_filter_check?
-    !@activity.filters? || participant_freshman_check? || participant_sophomore_check? || participant_senior_check? || participant_master_check?
+    !@activity.filters? ||
+      participant_freshman_check? ||
+      participant_sophomore_check? ||
+      participant_senior_check? ||
+      participant_master_check?
   end
 
   def participant_freshman_check?

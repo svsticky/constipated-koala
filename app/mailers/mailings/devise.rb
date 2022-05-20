@@ -101,7 +101,9 @@ module Mailings
     end
 
     def forced_confirm_email(record, current_user, _opts = {})
-      Rails.logger.debug { "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" } if Rails.env.development?
+      if Rails.env.development?
+        Rails.logger.debug { "#{ record.user.unconfirmed_email } #{ I18n.t('mailings.removed') }" }
+      end
 
       html = render_to_string(locals: {
                                 name: record.name,

@@ -33,7 +33,8 @@ class GhostscriptPreviewer < ActiveStorage::Previewer
     dst = Tempfile.new("#{ blob.filename.base }.png")
     dst.binmode
 
-    system(self.class.ghostscript_path, '-dNOPAUSE', '-dSAFER', '-dBATCH', '-sDEVICE=pngalpha', '-r144', '-dUseCIEColor', "-sOutputFile=#{ dst.path }", input.path)
+    system(self.class.ghostscript_path, '-dNOPAUSE', '-dSAFER', '-dBATCH', '-sDEVICE=pngalpha',
+           '-r144', '-dUseCIEColor', "-sOutputFile=#{ dst.path }", input.path)
 
     draw('cat', dst.path, &block)
     File.delete(dst)

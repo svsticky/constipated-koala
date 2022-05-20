@@ -179,10 +179,14 @@ class Member < ApplicationRecord
       if groups.key?(group_member.group.id)
         groups[group_member.group.id][:years].push(group_member.year)
 
-        groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
+        unless group_member.position.blank? || group_member.group.board?
+          groups[group_member.group.id][:positions].push(group_member.position => group_member.year)
+        end
       end
 
-      groups.merge!(group_member.group.id => { id: group_member.group.id, name: group_member.group.name, years: [group_member.year], positions: [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
+      unless groups.key?(group_member.group.id)
+        groups.merge!(group_member.group.id => { id: group_member.group.id, name: group_member.group.name, years: [group_member.year], positions: [group_member.position => group_member.year] })
+      end
     end
 
     return groups.values
@@ -411,13 +415,17 @@ class Member < ApplicationRecord
     logger.debug("Unable to delete Mailchimp user: user not found")
 
     # create transaction for emptying checkout_balance
-    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0
+    if checkout_balance.present? && checkout_balance.balance != 0
+      CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted')
+    end
   end
 
   # Perform an elfproef to verify the student_id
   def valid_student_id
     # on the intro website student_id is required
-    errors.add(:student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid')) if require_student_id && student_id.blank?
+    if require_student_id && student_id.blank?
+      errors.add(:student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid'))
+    end
 
     # do not do the elfproef on a foreign student
     return if student_id =~ /\F\d{6}/

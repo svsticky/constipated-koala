@@ -183,4 +183,12 @@ Style/WordArray:
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 319
+  IgnoredPatterns:
+    - "https://.*"
+  Max: 120
+  Exclude:
+    - "app/models/member.rb"
+    - "app/mailers/mailings/devise.rb"
+    - "app/controllers/users/sessions_controller.rb"
+    - "app/controllers/public/home_controller.rb"
+    - "app/controllers/admin/home_controller.rb"

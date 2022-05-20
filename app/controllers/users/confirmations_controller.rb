@@ -18,7 +18,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   # This method is called once the user submits the form rendered in show
   def create
-    user = User.find_by(confirmation_token: confirmation_params[:confirmation_token]) unless confirmation_params[:confirmation_token].nil?
+    unless confirmation_params[:confirmation_token].nil?
+      user = User.find_by(confirmation_token: confirmation_params[:confirmation_token])
+    end
 
     # no confirmation token
     if user.nil?

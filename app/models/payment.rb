@@ -50,6 +50,12 @@ class Payment < ApplicationRecord
       http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
 
+      webhook_url = if Rails.env.development?
+                      "#{ ENV['NGROK_HOST'] }/api/hook/mollie"
+                    else
+                      Rails.application.routes.url_helpers.mollie_hook_url
+                    end
+
       request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
                           amount: amount,
                           description: description,
@@ -63,7 +69,7 @@ class Payment < ApplicationRecord
                             transaction_id: transaction_id
 
                           },
-                          webhookUrl: Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.routes.url_helpers.mollie_hook_url,
+                          webhookUrl: webhook_url,
                           redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token))
 
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
@@ -125,7 +131,11 @@ class Payment < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the Payment as processed
       Payment.transaction do
-        transaction = CheckoutTransaction.create!(price: (amount - transaction_fee), checkout_balance: CheckoutBalance.find_by!(member_id: member), payment_method: payment_type)
+        transaction = CheckoutTransaction.create!(
+          price: (amount - transaction_fee),
+          checkout_balance: CheckoutBalance.find_by!(member_id: member),
+          payment_method: payment_type
+        )
 
         self.transaction_id = [transaction.id]
         save!
