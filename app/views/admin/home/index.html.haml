@@ -50,7 +50,7 @@
                 %i.fa.fa-homepage.fa-euro-sign
               .card-body.box-info
                 %h2.text-center
-                  = number_to_currency(@unpayed, :unit => '')
+                  = number_to_currency(@unpaid, :unit => '')
                 %p.text-muted
                   = I18n.t('admin.front.outstanding_payments')
 
