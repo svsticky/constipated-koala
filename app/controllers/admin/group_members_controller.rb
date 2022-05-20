@@ -1,7 +1,8 @@
 #:nodoc:
 class Admin::GroupMembersController < ApplicationController
   def create
-    @member = GroupMember.new(member: Member.find_by(id: params[:member]), group: Group.find_by(id: params[:group_id]), year: params[:year])
+    @member = GroupMember.new(member: Member.find_by(id: params[:member]),
+                              group: Group.find_by(id: params[:group_id]), year: params[:year])
 
     head(:bad_request) unless @member.save
 

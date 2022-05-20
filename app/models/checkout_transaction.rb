@@ -21,23 +21,42 @@ class CheckoutTransaction < ApplicationRecord
   end
 
   after_validation do
-    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all("balance = balance + #{ price }, updated_at = NOW()")
+    CheckoutBalance.where(id: checkout_balance.id).limit(1).update_all(
+      "balance = balance + #{ price }, updated_at = NOW()"
+    )
   end
 
   def validate_sufficient_credit
-    errors.add(:price, I18n.t('price.insufficient_credit', scope: i18n_error_scope)) if price + checkout_balance.balance < 0
+    return unless price + checkout_balance.balance < 0
+
+    errors.add(:price,
+               I18n.t('price.insufficient_credit',
+                      scope: i18n_error_scope))
   end
 
   def validate_payment_method
-    errors.add(:payment_method, I18n.t('payment_method.blank', scope: i18n_error_scope)) if payment_method.blank? && items.blank?
+    return unless payment_method.blank? && items.blank?
+
+    errors.add(:payment_method,
+               I18n.t('payment_method.blank',
+                      scope: i18n_error_scope))
   end
 
   def validate_liquor_items
     return unless items.any? { |item| CheckoutProduct.find(item).liquor? }
 
     # only place you should use now, because liquor_time is without zone
-    errors.add(:items, I18n.t('items.not_liquor_time', scope: i18n_error_scope)) if Time.now.before(Settings.liquor_time) && Rails.env.production?
-    errors.add(:items, I18n.t('items.member_under_age', scope: i18n_error_scope)) if checkout_balance.member.underage?
+    if Time.now.before(Settings.liquor_time) && Rails.env.production?
+      errors.add(:items,
+                 I18n.t('items.not_liquor_time',
+                        scope: i18n_error_scope))
+    end
+
+    return unless checkout_balance.member.underage?
+
+    errors.add(:items,
+               I18n.t('items.member_under_age',
+                      scope: i18n_error_scope))
   end
 
   def calculate_price
@@ -57,7 +76,10 @@ class CheckoutTransaction < ApplicationRecord
 
     counts = {}
     items.each do |item|
-      counts[CheckoutProduct.find_by(id: item).name] = 0 unless counts.key?(CheckoutProduct.find_by(id: item).name)
+      unless counts.key?(CheckoutProduct.find_by(id: item).name)
+        counts[CheckoutProduct.find_by(id: item).name] =
+          0
+      end
       counts[CheckoutProduct.find_by(id: item).name] += 1
     end
 

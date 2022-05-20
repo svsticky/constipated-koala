@@ -53,7 +53,11 @@ class Public::StatusController < PublicController
       @token.destroy
 
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', balance: view_context.number_to_currency(@member.checkout_balance.balance, unit: '€')) unless @member.checkout_balance.nil?
+      unless @member.checkout_balance.nil?
+        flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied',
+                                 balance: view_context.number_to_currency(@member.checkout_balance.balance,
+                                                                          unit: '€'))
+      end
 
       redirect_to(users_root_url)
     else

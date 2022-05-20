@@ -85,7 +85,9 @@ class Public::HomeController < PublicController
       @membership = Activity.find(Settings['intro.membership'])
 
       @activities = Activity.find(Settings['intro.activities'])
-      @participate = public_post_params[:participant_attributes].to_h.map { |key, value| key.to_i if value['participate'] == '1' }.compact
+      @participate = public_post_params[:participant_attributes].to_h.map do |key, value|
+        key.to_i if value['participate'] == '1'
+      end.compact
 
       @bank = params[:bank]
 

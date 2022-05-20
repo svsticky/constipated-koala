@@ -17,18 +17,32 @@ class Admin::MembersController < ApplicationController
 
   # As defined above this is an json call only
   def search
-    @members = Member.select(:id, :first_name, :infix, :last_name, :student_id).search(params[:search])
+    @members = Member.select(:id, :first_name, :infix, :last_name,
+                             :student_id).search(params[:search])
   end
 
   def show
     @member = Member.find(params[:id])
 
-    # Show all activities from the given year + unpaid past activities. And make a list of years starting from the member's join_date until the last activity
-    current_year_activities = @member.activities.study_year(params['year']).order(start_date: :desc).joins(:participants).distinct.where(participants: { reservist: false })
-    unpaid_old_activities = @member.unpaid_activities.order(start_date: :desc).where('start_date < ?', Date.to_date(Date.today.study_year))
+    # Show all activities from the given year + unpaid past activities.
+    # And make a list of years starting from the member's join_date until the last activity
+    current_year_activities = @member.activities.study_year(
+      params['year']
+    ).order(
+      start_date: :desc
+    ).joins(
+      :participants
+    ).distinct.where(
+      participants: { reservist: false }
+    )
+    unpaid_old_activities = @member.unpaid_activities.order(start_date: :desc).where(
+      'start_date < ?', Date.to_date(Date.today.study_year)
+    )
     @activities = (current_year_activities + unpaid_old_activities).uniq
 
-    @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    @years = (@member.join_date.study_year..Date.today.study_year).map do |year|
+      ["#{ year }-#{ year + 1 }", year]
+    end.reverse
 
     # Pagination for checkout transactions
     @limit = params[:limit] ? params[:limit].to_i : 10
@@ -50,8 +64,10 @@ class Admin::MembersController < ApplicationController
     @member = Member.new(member_post_params.except('mailchimp_interests'))
 
     if @member.save
-      MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].compact_blank) unless
-        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
+      unless ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
+        MailchimpJob.perform_later(@member.email, @member,
+                                   member_post_params[:mailchimp_interests].compact_blank)
+      end
 
       @member.tags_names = params[:member][:tags_names]
 
@@ -78,8 +94,10 @@ class Admin::MembersController < ApplicationController
 
     if @member.update(member_post_params.except('mailchimp_interests'))
 
-      MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].compact_blank) unless
-        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
+      unless ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
+        MailchimpJob.perform_later(@member.email, @member,
+                                   member_post_params[:mailchimp_interests].compact_blank)
+      end
 
       impressionist(@member)
       redirect_to(@member)
@@ -119,7 +137,8 @@ class Admin::MembersController < ApplicationController
       flash[:success] = I18n.t('admin.member_account_status.email_sent')
 
     when 'consent'
-      Mailings::Status.consent([@member].pluck(:id, :first_name, :infix, :last_name, :email)).deliver_later
+      Mailings::Status.consent([@member].pluck(:id, :first_name, :infix, :last_name,
+                                               :email)).deliver_later
       flash[:success] = I18n.t('admin.member_account_status.consent_sent')
 
     end
@@ -135,8 +154,14 @@ class Admin::MembersController < ApplicationController
 
     if @member.destroy
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied', balance: view_context.number_to_currency(@member.checkout_balance.balance, unit: '€')) unless @member.checkout_balance.nil?
-      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued') unless @member.mailchimp_interests.nil?
+      unless @member.checkout_balance.nil?
+        flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied',
+                                 balance: view_context.number_to_currency(@member.checkout_balance.balance,
+                                                                          unit: '€'))
+      end
+      unless @member.mailchimp_interests.nil?
+        flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued')
+      end
 
       redirect_to(root_url)
     else
@@ -178,6 +203,7 @@ class Admin::MembersController < ApplicationController
                                    :comments,
                                    tags_names: [],
                                    mailchimp_interests: [],
-                                   educations_attributes: [:id, :study_id, :status, :start_date, :end_date, :_destroy])
+                                   educations_attributes: [:id, :study_id, :status, :start_date,
+                                                           :end_date, :_destroy])
   end
 end

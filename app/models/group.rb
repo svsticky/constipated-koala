@@ -27,9 +27,25 @@ class Group < ApplicationRecord
   def positions
     return ['chairman', 'secretary', 'treasurer', 'internal', 'external', 'education'] if board?
 
-    return (['chairman', 'treasurer', 'board'] + Settings['additional_positions.committee'] + group_members.select(:position).order(:position).uniq.map(&:position)).compact.uniq if committee?
+    if committee?
+      return ([
+        'chairman',
+        'treasurer',
+        'board'
+      ] + Settings['additional_positions.committee'] + group_members.select(
+        :position
+      ).order(:position).uniq.map(&:position)).compact.uniq
+    end
 
-    return (['chairman', 'secretary', 'treasurer'] + Settings['additional_positions.moot'] + group_members.select(:position).order(:position).uniq.map(&:position)).compact.uniq if moot?
+    if moot?
+      return ([
+        'chairman',
+        'secretary',
+        'treasurer'
+      ] + Settings['additional_positions.moot'] + group_members.select(
+        :position
+      ).order(:position).uniq.map(&:position)).compact.uniq
+    end
 
     return ['chairman', 'treasurer']
   end
@@ -72,7 +88,6 @@ class Group < ApplicationRecord
   end
 
   def self.has_members # rubocop:disable Naming/PredicateName
-    # joins(:group_members).select('`groups`.*, COUNT( `groups`.`id` ) as members').group('`groups`.`id`').having('members > 0')
     Group.where(id: GroupMember.all.select(:group_id).distinct)
   end
 end

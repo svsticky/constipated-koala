@@ -22,7 +22,15 @@ class Activity < ApplicationRecord
     # NOTE: required to be an pdf, jpg, png or gif but file can also be empty
     return unless poster.attached?
 
-    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', type: poster.content_type.to_s, allowed: 'application/pdf image/jpeg image/png image/gif')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png', 'image/gif'])
+    if poster.attached? && !poster.content_type.in?([
+                                                      'application/pdf', 'image/jpeg', 'image/png', 'image/gif'
+                                                    ])
+      errors.add(:poster, I18n.t(
+                            'activerecord.errors.unsupported_content_type',
+                            type: poster.content_type.to_s,
+                            allowed: 'application/pdf image/jpeg image/png image/gif'
+                          ))
+    end
   end
 
   validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
@@ -198,12 +206,17 @@ class Activity < ApplicationRecord
 
   # used for the is_enrollable checkmark
   def validate_enrollable
-    return unless open_present? && DateTime.now < when_open # activity does not have open date or is already opened
+    unless open_present? && DateTime.now < when_open
+      # activity does not have open date or is already opened
+      return
+    end
 
     if is_enrollable # we want to open the activity anyway (override)
       self.open_date = nil
       self.open_time = nil
-    else # open? will give the checkmark a value of false, but we want is_enrollable to stay true as long as there is an open date pending
+    else
+      # open? will give the checkmark a value of false, but we want is_enrollable to stay true
+      # as long as there is an open date pending
       self.is_enrollable = true
     end
   end
@@ -275,7 +288,8 @@ class Activity < ApplicationRecord
     # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
     return '' unless open?
 
-    # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
+    # Use attendees.count instead of participants.count because in case of filtered activities
+    # there can be reservists even if activity isn't full.
     if participant_limit
       return I18n.t('members.activities.full') if attendees.count >= participant_limit
 

@@ -31,7 +31,8 @@ class Api::WebhookController < ApiController
   def mailchimp
     head(:unauthorized) && return unless params[:token] == ENV['MAILCHIMP_SECRET']
     head(:precondition_failed) && return unless params[:data][:list_id] == ENV['MAILCHIMP_LIST_ID']
-    head(:method_not_allowed) && return unless ['subscribe', 'unsubscribe', 'profile', 'cleaned'].include?(params[:type])
+    head(:method_not_allowed) && return unless ['subscribe', 'unsubscribe', 'profile',
+                                                'cleaned'].include?(params[:type])
 
     member = Member.find_by!(email: params[:data][:email])
 

@@ -4,7 +4,9 @@ class Admin::ActivitiesController < ApplicationController
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
-    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
+      ["#{ year }-#{ year + 1 }", year]
+    end.reverse
 
     @activity = Activity.new
   end
@@ -27,7 +29,9 @@ class Admin::ActivitiesController < ApplicationController
       redirect_to(@activity)
     else
       @activities = Activity.all.order(start_date: :desc)
-      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
+        ["#{ year }-#{ year + 1 }", year]
+      end.reverse
 
       @detailed = Activity.debtors.sort_by(&:start_date).reverse!
 

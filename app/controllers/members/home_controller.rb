@@ -24,7 +24,9 @@ class Members::HomeController < ApplicationController
     @posts_array = Post.published.pinned + Post.published.unpinned.order(:published_at)
     @pagination, @posts = pagy_array(@posts_array, items: 10)
 
-    @years = (@member.join_date.study_year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    @years = (@member.join_date.study_year..Date.today.study_year).map do |year|
+      ["#{ year }-#{ year + 1 }", year]
+    end.reverse
     @participants =
       @member.activities
              .study_year(params['year'])
@@ -33,7 +35,11 @@ class Members::HomeController < ApplicationController
              .where(participants: { member: @member, reservist: false })
              .order('start_date DESC')
 
-    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
+    @transactions = CheckoutTransaction.where(
+      checkout_balance: CheckoutBalance.find_by(
+        member_id: current_user.credentials_id
+      )
+    ).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @transaction_costs = Settings.mongoose_ideal_costs
   end
 
@@ -57,8 +63,11 @@ class Members::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     if @member.update(member_post_params.except('mailchimp_interests'))
-      MailchimpJob.perform_later(@member.email, @member, (member_post_params[:mailchimp_interests].select { |_, val| val == '1' })) unless
-        ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
+      unless ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
+        MailchimpJob.perform_later(@member.email, @member, (member_post_params[:mailchimp_interests].select do |_, val|
+                                                              val == '1'
+                                                            end))
+      end
 
       impressionist(@member, I18n.t('activerecord.attributes.impression.member.update'))
 
@@ -76,7 +85,9 @@ class Members::HomeController < ApplicationController
 
   def download
     @member = Member.includes(:activities, :groups, :educations).find(current_user.credentials_id)
-    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)).order(created_at: :desc)
+    @transactions = CheckoutTransaction.where(
+      checkout_balance: CheckoutBalance.find_by(member_id: current_user.credentials_id)
+    ).order(created_at: :desc)
 
     send_data(render_to_string(layout: false),
               filename: "#{ @member.name.downcase.tr(' ', '-') }.html",
