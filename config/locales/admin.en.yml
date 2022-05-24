@@ -98,6 +98,7 @@ en:
       date: Date
       day_total: Daily total
       days: Days
+      times: Sent mails
       description: Description
       export: Export transactions
       found: Transactions found
