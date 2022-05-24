@@ -1,25 +1,19 @@
 #:nodoc:
 class Admin::PaymentsController < ApplicationController
   require 'csv'
+  require 'active_support'
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @last_impressions = Activity.debtors.map do |activity|
-      impression = Impression.where(
-        impressionable_type: 'Activity'
-      ).where(
-        impressionable_id: activity.id
-      ).where(
-        message: "mail"
-      ).where(
-        'created_at > ?', activity.start
-      ).last
-
-      days = if impression
-               Integer(Date.today - impression.created_at.to_date)
-             else
-               "-"
-             end
-      [activity, days]
+      if activity.is_payable_updated_at.to_date > Date.today.prev_occurring(:friday)
+        days = '-'
+        times = '0x'
+      else
+        days_passed = (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at.to_date).to_i
+        days =  (Date.today - Date.today.prev_occurring(:friday)).to_i
+        times = "#{ (days_passed / 7).floor + 1 }x"
+      end
+      [activity, days, times]
     end
 
     # Get checkout transactions that were purchased by pin of yesterday
@@ -33,8 +27,7 @@ class Admin::PaymentsController < ApplicationController
 
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
     @late_activities = Activity.debtors.select do |activity|
-      activity.impressionist_count(message: "mail",
-                                   start_date: activity.start) >= 4 && activity.is_payable
+      (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at.to_date).to_i >= 21 && activity.is_payable
     end
     @late_payments =
       @late_activities.map do |activity|

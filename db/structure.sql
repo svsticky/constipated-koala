@@ -162,7 +162,8 @@ CREATE TABLE public.activities (
     open_date date,
     open_time time without time zone,
     is_sophomores boolean,
-    is_seniors boolean
+    is_seniors boolean,
+    is_payable_updated_at timestamp with time zone
 );
 
 
@@ -1733,6 +1734,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210816185700'),
 ('20211012104341'),
 ('20220221195220'),
-('20220406092056');
+('20220406092056'),
+('20220524203723');
 
 

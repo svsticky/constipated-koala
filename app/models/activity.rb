@@ -59,6 +59,12 @@ class Activity < ApplicationRecord
     write_attribute(:name, name.strip)
   end
 
+  def is_payable=(is_payable)
+    old_val = self[:is_payable]
+    write_attribute(:is_payable, is_payable)
+    self[:is_payable_updated_at] = Time.zone.now if !old_val && is_payable
+  end
+
   def escaped_name
     # Strip an activity name from all characters banks do not support
 
@@ -79,7 +85,7 @@ class Activity < ApplicationRecord
   def self.debtors
     # All participants who will receive payment reminders
     joins(:participants).where('
-      activities.start_date <= ?
+      activities.is_payable
       AND
       participants.reservist IS FALSE
       AND
@@ -100,7 +106,7 @@ class Activity < ApplicationRecord
          AND
          participants.price IS NOT NULL
         )
-      )', Date.today).distinct
+      )').distinct
   end
 
   def payment_mail_recipients
