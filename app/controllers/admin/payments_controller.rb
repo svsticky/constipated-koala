@@ -5,11 +5,11 @@ class Admin::PaymentsController < ApplicationController
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @last_impressions = Activity.debtors.map do |activity|
-      if activity.is_payable_updated_at.to_date > Date.today.prev_occurring(:friday)
+      if activity.is_payable_updated_at > Date.today.prev_occurring(:friday)
         days = '-'
         times = '0x'
       else
-        days_passed = (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at.to_date).to_i
+        days_passed = (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i
         days =  (Date.today - Date.today.prev_occurring(:friday)).to_i
         times = "#{ (days_passed / 7).floor + 1 }x"
       end
@@ -27,7 +27,7 @@ class Admin::PaymentsController < ApplicationController
 
     # Get members of which the activities have been mailed 4 times, but haven't paid yet
     @late_activities = Activity.debtors.select do |activity|
-      (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at.to_date).to_i >= 21 && activity.is_payable
+      (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i >= 21 && activity.is_payable
     end
     @late_payments =
       @late_activities.map do |activity|

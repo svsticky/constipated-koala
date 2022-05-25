@@ -163,7 +163,7 @@ CREATE TABLE public.activities (
     open_time time without time zone,
     is_sophomores boolean,
     is_seniors boolean,
-    is_payable_updated_at timestamp with time zone
+    is_payable_updated_at date
 );
 
 

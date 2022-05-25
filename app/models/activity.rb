@@ -85,7 +85,7 @@ class Activity < ApplicationRecord
   end
 
   def is_payable=(is_payable)
-    self[:is_payable_updated_at] = Time.zone.now if !self[:is_payable] && is_payable
+    self[:is_payable_updated_at] = Date.today if !self[:is_payable] && is_payable
     write_attribute(:is_payable, is_payable)
   end
 
