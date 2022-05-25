@@ -40,6 +40,7 @@ class Admin::PaymentsController < ApplicationController
             )
         end.map(&:member)
       end.flatten.uniq
+    @late_unpayable_activities = Activity.late_unpayable
   end
 
   def whatsapp_redirect

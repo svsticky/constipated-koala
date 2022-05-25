@@ -68,6 +68,16 @@
                     %td= link_to activity.name, activity, { :style => 'color:red'}
                     %td{ :style => 'color:red'}= days
                     %td= times
+          
+        .card
+          .card-header
+            %i.fa.fa-fw.fa-clock
+            = I18n.t('admin.payment.late_unpayable_activities')
+            
+          %table.table.table-striped.table-linked
+            %tbody
+            - @late_unpayable_activities.each do |activity|
+              %td= link_to activity.name, activity
 
         .card
           .card-header

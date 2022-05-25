@@ -99,6 +99,7 @@ nl:
       day_total: Dagtotaal
       days: Dagen
       times: Verzonden mails
+      late_unpayable_activities: Verlopen activiteiten (Niet betaalbaar)
       description: Omschrijving
       export: Exporteer transacties
       found: Transacties gevonden
