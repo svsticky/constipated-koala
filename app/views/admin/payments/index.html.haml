@@ -56,10 +56,10 @@
                   = I18n.t('admin.payment.times')
               %tbody
               - @last_impressions.each do |tuple|
-              :ruby
-                activity = tuple[0]
-                days = tuple[1]
-                times = tuple[2]
+                :ruby
+                  activity = tuple[0]
+                  days = (tuple[1] == -1 ? '-' : tuple[1])
+                  times = "#{tuple[2]}x"
                 %tr{ :style => 'height: 36px; line-height: 36px;' }
                   - if days.is_a? Numeric and days < 7
                     %td= link_to activity.name, activity
