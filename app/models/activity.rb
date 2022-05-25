@@ -49,6 +49,31 @@ class Activity < ApplicationRecord
 
   attr_accessor :magic_enrolled_reservists
 
+  scope :late_unpayable, lambda {
+    # All participants who will receive payment reminders
+    where('NOT activities.is_payable AND activities.start_date <= ?', Date.today).joins(:participants)
+                                                                                 .where('participants.reservist IS FALSE
+        AND
+         (
+          (activities.price IS NOT NULL
+           AND
+           participants.paid IS FALSE
+           AND
+           (participants.price IS NULL
+            OR
+            participants.price > 0)
+          )
+          OR
+          (
+           activities.price IS NULL
+           AND
+           participants.paid IS FALSE
+           AND
+           participants.price IS NOT NULL
+          )
+        )').distinct
+  }
+
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
@@ -60,9 +85,8 @@ class Activity < ApplicationRecord
   end
 
   def is_payable=(is_payable)
-    old_val = self[:is_payable]
+    self[:is_payable_updated_at] = Time.zone.now if !self[:is_payable] && is_payable
     write_attribute(:is_payable, is_payable)
-    self[:is_payable_updated_at] = Time.zone.now if !old_val && is_payable
   end
 
   def escaped_name

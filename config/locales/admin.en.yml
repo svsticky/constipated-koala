@@ -110,6 +110,7 @@ en:
       no_update: Could not update
       not_found: No transactions found
       not_paid: Unpaid for activities
+      late_unpayable_activities: Late activities (unpayable)
       overdue: Overdue payments (> 4 mails)
       paid: Paid
       per_page: transactions per page
