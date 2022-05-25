@@ -55,10 +55,11 @@
                 %th
                   = I18n.t('admin.payment.times')
               %tbody
-              - @last_impressions.each do |tupel|
-                - activity = tupel[0]
-                - days = tupel[1]
-                - times = tupel[2]
+              - @last_impressions.each do |tuple|
+              :ruby
+                activity = tuple[0]
+                days = tuple[1]
+                times = tuple[2]
                 %tr{ :style => 'height: 36px; line-height: 36px;' }
                   - if days.is_a? Numeric and days < 7
                     %td= link_to activity.name, activity
@@ -68,12 +69,10 @@
                     %td= link_to activity.name, activity, { :style => 'color:red'}
                     %td{ :style => 'color:red'}= days
                     %td= times
-          
         .card
           .card-header
             %i.fa.fa-fw.fa-clock
             = I18n.t('admin.payment.late_unpayable_activities')
-            
           %table.table.table-striped.table-linked
             %tbody
             - @late_unpayable_activities.each do |activity|
