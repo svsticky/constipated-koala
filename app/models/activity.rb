@@ -84,6 +84,7 @@ class Activity < ApplicationRecord
     write_attribute(:name, name.strip)
   end
 
+  # In case of the activity becoming payable we track the date so we can track how long people have been able to pay. This only updates when the previous value was false and it becomes true
   def is_payable=(is_payable)
     self[:is_payable_updated_at] = Date.today if !self[:is_payable] && is_payable
     write_attribute(:is_payable, is_payable)
