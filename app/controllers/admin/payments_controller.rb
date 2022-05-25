@@ -10,10 +10,10 @@ class Admin::PaymentsController < ApplicationController
         sent_mails = 0
       else
         days_passed = (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i
-        days =  (Date.today - Date.today.prev_occurring(:friday)).to_i
-        sent_mails = (days_passed / 7).floor + 1 
+        days = (Date.today - Date.today.prev_occurring(:friday)).to_i
+        sent_mails = (days_passed / 7).floor + 1
       end
-      [activity, days,sent_mails]
+      [activity, days, sent_mails]
     end
 
     # Get checkout transactions that were purchased by pin of yesterday
@@ -25,7 +25,8 @@ class Admin::PaymentsController < ApplicationController
         date: x.created_at.to_date }
     end.to_json
 
-    # Counts if the activity has debtors and if 4 weeks have passed (last friday is more than 21 days ago since 0 is the first mail)
+    # Counts if the activity has debtors and if 4 weeks have passed (last friday
+    # is more than 21 days ago since 0 counts aswell)
     @late_activities = Activity.debtors.select do |activity|
       (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i >= 21 && activity.is_payable
     end
