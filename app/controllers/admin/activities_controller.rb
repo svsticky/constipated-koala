@@ -40,6 +40,8 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.find params[:id]
     params = activity_post_params
 
+    p params
+
     # removing the images from disk
     if params[:_destroy] == 'true'
       logger.debug 'remove poster from activity'
@@ -94,6 +96,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :is_freshmans,
                                      :participant_limit,
                                      :show_participants,
+                                     :sac_category,
                                      :_destroy)
   end
 end

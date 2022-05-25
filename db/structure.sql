@@ -160,7 +160,8 @@ CREATE TABLE public.activities (
     is_payable boolean DEFAULT false,
     "VAT" character varying DEFAULT '21'::character varying,
     open_date date,
-    open_time time without time zone
+    open_time time without time zone,
+    sac_category integer
 );
 
 
@@ -725,7 +726,8 @@ CREATE TABLE public.participants (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     reservist boolean DEFAULT false,
-    notes character varying(30)
+    notes character varying(30),
+    sac_points integer
 );
 
 
@@ -1668,6 +1670,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210801152004'),
 ('20210808184948'),
 ('20211012104341'),
-('20220221195220');
+('20220221195220'),
+('20220429070907');
 
 

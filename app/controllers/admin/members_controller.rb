@@ -39,6 +39,21 @@ class Admin::MembersController < ApplicationController
       .order(created_at: :desc), items: 10)
   end
 
+  def sac
+    data = "name;category;points;date;activity\n"
+    rows = Member.all.map { |m| m.activities.map { |ac|
+          # {name => string, points => {date => string, activity => string, category => string, points => int}}
+          category = SAC_CATEGORIES.find { |c| c[:id] == ac.sac_category }
+          if ac.participants.where(:member => m).first.sac_points? then { activity: ac.name, date: ac.start_date, name: category[:name], points: ac.participants.where(:member => m).first.sac_points }
+          elsif ac.sac_category? then { activity: ac.name, date: ac.start_date, name: category[:name], points: category[:points] }
+          else 0 end }
+        .select { |points| points != 0 }
+        .map { |r| m.name + ";" + r[:name] + ";" + r[:points].to_s + ";" + r[:date].to_s + ";" + r[:activity] }
+      }.select{ |r| r.length > 0 }.map { |r| r.join "\n" }
+    rows.each { |row| data += row.to_s + "\n" }
+    send_data data, { :filename => "data.csv" }
+  end
+
   def new
     @member = Member.new
 

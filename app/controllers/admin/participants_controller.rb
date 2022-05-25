@@ -29,6 +29,9 @@ class Admin::ParticipantsController < ApplicationController
 
       message = 'price'
       @participant.update(price: params[:price])
+    elsif params[:sac_points].present?
+      raise 'negative sac points' unless params[:sac_points].to_i >= 0
+      @participant.update(sac_points: params[:sac_points])
     end
 
     if @participant.save

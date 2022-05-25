@@ -37,6 +37,9 @@
                   = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                   = I18n.t('activerecord.attributes.activity.price')
+                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                  Sac points
+                  -# TODO
                 - if !@is_summarized.nil?
                   %td
                     = I18n.t('activerecord.attributes.activity.notes')
@@ -60,6 +63,8 @@
 
                     %td.price-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                       %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
+                    %td.sac-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                      %input.sac{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
                     %td.notes-td
                     %td.buttons
                       .btn-group

@@ -253,6 +253,30 @@
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash
 
+        .card
+          .card-header
+            = I18n.t('admin.sac.title')
+          %table.table.table-striped#sac
+            %thead
+              %tr
+                %th= I18n.t('admin.activities.single')
+                %th= I18n.t('admin.sac.category')
+                %th= I18n.t('admin.sac.title')
+            %tbody
+              - total = 0
+              - @activities.select{ |ac| ac.sac_category? or ac.participants.where(:member => @member).first.sac_points?}.each do |activity|
+                %tr
+                  - category = SAC_CATEGORIES.find {|c| c[:id] == activity.sac_category }
+                  %td= activity.name
+                  %td= category[:name] if activity.sac_category?
+                  - user_points = activity.participants.where(:member => @member).first.sac_points
+                  - points = [user_points, (activity.sac_category? and category[:points]), 0].find{ |n| n.present? }
+                  - total += points if points.present?
+                  %td= points
+              %tr
+                %td= I18n.t('admin.sac.total')
+                %td
+                %td= total
 
         .card
           .card-header

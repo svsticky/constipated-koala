@@ -1,6 +1,10 @@
 ---
 nl:
   admin:
+    sac:
+      title: Sac punten
+      category: Categorie
+      total: Totaal
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
       ended: Afgelopen

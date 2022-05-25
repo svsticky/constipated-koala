@@ -28,7 +28,8 @@ function bind_activities() {
 
   // Admin updates participant's price
   // [PATCH] participants
-  $("#participants").find("input.price").on("change", participant.updatePrice);
+  $("#participants").find("input.price").on("change", participant.updateValue("price"));
+  $("#participants").find("input.sac").on("change", participant.updateValue("sac_points"));
 }
 
 /*
@@ -275,21 +276,22 @@ var participant = {
   },
 
   //Admin updates participant's price
-  updatePrice: function () {
+  updateValue: (field) => function () {
     var row = $(this).closest("tr");
     var token = encodeURIComponent(
       $(this).closest(".page").attr("data-authenticity-token")
     );
-    var price = $(this).val().replace(",", ".");
+    var value = $(this).val().replace(",", ".");
 
     // If left blank assume 0
-    if (!price) {
-      price = 0;
+    if (!value) {
+      value = 0;
       $(this).val(0);
     }
 
     // Make it a bit more pretty
-    if (!isNaN(price)) $(this).val(parseFloat(price).toFixed(2));
+    if (field === "price" && !isNaN(value))
+      $(this).val(parseFloat(value).toFixed(2));
 
     $.ajax({
       url:
@@ -300,7 +302,7 @@ var participant = {
       type: "PATCH",
       data: {
         authenticity_token: token,
-        price: price,
+        [field]: value,
       },
     })
       .done(function (data) {
@@ -313,7 +315,7 @@ var participant = {
         $(row).find("button.paid").removeClass("d-none");
         $(row).removeClass("in-debt");
 
-        if (price > 0) {
+        if (value > 0) {
           $(row).addClass("in-debt");
 
           $("#mail").trigger("recipient_unpayed", [

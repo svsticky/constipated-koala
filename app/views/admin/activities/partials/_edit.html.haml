@@ -169,6 +169,9 @@
           .col-lg-6
             = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, data: {original: @activity.participant_limit}, id: "participant_limit"
+          .col-lg-6
+            = f.label :sac_category
+            = f.select :sac_category, choices: SAC_CATEGORIES.map { |c| [c[:name], c[:id]] }
         %hr.my-4
         .row
           .col-md-4
