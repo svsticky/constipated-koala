@@ -7,13 +7,13 @@ class Admin::PaymentsController < ApplicationController
     @last_impressions = Activity.debtors.map do |activity|
       if activity.is_payable_updated_at > Date.today.prev_occurring(:friday)
         days = -1
-        times = 0
+        sent_mails = 0
       else
         days_passed = (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i
         days =  (Date.today - Date.today.prev_occurring(:friday)).to_i
-        times = (days_passed / 7).floor + 1 
+        sent_mails = (days_passed / 7).floor + 1 
       end
-      [activity, days, times]
+      [activity, days,sent_mails]
     end
 
     # Get checkout transactions that were purchased by pin of yesterday

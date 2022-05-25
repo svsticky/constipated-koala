@@ -59,16 +59,16 @@
                 :ruby
                   activity = tuple[0]
                   days = (tuple[1] == -1 ? '-' : tuple[1])
-                  times = "#{tuple[2]}x"
+                  sent_mails = "#{tuple[2]}x"
                 %tr{ :style => 'height: 36px; line-height: 36px;' }
                   - if days.is_a? Numeric and days < 7
                     %td= link_to activity.name, activity
                     %td= days
-                    %td= times
+                    %td= sent_mails
                   - else
                     %td= link_to activity.name, activity, { :style => 'color:red'}
                     %td{ :style => 'color:red'}= days
-                    %td= times
+                    %td= sent_mails
         .card
           .card-header
             %i.fa.fa-fw.fa-clock
