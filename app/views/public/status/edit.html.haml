@@ -69,6 +69,13 @@
             %label.ui-checkbox
               = check_box_tag 'indefinite'
               %span= I18n.t :indefinite_consent, scope: @scope
+          - Rails.configuration.mailchimp_interests_alumni.each do |name, key|
+            .row
+              .col-md-12
+                %label.ui-checkbox
+                  = check_box_tag "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
+                  %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
+                  .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
 
     %hr
 

@@ -14,10 +14,12 @@ class Public::StatusController < PublicController
     @member = @token.object
 
     flash[:notice] = []
-
     if @member.update(member_post_params)
       impressionist(@member)
 
+      unless ENV['MAILCHIMP_DATACENTER'].blank?
+        MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].nil? ? [] : member_post_params[:mailchimp_interests].compact_blank)
+      end
       if @member.educations.none?(&:active?) && %w[yearly indefinite].exclude?(@member.consent)
         @member.errors.add(:base, I18n.t('activerecord.errors.no_consent'))
         flash[:errors] = @member.errors.messages
@@ -47,11 +49,12 @@ class Public::StatusController < PublicController
     flash[:notice] = []
 
     # update studies one last time if possible
-    @member.update(member_post_params)
+    @member.update(member_post_params.except('mailchimp_interests'))
 
     if @member.destroy
       @token.destroy
-
+      puts '=========================='
+      puts member_post_params[:mailchimp_interests]
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
       unless @member.checkout_balance.nil?
         flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied',
@@ -74,6 +77,6 @@ class Public::StatusController < PublicController
     params[:member][:consent] = 'yearly' if params[:yearly] == '1'
     params[:member][:consent] = 'indefinite' if params[:indefinite] == '1'
 
-    params.require(:member).permit(:consent, educations_attributes: [:id, :study_id, :status])
+    params.require(:member).permit(:consent, educations_attributes: [:id, :study_id, :status], :mailchimp_interests => [])
   end
 end
