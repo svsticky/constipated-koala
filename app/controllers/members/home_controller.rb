@@ -63,6 +63,7 @@ class Members::HomeController < ApplicationController
     @member = Member.find(current_user.credentials_id)
 
     if @member.update(member_post_params.except('mailchimp_interests'))
+      puts (ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?)
       unless ENV['MAILCHIMP_DATACENTER'].blank? || member_post_params[:mailchimp_interests].nil?
         MailchimpJob.perform_later(@member.email, @member, (member_post_params[:mailchimp_interests].select do |_, val|
                                                               val == '1'

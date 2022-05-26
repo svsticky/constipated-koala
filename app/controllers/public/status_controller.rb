@@ -17,7 +17,8 @@ class Public::StatusController < PublicController
     if @member.update(member_post_params)
       impressionist(@member)
 
-      unless ENV['MAILCHIMP_DATACENTER'].blank?
+      # Update mailchimp interests since member became inactive / is inactive.
+      unless ENV['MAILCHIMP_DATACENTER'].blank? && !@member.is_active?
         MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].nil? ? [] : member_post_params[:mailchimp_interests].compact_blank)
       end
       if @member.educations.none?(&:active?) && %w[yearly indefinite].exclude?(@member.consent)
