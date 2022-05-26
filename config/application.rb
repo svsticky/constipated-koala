@@ -57,6 +57,9 @@ module ConstipatedKoala
       teacher: ENV['MAILCHIMP_TEACHER_ID']
     }
 
+    config.mailchimp_interests_alumni = {
+      alumni: ENV['MAILCHIMP_ALUMNI_ID']
+    }
     config.mailchimp_tags = ["gratie", "alumni"]
 
     config.action_dispatch.rescue_responses = {
