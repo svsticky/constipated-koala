@@ -70,18 +70,30 @@ docker-compose up -d
 
 PostgreSQL and Redis will now set itself up in the background, and will be available in
 a minute or so.
-You'll need to run the `docker-compose up` command again if you
-reboot your computer to start the database again.
-
+You'll need to run the `docker-compose up` command again (in a Nix-shell) if you
+reboot your computer to start the database again. If you like, you can run the
+container in the background by adding `-d` to the mentioned command.
 If you're already running a copy of PostgreSQL, you can use this too.
-You'll need to create a user with all privileges for the
-databases `koala-development` and `koala-test`, and set this in the `.env` file.
 
-There is an example file in the root of this repository called
+The previous command starts a process which should keep running while running Koala.
+In addition, the following dependency should also be kept running:
+
+```console
+bundle exec ./bin/webpack-dev-server
+```
+
+This command should also be executed from within a Nux shell.
+Thus, to run Koala correctly, these two processes should be running as well.
+
+
+Moving on, there is an example file in the root of this repository called
 `sample.env`. This file is a template for the actual configuration file
 `.env`, which sets some configuration values for Koala. Copy
 `sample.env` to `.env`, and edit it according to the
 instructions in the file.
+
+You'll need to create a user with all privileges for the
+databases `koala-development` and `koala-test`, and set this in the `.env` file.
 
 Once you're done, you can set up the database with this command (in the Nix shell):
 
