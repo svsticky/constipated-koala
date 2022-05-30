@@ -73,7 +73,6 @@ Rails/MailerName:
     - 'app/mailers/mailings/devise.rb'
     - 'app/mailers/mailings/participants.rb'
     - 'app/mailers/mailings/status.rb'
-    - 'app/mailers/mailings/studystatus.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
