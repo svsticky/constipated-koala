@@ -149,12 +149,10 @@ class Admin::PaymentsController < ApplicationController
       end
     end
 
-    payments.where(transaction_type: :checkout).group(:member_id).sum(:amount).each do |payment|
+    payments.where(transaction_type: :checkout).each do |payment|
       # Add all mongoose charge ups
-      transaction_costs = (payments.where(transaction_type: :checkout, member_id: payment[0]).count *
-      Settings.mongoose_ideal_costs)
       csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "9",
-              payment[1] - transaction_costs, ""]
+              payment[1] - Settings.mongoose_ideal_costs, ""]
     end
 
     activity_amount = payments.where(transaction_type: :activity).count
