@@ -135,14 +135,11 @@ class Admin::PaymentsController < ApplicationController
         # transaction description, VAT number, amount, cost_location ()
         csv << if Activity.where(id: activity_id).description == "Lidmaatschap"
                  # Dislike this way of doing it but need better ways to find membership activities
-                 if p.activity.group.nil? || Group.first.ledgernr.blank?
-                   ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
-                    p.currency + payment.transaction_fee, ""]
-                 else
-                   ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }",
-                    p.activity.VAT, p.currency + payment.transaction_fee, p.activity.group.cost_location]
-                 end
-               elsif p.activity.group.nil? || Group.first.ledgernr.blank?
+                 # An alternative could be activity_id == Settings['intro.membership'],
+                 # this would make it only pass for last year membership activity
+                 ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
+                  p.currency + payment.transaction_fee, ""]
+               elsif p.activity.group.nil? || p.activity.group.ledgernr.blank?
                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
                   p.currency, ""]
                else
@@ -160,10 +157,16 @@ class Admin::PaymentsController < ApplicationController
               payment[1] - transaction_costs, ""]
     end
 
-    activity_amount = payments.count
-    transaction_cost_description = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
-    transaction_cost_amount = Settings.mongoose_ideal_costs * activity_amount
-    csv << ["", Settings.accountancy_ledger_number, transaction_cost_description, "0",
-            transaction_cost_amount, Settings.accountancy_cost_location]
+    activity_amount = payments.where(transaction_type: :activity).count
+    mongoose_amount = payments.where(transaction_type: :checkout).count
+    trx_cost = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
+    trx_cost_amount = Settings.mongoose_ideal_costs * activity_amount
+    trx_mongoose_cost = "Transaction costs mongoose #{ Settings.mongoose_ideal_costs } x #{ mongoose_amount }"
+    trx_mongoose_amount = Settings.mongoose_ideal_costs * mongoose_amount
+
+    csv << ["", Settings.accountancy_ledger_number, trx_cost, "0",
+            trx_cost_amount, Settings.accountancy_cost_location]
+    csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "0",
+            trx_mongoose_amount, Settings.accountancy_cost_location]
   end
 end
