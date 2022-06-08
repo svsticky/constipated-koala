@@ -256,6 +256,7 @@
         .card
           .card-header
             = I18n.t('admin.sac.title')
+            = link_to I18n.t("admin.sac.download"), member_sac_path(@member.id)
           %table.table.table-striped#sac
             %thead
               %tr
@@ -267,7 +268,7 @@
               - @activities.select{ |ac| ac.sac_category? or ac.participants.where(:member => @member).first.sac_points?}.each do |activity|
                 %tr
                   - category = SAC_CATEGORIES.find {|c| c[:id] == activity.sac_category }
-                  %td= activity.name
+                  %td= link_to activity.name, activity
                   %td= category[:name] if activity.sac_category?
                   - user_points = activity.participants.where(:member => @member).first.sac_points
                   - points = [user_points, (activity.sac_category? and category[:points]), 0].find{ |n| n.present? }

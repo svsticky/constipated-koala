@@ -306,39 +306,43 @@ var participant = {
       },
     })
       .done(function (data) {
-        $(row)
-          .find("button.unpaid")
-          .empty()
-          .addClass("paid btn-warning")
-          .removeClass("d-none unpaid btn-primary")
-          .append('<i class="fa fa-fw fa-times"></i>');
-        $(row).find("button.paid").removeClass("d-none");
-        $(row).removeClass("in-debt");
+        if (field === "price") {
+          $(row)
+            .find("button.unpaid")
+            .empty()
+            .addClass("paid btn-warning")
+            .removeClass("d-none unpaid btn-primary")
+            .append('<i class="fa fa-fw fa-times"></i>');
+          $(row).find("button.paid").removeClass("d-none");
+          $(row).removeClass("in-debt");
 
-        if (value > 0) {
-          $(row).addClass("in-debt");
+          if (value > 0) {
+            $(row).addClass("in-debt");
 
-          $("#mail").trigger("recipient_unpayed", [
-            $(row).attr("data-id"),
-            $(row).find("a").html(),
-            $(row).attr("data-email"),
-          ]);
+            $("#mail").trigger("recipient_unpayed", [
+              $(row).attr("data-id"),
+              $(row).find("a").html(),
+              $(row).attr("data-email"),
+            ]);
+          } else {
+            $(row).find("button.paid").addClass("d-none");
+
+            $("#mail").trigger("recipient_payed", [
+              $(row).attr("data-id"),
+              $(row).find("a").html(),
+              $(row).attr("data-email"),
+            ]);
+          }
+
+          participant.update_debt_header(
+            data.activity.paid_sum,
+            data.activity.price_sum
+          );
+
+          toastr.success(I18n.t("admin.activities.info.price_changed"));
         } else {
-          $(row).find("button.paid").addClass("d-none");
-
-          $("#mail").trigger("recipient_payed", [
-            $(row).attr("data-id"),
-            $(row).find("a").html(),
-            $(row).attr("data-email"),
-          ]);
+          toastr.success(I18n.t("admin.activities.info.sac_changed"));
         }
-
-        participant.update_debt_header(
-          data.activity.paid_sum,
-          data.activity.price_sum
-        );
-
-        toastr.success(I18n.t("admin.activities.info.price_changed"));
       })
       .fail(function () {
         toastr.error(I18n.t("admin.activities.info.price_error"));

@@ -40,18 +40,20 @@ class Admin::MembersController < ApplicationController
   end
 
   def sac
-    data = "name;category;points;date;activity\n"
-    rows = Member.all.map { |m| m.activities.map { |ac|
-          # {name => string, points => {date => string, activity => string, category => string, points => int}}
-          category = SAC_CATEGORIES.find { |c| c[:id] == ac.sac_category }
-          if ac.participants.where(:member => m).first.sac_points? then { activity: ac.name, date: ac.start_date, name: category[:name], points: ac.participants.where(:member => m).first.sac_points }
-          elsif ac.sac_category? then { activity: ac.name, date: ac.start_date, name: category[:name], points: category[:points] }
-          else 0 end }
-        .select { |points| points != 0 }
-        .map { |r| m.name + ";" + r[:name] + ";" + r[:points].to_s + ";" + r[:date].to_s + ";" + r[:activity] }
-      }.select{ |r| r.length > 0 }.map { |r| r.join "\n" }
-    rows.each { |row| data += row.to_s + "\n" }
-    send_data data, { :filename => "data.csv" }
+    data = "name;category;points;date;activity"
+    member = Member.find params[:member_id]
+
+    # Find all activities a members participated in with sac points
+    sac_eligible = member.activities.filter { |ac| (ac.sac_category? and ac.sac_category > 0) or ac.participants.where(member: member).first.sac_points? }
+
+    # Create csv rows for every activity
+    sac_eligible.each do |ac|
+      category = SAC_CATEGORIES.find { |c| c[:id] == ac.sac_category }
+      points = ac.participants.where(member: member).first.sac_points or category[:points]
+      data += "\n#{ member.name };#{ category[:name] };#{ points };#{ ac.start_date };#{ ac.name }"
+    end
+
+    send_data data, { filename: "data.csv" }
   end
 
   def new

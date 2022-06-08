@@ -40,7 +40,7 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.find params[:id]
     params = activity_post_params
 
-    p params
+    Rails.logger.debug params
 
     # removing the images from disk
     if params[:_destroy] == 'true'
