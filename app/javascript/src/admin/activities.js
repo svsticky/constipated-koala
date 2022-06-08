@@ -28,8 +28,12 @@ function bind_activities() {
 
   // Admin updates participant's price
   // [PATCH] participants
-  $("#participants").find("input.price").on("change", participant.updateValue("price"));
-  $("#participants").find("input.sac").on("change", participant.updateValue("sac_points"));
+  $("#participants")
+    .find("input.price")
+    .on("change", participant.updateValue("price"));
+  $("#participants")
+    .find("input.sac")
+    .on("change", participant.updateValue("sac_points"));
 }
 
 /*
@@ -276,78 +280,79 @@ var participant = {
   },
 
   //Admin updates participant's price
-  updateValue: (field) => function () {
-    var row = $(this).closest("tr");
-    var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
-    );
-    var value = $(this).val().replace(",", ".");
+  updateValue: (field) =>
+    function () {
+      var row = $(this).closest("tr");
+      var token = encodeURIComponent(
+        $(this).closest(".page").attr("data-authenticity-token")
+      );
+      var value = $(this).val().replace(",", ".");
 
-    // If left blank assume 0
-    if (!value) {
-      value = 0;
-      $(this).val(0);
-    }
+      // If left blank assume 0
+      if (!value) {
+        value = 0;
+        $(this).val(0);
+      }
 
-    // Make it a bit more pretty
-    if (field === "price" && !isNaN(value))
-      $(this).val(parseFloat(value).toFixed(2));
+      // Make it a bit more pretty
+      if (field === "price" && !isNaN(value))
+        $(this).val(parseFloat(value).toFixed(2));
 
-    $.ajax({
-      url:
-        "/activities/" +
-        row.attr("data-activities-id") +
-        "/participants/" +
-        row.attr("data-id"),
-      type: "PATCH",
-      data: {
-        authenticity_token: token,
-        [field]: value,
-      },
-    })
-      .done(function (data) {
-        if (field === "price") {
-          $(row)
-            .find("button.unpaid")
-            .empty()
-            .addClass("paid btn-warning")
-            .removeClass("d-none unpaid btn-primary")
-            .append('<i class="fa fa-fw fa-times"></i>');
-          $(row).find("button.paid").removeClass("d-none");
-          $(row).removeClass("in-debt");
-
-          if (value > 0) {
-            $(row).addClass("in-debt");
-
-            $("#mail").trigger("recipient_unpayed", [
-              $(row).attr("data-id"),
-              $(row).find("a").html(),
-              $(row).attr("data-email"),
-            ]);
-          } else {
-            $(row).find("button.paid").addClass("d-none");
-
-            $("#mail").trigger("recipient_payed", [
-              $(row).attr("data-id"),
-              $(row).find("a").html(),
-              $(row).attr("data-email"),
-            ]);
-          }
-
-          participant.update_debt_header(
-            data.activity.paid_sum,
-            data.activity.price_sum
-          );
-
-          toastr.success(I18n.t("admin.activities.info.price_changed"));
-        } else {
-          toastr.success(I18n.t("admin.activities.info.sac_changed"));
-        }
+      $.ajax({
+        url:
+          "/activities/" +
+          row.attr("data-activities-id") +
+          "/participants/" +
+          row.attr("data-id"),
+        type: "PATCH",
+        data: {
+          authenticity_token: token,
+          [field]: value,
+        },
       })
-      .fail(function () {
-        toastr.error(I18n.t("admin.activities.info.price_error"));
-      });
-  },
+        .done(function (data) {
+          if (field === "price") {
+            $(row)
+              .find("button.unpaid")
+              .empty()
+              .addClass("paid btn-warning")
+              .removeClass("d-none unpaid btn-primary")
+              .append('<i class="fa fa-fw fa-times"></i>');
+            $(row).find("button.paid").removeClass("d-none");
+            $(row).removeClass("in-debt");
+
+            if (value > 0) {
+              $(row).addClass("in-debt");
+
+              $("#mail").trigger("recipient_unpayed", [
+                $(row).attr("data-id"),
+                $(row).find("a").html(),
+                $(row).attr("data-email"),
+              ]);
+            } else {
+              $(row).find("button.paid").addClass("d-none");
+
+              $("#mail").trigger("recipient_payed", [
+                $(row).attr("data-id"),
+                $(row).find("a").html(),
+                $(row).attr("data-email"),
+              ]);
+            }
+
+            participant.update_debt_header(
+              data.activity.paid_sum,
+              data.activity.price_sum
+            );
+
+            toastr.success(I18n.t("admin.activities.info.price_changed"));
+          } else {
+            toastr.success(I18n.t("admin.activities.info.sac_changed"));
+          }
+        })
+        .fail(function () {
+          toastr.error(I18n.t("admin.activities.info.price_error"));
+        });
+    },
 };
 
 /*
