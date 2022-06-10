@@ -164,9 +164,9 @@ class Admin::PaymentsController < ApplicationController
     trx_mongoose_cost = "Transaction costs mongoose #{ Settings.mongoose_ideal_costs } x #{ mongoose_amount }"
     trx_mongoose_amount = (Settings.mongoose_ideal_costs * mongoose_amount).round(2)
 
-    csv << ["", Settings.accountancy_ledger_number, trx_cost, "0",
+    csv << ["", Settings.accountancy_ledger_number, trx_cost, "21",
             trx_cost_amount, Settings.accountancy_cost_location]
-    csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "0",
+    csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
             trx_mongoose_amount, Settings.accountancy_cost_location]
   end
 end
