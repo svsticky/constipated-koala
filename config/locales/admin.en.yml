@@ -1,11 +1,6 @@
 ---
 en:
   admin:
-    sac:
-      title: Sac points
-      category: Category
-      total: Total
-      download: Download report
     activities:
       added_reservist: has been placed on the participants list
       ended: Ended
@@ -130,6 +125,11 @@ en:
         pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Outstanding %{member}_?
         title: Hey! %{user} from Sticky here :)
         total_of: This comes down to a total of *%{amount}*
+    sac:
+      category: Category
+      download: Download report
+      title: Sac points
+      total: Total
     settings:
       action: Action
       address: IP address

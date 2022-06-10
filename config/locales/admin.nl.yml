@@ -1,11 +1,6 @@
 ---
 nl:
   admin:
-    sac:
-      title: Sac punten
-      category: Categorie
-      total: Totaal
-      download: Download rapport
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
       ended: Afgelopen
@@ -130,6 +125,11 @@ nl:
         pay_to: Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand %{member}_?
         title: Hey! %{user} van Sticky hier :)
         total_of: Dit geeft een totaal van *%{amount}*
+    sac:
+      category: Categorie
+      download: Download rapport
+      title: Sac punten
+      total: Totaal
     settings:
       action: Actie
       address: IP-adres
