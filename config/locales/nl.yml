@@ -4,7 +4,7 @@ nl:
     annotations:
       member:
         alv:
-          description: Krijg een paar keer per jaar een uitnodiging en de stukken voor de leden vergaderingen in je mailbox.
+          description: Door je voor deze lijst aan te melden krijg je een paar keer per jaar een uitnodiging voor de ALV samen met de stukken in je mailbox.
           name: Algemene Leden Vergaderingen
         business:
           description: Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails.
@@ -22,6 +22,11 @@ nl:
         teacher:
           description: Door je voor deze lijst aan te melden zal je een paar keer per jaar mailtjes krijgen met allemaal verhalen van docenten. Zo kan je docenten leren kennen op een nieuwe manier.
           name: Docentenmailing
+        alumni:
+          description: Door je voor deze lijst aan te melden zul je sporadisch een mail van Sticky ontvangen over alumni-gerelateerde activiteiten, zoals een uitnodiging voor een alumni barbecue.
+          name: Alumnimailing
+          description_gpdr: Ik geef toestemming om mijn gegevens te bewaren en meld me ook aan voor de alumnimailing, totdat ik anders aangeef. Dit kan ook aangepast worden via Koala.
+          title_gpdr: Wij mogen je gegevens bewaren voor de alumnimailing. 
     attributes:
       activity:
         comments: Opmerkingen (privé)

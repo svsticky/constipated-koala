@@ -4,7 +4,7 @@ en:
     annotations:
       member:
         alv:
-          description: Get a few times per year an invitation for the general assemblies in your mailbox.
+          description: By registering for this list, you will receive an invitation to the General Member Meeting along with the documents in your mailbox a few times a year.
           name: General assembly
         business:
           description: When you sign up for this list you will occasionally receive emails from one of the sponsors of Sticky. This mails concern invitations for their events or career options. This mailing is sent by Sticky, your emailadres will never be shared with external companies.
@@ -22,6 +22,11 @@ en:
         teacher:
           description: When you sign up for this list you will receive emails a few times a year with stories from teachers. This provides a new way to get to know more about your teachers.
           name: Teacher mailing
+        alumni:
+          description: By subscribing to this list you will occasionally receive an email from Sticky about alumni-related activities, such as an invitation to an alumni barbecue.
+          name: Alumni mailing
+          description_gpdr: I give permission to keep my data and also sign up for the alumni mailing, until I indicate otherwise. This can also be adjusted through Koala.
+          title_gpdr: We may keep your data for the alumni mailing.
     attributes:
       activity:
         comments: Comments (private)
