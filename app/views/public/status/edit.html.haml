@@ -74,8 +74,8 @@
               .col-md-12
                 %label.ui-checkbox
                   = check_box_tag "mailchimp_interests[#{key}]", "", @member.mailchimp_interests[key]
-                  %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
-                  .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
+                  %span= I18n.t("#{name}.title_gpdr", scope: 'activerecord.annotations.member')
+                  .callout.callout-info= I18n.t("#{name}.description_gpdr", scope: 'activerecord.annotations.member')
 
     %hr
 
