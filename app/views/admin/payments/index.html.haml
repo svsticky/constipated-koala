@@ -76,6 +76,7 @@
           %table.table.table-striped.table-linked
             %tbody
             - @late_unpayable_activities.each do |activity|
+              %tr
               %td= link_to activity.name, activity
 
         .card
