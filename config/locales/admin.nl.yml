@@ -98,13 +98,12 @@ nl:
       date: Datum
       day_total: Dagtotaal
       days: Dagen
-      sent_mails: Verzonden mails
-      late_unpayable_activities: Verlopen activiteiten (Niet betaalbaar)
       description: Omschrijving
       export: Exporteer transacties
       found: Transacties gevonden
       from: Van
       ideal: iDeal transacties
+      late_unpayable_activities: Verlopen activiteiten (Niet betaalbaar)
       mails: Betalingsmails
       member: Lid
       no_transactions: Geen transacties
@@ -116,6 +115,7 @@ nl:
       per_page: transacties per pagina
       pinned: Gepinde Checkout transacties
       price: Prijs
+      sent_mails: Verzonden mails
       show: Toon
       state: Status
       till: Tot
