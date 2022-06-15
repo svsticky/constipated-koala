@@ -98,24 +98,24 @@ en:
       date: Date
       day_total: Daily total
       days: Days
-      sent_mails: Sent mails
       description: Description
       export: Export transactions
       found: Transactions found
       from: From
       ideal: iDeal transactions
+      late_unpayable_activities: Late activities (unpayable)
       mails: Paymentmails
       member: Member
       no_transactions: No transactions
       no_update: Could not update
       not_found: No transactions found
       not_paid: Unpaid for activities
-      late_unpayable_activities: Late activities (unpayable)
       overdue: Overdue payments (> 4 mails)
       paid: Paid
       per_page: transactions per page
       pinned: Pinned Checkout transactions
       price: Price
+      sent_mails: Sent mails
       show: Show
       state: State
       till: Till
