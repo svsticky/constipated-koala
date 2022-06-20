@@ -38,7 +38,8 @@ class MailchimpJob < ApplicationJob
 
     # set interests from mailchimp_interests (MMM/ALV/..) if interests not nil
     unless interests.nil?
-      request[:interests] = (Rails.configuration.mailchimp_interests.values + Rails.configuration.mailchimp_interests_alumni.values).map do |i|
+      request[:interests] = (Rails.configuration.mailchimp_interests.values +
+      Rails.configuration.mailchimp_interests_alumni.values).map do |i|
         { i => interests.include?(i) }
       end.reduce(&:merge)
     end

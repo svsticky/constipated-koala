@@ -103,7 +103,7 @@
             = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
           .card-body
             .form-group
-              - if !@member.mailchimp_interests.nil? && @member.is_active?
+              - if !@member.mailchimp_interests.nil? && @member.active?
                 - Rails.configuration.mailchimp_interests.each do |name, key|
                   .row
                     .col-md-12
