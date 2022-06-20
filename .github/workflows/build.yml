@@ -19,6 +19,7 @@ jobs:
       DATABASE_USER: koala
       DATABASE_PASSWORD: password
       DATABASE_PORT: 25838
+      OIDC_SIGNING_KEY: .github/test-signing-key.pem
 
     steps:
     - uses: "actions/checkout@v2.4.0"
