@@ -1,7 +1,8 @@
 Doorkeeper::OpenidConnect.configure do
   issuer ENV['KOALA_DOMAIN']
 
-  signing_key (File.read(ENV['OIDC_SIGNING_KEY'] || '.github/test-signing-key.pem'))
+  # This key should always exists, otherwise OIDC logins are unsecured
+  signing_key File.read(ENV['OIDC_SIGNING_KEY'])
 
   subject_types_supported [:public]
 
