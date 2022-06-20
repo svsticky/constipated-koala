@@ -5,11 +5,11 @@ class Admin::PaymentsController < ApplicationController
   def index
     @detailed = Activity.debtors.sort_by(&:start_date).reverse!
     @last_impressions = Activity.debtors.map do |activity|
-      if activity.is_payable_updated_at > Date.today.prev_occurring(:friday)
+      if activity.payable_updated_at > Date.today.prev_occurring(:friday)
         days = -1
         sent_mails = 0
       else
-        days_passed = (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i
+        days_passed = (Date.today.prev_occurring(:friday) - activity.payable_updated_at).to_i
         days = (Date.today - Date.today.prev_occurring(:friday)).to_i
         sent_mails = (days_passed / 7).floor + 1
       end
@@ -28,7 +28,7 @@ class Admin::PaymentsController < ApplicationController
     # Counts if the activity has debtors and if 4 weeks have passed (last friday
     # is more than 21 days ago since 0 counts aswell)
     @late_activities = Activity.debtors.select do |activity|
-      (Date.today.prev_occurring(:friday) - activity.is_payable_updated_at).to_i >= 21 && activity.is_payable
+      (Date.today.prev_occurring(:friday) - activity.payable_updated_at).to_i >= 21 && activity.is_payable
     end
     @late_payments =
       @late_activities.map do |activity|
