@@ -11,6 +11,7 @@ Doorkeeper::OAuth::TokenResponse.class_eval do
 
     # added some information about the user that is loggedin
     user = User.find_by_id(token.resource_owner_id)
+    # don't use this! User info should be obtained through claims!
     response = response.merge(user.as_json.reject { |k, _v| k == "id" }) unless user.nil?
     response['id_token'] = user.email unless user.nil?
 

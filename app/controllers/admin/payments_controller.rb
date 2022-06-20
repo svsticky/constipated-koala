@@ -128,26 +128,40 @@ class Admin::PaymentsController < ApplicationController
         p = Participant.where(member: payment.member, activity_id: activity_id).first
         # now create every transaction row with the following date: Blank, ledger account,
         # transaction description, VAT number, amount, cost_location ()
-        csv <<  if p.activity.group.nil? || Group.first.ledgernr.blank?
-                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
-                   p.currency, ""]
-                else
-                  ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }",
-                   p.activity.VAT, p.currency, p.activity.group.cost_location]
-                end
+        a = Activity.find_by(id: activity_id)
+        csv << if a && a.name == "Lidmaatschap"
+                 # Dislike this way of doing it but need better ways to find membership activities
+                 # An alternative could be activity_id == Settings['intro.membership'],
+                 # this would make it only pass for last year membership activity
+                 ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
+                  p.currency + payment.transaction_fee, ""]
+               elsif p.activity.group.nil? ||
+                     (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
+                 ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
+                  p.currency, ""]
+               else
+                 ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }",
+                  p.activity.VAT, p.currency, p.activity.group.cost_location]
+               end
       end
     end
 
-    payments.where(transaction_type: :checkout).group(:member_id).sum(:amount).each do |payment|
+    payments.where(transaction_type: :checkout).each do |payment|
       # Add all mongoose charge ups
-      csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment[0] }", "9", payment[1],
-              ""]
+      csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment.member_id }", "9",
+              payment.amount - Settings.mongoose_ideal_costs, ""]
     end
 
     activity_amount = payments.where(transaction_type: :activity).count
-    transaction_cost_description = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
-    transaction_cost_amount = Settings.mongoose_ideal_costs * activity_amount
-    csv << ["", Settings.accountancy_ledger_number, transaction_cost_description, "21",
-            transaction_cost_amount, Settings.accountancy_cost_location]
+    mongoose_amount = payments.where(transaction_type: :checkout).count
+    trx_cost = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
+    trx_cost_amount = (Settings.mongoose_ideal_costs * activity_amount).round(2)
+    trx_mongoose_cost = "Transaction costs mongoose #{ Settings.mongoose_ideal_costs } x #{ mongoose_amount }"
+    trx_mongoose_amount = (Settings.mongoose_ideal_costs * mongoose_amount).round(2)
+
+    csv << ["", Settings.accountancy_ledger_number, trx_cost, "21",
+            trx_cost_amount, Settings.accountancy_cost_location]
+    csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
+            trx_mongoose_amount, Settings.accountancy_cost_location]
   end
 end

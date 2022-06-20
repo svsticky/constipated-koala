@@ -33,7 +33,6 @@ Rails/Date:
   Exclude:
     - 'app/controllers/admin/activities_controller.rb'
     - 'app/controllers/admin/checkout_products_controller.rb'
-    - 'app/controllers/admin/home_controller.rb'
     - 'app/controllers/admin/members_controller.rb'
     - 'app/controllers/admin/payments_controller.rb'
     - 'app/controllers/api/activities_controller.rb'
@@ -74,7 +73,6 @@ Rails/MailerName:
     - 'app/mailers/mailings/devise.rb'
     - 'app/mailers/mailings/participants.rb'
     - 'app/mailers/mailings/status.rb'
-    - 'app/mailers/mailings/studystatus.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

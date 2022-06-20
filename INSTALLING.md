@@ -71,13 +71,22 @@ docker-compose up -d
 PostgreSQL and Redis will now set itself up in the background, and will be available in
 a minute or so.
 You'll need to run the `docker-compose up` command again if you
-reboot your computer to start the database again.
-
+reboot your computer to start the database again. If you like, you can run the
+container in the background by adding `-d` to the mentioned command.
 If you're already running a copy of PostgreSQL, you can use this too.
-You'll need to create a user with all privileges for the
-databases `koala-development` and `koala-test`, and set this in the `.env` file.
 
-There is an example file in the root of this repository called
+The next command starts a process which enabled hot-reloading for the javascript and css.
+If you're not working on the front-end, you can skip this step.
+
+```console
+bundle exec ./bin/webpack-dev-server
+```
+
+This command should also be executed from within a Nix shell.
+Thus, to run Koala correctly, these two processes should be running as well.
+
+
+Moving on, there is an example file in the root of this repository called
 `sample.env`. This file is a template for the actual configuration file
 `.env`, which sets some configuration values for Koala. Copy
 `sample.env` to `.env`, and edit it according to the
@@ -170,3 +179,4 @@ Some database commands that you might need if something breaks:
 See [the migrations guide] for more info on how migrations work.
 
 [the migrations guide]: https://guides.rubyonrails.org/active_record_migrations.html
+

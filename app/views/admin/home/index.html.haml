@@ -50,7 +50,7 @@
                 %i.fa.fa-homepage.fa-euro-sign
               .card-body.box-info
                 %h2.text-center
-                  = number_to_currency(@unpayed, :unit => '')
+                  = number_to_currency(@unpaid, :unit => '')
                 %p.text-muted
                   = I18n.t('admin.front.outstanding_payments')
 
@@ -136,4 +136,4 @@
               - @defaulters.each do |member, amount|
                 %tr
                   %td= link_to member.name, member
-                  %td= number_to_currency( amount, :unit => '€' )
+                  %td= number_to_currency( member.total_outstanding_payments, :unit => '€' )

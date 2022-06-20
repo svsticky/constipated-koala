@@ -119,6 +119,10 @@ class Member < ApplicationRecord
     write_attribute(:email, email.downcase) if user.nil?
   end
 
+  def total_outstanding_payments
+    return unpaid_activities.map { |activity| participant_by_activity(activity).currency }.sum
+  end
+
   # Returns the participant that belongs to this member and the given activity.
   # Do not pass an activity to this method that this member is not a participant of!
   def participant_by_activity(activity)
