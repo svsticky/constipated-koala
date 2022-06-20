@@ -18,7 +18,8 @@ class Public::StatusController < PublicController
       impressionist(@member)
       # Update mailchimp interests since member became alumni / is alumni.
       unless ENV['MAILCHIMP_DATACENTER'].blank? && !@member.is_active?
-        MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].nil? ? [] : member_post_params[:mailchimp_interests].compact_blank)
+        MailchimpJob.perform_later(@member.email, @member,
+                                   member_post_params[:mailchimp_interests].nil? ? [] : member_post_params[:mailchimp_interests].compact_blank)
       end
       if @member.educations.none?(&:active?) && %w[yearly indefinite].exclude?(@member.consent)
         @member.errors.add(:base, I18n.t('activerecord.errors.no_consent'))
@@ -77,6 +78,7 @@ class Public::StatusController < PublicController
     params[:member][:consent] = 'indefinite' if params[:indefinite] == '1'
     params[:member][:mailchimp_interests] = params[:mailchimp_interests].keys if params[:mailchimp_interests]
 
-    params.require(:member).permit(:consent, educations_attributes: [:id, :study_id, :status], :mailchimp_interests => [])
+    params.require(:member).permit(:consent, educations_attributes: [:id, :study_id, :status],
+                                             mailchimp_interests: [])
   end
 end

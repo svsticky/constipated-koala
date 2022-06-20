@@ -126,8 +126,10 @@ class Member < ApplicationRecord
   def is_active?
     return true if educations.any? { |s| ['active'].include?(s.status) }
     return true if tags.any? { |t| ['merit', 'pardon'].include?(t.name) }
+
     false
   end
+
   # Returns the participant that belongs to this member and the given activity.
   # Do not pass an activity to this method that this member is not a participant of!
   def participant_by_activity(activity)
