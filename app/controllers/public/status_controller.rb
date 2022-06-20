@@ -17,9 +17,13 @@ class Public::StatusController < PublicController
     if @member.update(member_post_params.except('mailchimp_interests'))
       impressionist(@member)
       # Update mailchimp interests since member became alumni / is alumni.
-      unless ENV['MAILCHIMP_DATACENTER'].blank? && !@member.is_active?
+      unless ENV['MAILCHIMP_DATACENTER'].blank? && !@member.active?
         MailchimpJob.perform_later(@member.email, @member,
-                                   member_post_params[:mailchimp_interests].nil? ? [] : member_post_params[:mailchimp_interests].compact_blank)
+                                   if member_post_params[:mailchimp_interests].nil?
+                                     []
+                                   else
+                                     member_post_params[:mailchimp_interests].compact_blank
+                                   end)
       end
       if @member.educations.none?(&:active?) && %w[yearly indefinite].exclude?(@member.consent)
         @member.errors.add(:base, I18n.t('activerecord.errors.no_consent'))

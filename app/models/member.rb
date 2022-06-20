@@ -123,7 +123,7 @@ class Member < ApplicationRecord
     return unpaid_activities.map { |activity| participant_by_activity(activity).currency }.sum
   end
 
-  def is_active?
+  def active?
     return true if educations.any? { |s| ['active'].include?(s.status) }
     return true if tags.any? { |t| ['merit', 'pardon'].include?(t.name) }
 
