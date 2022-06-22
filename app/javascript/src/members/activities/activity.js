@@ -436,11 +436,11 @@ var Enrollment_stati = {
     I18n.t("members.activities.actions.unenroll")
   ),
   reservist: new Enrollment_status(
-    "btn-warning",
+    "btn-reservistSignout",
     I18n.t("members.activities.actions.reservist_unenroll")
   ),
   reservistable: new Enrollment_status(
-    "btn-warning",
+    "btn-reservistSignup",
     I18n.t("members.activities.actions.reservist_enroll")
   ),
 };
