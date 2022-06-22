@@ -31,6 +31,7 @@
   --success: #43ac6a;
   --info: #5bc0de;
   --warning: #E99002;
+  --warning-accent: #e96a02;
   --danger: #F04124;
   --light: #eee;
   --dark: #222;
@@ -2751,6 +2752,18 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #E99002;
   border-color: #E99002;
+}
+
+.btn-reservistSignup {
+  color: #fff;
+  background-color: #E99002;
+  border-color: #E99002;
+}
+
+.btn-reservistSignout {
+  color: #fff;
+  background-color: #e96a02;
+  border-color: #e96a02;
 }
 
 .btn-warning:hover {
