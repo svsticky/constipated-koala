@@ -14,10 +14,9 @@ class Public::StatusController < PublicController
     @member = @token.object
 
     flash[:notice] = []
-    if @member.update(member_post_params)
+    if @member.update(member_post_params.except('mailchimp_interests'))
       impressionist(@member)
-
-      # Update mailchimp interests since member became inactive / is inactive.
+      # Update mailchimp interests since member became alumni / is alumni.
       unless ENV['MAILCHIMP_DATACENTER'].blank? && !@member.is_active?
         MailchimpJob.perform_later(@member.email, @member, member_post_params[:mailchimp_interests].nil? ? [] : member_post_params[:mailchimp_interests].compact_blank)
       end
@@ -54,8 +53,6 @@ class Public::StatusController < PublicController
 
     if @member.destroy
       @token.destroy
-      puts '=========================='
-      puts member_post_params[:mailchimp_interests]
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
       unless @member.checkout_balance.nil?
         flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied',
@@ -63,6 +60,7 @@ class Public::StatusController < PublicController
                                                                           unit: '€'))
       end
 
+      flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued')
       redirect_to(users_root_url)
     else
       flash[:errors] = @member.errors.messages
@@ -77,6 +75,7 @@ class Public::StatusController < PublicController
   def member_post_params
     params[:member][:consent] = 'yearly' if params[:yearly] == '1'
     params[:member][:consent] = 'indefinite' if params[:indefinite] == '1'
+    params[:member][:mailchimp_interests] = params[:mailchimp_interests].keys if params[:mailchimp_interests]
 
     params.require(:member).permit(:consent, educations_attributes: [:id, :study_id, :status], :mailchimp_interests => [])
   end
