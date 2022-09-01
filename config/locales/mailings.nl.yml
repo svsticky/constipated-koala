@@ -47,7 +47,9 @@ nl:
     gdpr:
       consent: Persoonsgegevens beheren
       enrolled: Op het moment sta je bij Studievereniging Sticky ingeschreven.
-      gdpr_instructions: Je staat momenteel ingeschreven bij Studievereniging Sticky omdat je een studie doet of hebt gedaan bij de Universiteit Utrecht, of op een andere manier betrokken was met de vereniging. In ons systeem sta je aangegeven als eerste-, derde-, of vijfdejaars (of meer).<br/> <br/>Het kan zo zijn dat je al klaar bent met studeren, wat zou betekenen dat je lidmaatschap is verlopen. In dit geval zouden we graag weten wat we met jouw gegevens mogen doen, dit kan je aangeven via onderstaande link. Daarnaast vinden we het fijn als je gegevens nog kloppen. Je gegevens kan je via dezelfde link aanpassen, indien dat nodig is. <br/><br/>Als laatste willen we vragen of je, als je nu een alumni bent, je wilt aanmelden voor de alumni mailing lijst. Als je gewoon nog aan het studeren bent, hoeft dit natuurlijk niet.
+      gdpr_instructions_1: Je staat momenteel ingeschreven bij Studievereniging Sticky omdat je een studie doet of hebt gedaan bij de Universiteit Utrecht, of op een andere manier betrokken was met de vereniging. In ons systeem sta je aangegeven als eerste-, derde-, of vijfdejaars (of meer).
+      gdpr_instructions_2: Het kan zo zijn dat je al klaar bent met studeren, wat zou betekenen dat je lidmaatschap is verlopen. In dit geval zouden we graag weten wat we met jouw gegevens mogen doen, dit kan je aangeven via onderstaande link. Daarnaast vinden we het fijn als je gegevens nog kloppen. Je gegevens kan je via dezelfde link aanpassen, indien dat nodig is. 
+      gdpr_instructions_3: Als laatste willen we vragen of je, als je nu een alumni bent, je wilt aanmelden voor de alumni mailing lijst. Als je gewoon nog aan het studeren bent, hoeft dit natuurlijk niet.
     greeting: Hoi
     membership: Lidmaatschap Studievereniging Sticky
     participants:
