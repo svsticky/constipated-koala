@@ -5,9 +5,9 @@ nl:
       member:
         alumni:
           description: Door je voor deze lijst aan te melden zul je sporadisch een mail van Sticky ontvangen over alumni-gerelateerde activiteiten, zoals een uitnodiging voor een alumni barbecue.
-          description_gpdr: Ik geef toestemming om mijn gegevens te bewaren en meld me ook aan voor de alumnimailing, totdat ik anders aangeef. Dit kan ook aangepast worden via Koala.
+          description_gdpr: Ik geef toestemming om mijn gegevens te bewaren en meld me ook aan voor de alumnimailing, totdat ik anders aangeef. Dit kan ook aangepast worden via Koala.
           name: Alumnimailing
-          title_gpdr: Wij mogen je gegevens bewaren voor de alumnimailing.
+          title_gdpr: Wij mogen je gegevens bewaren voor de alumnimailing.
         alv:
           description: Door je voor deze lijst aan te melden krijg je een paar keer per jaar een uitnodiging voor de ALV samen met de stukken in je mailbox.
           name: Algemene Leden Vergaderingen

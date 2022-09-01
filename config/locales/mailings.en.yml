@@ -48,8 +48,8 @@ en:
       consent: Manage personal information
       enrolled: You are currently registered with Study Association Sticky.
       gdpr_instructions_1: You are currently registered with Study Association Sticky because you are or have been studying at Utrecht University, or were involved in the association in some other way. In our system you are indicated as a first, third, or fifth year (or more).
-      gpdr_instructions_2: You may have already finished studying, which would mean your membership has expired. In this case, we would like to know what we can do with your data, you can indicate this via the link below. In addition, we prefer it if your data is still correct. You can change your data via the same link, if necessary.
-      gpdr_instructions_3: Finally, if you are currently an alumni, we would like to ask if you would like to join the alumni mailing list. If you are still studying, this is of course not necessary.
+      gdpr_instructions_2: You may have already finished studying, which would mean your membership has expired. In this case, we would like to know what we can do with your data, you can indicate this via the link below. In addition, we prefer it if your data is still correct. You can change your data via the same link, if necessary.
+      gdpr_instructions_3: Finally, if you are currently an alumni, we would like to ask if you would like to join the alumni mailing list. If you are still studying, this is of course not necessary.
     greeting: Hi
     membership: Membership Study association Sticky
     participants:

@@ -70,11 +70,11 @@
               = check_box_tag 'indefinite'
               %span= I18n.t :indefinite_consent, scope: @scope
           - Rails.configuration.mailchimp_interests_alumni.each do |name, key|
-            %dt= I18n.t("#{name}.title_gpdr", scope: 'activerecord.annotations.member')
+            %dt= I18n.t("#{name}.title_gdpr", scope: 'activerecord.annotations.member')
             %dd
               %label.ui-checkbox
                 = check_box_tag "mailchimp_interests[#{key}]", "", @member.mailchimp_interests[key]
-                %span= I18n.t("#{name}.description_gpdr", scope: 'activerecord.annotations.member')
+                %span= I18n.t("#{name}.description_gdpr", scope: 'activerecord.annotations.member')
 
     %hr
 
