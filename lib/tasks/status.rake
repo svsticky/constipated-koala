@@ -18,9 +18,11 @@ namespace :status do
       puts 'No members require an status update'
       next
     end
-
-    Mailings::Status.consent(members.pluck(:id, :first_name, :infix, :last_name,
+    # send consent mail in slices of 950 members
+    members.each_slice(950) do |slice|
+      Mailings::Status.consent(slice.pluck(:id, :first_name, :infix, :last_name,
                                            :email)).deliver_later
+    end
     puts 'done'
   end
 
