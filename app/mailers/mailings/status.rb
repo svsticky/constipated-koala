@@ -21,7 +21,11 @@ module Mailings
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } %recipient.first_name%,
 
-        #{ I18n.t('mailings.gdpr.gdpr_instructions') }
+        #{ I18n.t('mailings.gdpr.gdpr_instructions_1') }
+
+        #{ I18n.t('mailings.gdpr.gdpr_instructions_2') }
+
+        #{ I18n.t('mailings.gdpr.gdpr_instructions_3') }
 
         %recipient.url%
 
