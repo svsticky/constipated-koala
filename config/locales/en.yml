@@ -5,9 +5,9 @@ en:
       member:
         alumni:
           description: By subscribing to this list you will occasionally receive an email from Sticky about alumni-related activities, such as an invitation to an alumni barbecue.
-          description_gpdr: I give permission to keep my data and also sign up for the alumni mailing, until I indicate otherwise. This can also be adjusted through Koala.
+          description_gdpr: I give permission to keep my data and also sign up for the alumni mailing, until I indicate otherwise. This can also be adjusted through Koala.
           name: Alumni mailing
-          title_gpdr: We may keep your data for the alumni mailing.
+          title_gdpr: We may keep your data for the alumni mailing.
         alv:
           description: By registering for this list, you will receive an invitation to the General Member Meeting along with the documents in your mailbox a few times a year.
           name: General assembly
