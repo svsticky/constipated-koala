@@ -85,7 +85,7 @@
                     %span= number_to_currency(@activity.price, :unit => '€')
                 %td{ :style => 'text-align: left;' }
                   - if !@activity.sac_category.nil?
-                    - category = SAC_CATEGORIES.find { |c| c[:id] == @activity.sac_category }
+                    - category = ConstipatedKoala::Application.config.sac_categories.find { |c| c[:id] == @activity.sac_category }
                     %span= (category[:points] if category) or 0
                 %td
                 %td
