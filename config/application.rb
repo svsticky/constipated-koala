@@ -72,7 +72,7 @@ module ConstipatedKoala
     config.active_storage.service = :local
 
     # Generate translations.json
-    config.middleware.use I18n::JS::Middleware
+    config.middleware.use(I18n::JS::Middleware)
 
     config.sac_categories = [
       { id: 0, name: "None", points: 0 },
