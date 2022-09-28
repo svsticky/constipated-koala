@@ -33,13 +33,13 @@ class Admin::MembersController < ApplicationController
     # Pagination for checkout transactions
     @limit = params[:limit] ? params[:limit].to_i : 10
 
-    sac_activities = @member.activities.filter{ |ac| ac.sac_category? or ac.participants.any? { |p| p.sac_points  } }
+    sac_activities = @member.activities.filter { |ac| ac.sac_category? or ac.participants.any?(&:sac_points) }
     @sac_points = sac_activities.map do |ac|
-      points = ac.participants.where(:member => @member).first.sac_points or # if the participant has a custom number of points 
-               config.sac_categories.find { |c| c[:id] == ac.sac_category }  # Find the category in the list
+      points = ac.participants.where(member: @member).first.sac_points or # if the participant has a custom number of points
+        config.sac_categories.find { |c| c[:id] == ac.sac_category } # Find the category in the list
       { points: points, activity: ac }
     end
-    @sac_points_total = @sac_points.reduce(0) {|ac, record| ac + record[:points] }
+    @sac_points_total = @sac_points.reduce(0) { |ac, record| ac + record[:points] }
 
     @pagination, @transactions = pagy(CheckoutTransaction
       .where(checkout_balance: CheckoutBalance
