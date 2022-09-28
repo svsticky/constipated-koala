@@ -128,11 +128,6 @@ nl:
         pay_to: 'Zou je dit bedrag zo snel mogelijk via het betalingsportaal op Koala willen betalen? Deze kun je vinden via de volgende link: https://koala.svsticky.nl/member/payments'
         title: Hey! %{user} van Sticky hier :)
         total_of: Dit geeft een totaal van *%{amount}*
-    sac:
-      category: Categorie
-      download: Download rapport
-      title: Sac punten
-      total: Totaal
     posts:
       author: Auteur
       content: Bericht
@@ -146,6 +141,11 @@ nl:
       status_text: Status
       tags: Labels
       title: Titel
+    sac:
+      category: Categorie
+      download: Download rapport
+      title: Sac punten
+      total: Totaal
     settings:
       action: Actie
       address: IP-adres

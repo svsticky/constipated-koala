@@ -128,11 +128,6 @@ en:
         pay_to: Please pay this as soon as possible via the payment portal (https://koala.svsticky.nl/member/payments)
         title: Hey! %{user} from Sticky here :)
         total_of: This comes down to a total of *%{amount}*
-    sac:
-      category: Category
-      download: Download report
-      title: Sac points
-      total: Total
     posts:
       author: Author
       content: Post content
@@ -146,6 +141,11 @@ en:
       status_text: Status
       tags: Tags
       title: Title
+    sac:
+      category: Category
+      download: Download report
+      title: Sac points
+      total: Total
     settings:
       action: Action
       address: IP address
