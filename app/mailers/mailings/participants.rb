@@ -17,19 +17,17 @@ module Mailings
         }
       end
 
-      view = render_to_string inline: html, layout: 'mailer', locals: { subject: subject }
+      view = render_to_string(inline: html, layout: 'mailer', locals: { subject: subject })
       return mails(variables, sender, subject, view, text || strip_html(html.clone))
     end
 
     def enrolled(participant)
-      return if ENV['MAILGUN_TOKEN'].blank?
-
       member = participant.member
       activity = participant.activity
-      url = activity_url activity.id
+      url = activity_url(activity.id)
 
-      starts_at = I18n.l activity.start_date, format: :day_month
-      starts_at += ", #{ I18n.l activity.start_time, format: :short }" if activity.start_time
+      starts_at = I18n.l(activity.start_date, format: :day_month)
+      starts_at += ", #{ I18n.l(activity.start_time, format: :short) }" if activity.start_time
 
       price = activity.price
       price = if price > 0
@@ -38,7 +36,9 @@ module Mailings
                 I18n.t('mailings.participants.enrolled.free')
               end
 
-      subject = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.participants.enrolled.subject', activity: activity.name) }"
+      subject = "#{ I18n.t('association_name') } | #{ I18n.t(
+        'mailings.participants.enrolled.subject', activity: activity.name
+      ) }"
       html = render_to_string(layout: 'mailer', locals: {
                                 name: member.first_name,
                                 activity: activity,

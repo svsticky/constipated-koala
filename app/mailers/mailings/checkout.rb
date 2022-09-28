@@ -3,8 +3,7 @@ module Mailings
   #:nodoc:
   class Checkout < ApplicationMailer
     def confirmation_instructions(card, confirmation_url)
-      puts confirmation_url if Rails.env.development?
-      return if ENV['MAILGUN_TOKEN'].blank?
+      Rails.logger.debug(confirmation_url) if Rails.env.development?
 
       subject_name = "#{ I18n.t('association_name') } | #{ I18n.t('mailings.checkout.subject') }"
 

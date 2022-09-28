@@ -4,6 +4,8 @@ nl:
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
       ended: Afgelopen
+      filters: Filters
+      financial: Financieel
       has_not_paid: heeft nog niet betaald
       has_paid: heeft betaald
       info:
@@ -86,6 +88,7 @@ nl:
       group: Groepen
       impressions: Logs
       member: Leden
+      messages: Berichten
       payments: Betalingen
       products: Producten
       settings: Instellingen
@@ -101,6 +104,7 @@ nl:
       found: Transacties gevonden
       from: Van
       ideal: iDeal transacties
+      late_unpayable_activities: Verlopen activiteiten (Niet betaalbaar)
       mails: Betalingsmails
       member: Lid
       no_transactions: Geen transacties
@@ -109,11 +113,10 @@ nl:
       not_paid: Niet betaalde activiteiten
       overdue: Achterstallige betalingen (> 4 mails)
       paid: Betaald
-      payconiq_display: Payconiq display totaalbedrag
-      payconiq_online: Payconiq online totaal
       per_page: transacties per pagina
       pinned: Gepinde Checkout transacties
       price: Prijs
+      sent_mails: Verzonden mails
       show: Toon
       state: Status
       till: Tot
@@ -122,7 +125,7 @@ nl:
         copy: Bericht gekopieerd naar klembord
         copy_error: Bericht kon niet worden opgehaald
         open_activities: De volgende activiteiten staan open
-        pay_to: Kan je dit overmaken naar *NL61INGB0002877106* onder vermelding van _Openstaand %{member}_?
+        pay_to: 'Zou je dit bedrag zo snel mogelijk via het betalingsportaal op Koala willen betalen? Deze kun je vinden via de volgende link: https://koala.svsticky.nl/member/payments'
         title: Hey! %{user} van Sticky hier :)
         total_of: Dit geeft een totaal van *%{amount}*
     sac:
@@ -130,6 +133,19 @@ nl:
       download: Download rapport
       title: Sac punten
       total: Totaal
+    posts:
+      author: Auteur
+      content: Bericht
+      create: Bericht aanmaken
+      edit: Bericht bewerken
+      published_at: Gepubliceerd op
+      status:
+        draft: Concept
+        pinned: Gepinned
+        published: Gepubliceerd
+      status_text: Status
+      tags: Labels
+      title: Titel
     settings:
       action: Actie
       address: IP-adres
@@ -151,8 +167,7 @@ nl:
       member: Lid
       payment_type:
         ideal: Ideal
-        payconiq_display: Payconiq display
-        payconiq_online: Payconiq online
+        payconiq_online: PayConiq
         pin: Gepind
         title: Betaalmethode
       state:

@@ -65,12 +65,15 @@ class Member < ApplicationRecord
            through: :participants,
            source: :activity
 
-  scope :payable_unpaid_activities, -> { unpaid_activities.where(activity_isPayable: true) }
-
   has_many :group_members, dependent: :nullify
   has_many :groups, through: :group_members
 
   has_one :user, as: :credentials, dependent: :destroy
+
+  # returns a list of all members that have an outstanding payment
+  scope :debtors, lambda {
+    joins(:unpaid_activities).uniq
+  }
 
   scope :active, lambda {
     where(id: (
@@ -116,8 +119,29 @@ class Member < ApplicationRecord
     write_attribute(:email, email.downcase) if user.nil?
   end
 
+  def total_outstanding_payments
+    return unpaid_activities.map { |activity| participant_by_activity(activity).currency }.sum
+  end
+
+  def active?
+    return true if educations.any? { |s| ['active'].include?(s.status) }
+    return true if tags.any? { |t| ['merit', 'pardon'].include?(t.name) }
+
+    false
+  end
+
+  # Returns the participant that belongs to this member and the given activity.
+  # Do not pass an activity to this method that this member is not a participant of!
+  def participant_by_activity(activity)
+    participants.where(activity_id: activity.id).first
+  end
+
   def language
-    return user.language
+    if user
+      user.language
+    else
+      :nl
+    end
   end
 
   def address=(address)
@@ -147,7 +171,7 @@ class Member < ApplicationRecord
     tags.each do |tag|
       next if tag.empty?
 
-      puts Tag.where(member_id: id, name: Tag.names[tag]).first_or_create!
+      Tag.where(member_id: id, name: Tag.names[tag]).first_or_create!
     end
   end
 
@@ -166,10 +190,14 @@ class Member < ApplicationRecord
       if groups.key?(group_member.group.id)
         groups[group_member.group.id][:years].push(group_member.year)
 
-        groups[group_member.group.id][:positions].push(group_member.position => group_member.year) unless group_member.position.blank? || group_member.group.board?
+        unless group_member.position.blank? || group_member.group.board?
+          groups[group_member.group.id][:positions].push(group_member.position => group_member.year)
+        end
       end
 
-      groups.merge!(group_member.group.id => { id: group_member.group.id, name: group_member.group.name, years: [group_member.year], positions: [group_member.position => group_member.year] }) unless groups.key?(group_member.group.id)
+      unless groups.key?(group_member.group.id)
+        groups.merge!(group_member.group.id => { id: group_member.group.id, name: group_member.group.name, years: [group_member.year], positions: [group_member.position => group_member.year] })
+      end
     end
 
     return groups.values
@@ -185,7 +213,7 @@ class Member < ApplicationRecord
 
   before_update do
     if email_changed? && (User.exists?(email: email.downcase) || User.exists?(unconfirmed_email: email.downcase))
-      errors.add :email, I18n.t('activerecord.errors.models.member.attributes.email.taken')
+      errors.add(:email, I18n.t('activerecord.errors.models.member.attributes.email.taken'))
       raise ActiveRecord::Rollback
     end
 
@@ -218,13 +246,27 @@ class Member < ApplicationRecord
     !adult?
   end
 
-  def masters?
-    !educations.empty? && educations.any? { |education| Study.find(education.study_id).masters }
+  def master?
+    educations.any? do |education|
+      education.status == 'active' && Study.find(education.study_id).masters
+    end
   end
 
   def freshman?
     educations.any? do |education|
       education.status == 'active' && 1.year.ago < education.start_date && !Study.find(education.study_id).masters
+    end
+  end
+
+  def sophomore?
+    !freshman? && educations.any? do |education|
+      education.status == 'active' && 2.years.ago < education.start_date && !Study.find(education.study_id).masters
+    end
+  end
+
+  def senior?
+    educations.any? do |education|
+      education.status == 'active' && 2.years.ago > education.start_date && !Study.find(education.study_id).masters
     end
   end
 
@@ -256,16 +298,16 @@ class Member < ApplicationRecord
     unless study.nil?
       query.gsub!(/(studie|study):([A-Za-z-]+)/, '')
 
-      code = Study.find_by_code(study[2])
+      code = Study.find_by(code: study[2])
 
       # Lookup using full names
       if code.nil?
         study_name = Study.all.map { |s| { I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names').downcase => s.code.downcase } }.find { |hash| hash.keys[0] == study[2].downcase.tr('-', ' ') }
-        code = Study.find_by_code(study_name.values[0]) unless study_name.nil?
+        code = Study.find_by(code: study_name.values[0]) unless study_name.nil?
       end
 
       records = Member.none if code.nil? # TODO: add active to the selector if status is not in the query
-      records = records.where(id: Education.select(:member_id).where('study_id = ?', code.id)) unless code.nil?
+      records = records.where(id: Education.select(:member_id).where(study_id: code.id)) unless code.nil?
     end
 
     tag = query.match(/tag:([A-Za-z-]+)/)
@@ -276,7 +318,7 @@ class Member < ApplicationRecord
       tag_name = Tag.names.map { |name| { I18n.t(name[0], scope: 'activerecord.attributes.tag.names').downcase => name[1] } }.find { |hash| hash.keys[0] == tag[1].downcase.tr('-', ' ') }
 
       records = Member.none if tag_name.nil?
-      records = records.where(id: Tag.select(:member_id).where('name = ?', tag_name.values[0])) unless tag_name.nil?
+      records = records.where(id: Tag.select(:member_id).where(name: tag_name.values[0])) unless tag_name.nil?
     end
 
     year = query.match(/(year|jaargang):(\d+)/)
@@ -336,7 +378,7 @@ class Member < ApplicationRecord
 
     export.compact
 
-    yield [export.to_json, Digest::MD5.hexdigest(export.to_s)] if block_given?
+    yield([export.to_json, Digest::MD5.hexdigest(export.to_s)]) if block_given?
   end
 
   def self.import(import, checksum); end
@@ -353,8 +395,8 @@ class Member < ApplicationRecord
   def before_destroy
     # check if all activities are paid
     unless unpaid_activities.empty?
-      errors.add :participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities')
-      raise ActiveRecord::Rollback
+      errors.add(:participants, I18n.t('activerecord.errors.models.member.attributes.participants.unpaid_activities'))
+      raise(ActiveRecord::Rollback)
     end
 
     # remove reservist
@@ -379,18 +421,22 @@ class Member < ApplicationRecord
       )
     end
   rescue RestClient::BadRequest => e
-    logger.debug JSON.parse(e.response.body)
+    logger.debug(JSON.parse(e.response.body))
   rescue RestClient::NotFound
-    logger.debug "Unable to delete Mailchimp user: user not found"
+    logger.debug("Unable to delete Mailchimp user: user not found")
 
     # create transaction for emptying checkout_balance
-    CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted') if checkout_balance.present? && checkout_balance.balance != 0
+    if checkout_balance.present? && checkout_balance.balance != 0
+      CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted')
+    end
   end
 
   # Perform an elfproef to verify the student_id
   def valid_student_id
     # on the intro website student_id is required
-    errors.add :student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid') if require_student_id && student_id.blank?
+    if require_student_id && student_id.blank?
+      errors.add(:student_id, I18n.t('activerecord.errors.models.member.attributes.student_id.invalid'))
+    end
 
     # do not do the elfproef on a foreign student
     return if student_id =~ /\F\d{6}/

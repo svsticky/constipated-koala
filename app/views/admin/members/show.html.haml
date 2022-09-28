@@ -176,7 +176,7 @@
               %tbody
                 - @transactions.each do |transaction|
                   %tr
-                    %td #{I18n.l transaction.created_at}
+                    %td= I18n.l transaction.created_at
                     %td
                       = number_to_currency(transaction.price, :unit => '€')
                       - if transaction.price > 0
@@ -203,8 +203,8 @@
                   %td= Date.years( group[ :years ].sort )
 
                   %td.d-none.d-sm-table-cell
-                    - group[ :positions ].each do | position |
-                      - position.each do | position, year |
+                    - group[ :positions ].each do |position|
+                      - position.each do |position, year|
                         - unless position.nil?
                           = link_to I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize ), group_path( group[ :id ], year: year ), :class => 'inline'
 

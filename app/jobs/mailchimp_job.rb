@@ -37,9 +37,14 @@ class MailchimpJob < ApplicationJob
     request[:status_if_new] = mailchimp_status unless interests.nil?
 
     # set interests from mailchimp_interests (MMM/ALV/..) if interests not nil
-    request[:interests] = Rails.configuration.mailchimp_interests.values.map { |i| { i => interests.include?(i) } }.reduce(&:merge) unless interests.nil?
+    unless interests.nil?
+      request[:interests] = (Rails.configuration.mailchimp_interests.values +
+      Rails.configuration.mailchimp_interests_alumni.values).map do |i|
+        { i => interests.include?(i) }
+      end.reduce(&:merge)
+    end
 
-    logger.debug request.inspect
+    logger.debug(request.inspect)
 
     RestClient.put(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }",
@@ -61,21 +66,26 @@ class MailchimpJob < ApplicationJob
       return
     end
 
-    Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests], expires_in: 30.days) unless interests.nil?
+    unless interests.nil?
+      Rails.cache.write("members/#{ member.id }/mailchimp/interests", request[:interests],
+                        expires_in: 30.days)
+    end
 
     tags = []
-    tags.push('alumni') unless member.educations.any? { |s| ['active'].include? s.status }
-    tags.push('gratie') if member.tags.any? { |t| ['merit', 'pardon'].include? t.name }
+    tags.push('alumni') unless member.educations.any? { |s| ['active'].include?(s.status) }
+    tags.push('gratie') if member.tags.any? { |t| ['merit', 'pardon'].include?(t.name) }
 
     RestClient.post(
       "https://#{ ENV['MAILCHIMP_DATACENTER'] }.api.mailchimp.com/3.0/lists/#{ ENV['MAILCHIMP_LIST_ID'] }/members/#{ Digest::MD5.hexdigest(key.downcase) }/tags",
-      { tags: Rails.configuration.mailchimp_tags.map { |i| { name: i, status: (tags.include?(i) ? 'active' : 'inactive') } } }.to_json,
+      { tags: Rails.configuration.mailchimp_tags.map do |i|
+                { name: i, status: (tags.include?(i) ? 'active' : 'inactive') }
+              end }.to_json,
       Authorization: "mailchimp #{ ENV['MAILCHIMP_TOKEN'] }",
       'User-Agent': 'constipated-koala'
     )
   rescue RestClient::BadRequest => e
-    logger.debug JSON.parse(e.response.body)
+    logger.debug(JSON.parse(e.response.body))
   rescue RestClient::NotFound
-    logger.debug 'record not found'
+    logger.debug('record not found')
   end
 end

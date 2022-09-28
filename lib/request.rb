@@ -9,7 +9,7 @@ module ConstipatedKoala
   #:nodoc:
   class Request
     def initialize(domain)
-      @uri = URI.parse domain
+      @uri = URI.parse(domain)
 
       @client = Net::HTTP.new(@uri.host, @uri.port)
       @client.set_debug_output($stdout) unless Rails.env.production?
@@ -18,7 +18,7 @@ module ConstipatedKoala
     end
 
     def get(path, query = {})
-      path = "#{ path.chomp('/') }?#{ URI.encode_www_form(query) }" unless query.blank?
+      path = "#{ path.chomp('/') }?#{ URI.encode_www_form(query) }" if query.present?
 
       request = Net::HTTP::Get.new(path.chomp('/'))
       request['Accept'] = 'application/json'
@@ -48,7 +48,7 @@ module ConstipatedKoala
         response = @client.request(request)
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
              Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
-        raise SocketError e.message
+        raise(SocketError(e.message))
       end
 
       case response.code.to_i
@@ -57,8 +57,8 @@ module ConstipatedKoala
       when 204
         {}
       else
-        Rails.logger.debug @client.inspect
-        raise ArgumentError, response.code.to_i
+        Rails.logger.debug(@client.inspect)
+        raise(ArgumentError, response.code.to_i)
       end
     end
   end

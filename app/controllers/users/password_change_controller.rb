@@ -7,7 +7,7 @@ class Users::PasswordChangeController < ApplicationController
   def edit
     @user = current_user
 
-    render 'user/password/edit'
+    render('user/password/edit')
   end
 
   def update
@@ -17,10 +17,10 @@ class Users::PasswordChangeController < ApplicationController
     # necessary
 
     if @user.update_with_password(user_params) && !params[:user][:password].empty?
-      bypass_sign_in @user, scope: :user
-      redirect_to root_path
+      bypass_sign_in(@user, scope: :user)
+      redirect_to(root_path)
     else
-      render 'user/password/edit'
+      render('user/password/edit')
     end
   end
 

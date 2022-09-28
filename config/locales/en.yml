@@ -3,8 +3,13 @@ en:
   activerecord:
     annotations:
       member:
+        alumni:
+          description: By subscribing to this list you will occasionally receive an email from Sticky about alumni-related activities, such as an invitation to an alumni barbecue.
+          description_gdpr: I give permission to keep my data and also sign up for the alumni mailing, until I indicate otherwise. This can also be adjusted through Koala.
+          name: Alumni mailing
+          title_gdpr: We may keep your data for the alumni mailing.
         alv:
-          description: Get a few times per year an invitation for the general assemblies in your mailbox.
+          description: By registering for this list, you will receive an invitation to the General Member Meeting along with the documents in your mailbox a few times a year.
           name: General assembly
         business:
           description: When you sign up for this list you will occasionally receive emails from one of the sponsors of Sticky. This mails concern invitations for their events or career options. This mailing is sent by Sticky, your emailadres will never be shared with external companies.
@@ -35,6 +40,8 @@ en:
         is_freshmans: First year students
         is_masters: Masters
         is_payable: Payable
+        is_seniors: Third year students or higher
+        is_sophomores: Second year students
         is_viewable: Viewable
         location: Location
         member_is_spare: Is spare
@@ -152,8 +159,6 @@ en:
           title: Payment status
         payment-type:
           ideal: Ideal
-          payconiq_display: Payconiq Checkout
-          payconiq_online: Payconiq Online
           pin: Pin
           title: Payment Types
         transaction-type:
@@ -194,12 +199,6 @@ en:
         mongoose_ledger_number:
           description: The ledger number of mongoose funds upgrades.  This number can be found in our finance account on ExactOnline.
           name: Mongoose ledger number
-        payconiq_relation_code:
-          description: The relation code of payconiq for the export transaction feature.  This code can be found in ExactOnline and is only relevant for the treasurer.
-          name: Payconiq Relation Code
-        payconiq_transaction_costs:
-          description: The costs of an Payconiq transaction. They can be calculated separately in the Payconiq overview this way.
-          name: Payconiq transaction costs
         payment_condition_code:
           description: The payment code for the export transaction feature. This code is used in ExactOnline.
           name: Payment Condition Code
@@ -219,7 +218,7 @@ en:
           atec: MSc Technical Artificial Intelligence
           ckem: MSc Content & Knowledge Engineering
           cosc: MSc Computing Science
-          gmte: BSc Game and Media Technology
+          gmte: MSc Game and Media Technology
           gt: BSc Gametechnology
           hci: MSc Human Computer Interaction
           inca: BSc Computer Science
@@ -264,16 +263,19 @@ en:
           blank_and_end_time: can't be blank if the end time is set
           blank_and_start_time: can't be blank if the start time is set
           enrolled: You are enrolled for %{activity}
+          freshmen: freshmen
+          masters: masters
           not_enrollable: Activity not enrollable
           not_unenrollable: Activity not un-enrollable
           participant_limit_reached: "%{activity} is full!"
-          participant_no_freshman: You are not a freshman student. This is a freshmen-only activity.
-          participant_no_masters: You are not a masters student. This is a masters-only activity.
           participant_no_student: You are not enrolled in a study. This activity is for students only
+          participant_no_target: You are not part of the target audience of this activity. This activity is open to %{groups} only.
           participant_notes_not_filled: This activity requires extra information, please fill this in before enrolling
           participant_notes_updated: Information updated
           participant_suspended: You have been suspended. Contact the board of Sticky
           participant_underage: This activity is for adults only ;) ;) ;)
+          seniors: seniors
+          sophomores: sophomores
           unenroll_date_passed: The un-enrollment deadline has passed.
           unenrolled: You have been un-enrolled for %{activity}.
         checkout_product:
@@ -510,6 +512,10 @@ en:
         warning: You are about to delete all your personal data at Study Association Sticky, are you sure?
         yearly: Not quite sure what you want, we can ask you the question again in a year.
         yearly_consent: I give my permission to keep my data for another year.
+  support:
+    array:
+      last_word_connector: " and "
+      two_words_connector: " and "
   time:
     formats:
       default: "%d-%m-%Y %H:%M"

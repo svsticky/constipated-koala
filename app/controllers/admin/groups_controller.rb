@@ -10,30 +10,30 @@ class Admin::GroupsController < ApplicationController
 
   def show
     @groups = Group.all.order(:category, :name)
-    @group = Group.find_by_id params[:id]
+    @group = Group.find_by(id: params[:id])
   end
 
   def create
-    @group = Group.new group_params
+    @group = Group.new(group_params)
 
     if @group.save
-      impressionist @group
-      redirect_to @group
+      impressionist(@group)
+      redirect_to(@group)
     else
       @groups = Group.all.order(:category, :name)
-      render 'show'
+      render('show')
     end
   end
 
   def update
-    @group = Group.find_by_id params[:id]
+    @group = Group.find_by(id: params[:id])
 
     if @group.update(group_params)
-      impressionist @group
-      redirect_to @group
+      impressionist(@group)
+      redirect_to(@group)
     else
       @groups = Group.all.order(:category, :name)
-      render 'show'
+      render('show')
     end
   end
 
@@ -41,10 +41,10 @@ class Admin::GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     if @group.category == "board"
-      redirect_to group_path
+      redirect_to(group_path)
     else
       @group.destroy
-      redirect_to groups_path
+      redirect_to(groups_path)
     end
   end
 

@@ -14,9 +14,9 @@
         .card
           .card-header
             %i.fa.fa-fw.fa-user
-            -if @activity.participant_limit.nil?
+            - if @activity.participant_limit.nil?
               - fullness = @activity.attendees.count + @reservists.count
-            -else
+            - else
               - fullness = "#{@activity.attendees.count}/#{@activity.participant_limit}"
             %span#attendeecount
               = fullness
@@ -106,8 +106,8 @@
                   %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                     = I18n.t('activerecord.attributes.activity.price')
                   %td{ :style => 'min-width: 50%; width: 50%;' }
-                    -if @activity.notes
-                      =@activity.notes
+                    - if @activity.notes
+                      = @activity.notes
                   %td.buttons
 
               %tbody
@@ -117,9 +117,9 @@
                     %td{ :style => 'padding: 0px; min-width: 10%; width: 10%;' }
                       %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => '')}
                     %td.notes-td{ :style => 'min-width: 50%; width: 50%;' }
-                      -if participant.notes
+                      - if participant.notes
                         %p= participant.notes
-                      -else
+                      - else
                         %p
 
                     %td.buttons

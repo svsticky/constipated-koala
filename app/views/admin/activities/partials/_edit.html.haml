@@ -14,7 +14,7 @@
       .row
         .col-sm
           %i.fa.fa-fw.fa-ticket-alt
-          =activity_textfield
+          = activity_textfield
 
         .col-sm.text-sm-right
           %span
@@ -59,7 +59,7 @@
               %input#output.form-control{ :readonly => '', :value => ("#{@activity.poster.filename}" if @activity.poster.attached?) }
 
               .input-group-append
-                %div.btn.btn-primary.file-input-wrapper
+                .btn.btn-primary.file-input-wrapper
                   %span
                     = I18n.t('files.upload')
                   = f.file_field :poster, { 'data-ui-file-upload' => '' }
@@ -147,21 +147,11 @@
           .col-md-4
             = f.check_box :show_on_website, checked: @activity.show_on_website, disabled: !@activity.is_viewable, data: {original: @activity.show_on_website}
             = f.label :show_on_website
-          .col-md-4
-            = f.check_box :is_freshmans, checked: @activity.is_freshmans
-            = f.label :is_freshmans
 
         .row
           .col-md-4
             = f.check_box :is_enrollable, checked: @activity.open?, disabled: !@activity.is_viewable, data: {original: @activity.open?}
             = f.label :is_enrollable
-          .col-md-4
-            = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
-            = f.label :is_alcoholic
-          .col-md-4
-            = f.check_box :is_masters, checked: @activity.is_masters
-            = f.label :is_masters
-        .row
           .col-lg-6
             = f.check_box :show_participants, checked: @activity.show_participants
             = f.label :show_participants
@@ -173,6 +163,38 @@
             = f.label :sac_category
             = f.select :sac_category, choices: [["None", 0]] + ConstipatedKoala::Application.config.sac_categories.map { |c| [c[:name], c[:id]] }
         %hr.my-4
+        .row
+          .col
+            %hr
+          .col-auto
+            = I18n.t('admin.activities.filters')
+          .col
+            %hr
+        .row
+          .col-md-6
+            = f.check_box :is_freshmans, checked: @activity.is_freshmans
+            = f.label :is_freshmans
+          .col-md-6
+            = f.check_box :is_sophomores, checked: @activity.is_sophomores
+            = f.label :is_sophomores
+        .row
+          .col-md-6
+            = f.check_box :is_seniors, checked: @activity.is_seniors
+            = f.label :is_seniors
+          .col-md-6
+            = f.check_box :is_masters, checked: @activity.is_masters
+            = f.label :is_masters
+        .row
+          .col-md-4
+            = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
+            = f.label :is_alcoholic
+        .row
+          .col
+            %hr
+          .col-auto
+            = I18n.t('admin.activities.financial')
+          .col
+            %hr
         .row
           .col-md-4
             = f.check_box :is_payable, checked: @activity.is_payable

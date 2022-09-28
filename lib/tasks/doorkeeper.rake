@@ -21,7 +21,7 @@ namespace :doorkeeper do
 
   desc 'Delete an application using the application id.'
   task :delete, [:application] => :environment do |_, args|
-    app = Doorkeeper::Application.find_by_uid! args[:application]
+    app = Doorkeeper::Application.find_by!(uid: args[:application])
     app.destroy
   end
 end

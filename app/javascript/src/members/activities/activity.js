@@ -130,6 +130,13 @@ export class Activity {
   is_last() {
     return typeof this.next_activity === "undefined";
   }
+
+  /**
+   * Returns whether the current participant is a reservist.
+   */
+  is_reservist() {
+    return this._enrollment_status == Enrollment_stati.reservist;
+  }
 }
 
 Activity.full_string = I18n.t("members.activities.full");
@@ -429,11 +436,11 @@ var Enrollment_stati = {
     I18n.t("members.activities.actions.unenroll")
   ),
   reservist: new Enrollment_status(
-    "btn-warning",
+    "btn-reservistSignout",
     I18n.t("members.activities.actions.reservist_unenroll")
   ),
   reservistable: new Enrollment_status(
-    "btn-warning",
+    "btn-reservistSignup",
     I18n.t("members.activities.actions.reservist_enroll")
   ),
 };

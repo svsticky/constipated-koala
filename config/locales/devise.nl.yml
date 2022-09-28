@@ -68,7 +68,6 @@ nl:
       updated: Je account is succesvol gewijzigd
     sessions:
       new:
-        remember_me: Onthoud mij
         sign_in: Log in
         sign_out: Log uit
     unlocks:

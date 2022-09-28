@@ -46,6 +46,8 @@ dates.each do |start_date|
     is_viewable:       viewable,
     is_alcoholic:      Faker::Boolean.boolean(true_ratio: 0.2),
     is_freshmans:      Faker::Boolean.boolean(true_ratio: 0.2),
+    is_sophomores:   Faker::Boolean.boolean(true_ratio: 0.2),
+    is_seniors:        Faker::Boolean.boolean(true_ratio: 0.2),
     is_payable:        Faker::Boolean.boolean(true_ratio: 0.8),
 
     participant_limit: enrollable && Faker::Boolean.boolean(true_ratio: 0.5) ? Faker::Number.within(range: 2..18) : nil,
@@ -69,7 +71,7 @@ dates.each do |start_date|
 
   # select freshmans or masters
   eligible = eligible.select(&:freshman?) if activity.is_freshmans
-  eligible = eligible.select(&:masters?) if activity.is_masters
+  eligible = eligible.select(&:master?) if activity.is_masters
 
   response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(true_ratio: 0.3)) ? Faker::Measurement.height : nil
 

@@ -28,7 +28,7 @@
 
   %hr
 
-  = form_for :member, :url => status_path(:token => @token.token), :class => 'form-validation', :remote => true, :authenticity_token => true do |f|
+  = form_for :member, :url => status_path(:token => @token.token), :class => 'form-validation', :authenticity_token => true do |f|
     .row
       .col-12.studies
         - @member.educations.each do |education|
@@ -69,6 +69,12 @@
             %label.ui-checkbox
               = check_box_tag 'indefinite'
               %span= I18n.t :indefinite_consent, scope: @scope
+          - Rails.configuration.mailchimp_interests_alumni.each do |name, key|
+            %dt= I18n.t("#{name}.title_gdpr", scope: 'activerecord.annotations.member')
+            %dd
+              %label.ui-checkbox
+                = check_box_tag "mailchimp_interests[#{key}]", "", (!@member.mailchimp_interests.nil? ? @member.mailchimp_interests[key] : false)
+                %span= I18n.t("#{name}.description_gdpr", scope: 'activerecord.annotations.member')
 
     %hr
 

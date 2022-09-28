@@ -3,8 +3,13 @@ nl:
   activerecord:
     annotations:
       member:
+        alumni:
+          description: Door je voor deze lijst aan te melden zul je sporadisch een mail van Sticky ontvangen over alumni-gerelateerde activiteiten, zoals een uitnodiging voor een alumni barbecue.
+          description_gdpr: Ik geef toestemming om mijn gegevens te bewaren en meld me ook aan voor de alumnimailing, totdat ik anders aangeef. Dit kan ook aangepast worden via Koala.
+          name: Alumnimailing
+          title_gdpr: Wij mogen je gegevens bewaren voor de alumnimailing.
         alv:
-          description: Krijg een paar keer per jaar een uitnodiging en de stukken voor de leden vergaderingen in je mailbox.
+          description: Door je voor deze lijst aan te melden krijg je een paar keer per jaar een uitnodiging voor de ALV samen met de stukken in je mailbox.
           name: Algemene Leden Vergaderingen
         business:
           description: Door je voor deze lijst aan te melden zul je zo nu en dan een mail van één van de sponsoren van Sticky ontvangen. Deze mails zijn vaak uitnodigingen voor hun events, of brengen je op de hoogte van de mogelijkheden die zij studenten bieden zoals (bij)banen, stages, en scriptiebegeleiding. Deze mailing wordt door Sticky zelf aan haar leden verstuurd, bedrijven krijgen dus nooit jouw e-mailadres van ons voor deze mails.
@@ -35,6 +40,8 @@ nl:
         is_freshmans: Eerstejaars
         is_masters: Masters
         is_payable: Betaalbaar
+        is_seniors: Derdejaars of hoger
+        is_sophomores: Tweedejaars
         is_viewable: Toon in Koala
         location: Locatie
         member_is_spare: Is reserve
@@ -152,8 +159,6 @@ nl:
           title: Betaling status
         payment-type:
           ideal: Ideal
-          payconiq_display: Payconiq Checkout
-          payconiq_online: Payconiq Online
           pin: Pin
           title: Betaling type
         transaction-type:
@@ -194,12 +199,6 @@ nl:
         mongoose_ledger_number:
           description: Het mongoose opwaarderingen grootboeknummer. Dit is nodig voor de export transacties functie en alleen relevant voor de penningmeester.
           name: Mongoose grootboekrekeningnummer
-        payconiq_relation_code:
-          description: De relatie code van Payconiq. Dit is nodig voor de export transacties functie en alleen relevant voor de penningmeester.
-          name: Payconiq relatienummer
-        payconiq_transaction_costs:
-          description: De kosten van een Payconiq-transactie, zodat deze apart kunnen worden berekend in het Payconiq-overzicht.
-          name: Payconiq transactie kosten
         payment_condition_code:
           description: De betalingsconditie. Dit is nodig voor de export transacties functie en alleen relevant voor de penningmeester.
           name: Betalingsconditie
@@ -264,16 +263,19 @@ nl:
           blank_and_end_time: kan niet leeg zijn als er een eindtijd is
           blank_and_start_time: kan niet leeg zijn als er een starttijd is
           enrolled: Je bent ingeschreven voor %{activity}.
+          freshmen: eerstejaars
+          masters: masterstudenten
           not_enrollable: Activiteit is niet inschrijfbaar.
           not_unenrollable: Activiteit niet uitschrijfbaar.
           participant_limit_reached: "%{activity} zit vol!"
-          participant_no_freshman: Je bent geen eerstejaars student. Dit is een eerstejaarsactiviteit.
-          participant_no_masters: Je bent geen masters student. Deze activiteit is een masters-activiteit.
           participant_no_student: Je bent niet ingeschreven bij een studie. Deze activiteit is alleen voor studenten.
+          participant_no_target: Je bent geen onderdeel van de doelgroep van deze activiteit. Deze activiteit is alleen open voor %{groups}.
           participant_notes_not_filled: Deze activiteit vereist extra informatie, vul dit in voordat je je inschrijft.
           participant_notes_updated: Informatie bijgewerkt.
           participant_suspended: Je bent geschorst. Neem contact op met het bestuur van Sticky.
           participant_underage: Deze activiteit is alleen voor grote mensen ;) ;) ;)
+          seniors: ouderejaars
+          sophomores: tweedejaars
           unenroll_date_passed: De uitschrijfdeadline is verstreken.
           unenrolled: Je bent uitgeschreven voor %{activity}.
         checkout_product:
@@ -510,6 +512,10 @@ nl:
         warning: Je staat op het punt al je persoonsgegevens te verwijderen bij Studievereniging Sticky, weet je het zeker?
         yearly: Als je niet zeker weet wat je moet doen, kunnen wij het altijd nog volgend jaar weer vragen,
         yearly_consent: Ik geef mijn toestemming om mijn data te bewaren voor nog een jaar.
+  support:
+    array:
+      last_word_connector: " en "
+      two_words_connector: " en "
   time:
     formats:
       default: "%d-%m-%Y %H:%M"

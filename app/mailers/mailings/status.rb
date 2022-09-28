@@ -10,16 +10,22 @@ module Mailings
           first_name: first_name,
           name: (infix.blank? ? "#{ first_name } #{ last_name }" : "#{ first_name } #{ infix } #{ last_name }"),
           email: email,
-          url: Rails.application.routes.url_helpers.status_url(token: Token.create(object_type: 'Member', object_id: id, intent: 'consent').token)
+          url: Rails.application.routes.url_helpers.status_url(token: Token.create(
+            object_type: 'Member', object_id: id, intent: 'consent'
+          ).token)
         }
       end
 
-      html = render_to_string layout: 'mailer', locals: { subject: I18n.t('mailings.membership') }
+      html = render_to_string(layout: 'mailer', locals: { subject: I18n.t('mailings.membership') })
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } %recipient.first_name%,
 
-        #{ I18n.t('mailings.gdpr.gdpr_instructions') }
+        #{ I18n.t('mailings.gdpr.gdpr_instructions_1') }
+
+        #{ I18n.t('mailings.gdpr.gdpr_instructions_2') }
+
+        #{ I18n.t('mailings.gdpr.gdpr_instructions_3') }
 
         %recipient.url%
 

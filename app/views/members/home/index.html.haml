@@ -1,8 +1,32 @@
 - content_for(:page, 'home')
 
 .row
-  .col-lg-6.col-12
+  .col-md-6
+    #posts
+      - @posts.each do |post|
+        .card
+          .card-header{class: ('avatar-padding' if post.author.avatar.attached?)}
+            %h3= post.title
 
+            .card-img-overlay
+              - if post.pinned?
+                %span.ribbon
+                  %i.service-icon.fa.fa-map-pin
+
+            .post-info
+              - if post.author.avatar.attached?
+                = image_tag post.author.avatar_representation, class: 'avatar'
+              %h4= post.author.name
+              %ul
+                %li= I18n.l(post.published_at, format: "%H:%M - %d %B %Y")
+                - post.tags&.each do |tag|
+                  %li= tag
+          .card-body.content
+            = raw post.content
+
+    = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
+
+  .col-lg-6.float-right
     - unless @balance.blank?
       .card.card-box
         .row.no-gutters
@@ -38,14 +62,15 @@
                   %td= Date.years( group[ :years ].sort )
 
                   %td
-                    - group[ :positions ].each do | position |
-                      - position.each do | position, year |
+                    - group[ :positions ].each do |position|
+                      - position.each do |position, year|
                         - unless position.nil?
-                          %span{:class => year == Date.today.study_year ? "font-weight-bold" : ""}=                          |
-                            I18n.t(position, scope: 'activerecord.attributes.group.positions', default: position.capitalize) |
+                          %span{class: year == Date.today.study_year ? "font-weight-bold" : ""
+                            }= I18n.t(position,
+                                      scope: 'activerecord.attributes.group.positions',
+                                      default: position.capitalize)
 
 
-  .col-lg-6.col-12.float-right
     .card
       .card-header
         %span

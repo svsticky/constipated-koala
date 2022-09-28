@@ -7,11 +7,11 @@
 .card.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
   .card-header.text-right
     %span.card-title.float-left.activity-title{ :style => 'text-overflow: ellipsis;'}
-      -if view == 'show'
+      - if view == 'show'
         = link_to ("/activities/") do
           %i.fa.fa-chevron-left
           = activity.name
-      -else
+      - else
         = activity.name
     .fullness
       = activity.fullness
@@ -20,14 +20,14 @@
     - if activity.poster.attached?
       .media-left.poster-thumbnail.col-12.col-sm-6
         %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
-          =image_tag activity.thumbnail_representation, class: "small-poster"
+          = image_tag activity.thumbnail_representation, class: "small-poster"
           .mask.d-flex.justify-content-center
             %span.align-self-center{'style': 'color: White'}
               %i.fas.fa-search.fa-3x
     .media-body.col-12.col-sm-6
       - if activity.start_date != activity.end_date
         %strong= I18n.t("activerecord.labels.activities.when")
-        =l(activity.start_date, format: "%A %d/%m/%Y")
+        = l(activity.start_date, format: "%A %d/%m/%Y")
         - if !activity.start_time.nil?
           = activity.start_time.strftime("%H:%M")
         \-
@@ -89,27 +89,27 @@
   .card-footer.clearfix
     .row
       - if view == 'index'
-        -if !activity.notes.blank?
+        - if !activity.notes.blank?
           = link_to raw("#{I18n.t('members.activities.info.more_info')}&nbsp;&nbsp;&nbsp;<i class='fas fa-edit'></i>"), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
-        -else
+        - else
           = link_to I18n.t('members.activities.info.more_info'), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
 
       - if activity.notes.present? && view == 'show'
         %button.btn.btn-info.update-enrollment.col-9.col-sm-6{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
           = I18n.t("members.activities.actions.update_info")
       - if activity.open?
-        - if @member.confirmed_activities.ids.include? activity.id
+        - if @member.confirmed_activities.ids.include? activity.id                  # confirmed sign-in
           - button_text = I18n.t("members.activities.actions.unenroll")
           - button_class = 'btn-danger col-12 col-sm-6'
-          - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today
+          - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today  # confirmed sign-in -- past sign-out deadline
             - button_class += ' disabled'
-        - elsif @member.reservist_activities.ids.include? activity.id
-          - button_text = I18n.t("members.activities.actions.reservist_unenroll")
-          - button_class = 'btn-warning col-12 col-sm-6'
-        - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count
+        - elsif @member.reservist_activities.ids.include? activity.id               # signed in as reservist (time is before sign-out deadline so can sign out)
+          - button_text = I18n.t("members.activities.actions.reservist_unenroll")   # there is no case where you can sign up as reservist after sign-out deadline, as of writing
+          - button_class = 'btn-reservistSignout col-12 col-sm-6'
+        - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count # not signed in -- but can do so as reservist only
           - button_text = I18n.t("members.activities.actions.reservist_enroll")
-          - button_class = 'btn-warning col-12 col-sm-6'
-        - else
+          - button_class = 'btn-reservistSignup col-12 col-sm-6'
+        - else                                                                      # not signed in -- and but can do so, not as reservist
           - button_text = I18n.t("members.activities.actions.enroll")
           - button_class = 'btn-success col-12 col-sm-6'
         %button.btn.enrollment{ :class => button_class}

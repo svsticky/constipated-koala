@@ -22,7 +22,15 @@ class Activity < ApplicationRecord
     # NOTE: required to be an pdf, jpg, png or gif but file can also be empty
     return unless poster.attached?
 
-    errors.add(:poster, I18n.t('activerecord.errors.unsupported_content_type', type: poster.content_type.to_s, allowed: 'application/pdf image/jpeg image/png image/gif')) if poster.attached? && !poster.content_type.in?(['application/pdf', 'image/jpeg', 'image/png', 'image/gif'])
+    if poster.attached? && !poster.content_type.in?([
+                                                      'application/pdf', 'image/jpeg', 'image/png', 'image/gif'
+                                                    ])
+      errors.add(:poster, I18n.t(
+                            'activerecord.errors.unsupported_content_type',
+                            type: poster.content_type.to_s,
+                            allowed: 'application/pdf image/jpeg image/png image/gif'
+                          ))
+    end
   end
 
   validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
@@ -41,6 +49,31 @@ class Activity < ApplicationRecord
 
   attr_accessor :magic_enrolled_reservists
 
+  scope :late_unpayable, lambda {
+    # All participants who will receive payment reminders
+    where('NOT activities.is_payable AND activities.start_date <= ?', Date.today).joins(:participants)
+                                                                                 .where('participants.reservist IS FALSE
+        AND
+         (
+          (activities.price IS NOT NULL
+           AND
+           participants.paid IS FALSE
+           AND
+           (participants.price IS NULL
+            OR
+            participants.price > 0)
+          )
+          OR
+          (
+           activities.price IS NULL
+           AND
+           participants.paid IS FALSE
+           AND
+           participants.price IS NOT NULL
+          )
+        )').distinct
+  }
+
   before_validation do
     self.start_date = Date.today if start_date.blank?
     self.end_date = start_date if end_date.blank?
@@ -49,6 +82,13 @@ class Activity < ApplicationRecord
 
   def name=(name)
     write_attribute(:name, name.strip)
+  end
+
+  # When the activity is set to payable we store the date so we can track for how long people have been able to pay.
+  # This only updates when the previous value was false and it becomes true
+  def is_payable=(is_payable)
+    self[:payable_updated_at] = Date.today if !self[:is_payable] && is_payable
+    write_attribute(:is_payable, is_payable)
   end
 
   def escaped_name
@@ -60,7 +100,7 @@ class Activity < ApplicationRecord
     # Remove the other illegal characters
     # Non-printable characters are ignored
     # source: https://www.sepaforcorporates.com/sepa-implementation/valid-xml-characters-sepa-payments/
-    return ascii.delete "!\"#$%&*;<=>@[\\]^_`{|}~"
+    return ascii.delete("!\"#$%&*;<=>@[\\]^_`{|}~")
   end
 
   def self.study_year(year)
@@ -71,7 +111,7 @@ class Activity < ApplicationRecord
   def self.debtors
     # All participants who will receive payment reminders
     joins(:participants).where('
-      activities.start_date <= ?
+      activities.is_payable
       AND
       participants.reservist IS FALSE
       AND
@@ -92,7 +132,7 @@ class Activity < ApplicationRecord
          AND
          participants.price IS NOT NULL
         )
-      )', Date.today).distinct
+      )').distinct
   end
 
   def payment_mail_recipients
@@ -132,7 +172,7 @@ class Activity < ApplicationRecord
   end
 
   def group
-    Group.find_by_id organized_by
+    Group.find_by(id: organized_by)
   end
 
   def currency(member)
@@ -198,12 +238,17 @@ class Activity < ApplicationRecord
 
   # used for the is_enrollable checkmark
   def validate_enrollable
-    return unless open_present? && DateTime.now < when_open # activity does not have open date or is already opened
+    unless open_present? && DateTime.now < when_open
+      # activity does not have open date or is already opened
+      return
+    end
 
     if is_enrollable # we want to open the activity anyway (override)
       self.open_date = nil
       self.open_time = nil
-    else # open? will give the checkmark a value of false, but we want is_enrollable to stay true as long as there is an open date pending
+    else
+      # open? will give the checkmark a value of false, but we want is_enrollable to stay true
+      # as long as there is an open date pending
       self.is_enrollable = true
     end
   end
@@ -246,17 +291,24 @@ class Activity < ApplicationRecord
     reservistpool = reservists.order(:created_at).to_a # to_a because in-place `select!`
 
     # Filter non-masters if masters-only, non-freshmen if freshman-only.
-    # Note: this will leave nobody if someone enables both is_masters and
-    # is_freshmans, as freshman? explicitly rejects masters.
-    reservistpool.select! { |m| m.member.masters? } if is_masters?
-    reservistpool.select! { |m| m.member.freshman? } if is_freshmans?
-
+    if filters?
+      pool = []
+      pool += reservistpool.select { |m| m.member.master? } if is_masters?
+      pool += reservistpool.select { |m| m.member.freshman? } if is_freshmans?
+      pool += reservistpool.select { |m| m.member.sophomore? } if is_sophomores?
+      pool += reservistpool.select { |m| m.member.senior? } if is_seniors?
+      reservistpool = pool.sort_by { |participant| [participant.created_at] }
+    end
     luckypeople = reservistpool.first(spots)
 
     Participant.where(id: luckypeople.pluck(:id)).update_all(reservist: false)
     luckypeople.each { |p| Mailings::Participants.enrolled(p).deliver_later }
     @magic_enrolled_reservists = luckypeople
     return luckypeople
+  end
+
+  def filters?
+    is_freshmans? || is_sophomores? || is_seniors? || is_masters?
   end
 
   def participant_counts
@@ -268,7 +320,8 @@ class Activity < ApplicationRecord
     # Helper method for use in displaying the remaining spots etc. Used both in API and in the activities view.
     return '' unless open?
 
-    # Use attendees.count instead of participants.count because in case of masters activities there can be reservists even if activity isn't full.
+    # Use attendees.count instead of participants.count because in case of filtered activities
+    # there can be reservists even if activity isn't full.
     if participant_limit
       return I18n.t('members.activities.full') if attendees.count >= participant_limit
 

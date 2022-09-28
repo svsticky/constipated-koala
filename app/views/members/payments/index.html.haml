@@ -37,31 +37,26 @@
                 %tr
                   %td
                   %td
-                    = I18n.t("members.payments.unpaid_activity.footer.paymentmethod")
-                    .float-xl-right
-                      =f.select :payment_type, [["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {},{:id => 'payment_type_pay_activities'}
-                  %td.d-none.d-xl-table-cell
                     = I18n.t("members.payments.unpaid_activity.footer.subtotal")
                   %td#subtotal_activities
                 %tr
                   %td
                   %td
                     .ideal-activities
-                      =I18n.t("members.payments.unpaid_activity.footer.bank")
+                      = I18n.t("members.payments.unpaid_activity.footer.bank")
                       .float-xl-right= f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: '', class:'ideal-activities'}
-                  %td.d-none.d-xl-table-cell
-                    = I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
-                  %td#transaction_cost_activities
+                  %td
+                    %div
+                      = I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
                     %span.transaction_cost_activities.ideal-activities{:price =>@transaction_costs}= number_to_currency(@transaction_costs, :unit => '€')
                 %tr
-                  %td.d-none.d-xl-table-cell
-                  %td  
+                  %td
                   %td
                     %strong= I18n.t("members.payments.unpaid_activity.footer.total")
                   %td#total_activities
                 %tr
                   %td
-                  %td 
+                  %td
                   %td
                     = f.submit I18n.t("members.payments.unpaid_activity.pay"), class: 'button btn btn-success btn-sm activity-payment', type: "submit"
                   %td
@@ -117,9 +112,9 @@
                 %td
                 %td
               %tr
-                %td.home_mongoose_form_element= I18n.t("members.payments.unpaid_activity.footer.paymentmethod")
+                %td.home_mongoose_form_element= I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
                 %td.home_mongoose_form_element
-                  = f.select :payment_type, [["Ideal +€#{String(@transaction_costs)}", 'Ideal']], {}, { :id => 'payment_type_add_funds' }
+                  = "€#{String(@transaction_costs)}"
                 %td.home_mongoose_form_element
               %tr
                 %td.home_mongoose_form_element

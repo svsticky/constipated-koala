@@ -103,12 +103,20 @@
             = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
           .card-body
             .form-group
-              - if !@member.mailchimp_interests.nil?
+              - if !@member.mailchimp_interests.nil? && @member.active?
                 - Rails.configuration.mailchimp_interests.each do |name, key|
                   .row
                     .col-md-12
                       %label.ui-checkbox
                         = f.check_box "mailchimp_interests[#{key}]", :checked => @member.mailchimp_interests[key]
+                        %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
+                        .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
+              - if !@member.enrolled_in_study?
+                - Rails.configuration.mailchimp_interests_alumni.each do |name, key|
+                  .row
+                    .col-md-12
+                      %label.ui-checkbox
+                        = f.check_box "mailchimp_interests[#{key}]", :checked => (!@member.mailchimp_interests.nil? ? @member.mailchimp_interests[key] : false)
                         %span= I18n.t("#{name}.name", scope: 'activerecord.annotations.member')
                         .callout.callout-info= I18n.t("#{name}.description", scope: 'activerecord.annotations.member')
 

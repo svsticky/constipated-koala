@@ -25,9 +25,14 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   def mail(recipient, sender, subject, html, text, attachment = nil)
-    raise ArgumentError if html.blank? && text.blank?
+    raise(ArgumentError) if html.blank? && text.blank?
 
-    return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
+    if ENV['MAILGUN_DOMAIN'].blank? || ENV['MAILGUN_TOKEN'].blank?
+      Rails.logger.error("mailgun credentials not send, cannot send email")
+      return
+    end
+
+    return RestClient.post("https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
                            :from => sender || ::Devise.mailer_sender,
                            :to => recipient,
 
@@ -35,13 +40,18 @@ class ApplicationMailer < ActionMailer::Base
                            :html => html.to_str,
                            :text => text,
                            :attachment => attachment,
-                           'o:testmode' => Rails.env.development? ? 'true' : 'false'
+                           'o:testmode' => Rails.env.development? ? 'true' : 'false')
   end
 
   def mails(recipient, sender, subject, html, text, attachment = nil)
-    raise ArgumentError if (html.blank? && text.blank?) || recipient.blank?
+    raise(ArgumentError) if (html.blank? && text.blank?) || recipient.blank?
 
-    return RestClient.post "https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
+    if ENV['MAILGUN_DOMAIN'].blank? || ENV['MAILGUN_TOKEN'].blank?
+      Rails.logger.debug("mailgun credentials not send, cannot send email")
+      return
+    end
+
+    return RestClient.post("https://api:#{ ENV['MAILGUN_TOKEN'] }@api.mailgun.net/v3/#{ ENV['MAILGUN_DOMAIN'] }/messages",
                            :from => sender || ::Devise.mailer_sender,
                            :to => recipient.map { |email, item| "#{ item['name'] } <#{ email }>" },
 
@@ -51,6 +61,6 @@ class ApplicationMailer < ActionMailer::Base
                            :html => html.to_str,
                            :text => text,
                            :attachment => attachment,
-                           'o:testmode' => Rails.env.development? ? 'true' : 'false'
+                           'o:testmode' => Rails.env.development? ? 'true' : 'false')
   end
 end

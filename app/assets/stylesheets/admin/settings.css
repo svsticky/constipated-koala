@@ -18,3 +18,7 @@ tr td a {
   display: block;
   width: 100%
 }
+
+.avatar-view {
+  height: 80px;
+}

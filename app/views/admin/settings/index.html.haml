@@ -1,10 +1,21 @@
 - content_for(:page, 'settings')
-
 - content_for(:title, I18n.t('admin.navigation.settings'))
 
 %section#content
 
   .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
+
+    - if @admin.errors.any?
+      .alert.alert-danger
+        %span= I18n.t('activerecord.errors.incomplete')
+        %ul
+          - @admin.errors.full_messages.each do |msg|
+            %li= msg
+
+    - if flash[:notice]
+      .alert.alert-success
+        %span= flash[:notice]
+
     .row
       .col-md-6
         .card
@@ -77,20 +88,6 @@
               %li.list-group-item
                 .container.row
                   .col-md-6
-                    %b= I18n.t 'payconiq_transaction_costs.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'payconiq_transaction_costs.description', scope: 'activerecord.attributes.settings'
-                  .col-md-6
-                    %input.form-control{ :id => 'options_payconiq_transaction_costs', :name => 'payconiq_transaction_costs', :value => Settings.payconiq_transaction_costs, :placeholder => '' }
-              %li.list-group-item
-                .container.row
-                  .col-md-6
-                    %b= I18n.t 'payconiq_relation_code.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'payconiq_relation_code.description', scope: 'activerecord.attributes.settings'
-                  .col-md-6
-                    %input.form-control{ :id => 'options_payconiq_relation_code', :name => 'payconiq_relation_code', :value => Settings.payconiq_relation_code, :placeholder => '' }
-              %li.list-group-item
-                .container.row
-                  .col-md-6
                     %b= I18n.t 'ideal_relation_code.name', scope: 'activerecord.attributes.settings'
                     %p= I18n.t 'ideal_relation_code.description', scope: 'activerecord.attributes.settings'
                   .col-md-6
@@ -140,11 +137,11 @@
                     %label{for: ''}
                     = I18n.t('admin.members.name')
                     = f.text_field :first_name, :value => @admin.first_name, :class => 'form-control'
-                  .col-md-3
+                  .col-md-5
                     %label{for: ''}
                     = I18n.t('admin.members.infix')
                     = f.text_field :infix, :value => @admin.infix, :class => 'form-control'
-                  .col-md-5
+                  .col-md-7
                     %label{for: ''}
                     = I18n.t('admin.members.surname')
                     = f.text_field :last_name, :value => @admin.last_name, :class => 'form-control'
@@ -156,15 +153,40 @@
                     = I18n.t('activerecord.attributes.member.language')
                     = f.select :language, options_for_select([["Nederlands", :nl], ["English", :en]], selected: @user.language)
 
+                .row
+                  .col-lg-12.avatar-view
+                    = label(:admin, :avatar)
+                    .image-group
+                      - if @admin.avatar.attached?
+                        = image_tag @admin.avatar, class: 'preview-avatar avatar'
+
+                    .image-side
+                      .input-group
+                        %input#output.form-control{ :readonly => '', :value => ("#{@admin.avatar.filename}" if @admin.avatar.attached?) }
+
+                        .input-group-append
+                          .btn.btn-primary.file-input-wrapper
+                            %span
+                              = I18n.t('files.upload')
+                            = f.file_field :avatar, { 'data-ui-file-upload' => '' }
+                        .input-group-append
+                          %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button', :class => ( 'disabled' unless @admin.avatar.attached? ) }
+                            %span.caret
+                          %ul.dropdown-menu
+                            %li
+                              - if @admin.avatar.attached?
+                                = link_to 'Download', @admin.avatar, :download => '', :class => 'dropdown-item'
+                            %li.divider
+                            %li
+                              = link_to I18n.t('files.delete'), '#', :class => 'dropdown-item remove'
+
               .form-group#mail
                 %label{for: ''}
                 = I18n.t('admin.settings.signature')
-                = render 'layouts/partials/editor'
+                = f.hidden_field :signature, :class => 'form-control', :id => 'html'
 
-                #textarea.form-control{ :contenteditable => 'true' }
+                #editor
                   != @admin.signature
-
-                = f.text_area :signature, :rows => 8, :value => @admin.signature, :class => 'form-control', :id => 'html'
 
               %button.btn.btn-success{type: 'submit'}
                 = I18n.t('editing.save')

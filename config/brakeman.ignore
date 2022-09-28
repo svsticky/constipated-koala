@@ -7,7 +7,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/members/payments_controller.rb",
-      "line": 44,
+      "line": 43,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Payment.new(:description => (\"#{\"Activiteiten - \"}#{self.class.join_with_char_limit(Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).map do\n p.activity.name\n end, \", \", (140 - \"Activiteiten - \".length))}\"), :amount => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).sum(&:currency), :issuer => transaction_params[:bank], :member => Member.find(current_user.credentials_id), :payment_type => :ideal, :transaction_id => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).pluck(:activity_id), :transaction_type => :activity, :redirect_uri => member_payments_path).payment_uri)",
       "render_path": null,
@@ -18,46 +18,7 @@
       },
       "user_input": "Payment.new(:description => (\"#{\"Activiteiten - \"}#{self.class.join_with_char_limit(Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).map do\n p.activity.name\n end, \", \", (140 - \"Activiteiten - \".length))}\"), :amount => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).sum(&:currency), :issuer => transaction_params[:bank], :member => Member.find(current_user.credentials_id), :payment_type => :ideal, :transaction_id => Participant.where(:activity_id => params[:activity_ids], :member => Member.find(current_user.credentials_id), :reservist => false).joins(:activity).where(:activities => ({ :is_payable => true })).pluck(:activity_id), :transaction_type => :activity, :redirect_uri => member_payments_path).payment_uri",
       "confidence": "High",
-      "note": "Have to redirect to get to mollie payment portal"
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "29914a5ab2e071e86f64854c9a7e76f0acc29b98485c33f42817d8cf6c5d1d69",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/public/home_controller.rb",
-      "line": 70,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => :activity, :payment_type => :ideal, :redirect_uri => public_url).payment_uri)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Public::HomeController",
-        "method": "create"
-      },
-      "user_input": "Payment.new(:description => I18n.t(\"form.introduction\", :user => Member.new(public_post_params.except(:participant_attributes)).name), :amount => (0 + Participant.create(:member => Member.new(public_post_params.except(:participant_attributes)), :activity => activity).currency), :issuer => params[:bank], :member => Member.new(public_post_params.except(:participant_attributes)), :transaction_id => Activity.find(public_post_params[:participant_attributes].to_h.select do\n (participant[\"participate\"].nil? or (participant[\"participate\"].to_b == true))\n end.map do\n participant[\"id\"].to_i\n end).map(&:id), :transaction_type => :activity, :payment_type => :ideal, :redirect_uri => public_url).payment_uri",
-      "confidence": "High",
-      "note": "Have to redirect for payment"
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "3b8d54ccdfe03e13e9d1cd35e1640ed0a68e7505d339a35e79d8d25b531e6775",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/mailings/participants/inform.html.haml",
-      "line": 18,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "current_user.credentials.signature",
-      "render_path": null,
-      "location": {
-        "type": "template",
-        "template": "mailings/participants/inform"
-      },
-      "user_input": "current_user.credentials.signature",
-      "confidence": "Weak",
-      "note": "The admins can defs put code in their signature, we kinda trust our admins not to do this though"
+      "note": "Needed for processing payments"
     },
     {
       "warning_type": "Redirect",
@@ -66,7 +27,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/members/payments_controller.rb",
-      "line": 103,
+      "line": 102,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Payment.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => transaction_params[:amount].gsub(\",\", \".\").to_f, :member => Member.find(current_user.credentials_id), :issuer => transaction_params[:bank], :payment_type => :ideal, :transaction_id => nil, :transaction_type => :checkout, :redirect_uri => member_payments_path).payment_uri)",
       "render_path": null,
@@ -77,7 +38,7 @@
       },
       "user_input": "Payment.new(:description => I18n.t(\"activerecord.errors.models.payment.attributes.checkout\"), :amount => transaction_params[:amount].gsub(\",\", \".\").to_f, :member => Member.find(current_user.credentials_id), :issuer => transaction_params[:bank], :payment_type => :ideal, :transaction_id => nil, :transaction_type => :checkout, :redirect_uri => member_payments_path).payment_uri",
       "confidence": "High",
-      "note": "Have to redirect to mollie payment portal"
+      "note": "Needed for processing payments"
     },
     {
       "warning_type": "SQL Injection",
@@ -106,7 +67,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/admin/settings/index.html.haml",
-      "line": 165,
+      "line": 178,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "current_user.credentials.signature",
       "render_path": [
@@ -133,22 +94,22 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "8c08dc71a8af936322aef7b0bb64fade45df68eaa90f7a0b077ed739749e8f00",
+      "fingerprint": "cdbd2ad3a4f8f2282f40f239c4213bb9dced1eaca9c2da15f5a553bcdee85171",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/api/webhook_controller.rb",
       "line": 13,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Payment.find_by_token!(params[:token]).redirect_uri)",
+      "code": "redirect_to(Payment.find_by!(:token => params[:token]).redirect_uri)",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Api::WebhookController",
         "method": "payment_redirect"
       },
-      "user_input": "Payment.find_by_token!(params[:token]).redirect_uri",
+      "user_input": "Payment.find_by!(:token => params[:token]).redirect_uri",
       "confidence": "High",
-      "note": "Required to validate transaction after coming back from the payment provider"
+      "note": "Needed for processing payments"
     },
     {
       "warning_type": "Redirect",
@@ -175,9 +136,9 @@
       "warning_code": 70,
       "fingerprint": "b80db455c4dd1ca640177dd5c9d1232eb638dbc2d29f46aababbaad11458f04f",
       "check_name": "MassAssignment",
-      "message": "Parameters should be whitelisted for mass assignment",
+      "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/admin/participants_controller.rb",
-      "line": 52,
+      "line": 51,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params[:recipients].permit!",
       "render_path": null,
@@ -192,21 +153,56 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 106,
-      "fingerprint": "c8adc1c0caf2c9251d1d8de588fb949070212d0eed5e1580aee88bab2287b772",
-      "check_name": "SanitizeMethods",
-      "message": "loofah gem 2.11.0 is vulnerable (CVE-2018-8048). Upgrade to 2.2.1",
-      "file": "Gemfile.lock",
-      "line": 151,
-      "link": "https://github.com/flavorjones/loofah/issues/144",
-      "code": null,
-      "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "Medium",
-      "note": "Brakeman parses version numbers incorrectly, thinking version 2.11.0 is equal to 2.1.1. The currently installed version of loofah is not vulnerable to CVE listed."
+      "warning_code": 2,
+      "fingerprint": "c8241c2edb00e469e09ce71600bb87d1649ba62b7abf84df7f25aef4accedc93",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/mailings/participants/inform.html.haml",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "current_user.credentials.signature",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::ActivitiesController",
+          "method": "show",
+          "line": 19,
+          "file": "app/controllers/admin/activities_controller.rb",
+          "rendered": {
+            "name": "admin/activities/show",
+            "file": "app/views/admin/activities/show.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/activities/show",
+          "line": 11,
+          "file": "app/views/admin/activities/show.html.haml",
+          "rendered": {
+            "name": "layouts/partials/_mail",
+            "file": "app/views/layouts/partials/_mail.html.haml"
+          }
+        },
+        {
+          "type": "template",
+          "name": "layouts/partials/_mail",
+          "line": 31,
+          "file": "app/views/layouts/partials/_mail.html.haml",
+          "rendered": {
+            "name": "mailings/participants/inform",
+            "file": "app/views/mailings/participants/inform.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "mailings/participants/inform"
+      },
+      "user_input": "current_user.credentials.signature",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2022-01-03 13:23:22 +0100",
-  "brakeman_version": "4.8.2"
+  "updated": "2022-04-21 22:14:12 +0200",
+  "brakeman_version": "5.2.1"
 }

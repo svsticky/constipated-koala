@@ -1,0 +1,123 @@
+- content_for(:page, 'posts')
+- content_for(:title, I18n.t("admin.navigation.messages"))
+
+%section#content
+
+  .page.page-form{ :data => { 'authenticity_token' => form_authenticity_token}}
+    .row
+      .col-md-6
+        .card
+          .card-header
+            %i.fas.fa-fw.fa-stream
+            = I18n.t("admin.navigation.messages")
+
+        #posts
+          - @posts.each do |post|
+            .card
+              = link_to post, class: 'card-header ' + ('avatar-padding' if post.author&.avatar&.attached?).to_s do
+                %h3= post.title
+
+                .card-img-overlay
+                  - if post.published?
+                    %span.ribbon.success
+                      = I18n.t("admin.posts.status.published")
+                  - if post.draft?
+                    %span.ribbon
+                      = I18n.t("admin.posts.status.draft")
+                  - if post.pinned?
+                    %span.ribbon
+                      %i.service-icon.fa.fa-map-pin
+
+                .post-info
+                  - if post.author&.avatar&.attached?
+                    = image_tag post.author.avatar_representation, class: 'avatar'
+                  %h4= post.author.name
+                  %ul
+                    - if post.published_at.present?
+                      %li
+                        = I18n.l(post.published_at, format: "%H:%M - %d %B %Y")
+
+                    - post.tags&.each do |tag|
+                      %li= tag
+
+              .card-body.content
+                = sanitize post.content, tags: %w(strong em u s a br p span ol ul li h1 h2 h3 h4 h5 h6), attributes: %w(style href title)
+
+        = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
+
+
+      .col-md-6
+        = form_for @post, :html => { :class => 'form-validation post-content' } do |f|
+          - if @post.errors.any?
+            .alert.alert-danger
+              %span= I18n.t('activerecord.errors.incomplete')
+              %ul
+              - @post.errors.full_messages.each do |msg|
+                %li= msg
+
+          .card
+            .card-header
+              %i.fa.fa-fw.fa-paragraph
+              - if @post.id
+                = I18n.t("admin.posts.edit")
+              - else
+                = I18n.t("admin.posts.create")
+            .card-body
+              = f.hidden_field :id, :value => @post.id
+
+              .form-group
+                .row
+                  .col-md-8
+                    .image-group
+                      - if @post.author&.avatar&.attached?
+                        = image_tag @post.author.avatar_representation, class: 'avatar'
+
+                    .image-side
+                      = f.label I18n.t("admin.posts.author")
+                      = f.text_field :author, :value => @post.author.name, :disabled => true, :class => 'form-control'
+
+                      = f.hidden_field :author_id, :value => @post.author_id
+                      = f.hidden_field :author_type, :value => @post.author_type
+
+                  .col-md-4.form-check
+                    = f.label I18n.t("admin.posts.status.pinned")
+                    = f.check_box :pinned, checked: @post.pinned?
+
+              .form-group
+                .row
+                  .col-lg-4
+                    = f.label I18n.t("admin.posts.status_text")
+                    = f.select :status, options_for_select([[I18n.t("admin.posts.status.published"), :published], [I18n.t("admin.posts.status.draft"), :draft] ], @post.status || Post.statuses.draft), {}, class: 'custom-select'
+
+                  .col-lg-8.col-md-12
+                    = f.label I18n.t("admin.posts.tags")
+                    = f.text_field :tags, :value => @post.tags, :class => 'form-control'
+
+              .form-group
+                .row
+                  .col-lg-8
+                    = f.label I18n.t("admin.posts.title")
+                    = f.text_field :title, :value => @post.title, :class => 'form-control'
+
+                  .col-lg-4
+                    = f.label I18n.t("admin.posts.published_at")
+                    = f.text_field :published_at, :value => @post.published_at, :class => 'publish-datetime'
+
+              .form-group.post-content
+                %label{for: ''}
+                = f.label I18n.t("admin.posts.content")
+                = f.hidden_field :content, :class => 'form-control', :id => 'html'
+
+                #editor
+                  = sanitize @post.content, tags: %w(strong em u s a br p span ol ul li h1 h2 h3 h4 h5 h6), attributes: %w(style href title)
+
+              .btn-group
+                %button.btn.btn-success{type: 'submit'}
+                  = I18n.t('editing.save')
+                - if @post.id
+                  = link_to 'terug', :posts, class: 'btn btn-default'
+
+              - if @post.id
+                = link_to post_path, 'data-method' => :delete, class: 'btn btn-danger float-right' do
+                  = I18n.t('editing.delete')
+

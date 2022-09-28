@@ -4,6 +4,8 @@ en:
     activities:
       added_reservist: has been placed on the participants list
       ended: Ended
+      filters: Filters
+      financial: Financial
       has_not_paid: has not yet paid
       has_paid: has paid
       info:
@@ -86,6 +88,7 @@ en:
       group: Groups
       impressions: Logs
       member: Members
+      messages: Messages
       payments: Payments
       products: Products
       settings: Settings
@@ -101,6 +104,7 @@ en:
       found: Transactions found
       from: From
       ideal: iDeal transactions
+      late_unpayable_activities: Late activities (unpayable)
       mails: Paymentmails
       member: Member
       no_transactions: No transactions
@@ -109,11 +113,10 @@ en:
       not_paid: Unpaid for activities
       overdue: Overdue payments (> 4 mails)
       paid: Paid
-      payconiq_display: Payconiq display total
-      payconiq_online: Payconiq display total
       per_page: transactions per page
       pinned: Pinned Checkout transactions
       price: Price
+      sent_mails: Sent mails
       show: Show
       state: State
       till: Till
@@ -122,7 +125,7 @@ en:
         copy: Message copied to clipboard
         copy_error: Message could not be retrieved
         open_activities: You still have not paid for the following activities
-        pay_to: Could you transfer this amount to *NL61INGB0002877106* citing _Outstanding %{member}_?
+        pay_to: Please pay this as soon as possible via the payment portal (https://koala.svsticky.nl/member/payments)
         title: Hey! %{user} from Sticky here :)
         total_of: This comes down to a total of *%{amount}*
     sac:
@@ -130,6 +133,19 @@ en:
       download: Download report
       title: Sac points
       total: Total
+    posts:
+      author: Author
+      content: Post content
+      create: Create post
+      edit: Edit post
+      published_at: Published at
+      status:
+        draft: Draft
+        pinned: Pinned
+        published: Published
+      status_text: Status
+      tags: Tags
+      title: Title
     settings:
       action: Action
       address: IP address
@@ -151,8 +167,7 @@ en:
       member: Member
       payment_type:
         ideal: Ideal
-        payconiq_display: Payconiq display
-        payconiq_online: Payconiq online
+        payconiq_online: PayConiq
         pin: Pinned
         title: Payment Method
       state:

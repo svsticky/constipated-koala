@@ -4,7 +4,9 @@ class Admin::ActivitiesController < ApplicationController
 
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
-    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+    @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
+      ["#{ year }-#{ year + 1 }", year]
+    end.reverse
 
     @activity = Activity.new
   end
@@ -12,7 +14,7 @@ class Admin::ActivitiesController < ApplicationController
   def show
     @is_summarized = params['summary_only'] || params['summary_csv']
     @is_summarized_as_csv = params['summary_csv']
-    @activity = Activity.find params[:id]
+    @activity = Activity.find(params[:id])
     @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
@@ -24,43 +26,45 @@ class Admin::ActivitiesController < ApplicationController
     if @activity.save
       # manual call to impressionist, because otherwise the activity doesn't have an id yet
       impressionist(@activity)
-      redirect_to @activity
+      redirect_to(@activity)
     else
       @activities = Activity.all.order(start_date: :desc)
-      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map { |year| ["#{ year }-#{ year + 1 }", year] }.reverse
+      @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
+        ["#{ year }-#{ year + 1 }", year]
+      end.reverse
 
       @detailed = Activity.debtors.sort_by(&:start_date).reverse!
 
-      render 'index'
+      render('index')
     end
   end
 
   # TODO: refactor
   def update
-    @activity = Activity.find params[:id]
+    @activity = Activity.find(params[:id])
     params = activity_post_params
 
     # removing the images from disk
     if params[:_destroy] == 'true'
-      logger.debug 'remove poster from activity'
+      logger.debug('remove poster from activity')
       @activity.poster.purge
     end
 
     if @activity.update(params.except(:_destroy))
-      redirect_to @activity
+      redirect_to(@activity)
     else
       @recipients = @activity.payment_mail_recipients
       @attendees  = @activity.ordered_attendees
       @reservists = @activity.ordered_reservists
-      render 'show'
+      render('show')
     end
   end
 
   def destroy
-    @activity = Activity.find params[:id]
+    @activity = Activity.find(params[:id])
     @activity.destroy
 
-    redirect_to activities_path
+    redirect_to(activities_path)
   end
 
   private
@@ -92,6 +96,8 @@ class Admin::ActivitiesController < ApplicationController
                                      :show_on_website,
                                      :is_masters,
                                      :is_freshmans,
+                                     :is_sophomores,
+                                     :is_seniors,
                                      :participant_limit,
                                      :show_participants,
                                      :sac_category,

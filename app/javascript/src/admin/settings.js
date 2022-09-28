@@ -47,7 +47,3 @@ $(document).on("ready page:load turbolinks:load", function () {
     return false;
   });
 });
-
-$(document).on("ready page:load turbolinks:load", function () {
-  $("form.signature").editor();
-});

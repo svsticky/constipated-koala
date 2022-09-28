@@ -11,7 +11,9 @@ class CheckoutProduct < ApplicationRecord
   def content_type
     return if !image.attached? || image.content_type.in?(['image/jpeg', 'image/png'])
 
-    errors.add(:image, I18n.t('activerecord.errors.unsupported_content_type', type: image.content_type.to_s, allowed: 'image/jpeg image/png'))
+    errors.add(:image,
+               I18n.t('activerecord.errors.unsupported_content_type', type: image.content_type.to_s,
+                                                                      allowed: 'image/jpeg image/png'))
   end
 
   enum category: { beverage: 1, chocolate: 2, savory: 3, additional: 4, liquor: 5 }
@@ -36,15 +38,18 @@ class CheckoutProduct < ApplicationRecord
   end
 
   def url
-    return image.variant(thumbnail: '128x128^', gravity: 'center', extent: '128x128') if image.attached?
+    if image.attached?
+      return image.variant(thumbnail: '128x128^', gravity: 'center',
+                           extent: '128x128')
+    end
 
     return nil if parent.nil?
 
-    return CheckoutProduct.find_by_id(parent).url
+    return CheckoutProduct.find_by(id: parent).url
   end
 
   def children?
-    return true unless CheckoutProduct.find_by_parent(id).nil?
+    return true unless CheckoutProduct.find_by(parent: id).nil?
 
     return false
   end
@@ -52,19 +57,28 @@ class CheckoutProduct < ApplicationRecord
   def parents
     return [] if parent.nil?
 
-    return CheckoutProduct.where(id: parent).select(:id, :name, :price, :category, :created_at) + CheckoutProduct.find_by_id(parent).parents
+    return CheckoutProduct.where(id: parent).select(:id, :name, :price, :category,
+                                                    :created_at) + CheckoutProduct.find_by(id: parent).parents
   end
 
   def sales(year = nil)
     year = year.blank? ? Date.today.study_year : year.to_i
 
-    sales = CheckoutTransaction.where("created_at >= ? AND created_at < ? AND items LIKE '%- #{ id }\n%'", Date.to_date(year), Date.to_date(year + 1)).group(:items).count.map { |k, v| { k => v } }
+    sales = CheckoutTransaction.where(
+      "created_at >= ? AND created_at < ? AND items LIKE '%- #{ id }\n%'", Date.to_date(year), Date.to_date(year + 1)
+    ).group(:items).count.map do |k, v|
+      { k => v }
+    end
 
-    count = sales.map { |hash| hash.keys.first.count(id) * hash.values.first }.inject(:+) unless sales.nil?
+    unless sales.nil?
+      count = sales.map do |hash|
+        hash.keys.first.count(id) * hash.values.first
+      end.inject(:+)
+    end
 
     return [{ self => count }] if parent.nil?
 
-    return [{ self => count }] + CheckoutProduct.find_by_id(parent).sales(year)
+    return [{ self => count }] + CheckoutProduct.find_by(id: parent).sales(year)
   end
 
   def self.last_version
@@ -74,6 +88,9 @@ class CheckoutProduct < ApplicationRecord
   private
 
   def valid_image
-    errors.add :image, I18n.t('activerecord.errors.models.checkout_product.blank') unless image.present? || parent.present?
+    return if image.present? || parent.present?
+
+    errors.add(:image,
+               I18n.t('activerecord.errors.models.checkout_product.blank'))
   end
 end

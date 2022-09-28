@@ -7,8 +7,8 @@ class Public::HomeController < PublicController
     @member.educations.build(id: '-1')
     @member.educations.build(id: '-2')
 
-    @membership = Activity.find Settings['intro.membership']
-    @activities = Activity.find Settings['intro.activities']
+    @membership = Activity.find(Settings['intro.membership'])
+    @activities = Activity.find(Settings['intro.activities'])
 
     @participate = @activities.map(&:id)
   end
@@ -20,30 +20,28 @@ class Public::HomeController < PublicController
     activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |_, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |_, participant| participant['id'].to_i })
     total = 0
 
-    # if bank is empty report and test model for additional errors
-    flash[:error] = nil
-    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if params[:bank].blank? && params[:method] == 'IDEAL' && @member.educations.none? { |education| Study.find(education.study_id).masters }
+    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if non_master_omits_bank
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save
 
       # create account and send welcome email
-      user = User.create_on_member_enrollment! @member
-      user.resend_confirmation! :activation_instructions
+      user = User.create_on_member_enrollment!(@member)
+      user.resend_confirmation!(:activation_instructions)
 
-      impressionist @member
+      impressionist(@member)
       flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
 
       # add user to mailchimp
-      interests = mailchimp_interests params[:member]
+      interests = mailchimp_interests(params[:member])
 
-      MailchimpJob.perform_later @member.email, @member, interests if
+      MailchimpJob.perform_later(@member.email, @member, interests) if
         ENV['MAILCHIMP_DATACENTER'].present?
 
       # if a masters student no payment required, also no access to activities for bachelors
       if !@member.educations.empty? && @member.educations.any? { |education| Study.find(education.study_id).masters }
         flash[:notice] = I18n.t(:success_without_payment, scope: 'activerecord.errors.subscribe')
-        redirect_to public_path
+        redirect_to(public_path)
         return
       end
 
@@ -52,29 +50,27 @@ class Public::HomeController < PublicController
         total += participant.currency
       end
 
-      if params[:method] == 'IDEAL'
-        transaction = Payment.new(
-          description: I18n.t("form.introduction", user: @member.name),
-          amount: total,
-          issuer: params[:bank],
-          member: @member,
+      transaction = Payment.new(
+        description: I18n.t("form.introduction", user: @member.name),
+        amount: total,
+        issuer: params[:bank],
+        member: @member,
 
-          transaction_id: activities.map(&:id),
-          transaction_type: :activity,
-          payment_type: :ideal,
+        transaction_id: activities.map(&:id),
+        transaction_type: :activity,
+        payment_type: :ideal,
 
-          redirect_uri: public_url
-        )
+        redirect_uri: public_url
+      )
 
-        if transaction.save
-          redirect_to transaction.payment_uri
-          return
-        else
-          flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
-        end
+      if transaction.save
+        redirect_to(transaction.payment_uri)
+        return
+      else
+        flash[:notice] = I18n.t(:failed, scope: 'activerecord.errors.subscribe')
       end
 
-      redirect_to public_path
+      redirect_to(public_path)
       return
     else
       # @participants = public_post_params[ :participant_attributes ]
@@ -89,12 +85,13 @@ class Public::HomeController < PublicController
       @membership = Activity.find(Settings['intro.membership'])
 
       @activities = Activity.find(Settings['intro.activities'])
-      @participate = public_post_params[:participant_attributes].to_h.map { |key, value| key.to_i if value['participate'] == '1' }.compact
+      @participate = public_post_params[:participant_attributes].to_h.map do |key, value|
+        key.to_i if value['participate'] == '1'
+      end.compact
 
-      @method = params[:method]
       @bank = params[:bank]
 
-      render 'index'
+      render('index')
     end
   end
 
@@ -103,10 +100,10 @@ class Public::HomeController < PublicController
   def mailchimp_interests(member)
     # add user to mailchimp
     interests = [Rails.configuration.mailchimp_interests[:alv]]
-    interests.push Rails.configuration.mailchimp_interests[:mmm] if member[:mmm_subscribe] == "1"
-    interests.push Rails.configuration.mailchimp_interests[:business] if member[:business_subscribe] == "1"
-    interests.push Rails.configuration.mailchimp_interests[:lectures] if member[:lectures_subscribe] == "1"
-    interests.push Rails.configuration.mailchimp_interests[:teacher] if member[:teachers_subscribe] == "1"
+    interests.push(Rails.configuration.mailchimp_interests[:mmm]) if member[:mmm_subscribe] == "1"
+    interests.push(Rails.configuration.mailchimp_interests[:business]) if member[:business_subscribe] == "1"
+    interests.push(Rails.configuration.mailchimp_interests[:lectures]) if member[:lectures_subscribe] == "1"
+    interests.push(Rails.configuration.mailchimp_interests[:teacher]) if member[:teachers_subscribe] == "1"
     interests
   end
 
@@ -124,9 +121,12 @@ class Public::HomeController < PublicController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-                                   :method,
                                    :bank,
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
+  end
+
+  def non_master_omits_bank
+    params[:bank].blank? && @member.educations.none? { |education| Study.find(education.study_id).masters }
   end
 end

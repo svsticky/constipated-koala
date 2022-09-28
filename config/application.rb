@@ -12,13 +12,13 @@ module ConstipatedKoala
   #:nodoc:
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults(5.1)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    VERSION = '2.9.3'.freeze
+    VERSION = '2.19.1'.freeze
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -27,18 +27,17 @@ module ConstipatedKoala
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :nl
-    config.i18n.fallbacks = true
     config.i18n.fallbacks = [:nl, :en]
 
     # Set layout for controllers from gems, own controllers set the alternative layout
     # in the controller itself, for example Members::RegistrationsController
     config.to_prepare do
-      Devise::SessionsController.layout 'doorkeeper'
-      Devise::RegistrationsController.layout 'doorkeeper'
-      Devise::ConfirmationsController.layout 'doorkeeper'
-      Devise::UnlocksController.layout 'doorkeeper'
-      Devise::PasswordsController.layout 'doorkeeper'
-      Doorkeeper::AuthorizationsController.layout 'doorkeeper'
+      Devise::SessionsController.layout('doorkeeper')
+      Devise::RegistrationsController.layout('doorkeeper')
+      Devise::ConfirmationsController.layout('doorkeeper')
+      Devise::UnlocksController.layout('doorkeeper')
+      Devise::PasswordsController.layout('doorkeeper')
+      Doorkeeper::AuthorizationsController.layout('doorkeeper')
     end
 
     config.active_job.queue_adapter = :sidekiq
@@ -58,6 +57,9 @@ module ConstipatedKoala
       teacher: ENV['MAILCHIMP_TEACHER_ID']
     }
 
+    config.mailchimp_interests_alumni = {
+      alumni: ENV['MAILCHIMP_ALUMNI_ID']
+    }
     config.mailchimp_tags = ["gratie", "alumni"]
 
     config.action_dispatch.rescue_responses = {

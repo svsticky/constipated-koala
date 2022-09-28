@@ -30,9 +30,13 @@ class Participant < ApplicationRecord
       prefix = "#{ activity.name } (#{ activity.id }) - "
       message = case i.action_name
                 when "update"
-                  I18n.t i.message, scope: [:activerecord, :attributes, :impression, i.impressionable_type.downcase, i.action_name]
+                  I18n.t(i.message,
+                         scope: [:activerecord, :attributes, :impression,
+                                 i.impressionable_type.downcase, i.action_name])
                 else
-                  I18n.t i.action_name, scope: [:activerecord, :attributes, :impression, i.impressionable_type.downcase]
+                  I18n.t(i.action_name,
+                         scope: [:activerecord, :attributes, :impression,
+                                 i.impressionable_type.downcase])
                 end
 
       newmessage = prefix + message

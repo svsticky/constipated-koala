@@ -20,7 +20,7 @@ This is out of scope for this readme.
 ## Gems (Bundix)
 
 New gems should be added to the Gemfile.
-After that, run `bundix --magic --lock` to update the Gemfile.lock and gemset.nix files.
+After that, run `bundix --lock` to update the Gemfile.lock and gemset.nix files.
 A restart of the Nix shell should install the new or updated packages.
 
 ## Node / Yarn packages

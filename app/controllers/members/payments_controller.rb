@@ -7,8 +7,11 @@ class Members::PaymentsController < ApplicationController
   def index
     @member = Member.find(current_user.credentials_id)
     @participants = @member.unpaid_activities
-    @transactions = CheckoutTransaction.where(checkout_balance: CheckoutBalance.find_by_member_id(current_user.credentials_id)).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
-    @payconiq_transaction_costs = Settings.payconiq_transaction_costs
+    @transactions = CheckoutTransaction.where(
+      checkout_balance: CheckoutBalance.find_by(
+        member_id: current_user.credentials_id
+      )
+    ).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
     @transaction_costs = Settings.mongoose_ideal_costs
   end
 
@@ -22,12 +25,14 @@ class Members::PaymentsController < ApplicationController
 
     description_prefix = "Activiteiten - "
     description_length_remaining = 140 - description_prefix.length
-    description = "#{ description_prefix }#{ self.class.join_with_char_limit(activity_names_for_unpaid, ', ', description_length_remaining) }"
+    description = "#{ description_prefix }#{ self.class.join_with_char_limit(
+      activity_names_for_unpaid, ', ', description_length_remaining
+    ) }"
     amount = unpaid.sum(&:currency)
 
     if amount < 1
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to member_payments_path
+      redirect_to(member_payments_path)
       return
     end
     payment = Payment.new(
@@ -41,15 +46,15 @@ class Members::PaymentsController < ApplicationController
       redirect_uri: member_payments_path
     )
     if payment.save
-      redirect_to payment.payment_uri
+      redirect_to(payment.payment_uri)
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to member_payments_path
+      redirect_to(member_payments_path)
     end
   end
 
   def self.join_with_char_limit(collection, separator, maxlength)
-    all_joined = collection.join separator
+    all_joined = collection.join(separator)
     return all_joined if all_joined.length <= maxlength
 
     suffix_mkr = ->(cnt) { " & #{ cnt } meer" }
@@ -63,7 +68,7 @@ class Members::PaymentsController < ApplicationController
       remaining_length -= collection[index].length + separator.length
       if remaining_length < 0
         slice = collection.slice(0, index)
-        return "#{ slice.join separator } & #{ collection.length - index } meer"
+        return "#{ slice.join(separator) } & #{ collection.length - index } meer"
       end
     end
 
@@ -78,13 +83,13 @@ class Members::PaymentsController < ApplicationController
 
     if amount < 1
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to member_payments_path
+      redirect_to(member_payments_path)
       return
     end
 
     if balance.nil?
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to member_payments_path
+      redirect_to(member_payments_path)
       return
     end
 
@@ -100,10 +105,10 @@ class Members::PaymentsController < ApplicationController
       redirect_uri: member_payments_path
     )
     if payment.save
-      redirect_to payment.payment_uri
+      redirect_to(payment.payment_uri)
     else
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to members_home_path
+      redirect_to(members_home_path)
     end
   end
 

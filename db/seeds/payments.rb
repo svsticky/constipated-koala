@@ -7,7 +7,8 @@ Member.all.sample(30).each do |member|
 
   15.times do
     transactiontype = Faker::Number.within(range: 0..1)
-    paymenttype = Faker::Number.within(range:0..3)
+    # either ideal or pin (see app/models/payment.rb)
+    paymenttype = Faker::Number.within(range: 0.0..1.0) < 0.5 ? 0 : 3
     status = Faker::Number.within(range:0..2)
     if transactiontype == 1 && status == 0
       participants = Participant.where(member:member).where.not(activity:[nil,1]).select{|p| p.currency != nil}.sample(Faker::Number.within(range:1..6))
@@ -18,7 +19,7 @@ Member.all.sample(30).each do |member|
       status = 2
     else
       transaction_id = [1]
-      status = 0 
+      status = 0
     end
     description = transactiontype == 0 ? "Mongoose Opwaardering" : "Activiteiten - #{transaction_id}"
 

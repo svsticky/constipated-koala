@@ -1,24 +1,7 @@
 $(document).on("ready page:load turbolinks:load", function () {
   // Selects all the activities
 
-  $("#payment_type_add_funds").on("change", function () {
-    if (this.value == "Payconiq") {
-      $(".payconiq-mongoose").show();
-      $(".ideal-mongoose").hide();
-    } else {
-      $(".ideal-mongoose").show();
-      $(".payconiq-mongoose").hide();
-    }
-  });
-
   $("#payment_type_pay_activities").on("change", function () {
-    if (this.value == "Payconiq") {
-      $(".payconiq-activities").show();
-      $(".ideal-activities").hide();
-    } else {
-      $(".ideal-activities").show();
-      $(".payconiq-activities").hide();
-    }
     calculatetotals();
   });
   $("#payment_type_add_funds").change();

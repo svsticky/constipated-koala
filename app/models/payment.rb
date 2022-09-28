@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
 
   self.primary_key = :token
 
-  attr_accessor :issuer, :payment_uri, :message, :payconiq_qrurl, :payconiq_deeplink
+  attr_accessor :issuer, :payment_uri, :message
 
   validates :description, presence: true
   validates :amount, presence: true, numericality: true
@@ -12,7 +12,8 @@ class Payment < ApplicationRecord
   validates :payment_type, presence: true
 
   enum status: { failed: 0, in_progress: 1, successful: 2 }
-  enum payment_type: { ideal: 0, payconiq_online: 1, payconiq_display: 2, pin: 3 }
+  # Keep payconiq_online because it is still present in the database
+  enum payment_type: { ideal: 0, payconiq_online: 1, pin: 3 }
   enum transaction_type: { checkout: 0, activity: 1 }
   belongs_to :member
 
@@ -20,7 +21,7 @@ class Payment < ApplicationRecord
 
   serialize :transaction_id, Array
 
-  validates :redirect_uri, presence: true, if: :ideal? || :payconiq_online
+  validates :redirect_uri, presence: true, if: :ideal?
 
   after_validation :request_payment, on: :create
 
@@ -46,8 +47,14 @@ class Payment < ApplicationRecord
 
     case payment_type.to_sym
     when :ideal
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
+
+      webhook_url = if Rails.env.development?
+                      "#{ ENV['NGROK_HOST'] }/api/hook/mollie"
+                    else
+                      Rails.application.routes.url_helpers.mollie_hook_url
+                    end
 
       request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
                           amount: amount,
@@ -62,59 +69,30 @@ class Payment < ApplicationRecord
                             transaction_id: transaction_id
 
                           },
-                          webhookUrl: Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/mollie" : Rails.application.routes.url_helpers.mollie_hook_url,
+                          webhookUrl: webhook_url,
                           redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token))
 
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
-      response = http.send! request
+      response = http.send!(request)
 
       self.trxid = response.id
       self.payment_uri = response.links.paymentUrl
       self.status = :in_progress
     # pin payment shouldn't have any extra work
     when :pin
-
-    # Payconiq payments
-    else
-      http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
-      self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }")
-
-      request = http.post("/#{ ENV['PAYCONIQ_VERSION'] }/payments")
-
-      request.body = { amount: (amount * 100).to_i,
-                       reference: payment_type,
-                       description: description,
-                       currency: 'EUR',
-                       callbackUrl: Rails.env.development? ? "#{ ENV['NGROK_HOST'] }/api/hook/payconiq" : Rails.application.routes.url_helpers.payconiq_hook_url,
-                       returnUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token) }.to_json
-
-      request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
-      request.content_type = 'application/json'
-      request['Cache-Control'] = "no-cache"
-
-      response = http.send! request
-
-      self.trxid = response.paymentId
-      self.payconiq_qrurl = response[:_links][:qrcode][:href]
-      self.payconiq_deeplink = response[:_links][:deeplink][:href]
-      self.payment_uri = response[:_links][:checkout][:href]
-
-      # Currently the test environment has an error where the link goes to the production environment while the transaction only exists in the test environment this fixes it for now.
-      self.payment_uri = payment_uri.gsub(/payconiq/, 'ext.payconiq') if Rails.env.development? || Rails.env.staging?
-      self.status = :in_progress
     end
   end
 
   def update_transaction!
     case payment_type.to_sym
     when :ideal
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       @status = status
 
       request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ trxid }")
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
-      response = http.send! request
+      response = http.send!(request)
 
       status_update(response.status)
 
@@ -131,29 +109,6 @@ class Payment < ApplicationRecord
 
       return false
     when :pin
-    else
-      http = ConstipatedKoala::Request.new ENV['PAYCONIQ_DOMAIN']
-      @status = status
-
-      request = http.get("/#{ ENV['PAYCONIQ_VERSION'] }/payments/#{ trxid }")
-      request['Authorization'] = "Bearer #{ payconiq_online? ? ENV['PAYCONIQ_ONLINE_TOKEN'] : ENV['PAYCONIQ_DISPLAY_TOKEN'] }"
-      request.content_type = 'application/json'
-
-      response = http.send! request
-
-      status_update(response.status)
-
-      save!
-
-      # first time paid as a response
-      if successful? && @status != :successful
-        I18n.t('success', scope: 'activerecord.errors.models.payment')
-        return true
-      end
-
-      self.message = I18n.t('processed', scope: 'activerecord.errors.models.payment') if successful?
-      self.message = I18n.t('failed', scope: 'activerecord.errors.models.payment') if failed?
-      return false
     end
   end
 
@@ -176,7 +131,11 @@ class Payment < ApplicationRecord
 
       # create a single transaction to update the checkoutbalance and mark the Payment as processed
       Payment.transaction do
-        transaction = CheckoutTransaction.create!(price: (amount - transaction_fee), checkout_balance: CheckoutBalance.find_by_member_id!(member), payment_method: payment_type)
+        transaction = CheckoutTransaction.create!(
+          price: (amount - transaction_fee),
+          checkout_balance: CheckoutBalance.find_by!(member_id: member),
+          payment_method: payment_type
+        )
 
         self.transaction_id = [transaction.id]
         save!
@@ -189,26 +148,25 @@ class Payment < ApplicationRecord
   def transaction_fee
     case payment_type.to_sym
     when :ideal
-      return Settings.mongoose_ideal_costs
+      Settings.mongoose_ideal_costs
     when :payconiq_online
-      return Settings.payconiq_transaction_costs
-    else
-      # :pin, :payconiq_display
-      return 0
+      0
+    when :pin
+      0
     end
   end
 
   def self.ideal_issuers
     # cache the payment issuers for 12 hours, don't request it to often. Stored in tmp/cache
-    return [] unless ENV['MOLLIE_TOKEN'].present?
+    return [] if ENV['MOLLIE_TOKEN'].blank?
 
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
-      http = ConstipatedKoala::Request.new ENV['MOLLIE_DOMAIN']
+      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
 
       request = http.get("/#{ ENV['MOLLIE_VERSION'] }/issuers")
       request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
 
-      response = http.send! request
+      response = http.send!(request)
       response.data.map { |issuer| [issuer.name, issuer.id] }
     end
   end

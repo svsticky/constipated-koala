@@ -35,6 +35,7 @@ in
       yarn
       postgresql_13
       jq
+      bundix
       nodePackages.node2nix
     ];
 

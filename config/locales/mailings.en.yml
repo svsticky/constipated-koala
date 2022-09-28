@@ -46,8 +46,10 @@ en:
         reset_password: Reset password
     gdpr:
       consent: Manage personal information
-      enrolled: You are currently enrolled at Stucky assocation Sticky.
-      gdpr_instructions: You are a member of Study association Sticky, because you are studying or have studied at University Utrecht. At Sticky we want to know what we may do with your data after your membership has ended. At the link below you can indicate what our permissions are. We also like to keep your data up to date so it is also possible to correct any errors by following the same link.
+      enrolled: You are currently registered with Study Association Sticky.
+      gdpr_instructions_1: You are currently registered with Study Association Sticky because you are or have been studying at Utrecht University, or were involved in the association in some other way. In our system you are indicated as a first, third, or fifth year (or more).
+      gdpr_instructions_2: You may have already finished studying, which would mean your membership has expired. In this case, we would like to know what we can do with your data, you can indicate this via the link below. In addition, we prefer it if your data is still correct. You can change your data via the same link, if necessary.
+      gdpr_instructions_3: Finally, if you are currently an alumni, we would like to ask if you would like to join the alumni mailing list. If you are still studying, this is of course not necessary.
     greeting: Hi
     membership: Membership Study association Sticky
     participants:
@@ -62,8 +64,14 @@ en:
       inform:
         activity_payable_unvisited_html: You are going to visit <strong>%{subject}</strong>, this activity costs %recipient.price%.
         activity_visited_html: You visited <strong>%{subject}</strong>, this activity cost %recipient.price%.
-        payment_instructions_html: Please transfer this amount to NL61INGB0002877106 t.n.v. Study association Sticky citing <i>"%{subject} %recipient.name%"</i>?
-    removed: is immediatly removed
+        payment_instructions_html: Please pay this as soon as possible via the <a href="https://koala.svsticky.nl/member/payments">payment portal</a>
+    payment:
+      open_activities: 'You have the following unpaid activities:'
+      payment_instruction: Please pay this as soon as possible via the <a href="https://koala.svsticky.nl/member/payments">payment portal</a>.
+      signature: The treasurer
+      subject: Open payments
+      total_of: This adds up to
+    removed: is immediately removed
     sent:
       'false': Mail has not been sent!
       'true': Mail has been sent
