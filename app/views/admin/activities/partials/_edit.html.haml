@@ -15,6 +15,9 @@
         .col-sm
           %i.fa.fa-fw.fa-ticket-alt
           = activity_textfield
+          - if @activity.id
+            = link_to @activity.google_event, target: '_blank' do
+              %i.fa.fa-calendar-plus{ :class => 'btn-secondary btn-sm' }
 
         .col-sm.text-sm-right
           %span

@@ -356,6 +356,18 @@ class Activity < ApplicationRecord
     end
   end
 
+  def google_event
+    return nil if start.nil? || self.end.nil?
+
+    # check locale for correct description
+    description = if I18n.locale == :en
+                    description_en
+                  else
+                    description_nl
+                  end
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start_time }/#{ end_time }&details=#{ description }&location=#{ location }&sf=true&output=xml"
+  end
+
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
   def rewrite_logs_before_delete
     impressions.update_all(message: "#{ name } (#{ id })")
