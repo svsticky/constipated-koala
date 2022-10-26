@@ -139,7 +139,7 @@ class Admin::PaymentsController < ApplicationController
                  # An alternative could be activity_id == Settings['intro.membership'],
                  # this would make it only pass for last year membership activity
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
-                  p.currency, ""]
+                  p.currency + p.transaction_fee, ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
