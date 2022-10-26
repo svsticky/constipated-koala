@@ -134,7 +134,7 @@ class Admin::PaymentsController < ApplicationController
                  # An alternative could be activity_id == Settings['intro.membership'],
                  # this would make it only pass for last year membership activity
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
-                  p.currency + payment.transaction_fee, ""]
+                  p.currency, ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
@@ -151,8 +151,13 @@ class Admin::PaymentsController < ApplicationController
       csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment.member_id }", "9",
               payment.amount - Settings.mongoose_ideal_costs, ""]
     end
+    # minus lidmaatschap payments
+    activity_amount = payments.where(transaction_type: :activity).count - payments.where(
+      transaction_type: :activity,
+      transaction_id: Settings['intro.membership']
+    ).count
+    # TODO: should probably be backwards compatible but we don't log all membership activities
 
-    activity_amount = payments.where(transaction_type: :activity).count
     mongoose_amount = payments.where(transaction_type: :checkout).count
     trx_cost = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
     trx_cost_amount = (Settings.mongoose_ideal_costs * activity_amount).round(2)
