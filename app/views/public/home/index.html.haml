@@ -119,7 +119,7 @@
             .row
               .col-lg-12
                 %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
-                = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+                = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control', min: '1900-01-01', max: (Time.new.year - 14).to_s  + '-12-31'
 
           .form-group
             .row
