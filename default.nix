@@ -40,7 +40,7 @@ in
     ];
 
     rails_wrapper = pkgs.writeScript "rails" ''
-      #!${pkgs.ruby}/bin/ruby
+      #!${pkgs.ruby_3_0}/bin/ruby
       APP_PATH = File.expand_path('../config/application', __dir__)
       require_relative '../config/boot'
       require 'rails/commands'
