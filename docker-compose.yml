@@ -24,6 +24,53 @@ services:
     ports:
       - "5432:5432"
 
+  # FIXME: Koala breaks css and js when trying to connect with the
+  # webpack-dev-server (and failing). The connection is disabled in in
+  # webpacker.yml for now.
+  webpack-dev-server:
+    build: .
+
+    command: [ "bundle", "exec", "./bin/webpack-dev-server" ]
+
+    volumes:
+      - ./app:/app/app:ro
+      - ./bin:/app/bin:ro
+      # Make this directory writable inside the container, and persist changes
+      # accross reloads (but not on the host).
+      - 'webpack_data:/app/public/packs'
+    ports:
+      - 3035:3035
+
+  koala-development:
+    build: .
+
+    command: [ "rails", "server", "--binding", "0.0.0.0" ]
+
+    env_file:
+      - .env
+
+    depends_on:
+      - postgres-db
+      - redis
+      - webpack-dev-server
+
+    volumes:
+      # Mount the sourcecode in the container, so changes end up in the
+      # container. We don't want writes to end up on the host, so we mount
+      # folders as read-only. When changing files that aren't included here, the
+      # container has to be restarted.
+      - ./app:/app/app:ro
+      - ./db:/app/db:ro
+      - ./bin:/app/bin:ro
+      - ./lib:/app/lib:ro
+      - ./test:/app/test:ro
+      - ./vendor:/app/vendor:ro
+
+    ports:
+      - 3000:3000
+
 volumes:
   redis_data:
+    driver: local
+  webpack_data:
     driver: local

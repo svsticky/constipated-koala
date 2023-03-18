@@ -1,8 +1,14 @@
 Doorkeeper::OpenidConnect.configure do
   issuer ENV['KOALA_DOMAIN']
 
-  # This key should always exists, otherwise OIDC logins are unsecured
-  signing_key File.read(ENV['OIDC_SIGNING_KEY'])
+  if Rails.env.development? then
+    # FIXME: we can use an actual key in development, but just not when building
+    # assets.
+    signing_key "very_secret_indeed"
+  else
+    # This key should be kept secret
+    signing_key File.read(ENV['OIDC_SIGNING_KEY'])
+  end
 
   subject_types_supported [:public]
 

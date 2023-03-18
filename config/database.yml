@@ -5,9 +5,8 @@ development:
   database: koala-development
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: <%= ENV['POSTGRES_SOCKET'] %>
   port: <%= ENV['DATABASE_PORT'] %>
-  host: localhost
+  host: <%= ENV['DATABASE_HOST'] %>
   pool: 5
   timeout: 5000
 

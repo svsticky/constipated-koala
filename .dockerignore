@@ -1,0 +1,54 @@
+# FIXME: clean up a little
+
+# Copied from .gitignore
+/result
+
+.bundle
+.rbenv-vars
+.env
+.DS_Store
+
+log/
+tmp/
+
+public/assets/
+public/images/
+public/packs/
+storage/
+
+storage/
+
+.vagrant/
+cookbooks/
+
+vendor/bundle/
+vendor/cache/
+
+node_modules/
+.sass-cache/
+
+.i15r-cache
+.i15r-output
+signing-key.pem
+
+.idea
+.byebug_history
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# generated translations
+app/javascript/src/translations.js
+public/javascripts
+
+# Docker specific
+Dockerfile
+nix
+.github
+.hooks
+doc
+.git
