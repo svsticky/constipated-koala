@@ -22,7 +22,7 @@ services:
       POSTGRES_PASSWORD: "koala123"
 
     ports:
-     - "25838:5432"
+      - "5432:5432"
 
 volumes:
   redis_data:

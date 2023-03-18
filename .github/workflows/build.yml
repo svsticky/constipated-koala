@@ -12,13 +12,13 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_USER: koala
         ports:
-          - 25838:5432
+          - 5432:5432
 
     env:
       DATABASE_HOST: "127.0.0.1"
       DATABASE_USER: koala
       DATABASE_PASSWORD: password
-      DATABASE_PORT: 25838
+      DATABASE_PORT: 5432
       OIDC_SIGNING_KEY: .github/test-signing-key.pem
 
     steps:

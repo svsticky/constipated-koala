@@ -6,10 +6,10 @@ programming language [Ruby]. We use [Nix] to manage dependencies.
 Rails is based on the Model-View-Controller paradigm, and has an easy to
 understand file structure. On the production server, we use [Unicorn] to run
 the application with multiple threads, and [Nginx] as a proxy.
-In both development and production, we use [Mariadb] as the database.
+In both development and production, we use [PostgreSQL] as the database.
 
 [Nix]: https://nixos.org/
-[Mariadb]: https://mariadb.org
+[PostgreSQL]: https://www.postgresql.org/
 [Ruby on Rails]: https://guides.rubyonrails.org/getting_started.html
 [Ruby]: https://www.ruby-lang.org/
 [Unicorn]: https://bogomips.org/unicorn/
@@ -92,7 +92,6 @@ bundle exec ./bin/webpack-dev-server
 
 This command should also be executed from within a Nix shell.
 Thus, to run Koala correctly, these two processes should be running as well.
-
 
 Moving on, there is an example file in the root of this repository called
 `sample.env`. This file is a template for the actual configuration file
@@ -187,4 +186,3 @@ Some database commands that you might need if something breaks:
 See [the migrations guide] for more info on how migrations work.
 
 [the migrations guide]: https://guides.rubyonrails.org/active_record_migrations.html
-
