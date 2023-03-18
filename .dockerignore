@@ -47,7 +47,6 @@ public/javascripts
 
 # Docker specific
 Dockerfile
-nix
 .github
 .hooks
 doc

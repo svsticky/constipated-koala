@@ -1,14 +1,12 @@
 # Development setup for Constipated Koala
 
-Koala is written using the [Ruby on Rails] framework, which uses the
-programming language [Ruby]. We use [Nix] to manage dependencies.
-(Also see the [dependency managment readme](/DEPENDENCIES.md)).
+Koala is written using the [Ruby on Rails] framework, which uses the programming
+language [Ruby]. (Also see the [dependency managment readme](/DEPENDENCIES.md)).
 Rails is based on the Model-View-Controller paradigm, and has an easy to
-understand file structure. On the production server, we use [Unicorn] to run
-the application with multiple threads, and [Nginx] as a proxy.
-In both development and production, we use [PostgreSQL] as the database.
+understand file structure. On the production server, we use [Unicorn] to run the
+application with multiple threads, and [Nginx] as a proxy. In both development
+and production, we use [PostgreSQL] as the database.
 
-[Nix]: https://nixos.org/
 [PostgreSQL]: https://www.postgresql.org/
 [Ruby on Rails]: https://guides.rubyonrails.org/getting_started.html
 [Ruby]: https://www.ruby-lang.org/
@@ -19,8 +17,18 @@ In both development and production, we use [PostgreSQL] as the database.
 To get started, you will need:
 
 - Preferably a Linux installation, but MacOS or WSL2 should work too
-- Git (`sudo apt install git`)
-- Nix (<https://nixos.org/download.html>)
+- Git
+- Docker and docker-compose\
+
+```shell
+sudo apt install git docker.io docker-compose
+```
+
+NOTE: You need to log out and log in again to apply this!
+
+```shell
+sudo usermod -aG docker $USER
+```
 
 To start, clone the project:
 
@@ -29,80 +37,30 @@ $ git clone git@github.com:svsticky/constipated-koala
 Cloning into 'constipated-koala'...
 ```
 
-To speed up the build, you can install and set up Cachix
-
-```console
-$ nix-env -iA cachix -f https://cachix.org/api/v1/install
-installing 'cachix-0.3.8'
-
-$ cachix use svsticky-constipated-koala
-Configured https://svsticky-constipated-koala.cachix.org binary cache in ~/.config/nix/nix.conf
-```
-
-Now we can run nix-shell for the first time
-
-```console
-$ nix-shell
-[nix-shell:~/projects/koala.svsticky.nl]$
-```
-
-This should install all dependencies and launch a shell.
-Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
-
-> **Note**
->
-> If you ever experience deep/difficult issues with seting up your nix-shell, now or during
-> another step, this is probably because your environment variables (which are carried over
-> to nix) are too smart for nix. If your environment variables are really the cause of
-> the issue - or if you assume that this is the case - run nix-shell with the ``--pure`` argument.
-> This tells nix to not 'copy' over any environment varibles.
-
 ## Configuring Koala
 
-To actually run Koala, you'll need a running copy of PostgreSQL and Redis
-To easily start both, you can run these in a container via Docker.
-Follow these steps to install Docker and start the database:
+Koala is configured with environment variables. We have an example file
+containing the default settings for development. Copy this file to the correct
+location:
 
 ``` shell
-# Install Docker and Docker Compose
-sudo apt install docker.io docker-compose
-
-# Add yourself to the `docker` system group (needed only once)
-# NOTE: You need to log out and log in again to apply this!
-sudo usermod -aG docker $USER
-
-# Install and start the database
-# If you don't want to log out and log in again, use `sudo` here.
-docker-compose up -d
+cp sample.env .env
 ```
 
-PostgreSQL and Redis will now set itself up in the background, and will be available in
-a minute or so.
-You'll need to run the `docker-compose up` command again if you
-reboot your computer to start the database again. If you like, you can run the
-container in the background by adding `-d` to the mentioned command.
-If you're already running a copy of PostgreSQL, you can use this too.
+To actually run Koala, we need to set up the database. Let's first start the
+database and Koala:
 
-The next command starts a process which enabled hot-reloading for the javascript and css.
-If you're not working on the front-end, you can skip this step.
-
-```console
-bundle exec ./bin/webpack-dev-server
+``` shell
+docker-compose up --build
 ```
 
-This command should also be executed from within a Nix shell.
-Thus, to run Koala correctly, these two processes should be running as well.
+Docker wil now download and set up PostgreSQL, Redis and Koala itself. This can
+take a little while.
 
-Moving on, there is an example file in the root of this repository called
-`sample.env`. This file is a template for the actual configuration file
-`.env`, which sets some configuration values for Koala. Copy
-`sample.env` to `.env`, and edit it according to the
-instructions in the file.
-
-Once you're done, you can set up the database with this command (in the Nix shell):
+Once this is done, you can set up the database with this command:
 
 ```console
-rails db:setup
+docker-compose exec koala-development rails db:setup
 ```
 
 This creates the database for you and fills it with fake test data.
@@ -111,28 +69,11 @@ It generates two users that you can use:
 - `dev@svsticky.nl`, an admin user (password is `sticky123`),
 - `test@svsticky.nl`, a member user (same password).
 
-Then precompile the assets (in the Nix shell):
-
-``` bash
-rails assets:precompile
-```
-
 ## Running Koala
 
-You can run Koala itself by running this command (again, in the Nix shell):
-
-```console
-rails server
-# This works as well:
-rails s
-```
-
-This will start a server that listens until you press Ctrl-C in the window
-where it's running.
-
 The server will listen for connections from localhost, which means that it's
-only accessible from the computer where you're running the server.
-In order to have the server actually work, you'll need to run this command once:
+only accessible from the computer where you're running the server. In order to
+have the server actually work, you'll need to run this command once:
 
 ```console
 echo "127.0.0.1    koala.rails.local members.rails.local leden.rails.local intro.rails.local" | sudo tee -a /etc/hosts
