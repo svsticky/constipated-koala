@@ -37,6 +37,8 @@
                   = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                   = I18n.t('activerecord.attributes.activity.price')
+                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                  = I18n.t('admin.sac.title')
                 - if !@is_summarized.nil?
                   %td
                     = I18n.t('activerecord.attributes.activity.notes')
@@ -60,6 +62,8 @@
 
                     %td.price-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                       %input.price{ :type => 'text', :value => number_to_currency(participant.currency, :unit => ''), :autocomplete=>'off'}
+                    %td.sac-input-td{:style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                      %input.sac{ :type => 'text', :value => (participant.sac_points or @activity.sac_points or 0), :autocomplete=>'off'}
                     %td.notes-td
                     %td.buttons
                       .btn-group
@@ -79,6 +83,10 @@
                 %td{ :style => 'text-align: left;' }
                   - if !@activity.price.nil?
                     %span= number_to_currency(@activity.price, :unit => '€')
+                %td{ :style => 'text-align: left;' }
+                  - if !@activity.sac_category.nil?
+                    - category = ConstipatedKoala::Application.config.sac_categories.find { |c| c[:id] == @activity.sac_category }
+                    %span= (category[:points] if category) or 0
                 %td
                 %td
 

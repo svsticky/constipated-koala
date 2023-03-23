@@ -253,6 +253,29 @@
                       %button.btn.btn-default.destroy
                         %i.fa.fa-fw.fa-trash
 
+        .card
+          .card-header
+            = I18n.t('admin.sac.title')
+            = link_to I18n.t("admin.sac.download"), member_sac_path(@member.id)
+          %table.table.table-striped#sac
+            %thead
+              %tr
+                %th= I18n.t('admin.activities.single')
+                %th= I18n.t('admin.sac.category')
+                %th= I18n.t('admin.sac.title')
+            %tbody
+              - @sac_points.each do |record|
+                - points, sac_ac = record.values_at(:points, :activity)
+                - categories = ConstipatedKoala::Application.config.sac_categories
+                %tr
+                  - category = categories.find {|c| c[:id] == sac_ac.sac_category }
+                  %td= link_to sac_ac.name, sac_ac
+                  %td= category[:name] if sac_ac.sac_category?
+                  %td= points
+              %tr
+                %td= I18n.t('admin.sac.total')
+                %td
+                %td= @sac_points_total
 
         .card
           .card-header

@@ -159,6 +159,10 @@
           .col-lg-6
             = f.label :participant_limit
             = f.number_field :participant_limit, min: 0, data: {original: @activity.participant_limit}, id: "participant_limit"
+          .col-lg-6
+            = f.label :sac_category
+            = f.select :sac_category, [["None", 0]] + @sac_categories
+        %hr.my-4
         .row
           .col
             %hr

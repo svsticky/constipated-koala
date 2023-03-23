@@ -47,10 +47,39 @@ class Admin::MembersController < ApplicationController
     # Pagination for checkout transactions
     @limit = params[:limit] ? params[:limit].to_i : 10
 
+    sac_activities = @member.activities.filter { |ac| ac.sac_category? or ac.participants.any?(&:sac_points) }
+    @sac_points = sac_activities.map do |ac|
+      # if the participant has a custom number of points
+      category = ConstipatedKoala::Application.config.sac_categories.find { |c| c[:id] == ac.sac_category } # Find the category in the list
+      custom_points = ac.participants.where(member: @member).first.sac_points
+      { points: (custom_points or category[:points]), activity: ac }
+    end
+    @sac_points_total = @sac_points.reduce(0) { |ac, record| ac + record[:points] }
+
     @pagination, @transactions = pagy(CheckoutTransaction
       .where(checkout_balance: CheckoutBalance
       .find_by(member_id: params[:id]))
       .order(created_at: :desc), items: 10)
+  end
+
+  def sac
+    data = "name;category;points;date;activity"
+    member = Member.find(params[:member_id])
+
+    # Find all activities a members participated in with sac points
+    sac_eligible = member.activities.filter do |ac|
+      (ac.sac_category? and ac.sac_category > 0) or ac.participants.where(member: member).first.sac_points?
+    end
+
+    sac_categories = ConstipatedKoala::Application.config.sac_categories
+    # Create csv rows for every activity
+    sac_eligible.each do |ac|
+      category = ((sac_categories.find { |c| c[:id] == ac.sac_category }) or { name: "" })
+      custom_points = ac.participants.where(member: member).first.sac_points
+      data += "\n#{ member.name };#{ category[:name] };#{ custom_points or category[:points] };#{ ac.start_date };#{ ac.name }"
+    end
+
+    send_data(data, { filename: "data.csv" })
   end
 
   def new

@@ -12,6 +12,7 @@ nl:
         already_added: Deze persoon is al toegevoegd
         price_changed: Het deelname bedrag is veranderd
         price_error: Geen verbinding of geen nummer
+        sac_changed: Het aantal sac punten is veranderd
       new: Nieuwe activiteit
       remove_participant: Deelname van %{user} verwijderen?
       save: Activiteit opslaan?
@@ -140,6 +141,11 @@ nl:
       status_text: Status
       tags: Labels
       title: Titel
+    sac:
+      category: Categorie
+      download: Download rapport
+      title: Sac punten
+      total: Totaal
     settings:
       action: Actie
       address: IP-adres

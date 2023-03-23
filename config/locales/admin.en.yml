@@ -12,6 +12,7 @@ en:
         already_added: This participant was already added
         price_changed: The participants fee has changed
         price_error: No connection or not a number
+        sac_changed: The number of sac points has been changed
       new: New activity
       remove_participant: Do you want to remove %{user} as participant?
       save: Save activity?
@@ -140,6 +141,11 @@ en:
       status_text: Status
       tags: Tags
       title: Title
+    sac:
+      category: Category
+      download: Download report
+      title: Sac points
+      total: Total
     settings:
       action: Action
       address: IP address
