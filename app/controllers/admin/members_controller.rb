@@ -50,9 +50,9 @@ class Admin::MembersController < ApplicationController
     sac_activities = @member.activities.filter { |ac| ac.sac_category? or ac.participants.any?(&:sac_points) }
     @sac_points = sac_activities.map do |ac|
       # if the participant has a custom number of points
-      points = ac.participants.where(member: @member).first.sac_points or
-        config.sac_categories.find { |c| c[:id] == ac.sac_category } # Find the category in the list
-      { points: points, activity: ac }
+      category = ConstipatedKoala::Application.config.sac_categories.find { |c| c[:id] == ac.sac_category } # Find the category in the list
+      custom_points = ac.participants.where(member: @member).first.sac_points
+      { points: (custom_points or category[:points]), activity: ac }
     end
     @sac_points_total = @sac_points.reduce(0) { |ac, record| ac + record[:points] }
 
@@ -75,8 +75,8 @@ class Admin::MembersController < ApplicationController
     # Create csv rows for every activity
     sac_eligible.each do |ac|
       category = ((sac_categories.find { |c| c[:id] == ac.sac_category }) or { name: "" })
-      points = ac.participants.where(member: member).first.sac_points or category[:points]
-      data += "\n#{ member.name };#{ category[:name] };#{ points };#{ ac.start_date };#{ ac.name }"
+      custom_points = ac.participants.where(member: member).first.sac_points
+      data += "\n#{ member.name };#{ category[:name] };#{ custom_points or category[:points] };#{ ac.start_date };#{ ac.name }"
     end
 
     send_data(data, { filename: "data.csv" })
