@@ -2,6 +2,10 @@
 class Admin::ActivitiesController < ApplicationController
   impressionist actions: [:update, :destroy]
 
+  def load_sac_categories
+    ConstipatedKoala::Application.config.sac_categories.map { |c| [c[:name], c[:id]] }
+  end
+
   def index
     @activities = Activity.study_year(params['year']).order(start_date: :desc)
     @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
@@ -9,6 +13,7 @@ class Admin::ActivitiesController < ApplicationController
     end.reverse
 
     @activity = Activity.new
+    @sac_categories = load_sac_categories
   end
 
   def show
@@ -18,6 +23,7 @@ class Admin::ActivitiesController < ApplicationController
     @recipients = @activity.payment_mail_recipients
     @attendees  = @activity.ordered_attendees
     @reservists = @activity.ordered_reservists
+    @sac_categories = load_sac_categories
   end
 
   def create

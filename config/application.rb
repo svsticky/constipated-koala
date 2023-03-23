@@ -74,11 +74,16 @@ module ConstipatedKoala
     # Generate translations.json
     config.middleware.use(I18n::JS::Middleware)
 
+    # Sac categories
+    # Expected format: { id: <int>, name: <string>, points: <int> }
     config.sac_categories = [
-      { id: 0, name: "None", points: 0 },
-      { id: 1, name: "Category 1", points: 10 },
-      { id: 2, name: "Category 2", points: 20 },
-      { id: 3, name: "Category 3", points: 30 }
+      { id: 1, name: "Studiereis", points: 4 },
+      { id: 2, name: "Inhouse dag", points: 2 },
+      { id: 3, name: "Consultancy day", points: 2 },
+      { id: 4, name: "Lezing / workshop", points: 1 },
+      { id: 5, name: "Bedrijvendiner", points: 2 },
+      { id: 6, name: "Bedrijvenborrel", points: 2 },
+      { id: 7, name: "Traders evenement", points: 3 }
     ].freeze
   end
 end
