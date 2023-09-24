@@ -3,6 +3,7 @@ nl:
   admin:
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
+      copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
       filters: Filters
       financial: Financieel
@@ -17,8 +18,12 @@ nl:
       save: Activiteit opslaan?
       single: Activiteit
       title: Activiteiten
-      copy_wa_msg: Kopieer voor WhatsApp
-      wa_msg: "*%{act_name} |%{datetime} | Locatie: %{location} | %{price}*\n\n%{url}\n\n%{description}"
+      wa_msg: |-
+        *%{act_name} |%{datetime} | Locatie: %{location} | %{price}*
+
+        %{url}
+
+        %{description}
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?

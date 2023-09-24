@@ -422,9 +422,9 @@ nl:
     - vrijdag
     - zaterdag
     formats:
-      name_day_month: "%A %d %B"
       day_month: "%d %B"
       default: "%d-%m-%Y"
+      name_day_month: "%A %d %B"
       short: "%Y"
     month_names:
     - nil
