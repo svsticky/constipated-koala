@@ -379,12 +379,12 @@ class Activity < ApplicationRecord
 
   # Generate the time string for the whatsapp message eg: Sunday 24 September 05:00 - 06:00
   def gen_time_string(loc)
-    fmt_dt = lambda{|dt| dt.nil? ? "" : " " + I18n.l(dt, :format => :name_day_month, locale: loc)}
-    fmt_tm = lambda{|tm| tm.nil? ? "" : " " + I18n.l(tm, :format => :short)}
+    fmt_dt = lambda{|dt| dt.nil? ? "" : " #{I18n.l(dt, :format => :name_day_month, locale: loc)}"}
+    fmt_tm = lambda{|tm| tm.nil? ? "" : " #{I18n.l(tm, :format => :short)}"}
 
     end_dt = start_date == end_date ? "" : fmt_dt.(end_date)
     edt = end_dt + fmt_tm.(end_time)
-    edt = edt.present? ? " -" + edt : ""
+    edt = edt.present? ? " -#{edt}" : ""
 
     return fmt_dt.(start_date) + fmt_tm.(start_time) + edt
   end
