@@ -28,8 +28,8 @@ import jQuery from "jquery";
             $(events).trigger(
               "selected",
               $.fn.search.retrieve(
-                $(this).next(opts.dropdown).find("li.active").find("a")
-              )
+                $(this).next(opts.dropdown).find("li.active").find("a"),
+              ),
             );
 
             $("ul.dropdown-menu").delay(10).hide(1);
@@ -54,7 +54,7 @@ import jQuery from "jquery";
 
           $(events).trigger(
             "selected",
-            $.fn.search.retrieve($(selected).find("a"))
+            $.fn.search.retrieve($(selected).find("a")),
           );
           $(dropdown).hide().empty();
 
@@ -82,7 +82,7 @@ import jQuery from "jquery";
             {
               search: events.val(),
             },
-            opts.query
+            opts.query,
           );
 
           clearTimeout(thread);

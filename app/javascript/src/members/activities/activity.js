@@ -203,7 +203,7 @@ Object.defineProperties(Activity.prototype, {
 
           activity._fullness = Activity.get_fullness_from_count_and_limit(
             response.participant_count,
-            response.participant_limit
+            response.participant_limit,
           );
         })
         .fail(function (data) {
@@ -241,8 +241,8 @@ Object.defineProperties(Activity.prototype, {
                   .html()
                   .format(
                     participant.name,
-                    participant.notes === null ? "" : participant.notes
-                  )
+                    participant.notes === null ? "" : participant.notes,
+                  ),
               );
             });
 
@@ -253,8 +253,8 @@ Object.defineProperties(Activity.prototype, {
                   .html()
                   .format(
                     participant.name,
-                    participant.notes === null ? "" : participant.notes
-                  )
+                    participant.notes === null ? "" : participant.notes,
+                  ),
               );
             });
 
@@ -307,7 +307,7 @@ Object.defineProperties(
       corresponding_activity_container_child: {
         get: function () {
           return get_activity_container().children(
-            ":has(" + this.get_panel_selector() + ")"
+            ":has(" + this.get_panel_selector() + ")",
           );
         },
       },
@@ -335,8 +335,8 @@ Object.defineProperties(
     function (name, descriptor) {
       descriptor.enumerable = true;
       return descriptor;
-    }
-  )
+    },
+  ),
 );
 
 /**
@@ -419,7 +419,7 @@ Object.defineProperties(
     reservist_count_display: function () {
       return $("#reservists-count");
     },
-  })
+  }),
 );
 
 /**
@@ -429,19 +429,19 @@ Object.defineProperties(
 var Enrollment_stati = {
   un_enrolled: new Enrollment_status(
     "btn-success",
-    I18n.t("members.activities.actions.enroll")
+    I18n.t("members.activities.actions.enroll"),
   ),
   enrolled: new Enrollment_status(
     "btn-danger",
-    I18n.t("members.activities.actions.unenroll")
+    I18n.t("members.activities.actions.unenroll"),
   ),
   reservist: new Enrollment_status(
     "btn-reservistSignout",
-    I18n.t("members.activities.actions.reservist_unenroll")
+    I18n.t("members.activities.actions.reservist_unenroll"),
   ),
   reservistable: new Enrollment_status(
     "btn-reservistSignup",
-    I18n.t("members.activities.actions.reservist_enroll")
+    I18n.t("members.activities.actions.reservist_enroll"),
   ),
 };
 
