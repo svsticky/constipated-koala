@@ -363,29 +363,31 @@ class Activity < ApplicationRecord
 
   # Pass loc to force a specific language
   def whatsapp_message(loc)
-    pc = price <= 0 ? I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
-       : '€' + price.to_s
+    pc = if price <= 0
+           I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
+         else
+           "€#{ price }"
+         end
 
     return I18n.t('admin.activities.wa_msg',
-          act_name: name,
-          datetime: gen_time_string(loc),
-          location: location,
-          price: pc,
-          url: "https://koala.svsticky.nl/activities/#{ id }",
-          description: loc == :nl ? description_nl : description_en,
-          locale: loc
-        )
+                  act_name: name,
+                  datetime: gen_time_string(loc),
+                  location: location,
+                  price: pc,
+                  url: "https://koala.svsticky.nl/activities/#{ id }",
+                  description: loc == :nl ? description_nl : description_en,
+                  locale: loc)
   end
 
   # Generate the time string for the whatsapp message eg: Sunday 24 September 05:00 - 06:00
   def gen_time_string(loc)
-    fmt_dt = lambda{|dt| dt.nil? ? "" : " #{I18n.l(dt, :format => :name_day_month, locale: loc)}"}
-    fmt_tm = lambda{|tm| tm.nil? ? "" : " #{I18n.l(tm, :format => :short)}"}
+    fmt_dt = ->(dt) { dt.nil? ? "" : " #{ I18n.l(dt, format: :name_day_month, locale: loc) }" }
+    fmt_tm = ->(tm) { tm.nil? ? "" : " #{ I18n.l(tm, format: :short) }" }
 
-    end_dt = start_date == end_date ? "" : fmt_dt.(end_date)
-    edt = end_dt + fmt_tm.(end_time)
-    edt = edt.present? ? " -#{edt}" : ""
+    end_dt = start_date == end_date ? "" : fmt_dt.call(end_date)
+    edt = end_dt + fmt_tm.call(end_time)
+    edt = edt.present? ? " -#{ edt }" : ""
 
-    return fmt_dt.(start_date) + fmt_tm.(start_time) + edt
+    return fmt_dt.call(start_date) + fmt_tm.call(start_time) + edt
   end
 end
