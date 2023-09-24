@@ -3,6 +3,7 @@ en:
   admin:
     activities:
       added_reservist: has been placed on the participants list
+      copy_wa_msg: Copy for WhatsApp
       ended: Ended
       filters: Filters
       financial: Financial
@@ -17,8 +18,12 @@ en:
       save: Save activity?
       single: Activity
       title: Activities
-      copy_wa_msg: Copy for WhatsApp
-      wa_msg: "*%{act_name} |%{datetime} | Location: %{location} | %{price}*\n\n%{url}\n\n%{description}"
+      wa_msg: |-
+        *%{act_name} |%{datetime} | Location: %{location} | %{price}*
+
+        %{url}
+
+        %{description}
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?
