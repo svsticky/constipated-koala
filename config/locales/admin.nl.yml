@@ -19,7 +19,6 @@ nl:
       title: Activiteiten
       copy_wa_msg: Kopieer voor WhatsApp
       wa_msg: "*%{act_name} |%{datetime} | Locatie: %{location} | %{price}*\n\n%{url}\n\n%{description}"
-      wa_msg_time: "%{time_start} - %{time_end} "
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?
