@@ -449,7 +449,7 @@ function addCopyTableCallBack() {
 }
 
 function copyPromoToClipboard() {
-  new Clipboard("#btn-copy-promo .btn-clipboard", {
+  new Clipboard(".btn-clipboard-wapp", {
     text: function (trigger) {
       return trigger.getAttribute("data-clipboard-text");
     },
