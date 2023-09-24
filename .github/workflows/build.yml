@@ -22,13 +22,13 @@ jobs:
       OIDC_SIGNING_KEY: .github/test-signing-key.pem
 
     steps:
-    - uses: "actions/checkout@v2.4.0"
+    - uses: "actions/checkout@v4"
 
     - name: "install Nix"
-      uses: "cachix/install-nix-action@v16"
+      uses: "cachix/install-nix-action@v23"
 
     - name: "Cache Nix packages"
-      uses: cachix/cachix-action@v8
+      uses: cachix/cachix-action@v12
       with:
         name: svsticky-constipated-koala
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
