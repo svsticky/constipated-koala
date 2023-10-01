@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import $ from "jquery";
+import Clipboard from "clipboard";
 
 import { Poster_modal } from "./poster_modal";
 import I18n from "../../translations.js";
@@ -8,27 +9,15 @@ import { Activity } from "./activity.js";
 
 var token, modal;
 
-function Copy_ICS() {
+function copyICSToClipboard() {
   /* Link to copy */
-
   var copy_text =
     "webcal://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
-
-  /* create a new element */
-  var el = document.createElement("textarea");
-  el.value = copy_text;
-  el.setAttribute("readonly", "");
-  el.style = { position: "absolute", left: "-9999px" };
-  document.body.appendChild(el);
-
-  /* Select the new element */
-  el.select();
-
-  /* Copy the text inside the selection*/
-  document.execCommand("copy");
-
-  /* Delete the temporary element */
-  document.body.removeChild(el);
+  new Clipboard("#copy-btn", {
+    text: function () {
+      return copy_text;
+    },
+  });
 }
 
 export function get_activity_container() {
@@ -254,6 +243,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   initialize_ui();
   initialize_enrollment();
   initialize_modal();
+  copyICSToClipboard();
 });
 
 document.addEventListener("turbolinks:load", function () {
