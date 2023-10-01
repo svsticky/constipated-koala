@@ -47,11 +47,11 @@ var participant = {
       data.id,
       data.member.id,
       data.member.name,
-      data.member.email
+      data.member.email,
     );
 
     var added = $(formattedTemplate).insertBefore(
-      "#participants-table tr:last"
+      "#participants-table tr:last",
     );
     $(".number").html(+$(".number").html() + 1);
 
@@ -61,7 +61,7 @@ var participant = {
     $("#attendeecount").html(data.activity.fullness);
     participant.update_debt_header(
       data.activity.paid_sum,
-      data.activity.price_sum
+      data.activity.price_sum,
     );
     bind_activities();
 
@@ -80,14 +80,14 @@ var participant = {
     var row = $(this).closest("tr");
     var id = $(this).closest("tr").attr("data-id");
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
 
     if (
       !confirm(
         I18n.t("admin.activities.remove_participant", {
           user: $(row).find("a").html(),
-        })
+        }),
       )
     )
       return;
@@ -105,7 +105,7 @@ var participant = {
     })
       .done(function (data) {
         toastr.warning(
-          `${$(row).find("a").html()} ${I18n.t("admin.general.removed")}`
+          `${$(row).find("a").html()} ${I18n.t("admin.general.removed")}`,
         );
         $(row).remove();
 
@@ -139,7 +139,7 @@ var participant = {
   // Upgrade from reservists to participants by admin
   upgrade: function () {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var row = $(this).closest("tr");
 
@@ -157,7 +157,7 @@ var participant = {
     })
       .done(function (data) {
         toastr.success(
-          `${data.member.name} ${I18n.t("admin.activities.added_reservist")}`
+          `${data.member.name} ${I18n.t("admin.activities.added_reservist")}`,
         );
         participant.add(data);
 
@@ -173,7 +173,7 @@ var participant = {
   //Admin marks participant as having paid
   updatePaid: function () {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var row = $(this).closest("tr");
 
@@ -191,7 +191,7 @@ var participant = {
     })
       .done(function (data) {
         toastr.success(
-          `${data.member.name} ${I18n.t("admin.activities.has_paid")}`
+          `${data.member.name} ${I18n.t("admin.activities.has_paid")}`,
         );
 
         $(row)
@@ -204,7 +204,7 @@ var participant = {
         $(row).removeClass("in-debt");
         participant.update_debt_header(
           data.activity.paid_sum,
-          data.activity.price_sum
+          data.activity.price_sum,
         );
 
         $("#mail").trigger("recipient_payed", [
@@ -225,7 +225,7 @@ var participant = {
   //Admin marks participant as having not paid
   updateUnpaid: function () {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var row = $(this).closest("tr");
 
@@ -243,7 +243,7 @@ var participant = {
     })
       .done(function (data) {
         toastr.warning(
-          `${data.member.name} ${I18n.t("admin.activities.has_not_paid")}`
+          `${data.member.name} ${I18n.t("admin.activities.has_not_paid")}`,
         );
 
         $(row)
@@ -256,7 +256,7 @@ var participant = {
         $(row).addClass("in-debt");
         participant.update_debt_header(
           data.activity.paid_sum,
-          data.activity.price_sum
+          data.activity.price_sum,
         );
 
         $("#mail").trigger("recipient_unpayed", [
@@ -278,7 +278,7 @@ var participant = {
   updatePrice: function () {
     var row = $(this).closest("tr");
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var price = $(this).val().replace(",", ".");
 
@@ -333,7 +333,7 @@ var participant = {
 
         participant.update_debt_header(
           data.activity.paid_sum,
-          data.activity.price_sum
+          data.activity.price_sum,
         );
 
         toastr.success(I18n.t("admin.activities.info.price_changed"));
@@ -407,7 +407,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   $("#participant_limit").on("change", function () {
     $('.btn.btn-success.wait[type="submit"]').attr(
       "data-confirm",
-      I18n.t("admin.activities.save")
+      I18n.t("admin.activities.save"),
     );
   });
 });
@@ -453,7 +453,7 @@ function addColumnClassToColumns() {
         .each(function (i) {
           $(this).addClass(`col-${i}`);
         });
-    }
+    },
   );
 }
 
@@ -468,7 +468,7 @@ function addCollapseCallbackToTableHeader() {
           .find(`.${columnClass}`)
           .each(function (_) {
             $(this).toggleClass("activity_table-row--hidden");
-          })
+          }),
       );
     });
 }
@@ -485,7 +485,7 @@ function posterHandlers() {
         $("form input.remove_poster").val("false");
         $("form .input-group input#output").val(this.files[0].name);
       }
-    }
+    },
   );
 
   //Handler for removing the poster

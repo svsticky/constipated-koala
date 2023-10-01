@@ -16,7 +16,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       if (this.files && this.files[0]) {
         $("form .input-group input#output").val(this.files[0].name);
       }
-    }
+    },
   );
 
   // activate card
@@ -26,7 +26,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       var button = $(this);
       var row = $(this).closest(".list-group-item");
       var token = encodeURIComponent(
-        $(this).closest(".page").attr("data-authenticity-token")
+        $(this).closest(".page").attr("data-authenticity-token"),
       );
 
       $(button).attr("disabled", "disabled");
@@ -47,7 +47,7 @@ $(document).on("ready page:load turbolinks:load", function () {
           toastr.error(I18n.t("checkout.card.not_activated"));
           $(button).removeAttr("disabled");
         });
-    }
+    },
   );
 
   $("div#cards ul.list-group .btn-group button:nth-child(2)").bind(
@@ -56,7 +56,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       var button = $(this);
       var row = $(this).closest(".list-group-item");
       var token = encodeURIComponent(
-        $(this).closest(".page").attr("data-authenticity-token")
+        $(this).closest(".page").attr("data-authenticity-token"),
       );
 
       $(button).attr("disabled", "disabled");
@@ -78,7 +78,7 @@ $(document).on("ready page:load turbolinks:load", function () {
           toastr.error(I18n.t("checkout.card.not_removed"));
           $(button).removeAttr("disabled");
         });
-    }
+    },
   );
 
   var credit = $("#credit");
@@ -119,7 +119,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   // after member is selected, set an amount
   credit.find("form.form-inline").on("submit", function (event) {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
 
     event.preventDefault();
@@ -176,13 +176,13 @@ $(document).on("ready page:load turbolinks:load", function () {
   $("#products button.destroy").on("click", function () {
     var id = $(this).closest("tr").attr("data-id");
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var row = $(this).closest("tr");
 
     if (
       !confirm(
-        I18n.t("admin.general.remove", { user: $(row).find("a").html() })
+        I18n.t("admin.general.remove", { user: $(row).find("a").html() }),
       )
     )
       return;
@@ -197,7 +197,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     })
       .done(function () {
         toastr.warning(
-          `${$(row).find("a").html()} ${I18n.t("admin.general.removed")}`
+          `${$(row).find("a").html()} ${I18n.t("admin.general.removed")}`,
         );
         $(row).remove();
       })
@@ -243,8 +243,8 @@ var product = {
       .done(function () {
         toastr.success(
           `${$(row).find("a").html()} ${I18n.t(
-            "checkout.products.deactivated"
-          )}`
+            "checkout.products.deactivated",
+          )}`,
         );
 
         $(row)
@@ -255,8 +255,8 @@ var product = {
           .addClass("activate btn-primary")
           .append(
             `<i class="fa fa-fw fa-check"></i> ${I18n.t(
-              "checkout.products.deactivate"
-            )}`
+              "checkout.products.deactivate",
+            )}`,
           );
 
         //Reset all event handlers
@@ -281,7 +281,7 @@ var product = {
     })
       .done(function () {
         toastr.success(
-          `${$(row).find("a").html()} ${I18n.t("checkout.products.activated")}`
+          `${$(row).find("a").html()} ${I18n.t("checkout.products.activated")}`,
         );
 
         $(row)
@@ -292,8 +292,8 @@ var product = {
           .addClass("deactivate btn-warning")
           .append(
             `<i class="fa fa-fw fa-times"></i> ${I18n.t(
-              "checkout.products.activate"
-            )}`
+              "checkout.products.activate",
+            )}`,
           );
 
         bind_flip();

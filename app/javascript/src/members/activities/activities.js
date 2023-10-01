@@ -46,7 +46,7 @@ function confirm_enroll(activity) {
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: rgbToHex(
-      activity.enrollment_button.css("backgroundColor")
+      activity.enrollment_button.css("backgroundColor"),
     ),
     confirmButtonText: I18n.t("members.activities.actions.confirm"),
     cancelButtonText: I18n.t("members.activities.actions.cancel"),
@@ -60,7 +60,7 @@ function confirm_enroll(activity) {
           activity.enroll();
         }
       }
-    }
+    },
   );
 }
 
@@ -71,7 +71,7 @@ function confirm_un_enroll_date_passed(activity) {
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: rgbToHex(
-      activity.enrollment_button.css("backgroundColor")
+      activity.enrollment_button.css("backgroundColor"),
     ),
     confirmButtonText: I18n.t("members.activities.actions.confirm"),
     cancelButtonText: I18n.t("members.activities.actions.cancel"),
@@ -79,7 +79,7 @@ function confirm_un_enroll_date_passed(activity) {
     // on confirm
     function (result) {
       if (result.value) activity.enroll();
-    }
+    },
   );
 }
 
@@ -88,7 +88,7 @@ function confirm_un_enroll(activity) {
     Swal.fire(
       I18n.t("members.activities.error.unenroll_failed"),
       I18n.t("members.activities.error.unenroll_deadline"),
-      "error"
+      "error",
     );
     return;
   }
@@ -99,7 +99,7 @@ function confirm_un_enroll(activity) {
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: rgbToHex(
-      activity.enrollment_button.css("backgroundColor")
+      activity.enrollment_button.css("backgroundColor"),
     ),
     confirmButtonText: I18n.t("members.activities.actions.confirm"),
     cancelButtonText: I18n.t("members.activities.actions.cancel"),
@@ -107,7 +107,7 @@ function confirm_un_enroll(activity) {
     // anonymous function, because this is set to the sweetalert
     function (result) {
       if (result.value) activity.un_enroll();
-    }
+    },
   );
 }
 
@@ -117,7 +117,7 @@ function confirm_update(activity) {
     icon: "info",
     showCancelButton: true,
     confirmButtonColor: rgbToHex(
-      activity.update_notes_button.css("backgroundColor")
+      activity.update_notes_button.css("backgroundColor"),
     ),
     confirmButtonText: I18n.t("members.activities.actions.confirm"),
     cancelButtonText: I18n.t("members.activities.actions.cancel"),
@@ -125,7 +125,7 @@ function confirm_update(activity) {
     // anonymous function, because this is set to the sweetalert
     function (result) {
       if (result.value) activity.edit_enroll();
-    }
+    },
   );
 }
 
@@ -170,7 +170,7 @@ function initialize_modal() {
   posterModal.on("show.bs.modal", function (event) {
     var activity = new Activity(
       $(event.relatedTarget).closest(".panel-activity"),
-      token
+      token,
     );
     modal = new Poster_modal(this, activity);
   });
@@ -183,7 +183,7 @@ function initialize_modal() {
      */
     function () {
       modal.prevActivity();
-    }
+    },
   );
 
   //Add event handler to go to the next activity in the modal
@@ -194,7 +194,7 @@ function initialize_modal() {
      */
     function () {
       modal.nextActivity();
-    }
+    },
   );
 
   posterModal.find(".more-info").on("click", function () {
@@ -237,7 +237,7 @@ function equalheight(container) {
  */
 $(document).on("ready page:load turbolinks:load", function () {
   token = encodeURIComponent(
-    $(this).find(".page").attr("data-authenticity-token")
+    $(this).find(".page").attr("data-authenticity-token"),
   );
 
   initialize_ui();
