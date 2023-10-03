@@ -355,17 +355,13 @@ class Activity < ApplicationRecord
       poster.representation(resize: '254x360!')
     end
   end
-
-  def google_event
+  # pass along locale default to nil
+  def google_event (loc = nil)
     return nil if start.nil? || self.end.nil?
-
+    # if loc is nil use i18n
     # check locale for correct description
-    description = if I18n.locale == :en
-                    description_en
-                  else
-                    description_nl
-                  end
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start_time.strftime("%Y%m%dT%H%M%SZ")}/#{ end_time.strftime("%Y%m%dT%H%M%SZ") }&details=#{ description }&location=#{ location }&sf=true&output=xml"
+    description = loc == :nl ? description_nl : description_en
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start.strftime("%Y%m%dT%H%M%SZ")}/#{ end.strftime("%Y%m%dT%H%M%SZ") }&details=#{ description }&location=#{ location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
