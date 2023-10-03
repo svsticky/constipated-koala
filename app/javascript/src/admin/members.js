@@ -34,7 +34,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             "name",
             $(this)
               .attr("name")
-              .replace(/\[(-?\d*\d+)]/, "[" + id + "]")
+              .replace(/\[(-?\d*\d+)]/, "[" + id + "]"),
           );
       });
 
@@ -47,7 +47,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             "name",
             $(this)
               .attr("name")
-              .replace(/\[(-?\d*\d+)]/, "[" + id + "]")
+              .replace(/\[(-?\d*\d+)]/, "[" + id + "]"),
           );
       });
 
@@ -99,7 +99,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   var paymentMethodInput = creditInputGroup.find("select#payment_method");
   creditInputGroup.find("#upgrade-btn").on("click", function () {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
 
     if (!inputAmount.val()) {
@@ -171,7 +171,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     let uuid = row.attr("data-uuid");
     let memberid = row.attr("data-member-id");
     let token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
 
     let tobeactivated = row.attr("data-active") == 0;
@@ -219,7 +219,7 @@ $(document).on("ready page:load turbolinks:load", function () {
           $(this)
             .empty()
             .append(
-              '<i class="fa fa-trash"></i>' + I18n.t("admin.cards.deactivate")
+              '<i class="fa fa-trash"></i>' + I18n.t("admin.cards.deactivate"),
             )
             .addClass("deactivate btn-danger");
           row.attr("data-disabled", 0);
@@ -232,7 +232,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             .empty()
             .append(
               '<i class="fa fa-sync-alt"></i>' +
-                I18n.t("admin.cards.reactivate")
+                I18n.t("admin.cards.reactivate"),
             )
             .addClass("reactivate btn-warning");
           row.attr("data-disabled", 1);
