@@ -365,7 +365,7 @@ class Activity < ApplicationRecord
                   else
                     description_nl
                   end
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start_time }/#{ end_time }&details=#{ description }&location=#{ location }&sf=true&output=xml"
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start_time.strftime("%Y%m%dT%H%M%SZ")}/#{ end_time.strftime("%Y%m%dT%H%M%SZ") }&details=#{ description }&location=#{ location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
