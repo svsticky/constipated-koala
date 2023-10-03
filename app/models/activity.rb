@@ -361,7 +361,7 @@ class Activity < ApplicationRecord
     # if loc is nil use i18n
     # check locale for correct description
     description = loc == :nl ? description_nl : description_en
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start.strftime("%Y%m%dT%H%M%SZ")}/#{ end.strftime("%Y%m%dT%H%M%SZ") }&details=#{ description }&location=#{ location }&sf=true&output=xml"
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ self.start.strftime("%Y%m%dT%H%M%SZ")}%2F#{ self.end.strftime("%Y%m%dT%H%M%SZ") }&details=#{ description }&location=#{ location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
