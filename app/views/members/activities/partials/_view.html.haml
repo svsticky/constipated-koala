@@ -63,8 +63,8 @@
           = l(activity.unenroll_date, format: "%A %d/%m/%Y")
           23:59
       <br/>
-      - if !activity.google_event.nil?
-        %a{href: activity.google_event, target: "_blank"}
+      - if !activity.google_event().nil?
+        %a{href: activity.google_event(), target: "_blank"}
           = I18n.t("activerecord.attributes.activity.google_event")
         <br/>
       - if view == 'index'
