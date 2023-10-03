@@ -56,7 +56,9 @@ dates.each do |start_date|
 
     notes:             notes,
     notes_mandatory:   !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.2) : false,
-    notes_public:      !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : false
+    notes_public:      !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : false,
+
+    sac_category:      Faker::Boolean.boolean(true_ratio: 0.25) ? Faker::Number.between(from: 1, to: 7) : nil
   )
 
   puts("   -> #{ activity.name } (#{ start_date })#{', enrollable' if enrollable}" )
@@ -82,7 +84,8 @@ dates.each do |start_date|
       reservist:  true,
       price:      (Faker::Boolean.boolean(true_ratio: 0.2) ? Faker::Commerce.price / 5 : nil),
       paid:       Faker::Boolean.boolean(true_ratio: 0.4), # if price is 0 then the paid attribute is not used
-      notes:      response
+      notes:      response,
+      sac_points: (activity.sac_category and Faker::Boolean.boolean(true_ratio: 0.2)) ? Faker::Number.between(from: 1, to: 7) : nil
     )
   end
 
