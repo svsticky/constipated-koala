@@ -1,5 +1,6 @@
 import $ from "jquery";
 import I18n from "../translations.js";
+import Clipboard from "clipboard";
 import toastr from "toastr";
 
 /*
@@ -384,6 +385,8 @@ $(document).on("ready page:load turbolinks:load", function () {
     addCopyTableCallBack();
   }
 
+  copyPromoToClipboard();
+
   $("form#mail").mail();
 
   $("#activity_is_viewable").on("click", function () {
@@ -442,6 +445,14 @@ function addCopyTableCallBack() {
     select.addRange(range);
     document.execCommand("copy");
     setTimeout(() => select.removeAllRanges(), 250);
+  });
+}
+
+function copyPromoToClipboard() {
+  new Clipboard(".btn-clipboard-wapp", {
+    text: function (trigger) {
+      return trigger.getAttribute("data-clipboard-text");
+    },
   });
 }
 
