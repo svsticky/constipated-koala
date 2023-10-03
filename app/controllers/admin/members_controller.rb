@@ -47,11 +47,13 @@ class Admin::MembersController < ApplicationController
     # Pagination for checkout transactions
     @limit = params[:limit] ? params[:limit].to_i : 10
 
-    sac_activities = @member.activities.filter { |ac| ac.sac_category? or ac.participants.any?(&:sac_points) }
-    @sac_points = sac_activities.map do |ac|
+    @sac_points = @member.activities
+      .filter { |ac| ac.sac_category or ac.participants.any?(&:sac_points) }
+      .map do |ac|
       # if the participant has a custom number of points
       category = ConstipatedKoala::Application.config.sac_categories.find { |c| c[:id] == ac.sac_category } # Find the category in the list
       custom_points = ac.participants.where(member: @member).first.sac_points
+      p ac.sac_category
       { points: (custom_points or category[:points]), activity: ac }
     end
     @sac_points_total = @sac_points.reduce(0) { |ac, record| ac + record[:points] }

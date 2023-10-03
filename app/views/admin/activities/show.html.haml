@@ -37,8 +37,9 @@
                   = I18n.t('activerecord.attributes.activity.name')
                 %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
                   = I18n.t('activerecord.attributes.activity.price')
-                %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
-                  = I18n.t('admin.sac.title')
+                - if @activity.sac_category
+                  %td{ :style => 'padding: 0px; min-width: 10%; width: 10%; text-align:left;' }
+                    = I18n.t('admin.sac.title')
                 - if !@is_summarized.nil?
                   %td
                     = I18n.t('activerecord.attributes.activity.notes')
@@ -84,7 +85,7 @@
                   - if !@activity.price.nil?
                     %span= number_to_currency(@activity.price, :unit => '€')
                 %td{ :style => 'text-align: left;' }
-                  - if !@activity.sac_category.nil?
+                  - if @activity.sac_category
                     - category = ConstipatedKoala::Application.config.sac_categories.find { |c| c[:id] == @activity.sac_category }
                     %span= (category[:points] if category) or 0
                 %td
