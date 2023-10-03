@@ -36,7 +36,7 @@
                 .row
                   .col-md-12
                     = f.label(:birth_date)
-                    = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control'
+                    = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control', min: '1900-01-01', max: (Time.new.year - 14).to_s  + '-12-31'
 
               .form-group
                 .row

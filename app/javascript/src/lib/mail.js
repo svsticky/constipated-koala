@@ -25,10 +25,10 @@ import toastr from "toastr";
       // fill the lists of recipients and debtors
       recipients = $.fn.mail.list("#participants table tr[data-reservist]");
       attendees = $.fn.mail.list(
-        '#participants table tr[data-reservist="false"]'
+        '#participants table tr[data-reservist="false"]',
       );
       reservists = $.fn.mail.list(
-        '#participants table tr[data-reservist="true"]'
+        '#participants table tr[data-reservist="true"]',
       );
       debtors = $.fn.mail.list("#participants table tr.in-debt");
 
@@ -49,7 +49,7 @@ import toastr from "toastr";
           $(form)
             .find("#recipients select")
             .trigger("change", [$(form).find("#recipients select").val()]);
-        }
+        },
       );
 
       // or if the activity is free
@@ -73,7 +73,7 @@ import toastr from "toastr";
           $(form)
             .find("#recipients select")
             .trigger("change", [$(form).find("#recipients select").val()]);
-        }
+        },
       );
 
       $(this).on(
@@ -87,7 +87,7 @@ import toastr from "toastr";
           $(form)
             .find("#recipients select")
             .trigger("change", [$(form).find("#recipients select").val()]);
-        }
+        },
       );
 
       // catch events from mail form

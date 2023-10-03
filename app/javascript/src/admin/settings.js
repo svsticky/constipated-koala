@@ -10,7 +10,7 @@ import toastr from "toastr";
 $(document).on("ready page:load turbolinks:load", function () {
   $("#settings input[id^='options']").on("change", function (e) {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var obj = this;
 
@@ -26,7 +26,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       .done(function (data, status) {
         toastr.success(
           $(obj).parents(".list-group-item").find(".col-md-6 b").html() +
-            " aangepast"
+            " aangepast",
         );
 
         if (!data) return;

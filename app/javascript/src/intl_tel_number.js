@@ -5,7 +5,7 @@ import intlTelInput from "intl-tel-input";
 export function setup_intl_tel_input() {
   var phone_input = document.querySelector("#member_phone_number");
   var emergency_phone_input = document.querySelector(
-    "#member_emergency_phone_number"
+    "#member_emergency_phone_number",
   );
 
   if (phone_input != null && emergency_phone_input != null) {

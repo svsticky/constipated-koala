@@ -356,8 +356,48 @@ class Activity < ApplicationRecord
     end
   end
 
+  # pass along locale default to nil
+  def google_event(loc = nil)
+    return nil if start.nil? || self.end.nil?
+
+    # if loc is nil use i18n
+    # check locale for correct description
+    description = loc == :nl ? description_nl : description_en
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start.strftime('%Y%m%dT%H%M%SZ') }%2F#{ self.end.strftime('%Y%m%dT%H%M%SZ') }&details=#{ description }&location=#{ location }&sf=true&output=xml"
+  end
+
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
   def rewrite_logs_before_delete
     impressions.update_all(message: "#{ name } (#{ id })")
+  end
+
+  # Pass loc to force a specific language
+  def whatsapp_message(loc)
+    pc = if price <= 0
+           I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
+         else
+           "€#{ price }"
+         end
+
+    return I18n.t('admin.activities.wa_msg',
+                  act_name: name,
+                  datetime: gen_time_string(loc),
+                  location: location,
+                  price: pc,
+                  url: "https://koala.svsticky.nl/activities/#{ id }",
+                  description: loc == :nl ? description_nl : description_en,
+                  locale: loc)
+  end
+
+  # Generate the time string for the whatsapp message eg: Sunday 24 September 05:00 - 06:00
+  def gen_time_string(loc)
+    fmt_dt = ->(dt) { dt.nil? ? "" : " #{ I18n.l(dt, format: :name_day_month, locale: loc) }" }
+    fmt_tm = ->(tm) { tm.nil? ? "" : " #{ I18n.l(tm, format: :short) }" }
+
+    end_dt = start_date == end_date ? "" : fmt_dt.call(end_date)
+    edt = end_dt + fmt_tm.call(end_time)
+    edt = edt.present? ? " -#{ edt }" : ""
+
+    return fmt_dt.call(start_date) + fmt_tm.call(start_time) + edt
   end
 end

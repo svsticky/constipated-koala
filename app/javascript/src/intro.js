@@ -32,7 +32,7 @@ $(document).on("ready page:load turbolinks:load", function () {
           {
             scrollTop: target.offset().top,
           },
-          1000
+          1000,
         );
         return false;
       }
@@ -47,7 +47,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       }
       return true;
     },
-    I18n.t("form.invalid_student_id")
+    I18n.t("form.invalid_student_id"),
   );
 
   jQuery.validator.addMethod(
@@ -63,7 +63,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       // field is valid if member is 18 years or if it's not empty
       return birthDate < maxDate || value;
     },
-    I18n.t("form.phone_required_underage")
+    I18n.t("form.phone_required_underage"),
   );
 
   $("form").validate({
