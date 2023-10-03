@@ -16,13 +16,13 @@ function bind_group_members() {
     event.preventDefault();
 
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
     var row = $(this).closest("tr");
 
     if (
       !confirm(
-        I18n.t("admin.general.remove", { user: $(row).find("a").html() })
+        I18n.t("admin.general.remove", { user: $(row).find("a").html() }),
       )
     )
       return;
@@ -40,7 +40,7 @@ function bind_group_members() {
     })
       .done(function () {
         toastr.warning(
-          `${$(row).find("a").html()} ${I18n.t("admin.general.removed")}`
+          `${$(row).find("a").html()} ${I18n.t("admin.general.removed")}`,
         );
         $(row).remove();
 
@@ -64,7 +64,7 @@ function bind_group_members() {
     .on("change", function () {
       var row = $(this).closest("tr");
       var token = encodeURIComponent(
-        $(this).closest(".page").attr("data-authenticity-token")
+        $(this).closest(".page").attr("data-authenticity-token"),
       );
       var position = $(this).val();
 
@@ -99,7 +99,7 @@ $(document).on("ready page:load turbolinks:load", function () {
       event.preventDefault();
 
       var token = encodeURIComponent(
-        $(this).closest(".page").attr("data-authenticity-token")
+        $(this).closest(".page").attr("data-authenticity-token"),
       );
 
       $.ajax({
