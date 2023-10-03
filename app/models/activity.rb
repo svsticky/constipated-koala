@@ -360,8 +360,12 @@ class Activity < ApplicationRecord
   def google_event(loc = nil)
     return nil if start.nil? || self.end.nil?
 
+<<<<<<< HEAD
     # if loc is nil use i18n
     # check locale for correct description
+=======
+    loc = I18n.locale if loc.nil?
+>>>>>>> a1e1c447 (fix calendar link entirely)
     description = loc == :nl ? description_nl : description_en
     return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start.strftime('%Y%m%dT%H%M%SZ') }%2F#{ self.end.strftime('%Y%m%dT%H%M%SZ') }&details=#{ description }&location=#{ location }&sf=true&output=xml"
   end
