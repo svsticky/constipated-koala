@@ -362,7 +362,10 @@ class Activity < ApplicationRecord
 
     loc = I18n.locale if loc.nil?
     description = loc == :nl ? description_nl : description_en
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ name }&dates=#{ start.strftime('%Y%m%dT%H%M%SZ') }%2F#{ self.end.strftime('%Y%m%dT%H%M%SZ') }&details=#{ description }&location=#{ location }&sf=true&output=xml"
+    uri_name = URI.encode_www_form_component(name)
+    uri_description = URI.encode_www_form_component(description)
+    uri_location = URI.encode_www_form_component(location)
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ start.strftime('%Y%m%dT%H%M%SZ') }%2F#{ self.end.strftime('%Y%m%dT%H%M%SZ') }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
