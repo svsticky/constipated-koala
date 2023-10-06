@@ -365,7 +365,7 @@ class Activity < ApplicationRecord
     return nil if start.nil? || self.end.nil?
 
     loc = I18n.locale if loc.nil?
-    description = activity_url() ++ "\n" ++ (loc == :nl ? description_nl : description_en)
+    description = activity_url + "\n" + (loc == :nl ? description_nl : description_en)
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
@@ -390,7 +390,7 @@ class Activity < ApplicationRecord
                   datetime: gen_time_string(loc),
                   location: location,
                   price: pc,
-                  url: activity_url(),
+                  url: activity_url,
                   description: loc == :nl ? description_nl : description_en,
                   locale: loc)
   end
