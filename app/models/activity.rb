@@ -356,12 +356,16 @@ class Activity < ApplicationRecord
     end
   end
 
+  def activity_url
+    return "https://koala.svsticky.nl/activities/#{ id }"
+  end
+
   # pass along locale default to nil
   def google_event(loc = nil)
     return nil if start.nil? || self.end.nil?
 
     loc = I18n.locale if loc.nil?
-    description = loc == :nl ? description_nl : description_en
+    description = activity_url() ++ "\n" ++ (loc == :nl ? description_nl : description_en)
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
@@ -386,7 +390,7 @@ class Activity < ApplicationRecord
                   datetime: gen_time_string(loc),
                   location: location,
                   price: pc,
-                  url: "https://koala.svsticky.nl/activities/#{ id }",
+                  url: activity_url(),
                   description: loc == :nl ? description_nl : description_en,
                   locale: loc)
   end
