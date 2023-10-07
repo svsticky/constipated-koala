@@ -364,12 +364,14 @@ class Activity < ApplicationRecord
   def google_event(loc = nil)
     return nil if start.nil? || self.end.nil?
 
+    fmt_dt = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
+
     loc = I18n.locale if loc.nil?
     description = "#{ activity_url }\n\n#{ loc == :nl ? description_nl : description_en }"
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ start.strftime('%Y%m%dT%H%M%SZ') }%2F#{ self.end.strftime('%Y%m%dT%H%M%SZ') }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ fmt_dt.call(start) }%2F#{ fmt_dt.call(self.end) }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
