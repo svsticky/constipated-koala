@@ -49,7 +49,8 @@ $ nix-shell
 This should install all dependencies and launch a shell.
 Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
 
-> **Note**<br>
+> **Note**
+>
 > If you ever experience deep/difficult issues with seting up your nix-shell, now or during
 > another step, this is probably because your environment variables (which are carried over
 > to nix) are too smart for nix. If your environment variables are really the cause of
