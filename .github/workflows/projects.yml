@@ -1,4 +1,4 @@
-name: Add newly opened issues to CommITCrowd project
+name: projects
 
 on:
   issues:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   add-to-project:
-    name: Add issue to CommITCrowd project
+    name: Add opened issue to CommITCrowd project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@v0.5.0
