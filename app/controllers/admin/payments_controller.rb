@@ -52,7 +52,10 @@ class Admin::PaymentsController < ApplicationController
                            content_type: "text/plain")
 
     pn = @member.phone_number
-    redirect_to("https://wa.me/#{ pn }?text=#{ ERB::Util.url_encode(msg) }")
+
+    # Parse URL to guarantee a valid URL and prevent XSS
+    url = URI.parse "https://wa.me/#{ pn }?text=#{ ERB::Util.url_encode(msg) }"
+    redirect_to url.to_s
   end
 
   def update_transactions
