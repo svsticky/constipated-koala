@@ -52,8 +52,7 @@ class Admin::PaymentsController < ApplicationController
                            content_type: "text/plain")
 
     pn = @member.phone_number
-
-    redirect_to("https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode(msg) }")
+    redirect_to("https://wa.me/#{ pn }?text=#{ ERB::Util.url_encode(msg) }")
   end
 
   def update_transactions
