@@ -130,7 +130,7 @@ nl:
       whatsapp:
         copy: Bericht gekopieerd naar klembord
         copy_error: Bericht kon niet worden opgehaald
-        open_activities: De volgende activiteiten staan open
+        open_activities: 'De volgende activiteiten staan open:'
         pay_to: 'Zou je dit bedrag zo snel mogelijk via het betalingsportaal op Koala willen betalen? Deze kun je vinden via de volgende link: https://koala.svsticky.nl/member/payments'
         title: Hey! %{user} van Sticky hier :)
         total_of: Dit geeft een totaal van *%{amount}*
