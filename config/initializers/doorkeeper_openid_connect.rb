@@ -45,7 +45,7 @@ Doorkeeper::OpenidConnect.configure do
     end
 
     claim :full_name, response: [:id_token, :user_info] do |resource_owner|
-      resource_owner.name
+      resource_owner.credentials.name
     end
   end
   # Example claims:
