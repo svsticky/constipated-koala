@@ -43,6 +43,10 @@ Doorkeeper::OpenidConnect.configure do
     claim :is_admin, response: [:id_token, :user_info] do |resource_owner|
       resource_owner.admin?
     end
+
+    claim :full_name, response: [:id_token, :user_info] do |resource_owner|
+      resource_owner.name
+    end
   end
   # Example claims:
   # claims do
