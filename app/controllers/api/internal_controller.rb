@@ -1,8 +1,7 @@
 # Internal API controller
 class Api::InternalController < ActionController::Base
-  protect_from_forgery except: %i[mongoose_user]
-  before_action :authenticate_internal, only: %i[mongoose_user]
-
+  protect_from_forgery
+  before_action :authenticate_internal
   respond_to :json
 
   def member_by_studentid
