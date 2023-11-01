@@ -12,7 +12,7 @@ var token, modal;
 function copyICSToClipboard() {
   /* Link to copy */
   var copy_text =
-    "webcal://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
+    "https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
   new Clipboard("#copy-btn", {
     text: function () {
       return copy_text;

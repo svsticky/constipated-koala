@@ -53,7 +53,9 @@ class Admin::PaymentsController < ApplicationController
 
     pn = @member.phone_number
 
-    redirect_to("https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode(msg) }")
+    # Parse URL to guarantee a valid URL and prevent XSS
+    url = URI.parse("https://wa.me/#{ pn }?text=#{ ERB::Util.url_encode(msg) }")
+    redirect_to(url.to_s)
   end
 
   def update_transactions

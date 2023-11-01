@@ -49,6 +49,14 @@ $ nix-shell
 This should install all dependencies and launch a shell.
 Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
 
+> **Note**
+>
+> If you ever experience deep/difficult issues with seting up your nix-shell, now or during
+> another step, this is probably because your environment variables (which are carried over
+> to nix) are too smart for nix. If your environment variables are really the cause of
+> the issue - or if you assume that this is the case - run nix-shell with the ``--pure`` argument.
+> This tells nix to not 'copy' over any environment varibles.
+
 ## Configuring Koala
 
 To actually run Koala, you'll need a running copy of PostgreSQL and Redis
