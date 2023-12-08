@@ -30,8 +30,22 @@ function bind_activities() {
   // Admin updates participant's price
   // [PATCH] participants
   $("#participants").find("input.price").on("change", participant.updatePrice);
-}
 
+  // Admin adds committee members to the activity
+  // [POST] participants
+  $("#btn-add-committee").on("click", addCommitteeMembers);
+}
+// adds the committee members to the activity
+function addCommitteeMembers({ target }) {
+  const activity_id = $(target).data("id");
+  $.getJSON("/activities/" + activity_id + "/committee_members").then(
+    (data) => {
+      data.forEach((member) => {
+        participant.enroll(activity_id, member.member.id);
+      });
+    },
+  );
+}
 /*
  * Participant namespace containing all participant related functions
  */
@@ -343,6 +357,22 @@ var participant = {
         toastr.error(I18n.t("admin.activities.info.price_error"));
       });
   },
+
+  enroll(activity_id, member_id) {
+    $.ajax({
+      url: "/activities/" + activity_id + "/participants",
+      type: "POST",
+      data: {
+        member: member_id,
+      },
+    })
+      .done(function (data) {
+        participant.add(data);
+      })
+      .fail(function () {
+        toastr.warning(I18n.t("admin.activities.info.already_added"));
+      });
+  },
 };
 
 /*
@@ -356,22 +386,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     .find("input#participant")
     .search()
     .on("selected", function (event, id) {
-      $.ajax({
-        url:
-          "/activities/" +
-          $("#participants-table").attr("data-id") +
-          "/participants",
-        type: "POST",
-        data: {
-          member: id,
-        },
-      })
-        .done(function (data) {
-          participant.add(data);
-        })
-        .fail(function () {
-          toastr.warning(I18n.t("admin.activities.info.already_added"));
-        });
+      participant.enroll($("#participants-table").attr("data-id"), id);
     });
 
   posterHandlers();

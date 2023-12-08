@@ -189,8 +189,8 @@ $(document).on("ready page:load turbolinks:load", function () {
     let successmsg = tobeactivated
       ? I18n.t("checkout.card.activated")
       : disabled
-      ? I18n.t("admin.cards.activate_success", { uuid: uuid })
-      : I18n.t("admin.cards.deactivate_success", { uuid: uuid });
+        ? I18n.t("admin.cards.activate_success", { uuid: uuid })
+        : I18n.t("admin.cards.deactivate_success", { uuid: uuid });
 
     $.ajax({
       url: url,

@@ -24,6 +24,10 @@
             - if !@is_summarized.nil?
               %button.btn.btn-info#btn-copy-table{ :style => 'margin-left: 8px;'}
                 = I18n.t('editing.copy') + '📋'
+            -# add a button to add all committee members to the activity
+            - if defined?(@activity.group.committee?)
+              %button.btn.btn-info#btn-add-committee{ :style => 'margin-left: 8px;' , :data => { 'id' => @activity.id,  } }
+                = 'add ' + @activity.group.name + ' ➕'
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
 

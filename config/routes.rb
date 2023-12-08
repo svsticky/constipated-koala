@@ -79,6 +79,7 @@ Rails.application.routes.draw do
             post 'mail'
           end
         end
+        get 'committee_members'
       end
 
       scope 'payments' do
