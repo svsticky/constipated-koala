@@ -21,6 +21,8 @@ To get started, you will need:
 - Preferably a Linux installation, but MacOS or WSL2 should work too
 - Git (`sudo apt install git`)
 - Nix (<https://nixos.org/download.html>)
+  - You must use the multi-user installation!
+  - If the installation fails, please [remove any traces of old nix installations](https://nixos.org/manual/nix/unstable/installation/uninstall.html). After following these steps, **make sure you log out of your system first!**. This ensures all enviroment variables are set correctly.
 
 To start, clone the project:
 
