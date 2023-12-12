@@ -84,42 +84,42 @@
               %tr.card-body
                 %td= I18n.t("members.payments.unpaid_activity.no_unpaid")
 
-  .col-lg-6.col-12
-    .card
-      = form_with :url => :mongoose, :local => true, :method=> :post, :class => 'form-validation', :id => "add_funds_form" do |f|
-        .card-header
-          .mb-2
-            %i.fa.fa-fw.fa-fw.fa-shopping-cart
-            %span= I18n.t("activerecord.models.checkout_transactions")
-          .card-subtitle.text-muted
-            = I18n.t("members.payments.mongoose.subtitle")
-        .card-body
-          %table.table
-            %tbody
-              - @transactions.each do |transaction|
-                %tr
-                  %td{ :colspan => 1 }= I18n.l transaction.created_at
-                  %td.d-none.d-sm-table-cell= transaction.products
-                  %td
-                    = number_to_currency(transaction.price, :unit => '€')
-                    - if transaction.price > 0
-                      %span.fa.fa-sort-asc.float-right
-                    - else
-                      %span.fa.fa-sort-desc.float-right
-                  %td.d-table-cell.d-sm-table-cell
-              %tr
-                %td
-                %td
-                %td
-              %tr
-                %td.home_mongoose_form_element= I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
-                %td.home_mongoose_form_element
-                  = "€#{String(@transaction_costs)}"
-                %td.home_mongoose_form_element
-              %tr
-                %td.home_mongoose_form_element
-                  .ideal-mongoose= f.select :bank, options_for_select(Payment::ideal_issuers), {}
-                %td.home_mongoose_form_element
-                  = f.text_field :amount, :placeholder => I18n.t('members.payments.mongoose.credit'), :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', :required => ''
-                %td.home_mongoose_form_element
-                  = f.submit I18n.t('members.payments.mongoose.upgrade'), class: "btn btn-success btn-sm", type: "submit"
+  -# .col-lg-6.col-12
+    -# .card
+    -#   = form_with :url => :mongoose, :local => true, :method=> :post, :class => 'form-validation', :id => "add_funds_form" do |f|
+    -#     .card-header
+    -#       .mb-2
+    -#         %i.fa.fa-fw.fa-fw.fa-shopping-cart
+    -#         %span= I18n.t("activerecord.models.checkout_transactions")
+    -#       .card-subtitle.text-muted
+    -#         = I18n.t("members.payments.mongoose.subtitle")
+    -#     .card-body
+    -#       %table.table
+    -#         %tbody
+    -#           - @transactions.each do |transaction|
+    -#             %tr
+    -#               %td{ :colspan => 1 }= I18n.l transaction.created_at
+    -#               %td.d-none.d-sm-table-cell= transaction.products
+    -#               %td
+    -#                 = number_to_currency(transaction.price, :unit => '€')
+    -#                 - if transaction.price > 0
+    -#                   %span.fa.fa-sort-asc.float-right
+    -#                 - else
+    -#                   %span.fa.fa-sort-desc.float-right
+    -#               %td.d-table-cell.d-sm-table-cell
+    -#           %tr
+    -#             %td
+    -#             %td
+    -#             %td
+    -#           %tr
+    -#             %td.home_mongoose_form_element= I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
+    -#             %td.home_mongoose_form_element
+    -#               = "€#{String(@transaction_costs)}"
+    -#             %td.home_mongoose_form_element
+    -#           %tr
+    -#             %td.home_mongoose_form_element
+    -#               .ideal-mongoose= f.select :bank, options_for_select(Payment::ideal_issuers), {}
+    -#             %td.home_mongoose_form_element
+    -#               = f.text_field :amount, :placeholder => I18n.t('members.payments.mongoose.credit'), :pattern => '^\d+(\.|\,)\d{2}$', 'data-toggle' => 'tooltip', :required => ''
+    -#             %td.home_mongoose_form_element
+    -#               = f.submit I18n.t('members.payments.mongoose.upgrade'), class: "btn btn-success btn-sm", type: "submit"
