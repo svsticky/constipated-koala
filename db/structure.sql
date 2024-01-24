@@ -728,7 +728,7 @@ CREATE TABLE public.participants (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     reservist boolean DEFAULT false,
-    notes character varying(30)
+    notes character varying(100)
 );
 
 
@@ -1735,6 +1735,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211012104341'),
 ('20220221195220'),
 ('20220406092056'),
-('20220524203723');
+('20220524203723'),
+('20240125003700');
 
 

@@ -88,7 +88,7 @@
       .card-body.show-activity-topborder
         %strong
           = activity.notes
-        %textarea.form-control.notes{:maxlength => '30', :value => (@enrollment.notes unless @enrollment.nil?)}
+        %textarea.form-control.notes{:maxlength => '100', :value => (@enrollment.notes unless @enrollment.nil?)}
           = @enrollment.notes unless @enrollment.nil?
   .card-footer.clearfix
     .row
