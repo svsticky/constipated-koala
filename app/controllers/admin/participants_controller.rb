@@ -3,7 +3,8 @@ class Admin::ParticipantsController < ApplicationController
   def create
     @participant = Participant.new(
       member: Member.find_by(id: params[:member]),
-      activity: Activity.find_by(id: params[:activity_id])
+      activity: Activity.find_by(id: params[:activity_id]),
+      reservist: params[:reservist] || false,
     )
 
     impressionist(@participant) if @participant.save

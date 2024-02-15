@@ -358,12 +358,13 @@ var participant = {
       });
   },
 
-  enroll(activity_id, member_id) {
+  enroll(activity_id, member_id, reservist = false) {
     $.ajax({
       url: "/activities/" + activity_id + "/participants",
       type: "POST",
       data: {
         member: member_id,
+        reservist: reservist,
       },
     })
       .done(function (data) {
@@ -389,7 +390,15 @@ $(document).on("ready page:load turbolinks:load", function () {
       participant.enroll($("#participants-table").attr("data-id"), id);
     });
 
+  $("#participants")
+    .find("input#participant-reservist")
+    .search()
+    .on("selected", function (event, id) {
+        participant.enroll($("#reservists-table").attr("data-id"), id, true);
+    });
+
   posterHandlers();
+
   if (window.location.href.indexOf("summary_only") !== -1) {
     makeTableCollapsable();
     addCopyTableCallBack();
