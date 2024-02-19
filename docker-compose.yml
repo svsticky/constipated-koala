@@ -9,10 +9,9 @@ services:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-    ports:
-      - '6379:6379'
     volumes:
       - 'redis_data:/bitnami/redis/data'
+    network_mode: "host"
 
   postgres-db:
     image: postgres:13
@@ -20,39 +19,32 @@ services:
     environment:
       POSTGRES_USER: koala
       POSTGRES_PASSWORD: "koala123"
-
-    ports:
-      - "5432:5432"
+    network_mode: "host"
 
   # FIXME: Koala breaks css and js when trying to connect with the
-  # webpack-dev-server (and failing). The connection is disabled in in
+  # webpack-dev-server (and failing). The connection is disabled in
   # webpacker.yml for now.
-  webpack-dev-server:
-    build: .
+  # webpack-dev-server:
+  #   build: .
 
-    command: [ "bundle", "exec", "./bin/webpack-dev-server" ]
+  #   command: [ "bundle", "exec", "./bin/webpack-dev-server" ]
 
-    volumes:
-      - ./app:/app/app:ro
-      - ./bin:/app/bin:ro
-      # Make this directory writable inside the container, and persist changes
-      # accross reloads (but not on the host).
-      - 'webpack_data:/app/public/packs'
-    ports:
-      - 3035:3035
+  #   volumes:
+  #     - ./app:/app/app:ro
+  #     - ./bin:/app/bin:ro
+  #     # Make this directory writable inside the container.
+  #     - ./public/packs:/app/public/packs
+  #   network_mode: "host"
 
   koala-development:
     build: .
 
     command: [ "rails", "server", "--binding", "0.0.0.0" ]
 
-    env_file:
-      - .env
-
     depends_on:
       - postgres-db
       - redis
-      - webpack-dev-server
+      # - webpack-dev-server
 
     volumes:
       # Mount the sourcecode in the container, so changes end up in the
@@ -65,12 +57,10 @@ services:
       - ./lib:/app/lib:ro
       - ./test:/app/test:ro
       - ./vendor:/app/vendor:ro
+      - ./.env:/app/.env:ro
 
-    ports:
-      - 3000:3000
+    network_mode: "host"
 
 volumes:
   redis_data:
-    driver: local
-  webpack_data:
     driver: local

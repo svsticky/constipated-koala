@@ -18,7 +18,7 @@ To get started, you will need:
 
 - Preferably a Linux installation, but MacOS or WSL2 should work too
 - Git
-- Docker and docker-compose\
+- Docker and docker-compose
 
 ```shell
 sudo apt install git docker.io docker-compose
