@@ -40,9 +40,9 @@ class Admin::PaymentsController < ApplicationController
               (participant.price.nil? &&
                activity.price && activity.price > 0)
             )
-        # Somehow there were `nil` members in this list, not sure how we got there,
-        # but the `select` makes the page useable.
-        end.map(&:member).select{ |member| member != nil }
+          # Somehow there were `nil` members in this list, not sure how we got there,
+          # but the `select` makes the page useable.
+        end.map(&:member).compact
       end.flatten.uniq
     @late_unpayable_activities = Activity.late_unpayable
   end
