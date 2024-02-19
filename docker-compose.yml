@@ -21,21 +21,6 @@ services:
       POSTGRES_PASSWORD: "koala123"
     network_mode: "host"
 
-  # FIXME: Koala breaks css and js when trying to connect with the
-  # webpack-dev-server (and failing). The connection is disabled in
-  # webpacker.yml for now.
-  # webpack-dev-server:
-  #   build: .
-
-  #   command: [ "bundle", "exec", "./bin/webpack-dev-server" ]
-
-  #   volumes:
-  #     - ./app:/app/app:ro
-  #     - ./bin:/app/bin:ro
-  #     # Make this directory writable inside the container.
-  #     - ./public/packs:/app/public/packs
-  #   network_mode: "host"
-
   koala-development:
     build: .
 
@@ -44,7 +29,6 @@ services:
     depends_on:
       - postgres-db
       - redis
-      # - webpack-dev-server
 
     volumes:
       # Mount the sourcecode in the container, so changes end up in the
