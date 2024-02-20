@@ -139,30 +139,30 @@
                   = link_to member_mail_path(@member, 'consent'), method: :post, :class => 'dropdown-item' do
                     = I18n.t 'admin.member_account_status.send_consent_mail'
 
-        - if @transactions.length > 0 || @member.checkout_cards.length > 0
-          .card
-            .card-header.input
-              %i.fa.fa-fw.fa-shopping-cart
-              = I18n.t('admin.navigation.checkout')
-
-              .input-group#credit{ :data => { 'member_id' => @member.id }}
-                .input-symbol
-                  %span &euro;
-                  %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => '') }
-
-                <!-- Containing this selector in a div fixes an
-                overflow in Firefox, that doesn't occur in
-                Chrome. See #203. -->
-                #selector-container
-                  %select#payment_method{ :required => true }
-                    %option{:value => "Gepind"}= I18n.t('checkout.top_up.pin')
-                    %option{:value => "Contant"}= I18n.t('checkout.top_up.cash')
-                    %option{:value => "", :selected => "selected" }= "-"
-                    %option{:value => "Verkoop"}= I18n.t('checkout.top_up.sale')
-
-                %span.input-group-btn
-                  %button.btn.btn-warning#upgrade-btn
-                    = I18n.t('checkout.top_up.title')
+        -# - if @transactions.length > 0 || @member.checkout_cards.length > 0
+        -#   .card
+        -#     .card-header.input
+        -#       %i.fa.fa-fw.fa-shopping-cart
+        -#       = I18n.t('admin.navigation.checkout')
+        -#
+        -#       .input-group#credit{ :data => { 'member_id' => @member.id }}
+        -#         .input-symbol
+        -#           %span &euro;
+        -#           %input#amount{ :type => 'number', :placeholder => number_to_currency(@member.checkout_balance.balance, :unit => '') }
+        -#
+        -#         <!-- Containing this selector in a div fixes an
+        -#         overflow in Firefox, that doesn't occur in
+        -#         Chrome. See #203. -->
+        -#         #selector-container
+        -#           %select#payment_method{ :required => true }
+        -#             %option{:value => "Gepind"}= I18n.t('checkout.top_up.pin')
+        -#             %option{:value => "Contant"}= I18n.t('checkout.top_up.cash')
+        -#             %option{:value => "", :selected => "selected" }= "-"
+        -#             %option{:value => "Verkoop"}= I18n.t('checkout.top_up.sale')
+        -#
+        -#         %span.input-group-btn
+        -#           %button.btn.btn-warning#upgrade-btn
+        -#             = I18n.t('checkout.top_up.title')
 
             %table.table.table-striped#transactions
               %thead
@@ -254,32 +254,32 @@
                         %i.fa.fa-fw.fa-trash
 
 
-        .card
-          .card-header
-            %i.fa.fa-fw.fa-credit-card
-            = I18n.t('admin.cards.cards')
-          %table.table.table-striped#memberscards
-            %tbody
-              - @member.checkout_cards.each do |card|
-                %tr{ :data => { :uuid => card.uuid, :member_id => @member.id, :active => card.active ? 1 : 0, :disabled => card.disabled ? 1 : 0 } }
-                  %td= card.uuid
-                  - if !card.active
-                    %td.cardstatus.text-info= I18n.t('admin.cards.to_be_activated')
-                  - elsif card.disabled
-                    %td.cardstatus.text-muted= I18n.t('admin.cards.deactivated')
-                  - else
-                    %td.cardstatus= I18n.t('admin.cards.active')
-                  %td
-                    .btn-group
-                      - if !card.active
-                        %button.btn.btn-primary.activate
-                          %i.fa.fa-check-circle
-                          = I18n.t('admin.cards.activate')
-                      - elsif card.disabled
-                        %button.btn.btn-warning.reactivate
-                          %i.fa.fa-sync-alt
-                          = I18n.t('admin.cards.reactivate')
-                      - else
-                        %button.btn.btn-danger.deactivate
-                          %i.fa.fa-trash
-                          = I18n.t('admin.cards.deactivate')
+        -# .card
+        -#   .card-header
+        -#     %i.fa.fa-fw.fa-credit-card
+        -#     = I18n.t('admin.cards.cards')
+        -#   %table.table.table-striped#memberscards
+        -#     %tbody
+        -#       - @member.checkout_cards.each do |card|
+        -#         %tr{ :data => { :uuid => card.uuid, :member_id => @member.id, :active => card.active ? 1 : 0, :disabled => card.disabled ? 1 : 0 } }
+        -#           %td= card.uuid
+        -#           - if !card.active
+        -#             %td.cardstatus.text-info= I18n.t('admin.cards.to_be_activated')
+        -#           - elsif card.disabled
+        -#             %td.cardstatus.text-muted= I18n.t('admin.cards.deactivated')
+        -#           - else
+        -#             %td.cardstatus= I18n.t('admin.cards.active')
+        -#           %td
+        -#             .btn-group
+        -#               - if !card.active
+        -#                 %button.btn.btn-primary.activate
+        -#                   %i.fa.fa-check-circle
+        -#                   = I18n.t('admin.cards.activate')
+        -#               - elsif card.disabled
+        -#                 %button.btn.btn-warning.reactivate
+        -#                   %i.fa.fa-sync-alt
+        -#                   = I18n.t('admin.cards.reactivate')
+        -#               - else
+        -#                 %button.btn.btn-danger.deactivate
+        -#                   %i.fa.fa-trash
+        -#                   = I18n.t('admin.cards.deactivate')
