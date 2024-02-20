@@ -12,6 +12,30 @@ import { setup_intl_tel_input } from "../intl_tel_number";
 $(document).on("ready page:load turbolinks:load", function () {
   setup_intl_tel_input();
 
+  $(window)
+      .on('keydown', evt => {
+        if (evt.target.type === 'input') {
+          return;
+        }
+
+        // Click the edit button on the 'e' keypress
+        if (evt.key === 'e') {
+          // Do something
+          document.getElementById('member-btn-edit')?.click();
+          return;
+        }
+
+        // Cancel editing on Ctrl+Esc
+        if(evt.key === 'Escape' && evt.ctrlKey) {
+          document.getElementById('admin-member-edit-btn-cancel')?.click();
+        }
+
+        // Save editing user on ctrl+enter
+        if(evt.key === 'Enter' && evt.ctrlKey) {
+          document.getElementById("admin-member-edit-btn-save")?.click();
+        }
+      })
+
   $(".education label a.close").bind("click", function () {
     var row = $(".education .copyable:last")
       .clone()
