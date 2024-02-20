@@ -112,7 +112,7 @@
           .card-body
             .btn-group
               = link_to I18n.t('editing.cancel'), :back, { :class => 'btn btn-primary' }
-              = link_to I18n.t('editing.edit'), edit_member_path(@member.id), { :class => 'btn btn-warning' }
+              = link_to I18n.t('editing.edit'), edit_member_path(@member.id), { :class => 'btn btn-warning', :id => 'member-btn-edit' }
 
             .btn-group
               %button.btn.btn-primary.dropdown-toggle{ 'data-toggle' => 'dropdown', :type => 'button' }

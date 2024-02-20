@@ -2,7 +2,7 @@
   %section.panel.panel-default
     .panel-body
       = form_tag members_path, :method => 'get' do
-        .input-group
+        .input-group#search-bar
           = search_field_tag :search, params[:search],  placeholder: I18n.t('layouts.partials.search.placeholder'), class: 'form-control', :autocomplete => 'off'
 
           %ul.dropdown-menu{ :name => 'studies' }
