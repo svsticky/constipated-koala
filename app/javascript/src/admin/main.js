@@ -15,19 +15,18 @@ $(document).on("ready page:load turbolinks:load", function () {
     return confirm(I18n.t("admin.general.confirmation"));
   });
 
-  $(window)
-      .on('keydown', evt => {
-          if (evt.target.type === 'input') {
-              return;
-          }
+  $(window).on("keydown", (evt) => {
+    if (evt.target.type === "input") {
+      return;
+    }
 
-          // Select the search bar on '/'
-          if (evt.key === 's' || evt.key === '/') {
-              evt.preventDefault();
+    // Select the search bar on '/'
+    if (evt.key === "s" || evt.key === "/") {
+      evt.preventDefault();
 
-              $("#search")?.focus();
-          }
-      })
+      $("#search")?.focus();
+    }
+  });
 
   $(".page.search .input-group ul.dropdown-menu")
     .find("li")
