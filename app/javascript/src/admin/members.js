@@ -13,7 +13,8 @@ $(document).on("ready page:load turbolinks:load", function () {
   setup_intl_tel_input();
 
   $(window).on("keydown", (evt) => {
-    if (evt.target.type === "input") {
+    if($("input").is(":focus")) {
+      // Cancel if any inputs are selected
       return;
     }
 
