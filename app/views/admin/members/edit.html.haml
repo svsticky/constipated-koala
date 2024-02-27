@@ -112,7 +112,7 @@
                           .ui-select
                             = fs.select :study_id, options_for_select(Study.all.map{|s| [I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id]}, education.study_id), :include_blank => "--"
                         .col-md-6
-                          .ui-select
+                          .ui-select.educ-status
                             = fs.select :status, options_for_select(Education.statuses.map{ |name, id| [I18n.t(name, scope: 'activerecord.attributes.education.status'), name]}, education.status)
                       .row
                         .col-md-6
