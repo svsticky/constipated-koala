@@ -1,4 +1,4 @@
-name: "Build & Test"
+name: "Run tests and lints"
 on:
   - push
 jobs:
@@ -22,31 +22,36 @@ jobs:
       OIDC_SIGNING_KEY: .github/test-signing-key.pem
 
     steps:
-    - uses: "actions/checkout@v4"
+    - uses: "actions/checkout@v3"
 
-    - name: "install Nix"
-      uses: "cachix/install-nix-action@v23"
-
-    - name: "Cache Nix packages"
-      uses: cachix/cachix-action@v12
+    - name: Cache dependencies
+      uses: actions/cache@v3
       with:
-        name: svsticky-constipated-koala
-        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+        path: |
+          node_modules
+          /usr/local/bundle
+        key: koala
 
-    - name: "Execute Ruby linter"
-      run: nix-shell --run "bundle exec rubocop"
+    - name: "install system dependencies"
+      run: sudo apt-get install -y nodejs ghostscript mupdf yarn postgresql-client bundler
+
+    - name: "install rails dependencies"
+      run: bundle install
+
+    - name: "install node dependencies"
+      run: yarn install
 
     - name: "Execute Haml linter"
-      run: nix-shell --run "bundle exec haml-lint"
+      run: bundle exec haml-lint
 
     - name: "Execute Javascript linter"
-      run: nix-shell --run "npx prettier -c app/javascript/*"
+      run: npx prettier -c app/javascript/*
 
     - name: "Check for security vulnerabilities"
-      run: nix-shell --run "bundle exec brakeman"
+      run: bundle exec brakeman
 
     - name: "create database"
-      run: nix-shell --run "bundle exec rake db:create --trace"
+      run: rails db:create --trace
 
     - name: Start Redis
       uses: supercharge/redis-github-action@1.1.0
@@ -54,7 +59,7 @@ jobs:
         redis-version: 5
 
     - name: "setup database"
-      run: nix-shell --run "bundle exec rake db:setup --trace"
+      run: rails db:setup --trace
 
     - name: "run tests"
-      run: nix-shell --run "bundle exec rake"
+      run: bundle exec rake

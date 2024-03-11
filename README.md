@@ -38,34 +38,10 @@ $ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
 
 ## Running Koala
 
-```console
-# Start the database again
-$ docker-compose up
-```
+We have a more extensive tutorial in /INSTALLING.md, but it boils down to:
 
-You can run Koala itself by running this command:
-
-```console
-$ nix-shell
-$ rails s
-```
-
-This will start a server that listens until you press Ctrl-C in the window where it's running.
-
-It might be neccesary to remove your existing node_modules folder, if it exists.
-Yarn might fail otherwise.
-
-To precompile the assets, run (in the Nix shell):
-
-``` bash
-dotenv rails assets:precompile
-```
-
-When editing JavaScript or CSS that is managed by Webpack, run the webpack development server.
-This can be started with (again in the Nix shell):
-
-``` bash
-bundle exec bin/webpack-dev-server
+```shell
+docker-compose up
 ```
 
 ## Future

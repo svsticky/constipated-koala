@@ -9,10 +9,9 @@ services:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-    ports:
-      - '6379:6379'
     volumes:
       - 'redis_data:/bitnami/redis/data'
+    network_mode: "host"
 
   postgres-db:
     image: postgres:13
@@ -20,9 +19,31 @@ services:
     environment:
       POSTGRES_USER: koala
       POSTGRES_PASSWORD: "koala123"
+    network_mode: "host"
 
-    ports:
-     - "25838:5432"
+  koala-development:
+    build: .
+
+    command: [ "rails", "server", "--binding", "0.0.0.0" ]
+
+    depends_on:
+      - postgres-db
+      - redis
+
+    volumes:
+      # Mount the sourcecode in the container, so changes end up in the
+      # container. We don't want writes to end up on the host, so we mount
+      # folders as read-only. When changing files that aren't included here, the
+      # container has to be restarted.
+      - ./app:/app/app:ro
+      - ./db:/app/db:ro
+      - ./bin:/app/bin:ro
+      - ./lib:/app/lib:ro
+      - ./test:/app/test:ro
+      - ./vendor:/app/vendor:ro
+      - ./.env:/app/.env:ro
+
+    network_mode: "host"
 
 volumes:
   redis_data:

@@ -1,1 +1,0 @@
-node2nix -o ./nix/node_modules.nix -c ./nix/node.nix -e ./nix/node-env.nix
