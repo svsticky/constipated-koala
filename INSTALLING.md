@@ -35,6 +35,8 @@ To speed up the build, you can install and set up Cachix
 $ nix-env -iA cachix -f https://cachix.org/api/v1/install
 installing 'cachix-0.3.8'
 
+**Warning**: Never run nix(-shell) as root! This should not be needed. Don't run it as root now, and not in other steps.
+
 $ cachix use svsticky-constipated-koala
 Configured https://svsticky-constipated-koala.cachix.org binary cache in ~/.config/nix/nix.conf
 ```
@@ -56,6 +58,7 @@ Next time you'll call `nix-shell` will be a whole lot faster, don't worry.
 > to nix) are too smart for nix. If your environment variables are really the cause of
 > the issue - or if you assume that this is the case - run nix-shell with the ``--pure`` argument.
 > This tells nix to not 'copy' over any environment varibles.
+> Running nix-shell with ``--pure`` is a last-resort solution, however.
 
 ## Configuring Koala
 
