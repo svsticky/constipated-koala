@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'calendar/:calendar_id', to: 'calendars#show', defaults: { format: 'ics' }
+
   use_doorkeeper_openid_connect
 
   constraints subdomain: ['intro', 'intro.dev'] do
