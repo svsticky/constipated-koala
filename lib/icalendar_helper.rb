@@ -3,21 +3,26 @@ require 'icalendar' # https://github.com/icalendar/icalendar
 #:nodoc:
 module IcalendarHelper
   # Converts a sticky activity to an iCalendar event
-  def IcalendarHelper.activityToEvent(activity)
+  def IcalendarHelper.activityToEvent(activity, locale)
     event = Icalendar::Event.new
     event.uid = activity.id.to_s
     event.dtstart = activity.start_date
     event.dtend = activity.end_date
     event.summary = activity.name
-    event.description = activity.description_nl # TODO localise
+    event.description = activity.descrption_localised(locale)
     event.location = activity.location
     return event
   end
 
   # Combines zero or more Icalendar events into an iCalendar abstract object
-  def IcalendarHelper.createCalendar(events)
+  def IcalendarHelper.createCalendar(events, locale)
     calendar = Icalendar::Calendar.new
-    calendar.x_wr_calname = "Sticky Activiteiten" # TODO localise
+    calendar.x_wr_calname = case locale 
+      when :nl
+        "Sticky Activiteiten"
+      else
+        "Sticky Activities"
+      end
     events.each { |e| calendar.add_event(e) }
     calendar.publish
     return calendar
