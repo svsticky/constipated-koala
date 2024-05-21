@@ -550,7 +550,8 @@ CREATE TABLE public.members (
     consent integer DEFAULT 0,
     consent_at date,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    calendar_id uuid
 );
 
 
@@ -1736,6 +1737,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220221195220'),
 ('20220406092056'),
 ('20220524203723'),
-('20240125003700');
+('20240125003700'),
+('20240521180025');
 
 
