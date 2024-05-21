@@ -10,14 +10,25 @@ import { Activity } from "./activity.js";
 var token, modal;
 
 function copyICSToClipboard() {
-  /* Link to copy */
-  var copy_text =
-    "https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
   new Clipboard("#copy-btn", {
     text: function () {
-      return copy_text;
+      return "https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
     },
   });
+}
+
+function copyPersonalICSToClipboard() {
+  fetch("/api/calendar/fetch")
+    .then((response) => response.text())
+    .then((icsFeed) => {
+      new Clipboard("#copy-btn-personal", {
+        text: function () {
+          return icsFeed;
+        },
+      });
+    }).catch((error) => {
+      console.log(error)
+    });
 }
 
 export function get_activity_container() {
@@ -244,6 +255,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   initialize_enrollment();
   initialize_modal();
   copyICSToClipboard();
+  copyPersonalICSToClipboard();
 });
 
 document.addEventListener("turbolinks:load", function () {

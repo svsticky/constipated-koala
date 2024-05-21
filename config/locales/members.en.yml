@@ -25,7 +25,8 @@ en:
       full: FULL!
       index:
         activities_calendar: Activities calendar
-        copy_ICS: Copy Webcal link
+        copy_ICS: Copy Webcal link for all activitites
+        copy_ICS_personal: Copy Personalised Webcal link
         no_activities: There are no activities for which you can enroll at the moment
       info:
         more_info: More info
@@ -33,7 +34,7 @@ en:
     home:
       edit:
         board: the board
-        board_only_change_info: Some data can't be edit by yourself (for example your name, date of birth and student number). If this needs to be updated please contact
+        board_only_change_info: Some data can't be edited by yourself (for example your name, date of birth and student number). If this needs to be updated please contact
         download:
           activities: Activities
           address: Address

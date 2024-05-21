@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'calendar/:calendar_id', to: 'calendars#show', defaults: { format: 'ics' }
-
   use_doorkeeper_openid_connect
 
   constraints subdomain: ['intro', 'intro.dev'] do
@@ -128,6 +126,8 @@ Rails.application.routes.draw do
     end
 
     scope 'api' do
+      get 'calendar/pull/:calendar_id', to: 'api/calendars#show', defaults: { format: 'ics' }
+      get 'calendar/fetch', to: 'api/calendars#index'
       use_doorkeeper do
         # skip_controllers :token_info, :applications, :authorized_applications
       end

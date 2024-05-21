@@ -360,6 +360,10 @@ class Activity < ApplicationRecord
     return "https://koala.svsticky.nl/activities/#{ id }"
   end
 
+  def descrption_localised(locale)
+    return locale == :nl ? description_nl : description_en
+  end
+
   # pass along locale default to nil
   def google_event(loc = nil)
     return nil if start.nil? || self.end.nil?
@@ -367,7 +371,7 @@ class Activity < ApplicationRecord
     fmt_dt = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
 
     loc = I18n.locale if loc.nil?
-    description = "#{ activity_url }\n\n#{ loc == :nl ? description_nl : description_en }"
+    description = "#{ activity_url }\n\n#{ descrption_localised(loc) }"
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
@@ -394,7 +398,7 @@ class Activity < ApplicationRecord
                   location: location,
                   price: pc,
                   url: activity_url,
-                  description: loc == :nl ? description_nl : description_en,
+                  description: descrption_localised(loc),
                   locale: loc)
   end
 
