@@ -1451,6 +1451,13 @@ CREATE INDEX index_impressions_on_user_id ON public.impressions USING btree (use
 
 
 --
+-- Name: index_members_on_calendar_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_members_on_calendar_id ON public.members USING btree (calendar_id);
+
+
+--
 -- Name: index_members_on_email; Type: INDEX; Schema: public; Owner: -
 --
 

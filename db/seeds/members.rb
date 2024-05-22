@@ -19,7 +19,7 @@ puts '-- Creating members'
     birth_date:   Faker::Date.between(from: 28.years.ago, to: 16.years.ago),
     join_date:    Faker::Date.between(from: 6.years.ago, to: Date.today),
     comments:     (Faker::Boolean.boolean(true_ratio: 0.3) ? Faker::Hacker.say_something_smart : nil),
-    calendar_id:  Faker::Boolean.boolean(true_ratio: 0.4) ? SecureRandom.uuid : nil
+    calendar_id:  Faker::Internet.uuid
   )
 
   puts("   -> #{ member.name } (#{ member.student_id })")
