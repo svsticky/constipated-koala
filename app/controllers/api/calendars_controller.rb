@@ -16,7 +16,7 @@ class Api::CalendarsController < ActionController::Base
     # end
     respond_to do |format|
       format.ics {
-        send_data create_calendar,
+        send_data create_personal_calendar,
         type: 'text/calendar',
         disposition: 'attachment',
         filename: "#{@member.first_name}_activities.ics"
@@ -36,10 +36,21 @@ class Api::CalendarsController < ActionController::Base
   end
 
   # Not exposed to API directly, but through #show
-  def create_calendar
+  def create_personal_calendar
     @member = Member.find_by(calendar_id: params[:calendar_id])
-    locale = I18n.locale # TODO werkt dit?
-    events = @member.activities.map { |a| IcalendarHelper.activityToEvent(a, locale) }
-    IcalendarHelper.createCalendar(events, locale).to_ical
+    @locale = I18n.locale # TODO werkt dit?
+
+    # Convert activities to events, and mark activities where the member is
+    # is enrolled as reservist
+    @reservist_activity_ids = @member.reservist_activities.ids
+    events = @member.activities.map do |a|
+      if @reservist_activity_ids.include? a.id
+        a.name = "[RESERVIST] #{a.name}"
+      end
+      IcalendarHelper.activityToEvent(a, @locale)
+    end
+
+    # Return the calendar
+    IcalendarHelper.createCalendar(events, @locale).to_ical
   end
 end
