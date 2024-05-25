@@ -207,7 +207,7 @@ class Member < ApplicationRecord
   # We cannot enforce that a member is created with a calendar_id, but we can enforce that
   # when a member is created or saved, a calendar_id is set before validation.
   before_validation on: [:save, :create] do
-    self.calendar_id = SecureRandom.uuid if self.calendar_id.blank?
+    self.calendar_id = SecureRandom.uuid if calendar_id.blank?
   end
 
   # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member

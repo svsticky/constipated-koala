@@ -1,9 +1,9 @@
 require 'icalendar' # https://github.com/icalendar/icalendar
 
-#:nodoc:
+# Includes all abstractions over iCalender representations
 module IcalendarHelper
   # Converts a sticky activity to an iCalendar event
-  def IcalendarHelper.activityToEvent(activity, locale)
+  def self.activity_to_event(activity, locale)
     event = Icalendar::Event.new
     event.uid = activity.id.to_s
     event.dtstart = activity.start_date
@@ -15,9 +15,10 @@ module IcalendarHelper
   end
 
   # Combines zero or more Icalendar events into an iCalendar abstract object
-  def IcalendarHelper.createCalendar(events, locale)
+  def self.create_calendar(events, locale)
     calendar = Icalendar::Calendar.new
-    calendar.x_wr_calname = case locale 
+    calendar.x_wr_calname =
+      case locale
       when :nl
         "Sticky Activiteiten"
       else
@@ -28,15 +29,12 @@ module IcalendarHelper
     return calendar
     # Returns the abstract icalendar object, not the ICS string ready to
     # be stored in an ICS file. To convert this calendar into an ICS string,
-    # use `calendar.to_ical` or the `createFile` method below.
+    # use `calendar.to_ical` or the `create_file` method below.
   end
 
   # Stores the calendar to an *.ics file
-  def IcalendarHelper.createFile(calendar, path)
+  def self.create_file(calendar, path)
     calendar_string = calendar.to_ical
-    File.open(path, 'w') do |file|
-      file.write(calendar_string)
-    end
+    File.write(path, calendar_string)
   end
 end
-

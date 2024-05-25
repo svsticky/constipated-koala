@@ -26,8 +26,9 @@ function copyPersonalICSToClipboard() {
           return icsFeed;
         },
       });
-    }).catch((error) => {
-      console.log(error)
+    })
+    .catch((error) => {
+      console.log(error);
     });
 } // TODO makes an API call even if the button is not pressed
 
