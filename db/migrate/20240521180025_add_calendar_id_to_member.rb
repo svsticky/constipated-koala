@@ -8,12 +8,11 @@ class AddCalendarIdToMember < ActiveRecord::Migration[6.1]
       record.update_columns(calendar_id: SecureRandom.uuid)
     end
 
-    # Add a unique index to the UUID column, because why not
+    # Add an index to the UUID column, because why not
     add_index :members, :calendar_id, unique: true
   end
 
   def down
-    # Remove the UUID column
     remove_column :members, :calendar_id
   end
 end

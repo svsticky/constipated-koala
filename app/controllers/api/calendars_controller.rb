@@ -2,18 +2,15 @@ require 'icalendar_helper'
 
 class Api::CalendarsController < ActionController::Base
   # supply the personalised iCal feed from the user
-  # TODO supporting WebDAV might be nat, but not needed
   def show
-    # TODO reservist marker
-    # TODO only display future activities option
-    # TODO multilingual/optional description
+    @member = Member.find_by(calendar_id: params[:calendar_id])
+		# member variable will be accessible in other methods as well now
 
-    # respond_to do |format|
-    #   format.ics {
-    #      render plain: create_calendar,
-    #       content_type: 'text/calendar'
-    #   }
-    # end
+    if not @member # No member with the specified hash was found
+      render json: { error: "Unkown hash" }, status: :not_found
+      return
+    end
+    
     respond_to do |format|
       format.ics {
         send_data create_personal_calendar,
@@ -22,23 +19,21 @@ class Api::CalendarsController < ActionController::Base
         filename: "#{@member.first_name}_activities.ics"
       }
     end
-
-
-    # send_file calendar_path, type: 'text/calendar', disposition: 'attachment'
-    # else
-    #   render json: { error: "Unkown hash" }, status: :not_found
-    # end TODO 500 error if @member is empty
   end
 
   def index
-    @member = Member.find(current_user.credentials_id) # TODO gives 500 error when not logged in
+    if current_user.nil?
+      render json: { error: "Not logged in" }, status: :forbidden
+      return
+    end # TODO heb je overal dit soort error handling?
+
+    @member = Member.find(current_user.credentials_id)
     render plain: "https://koala.svsticky.nl/api/calendar/pull/#{@member.calendar_id}" # TODO can this less hard-coded?
   end
 
   # Not exposed to API directly, but through #show
   def create_personal_calendar
-    @member = Member.find_by(calendar_id: params[:calendar_id])
-    @locale = I18n.locale # TODO werkt dit?
+    @locale = I18n.locale
 
     # Convert activities to events, and mark activities where the member is
     # is enrolled as reservist

@@ -29,7 +29,7 @@ function copyPersonalICSToClipboard() {
     }).catch((error) => {
       console.log(error)
     });
-}
+} // TODO makes an API call even if the button is not pressed
 
 export function get_activity_container() {
   return $("#activity-container");
