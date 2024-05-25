@@ -52,14 +52,13 @@ class Public::HomeController < PublicController
 
       transaction = Payment.new(
         description: I18n.t("form.introduction", user: @member.name),
-        amount: total,
+        amount: total - Settings.mongoose_ideal_costs, # Transaction costs are paid by the association
         issuer: params[:bank],
         member: @member,
 
         transaction_id: activities.map(&:id),
         transaction_type: :activity,
         payment_type: :ideal,
-
         redirect_uri: public_url
       )
 
