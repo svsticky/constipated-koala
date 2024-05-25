@@ -9,7 +9,7 @@ module IcalendarHelper
     event.dtstart = activity.start_date
     event.dtend = activity.end_date
     event.summary = activity.name
-    event.description = activity.descrption_localised(locale)
+    event.description = activity.description_localised(locale)
     event.location = activity.location
     return event
   end
@@ -38,8 +38,5 @@ module IcalendarHelper
       file.write(calendar_string)
     end
   end
-
-  # TODO allow updating a calendar file, to preserve uids.
-  # This enables the calendar client to recognise which events are new
 end
 

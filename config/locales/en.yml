@@ -35,7 +35,7 @@ en:
         description_nl: Dutch description
         end_date: Enddate
         end_time: Endtime
-        google_event: Add to calendar
+        google_event: Copy once to calendar
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
         is_freshmans: First year students
