@@ -119,7 +119,7 @@ export class Activity {
       return note.type === "checkbox";
     });
   }
-  
+
   has_notes_radio_buttons() {
     return find_in_object(this.notes, function (note) {
       return note.type === "radio";
@@ -197,27 +197,22 @@ Object.defineProperties(Activity.prototype, {
      */
     value: function (method) {
       var activity = this;
-      var par_notes
+      var par_notes;
       var notes = [];
       console.log(activity.has_notes_checkboxes);
-      if (activity.has_notes_checkboxes()){
+      if (activity.has_notes_checkboxes()) {
         console.log(this.notes.find(":checked"));
-        this.notes.each(function(){
-          if (this.checked){
+        this.notes.each(function () {
+          if (this.checked) {
             notes.push(this.value);
           }
         });
         par_notes = notes.join(", ");
-      }
-      else if (activity.has_notes_radio_buttons()){
+      } else if (activity.has_notes_radio_buttons()) {
         par_notes = this.notes.find(":checked").val();
-      }
-      else{
+      } else {
         par_notes = this.notes.val();
       }
-
-      
-
 
       var request = $.ajax({
         url: "/activities/" + activity.id + "/participants",
@@ -410,7 +405,6 @@ Object.defineProperties(
 
     notes: function () {
       return this.panel.find(".notes"); // .find function returns a jQuery object with the found elements
-
     },
 
     notes_mandatory: function () {
