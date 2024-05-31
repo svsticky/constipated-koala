@@ -113,20 +113,20 @@
           = link_to I18n.t('members.activities.info.more_info'), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
       - if activity.notes.present? && view == 'show'
         %button.btn.btn-info.update-enrollment.col-12.col-sm-6{ class: ('d-none' unless (@member.confirmed_activities.ids.include?(activity.id) || @member.reservist_activities.ids.include?(activity.id))) }
-          = I18n.t("members.activities.actions.update_info")
+          = I18n.t("members.activities.actions.update_info") # confirmed sign-in
       - if activity.open?
         - if @member.confirmed_activities.ids.include?(activity.id)
           - button_text = I18n.t("members.activities.actions.unenroll")
           - button_class = 'btn-danger col-12 col-sm-6'
-          - if activity.unenroll_date.present? && activity.unenroll_date < Date.today
+          - if activity.unenroll_date.present? && activity.unenroll_date < Date.today # confirmed sign-in -- past unenroll date
             - button_class += ' disabled'
-        - elsif @member.reservist_activities.ids.include?(activity.id)
-          - button_text = I18n.t("members.activities.actions.reservist_unenroll")
+        - elsif @member.reservist_activities.ids.include?(activity.id)# signed in as reservist (time is before sign-out deadline so can sign out)
+          - button_text = I18n.t("members.activities.actions.reservist_unenroll") # there is no case where you can sign up as reservist after sign-out deadline, as of writing
           - button_class = 'btn-reservistSignout col-12 col-sm-6'
-        - elsif activity.participant_limit.present? && activity.participant_limit <= activity.participants.count
+        - elsif activity.participant_limit.present? && activity.participant_limit <= activity.participants.count # not signed in -- but can do so as reservist only
           - button_text = I18n.t("members.activities.actions.reservist_enroll")
           - button_class = 'btn-reservistSignup col-12 col-sm-6'
-        - else
+        - else # not signed in -- and but can do so, not as reservist
           - button_text = I18n.t("members.activities.actions.enroll")
           - button_class = 'btn-success col-12 col-sm-6'
         %button.btn.enrollment{ class: button_class }
