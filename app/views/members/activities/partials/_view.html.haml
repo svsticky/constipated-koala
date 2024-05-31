@@ -95,7 +95,7 @@
                   %input.notes{ type: "checkbox", name: "enrollment[notes][]", value: option, checked: !@enrollment.nil? && @enrollment.notes&.include?(option), disabled: !activity.open? }
                   %label= option
         - elsif activity.radio_buttons?
-          .form-group 
+          .form-group
             - activity.notes.split("\n").drop(1).each do |option|
               .row
                 .col-sm-6

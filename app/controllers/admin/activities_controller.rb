@@ -24,7 +24,7 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.new(activity_post_params.except(:_destroy, :notes_options))
 
     if @activity.notes_input_type != 'text' && params[:activity][:notes_options].present?
-      @activity.notes = params[:activity][:notes_options].reject(&:blank?).join("\n")
+      @activity.notes = params[:activity][:notes_options].compact_blank.join("\n")
     end
     if @activity.save
       # manual call to impressionist, because otherwise the activity doesn't have an id yet
@@ -67,7 +67,7 @@ class Admin::ActivitiesController < ApplicationController
     params = activity_post_params
 
     if params[:notes_input_type] != 'text' && params[:notes_options].present?
-      params[:notes] = params[:notes_options].reject(&:blank?).join("\n")
+      params[:notes] = params[:notes_options].compact_blank.join("\n")
     end
     # removing the images from disk
     if params[:_destroy] == 'true'

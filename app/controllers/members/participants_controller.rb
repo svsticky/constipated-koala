@@ -29,7 +29,7 @@ class Members::ParticipantsController < ApplicationController
 
     @member = Member.find(current_user.credentials_id)
     @notes =  params[:par_notes]
-      
+
     reservist = false
 
     # Deny if already enrolled
@@ -191,7 +191,6 @@ class Members::ParticipantsController < ApplicationController
     )
 
     if @activity.notes.blank? || params[:par_notes].present?
-      updated_notes = params[:par_notes]
       @enrollment.update(notes: params[:par_notes])
       @enrollment.save
       render(status: :accepted, json: {
