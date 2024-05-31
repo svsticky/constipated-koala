@@ -1,14 +1,13 @@
-
 -#
   @param {activity} activity
   @param {?} @enrollment
   @param {member} @member
 
-.card.panel-activity{ data: {:'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
+.card.panel-activity{ data: { :'activity-id' => activity.id, :'notes-mandatory' => activity.notes_mandatory, :'unenroll-date' => activity.unenroll_date.at_end_of_day.to_i }}
   .card-header.text-right
-    %span.card-title.float-left.activity-title{ :style => 'text-overflow: ellipsis;'}
+    %span.card-title.float-left.activity-title{ style: 'text-overflow: ellipsis;' }
       - if view == 'show'
-        = link_to ("/activities/") do
+        = link_to("/activities") do
           %i.fa.fa-chevron-left
           = activity.name
       - else
@@ -20,101 +19,115 @@
     - if activity.poster.attached?
       .media-left.poster-thumbnail.col-12.col-sm-6
         %a.show-poster-modal{'data-toggle': 'modal', 'data-target': '#poster-modal'}
-          = image_tag activity.thumbnail_representation, class: "small-poster"
+          = image_tag(activity.thumbnail_representation, class: "small-poster")
           .mask.d-flex.justify-content-center
-            %span.align-self-center{'style': 'color: White'}
+            %span.align-self-center{ style: 'color: White' }
               %i.fas.fa-search.fa-3x
     .media-body.col-12.col-sm-6
       - if activity.start_date != activity.end_date
         %strong= I18n.t("activerecord.labels.activities.when")
         = l(activity.start_date, format: "%A %d/%m/%Y")
-        - if !activity.start_time.nil?
+        - if activity.start_time.present?
           = activity.start_time.strftime("%H:%M")
         \-
         = l(activity.end_date, format: "%A %d/%m/%Y")
-        - if !activity.end_time.nil?
+        - if activity.end_time.present?
           = activity.end_time.strftime("%H:%M")
       - else
         %strong= I18n.t("activerecord.labels.activities.date")
         = l(activity.start_date, format: "%A %d/%m/%Y")
-        - if !activity.start_time.nil?
-          <br/>
+        - if activity.start_time.present?
+          %br/
           %strong= I18n.t("activerecord.labels.activities.time")
           = activity.start_time.strftime("%H:%M")
-        - if !activity.end_time.nil?
+        - if activity.end_time.present?
           \-
           = activity.end_time.strftime("%H:%M")
-      <br/>
+      %br/
       %strong= I18n.t("activerecord.attributes.activity.price")
-      - if !activity.price.nil? and activity.price != 0
+      - if activity.price.present? && activity.price != 0
         &euro;
-        = number_with_precision(activity.price, :precision => 2)
-        <br/>
+        = number_with_precision(activity.price, precision: 2)
+        %br/
       - else
         = I18n.t("activerecord.missing_value_placeholders.activity.free")
-        <br/>
-      - if !activity.location.nil? && activity.location != ''
+        %br/
+      - if activity.location.present?
         %strong= I18n.t("activerecord.attributes.activity.location")
         = activity.location
-        <br/>
-      - if !activity.unenroll_date.nil? && activity.open?
+        %br/
+      - if activity.unenroll_date.present? && activity.open?
         %strong= I18n.t("activerecord.attributes.activity.unenroll_date")
         %span.activity-unenroll
           = l(activity.unenroll_date, format: "%A %d/%m/%Y")
           23:59
-      <br/>
-      - if !activity.google_event().nil?
-        %a{href: activity.google_event(), target: "_blank"}
+      %br/
+      - if activity.google_event.present?
+        %a{ href: activity.google_event, target: "_blank" }
           = I18n.t("activerecord.attributes.activity.google_event")
-        <br/>
+        %br/
       - if view == 'index'
         - if activity.notes_mandatory && activity.notes.present?
-          %span{style: 'color: red; font-weight: bold; display:block; padding-top: 14px'}= I18n.t("members.activities.info.notes_mandatory")
-  - if view =='show'
+          %span{ style: 'color: red; font-weight: bold; display:block; padding-top: 14px' }= I18n.t("members.activities.info.notes_mandatory")
+  - if view == 'show'
     .card-body.show-activity-topborder
       %strong= I18n.t("activerecord.attributes.activity.description")
-      <br/>
-      - if @user.language == 'nl' && !activity.description_nl.blank?
+      %br/
+      - if @user.language == 'nl' && activity.description_nl.present?
         = simple_format(activity.description_nl)
-      - elsif @user.language == 'en' && !activity.description_en.blank?
+      - elsif @user.language == 'en' && activity.description_en.present?
         = simple_format(activity.description_en)
-      - elsif !activity.description_nl.blank?
+      - elsif activity.description_nl.present?
         = simple_format(activity.description_nl)
-      - elsif !activity.description_en.blank?
+      - elsif activity.description_en.present?
         = simple_format(activity.description_en)
       - else
         = I18n.t("activerecord.missing_value_placeholders.activity.description")
-    - if !activity.notes.blank?
+    - if activity.notes.present?
       .card-body.show-activity-topborder
         %strong
-          = activity.notes
-        %textarea.form-control.notes{:maxlength => '100', :value => (@enrollment.notes unless @enrollment.nil?)}
-          = @enrollment.notes unless @enrollment.nil?
+          = activity.notes.split("\n").first
+        - if activity.checkboxes?
+          .form-group
+            - activity.notes.split("\n").drop(1).each do |option|
+              .row
+                .col-sm-6
+                  %input.notes{ type: "checkbox", name: "enrollment[notes][]", value: option, checked: !@enrollment.nil? && @enrollment.notes&.include?(option), disabled: !activity.open? }
+                  %label= option
+        - elsif activity.radio_buttons?
+          .form-group
+            - activity.notes.split("\n").drop(1).each do |option|
+              .row
+                .col-sm-6
+                  %input.notes{ type: "radio", name: "enrollment[notes]", value: option, checked: !@enrollment.nil? && @enrollment.notes == option, disabled: !activity.open?}
+                  %label= option
+        - else
+          %textarea.form-control.notes{ maxlength: '100', disabled: !activity.open? }
+            = @enrollment.nil? ? activity.notes : @enrollment.notes
   .card-footer.clearfix
     .row
       - if view == 'index'
-        - if !activity.notes.blank?
+        - if activity.notes.present?
           = link_to raw("#{I18n.t('members.activities.info.more_info')}&nbsp;&nbsp;&nbsp;<i class='fas fa-edit'></i>"), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
         - else
           = link_to I18n.t('members.activities.info.more_info'), "/activities/#{ activity.id }", class: "btn btn-secondary more-info col-12 col-sm-6"
-
       - if activity.notes.present? && view == 'show'
-        %button.btn.btn-info.update-enrollment.col-9.col-sm-6{ :class => ('d-none' unless (@member.confirmed_activities.ids.include? activity.id) || (@member.reservist_activities.ids.include? activity.id))}
-          = I18n.t("members.activities.actions.update_info")
+        %button.btn.btn-info.update-enrollment.col-12.col-sm-6{ class: ('d-none' unless (@member.confirmed_activities.ids.include?(activity.id) || @member.reservist_activities.ids.include?(activity.id))) }
+          = I18n.t("members.activities.actions.update_info") # confirmed sign-in
       - if activity.open?
-        - if @member.confirmed_activities.ids.include? activity.id                  # confirmed sign-in
+        - if @member.confirmed_activities.ids.include?(activity.id)
           - button_text = I18n.t("members.activities.actions.unenroll")
           - button_class = 'btn-danger col-12 col-sm-6'
-          - if !activity.unenroll_date.nil? && activity.unenroll_date < Date.today  # confirmed sign-in -- past sign-out deadline
+          - if activity.unenroll_date.present? && activity.unenroll_date < Date.today # confirmed sign-in -- past unenroll date
             - button_class += ' disabled'
-        - elsif @member.reservist_activities.ids.include? activity.id               # signed in as reservist (time is before sign-out deadline so can sign out)
-          - button_text = I18n.t("members.activities.actions.reservist_unenroll")   # there is no case where you can sign up as reservist after sign-out deadline, as of writing
+        - elsif @member.reservist_activities.ids.include?(activity.id)# signed in as reservist (time is before sign-out deadline so can sign out)
+          - button_text = I18n.t("members.activities.actions.reservist_unenroll") # there is no case where you can sign up as reservist after sign-out deadline, as of writing
           - button_class = 'btn-reservistSignout col-12 col-sm-6'
-        - elsif activity.participant_limit != nil && activity.participant_limit <= activity.participants.count # not signed in -- but can do so as reservist only
+        - elsif activity.participant_limit.present? && activity.participant_limit <= activity.participants.count # not signed in -- but can do so as reservist only
           - button_text = I18n.t("members.activities.actions.reservist_enroll")
           - button_class = 'btn-reservistSignup col-12 col-sm-6'
-        - else                                                                      # not signed in -- and but can do so, not as reservist
+        - else # not signed in -- and but can do so, not as reservist
           - button_text = I18n.t("members.activities.actions.enroll")
           - button_class = 'btn-success col-12 col-sm-6'
-        %button.btn.enrollment{ :class => button_class}
+        %button.btn.enrollment{ class: button_class }
           = button_text

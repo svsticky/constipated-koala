@@ -33,8 +33,8 @@ class Activity < ApplicationRecord
     end
   end
 
+  enum notes_input_type: { text: 0, checkboxes: 1, radio_buttons: 2 }
   validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
-
   is_impressionable
 
   before_validation :validate_enrollable

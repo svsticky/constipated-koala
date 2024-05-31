@@ -540,3 +540,110 @@ function posterHandlers() {
     $(this).find('button[type="submit"].wait').addClass("disabled");
   });
 }
+
+$(document).on("click", "#add-notes-option", function () {
+  var optionIndex = $("#notes-options .col-md-6").length;
+  var optionHtml =
+    '<div class="col-md-6">' +
+    '<div class="input-group mb-3">' +
+    '<input class="form-control" type="text" name="activity[notes_options][]">' +
+    '<div class="input-group-append">' +
+    '<button class="btn btn-sm btn-danger delete-option" type="button">' +
+    '<i class="fa fa-fw fa-minus"></i>' +
+    "</button>" +
+    "</div>" +
+    "</div>" +
+    "</div>";
+  $("#notes-options").append(optionHtml);
+});
+
+$(document).on("click", ".delete-option", function () {
+  $(this).closest(".col-md-6").remove();
+});
+
+$(document).on("change", "#activity_notes_input_type", function () {
+  var notesInputType = $(this).val();
+  var notesContainer = $("#notes-container");
+
+  if (notesInputType === "text") {
+    var notesValue = $("#notes-options input")
+      .map(function () {
+        return $(this).val();
+      })
+      .get()
+      .join("\n");
+    notesContainer.html(
+      '<textarea class="form-control" id="activity_notes" name="activity[notes]">' +
+        notesValue +
+        "</textarea>",
+    );
+  } else {
+    var optionsHtml = "";
+    var notesValue = $("#activity_notes").val();
+    var optionsArray = [];
+
+    if (notesValue && notesValue.trim() !== "") {
+      optionsArray = notesValue.split("\n");
+    }
+
+    if (optionsArray.length > 0) {
+      var titleValue = optionsArray[0];
+      optionsHtml +=
+        '<div class="col-md-12">' +
+        '<div class="input-group mb-3">' +
+        '<span class="input-group-text">Title</span>' +
+        '<input class="form-control" type="text" name="activity[notes_options][]" value="' +
+        titleValue +
+        '">' +
+        "</div>" +
+        "</div>";
+
+      optionsArray.slice(1).forEach(function (optionValue) {
+        optionsHtml +=
+          '<div class="col-md-6">' +
+          '<div class="input-group mb-3">' +
+          '<input class="form-control" type="text" name="activity[notes_options][]" value="' +
+          optionValue +
+          '">' +
+          '<div class="input-group-append">' +
+          '<button class="btn btn-sm btn-danger delete-option" type="button">' +
+          '<i class="fa fa-fw fa-minus"></i>' +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          "</div>";
+      });
+    } else {
+      optionsHtml +=
+        '<div class="col-md-12">' +
+        '<div class="input-group mb-3">' +
+        '<span class="input-group-text">Title</span>' +
+        '<input class="form-control" type="text" name="activity[notes_options][]">' +
+        "</div>" +
+        "</div>" +
+        '<div class="col-md-6">' +
+        '<div class="input-group mb-3">' +
+        '<input class="form-control" type="text" name="activity[notes_options][]">' +
+        '<div class="input-group-append">' +
+        '<button class="btn btn-sm btn-danger delete-option" type="button">' +
+        '<i class="fa fa-fw fa-minus"></i>' +
+        "</button>" +
+        "</div>" +
+        "</div>" +
+        "</div>";
+    }
+
+    notesContainer.html(
+      '<div class="row" id="notes-options">' +
+        optionsHtml +
+        "</div>" +
+        '<div class="row">' +
+        '<div class="col-md-12">' +
+        '<button class="btn btn-primary" id="add-notes-option" type="button">' +
+        '<i class="fa fa-fw fa-plus"></i> Add Option' +
+        "</button>" +
+        "</div>" +
+        "</div>",
+    );
+  }
+});

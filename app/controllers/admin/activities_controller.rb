@@ -21,8 +21,11 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def create
-    @activity = Activity.new(activity_post_params.except(:_destroy))
+    @activity = Activity.new(activity_post_params.except(:_destroy, :notes_options))
 
+    if @activity.notes_input_type != 'text' && params[:activity][:notes_options].present?
+      @activity.notes = params[:activity][:notes_options].compact_blank.join("\n")
+    end
     if @activity.save
       # manual call to impressionist, because otherwise the activity doesn't have an id yet
       impressionist(@activity)
@@ -63,13 +66,16 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     params = activity_post_params
 
+    if params[:notes_input_type] != 'text' && params[:notes_options].present?
+      params[:notes] = params[:notes_options].compact_blank.join("\n")
+    end
     # removing the images from disk
     if params[:_destroy] == 'true'
       logger.debug('remove poster from activity')
       @activity.poster.purge
     end
 
-    if @activity.update(params.except(:_destroy))
+    if @activity.update(params.except(:_destroy, :notes_options))
       redirect_to(@activity)
     else
       @recipients = @activity.payment_mail_recipients
@@ -119,6 +125,8 @@ class Admin::ActivitiesController < ApplicationController
                                      :is_seniors,
                                      :participant_limit,
                                      :show_participants,
-                                     :_destroy)
+                                     :notes_input_type,
+                                     :_destroy,
+                                     notes_options: [])
   end
 end

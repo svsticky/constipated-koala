@@ -28,7 +28,8 @@ class Members::ParticipantsController < ApplicationController
     end
 
     @member = Member.find(current_user.credentials_id)
-    @notes = params[:par_notes]
+    @notes =  params[:par_notes]
+
     reservist = false
 
     # Deny if already enrolled
