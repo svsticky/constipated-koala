@@ -127,16 +127,56 @@
             = label(:activity, :organized_by)
             .ui-select
               = f.select :organized_by, options_for_select(Group.has_members.order(:category, :name).map{ |group| [group.name, group.id] }, @activity.organized_by), :include_blank => '-'
-
       .form-group
         .row
           .col-md-12
             = f.label :notes
-
+        .row
+          .col-md-12#notes-container
+            - if @activity.notes_input_type == 'text'
+              = f.text_area :notes, value: @activity.notes, class: 'form-control', id: 'activity-notes'
+            - elsif @activity.notes_input_type == 'checkboxes' || @activity.notes_input_type == 'radio_buttons'
+              .row#notes-options
+                - if @activity.notes.present?
+                  - notes_lines = @activity.notes.split("\n")
+                  - if notes_lines.length > 1
+                    - title = notes_lines.first
+                    .col-md-12
+                      .input-group.mb-3
+                        %span.input-group-text Title
+                        = text_field_tag "activity[notes_options][]", title, class: 'form-control'
+                    - notes_lines.drop(1).each do |option|
+                      .col-md-6
+                        .input-group.mb-3
+                          = text_field_tag "activity[notes_options][]", option, class: 'form-control'
+                          .input-group-append
+                            %button.btn.btn-sm.btn-danger.delete-option{ type: 'button' }
+                              %i.fa.fa-fw.fa-minus
+                  - else
+                    .col-md-12
+                      .input-group.mb-3
+                        %span.input-group-text Title
+                        = text_field_tag "activity[notes_options][]", @activity.notes, class: 'form-control'
+                - else
+                  .col-md-12
+                    .input-group.mb-3
+                      %span.input-group-text Title
+                      = text_field_tag "activity[notes_options][]", '', class: 'form-control'
+                  .col-md-6
+                    .input-group.mb-3
+                      = text_field_tag "activity[notes_options][]", '', class: 'form-control'
+                      .input-group-append
+                        %button.btn.btn-sm.btn-danger.delete-option{ type: 'button' }
+                          %i.fa.fa-fw.fa-minus
+              .row
+                .col-md-12
+                  %button.btn.btn-primary#add-notes-option{ type: 'button' }
+                    %i.fa.fa-fw.fa-plus
+                    Add Option
         .row
           .col-md-12
-            = f.text_field :notes, :value => @activity.notes, :class => 'form-control', id: "activity-notes"
-
+            = f.label :notes_input_type
+            = f.select :notes_input_type, Activity.notes_input_types.keys.map { |type| [type.humanize, type] }, {}, class: 'form-control'
         .row
           .col-sm-6
             = f.check_box :notes_public, checked: @activity.notes_public
