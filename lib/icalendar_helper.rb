@@ -6,8 +6,17 @@ module IcalendarHelper
   def self.activity_to_event(activity, locale)
     event = Icalendar::Event.new
     event.uid = activity.id.to_s
-    event.dtstart = activity.start_date
-    event.dtend = activity.end_date
+
+    if activity.whole_day? # Adhire to the iCalendar spec
+      event.dtstart = Icalendar::Values::Date.new activity.calendar_start
+      event.dtstart.ical_param "VALUE", "DATE"
+      event.dtend = Icalendar::Values::Date.new activity.calendar_end
+      event.dtend.ical_param "VALUE", "DATE"
+    else
+      event.dtstart = activity.calendar_start
+      event.dtend = activity.calendar_end
+    end
+
     event.summary = activity.name
     event.description = activity.description_localised(locale)
     event.location = activity.location
@@ -37,4 +46,7 @@ module IcalendarHelper
     calendar_string = calendar.to_ical
     File.write(path, calendar_string)
   end
+
+  # TODO why does thunderbird call PROPFIND on the ics file?
+  # TODO is de waarschuwing 'begintijd mag niet leeg zijn als er een inedtijd is' ooutdated?
 end

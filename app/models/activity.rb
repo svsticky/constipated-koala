@@ -224,6 +224,26 @@ class Activity < ApplicationRecord
     Activity.combine_dt(end_date, end_time)
   end
 
+  def whole_day?
+    return !start_time && !end_time
+  end
+
+  # Properly format the start datetime, depending on if the event is a whole day event or not
+  def calendar_start
+    fmt_datetime = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
+    fmt_whole_day = ->(dt) { dt.strftime('%Y%m%d') } # Do not convert to UTC, because if 'start' is a date, it's time will be 00:00:00 and will be converted to the previous day
+    normalised_start = start_time ? start : start.change(hour: 0, min: 0) # Won't have effect if whole_day
+    start_str = whole_day? ? fmt_whole_day.call(normalised_start) : fmt_datetime.call(normalised_start)
+  end
+
+  # Properly format the end datetime, depending on if the event is a whole day event or not
+  def calendar_end
+    fmt_datetime = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
+    fmt_whole_day = ->(dt) { dt.utc.strftime('%Y%m%d') } # Do not convert to UTC, because if 'self.end' is a date, it's time will be 00:00:00 and will be converted to the previous day
+    normalised_end = end_time ? self.end : self.end.change(hour: 23, min: 59) # Won't have effect if whole_day
+    end_str = whole_day? ? fmt_whole_day.call(normalised_end + 1.day) : fmt_datetime.call(normalised_end) # +1 day, because end is exclusive
+  end
+
   def when_open
     Activity.combine_dt(open_date, open_time)
   end
@@ -368,15 +388,12 @@ class Activity < ApplicationRecord
   def google_event(loc = nil)
     return nil if start.nil? || self.end.nil?
 
-    fmt_dt = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
-
     loc = I18n.locale if loc.nil?
     description = "#{ activity_url }\n\n#{ description_localised(loc) }"
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
-    calendar_end = end_time.nil? ? self.end.change(hour: 23, min: 59) : self.end
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ fmt_dt.call(start) }%2F#{ fmt_dt.call(calendar_end) }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ calendar_start }%2F#{ calendar_end }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
