@@ -6,13 +6,7 @@ module IcalendarHelper
   # Combines zero or more Icalendar events into an iCalendar abstract object
   def self.create_calendar(events, locale)
     calendar = Icalendar::Calendar.new
-    calendar.x_wr_calname =
-      case locale
-      when :nl
-        "Sticky Activiteiten"
-      else
-        "Sticky Activities"
-      end
+    calendar.x_wr_calname = I18n.t("calendars.personalised_activities_calendar.name", locale: locale)
     events.each { |e| calendar.add_event(e) }
     calendar.publish
     return calendar
