@@ -414,6 +414,15 @@ en:
       study: Study/Studies
       transactions: Transactions
   association_name: Study association Sticky
+  calendars:
+    errors:
+      not_logged_in: Not logged in
+      unkown_hash: Unkown calendar hash
+    jargon:
+      activities: activities
+      reservist: reservist
+    personalised_activities_calendar:
+      name: Sticky Activities
   date:
     day_names:
     - Sunday
@@ -523,12 +532,3 @@ en:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
-  calendars:
-    personalised_activities_calendar:
-      name: Sticky Activities
-    errors:
-      unkown_hash: Unkown calendar hash
-      not_logged_in: Not logged in
-    jargon:
-      reservist: reservist
-      activities: activities

@@ -414,6 +414,15 @@ nl:
       study: Studie(s)
       transactions: Transacties
   association_name: Studievereniging Sticky
+  calendars:
+    errors:
+      not_logged_in: Niet ingelogd
+      unkown_hash: Onbekende kalender hash
+    jargon:
+      activities: activiteiten
+      reservist: reservist
+    personalised_activities_calendar:
+      name: Sticky Activiteiten
   date:
     day_names:
     - zondag
@@ -523,12 +532,3 @@ nl:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
-  calendars:
-    personalised_activities_calendar:
-      name: Sticky Activiteiten
-    errors:
-      unkown_hash: Onbekende kalender hash
-      not_logged_in: Niet ingelogd
-    jargon:
-      reservist: reservist
-      activities: activiteiten
