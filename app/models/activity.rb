@@ -1,3 +1,5 @@
+require 'icalendar' # https://github.com/icalendar/icalendar
+
 # Represents an activity in the database.
 #:nodoc:
 class Activity < ApplicationRecord
@@ -430,4 +432,26 @@ class Activity < ApplicationRecord
 
     return fmt_dt.call(start_date) + fmt_tm.call(start_time) + edt
   end
+
+  # Converts a sticky activity to an iCalendar event
+  def to_calendar_event(locale)
+    event = Icalendar::Event.new
+    event.uid = id.to_s
+
+    if whole_day? # Adhire to the iCalendar spec
+      event.dtstart = Icalendar::Values::Date.new calendar_start
+      event.dtstart.ical_param "VALUE", "DATE"
+      event.dtend = Icalendar::Values::Date.new calendar_end
+      event.dtend.ical_param "VALUE", "DATE"
+    else
+      event.dtstart = calendar_start
+      event.dtend = calendar_end
+    end
+
+    event.summary = name
+    event.description = description_localised(locale)
+    event.location = location
+    return event
+  end
+
 end

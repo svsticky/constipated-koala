@@ -2,26 +2,6 @@ require 'icalendar' # https://github.com/icalendar/icalendar
 
 # Includes all abstractions over iCalender representations
 module IcalendarHelper
-  # Converts a sticky activity to an iCalendar event
-  def self.activity_to_event(activity, locale)
-    event = Icalendar::Event.new
-    event.uid = activity.id.to_s
-
-    if activity.whole_day? # Adhire to the iCalendar spec
-      event.dtstart = Icalendar::Values::Date.new activity.calendar_start
-      event.dtstart.ical_param "VALUE", "DATE"
-      event.dtend = Icalendar::Values::Date.new activity.calendar_end
-      event.dtend.ical_param "VALUE", "DATE"
-    else
-      event.dtstart = activity.calendar_start
-      event.dtend = activity.calendar_end
-    end
-
-    event.summary = activity.name
-    event.description = activity.description_localised(locale)
-    event.location = activity.location
-    return event
-  end
 
   # Combines zero or more Icalendar events into an iCalendar abstract object
   def self.create_calendar(events, locale)
