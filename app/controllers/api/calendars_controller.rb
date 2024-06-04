@@ -47,7 +47,7 @@ class Api::CalendarsController < ActionController::Base
     @reservist_activity_ids = @member.reservist_activities.ids
     events = @member.activities.map do |a|
       a.name = "[RESERVIST] #{ a.name }" if @reservist_activity_ids.include?(a.id)
-      IcalendarHelper.activity_to_event(a, @locale)
+      a.to_calendar_event(@locale)
     end
 
     # Return the calendar
