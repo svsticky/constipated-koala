@@ -12,6 +12,12 @@ class Api::CalendarsController < ActionController::Base
       return
     end
 
+    # If the HTTP request is a HEAD type, return the headers only
+    if request.head?
+      head :ok
+      return
+    end
+
     respond_to do |format|
       format.ics do
         send_data(create_personal_calendar,
