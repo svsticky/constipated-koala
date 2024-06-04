@@ -2,7 +2,6 @@ require 'icalendar' # https://github.com/icalendar/icalendar
 
 # Includes all abstractions over iCalender representations
 module IcalendarHelper
-
   # Combines zero or more Icalendar events into an iCalendar abstract object
   def self.create_calendar(events, locale)
     calendar = Icalendar::Calendar.new

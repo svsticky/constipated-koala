@@ -230,20 +230,28 @@ class Activity < ApplicationRecord
     return !start_time && !end_time
   end
 
+  # Format a datetime in UTC for the iCalendar format
+  def format_utc(datetime)
+    datetime.utc.strftime('%Y%m%dT%H%M%SZ')
+  end
+
+  # Format a datetime to a whole day for the iCalendar format
+  def format_whole_day(datetime)
+    datetime.utc.strftime('%Y%m%d')
+    # For whole days, do not convert to UTC, because if 'start' is a date, it's
+    # time will be 00:00:00 and will be converted to the previous day
+  end
+
   # Properly format the start datetime, depending on if the event is a whole day event or not
   def calendar_start
-    fmt_datetime = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
-    fmt_whole_day = ->(dt) { dt.strftime('%Y%m%d') } # Do not convert to UTC, because if 'start' is a date, it's time will be 00:00:00 and will be converted to the previous day
     normalised_start = start_time ? start : start.change(hour: 0, min: 0) # Won't have effect if whole_day
-    start_str = whole_day? ? fmt_whole_day.call(normalised_start) : fmt_datetime.call(normalised_start)
+    return whole_day? ? format_whole_day(normalised_start) : format_utc(normalised_start)
   end
 
   # Properly format the end datetime, depending on if the event is a whole day event or not
   def calendar_end
-    fmt_datetime = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
-    fmt_whole_day = ->(dt) { dt.utc.strftime('%Y%m%d') } # Do not convert to UTC, because if 'self.end' is a date, it's time will be 00:00:00 and will be converted to the previous day
     normalised_end = end_time ? self.end : self.end.change(hour: 23, min: 59) # Won't have effect if whole_day
-    end_str = whole_day? ? fmt_whole_day.call(normalised_end + 1.day) : fmt_datetime.call(normalised_end) # +1 day, because end is exclusive
+    return whole_day? ? format_whole_day(normalised_end + 1.day) : format_utc(normalised_end) # +1 day, end is exclusive
   end
 
   def when_open
@@ -439,10 +447,10 @@ class Activity < ApplicationRecord
     event.uid = id.to_s
 
     if whole_day? # Adhire to the iCalendar spec
-      event.dtstart = Icalendar::Values::Date.new calendar_start
-      event.dtstart.ical_param "VALUE", "DATE"
-      event.dtend = Icalendar::Values::Date.new calendar_end
-      event.dtend.ical_param "VALUE", "DATE"
+      event.dtstart = Icalendar::Values::Date.new(calendar_start)
+      event.dtstart.ical_param("VALUE", "DATE")
+      event.dtend = Icalendar::Values::Date.new(calendar_end)
+      event.dtend.ical_param("VALUE", "DATE")
     else
       event.dtstart = calendar_start
       event.dtend = calendar_end
@@ -453,5 +461,4 @@ class Activity < ApplicationRecord
     event.location = location
     return event
   end
-
 end

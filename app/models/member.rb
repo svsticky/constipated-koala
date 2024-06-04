@@ -204,8 +204,7 @@ class Member < ApplicationRecord
     return groups.values
   end
 
-  # We cannot enforce that a member is created with a calendar_id, but we can enforce that
-  # when a member is created or saved, a calendar_id is set before validation.
+  # Whilst we cannot assign an id on creation, we can assign an id before validation, which is almost the same
   before_validation on: [:save, :create] do
     self.calendar_id = SecureRandom.uuid if calendar_id.blank?
   end

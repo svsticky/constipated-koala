@@ -14,7 +14,7 @@ class Api::CalendarsController < ActionController::Base
 
     # If the HTTP request is a HEAD type, return the headers only
     if request.head?
-      head :ok
+      head(:ok)
       return
     end
 
@@ -44,7 +44,9 @@ class Api::CalendarsController < ActionController::Base
     # is enrolled as reservist
     @reservist_activity_ids = @member.reservist_activities.ids
     events = @member.activities.map do |a|
-      a.name = "[#{ I18n.t('calendars.jargon.reservist').upcase }] #{ a.name }" if @reservist_activity_ids.include?(a.id)
+      if @reservist_activity_ids.include?(a.id)
+        a.name = "[#{ I18n.t('calendars.jargon.reservist').upcase }] #{ a.name }"
+      end
       a.to_calendar_event(I18n.locale)
     end
 
