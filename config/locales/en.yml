@@ -523,3 +523,12 @@ en:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
+  calendars:
+    personalised_activities_calendar:
+      name: Sticky Activities
+    errors:
+      unkown_hash: Unkown calendar hash
+      not_logged_in: Not logged in
+    jargon:
+      reservist: reservist
+      activities: activities

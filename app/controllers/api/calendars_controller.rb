@@ -8,7 +8,7 @@ class Api::CalendarsController < ActionController::Base
     # member variable will be accessible in other methods as well now
 
     unless @member # No member with the specified hash was found
-      render(json: { error: "Unkown hash" }, status: :not_found)
+      render(json: { error: I18n.t('calendars.errors.unkown_hash') }, status: :not_found)
       return
     end
 
@@ -23,14 +23,14 @@ class Api::CalendarsController < ActionController::Base
         send_data(create_personal_calendar,
                   type: 'text/calendar',
                   disposition: 'attachment',
-                  filename: "#{ @member.first_name }_activities.ics")
+                  filename: "#{ @member.first_name }_#{ I18n.t('calendars.jargon.activities') }.ics")
       end
     end
   end
 
   def index
     if current_user.nil?
-      render(json: { error: "Not logged in" }, status: :forbidden)
+      render(json: { error: I18n.t('calendars.errors.not_logged_in') }, status: :forbidden)
       return
     end
 
@@ -40,14 +40,12 @@ class Api::CalendarsController < ActionController::Base
 
   # Not exposed to API directly, but through #show
   def create_personal_calendar
-    @locale = I18n.locale
-
     # Convert activities to events, and mark activities where the member is
     # is enrolled as reservist
     @reservist_activity_ids = @member.reservist_activities.ids
     events = @member.activities.map do |a|
-      a.name = "[RESERVIST] #{ a.name }" if @reservist_activity_ids.include?(a.id)
-      a.to_calendar_event(@locale)
+      a.name = "[#{ I18n.t('calendars.jargon.reservist').upcase }] #{ a.name }" if @reservist_activity_ids.include?(a.id)
+      a.to_calendar_event(I18n.locale)
     end
 
     # Return the calendar

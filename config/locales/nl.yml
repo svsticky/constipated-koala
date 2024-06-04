@@ -523,3 +523,12 @@ nl:
     formats:
       default: "%d-%m-%Y %H:%M"
       short: "%H:%M"
+  calendars:
+    personalised_activities_calendar:
+      name: Sticky Activiteiten
+    errors:
+      unkown_hash: Onbekende kalender hash
+      not_logged_in: Niet ingelogd
+    jargon:
+      reservist: reservist
+      activities: activiteiten
