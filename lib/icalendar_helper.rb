@@ -46,7 +46,4 @@ module IcalendarHelper
     calendar_string = calendar.to_ical
     File.write(path, calendar_string)
   end
-
-  # TODO why does thunderbird call PROPFIND on the ics file?
-  # TODO is de waarschuwing 'begintijd mag niet leeg zijn als er een inedtijd is' ooutdated?
 end
