@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
 
+        get '/activities/69420', to: redirect('/CommITCrowd.jpg')
+
         get   'edit',                           to: 'home#edit', as: :users_edit
         post  'edit',                           to: 'home#update'
         delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
