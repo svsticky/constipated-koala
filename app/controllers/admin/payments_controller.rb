@@ -129,10 +129,10 @@ class Admin::PaymentsController < ApplicationController
         # now create every transaction row with the following date: Blank, ledger account,
         # transaction description, VAT number, amount, cost_location ()
         a = Activity.find_by(id: activity_id)
-        csv << if a && a.name == "Lidmaatschap"
-                 # Dislike this way of doing it but need better ways to find membership activities
-                 # An alternative could be activity_id == Settings['intro.membership'],
-                 # this would make it only pass for last year membership activity
+        csv << if a && (a.name == "Lidmaatschap" || a.id == Settings['intro.membership'])
+                 # Check on the name to allow previous years to be exported.
+
+
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
                   p.currency + p.transaction_fee, ""]
                elsif p.activity.group.nil? ||
@@ -166,7 +166,12 @@ class Admin::PaymentsController < ApplicationController
 
     csv << ["", Settings.accountancy_ledger_number, trx_cost, "21",
             trx_cost_amount, Settings.accountancy_cost_location]
-    csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
-            trx_mongoose_amount, Settings.accountancy_cost_location]
+
+    # As of December 2023, mongoose has been decoupled from Koala
+    # Exports after that don't really have to include the mongoose costs or TRX costs
+    if trx_mongoose_amount != 0
+      csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
+              trx_mongoose_amount, Settings.accountancy_cost_location]
+    end
   end
 end
