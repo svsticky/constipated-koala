@@ -137,7 +137,6 @@ class Admin::PaymentsController < ApplicationController
         csv << if a && (a.name == "Lidmaatschap" || a.id == Settings['intro.membership'])
                  # Check on the name to allow previous years to be exported.
 
-
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
                   p.currency + p.transaction_fee, ""]
                elsif p.activity.group.nil? ||
@@ -174,9 +173,9 @@ class Admin::PaymentsController < ApplicationController
 
     # As of December 2023, mongoose has been decoupled from Koala
     # Exports after that don't really have to include the mongoose costs or TRX costs
-    if trx_mongoose_amount != 0
-      csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
-              trx_mongoose_amount, Settings.accountancy_cost_location]
-    end
+    return unless trx_mongoose_amount != 0
+
+    csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
+            trx_mongoose_amount, Settings.accountancy_cost_location]
   end
 end
