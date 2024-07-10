@@ -24,14 +24,6 @@
             = I18n.t('admin.navigation.settings')
           %ul.list-group#settings
             = form_tag settings_url do
-              %li.list-group-item
-                .container.row
-                  .col-md-6
-                    %b= I18n.t 'liquor_time.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'liquor_time.description', scope: 'activerecord.attributes.settings'
-
-                  .col-md-6
-                    %input.form-control{ :id => 'options_liquor_time', :name => 'liquor_time', :value => Settings.liquor_time, :placeholder => 'hh:mm' }
 
               %li.list-group-item
                 .container.row
@@ -99,13 +91,6 @@
                     %p= I18n.t 'payment_condition_code.description', scope: 'activerecord.attributes.settings'
                   .col-md-6
                     %input.form-control{ :id => 'options_payment_condition_code', :name => 'payment_condition_code', :value => Settings.payment_condition_code, :placeholder => '' }
-              %li.list-group-item
-                .container.row
-                  .col-md-6
-                    %b= I18n.t 'mongoose_ledger_number.name', scope: 'activerecord.attributes.settings'
-                    %p= I18n.t 'mongoose_ledger_number.description', scope: 'activerecord.attributes.settings'
-                  .col-md-6
-                    %input.form-control{ :id => 'options_mongoose_ledger_number', :name => 'mongoose_ledger_number', :value => Settings.mongoose_ledger_number, :placeholder => '' }
               %li.list-group-item
                 .container.row
                   .col-md-6

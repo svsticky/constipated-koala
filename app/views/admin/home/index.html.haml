@@ -30,17 +30,12 @@
                 %p.text-muted
                   = I18n.t('admin.activities.title')
 
+      // Checkout transactions used to be shown here.
+      // That isn't in Koala anymore and was thus removed,
+      // but we do not want to move the outstanding payment
+      // card, so we leave this here as 'spacer'
       .col-12.col-md-6
-        .card
-          = link_to :checkout do
-            .row.no-gutters
-              %span.box-icon.bg-warning
-                %i.fa.fa-homepage.fa-shopping-cart
-              .card-body.box-info
-                %h2.text-center
-                  = @transactions
-                %p.text-muted
-                  = I18n.t('admin.front.checkout')
+        .div
 
       .col-12.col-md-6
         .card
@@ -68,36 +63,6 @@
                   %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
-      .col-lg-4
-        .card
-          .card-header
-            %i.fa.fa-fw.fa-shopping-cart
-            = I18n.t('admin.front.transactions_today')
-          %table.table.table-striped.table-linked
-            %tbody
-              - @recent.each do |transaction|
-                %tr
-                  %td= I18n.l transaction.created_at, :format => :short
-                  %td{ :style => 'min-width: 80px;' }
-                    = number_to_currency(transaction.price, :unit => '€')
-                    - if transaction.price > 0
-                      %span.fa.fa-sort-asc.float-right{ :style => 'padding-up: 3px;'}
-                    - else
-                      %span.fa.fa-sort-desc.float-right
-
-                  %td{ :style => 'white-space: nowrap;' }
-                    - unless transaction.checkout_balance.nil? || transaction.checkout_balance.member.nil?
-                      = link_to "#{transaction.checkout_balance.member.name}", transaction.checkout_balance.member
-
-
-                  %td.d-none.d-md-table-cell
-                    = transaction.products
-
-              - if @recent.empty?
-                %tr
-                  %td.text-center
-                    %em
-                      = I18n.t('admin.front.no_transactions')
       .col-lg-5
         .card
           .card-header
