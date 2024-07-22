@@ -384,6 +384,7 @@ nl:
         date: Datum
         time: Tijd
         when: Wanneer
+        opens_at: Inschrijfbaar vanaf
     messages:
       member:
         confirmation_sent: 'Een bevestigingsmail is verstuurd naar '
