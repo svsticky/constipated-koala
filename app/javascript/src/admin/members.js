@@ -12,6 +12,46 @@ import { setup_intl_tel_input } from "../intl_tel_number";
 $(document).on("ready page:load turbolinks:load", function () {
   setup_intl_tel_input();
 
+  $(window).on("keydown", (evt) => {
+    // <input>, <textarea>, or the mailer input field
+    if (
+      $("input").is(":focus") ||
+      $("textarea").is(":focus") ||
+      document.getElementById("editor")?.contains(document.activeElement)
+    ) {
+      // Cancel if any inputs are selected
+      return;
+    }
+
+    // Edit member
+    if (evt.key === "e") {
+      document.getElementById("member-btn-edit")?.click();
+    }
+
+    // Cancel editing
+    if (evt.key === "Escape" || (evt.key === "Delete" && evt.ctrlKey)) {
+      document.getElementById("admin-member-edit-btn-cancel")?.click();
+      return;
+    }
+
+    // Save editing
+    if (evt.key === "Enter" && evt.ctrlKey) {
+      document.getElementById("admin-member-edit-btn-save")?.click();
+    }
+
+    // Set status of first study to 'Afgestudeerd'
+    if (evt.key === "a" && !evt.ctrlKey) {
+      $($(".educ-status select")[0]).val("inactive").change();
+    }
+
+    // Set status of second study to 'Afgestudeerd'
+    if (evt.key === "a" && evt.ctrlKey) {
+      evt.preventDefault();
+
+      $($(".educ-status select")[1]).val("inactive").change();
+    }
+  });
+
   $(".education label a.close").bind("click", function () {
     var row = $(".education .copyable:last")
       .clone()
@@ -34,7 +74,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             "name",
             $(this)
               .attr("name")
-              .replace(/\[(-?\d*\d+)]/, "[" + id + "]")
+              .replace(/\[(-?\d*\d+)]/, "[" + id + "]"),
           );
       });
 
@@ -47,7 +87,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             "name",
             $(this)
               .attr("name")
-              .replace(/\[(-?\d*\d+)]/, "[" + id + "]")
+              .replace(/\[(-?\d*\d+)]/, "[" + id + "]"),
           );
       });
 
@@ -99,7 +139,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   var paymentMethodInput = creditInputGroup.find("select#payment_method");
   creditInputGroup.find("#upgrade-btn").on("click", function () {
     var token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
 
     if (!inputAmount.val()) {
@@ -171,7 +211,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     let uuid = row.attr("data-uuid");
     let memberid = row.attr("data-member-id");
     let token = encodeURIComponent(
-      $(this).closest(".page").attr("data-authenticity-token")
+      $(this).closest(".page").attr("data-authenticity-token"),
     );
 
     let tobeactivated = row.attr("data-active") == 0;
@@ -189,8 +229,8 @@ $(document).on("ready page:load turbolinks:load", function () {
     let successmsg = tobeactivated
       ? I18n.t("checkout.card.activated")
       : disabled
-      ? I18n.t("admin.cards.activate_success", { uuid: uuid })
-      : I18n.t("admin.cards.deactivate_success", { uuid: uuid });
+        ? I18n.t("admin.cards.activate_success", { uuid: uuid })
+        : I18n.t("admin.cards.deactivate_success", { uuid: uuid });
 
     $.ajax({
       url: url,
@@ -219,7 +259,7 @@ $(document).on("ready page:load turbolinks:load", function () {
           $(this)
             .empty()
             .append(
-              '<i class="fa fa-trash"></i>' + I18n.t("admin.cards.deactivate")
+              '<i class="fa fa-trash"></i>' + I18n.t("admin.cards.deactivate"),
             )
             .addClass("deactivate btn-danger");
           row.attr("data-disabled", 0);
@@ -232,7 +272,7 @@ $(document).on("ready page:load turbolinks:load", function () {
             .empty()
             .append(
               '<i class="fa fa-sync-alt"></i>' +
-                I18n.t("admin.cards.reactivate")
+                I18n.t("admin.cards.reactivate"),
             )
             .addClass("reactivate btn-warning");
           row.attr("data-disabled", 1);

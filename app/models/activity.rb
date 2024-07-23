@@ -356,8 +356,57 @@ class Activity < ApplicationRecord
     end
   end
 
+  def activity_url
+    return "https://koala.svsticky.nl/activities/#{ id }"
+  end
+
+  # pass along locale default to nil
+  def google_event(loc = nil)
+    return nil if start.nil? || self.end.nil?
+
+    fmt_dt = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
+
+    loc = I18n.locale if loc.nil?
+    description = "#{ activity_url }\n\n#{ loc == :nl ? description_nl : description_en }"
+    uri_name = URI.encode_www_form_component(name)
+    uri_description = URI.encode_www_form_component(description)
+    uri_location = URI.encode_www_form_component(location)
+    calendar_end = end_time.nil? ? self.end.change(hour: 23, min: 59) : self.end
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ fmt_dt.call(start) }%2F#{ fmt_dt.call(calendar_end) }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
+  end
+
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
   def rewrite_logs_before_delete
     impressions.update_all(message: "#{ name } (#{ id })")
+  end
+
+  # Pass loc to force a specific language
+  def whatsapp_message(loc)
+    pc = if price <= 0
+           I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
+         else
+           "€#{ price }"
+         end
+
+    return I18n.t('admin.activities.wa_msg',
+                  act_name: name,
+                  datetime: gen_time_string(loc),
+                  location: location,
+                  price: pc,
+                  url: activity_url,
+                  description: loc == :nl ? description_nl : description_en,
+                  locale: loc)
+  end
+
+  # Generate the time string for the whatsapp message eg: Sunday 24 September 05:00 - 06:00
+  def gen_time_string(loc)
+    fmt_dt = ->(dt) { dt.nil? ? "" : " #{ I18n.l(dt, format: :name_day_month, locale: loc) }" }
+    fmt_tm = ->(tm) { tm.nil? ? "" : " #{ I18n.l(tm, format: :short) }" }
+
+    end_dt = start_date == end_date ? "" : fmt_dt.call(end_date)
+    edt = end_dt + fmt_tm.call(end_time)
+    edt = edt.present? ? " -#{ edt }" : ""
+
+    return fmt_dt.call(start_date) + fmt_tm.call(start_time) + edt
   end
 end

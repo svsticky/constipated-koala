@@ -59,8 +59,8 @@ Object.defineProperties(
     function (name, descriptor) {
       descriptor.enumerable = true;
       return descriptor;
-    }
-  )
+    },
+  ),
 );
 
 Object.defineProperties(
@@ -81,5 +81,5 @@ Object.defineProperties(
     prevButton: function () {
       return this.element.find(".prev-activity");
     },
-  })
+  }),
 );

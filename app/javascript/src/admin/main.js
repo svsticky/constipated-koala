@@ -15,6 +15,25 @@ $(document).on("ready page:load turbolinks:load", function () {
     return confirm(I18n.t("admin.general.confirmation"));
   });
 
+  $(window).on("keydown", (evt) => {
+    // <input>, <textarea>, or the mailer input field
+    if (
+      $("input").is(":focus") ||
+      $("textarea").is(":focus") ||
+      document.getElementById("editor")?.contains(document.activeElement)
+    ) {
+      // Cancel if any inputs are selected
+      return;
+    }
+
+    // Select the search bar on '/'
+    if (evt.key === "s" || evt.key === "/") {
+      evt.preventDefault();
+
+      $("#search")?.focus();
+    }
+  });
+
   $(".page.search .input-group ul.dropdown-menu")
     .find("li")
     .on("mouseenter", function () {
@@ -25,7 +44,7 @@ $(document).on("ready page:load turbolinks:load", function () {
     })
     .on("mousedown", function () {
       var query = $(".page.search .input-group ul.dropdown-menu:visible").attr(
-        "data-query"
+        "data-query",
       );
 
       $(".page.search .input-group input[name=search]").val(
@@ -36,8 +55,8 @@ $(document).on("ready page:load turbolinks:load", function () {
             query.split(":")[0] +
               ":" +
               $(this).find("a").attr("data-name") +
-              " "
-          )
+              " ",
+          ),
       );
 
       $("ul.dropdown-menu").removeAttr("data-query").delay(10).hide(1);
@@ -59,10 +78,10 @@ $(document).on("ready page:load turbolinks:load", function () {
         this.selectionStart <= study.index + study[0].length
       ) {
         dropdown = $(".page.search .input-group").find(
-          "ul.dropdown-menu[name=studies]"
+          "ul.dropdown-menu[name=studies]",
         );
         selected = $(
-          ".page.search .input-group ul.dropdown-menu[name=studies]"
+          ".page.search .input-group ul.dropdown-menu[name=studies]",
         ).find("li.active");
         $(dropdown).show();
       } else {
@@ -76,10 +95,10 @@ $(document).on("ready page:load turbolinks:load", function () {
         this.selectionStart <= tag.index + tag[0].length
       ) {
         dropdown = $(".page.search .input-group").find(
-          "ul.dropdown-menu[name=tags]"
+          "ul.dropdown-menu[name=tags]",
         );
         selected = $(
-          ".page.search .input-group ul.dropdown-menu[name=tags]"
+          ".page.search .input-group ul.dropdown-menu[name=tags]",
         ).find("li.active");
         $(dropdown).show();
       } else {
@@ -93,10 +112,10 @@ $(document).on("ready page:load turbolinks:load", function () {
         this.selectionStart <= state.index + state[0].length
       ) {
         dropdown = $(".page.search .input-group").find(
-          "ul.dropdown-menu[name=states]"
+          "ul.dropdown-menu[name=states]",
         );
         selected = $(
-          ".page.search .input-group ul.dropdown-menu[name=states]"
+          ".page.search .input-group ul.dropdown-menu[name=states]",
         ).find("li.active");
         $(dropdown).show();
       } else {
@@ -121,8 +140,8 @@ $(document).on("ready page:load turbolinks:load", function () {
               .val()
               .replace(
                 study[0],
-                study[1] + ":" + $(selected).find("a").attr("data-name") + " "
-              )
+                study[1] + ":" + $(selected).find("a").attr("data-name") + " ",
+              ),
           );
         else if (tag !== null)
           $(this).val(
@@ -130,8 +149,8 @@ $(document).on("ready page:load turbolinks:load", function () {
               .val()
               .replace(
                 tag[0],
-                tag[1] + ":" + $(selected).find("a").attr("data-name") + " "
-              )
+                tag[1] + ":" + $(selected).find("a").attr("data-name") + " ",
+              ),
           );
         else if (state !== null)
           $(this).val(
@@ -139,8 +158,8 @@ $(document).on("ready page:load turbolinks:load", function () {
               .val()
               .replace(
                 state[0],
-                state[1] + ":" + $(selected).find("a").attr("data-name") + " "
-              )
+                state[1] + ":" + $(selected).find("a").attr("data-name") + " ",
+              ),
           );
 
         $("ul.dropdown-menu").removeAttr("data-query").delay(10).hide(1);
@@ -176,14 +195,14 @@ $(document).on("ready page:load turbolinks:load", function () {
               study[2] +
               "][data-code^=" +
               study[2] +
-              "]"
-          )
+              "]",
+          ),
         );
 
         if ($(items).length != 1) return;
 
         $(
-          ".page.search .input-group ul.dropdown-menu[name=studies] li"
+          ".page.search .input-group ul.dropdown-menu[name=studies] li",
         ).removeClass("active");
         $(items).parent("li").addClass("active");
       } else if (tag !== null && event.type != "keyup" && event.keyCode != 8) {
@@ -192,13 +211,13 @@ $(document).on("ready page:load turbolinks:load", function () {
             tag[2] +
             "][data-name^=" +
             tag[2] +
-            "]"
+            "]",
         );
 
         if ($(items).length != 1) return;
 
         $(
-          ".page.search .input-group ul.dropdown-menu[name=tags] li"
+          ".page.search .input-group ul.dropdown-menu[name=tags] li",
         ).removeClass("active");
         $(items).parent("li").addClass("active");
       } else if (
@@ -211,13 +230,13 @@ $(document).on("ready page:load turbolinks:load", function () {
             state[2] +
             "][data-name^=" +
             state[2] +
-            "]"
+            "]",
         );
 
         if ($(items).length != 1) return;
 
         $(
-          ".page.search .input-group ul.dropdown-menu[name=states] li"
+          ".page.search .input-group ul.dropdown-menu[name=states] li",
         ).removeClass("active");
         $(items).parent("li").addClass("active");
       }
@@ -233,7 +252,7 @@ $(document).on("ready page:load turbolinks:load", function () {
 
     if ($("footer.table-footer .page-num-info").attr("data-search")) {
       params.search = $("footer.table-footer .page-num-info").attr(
-        "data-search"
+        "data-search",
       );
     }
 

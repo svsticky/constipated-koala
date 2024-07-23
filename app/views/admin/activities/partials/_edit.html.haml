@@ -15,6 +15,9 @@
         .col-sm
           %i.fa.fa-fw.fa-ticket-alt
           = activity_textfield
+          - if !@activity.google_event(:en).nil?
+            = link_to @activity.google_event(:en), target: '_blank' do
+              %i.fa.fa-calendar-plus{ :class => 'btn-secondary btn-sm' }
 
         .col-sm.text-sm-right
           %span
@@ -45,10 +48,18 @@
         .row
           .col-md-12
             = label(:activity, :description_nl)
+            %span.input-group-btn
+              %button.btn.btn-clipboard-wapp{ :type => 'button', :"data-clipboard-text" => @activity.whatsapp_message(:nl) }
+                %i.fa.fa-copy
+                = I18n.t('admin.activities.copy_wa_msg')
             = f.text_area :description_nl, :value => @activity.description_nl, :class => 'form-control', :rows => 8
 
           .col-md-12
             = label(:activity, :description_en)
+            %span.input-group-btn
+              %button.btn.btn-clipboard-wapp{ :type => 'button', :"data-clipboard-text" => @activity.whatsapp_message(:en) }
+                %i.fa.fa-copy
+                = I18n.t('admin.activities.copy_wa_msg')
             = f.text_area :description_en, :value => @activity.description_en, :class => 'form-control', :rows => 8
 
       .form-group

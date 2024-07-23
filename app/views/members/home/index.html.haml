@@ -27,15 +27,15 @@
     = render partial: 'layouts/partials/pagination', locals: {pagy: @pagination}
 
   .col-lg-6.float-right
-    - unless @balance.blank?
-      .card.card-box
-        .row.no-gutters
-          .col.bg-success.card-body
-            %i.fa.fa-shopping-cart.fa-5x
-          .col.card-body
-            %p.size-h2
-              = number_to_currency( @balance.balance, :unit => '€' )
-            %p.text-muted.text-center= I18n.t('activerecord.models.checkout_balance')
+    -# - unless @balance.blank?
+    -#   .card.card-box
+    -#     .row.no-gutters
+    -#       .col.bg-success.card-body
+    -#         %i.fa.fa-shopping-cart.fa-5x
+    -#       .col.card-body
+    -#         %p.size-h2
+    -#           = number_to_currency( @balance.balance, :unit => '€' )
+    -#         %p.text-muted.text-center= I18n.t('activerecord.models.checkout_balance')
 
     .card.card-box
       .row.no-gutters
@@ -102,20 +102,20 @@
                     %span.label.label-success= I18n.t('activerecord.attributes.participant.paid.true')
                   - else
                     %span.label.label-warning= I18n.t('activerecord.attributes.participant.paid.false')
-    .card
-      .card-header
-        %i.fa.fa-fw.fa-fw.fa-shopping-cart
-        %span= I18n.t("activerecord.models.checkout_transactions")
-      %table.table.card-body
-        %tbody
-          - @transactions.each do |transaction|
-            %tr
-              %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
-              %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
-              %td.d-none.d-sm-table-cell= transaction.products
-              %td
-                = number_to_currency(transaction.price, :unit => '€')
-                - if transaction.price > 0
-                  %span.fa.fa-sort-asc.float-right
-                - else
-                  %span.fa.fa-sort-desc.float-right
+    -# .card
+    -#   .card-header
+    -#     %i.fa.fa-fw.fa-fw.fa-shopping-cart
+    -#     %span= I18n.t("activerecord.models.checkout_transactions")
+    -#   %table.table.card-body
+    -#     %tbody
+    -#       - @transactions.each do |transaction|
+    -#         %tr
+    -#           %td.d-block.d-sm-none{ :colspan => 2 }= I18n.l transaction.created_at
+    -#           %td.d-none.d-sm-table-cell= I18n.l transaction.created_at
+    -#           %td.d-none.d-sm-table-cell= transaction.products
+    -#           %td
+    -#             = number_to_currency(transaction.price, :unit => '€')
+    -#             - if transaction.price > 0
+    -#               %span.fa.fa-sort-asc.float-right
+    -#             - else
+    -#               %span.fa.fa-sort-desc.float-right

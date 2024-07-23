@@ -3,6 +3,7 @@ nl:
   admin:
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
+      copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
       filters: Filters
       financial: Financieel
@@ -17,6 +18,12 @@ nl:
       save: Activiteit opslaan?
       single: Activiteit
       title: Activiteiten
+      wa_msg: |-
+        *%{act_name} |%{datetime} | Locatie: %{location} | %{price}*
+
+        %{url}
+
+        %{description}
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?
@@ -123,9 +130,9 @@ nl:
       whatsapp:
         copy: Bericht gekopieerd naar klembord
         copy_error: Bericht kon niet worden opgehaald
-        open_activities: De volgende activiteiten staan open
+        open_activities: 'De volgende activiteiten staan open:'
         pay_to: 'Zou je dit bedrag zo snel mogelijk via het betalingsportaal op Koala willen betalen? Deze kun je vinden via de volgende link: https://koala.svsticky.nl/member/payments'
-        title: Hey! %{user} van Sticky hier :)
+        title: Hey %{memb}! %{user} van Sticky hier :)
         total_of: Dit geeft een totaal van *%{amount}*
     posts:
       author: Auteur

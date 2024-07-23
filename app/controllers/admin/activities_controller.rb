@@ -39,6 +39,25 @@ class Admin::ActivitiesController < ApplicationController
     end
   end
 
+  # returns the data needed to add the members via javascript
+  def committee_members
+    @activity = Activity.find(params[:activity_id])
+    @committee_members = @activity.group.members
+    @member = @committee_members.map do |member|
+      member = Member.find_by(id: member.member_id)
+      {
+        id: params[:activity_id],
+        member: {
+          id: member.id,
+          name: member.name,
+          email: member.email
+        },
+        activity: @activity
+      }
+    end
+    render(json: @member)
+  end
+
   # TODO: refactor
   def update
     @activity = Activity.find(params[:id])

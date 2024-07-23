@@ -15,14 +15,14 @@ $(document).on("ready page:load turbolinks:load", function () {
     "ajax:error",
     function (event, xhr, status, error) {
       toastr.error(I18n.t("admin.payment.not_found"));
-    }
+    },
   );
 
   $(".input-group#transaction_dates #update_transactions button").bind(
     "click",
     function () {
       getCheckoutTransactions($(this));
-    }
+    },
   );
 
   //Update search
@@ -84,15 +84,15 @@ function getCheckoutTransactions(button) {
       // Bind json data to copy button
       $("#copy_transactions button").attr(
         "data-clipboard-text",
-        JSON.stringify(data)
+        JSON.stringify(data),
       );
 
       //Fill table if not empty
       if (data.length == 0) {
         table.append(
           `<tr style="height: 36px; line-height: 36px;"><td><em>${I18n.t(
-            "admin.payment.no_transactions"
-          )}</em></td><td></td><td></td></tr>`
+            "admin.payment.no_transactions",
+          )}</em></td><td></td><td></td></tr>`,
         );
         toastr.warning(I18n.t("admin.payment.not_found"));
       } else {
@@ -110,7 +110,7 @@ function getCheckoutTransactions(button) {
               t.price +
               "</td><td>" +
               t.date +
-              "</td></tr>"
+              "</td></tr>",
           );
         });
         toastr.success(I18n.t("admin.payment.found"));

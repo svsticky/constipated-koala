@@ -1,0 +1,25 @@
+name: projects
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-to-project:
+    name: Add opened issue or PR to CommITCrowd project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.5.0
+        with:
+          # URL of the project to add issues to
+          project-url: https://github.com/orgs/svsticky/projects/7
+          # A GitHub personal access token with write access to the project
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          # A comma-separated list of labels to use as a filter for issue to be added
+          # labeled: # optional
+          # The behavior of the labels filter, AND to match all labels, OR to match any label, NOT to exclude any listed label (default is OR)
+          # label-operator: # optional

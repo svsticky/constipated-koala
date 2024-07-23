@@ -30,6 +30,7 @@ class Admin::PaymentsController < ApplicationController
     @late_activities = Activity.debtors.select do |activity|
       (Date.today.prev_occurring(:friday) - activity.payable_updated_at).to_i >= 21 && activity.is_payable
     end
+
     @late_payments =
       @late_activities.map do |activity|
         activity.attendees.select do |participant|
@@ -39,7 +40,9 @@ class Admin::PaymentsController < ApplicationController
               (participant.price.nil? &&
                activity.price && activity.price > 0)
             )
-        end.map(&:member)
+          # Somehow there were `nil` members in this list, not sure how we got there,
+          # but the `select` makes the page useable.
+        end.map(&:member).compact
       end.flatten.uniq
     @late_unpayable_activities = Activity.late_unpayable
   end
@@ -53,7 +56,9 @@ class Admin::PaymentsController < ApplicationController
 
     pn = @member.phone_number
 
-    redirect_to("https://web.whatsapp.com/send?phone=#{ pn }&text=#{ ERB::Util.url_encode(msg) }")
+    # Parse URL to guarantee a valid URL and prevent XSS
+    url = URI.parse("https://wa.me/#{ pn }?text=#{ ERB::Util.url_encode(msg) }")
+    redirect_to(url.to_s)
   end
 
   def update_transactions

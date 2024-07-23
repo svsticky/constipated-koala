@@ -35,6 +35,7 @@ en:
         description_nl: Dutch description
         end_date: Enddate
         end_time: Endtime
+        google_event: Add to calendar
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
         is_freshmans: First year students
@@ -424,6 +425,7 @@ en:
     formats:
       day_month: "%d %B"
       default: "%d-%m-%Y"
+      name_day_month: "%A %d %B"
       short: "%Y"
     month_names:
     - nil

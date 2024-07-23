@@ -37,6 +37,7 @@ in
       jq
       bundix
       nodePackages.node2nix
+      which
     ];
 
     rails_wrapper = pkgs.writeScript "rails" ''

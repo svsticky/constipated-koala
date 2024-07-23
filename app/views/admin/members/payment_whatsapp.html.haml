@@ -1,7 +1,6 @@
-= I18n.t('admin.payment.whatsapp.title', user: current_user.credentials.first_name)
-= I18n.t('admin.payment.whatsapp.open_activities')
-\:
+= I18n.t('admin.payment.whatsapp.title', memb: @member.first_name, user: current_user.credentials.first_name, locale: @member.language)
+= I18n.t('admin.payment.whatsapp.open_activities', locale: @member.language)
 - @participants.each do |p|
   \- #{p.activity.name} - #{number_to_currency(p.currency, unit: '€')}
-= I18n.t('admin.payment.whatsapp.total_of', amount: number_to_currency(@participants.map(&:currency).sum, unit: '€'))
-= I18n.t('admin.payment.whatsapp.pay_to', member: @member.name)
+= I18n.t('admin.payment.whatsapp.total_of', amount: number_to_currency(@participants.map(&:currency).sum, unit: '€'), locale: @member.language)
+= I18n.t('admin.payment.whatsapp.pay_to', member: @member.name, locale: @member.language)

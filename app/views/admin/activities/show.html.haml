@@ -24,9 +24,12 @@
             - if !@is_summarized.nil?
               %button.btn.btn-info#btn-copy-table{ :style => 'margin-left: 8px;'}
                 = I18n.t('editing.copy') + '📋'
+            -# add a button to add all committee members to the activity
+            - if defined?(@activity.group.committee?)
+              %button.btn.btn-info#btn-add-committee{ :style => 'margin-left: 8px;' , :data => { 'id' => @activity.id,  } }
+                = 'add ' + @activity.group.name + ' ➕'
             %span#pricesum= " / €"+(number_with_precision(@activity.price_sum, :precision => 2) || 0)
             %span#paidsum= "€"+(number_with_precision(@activity.paid_sum, :precision => 2) || 0)
-
 
           %template#attendee-table-row
             = render 'admin/activities/partials/attendee_table_row', participant: Participant.new(activity: @activity, member: Member.new)
@@ -46,7 +49,7 @@
                     = I18n.t('activerecord.attributes.activity.member_is_spare')
             %tbody
               - [@attendees.map {|participant| {"entity" => participant, "is_reservist" => false}},
-                 @reservists.map{| reservist | {"entity" => reservist,   "is_reservist" => true}}].reduce([], :concat).each do |member|
+                 @reservists.map{|reservist| {"entity" => reservist, "is_reservist" => true}}].reduce([], :concat).each do |member|
                 - if !@is_summarized.nil?
                   = render 'admin/activities/partials/attendee_table_row_summary', member: member
                 - elsif !member["is_reservist"]
@@ -120,3 +123,15 @@
                           %i.fa.fa-fw.fa-plus
                         %button.btn.btn-default.destroy
                           %i.fa.fa-fw.fa-trash
+                            %tr
+
+                -# Add member to reservist participants
+                %tr
+                  %td{ :style => 'position: relative;'}
+                    %input#participant-reservist.col-md-11{ :style => 'margin-left: -3px;', :tabindex => '-1' }
+                    %ul.dropdown-menu.col-md-11
+                  %td{ :style => 'text-align: left;' }
+                    - if !@activity.price.nil?
+                      %span= number_to_currency(@activity.price, :unit => '€')
+                  %td
+

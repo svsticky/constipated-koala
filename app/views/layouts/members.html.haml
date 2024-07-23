@@ -63,6 +63,9 @@
               %span= I18n.t('members.navigation.links')
               %i.fa.fa-caret-down
             .collapse.list-group#sub-apps
+              = link_to "https://mongoose.svsticky.nl/", :class => "list-group-item list-group-item-action" do
+                %span= "Mongoose"
+                %i.fa.fa-credit-card
               = link_to "https://fotos.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t('members.navigation.pictures')
                 %i.fa.fa-camera

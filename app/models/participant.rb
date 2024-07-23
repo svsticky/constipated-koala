@@ -3,7 +3,7 @@ class Participant < ApplicationRecord
   belongs_to :member
   belongs_to :activity
 
-  validates :notes, length: { maximum: 30 }
+  validates :notes, length: { maximum: 100 } # This was 30 previously, but we saw no reason to keep it that short
 
   before_destroy :rewrite_logs_before_delete!, prepend: true
   is_impressionable dependent: :ignore
