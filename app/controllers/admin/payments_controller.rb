@@ -124,6 +124,7 @@ class Admin::PaymentsController < ApplicationController
                                                                 end_date, '%Y-%m-%d'
                                                               ) }"
                                           end }"
+
     relation_code = Settings.ideal_relation_code
     csv << ["Factuurdatum", Date.today, description, Settings.payment_condition_code.to_s,
             relation_code]
@@ -138,7 +139,7 @@ class Admin::PaymentsController < ApplicationController
                  # Check on the name to allow previous years to be exported.
 
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
-                  p.currency + p.transaction_fee, ""]
+                  p.currency + payment.transaction_fee, ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
