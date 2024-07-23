@@ -382,9 +382,9 @@ en:
     labels:
       activities:
         date: Date
+        opens_at: Signup from
         time: Time
         when: When
-        opens_at: Signup from
     messages:
       member:
         confirmation_sent: 'A confirmation mail is send to '
