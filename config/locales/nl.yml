@@ -382,7 +382,7 @@ nl:
     labels:
       activities:
         date: Datum
-        opens_at: Inschrijfbaar vanaf
+        opens_from: Inschrijfbaar vanaf
         time: Tijd
         when: Wanneer
     messages:
