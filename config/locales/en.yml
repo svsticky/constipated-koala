@@ -382,6 +382,7 @@ en:
     labels:
       activities:
         date: Date
+        opens_from: Enrollable from
         time: Time
         when: When
     messages:

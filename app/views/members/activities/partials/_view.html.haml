@@ -45,6 +45,12 @@
           \-
           = activity.end_time.strftime("%H:%M")
       <br/>
+      - if activity.open_date != nil && !activity.open?
+        %strong= I18n.t("activerecord.labels.activities.opens_from")
+        = l(activity.open_date, format: "%A %d/%m/%Y")
+        - if !activity.open_time.nil?
+          = l(activity.open_time, format: "%H:%M")
+        <br/>
       %strong= I18n.t("activerecord.attributes.activity.price")
       - if !activity.price.nil? and activity.price != 0
         &euro;
