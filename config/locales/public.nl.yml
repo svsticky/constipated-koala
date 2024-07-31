@@ -15,14 +15,18 @@ nl:
     privacy: Privacy
   form:
     bank: Bank
+    digits_field: Dit veld accepteert alleen cijfers
     finish_signup: Inschrijving afronden
     general: Algemene gegevens
     introduction: Introductie %{user}
+    invalid_email: Emailadres is niet geldig
+    invalid_phone_number: Telefoonnummer is niet geldig
     invalid_student_id: Studentnummer is niet geldig
     more_info: Meer info
     payment: Betaling
     payment_method: Betaalmethode
     phone_required_underage: Telefoonnummer voor calamiteiten is verplicht onder 18 jaar
+    required_field: Dit veld is verplicht
     study: Studiegegevens
   gezelligheid:
     text: In onze kamer ben je altijd welkom voor koekjes, koffie en gezelligheid! Ook voor een potje Mario Kart of een goed gesprek kan je bij ons terecht.

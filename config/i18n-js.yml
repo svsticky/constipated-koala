@@ -15,3 +15,4 @@ translations:
       - "*.checkout"
       - "*.mailings"
       - "*.members"
+      - "*.form"
