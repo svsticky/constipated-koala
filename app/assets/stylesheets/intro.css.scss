@@ -87,194 +87,132 @@ body {
   height: 100%;
 }
 
-div.header {
-  overflow-x: hidden;
-}
+.navbar {
+  .nav-item .nav-link {
+    color: #000000;
 
-.activities {
-  float: right;
-}
-
-.vert-text {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  padding: 20px;
-}
-
-@media (min-width: 768px) {
-  .vert-text {
-    padding: 200px;
+    &.active {
+      color: #bb8400 !important;
+      font-weight: bold;
+    }
   }
-}
 
-#sidebar-wrapper {
-  position: fixed;
-  right: 0;
-  z-index: 1000;
-  overflow-y: auto;
-  margin-right: -250px;
-  width: 250px;
-  height: 100%;
-  background: #000;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -ms-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-}
+  #intro-nav {
+    justify-content: space-between;
+  }
 
-.sidebar-nav {
-  position: absolute;
-  top: 0;
-  margin: 0;
-  padding: 0;
-  width: 250px;
-  list-style: none;
-}
-
-.sidebar-nav li {
-  text-indent: 20px;
-  line-height: 40px;
-}
-
-.sidebar-nav li a {
-  display: block;
-  color: #999999;
-  text-decoration: none;
-}
-
-.sidebar-nav li a:hover {
-  background: rgb(255, 255, 255); /* Fallback color */
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  text-decoration: none;
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-  text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-  height: 55px;
-  font-size: 18px;
-  line-height: 55px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-  color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-  background: none;
-  color: #fff;
-}
-
-#menu-toggle {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1;
-}
-
-#sidebar-wrapper.active {
-  right: 250px;
-  width: 250px;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -ms-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-}
-
-.toggle {
-  margin: 5px 5px 0 0;
+  .language-select {
+    float: right;
+  }
 }
 
 .header {
-  display: table;
+  display: flex;
   width: 100%;
   height: 100%;
-  position: relative;
-  background: url(image_path('bg.jpg')) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  overflow-x: hidden;
-}
 
-@media (max-width: 768px) {
-  .header {
-    background: url(image_path('bg.jpg')) no-repeat center center scroll;
+  & {
+    &-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      background: image-url("bg.jpg") no-repeat center center;
+      background-size: cover;
+    }
+
+    &-message {
+      display: flex;
+      align-items: center;
+      max-width: 2000px;
+
+      &-container {
+        padding: 20px;
+
+        h1 {
+          color: #fff;
+          text-shadow: #000 0 3px 3px;
+        }
+      }
+    }
   }
 }
 
-.about,
-.enroll {
+.about {
   background-color: #ffffff;
 }
 
 .services {
   background: #bb8400;
   color: #ffffff;
+
+  .container-fluid {
+    max-width: 2000px;
+  }
+
+  .service-item {
+    margin-bottom: 15px;
+
+    i.service-icon {
+      display: inline-block;
+      width: 140px;
+      height: 140px;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 56px;
+      line-height: 136px;
+    }
+  }
 }
 
-.services .service-item {
-  margin-bottom: 15px;
-}
+.enroll {
+  background-color: #ffffff;
 
-.services i.service-icon {
-  display: inline-block;
-  width: 140px;
-  height: 140px;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 56px;
-  line-height: 136px;
-}
+  .form-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 
-.vert-text {
-  text-align: left;
-}
+    .form-header {
+      &-spacer {
+        flex: 1;
+        height: 1px;
+        background-color: #ced4da;
+      }
 
-.header {
-  background: transparent;
-}
-
-.header h1 {
-  color: #fff;
-  text-shadow: #000 0 3px 3px;
-}
-
-.header-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  background: image-url("bg.jpg") no-repeat center center;
-  background-size: cover;
+      &-icon {
+        display: flex;
+        font-size: 14px;
+        background: #bb8400;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+      }
+    }
+  }
 }
 
 footer {
   color: #fff;
   background-color: #444;
   padding: 10px 0 10px 0;
-}
 
-footer div {
-  align-items: center;
-}
+  div {
+    align-items: center;
+  }
 
-footer a {
-  color: #fff;
-  padding: 0 5px 0 5px;
-}
+  a {
+    color: #fff;
+    padding: 0 5px 0 5px;
 
-footer a:hover {
-  color: #777;
-  text-decoration: none;
+    &:hover {
+      color: #777;
+      text-decoration: none;
+    }
+  }
 }
