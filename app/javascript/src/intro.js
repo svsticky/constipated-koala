@@ -5,6 +5,7 @@ import { setup_intl_tel_input } from "./intl_tel_number";
 
 $(document).on("ready page:load turbolinks:load", function () {
   setup_popup_close();
+  setup_auto_scroll_to_signup_error();
   setup_smooth_scroll();
   setup_form_validation();
   setup_form_payment_method_watcher();
@@ -20,6 +21,22 @@ function setup_popup_close() {
   });
 }
 
+function setup_auto_scroll_to_signup_error() {
+  const signupErrors = $("#signup-errors");
+
+  if (signupErrors.length > 0) {
+    const navbarOffset = $(".navbar").outerHeight();
+    const target = $("#enroll");
+
+    $("html,body").animate(
+      {
+        scrollTop: Math.ceil(Math.max(target.offset().top - navbarOffset, 0)),
+      },
+      1000,
+    );
+  }
+}
+
 function setup_smooth_scroll() {
   $("a[href*='#']").on("click", function () {
     if (
@@ -27,9 +44,9 @@ function setup_smooth_scroll() {
         this.pathname.replace(/^\//, "") ||
       location.hostname === this.hostname
     ) {
-      let target = $(this.hash);
-      target = target.length ? target : $(`[name=${this.hash.slice(1)}]`);
-      if (target.length) {
+      const target = $(`${this.hash}, [name=${this.hash.slice(1)}]`);
+
+      if (target.length > 0) {
         const navbarOffset = $(".navbar").outerHeight();
 
         $("html,body").animate(
@@ -65,9 +82,8 @@ function setup_form_validation() {
     "phone",
     function (value) {
       return (
-        value &&
-        (value.trim().empty() ||
-          /^\+?(?:[0-9] ?){6,14}[0-9]$/.test(value.trim()))
+        value.trim().length === 0 ||
+        /^\+?(?:[0-9] ?){6,14}[0-9]$/.test(value.trim())
       );
     },
     "Invalid phone number",

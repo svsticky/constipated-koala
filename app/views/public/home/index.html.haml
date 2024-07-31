@@ -88,7 +88,7 @@
         .row
           = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
             - if @member.errors.any? || !flash[:error].nil?
-              .bd-callout.bd-callout-danger
+              #signup-errors.bd-callout.bd-callout-danger.mt-0
                 %h4.alert-heading= I18n.t(:incomplete, scope: 'activerecord.errors')
                 %hr
                 .row
@@ -270,9 +270,3 @@
               = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement.pdf', { :target => '_blank' }
             - else
               = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement_english.pdf', { :target => '_blank' }
-
-- if @member.errors.any? || !flash[:error].nil?
-  :javascript
-    $('html,body').animate({
-      scrollTop: $('#enroll').offset().top
-    }, 0);
