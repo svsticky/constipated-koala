@@ -179,53 +179,71 @@ function setup_form_payment_method_watcher() {
 }
 
 function setup_form_studies_watcher() {
-  let disabledStudyOptions = [];
   const studyBlockers = {
     1: 3,
     3: 1,
   };
 
-  $(".studies select").on("change", function () {
-    const selected = $(this).find("option:selected");
+  const studiesSelect = $(".studies select");
 
-    if (selected.data("masters")) {
+  const updateDisabledStudies = function () {
+    const selectedStudies = studiesSelect.find("option:selected");
+
+    // If a master is selected, hide the activities pane
+    if (selectedStudies.filter("[data-masters='true']").length > 0) {
       $(".activities").hide();
     } else {
       $(".activities").show();
     }
 
-    if (!$(this).closest(".form-group").is(":first-of-type")) {
-      return;
-    }
+    // Enable all the studies
+    studiesSelect.find("option:disabled").prop("disabled", false);
 
-    if (disabledStudyOptions.length > 0) {
-      $.each(disabledStudyOptions, function (_, v) {
-        v.prop("disabled", false);
-      });
-      disabledStudyOptions = [];
-    }
+    // Get a list of the ids of all the selected studies
+    const selectedStudyIds = selectedStudies
+      .map(function (_, v) {
+        return v.value;
+      })
+      .toArray();
 
-    disabledStudyOptions.push(
-      $(this)
-        .closest(".studies")
-        .children()
-        .last()
-        .find(`option[value=${selected.val()}]`),
-    );
+    // Loop over all the select boxes
+    studiesSelect.each(function () {
+      const target = $(this);
+      const selectedStudyId = target.find("option:selected").val();
+      const disabledStudyOptions = [];
 
-    const blockedId = studyBlockers[selected.val()];
-    if (typeof blockedId !== "undefined") {
-      disabledStudyOptions.push(
-        $(this)
-          .closest(".studies")
-          .children()
-          .last()
-          .find(`option[value=${blockedId}]`),
+      // Loop over all the selected studies, except the one selected by the current select box
+      $.each(
+        selectedStudyIds.filter(function (v) {
+          return v !== selectedStudyId;
+        }),
+        function (_, studyId) {
+          // If the value is empty or not set, skip this entry
+          if (!studyId) {
+            return;
+          }
+
+          // Add the child with the study id to the disable list
+          disabledStudyOptions.push(target.find(`option[value=${studyId}]`));
+
+          // Check if more studies should be blocked for the current study id
+          const blockedId = studyBlockers[studyId];
+          if (typeof blockedId !== "undefined") {
+            disabledStudyOptions.push(
+              target.find(`option[value=${blockedId}]`),
+            );
+          }
+        },
       );
-    }
 
-    $.each(disabledStudyOptions, function (_, v) {
-      v.prop("disabled", true);
+      // Disable all the options in the list
+      $.each(disabledStudyOptions, function (_, v) {
+        v.prop("disabled", true);
+      });
     });
-  });
+  };
+
+  // Update the disabled status both on startup and on changes
+  studiesSelect.on("change", updateDisabledStudies);
+  studiesSelect.each(updateDisabledStudies);
 }
