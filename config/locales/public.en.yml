@@ -15,14 +15,18 @@ en:
     privacy: Privacy
   form:
     bank: Bank
+    digits_field: This field is digits only
     finish_signup: Finish signing up
     general: General data
     introduction: Introduction %{user}
+    invalid_email: Email address is not valid
+    invalid_phone_number: Phone number is not valid
     invalid_student_id: Student number is not valid
     more_info: More info
     payment: Payment
     payment_method: Payment method
     phone_required_underage: Emergency phone number is required under the age of 18
+    required_field: This field is required
     study: Study information
   gezelligheid:
     text: In our room in the BBG you can always hop in to get some coffee, cookies and authentic gezelligheid! You can also visit us for a game of Mario Kart or to have a good conversation.
