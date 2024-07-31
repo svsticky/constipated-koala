@@ -42,7 +42,7 @@
     #top.header
       .vert-text
         %h1.display-2= I18n.t(:title)
-        = link_to I18n.t(:subscribe, scope: 'headers'), '#enroll', { :class => 'btn btn-success btn-lg' }
+        = link_to I18n.t(:subscribe, scope: 'headers'), '#enroll', { :class => 'btn btn-warning btn-lg' }
 
     #about.about.py-5
       .container
@@ -238,7 +238,7 @@
                       %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
                       = select_tag 'bank', options_for_select(Payment::ideal_issuers, @bank), { :class => 'form-control' }
 
-            %button.btn.btn-success{type: 'submit'}= I18n.t(:finish_signup, scope: 'form')
+            %button.btn.btn-primary{type: 'submit'}= I18n.t(:finish_signup, scope: 'form')
 
     %footer
       .container
