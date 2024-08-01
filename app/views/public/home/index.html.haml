@@ -10,22 +10,14 @@
     = javascript_pack_tag 'intro', 'data-turbolinks-track': 'reload'
 
     = csrf_meta_tags
-  %body{ :data => { :spy => 'scroll', :target => '.navbar' } }
+  %body{ :data => { :spy => 'scroll', :target => '.navbar',  :offset => '56'  } }
     - if flash[:notice]
-      .container{ :style => 'position: fixed; z-index: 2; width: 100%; top: 10px;' }
-        .alert.alert-success.center-block{ :style => 'width: 500px;' }
-          %button.click.close{ type: 'button' } ×
+      #notice.container{ :style => 'position: fixed; z-index: 99; width: 100%; top: 70px;' }
+        .bd-callout.bd-callout-success.popup{ :style => 'width: 500px; background: #ffffff; cursor: pointer;' }
           .notice= flash[:notice]
 
     .navbar.navbar-expand-sm.navbar-light.bg-light.fixed-top.shadow-sm
       .container
-        .dropdown
-          %button.btn.dropdown-toggle{ :data => { :toggle => 'dropdown' } }
-            %i.fa.fa-globe
-          .dropdown-menu
-            = link_to "Nederlands", {:l => 'nl'}, :class => 'dropdown-item'
-            = link_to "English", {:l => 'en'}, :class => 'dropdown-item'
-
         %button.navbar-toggler{:type => 'button', :data => {:toggle => 'collapse', :target => '#intro-nav'}}
           %span.navbar-toggler-icon
         #intro-nav.collapse.navbar-collapse
@@ -33,32 +25,38 @@
             %li.nav-item
               = link_to I18n.t(:welcome, scope: 'headers'), '#top', { :class => 'nav-link' }
             %li.nav-item
-              = link_to I18n.t(:about, scope: 'headers'), '#over', { :class => 'nav-link' }
+              = link_to I18n.t(:about, scope: 'headers'), '#about', { :class => 'nav-link' }
             %li.nav-item
-              = link_to I18n.t(:activities, scope: 'headers'), '#doenwat', { :class => 'nav-link' }
+              = link_to I18n.t(:activities, scope: 'headers'), '#services', { :class => 'nav-link' }
             %li.nav-item
-              = link_to I18n.t(:subscribe, scope: 'headers'), '#inschrijven', { :class => 'nav-link' }
+              = link_to I18n.t(:subscribe, scope: 'headers'), '#enroll', { :class => 'nav-link' }
+          .dropdown.language-select
+            %button.btn.dropdown-toggle{ :data => { :toggle => 'dropdown' } }
+              %i.fa.fa-globe
+            .dropdown-menu.dropdown-menu-right
+              = link_to 'Nederlands', {:l => 'nl'}, :class => 'dropdown-item'
+              = link_to 'English', {:l => 'en'}, :class => 'dropdown-item'
 
-    .header-bg
     #top.header
-      .vert-text
-        %h1= I18n.t(:title)
-        = link_to I18n.t(:subscribe, scope: 'headers'), '#inschrijven', { :class => 'btn btn-success btn-lg' }
+      .header-bg
+      .header-message.container-fluid
+        .header-message-container
+          %h1.display-2= I18n.t(:title)
+          = link_to I18n.t(:subscribe, scope: 'headers'), '#enroll', { :class => 'btn btn-warning btn-lg' }
 
-    #over.intro
+    #about.about.py-5
       .container
         .row
           .col-lg-6.offset-lg-3.text-center
             %h2= I18n.t(:sticky, scope: 'headers')
             %p.lead= I18n.t(:lead)
 
-    #doenwat.services
+    #services.services.py-5
       .container-fluid
         .row
           .col-lg-4.offset-lg-4.text-center
             %h2= I18n.t(:activities, scope: 'headers')
-            %hr
-        .row
+        .row.mt-4
           .col-lg.text-center
             .service-item
               %i.service-icon.fa.fa-users
@@ -85,174 +83,171 @@
               %h4= I18n.t(:title, scope: 'education')
               %p= I18n.t(:text, scope: 'education')
 
-    #inschrijven.portfolio
+    #enroll.enroll.py-5
       .container
-        = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
-          - if @member.errors.any? || !flash[:error].nil?
-            .alert.alert-danger
-              %button.click.close{ type: 'button' } ×
-              %span= I18n.t(:incomplete, scope: 'activerecord.errors')
-              %ul
-              - @member.errors.full_messages.uniq.each do |msg|
-                %li= msg
-              - if flash[:error]
-                %li= flash[:error]
+        .row
+          = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
+            - if @member.errors.any? || !flash[:error].nil?
+              #signup-errors.bd-callout.bd-callout-danger.mt-0
+                %h4.alert-heading= I18n.t(:incomplete, scope: 'activerecord.errors')
+                %hr
+                .row
+                  %ul.m-0
+                    - @member.errors.full_messages.uniq.each do |msg|
+                      %li= msg
+                    - if flash[:error]
+                      %li= flash[:error]
 
-          %h4
-            %i.fa.fa-user
-            = I18n.t(:general, scope: 'form')
+            %h4.form-header
+              .form-header-label= I18n.t(:general, scope: 'form')
+              .form-header-spacer
+              .form-header-icon
+                %i.fa.fa-user
 
-          .form-group
-            = f.hidden_field :join_date, :value => Time.new
-            .row
-              .col-lg-5
-                %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
-                = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
-              .col-lg-2
-                %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
-                = f.text_field :infix, :value => @member.infix, :class => 'form-control'
-              .col-lg-5
-                %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
-                = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
-
-          .form-group
-            .row
-              .col-lg-12
-                %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
-                = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control', min: '1900-01-01', max: (Time.new.year - 14).to_s  + '-12-31'
-
-          .form-group
-            .row
-              .col-lg-8
-                %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
-                = f.text_field :address, :value => @member.address, :class => 'form-control'
-              .col-lg-4
-                %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
-                = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
-
-          .form-group
-            .row
-              .col-lg-6
-                %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
-                = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-              .col-lg-6
-                %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
-                = f.text_field :city, :value => @member.city, :class => 'form-control'
-
-          .form-group
-            %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
-            = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
-
-          .form-group
-            %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
-            = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
-            .help-block= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
-
-          .form-group
-            %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
-            = f.email_field :email, :value => @member.email, :class => 'form-control'
-            .help-block= I18n.t('email', scope: 'activerecord.annotations.member')
-
-          %h4
-            %i.fa.fa-envelope
-            = I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
-
-          .form-group
-            .row
-              .col-md-6
-                %label.ui-checkbox
-                  = f.check_box :mmm_subscribe, :checked => false
-                  %span= I18n.t('mmm.name', scope: 'activerecord.annotations.member')
-                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#mmm-info' }}
-                  = I18n.t(:more_info, scope: 'form')
-                #mmm-info.collapse
-                  .help-block= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
-            .row
-              .col-md-6
-                %label.ui-checkbox
-                  = f.check_box :business_subscribe, :checked => false
-                  %span= I18n.t('business.name', scope: 'activerecord.annotations.member')
-                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#business-info'}}
-                  = I18n.t(:more_info, scope: 'form')
-                #business-info.collapse
-                  .help-block= I18n.t('business.description', scope: 'activerecord.annotations.member')
-            .row
-              .col-md-6
-                %label.ui-checkbox
-                  = f.check_box :lectures_subscribe, :checked => false
-                  %span= I18n.t('lectures.name', scope: 'activerecord.annotations.member')
-                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#lectures-info'}}
-                  = I18n.t(:more_info, scope: 'form')
-                #lectures-info.collapse
-                  .help-block= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
-
-            .row
-              .col-md-6
-                %label.ui-checkbox
-                  = f.check_box :teachers_subscribe, :checked => false
-                  %span= I18n.t('teacher.name', scope: 'activerecord.annotations.member')
-                %a.btn.btn-outline-info.btn-sm{:type => 'button', :data => {:toggle => 'collapse', :target => '#teachers-info'}}
-                  = I18n.t(:more_info, scope: 'form')
-                #teachers-info.collapse
-                  .help-block= I18n.t('teacher.description', scope: 'activerecord.annotations.member')
-
-          .row
-            .col-lg-6
-              %h4
-                %i.fa.fa-graduation-cap
-                = I18n.t(:study, scope: 'form')
-              .help-block= I18n.t(:study, scope: 'activerecord.annotations.member')
-
-              .form-group
-                %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
-                = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
-
-              .form-group.studies
-                %label{for: ''}
-                  = I18n.t(:study, scope: 'activerecord.models')
-
-                - @member.educations.each do |education|
-                  = f.fields_for 'educations_attributes[]', education do |fs|
-                    .form-group
-                      .row
-                        .col-lg-12
-                          .ui-select
-                            = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), :include_blank => '--'
-            .col-lg-6.activities
-              %h4
-                %i.fa.fa-ticket-alt
-                = I18n.t(:payment, scope: 'form')
+            .form-group
+              = f.hidden_field :join_date, :value => Time.new
               .row
-                .col-lg-6
-                  .form-group
+                .col-lg-5.field
+                  %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
+                  = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
+                .col-lg-2.field
+                  %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
+                  = f.text_field :infix, :value => @member.infix, :class => 'form-control'
+                .col-lg-5.field
+                  %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
+                  = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
 
-                    - @membership.each do |membership|
-                      = f.fields_for 'participant_attributes[]', membership do |fa|
-                        %label.ui-checkbox
+            .form-group
+              .row
+                .col-lg-12.field
+                  %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
+                  = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control', min: '1900-01-01', max: (Time.new.year - 14).to_s  + '-12-31'
+
+            .form-group
+              .row
+                .col-lg-8.field
+                  %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
+                  = f.text_field :address, :value => @member.address, :class => 'form-control'
+                .col-lg-4.field
+                  %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
+                  = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+
+            .form-group
+              .row
+                .col-lg-6.field
+                  %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
+                  = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
+                .col-lg-6.field
+                  %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
+                  = f.text_field :city, :value => @member.city, :class => 'form-control'
+
+            .form-group.field
+              %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
+              = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+
+            .form-group
+              .field
+                %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
+                = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+              %small.text-muted= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
+
+            .form-group
+              .field
+                %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
+                = f.email_field :email, :value => @member.email, :class => 'form-control'
+              %small.text-muted= I18n.t('email', scope: 'activerecord.annotations.member')
+
+            %h4.form-header
+              .form-header-label= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+              .form-header-spacer
+              .form-header-icon
+                %i.fa.fa-envelope
+
+            .form-group
+              .row
+                .col-md.field
+                  .custom-control.custom-checkbox
+                    = f.check_box :mmm_subscribe, :checked => false, :class => 'custom-control-input'
+                    = f.label :mmm_subscribe, I18n.t('mmm.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                    .bd-callout.bd-callout-info= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
+
+              .row
+                .col-md.field
+                  .custom-control.custom-checkbox
+                    = f.check_box :business_subscribe, :checked => false, :class => 'custom-control-input'
+                    = f.label :business_subscribe, I18n.t('business.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                    .bd-callout.bd-callout-info= I18n.t('business.description', scope: 'activerecord.annotations.member')
+
+              .row
+                .col-md.field
+                  .custom-control.custom-checkbox
+                    = f.check_box :lectures_subscribe, :checked => false, :class => 'custom-control-input'
+                    = f.label :lectures_subscribe, I18n.t('lectures.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                    .bd-callout.bd-callout-info= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
+
+              .row
+                .col-md.field
+                  .custom-control.custom-checkbox
+                    = f.check_box :teachers_subscribe, :checked => false, :class => 'custom-control-input'
+                    = f.label :teachers_subscribe, I18n.t('teacher.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                    .bd-callout.bd-callout-info= I18n.t('teacher.description', scope: 'activerecord.annotations.member')
+
+            .row
+              .col-lg-6
+                %h4.form-header
+                  .form-header-label= I18n.t(:study, scope: 'form')
+                  .form-header-spacer
+                  .form-header-icon
+                    %i.fa.fa-graduation-cap
+
+                %small.text-muted= I18n.t(:study, scope: 'activerecord.annotations.member')
+
+                .form-group.field
+                  %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
+                  = f.text_field :student_id, :value => @member.student_id, :class => 'form-control'
+
+                .form-group.studies
+                  %label{for: ''}
+                    = I18n.t(:study, scope: 'activerecord.models')
+
+                  - @member.educations.each do |education|
+                    = f.fields_for 'educations_attributes[]', education do |fs|
+                      .form-group
+                        .row
+                          .col-lg-12.field
+                            = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), { :include_blank => '--' }, { :class => 'form-control' }
+              .col-lg-6.activities
+                %h4.form-header
+                  .form-header-label= I18n.t(:payment, scope: 'form')
+                  .form-header-spacer
+                  .form-header-icon
+                    %i.fa.fa-ticket-alt
+                .row
+                  .col-lg-6
+                    .form-group
+                      - @membership.each do |membership|
+                        = f.fields_for 'participant_attributes[]', membership do |fa|
                           = fa.hidden_field :id, :value => membership.id
-                          = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled'
-                          %span
-                            = I18n.t(:membership)
-                            %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(membership.price, :unit => '€')
+                          .custom-control.custom-checkbox
+                            = fa.check_box :participate, :checked => 'checked', :disabled => 'disabled', :class => 'custom-control-input'
+                            = fa.label :participate, raw("#{I18n.t(:membership)} (#{number_to_currency(membership.price, :unit => '€')})"), :class => 'custom-control-label'
 
-                    - @activities.each do |activity|
-                      = f.fields_for 'participant_attributes[]', activity do |fa|
-                        %label.ui-checkbox
+                      - @activities.each do |activity|
+                        = f.fields_for 'participant_attributes[]', activity do |fa|
                           = fa.hidden_field :id, :value => activity.id
-                          = fa.check_box :participate, :checked => ('checked' if @participate.include? activity.id )
-                          %span
-                            = activity.name
-                            %span{ :style => 'color: grey; font-size: 0.8em;' }= number_to_currency(activity.price, :unit => '€')
+                          .custom-control.custom-checkbox
+                            = fa.check_box :participate, :checked => ('checked' if @participate.include? activity.id ), :class => 'custom-control-input'
+                            = fa.label :participate, raw("#{activity.name} (#{number_to_currency(activity.price, :unit => '€')})"), :class => 'custom-control-label'
 
-                .col-lg-6
-                  .ui-select
-                    %label{for: ''}= I18n.t(:payment_method, scope: 'form')
-                    = select_tag 'method', options_for_select(['IDEAL'], @method)
-                    %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
-                  .ui-select{ :style => 'margin-top: 5px;' }
-                    = select_tag 'bank', options_for_select(Payment::ideal_issuers, @bank), :include_blank => ''
+                  .col-lg-6
+                    .form-group.field
+                      %label{for: ''}= I18n.t(:payment_method, scope: 'form')
+                      = select_tag 'method', options_for_select(['IDEAL'], @method), { :class => 'form-control' }
+                    .form-group.field
+                      %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
+                      = select_tag 'bank', options_for_select(Payment::ideal_issuers, @bank), { :class => 'form-control' }
 
-          %button.btn.btn-success{type: 'submit'}= I18n.t(:finish_signup, scope: 'form')
+            %button.btn.btn-primary{type: 'submit'}= I18n.t(:finish_signup, scope: 'form')
 
     %footer
       .container
@@ -272,12 +267,6 @@
 
           .col-lg-4.text-center
             - if I18n.locale == :nl
-              = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement.pdf', :target => '_blank'
+              = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement.pdf', { :target => '_blank' }
             - else
-              = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement_english.pdf', :target => '_blank'
-
-- if @member.errors.any? || !flash[:error].nil?
-  :javascript
-    $('html,body').animate({
-      scrollTop: $('#inschrijven').offset().top
-    }, 0);
+              = link_to I18n.t(:privacy, scope: 'footer'), '//public.svsticky.nl/privacystatement_english.pdf', { :target => '_blank' }
