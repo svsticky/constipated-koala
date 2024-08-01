@@ -27,6 +27,7 @@ en:
     payment_method: Payment method
     phone_required_underage: Emergency phone number is required under the age of 18
     required_field: This field is required
+    select_at_least_one_study: Select at least one study
     study: Study information
   gezelligheid:
     text: In our room in the BBG you can always hop in to get some coffee, cookies and authentic gezelligheid! You can also visit us for a game of Mario Kart or to have a good conversation.

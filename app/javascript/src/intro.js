@@ -1,6 +1,7 @@
-import $ from "jquery";
-import jQuery from "jquery";
-import I18n from "./translations.js";
+import "bootstrap";
+import "jquery";
+import "jquery-validation";
+import I18n from "./language";
 import { setup_intl_tel_input } from "./intl_tel_number";
 
 $(document).on("ready page:load turbolinks:load", function () {
@@ -78,96 +79,142 @@ function setup_background_parallax() {
 }
 
 function setup_form_validation() {
+  const form = $("form");
+  const educationFields = form.find("[name^='member[educations_attributes]']");
+  const educationFieldNames = educationFields
+    .map(function (_, el) {
+      return $(el).attr("name");
+    })
+    .toArray();
+
   jQuery.validator.addMethod(
     "phone",
     function (value) {
-      return (
-        value.trim().length === 0 ||
-        /^\+?(?:[0-9] ?){6,14}[0-9]$/.test(value.trim())
-      );
+      return value.length === 0 || /^\+?(?:[0-9] ?){6,14}[0-9]$/.test(value);
     },
     "Invalid phone number",
   );
 
-  $("form").validate({
-    rules: {
-      "member[first_name]": "required",
-      "member[last_name]": "required",
-      "member[birth_date]": "required",
-      "member[address]": "required",
-      "member[house_number]": {
-        required: true,
-        digits: true,
-      },
-      "member[postal_code]": "required",
-      "member[city]": "required",
-      "member[phone_number]": {
-        required: true,
-        phone: true,
-      },
-      "member[emergency_phone_number]": {
-        required: {
-          depends: function () {
-            // get max birth date to be 18 years old, ignoring time
-            const maxDate = new Date();
-            maxDate.setUTCHours(0, 0, 0, 0);
-            maxDate.setFullYear(maxDate.getFullYear() - 18);
+  const rules = {
+    "member[first_name]": "required",
+    "member[last_name]": "required",
+    "member[birth_date]": "required",
+    "member[address]": "required",
+    "member[house_number]": {
+      required: true,
+      digits: true,
+    },
+    "member[postal_code]": "required",
+    "member[city]": "required",
+    "member[phone_number]": {
+      required: true,
+      phone: true,
+    },
+    "member[emergency_phone_number]": {
+      required: {
+        depends: function () {
+          // get max birth date to be 18 years old, ignoring time
+          const adultBirthDate = new Date();
+          adultBirthDate.setUTCHours(0, 0, 0, 0);
+          adultBirthDate.setFullYear(adultBirthDate.getFullYear() - 18);
 
-            const birthDate = new Date($("#member_birth_date").val());
+          const birthDate = new Date($("#member_birth_date").val());
 
-            // field is valid if member is 18 years or if it's not empty
-            return birthDate < maxDate;
-          },
-        },
-        phone: true,
-      },
-      "member[email]": {
-        required: true,
-        email: true,
-      },
-      "member[student_id]": "required",
-      bank: {
-        required: {
-          depends: function () {
-            return $("select#method").val() === "IDEAL";
-          },
+          return birthDate > adultBirthDate;
         },
       },
+      phone: true,
+    },
+    "member[email]": {
+      required: true,
+      email: true,
+    },
+    "member[student_id]": "required",
+    [educationFieldNames.at(0)]: {
+      required: {
+        depends: function () {
+          return (
+            educationFields.filter(function (_, el) {
+              return el.value;
+            }).length === 0
+          );
+        },
+      },
+    },
+    bank: {
+      required: {
+        depends: function () {
+          return $("select#method").val() === "IDEAL";
+        },
+      },
+    },
+  };
+
+  const messages = {
+    "member[first_name]": I18n.t("form.required_field"),
+    "member[last_name]": I18n.t("form.required_field"),
+    "member[birth_date]": I18n.t("form.required_field"),
+    "member[address]": I18n.t("form.required_field"),
+    "member[house_number]": {
+      required: I18n.t("form.required_field"),
+      digits: I18n.t("form.digits_field"),
+    },
+    "member[postal_code]": I18n.t("form.required_field"),
+    "member[city]": I18n.t("form.required_field"),
+    "member[phone_number]": {
+      required: I18n.t("form.required_field"),
+      phone: I18n.t("form.invalid_phone_number"),
+    },
+    "member[emergency_phone_number]": {
+      required: I18n.t("form.required_field"),
+      phone: I18n.t("form.invalid_phone_number"),
+    },
+    "member[email]": {
+      required: I18n.t("form.required_field"),
+      email: I18n.t("form.invalid_email"),
+    },
+    "member[student_id]": {
+      required: I18n.t("form.required_field"),
+    },
+    bank: {
+      required: I18n.t("form.required_field"),
+    },
+  };
+
+  $.each(educationFieldNames, function (i, field) {
+    rules[field] = {
+      required: {
+        depends: function () {
+          return (
+            educationFields.filter(function (_, el) {
+              return el.value;
+            }).length === 0
+          );
+        },
+      },
+    };
+    messages[field] = {
+      required: I18n.t("form.select_at_least_one_study"),
+    };
+  });
+
+  form.validate({
+    rules,
+    messages,
+    groups: {
+      educationFields: educationFieldNames.join(" "),
     },
     errorClass: "is-invalid",
     errorElement: "div",
     errorPlacement: function (error, element) {
+      if (educationFieldNames.slice(0, -1).includes(element.attr("name"))) {
+        return;
+      }
+
       error.addClass("invalid-feedback").appendTo(element.closest(".field"));
     },
-    messages: {
-      "member[first_name]": I18n.t("form.required_field"),
-      "member[last_name]": I18n.t("form.required_field"),
-      "member[birth_date]": I18n.t("form.required_field"),
-      "member[address]": I18n.t("form.required_field"),
-      "member[house_number]": {
-        required: I18n.t("form.required_field"),
-        digits: I18n.t("form.digits_field"),
-      },
-      "member[postal_code]": I18n.t("form.required_field"),
-      "member[city]": I18n.t("form.required_field"),
-      "member[phone_number]": {
-        required: I18n.t("form.required_field"),
-        phone: I18n.t("form.invalid_phone_number"),
-      },
-      "member[emergency_phone_number]": {
-        required: I18n.t("form.required_field"),
-        phone: I18n.t("form.invalid_phone_number"),
-      },
-      "member[email]": {
-        required: I18n.t("form.required_field"),
-        email: I18n.t("form.invalid_email"),
-      },
-      "member[student_id]": {
-        required: I18n.t("form.required_field"),
-      },
-      bank: {
-        required: I18n.t("form.required_field"),
-      },
+    normalizer: function (value) {
+      return $.trim(value);
     },
   });
 }
