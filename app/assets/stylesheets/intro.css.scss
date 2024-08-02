@@ -134,6 +134,14 @@ body {
         h1 {
           color: #fff;
           text-shadow: #000 0 3px 3px;
+
+          @media (max-width: 992px) {
+            font-size: 4.5rem;
+          }
+
+          @media (max-width: 768px) {
+            font-size: 3.5rem;
+          }
         }
       }
     }
