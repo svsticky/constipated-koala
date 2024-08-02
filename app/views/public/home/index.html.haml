@@ -86,7 +86,7 @@
     #enroll.enroll.py-5
       .container
         .row
-          = form_for :member, url: public_path, method: :post, :class => 'form-validation' do |f|
+          = form_for :member, url: public_path, method: :post, html: { class: 'col form-validation' }do |f|
             - if @member.errors.any? || !flash[:error].nil?
               #signup-errors.bd-callout.bd-callout-danger.mt-0
                 %h4.alert-heading= I18n.t(:incomplete, scope: 'activerecord.errors')
@@ -98,99 +98,102 @@
                     - if flash[:error]
                       %li= flash[:error]
 
-            %h4.form-header
-              .form-header-label= I18n.t(:general, scope: 'form')
-              .form-header-spacer
-              .form-header-icon
-                %i.fa.fa-user
+            .row
+              .col
+                %h4.form-header
+                  .form-header-label= I18n.t(:general, scope: 'form')
+                  .form-header-spacer
+                  .form-header-icon
+                    %i.fa.fa-user
 
-            .form-group
-              = f.hidden_field :join_date, :value => Time.new
-              .row
-                .col-lg-5.field
-                  %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
-                  = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
-                .col-lg-2.field
-                  %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
-                  = f.text_field :infix, :value => @member.infix, :class => 'form-control'
-                .col-lg-5.field
-                  %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
-                  = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
+                .form-row
+                  = f.hidden_field :join_date, :value => Time.new
+                  .col-lg-5.form-group.field
+                    %label{for: ''}= I18n.t(:first_name, scope: 'activerecord.attributes.member')
+                    = f.text_field :first_name, :value => @member.first_name, :class => 'form-control'
+                  .col-lg-2.form-group.field
+                    %label{for: ''}= I18n.t(:infix, scope: 'activerecord.attributes.member')
+                    = f.text_field :infix, :value => @member.infix, :class => 'form-control'
+                  .col-lg-5.form-group.field
+                    %label{for: ''}= I18n.t(:last_name, scope: 'activerecord.attributes.member')
+                    = f.text_field :last_name, :value => @member.last_name, :class => 'form-control'
 
-            .form-group
-              .row
-                .col-lg-12.field
-                  %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
-                  = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control', min: '1900-01-01', max: (Time.new.year - 14).to_s  + '-12-31'
+                .form-row
+                  .col-lg-12.form-group
+                    .field
+                      %label{for: ''}= I18n.t(:birth_date, scope: 'activerecord.attributes.member')
+                      = f.date_field :birth_date, :value => @member.birth_date, :class => 'form-control', min: '1900-01-01', max: (Time.new.year - 14).to_s  + '-12-31'
 
-            .form-group
-              .row
-                .col-lg-8.field
-                  %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
-                  = f.text_field :address, :value => @member.address, :class => 'form-control'
-                .col-lg-4.field
-                  %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
-                  = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
+                .form-row
+                  .col-lg-8.form-group
+                    .field
+                      %label{for: ''}= I18n.t(:address, scope: 'activerecord.attributes.member')
+                      = f.text_field :address, :value => @member.address, :class => 'form-control'
+                  .col-lg-4.form-group
+                    .field
+                      %label{for: ''}= I18n.t(:house_number, scope: 'activerecord.attributes.member')
+                      = f.text_field :house_number, :value => @member.house_number, :class => 'form-control'
 
-            .form-group
-              .row
-                .col-lg-6.field
-                  %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
-                  = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
-                .col-lg-6.field
-                  %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
-                  = f.text_field :city, :value => @member.city, :class => 'form-control'
+                .form-row
+                  .col-lg-6.form-group.field
+                    %label{for: ''}= I18n.t(:postal_code, scope: 'activerecord.attributes.member')
+                    = f.text_field :postal_code, :value => @member.postal_code, :class => 'form-control'
+                  .col-lg-6.form-group.field
+                    %label{for: ''}= I18n.t(:city, scope: 'activerecord.attributes.member')
+                    = f.text_field :city, :value => @member.city, :class => 'form-control'
 
-            .form-group.field
-              %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
-              = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
+                .form-group.field
+                  %label{for: ''}= I18n.t(:phone_number, scope: 'activerecord.attributes.member')
+                  = f.telephone_field :phone_number, :value => @member.phone_number, :class => 'form-control'
 
-            .form-group
-              .field
-                %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
-                = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
-              %small.text-muted= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
+                .form-group
+                  .field
+                    %label{for: ''}= I18n.t(:emergency_phone_number, scope: 'activerecord.attributes.member')
+                    = f.telephone_field :emergency_phone_number, :value => @member.emergency_phone_number, :class => 'form-control'
+                  %small.text-muted= I18n.t(:emergency_phone_number, scope: 'activerecord.annotations.member')
 
-            .form-group
-              .field
-                %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
-                = f.email_field :email, :value => @member.email, :class => 'form-control'
-              %small.text-muted= I18n.t('email', scope: 'activerecord.annotations.member')
+                .form-group
+                  .field
+                    %label{for: ''}= I18n.t(:email, scope: 'activerecord.attributes.member')
+                    = f.email_field :email, :value => @member.email, :class => 'form-control'
+                  %small.text-muted= I18n.t('email', scope: 'activerecord.annotations.member')
 
-            %h4.form-header
-              .form-header-label= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
-              .form-header-spacer
-              .form-header-icon
-                %i.fa.fa-envelope
+            .row
+              .col
+                %h4.form-header
+                  .form-header-label= I18n.t(:mailinglists, scope: 'activerecord.annotations.member')
+                  .form-header-spacer
+                  .form-header-icon
+                    %i.fa.fa-envelope
 
-            .form-group
-              .row
-                .col-md.field
-                  .custom-control.custom-checkbox
-                    = f.check_box :mmm_subscribe, :checked => false, :class => 'custom-control-input'
-                    = f.label :mmm_subscribe, I18n.t('mmm.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
-                    .bd-callout.bd-callout-info= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
+                .form-group
+                  .form-row
+                    .col-md.field
+                      .custom-control.custom-checkbox
+                        = f.check_box :mmm_subscribe, :checked => false, :class => 'custom-control-input'
+                        = f.label :mmm_subscribe, I18n.t('mmm.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                        .bd-callout.bd-callout-info= I18n.t('mmm.description', scope: 'activerecord.annotations.member')
 
-              .row
-                .col-md.field
-                  .custom-control.custom-checkbox
-                    = f.check_box :business_subscribe, :checked => false, :class => 'custom-control-input'
-                    = f.label :business_subscribe, I18n.t('business.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
-                    .bd-callout.bd-callout-info= I18n.t('business.description', scope: 'activerecord.annotations.member')
+                  .form-row
+                    .col-md.field
+                      .custom-control.custom-checkbox
+                        = f.check_box :business_subscribe, :checked => false, :class => 'custom-control-input'
+                        = f.label :business_subscribe, I18n.t('business.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                        .bd-callout.bd-callout-info= I18n.t('business.description', scope: 'activerecord.annotations.member')
 
-              .row
-                .col-md.field
-                  .custom-control.custom-checkbox
-                    = f.check_box :lectures_subscribe, :checked => false, :class => 'custom-control-input'
-                    = f.label :lectures_subscribe, I18n.t('lectures.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
-                    .bd-callout.bd-callout-info= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
+                  .form-row
+                    .col-md.field
+                      .custom-control.custom-checkbox
+                        = f.check_box :lectures_subscribe, :checked => false, :class => 'custom-control-input'
+                        = f.label :lectures_subscribe, I18n.t('lectures.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                        .bd-callout.bd-callout-info= I18n.t('lectures.description', scope: 'activerecord.annotations.member')
 
-              .row
-                .col-md.field
-                  .custom-control.custom-checkbox
-                    = f.check_box :teachers_subscribe, :checked => false, :class => 'custom-control-input'
-                    = f.label :teachers_subscribe, I18n.t('teacher.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
-                    .bd-callout.bd-callout-info= I18n.t('teacher.description', scope: 'activerecord.annotations.member')
+                  .form-row
+                    .col-md.field
+                      .custom-control.custom-checkbox
+                        = f.check_box :teachers_subscribe, :checked => false, :class => 'custom-control-input'
+                        = f.label :teachers_subscribe, I18n.t('teacher.name', scope: 'activerecord.annotations.member'), :class => 'custom-control-label'
+                        .bd-callout.bd-callout-info= I18n.t('teacher.description', scope: 'activerecord.annotations.member')
 
             .row
               .col-lg-6
@@ -200,7 +203,8 @@
                   .form-header-icon
                     %i.fa.fa-graduation-cap
 
-                %small.text-muted= I18n.t(:study, scope: 'activerecord.annotations.member')
+                .form-group
+                  %small.text-muted= I18n.t(:study, scope: 'activerecord.annotations.member')
 
                 .form-group.field
                   %label{for: ''}= I18n.t(:student_id, scope: 'activerecord.attributes.member')
@@ -216,12 +220,14 @@
                         .row
                           .col-lg-12.field
                             = fs.select :study_id, options_for_select(Study.where( :active => true ).map{|s| [ I18n.t(s.code.downcase, scope: 'activerecord.attributes.study.names'), s.id, { 'data-masters' => s.masters }]}, education.study_id), { :include_blank => '--' }, { :class => 'form-control' }
+
               .col-lg-6.activities
                 %h4.form-header
                   .form-header-label= I18n.t(:payment, scope: 'form')
                   .form-header-spacer
                   .form-header-icon
                     %i.fa.fa-ticket-alt
+
                 .row
                   .col-lg-6
                     .form-group
