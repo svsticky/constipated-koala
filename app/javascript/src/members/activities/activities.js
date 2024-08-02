@@ -32,6 +32,24 @@ function copyPersonalICSToClipboard() {
     });
 } // TODO makes an API call even if the button is not pressed
 
+document.getElementById("copy-btn-personal").addEventListener("click", (_) => {
+  Swal.fire({
+    title: I18n.t(
+      "members.activities.calendar.confirm_understand_icalendar.title",
+    ),
+    text: I18n.t(
+      "members.activities.calendar.confirm_understand_icalendar.text",
+    ),
+    icon: "warning",
+    showCancelButton: false,
+    confirmButtonText: I18n.t(
+      "members.activities.calendar.confirm_understand_icalendar.confirm",
+    ),
+  }).then((_) => {
+    /* Do nothing, warning has been displayed and that's enough */
+  });
+});
+
 export function get_activity_container() {
   return $("#activity-container");
 }
