@@ -88,21 +88,32 @@ body {
 }
 
 .navbar {
-  .nav-item .nav-link {
-    color: #000000;
+  .container {
+    position: relative;
+  }
 
-    &.active {
-      color: #bb8400 !important;
-      font-weight: bold;
+  .navbar-nav {
+    @media (max-width: 576px) {
+      margin-top: 10px;
+      border-top: 1px solid #ced4da;
+    }
+
+    .nav-item .nav-link {
+      color: #000000;
+
+      &.active {
+        color: #bb8400 !important;
+        font-weight: bold;
+      }
     }
   }
 
-  #intro-nav {
-    justify-content: space-between;
-  }
-
   .language-select {
-    float: right;
+    @media (max-width: 576px) {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
   }
 }
 

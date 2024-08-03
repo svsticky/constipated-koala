@@ -30,12 +30,12 @@
               = link_to I18n.t(:activities, scope: 'headers'), '#services', { :class => 'nav-link' }
             %li.nav-item
               = link_to I18n.t(:subscribe, scope: 'headers'), '#enroll', { :class => 'nav-link' }
-          .dropdown.language-select
-            %button.btn.dropdown-toggle{ :data => { :toggle => 'dropdown' } }
-              %i.fa.fa-globe
-            .dropdown-menu.dropdown-menu-right
-              = link_to 'Nederlands', {:l => 'nl'}, :class => 'dropdown-item'
-              = link_to 'English', {:l => 'en'}, :class => 'dropdown-item'
+        .dropdown.language-select
+          %button.btn.dropdown-toggle{ :data => { :toggle => 'dropdown' } }
+            %i.fa.fa-globe
+          .dropdown-menu.dropdown-menu-right
+            = link_to 'Nederlands', {:l => 'nl'}, :class => 'dropdown-item'
+            = link_to 'English', {:l => 'en'}, :class => 'dropdown-item'
 
     #top.header
       .header-bg
