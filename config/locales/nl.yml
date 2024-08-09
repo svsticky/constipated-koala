@@ -219,6 +219,7 @@ nl:
           atec: MSc Technical Artificial Intelligence
           ckem: MSc Content & Knowledge Engineering
           cosc: MSc Computing Science
+          ds: MSc Data Science
           gmte: MSc Game and Media Technology
           gt: BSc Gametechnologie
           hci: MSc Human Computer Interaction
@@ -226,7 +227,6 @@ nl:
           inku: BSc Informatiekunde
           mbim: MSc Business Informatics
           wisk: BSc Wiskunde
-          ds: MSc Data Science
       tag:
         names:
           donator: Begunstiger
