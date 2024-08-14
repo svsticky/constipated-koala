@@ -139,7 +139,7 @@ class Admin::PaymentsController < ApplicationController
                  # Check on the name to allow previous years to be exported.
 
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
-                  p.currency + payment.transaction_fee, ""]
+                  p.currency, ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
