@@ -46,9 +46,10 @@ module Mailings
         #{ I18n.t('mailings.devise.activation_instructions.about_sticky') }
 
         #{ I18n.t('mailings.devise.activation_instructions.activity_updates_html',
-                  facebook_group_link_start: '<a href="https://www.facebook.com/groups/814759978565158">'.html_safe,
-                  facebook_page_link_start: '<a href="https://www.facebook.com/stickyutrecht">'.html_safe,
+                  instagram_page_link_start: '<a href="https://www.instagram.com/stickyutrecht/">'.html_safe,
+                  linkedin_page_link_start: '<a href="https://www.linkedin.com/company/studievereniging-sticky">'.html_safe,
                   sticky_site_link_start: '<a href="https://svsticky.nl">'.html_safe,
+                  whatsapp_promo_link_start: '<a href="https://svsticky.nl/promokanaal">'.html_safe,
                   link_end: '</a>'.html_safe) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.name') }
@@ -65,7 +66,12 @@ module Mailings
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.description') }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.and_now', url: url) }
-        #{ I18n.t('mailings.devise.activation_instructions.wrap_up', url: url) }
+        #{ I18n.t('mailings.devise.activation_instructions.wrap_up',
+                  #{' '}
+                  url: url,
+                  #{' '}
+                  koala_link_start: '<a href="https://koala.svsticky.nl/">'.html_safe,
+                  link_end: '</a>'.html_safe) }
 
         #{ I18n.t('mailings.devise.activation_instructions.account_activation_link', url: url) }
 
