@@ -14,14 +14,14 @@ nl:
         account_activation_instructions: 'Activeer je account door op onderstaande knop te klikken:'
         account_activation_link: Activeer je account voor ons ledenbeheersysteem door naar %{url} te gaan.
         activate_account: Activeer account
-        activity_updates_html: 'Altijd op de hoogte blijven van deze activiteiten? Word lid van de %{facebook_group_link_start} Sticky-leden Facebookgroep %{link_end} en like %{facebook_page_link_start} onze pagina %{link_end}! Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: %{sticky_site_link_start} svsticky.nl %{link_end}. Je kan ook een WhatsApp-berichtje sturen naar de Sticky Phone (+31617695025) met "Hoi + [je naam]" nadat je het nummer hebt opgeslagen. Je krijgt dan automatisch updates over activiteiten!'
+        activity_updates_html: 'Altijd op de hoogte blijven van deze activiteiten? Volg ons op %{instagram_page_link_start} Instagram %{link_end} en volg ons op %{linkedin_page_link_start} LinkedIn %{link_end}! Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: %{sticky_site_link_start} svsticky.nl %{link_end}. Je kunt ook lid worden van onze %{whatsapp_promo_link_start} WhatsApp community %{link_end} om altijd op de hoogte gehouden te worden van aankomende activiteiten!'
         and_now: En nu?
         corner_stones:
           business:
-            description_html: Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}
+            description_html: Om jou een zo goed mogelijk beeld te geven van al die verschillende bedrijven waar jij later aan de slag kunt, organiseren wij in samenwerking met deze bedrijven verschillende lezingen, workshops, inhousedagen en borrels. Deze activiteiten bieden naast informatie over het bedrijf in kwestie, ook nog eens een mooie gelegenheid om eens iets extra’s/compleet nieuws te leren. Op zoek naar een studiegerelateerde (bij)baan? Deze vind je via %{job_offer_page_link_start} svsticky.nl/carriere/vacatures %{link_end}
             name: Bedrijfsleven
           education:
-            description_html: Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via %{books_page_link_start} svsticky.nl/boeken %{link_end}!
+            description_html: Wij organiseren hulpmiddagen, workshops en informatiebijeenkomsten om jou te ondersteunen bij je studie. Ook is de Commissaris Onderwijs jouw aanspreekpunt voor alles wat met het onderwijs en de kwaliteit daarvan te maken heeft. Bij ons kun je je studieboeken gemakkelijk kopen en thuis later bezorgen via %{books_page_link_start} svsticky.nl/boeken%{link_end}!
             name: Onderwijs
           sociability:
             description: Naast alle bovenstaande studie- en carrièregerelateerde activiteiten, organiseren we ook veel simpelweg gezellige activiteiten. Daarnaast is er wekelijks een gratis borrel!
@@ -29,7 +29,7 @@ nl:
         reception_justification: Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
         see_you_soon: Tot snel!
         welcome: Welkom bij Sticky!
-        wrap_up: Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen en je tegoed voor snacks en drinken opwaarderen.
+        wrap_up: Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal %{koala_link_start} Koala %{link_end} en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen.
       changed_instructions:
         changed_email: E-mailadres gewijzigd
         inform_change_text: Je e-mailadres is gewijzigd naar %{new_email}. Neem zo snel mogelijk contact op (door te antwoorden op deze mail) als je deze wijziging niet hebt aangevraagd.
