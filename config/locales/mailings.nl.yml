@@ -29,7 +29,7 @@ nl:
         reception_justification: Je ontvangt deze mail omdat je je hebt aangemeld voor onze machtig mooie studievereniging! Aan het eind van deze mail vind je de knop om je account in ons ledenportaal te activeren. Je kunt ook dit prachtige introductiepraatje overslaan en meteen naar beneden scrollen, dat zien we toch niet (of toch wel?).
         see_you_soon: Tot snel!
         welcome: Welkom bij Sticky!
-        wrap_up: Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal %{koala_link_start} Koala %{link_end} en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen.
+        wrap_up: Nieuwsgierig naar welke activiteiten we binnenkort organiseren? Meer informatie vind je in ons ledenportaal, %{koala_link_start} Koala%{link_end}, en je kunt je daar ook meteen inschrijven! Daarnaast kun je in dit ledenportaal ook je gegevens aanpassen.
       changed_instructions:
         changed_email: E-mailadres gewijzigd
         inform_change_text: Je e-mailadres is gewijzigd naar %{new_email}. Neem zo snel mogelijk contact op (door te antwoorden op deze mail) als je deze wijziging niet hebt aangevraagd.
