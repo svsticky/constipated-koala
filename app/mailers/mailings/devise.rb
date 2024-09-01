@@ -5,7 +5,7 @@ module Mailings
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, _opts = {})
-      url = new_member_confirmation_url(confirmation_token: token)
+      url = new_member_confirmation_url(record, confirmation_token: token)
       Rails.logger.debug(url) if Rails.env.development?
 
       html = render_to_string(locals: {
@@ -24,7 +24,7 @@ module Mailings
         #{ I18n.t('mailings.signature') }
       PLAINTEXT
 
-      return mail(record.unconfirmed_email ||= record.email, nil, I18n.t('mailings.devise.confirmation_instructions.activate_account'), html, text)
+      mail(record.unconfirmed_email ||= record.email, nil, I18n.t('mailings.devise.confirmation_instructions.activate_account'), html, text)
     end
 
     def activation_instructions(record, token, _opts = {})
@@ -34,7 +34,8 @@ module Mailings
       html = render_to_string(locals: {
                                 name: record.credentials.first_name,
                                 activation_url: url,
-                                subject: "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }"
+                                subject: "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }",
+                                whatsapp_promo_link: whatsapp_promo_link
                               })
 
       text = <<~MARKDOWN
@@ -50,8 +51,9 @@ module Mailings
                   instagram_page_link_start: '<a href="https://www.instagram.com/stickyutrecht/">'.html_safe,
                   linkedin_page_link_start: '<a href="https://www.linkedin.com/company/studievereniging-sticky">'.html_safe,
                   sticky_site_link_start: '<a href="https://svsticky.nl">'.html_safe,
-                  whatsapp_promo_link_start_nl: '<a href="https://svsticky.nl/promokanaal">'.html_safe,
-                  whatsapp_promo_link_start_en: '<a href="https://svsticky.nl/promochannel">'.html_safe,
+                  # rubocop:disable Rails/OutputSafety
+                  whatsapp_promo_link_start: "<a href=\"#{ whatsapp_promo_link }\">".html_safe,
+                  # rubocop:enable Rails/OutputSafety
                   link_end: '</a>'.html_safe) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.name') }
@@ -68,12 +70,14 @@ module Mailings
         #{ I18n.t('mailings.devise.activation_instructions.corner_stones.sociability.description') }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.and_now', url: url) }
-        #{ I18n.t('mailings.devise.activation_instructions.wrap_up',
-                  #{' '}
-                  url: url,
-                  #{' '}
-                  koala_link_start: '<a href="https://koala.svsticky.nl/">'.html_safe,
-                  link_end: '</a>'.html_safe) }
+        #{ I18n.t(
+          'mailings.devise.activation_instructions.wrap_up_html',
+          #{' '}
+          url: url,
+          #{' '}
+          koala_link_start: '<a href="https://koala.svsticky.nl/">'.html_safe,
+          link_end: '</a>'.html_safe
+        ) }
 
         #{ I18n.t('mailings.devise.activation_instructions.account_activation_link', url: url) }
 
@@ -82,7 +86,18 @@ module Mailings
         #{ I18n.t('mailings.signature') }
       MARKDOWN
 
-      return mail(record.email, nil, "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }", html, text)
+      mail(record.email, nil, "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }", html, text)
+    end
+
+    private
+
+    def whatsapp_promo_link
+      if I18n.locale == :en
+        "https://svsticky.nl/promochannel"
+      else
+        # Fallback is NL
+        "https://svsticky.nl/promokanaal"
+      end
     end
 
     def reset_password_instructions(record, token, _opts = {})
