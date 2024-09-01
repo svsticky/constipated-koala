@@ -5,18 +5,19 @@ module Mailings
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, _opts = {})
-      Rails.logger.debug(confirmation_url(record, confirmation_token: token)) if Rails.env.development?
+      url = new_member_confirmation_url(confirmation_token: token)
+      Rails.logger.debug(url) if Rails.env.development?
 
       html = render_to_string(locals: {
                                 name: record.credentials.name,
-                                confirmation_url: confirmation_url(record, confirmation_token: token),
+                                confirmation_url: url,
                                 subject: "#{ I18n.t('association_name') } | #{ I18n.t('mailings.devise.confirmation_instructions.confirm_email') }"
                               })
 
       text = <<~PLAINTEXT
         #{ I18n.t('mailings.greeting') } #{ record.credentials.name },
 
-        #{ I18n.t('mailings.devise.confirmation_instructions.link_instructions', confirm_link: confirmation_url(record, confirmation_token: token)) }
+        #{ I18n.t('mailings.devise.confirmation_instructions.link_instructions', confirm_link: url) }
 
         #{ I18n.t('mailings.best_regards') }
 
@@ -49,7 +50,8 @@ module Mailings
                   instagram_page_link_start: '<a href="https://www.instagram.com/stickyutrecht/">'.html_safe,
                   linkedin_page_link_start: '<a href="https://www.linkedin.com/company/studievereniging-sticky">'.html_safe,
                   sticky_site_link_start: '<a href="https://svsticky.nl">'.html_safe,
-                  whatsapp_promo_link_start: '<a href="https://svsticky.nl/promokanaal">'.html_safe,
+                  whatsapp_promo_link_start_nl: '<a href="https://svsticky.nl/promokanaal">'.html_safe,
+                  whatsapp_promo_link_start_en: '<a href="https://svsticky.nl/promochannel">'.html_safe,
                   link_end: '</a>'.html_safe) }
 
         ## #{ I18n.t('mailings.devise.activation_instructions.corner_stones.education.name') }
