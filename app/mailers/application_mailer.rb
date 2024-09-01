@@ -28,7 +28,8 @@ class ApplicationMailer < ActionMailer::Base
     raise(ArgumentError) if html.blank? && text.blank?
 
     if ENV['MAILGUN_DOMAIN'].blank? || ENV['MAILGUN_TOKEN'].blank?
-      Rails.logger.error("mailgun credentials not send, cannot send email")
+      Rails.logger.error("mailgun credentials not set, cannot send email. Printing email instead.")
+      Rails.logger.info(html)
       return
     end
 
@@ -47,7 +48,8 @@ class ApplicationMailer < ActionMailer::Base
     raise(ArgumentError) if (html.blank? && text.blank?) || recipient.blank?
 
     if ENV['MAILGUN_DOMAIN'].blank? || ENV['MAILGUN_TOKEN'].blank?
-      Rails.logger.debug("mailgun credentials not send, cannot send email")
+      Rails.logger.debug("mailgun credentials not set, cannot send email. Printing email instead.")
+      Rails.logger.info(html)
       return
     end
 

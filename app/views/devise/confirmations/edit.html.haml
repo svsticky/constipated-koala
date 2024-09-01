@@ -9,7 +9,7 @@
 
     - if flash[:alert]
       .alert.alert-danger
-        %span
+        %span.dark:text-white
           = flash[:alert]
 
     - if flash[:notice]
@@ -48,7 +48,7 @@
         -# i18n todo
 
 .row
-  .text-center
+  .text-center.dark:text-white
     = link_to (I18n.t 'devise.registrations.password_recovery'), new_user_password_path
     |
     = link_to (I18n.t 'devise.registrations.login'), new_user_session_path
