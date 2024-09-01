@@ -5,7 +5,12 @@ module Mailings
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, _opts = {})
-      url = new_member_confirmation_url(record, confirmation_token: token)
+      Rails.logger.debug("Sending confirmation instructions")
+
+      url = confirmation_url(record, confirmation_token: token)
+      # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
+      url = url.sub("activation", "activate")
+
       Rails.logger.debug(url) if Rails.env.development?
 
       html = render_to_string(locals: {
@@ -28,7 +33,12 @@ module Mailings
     end
 
     def activation_instructions(record, token, _opts = {})
+      Rails.logger.debug("Sending activation instructions");
+
       url = new_member_confirmation_url(confirmation_token: token)
+      # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
+      url = url.sub("confirmation", "activate")
+
       Rails.logger.debug(url) if Rails.env.development?
 
       html = render_to_string(locals: {

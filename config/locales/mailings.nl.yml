@@ -14,7 +14,7 @@ nl:
         account_activation_instructions: 'Activeer je account door op onderstaande knop te klikken:'
         account_activation_link: Activeer je account voor ons ledenbeheersysteem door naar %{url} te gaan.
         activate_account: Activeer account
-        activity_updates_html: 'Altijd op de hoogte blijven van deze activiteiten? Volg ons op %{instagram_page_link_start} Instagram %{link_end} en op %{linkedin_page_link_start} LinkedIn %{link_end}! Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: %{sticky_site_link_start} svsticky.nl %{link_end}. Je kunt ook lid worden van onze %{whatsapp_promo_link_start} WhatsApp community %{link_end} om altijd op de hoogte gehouden te worden van aankomende activiteiten!'
+        activity_updates_html: 'Altijd op de hoogte blijven van deze activiteiten? Volg ons op %{instagram_page_link_start} Instagram%{link_end} en op %{linkedin_page_link_start} LinkedIn%{link_end}! Daarnaast vind je alle informatie die je ooit had kunnen wensen op onze website: %{sticky_site_link_start} svsticky.nl%{link_end}. Je kunt ook lid worden van onze %{whatsapp_promo_link_start} WhatsApp community%{link_end} om altijd op de hoogte gehouden te worden van aankomende activiteiten!'
         and_now: En nu?
         corner_stones:
           business:
