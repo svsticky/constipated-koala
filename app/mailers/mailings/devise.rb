@@ -9,7 +9,7 @@ module Mailings
 
       url = confirmation_url(record, confirmation_token: token)
       # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
-      url = url.sub("activation", "activate")
+      url = url.sub("/activate", "/confirmation")
 
       Rails.logger.debug(url) if Rails.env.development?
 
@@ -37,7 +37,7 @@ module Mailings
 
       url = new_member_confirmation_url(confirmation_token: token)
       # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
-      url = url.sub("confirmation", "activate")
+      url = url.sub("/confirmation", "/activate")
 
       Rails.logger.debug(url) if Rails.env.development?
 
