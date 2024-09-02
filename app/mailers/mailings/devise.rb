@@ -5,13 +5,13 @@ module Mailings
     include ::Devise::Controllers::UrlHelpers
 
     def confirmation_instructions(record, token, _opts = {})
-      Rails.logger.debug("Sending confirmation instructions")
-
       url = confirmation_url(record, confirmation_token: token)
       # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
       url = url.sub("/activate", "/confirmation")
 
-      Rails.logger.debug(url) if Rails.env.development?
+      if Rails.env.development?
+        Rails.logger.debug { "Sending confirmation instructions to #{ record.credentials.name } <#{ record.unconfirmed_email }> with activation URL #{ url }" }
+      end
 
       html = render_to_string(locals: {
                                 name: record.credentials.name,
@@ -33,13 +33,13 @@ module Mailings
     end
 
     def activation_instructions(record, token, _opts = {})
-      Rails.logger.debug("Sending activation instructions");
-
       url = new_member_confirmation_url(confirmation_token: token)
       # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
       url = url.sub("/confirmation", "/activate")
 
-      Rails.logger.debug(url) if Rails.env.development?
+      if Rails.env.development?
+        Rails.logger.debug { "Sending activation instructions to #{ record.credentials.name } <#{ record.email }> with activation URL #{ url }" }
+      end
 
       html = render_to_string(locals: {
                                 name: record.credentials.first_name,
