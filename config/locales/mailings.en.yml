@@ -29,7 +29,7 @@ en:
         reception_justification: You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your account in our members portal. You could also skip this gorgeous introduction talk en scroll down immediately. We won't see that anyway (or will we?).
         see_you_soon: See you soon!
         welcome: Welcome to Sticky!
-        wrap_up_html: 'Curious about which activities we will soon organize? You can find more information in our member portal, %{koala_link_start} Koala%{link_end}, and you can enroll there too! In this member portal you can also edit your profile.'
+        wrap_up_html: Curious about which activities we will soon organize? You can find more information in our member portal, %{koala_link_start} Koala%{link_end}, and you can enroll there too! In this member portal you can also edit your profile.
       changed_instructions:
         changed_email: Emailaddress changed
         inform_change_text: Your emailaddress is changed to %{new_email}. Please contact us as soon as possible (by replying to this email) if this change was not done by you.
