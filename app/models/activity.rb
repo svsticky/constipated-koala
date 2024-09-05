@@ -400,8 +400,10 @@ class Activity < ApplicationRecord
 
     loc = I18n.locale if loc.nil?
 
-    disclaimer_en = "[Data on this activity may be outdated, for it was addes as a one-time copy of the information given at that time]"
-    disclaimer_nl = "[Gegevevens in deze afspraak kunnen outdated zijn, omdat deze waren toegevoegd als een eenmalig kopie van wat toen bekend was]"
+    disclaimer_en = "[Data on this activity may be outdated, as it was addes as a one-time copy of the information " \
+                    "given at that time]"
+    disclaimer_nl = "[Gegevens in deze afspraak kunnen outdated zijn, omdat deze waren toegevoegd als een eenmalig " \
+                    "kopie van wat toen bekend was]"
     disclaimer = loc == :nl ? disclaimer_nl : disclaimer_en
 
     description = "#{ activity_url }\n\n#{ description_localised(loc) }\n\n#{ disclaimer }"
