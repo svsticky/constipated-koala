@@ -399,13 +399,7 @@ class Activity < ApplicationRecord
     return nil if start.nil? || self.end.nil?
 
     loc = I18n.locale if loc.nil?
-
-    disclaimer_en = "[Data on this activity may be outdated, as it was addes as a one-time copy of the information " \
-                    "given at that time]"
-    disclaimer_nl = "[Gegevens in deze afspraak kunnen outdated zijn, omdat deze waren toegevoegd als een eenmalig " \
-                    "kopie van wat toen bekend was]"
-    disclaimer = loc == :nl ? disclaimer_nl : disclaimer_en
-
+    disclaimer = "[#{ I18n.t('activerecord.attributes.activity.disclaimer') }]"
     description = "#{ activity_url }\n\n#{ description_localised(loc) }\n\n#{ disclaimer }"
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
