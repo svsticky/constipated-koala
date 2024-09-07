@@ -16,10 +16,11 @@
       = t('mailings.devise.activation_instructions.about_sticky')
 
       = t('mailings.devise.activation_instructions.activity_updates_html',
-          facebook_group_link_start: raw("<a href=\"https://www.facebook.com/groups/814759978565158\">"),
-          facebook_page_link_start: raw("<a href=\"https://www.facebook.com/stickyutrecht\">"),
-          sticky_site_link_start: raw("<a href=\"https://svsticky.nl\">"),
-          link_end: raw("</a>"))
+                  instagram_page_link_start: '<a href="https://www.instagram.com/stickyutrecht/">'.html_safe,
+                  linkedin_page_link_start: '<a href="https://www.linkedin.com/company/studievereniging-sticky">'.html_safe,
+                  sticky_site_link_start: '<a href="https://svsticky.nl">'.html_safe,
+                  whatsapp_promo_link_start: "<a href=\"#{whatsapp_promo_link}\">".html_safe,
+                  link_end: '</a>'.html_safe)
 
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
@@ -32,7 +33,7 @@
       %h2
         = t('mailings.devise.activation_instructions.corner_stones.business.name')
       = t('mailings.devise.activation_instructions.corner_stones.business.description_html',
-          job_offer_page_link_start: raw('<a href="https://svsticky.nl/partners/vacatures">'),
+          job_offer_page_link_start: raw('<a href="https://svsticky.nl/carriere/vacatures">'),
           link_end: raw("</a>"))
 
       %h2
@@ -41,12 +42,14 @@
 
       %h2
         = t('mailings.devise.activation_instructions.and_now')
-      = t('mailings.devise.activation_instructions.wrap_up')
+      = t('mailings.devise.activation_instructions.wrap_up_html',
+           koala_link_start: raw('<a href="https://koala.svsticky.nl">'),
+           link_end: raw('</a>'))
 
       = t('mailings.devise.activation_instructions.account_activation_instructions')
   %tr{:style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"}
     %td.content-block.aligncenter{:align => "center", :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;", :valign => "top"}
-      %a.btn-primary{:href => activation_url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;"}
+      %a.btn-primary{:href => activation_url, :style => "font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; background-color: #197052; margin: 0; border-color: #197052; border-style: solid; border-width: 10px 20px;"}
         = t('mailings.devise.activation_instructions.activate_account')
 
 

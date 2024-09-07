@@ -14,14 +14,14 @@ en:
         account_activation_instructions: Activate your account by clicking the button below
         account_activation_link: Activate your account for our member system by going to %{url}.
         activate_account: Activate account
-        activity_updates_html: 'Do you always want to stay informed about these activities? Join the %{facebook_group_link_start} Sticky-members Facebook group %{link_end} and like  %{facebook_page_link_start} our page %{link_end}! Aside from that, you can find all information that you could ever want on our website: %{sticky_site_link_start} svsticky.nl %{link_end}. You can also send a WhatsApp message to the Sticky Phone (+31617695025) saying "Hi + [your name], English" after saving it in your contacts. Then you’ll automatically be updated about future events!'
+        activity_updates_html: 'Do you always want to stay informed about these activities? Follow us on %{instagram_page_link_start} the Sticky-members Instagram%{link_end} and on %{linkedin_page_link_start} LinkedId%{link_end}! Aside from that, you can find all information that you could ever want on our website: %{sticky_site_link_start} svsticky.nl%{link_end}. You can also join our %{whatsapp_promo_link_start} WhatsApp promotion channel%{link_end} to be notified about upcoming activities!'
         and_now: And now?
         corner_stones:
           business:
-            description_html: To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, in-house days and drinks with these companies. These activities offer besides information about the company in question, also a nice opportunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/partners/vacatures %{link_end}.
+            description_html: To give you the best possible picture of the different companies you could start working for in the future, we organise varying lectures, workshops, in-house days and drinks with these companies. These activities offer besides information about the company in question, also a nice opportunity to learn something extra or something completely new. Are you looking for a study-related job? You can find these at %{job_offer_page_link_start} svsticky.nl/carriere/vacatures%{link_end}.
             name: Business
           education:
-            description_html: We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken %{link_end}!
+            description_html: We organise helper days, workshops and information meetings to support you with your study. The Commissioner for Education is your point of contact for anything to do with education and it's quality. You can conveniently buy the books you need and have them delivered at your home at the %{books_page_link_start} svsticky.nl/boeken%{link_end}!
             name: Education
           sociability:
             description: Besides the study- and carrier-related activities stated above, we also organise many simply sociable activities, like the weekly drinks!
@@ -29,7 +29,7 @@ en:
         reception_justification: You are receiving this e-mail, because you signed up for our mighty beautiful study association! At the end of this mail you will find a button to activate your account in our members portal. You could also skip this gorgeous introduction talk en scroll down immediately. We won't see that anyway (or will we?).
         see_you_soon: See you soon!
         welcome: Welcome to Sticky!
-        wrap_up: Curious about which activities we will soon organize? You can find more information in our member portal and you can enroll there too! In this member portal you can also edit your profile and upgrade your credit for snacks and drinks.
+        wrap_up_html: Curious about which activities we will soon organize? You can find more information in our member portal, %{koala_link_start} Koala%{link_end}, and you can enroll there too! In this member portal you can also edit your profile.
       changed_instructions:
         changed_email: Emailaddress changed
         inform_change_text: Your emailaddress is changed to %{new_email}. Please contact us as soon as possible (by replying to this email) if this change was not done by you.
