@@ -9,37 +9,42 @@ import Quill from "quill";
 
 (function ($) {
   $.fn.editor = function (options) {
-    if ($(this).length == 0) return;
+    if ($(this).length === 0) return;
 
     let modules = $.extend({}, $.fn.defaults, options);
-    let editor = $(this).find("#editor");
+    let editors = $(this).find("#editor, .quill-editor");
 
-    if ($(editor).length == 0) return;
+    editors.each(function () {
+      // form-group containing hidden input to copy inner html to
+      let input = $(this).parent().find("input:hidden");
 
-    // form-group containing hidden input to copy inner html to
-    let input = editor.parent().find("input:hidden");
+      let quill = new Quill(this, {
+        modules: modules,
+        theme: "snow",
+      });
 
-    $(".ql-toolbar").remove();
+      let store = function () {
+        $(input).first().val(quill.root.innerHTML);
+      };
 
-    let quill = new Quill($(editor)[0], {
-      modules: modules,
-      theme: "snow",
+      $(quill.editor.scroll.domNode).on("blur", store);
+      $(this).closest("form").on("submit", store);
     });
-
-    let store = function () {
-      $(input).first().val(quill.root.innerHTML);
-    };
-
-    $(quill.editor.scroll.domNode).on("blur", store);
-    $(this).closest("form").on("submit", store);
   };
 
   $.fn.defaults = {
     toolbar: [
-      [{ header: [1, 2, 3, 4, false] }],
+      ["link", "blockquote", "code-block"],
       ["bold", "italic", "underline", "strike"],
+      [{ script: "sub" }, { script: "super" }],
       [{ list: "ordered" }, { list: "bullet" }],
-      ["link", { color: [] }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [
+        { align: null },
+        { align: "center" },
+        { align: "right" },
+        { align: "justify" },
+      ],
       ["clean"],
     ],
   };
