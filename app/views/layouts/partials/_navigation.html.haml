@@ -25,32 +25,20 @@
         %span= I18n.t("admin.navigation.payments")
         %i.far.fa-money-bill-alt{:class => ('active' if current_page?(:payments))}
 
-      = link_to '', :class => 'list-group-item list-group-item-action',
-                    'data-toggle' => 'collapse', 'href' => '#sub-apps' do
-        %span= I18n.t("admin.navigation.apps")
-        %i.fa.fa-terminal{:class => ('active' if yield(:page) == 'apps')}
+      = link_to :transactions, :class => 'list-group-item list-group-item-action' do
+        %span= I18n.t("admin.navigation.transactions")
+        %i.fa.fa-history{:class => ('active' if current_page?(:transactions))}
 
-      .collapse.list-group#sub-apps{:class => ('show' if yield(:page) == 'apps')}
-        = link_to :paymenthandlers, :class => 'list-group-item list-group-item-action' do
-          %span= I18n.t("admin.navigation.transactions")
-          %i.fa.fa-caret-right{:class => ('active' if current_page?(:paymenthandlers))}
-
-      = link_to '', :class => 'list-group-item list-group-item-action',
-                    'data-toggle' => 'collapse', 'href' => '#sub-settings' do
+      = link_to :settings, :class => 'list-group-item list-group-item-action' do
         %span= I18n.t("admin.navigation.settings")
-        %i.fas.fa-cog{:class => ('active' if yield(:page) == 'settings')}
+        %i.fas.fa-cog{:class => ('active' if current_page?(settings_path))}
 
-      .collapse.list-group#sub-settings{:class => ('show' if yield(:page) == 'settings') }
-        = link_to :settings do
-          %span= I18n.t("admin.navigation.general")
-          %i.fas.fa-caret-right{:class => ('active' if current_page?(settings_path))}
+      = link_to :logs, :class => 'list-group-item list-group-item-action' do
+        %span= I18n.t("admin.navigation.impressions")
+        %i.fas.fa-list-alt{:class => ('active' if current_page?(logs_path))}
 
-        = link_to :logs_settings, :class => 'list-group-item list-group-item-action' do
-          %span= I18n.t("admin.navigation.impressions")
-          %i.fas.fa-caret-right{:class => ('active' if current_page?(logs_settings_path))}
-
-      .d-md-none
-        = link_to destroy_user_session_path, 'data-method' => :delete do
-          %span= I18n.t("devise.sessions.new.sign_out")
-          %i.fa.fa-sign-out-alt
-            %span.icon-bg.bg-danger
+    .d-md-none
+      = link_to destroy_user_session_path, 'data-method' => :delete do
+        %span= I18n.t("devise.sessions.new.sign_out")
+        %i.fa.fa-sign-out-alt
+          %span.icon-bg.bg-danger

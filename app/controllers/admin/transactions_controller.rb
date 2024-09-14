@@ -1,18 +1,6 @@
 #:nodoc:
-class Admin::AppsController < ApplicationController
-  def checkout
-    @pagination = 5
-
-    @pagination, @transactions = pagy(CheckoutTransaction.includes(:checkout_card)
-      .order(created_at: :desc), items: params[:limit] ||= 20)
-
-    @cards = CheckoutCard.joins(:member).select(:id, :uuid, :member_id).where(active: false)
-
-    @credit = CheckoutBalance.sum(:balance)
-    @products = CheckoutProduct.where(active: true).count
-  end
-
-  def transactions
+class Admin::TransactionsController < ApplicationController
+  def index
     @transactions = Payment.order(created_at: :desc)
 
     @transactions = @transactions.search_by_name(params[:search]) if params[:search].present?

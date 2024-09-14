@@ -24,7 +24,6 @@ import "../../vendor/assets/javascripts/bootstrap-file-input";
 import "./src/lib/dropdown";
 import "./src/lib/editor";
 import "./src/lib/mail";
-import "./src/admin/index.js";
 import "./src/language.js";
-import "./src/application.js";
+import "./src/admin/index.js";
 import "./src/admin/datepicker";

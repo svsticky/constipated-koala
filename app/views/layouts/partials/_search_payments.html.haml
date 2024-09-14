@@ -1,34 +1,31 @@
 .page.page-item
   %section.panel.panel-default
     .card.card-body
-      = form_with url: paymenthandlers_path, method: 'get', local: true do |form|
+      = form_with url: transactions_path, method: 'get', local: true do |form|
         .input-group
           = form.text_field :search,  placeholder: I18n.t('layouts.partials.search_payments.placeholder'),  class: 'form-control', :autocomplete => 'off',value: params[:search] || ""
           .input-group-append
             .form-element
-            %button.btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false'}= I18n.t('admin.transactions.payment_type.title')
+            .btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false', 'tabindex'=>'0'}= I18n.t('admin.transactions.payment_type.title')
             .dropdown-menu.allow-focus
               - Payment.payment_types.keys.each_with_index.map { |transaction, index | [I18n.t(transaction, scope:'admin.transactions.payment_type'), index.to_s] }.each do |val,index|
-                .dropdown-item
-                  .form-check
-                    = form.check_box 'payment_type', {:multiple => true,checked: params.has_key?('payment_type') ? params['payment_type'].include?(index):false, :class =>'form-check-input'}, index, nil
-                    .form-check-label= val
+                %label.dropdown-item
+                  = form.check_box 'payment_type', {:multiple => true,checked: params.has_key?('payment_type') ? params['payment_type'].include?(index):false, :class =>'form-check-input'}, index, nil
+                  .form-check-label= val
           .input-group-append
-            %button.btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false'}= I18n.t('admin.transactions.transaction_type.title')
+            .btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false', 'tabindex'=>'0'}= I18n.t('admin.transactions.transaction_type.title')
             .dropdown-menu.allow-focus
               - Payment.transaction_types.keys.each_with_index.map { |val, index | [I18n.t(val, scope:'admin.transactions.transaction_type'), index.to_s] }.each do |val,index|
-                .dropdown-item
-                  .form-check
-                    = form.check_box 'transaction_type', {:multiple => true,checked: params.has_key?('transaction_type') ? params['transaction_type'].include?(index):false, :class =>'form-check-input'}, index, nil
-                    .form-check-label= val
+                %label.dropdown-item
+                  = form.check_box 'transaction_type', {:multiple => true,checked: params.has_key?('transaction_type') ? params['transaction_type'].include?(index):false, :class =>'form-check-input'}, index, nil
+                  .form-check-label= val
           .input-group-append
-            %button.btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false'}= I18n.t('admin.transactions.state.title')
+            .btn.btn-info.dropdown-toggle{'data-toggle' => "dropdown", 'aria-haspopup' => 'true', 'aria-expanded'=>'false', 'tabindex'=>'0'}= I18n.t('admin.transactions.state.title')
             .dropdown-menu.allow-focus
               - Payment.statuses.keys.each_with_index.map { |val, index | [I18n.t(val, scope:'admin.transactions.state'), index.to_s] }.each do |val,index|
-                .dropdown-item
-                  .form-check
-                    = form.check_box :status, {:id => val, checked: params.has_key?(:status) ? params[:status].include?(index):false,:multiple => true, :class =>'form-check-input'}, index, nil
-                    .form-check-label= val
+                %label.dropdown-item
+                  = form.check_box :status, {:id => val, checked: params.has_key?(:status) ? params[:status].include?(index):false,:multiple => true, :class =>'form-check-input'}, index, nil
+                  .form-check-label= val
           .input-group-append
             = button_tag :class => "btn btn-primary" do
               %i.fa.fa-search

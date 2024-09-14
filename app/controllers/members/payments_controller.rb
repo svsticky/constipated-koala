@@ -7,12 +7,6 @@ class Members::PaymentsController < ApplicationController
   def index
     @member = Member.find(current_user.credentials_id)
     @participants = @member.unpaid_activities
-    @transactions = CheckoutTransaction.where(
-      checkout_balance: CheckoutBalance.find_by(
-        member_id: current_user.credentials_id
-      )
-    ).order(created_at: :desc).limit(10) # ParticipantTransaction.all #
-    @transaction_costs = Settings.mongoose_ideal_costs
   end
 
   def pay_activities
@@ -73,43 +67,6 @@ class Members::PaymentsController < ApplicationController
     end
 
     return ".. & #{ collection.length } meer"
-  end
-
-  def add_funds
-    member = Member.find(current_user.credentials_id)
-    balance = CheckoutBalance.find_or_create_by!(member: member)
-    description = I18n.t('activerecord.errors.models.payment.attributes.checkout')
-    amount =  transaction_params[:amount].gsub(",", ".").to_f
-
-    if amount < 1
-      flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to(member_payments_path)
-      return
-    end
-
-    if balance.nil?
-      flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to(member_payments_path)
-      return
-    end
-
-    payment = Payment.new(
-      description: description,
-      amount: amount,
-      member: member,
-      issuer: transaction_params[:bank],
-      payment_type: :ideal,
-
-      transaction_id: nil,
-      transaction_type: :checkout,
-      redirect_uri: member_payments_path
-    )
-    if payment.save
-      redirect_to(payment.payment_uri)
-    else
-      flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
-      redirect_to(members_home_path)
-    end
   end
 
   private

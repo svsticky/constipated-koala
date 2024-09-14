@@ -16,15 +16,6 @@ class Admin::PaymentsController < ApplicationController
       [activity, days, sent_mails]
     end
 
-    # Get checkout transactions that were purchased by pin of yesterday
-    @checkout_transactions = CheckoutTransaction.where(
-      'DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', 1.day.ago
-    ).order(created_at: :desc)
-    @dat = @checkout_transactions.map do |x|
-      { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price,
-        date: x.created_at.to_date }
-    end.to_json
-
     # Counts if the activity has debtors and if 4 weeks have passed (last friday
     # is more than 21 days ago since 0 counts aswell)
     @late_activities = Activity.debtors.select do |activity|
@@ -61,18 +52,6 @@ class Admin::PaymentsController < ApplicationController
     redirect_to(url.to_s)
   end
 
-  def update_transactions
-    checkout_transactions = CheckoutTransaction.where(
-      'DATE(checkout_transactions.created_at) = DATE(?) AND payment_method = \'Gepind\'', params[:start_date]
-    ).order(created_at: :desc)
-    data = checkout_transactions.map do |x|
-      { member_id: x.checkout_balance.member.id, name: x.checkout_balance.member.name, price: x.price,
-        date: x.created_at.to_date }
-    end
-
-    render(json: data)
-  end
-
   def export_payments
     unless params[:export_type].present? && params[:start_date].present? && params[:end_date].present?
       return head(:bad_request)
@@ -98,7 +77,7 @@ class Admin::PaymentsController < ApplicationController
                                                                                       '%Y-%m-%d') }.csv")
       end
       format.js do
-        render(js: "window.open(\"#{ transactions_export_path(
+        render(js: "window.open(\"#{ payment_transactions_export_path(
           format: :csv,
           start_date: params[:start_date],
           end_date: params[:end_date],

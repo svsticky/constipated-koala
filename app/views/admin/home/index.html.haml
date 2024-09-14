@@ -5,8 +5,7 @@
 
   .page
     .row
-
-      .col-12.col-md-6
+      .col-lg
         .card
           = link_to :members do
             .row.no-gutters
@@ -18,7 +17,7 @@
                 %p.text-muted
                   = I18n.t('admin.members.title')
 
-      .col-12.col-md-6
+      .col-lg
         .card
           = link_to :activities do
             .row.no-gutters
@@ -30,14 +29,14 @@
                 %p.text-muted
                   = I18n.t('admin.activities.title')
 
+    .row
       // Checkout transactions used to be shown here.
       // That isn't in Koala anymore and was thus removed,
       // but we do not want to move the outstanding payment
       // card, so we leave this here as 'spacer'
-      .col-12.col-md-6
-        .div
+      .col-lg
 
-      .col-12.col-md-6
+      .col-lg
         .card
           = link_to :payments do
             .row.no-gutters
@@ -50,7 +49,7 @@
                   = I18n.t('admin.front.outstanding_payments')
 
     .row
-      .col-lg-3.d-none.d-sm-block
+      .col-lg
         .card
           .card-header
             %i.fa.fa-fw.fa-graduation-cap
@@ -63,10 +62,10 @@
                   %td= link_to I18n.t(code.downcase, scope: 'activerecord.attributes.study.names'), "/members?utf8=✓&search=studie:#{I18n.t(code.downcase, scope: 'activerecord.attributes.study.names').downcase.gsub( ' ', '-' )}"
                   %td= count
 
-      .col-lg-5
+      .col-lg
         .card
           .card-header
-            %i.fa.fa-fw.fa-shopping-cart
+            %i.fa.fa-fw.fa-credit-card
             = I18n.t('admin.front.activity_transactions_today')
           %table.table.table-striped.table-linked
             %tbody
@@ -91,7 +90,8 @@
                 %tr
                   %td.text-center
                     %em= I18n.t('admin.front.no_transactions')
-      .col-lg-3
+
+      .col-lg
         .card
           .card-header
             %i.fa.fa-fw.fa-ticket-alt

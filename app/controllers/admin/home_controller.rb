@@ -7,13 +7,6 @@ class Admin::HomeController < ApplicationController
 
     @activities = Activity.where("start_date >= ?", Date.to_date(Time.zone.today.study_year)).count
 
-    @transactions = CheckoutTransaction.count(:all)
-
-    @recent = CheckoutTransaction.where(
-      "created_at >= ?",
-      Time.zone.now.beginning_of_day
-    ).order(created_at: :desc).take(12)
-
     @recentactivities = Payment.where(
       "created_at >= ?",
       Time.zone.now.beginning_of_day

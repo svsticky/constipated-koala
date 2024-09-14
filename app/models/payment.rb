@@ -124,24 +124,6 @@ class Payment < ApplicationRecord
       end
 
       self.message = I18n.t('success', scope: 'activerecord.errors.models.payment')
-
-    when :checkout
-      # additional check if not already added checkout funds
-      return unless transaction_id.empty?
-
-      # create a single transaction to update the checkoutbalance and mark the Payment as processed
-      Payment.transaction do
-        transaction = CheckoutTransaction.create!(
-          price: (amount - transaction_fee),
-          checkout_balance: CheckoutBalance.find_by!(member_id: member),
-          payment_method: payment_type
-        )
-
-        self.transaction_id = [transaction.id]
-        save!
-
-        self.message = I18n.t('success', scope: 'activerecord.errors.models.payment')
-      end
     end
   end
 
