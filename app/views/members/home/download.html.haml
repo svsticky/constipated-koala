@@ -279,22 +279,6 @@
                   - else
                     %td #{I18n.l activity.start_date} - #{I18n.l activity.end_date}
 
-      - if @transactions.length > 0 || @member.checkout_cards.length > 0
-        %h2= I18n.t('members.home.edit.download.transactions')
-
-        %table
-          %thead
-            %tr
-              %th= I18n.t('members.home.edit.download.general.date')
-              %th= I18n.t('members.home.edit.download.general.price')
-              %th= I18n.t('members.home.edit.download.general.products')
-          %tbody
-            - @transactions.each do |transaction|
-              %tr
-                %td= I18n.l transaction.created_at
-                %td= number_to_currency(transaction.price, :unit => '€', :negative_format => "%u%n -")
-                %td= transaction.products
-
       %span.footer
         = I18n.t('members.home.edit.download.generated')
         = I18n.l(Time.now)

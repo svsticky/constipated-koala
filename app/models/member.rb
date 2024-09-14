@@ -39,9 +39,6 @@ class Member < ApplicationRecord
   has_many :tags, dependent: :delete_all, autosave: true
   accepts_nested_attributes_for :tags, reject_if: :all_blank, allow_destroy: true
 
-  has_many :checkout_cards, dependent: :destroy
-  has_one :checkout_balance, dependent: :nullify
-
   has_many :educations, dependent: :nullify
   has_many :studies, through: :educations
   accepts_nested_attributes_for :educations,
@@ -374,7 +371,6 @@ class Member < ApplicationRecord
     export[:educations] = educations.pluck(:id)
     export[:participants] = participants.pluck(:id)
     export[:group_members] = group_members.pluck(:id)
-    export[:checkout_balance] = checkout_balance&.id
 
     export.compact
 
@@ -424,11 +420,6 @@ class Member < ApplicationRecord
     logger.debug(JSON.parse(e.response.body))
   rescue RestClient::NotFound
     logger.debug("Unable to delete Mailchimp user: user not found")
-
-    # create transaction for emptying checkout_balance
-    if checkout_balance.present? && checkout_balance.balance != 0
-      CheckoutTransaction.create(checkout_balance: checkout_balance, price: -checkout_balance.balance, payment_method: 'deleted')
-    end
   end
 
   # Perform an elfproef to verify the student_id

@@ -1,7 +1,5 @@
-- content_for(:page, 'apps')
-- content_for(:subpage, 'Payments')
-
-- content_for(:title, "Apps | #{I18n.t('admin.navigation.transactions')}")
+- content_for(:page, 'transactions')
+- content_for(:title, I18n.t('admin.navigation.transactions'))
 
 %section#content
 
@@ -51,9 +49,7 @@
                   = link_to transaction.member.name, transaction.member
               %td= I18n.t transaction.payment_type, scope: 'admin.transactions.payment_type'
               %td
-                - if transaction.transaction_type.downcase == 'checkouttransaction'
-                  = I18n.t 'checkout', scope: 'activerecord.errors.models.payment.attributes'
-                - elsif transaction.transaction_type.downcase == 'activity'
+                - if transaction.transaction_type.downcase == 'activity'
                   - transaction.activities.each do |activity|
                     = link_to activity.name, activity, :class => 'inline'
                 - else

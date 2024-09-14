@@ -88,7 +88,6 @@ exit unless Rails.env.development? || Rails.env.staging?
 # Load files in seperate seed files
 require Rails.root.join('db', 'seeds', 'members.rb')
 require Rails.root.join('db', 'seeds', 'users.rb')
-require Rails.root.join('db', 'seeds', 'checkout.rb')
 require Rails.root.join('db', 'seeds', 'groups.rb')
 require Rails.root.join('db', 'seeds', 'activities.rb')
 require Rails.root.join('db', 'seeds', 'payments.rb')

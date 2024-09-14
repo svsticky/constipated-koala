@@ -43,14 +43,6 @@ class Admin::MembersController < ApplicationController
     @years = (@member.join_date.study_year..Date.today.study_year).map do |year|
       ["#{ year }-#{ year + 1 }", year]
     end.reverse
-
-    # Pagination for checkout transactions
-    @limit = params[:limit] ? params[:limit].to_i : 10
-
-    @pagination, @transactions = pagy(CheckoutTransaction
-      .where(checkout_balance: CheckoutBalance
-      .find_by(member_id: params[:id]))
-      .order(created_at: :desc), items: 10)
   end
 
   def new
@@ -147,18 +139,13 @@ class Admin::MembersController < ApplicationController
   end
 
   def destroy
-    @member = Member.includes(:checkout_balance).find(params[:id])
+    @member = Member.find(params[:id])
 
     impressionist(@member)
     flash[:notice] = []
 
     if @member.destroy
       flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.info', name: @member.name)
-      unless @member.checkout_balance.nil?
-        flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.checkout_emptied',
-                                 balance: view_context.number_to_currency(@member.checkout_balance.balance,
-                                                                          unit: '€'))
-      end
       unless @member.mailchimp_interests.nil?
         flash[:notice] << I18n.t('activerecord.errors.models.member.destroy.mailchimp_queued')
       end
@@ -175,13 +162,6 @@ class Admin::MembersController < ApplicationController
     @activities = @member.unpaid_activities.where('activities.start_date <= ?', Date.today).distinct
     @participants = @activities.map { |a| Participant.find_by(member: @member, activity: a) }
     render(layout: false, content_type: "text/plain")
-  end
-
-  def set_card_disabled
-    @uuid = params[:uuid]
-    @to = params[:to]
-    @card = CheckoutCard.find_by(uuid: @uuid)
-    @card.update(disabled: @to)
   end
 
   private

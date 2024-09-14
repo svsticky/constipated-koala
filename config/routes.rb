@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   constraints subdomain: ['intro', 'intro.dev'] do
     scope module: 'public' do
-      get  '/', to: 'home#index', as: 'public'
+      get '/', to: 'home#index', as: 'public'
       post '/', to: 'home#create'
     end
   end
@@ -15,15 +15,14 @@ Rails.application.routes.draw do
 
         get '/activities/69420', to: redirect('/CommITCrowd.jpg')
 
-        get   'edit',                           to: 'home#edit', as: :users_edit
-        post  'edit',                           to: 'home#update'
-        delete 'authorized_applications/:id',   to: 'home#revoke', as: :authorized_applications
+        get 'edit', to: 'home#edit', as: :users_edit
+        post 'edit', to: 'home#update'
+        delete 'authorized_applications/:id', to: 'home#revoke', as: :authorized_applications
 
         get 'download', to: 'home#download'
 
         get 'member/payments', to: 'payments#index', as: :member_payments
 
-        post 'mongoose', to: 'payments#add_funds'
         post 'pay_activities', to: 'payments#pay_activities'
 
         resources :activities, only: [:index, :show] do
@@ -35,8 +34,8 @@ Rails.application.routes.draw do
     root 'admin/home#index'
 
     # No double controllers
-    get     'admin/home',   to: redirect('/')
-    get     'members/home', to: redirect('/')
+    get 'admin/home', to: redirect('/')
+    get 'members/home', to: redirect('/')
 
     # Devise routes
     devise_for :users, path: '', skip: [:registrations], controllers: {
@@ -46,29 +45,28 @@ Rails.application.routes.draw do
     }
 
     # create account using a member's email
-    get     'sign_up',      to: 'users/registrations#new', as: :new_registration
-    post    'sign_up',      to: 'users/registrations#create'
+    get 'sign_up', to: 'users/registrations#new', as: :new_registration
+    post 'sign_up', to: 'users/registrations#create'
 
     # update account with password after receiving invite
-    get     'activate',     to: 'users/registrations#edit', as: :new_member_confirmation
-    post    'activate',     to: 'users/registrations#update', as: :new_member_confirm
+    get 'activate', to: 'users/registrations#edit', as: :new_member_confirmation
+    post 'activate', to: 'users/registrations#update', as: :new_member_confirm
 
     # update password from member options
-    get     'passwordchange',     to: 'users/password_change#edit', as: :password_change
-    patch   'passwordchange',     to: 'users/password_change#update'
+    get 'passwordchange', to: 'users/password_change#edit', as: :password_change
+    patch 'passwordchange', to: 'users/password_change#update'
 
     scope module: 'public' do
-      get   'status(/:token)', to: 'status#edit'
-      post  'status',          to: 'status#update'
-      post  'status/destroy',  to: 'status#destroy'
+      get 'status(/:token)', to: 'status#edit'
+      post 'status', to: 'status#update'
+      post 'status/destroy', to: 'status#destroy'
     end
 
     scope module: 'admin' do
       resources :members do
-        get   'payment_whatsapp'
+        get 'payment_whatsapp'
         patch 'force_email_change'
-        post  'email/:type', to: 'members#send_email', as: :mail
-        patch 'set_card_disabled/:uuid', to: 'members#set_card_disabled', as: 'set_card_disabled'
+        post 'email/:type', to: 'members#send_email', as: :mail
 
         collection do
           get 'search'
@@ -87,8 +85,7 @@ Rails.application.routes.draw do
       scope 'payments' do
         get '/', to: 'payments#index', as: "payments"
         get 'whatsapp/:member_id', to: 'payments#whatsapp_redirect', as: 'payment_whatsapp_redirect'
-        get 'transactions', to: 'payments#update_transactions'
-        get 'transactions_export', to: 'payments#export_payments'
+        get 'transactions_export', to: 'payments#export_payments', as: 'payment_transactions_export'
       end
 
       resources :posts, only: [:index, :show, :create, :update, :destroy]
@@ -99,23 +96,16 @@ Rails.application.routes.draw do
 
       resources :settings, only: [:index, :create] do
         collection do
-          get 'logs'
           patch 'profile', to: 'settings#profile'
         end
       end
 
-      scope 'apps' do
-        get 'payments',           to: 'apps#transactions', as: 'paymenthandlers'
-        get 'checkout',           to: 'apps#checkout'
+      scope 'transactions' do
+        get '/', to: 'transactions#index', as: 'transactions'
+      end
 
-        # json checkout urls
-        patch  'cards',           to: 'checkout_products#activate_card'
-        patch  'transactions',    to: 'checkout_products#change_funds'
-
-        resources :checkout_products, only: [:index, :show, :create, :update], path: 'products' do
-          patch :flip, action: :flip_active
-          match :flip, action: :flip_active, via: [:patch]
-        end
+      scope 'logs' do
+        get '/', to: 'logs#index', as: 'logs'
       end
 
       # sidekiq web interface
@@ -146,26 +136,10 @@ Rails.application.routes.draw do
         scope 'hook' do
           get 'payment/:token', to: 'webhook#payment_redirect', as: 'payment_redirect'
 
-          post 'mollie',        to: 'webhook#mollie_hook',        as: 'mollie_hook'
+          post 'mollie', to: 'webhook#mollie_hook', as: 'mollie_hook'
 
           get 'mailchimp/:token', to: 'webhook#mailchimp_confirm_callback', as: 'mailchimp_confirm'
           post 'mailchimp/:token', to: 'webhook#mailchimp', as: 'mailchimp'
-        end
-
-        # NOTE: legacy implementation for checkout without oauth
-        scope 'checkout' do
-          get  'card',          to: 'checkout#info'
-          get  'recent',        to: 'checkout#recent'
-          post 'card',          to: 'checkout#create'
-          get  'confirmation',  to: 'checkout#confirm'
-
-          get  'products',      to: 'checkout#products'
-          post 'transaction',   to: 'checkout#purchase'
-        end
-
-        scope 'internal' do
-          get 'member_by_id',        to: 'internal#member_by_id'
-          get 'member_by_studentid', to: 'internal#member_by_studentid'
         end
       end
     end

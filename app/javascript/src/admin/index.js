@@ -1,5 +1,4 @@
 import "./activities.js";
-import "./apps.js";
 import "./editor.js";
 import "./groups.js";
 import "./main.js";

@@ -39,67 +39,6 @@ tr.total {
   border-top: 2px solid #dddddd;
 }
 
-/* Members - [Member] - Checkout */
-div#credit.input-group {
-  display: inline;
-  width: auto;
-  float: right;
-}
-
-div#credit.input-group > span.input-group-btn,
-div#credit.input-group > span {
-  float: right;
-  margin-left: 2px;
-}
-
-div#credit.input-group > *,
-div#credit.input-group > * > * {
-  display: inline-block;
-}
-
-div#credit.input-group > .input-symbol > input {
-  width: 80px;
-}
-
-div#credit.input-group select {
-  background-color: white;
-  height: 32px;
-}
-
-/* Apps - Checkout - Opwaarderen */
-#credit form.form-inline > .form-group {
-  padding: 0;
-}
-
-@media (min-width: 768px) {
-  #credit form.form-inline > .form-group {
-    display: block;
-  }
-}
-
-@media (min-width: 992px) {
-  #credit form.form-inline > .form-group.amount {
-    margin-left: 3.33%;
-    width: 30%;
-  }
-}
-
-#credit form.form-inline > .form-group > select.form-control,
-#credit form.form-inline > .form-group > input.form-control,
-#credit form.form-inline > .form-group > button.form-control {
-  width: 100%;
-  height: 30px;
-  margin: 5px 0;
-  padding: 1px 12px;
-}
-
-#credit .panel-body > ul.dropdown-menu {
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 50px;
-}
-
 .table span.fa-sort-asc {
   color: green;
   position: relative;

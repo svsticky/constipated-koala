@@ -24,10 +24,10 @@
                   - activity.attendees.joins(:member).order('members.first_name', 'members.last_name').where(:paid => false).each do |participant|
                     - if !participant.currency.nil? && participant.currency > 0
                       %tr{ :class => ('red' unless participant.currency.nil? || participant.paid), :data => { :'activities-id' => activity.id, :id => participant.id, :email => participant.member.email, :name => participant.member.name } }
-                        %td= link_to "#{participant.member.name}", participant.member
+                        %td{:style=> 'width: 100%;'}= link_to "#{participant.member.name}", participant.member
 
                         - if !participant.currency.nil?
-                          %td= link_to "#{number_to_currency(participant.currency, :unit => '€')}", participant.member
+                          %td{:style=> 'text-align: right;'}= link_to "#{number_to_currency(participant.currency, :unit => '€')}", participant.member
 
                         %td.buttons
                           .btn-group
@@ -104,7 +104,7 @@
                 %td
                   %button.btn.btn-clipboard.btn-danger{ data: {'texturl': member_payment_whatsapp_path(member)} }
                     %i.fa.fa-fw.fa-copy
-        = form_with url: transactions_export_path, method: :get, id: "export-transactions" do |f|
+        = form_with url: payment_transactions_export_path, method: :get, id: "export-transactions" do |f|
           .card
             .card-header
               %i.fas.fa-fw.fa-qrcode
