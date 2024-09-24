@@ -11,6 +11,7 @@ martyparty:
   email: martyparty@maartenberg.nl
   birth_date: <%= Date.today %>
   join_date: <%= Date.today %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103011
 
 dannypanny:
   first_name: Danny
@@ -25,6 +26,7 @@ dannypanny:
   email: danoontjepower@maartenberg.nl
   birth_date: <%= Date.today %>
   join_date: <%= Date.today %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103012
 
 captain_underpants:
   first_name: Kapitein
@@ -38,6 +40,7 @@ captain_underpants:
   email: kapiteinonderbroek@maartenberg.nl
   birth_date: <%= 19.years.ago %>
   join_date: <%= 2.weeks.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103009
 
 yorici:
   first_name: Yorici
@@ -51,6 +54,7 @@ yorici:
   email: moneymoneymoney@maartenberg.nl
   birth_date: <%= 20.years.ago %>
   join_date: <%= 2.years.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103013
 
 # Use this user to test for 18+ activities correctly not allowing 18- members to join an activity
 m8eld:
@@ -65,6 +69,7 @@ m8eld:
   email: mevrouwmetdehamer@maartenberg.nl
   birth_date: <%= 17.years.ago %>
   join_date: <%= 1.days.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103014
 
 glenniepennie:
   first_name: Stewart
@@ -78,6 +83,7 @@ glenniepennie:
   email: stewartlittle@maartenberg.nl
   birth_date: <%= 20.years.ago %>
   join_date: <%= 2.years.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103015
 
 #This user has a German international phone number, just in case we want to test this
 roosje:
@@ -92,6 +98,7 @@ roosje:
   email: slapendeschone@maartenberg.nl
   birth_date: <%= 19.years.ago %>
   join_date: <%= 7.weeks.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103016
 
 meneerdeveurzitter:
   first_name: Emilius
@@ -105,6 +112,7 @@ meneerdeveurzitter:
   email: veurzitter@maartenberg.nl
   birth_date: <%= 29.years.ago %>
   join_date: <%= 1.weeks.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103017
 
 needfuldoer:
   first_name: Raji
@@ -118,6 +126,7 @@ needfuldoer:
   email: indianguywhodoesneedful@maartenberg.nl
   birth_date: <%= 40.years.ago %>
   join_date: <%= 9.weeks.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103018
 
 thecreator:
   first_name: Martijn
@@ -131,6 +140,7 @@ thecreator:
   email: inthebeginninghecreatedkoala@maartenberg.nl
   birth_date: <%= 20.years.ago %>
   join_date: <%= 19.years.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103019
 
 masterboy030man:
   first_name: Masterboy
@@ -144,6 +154,7 @@ masterboy030man:
   email: masterboy030man@maartenberg.nl
   birth_date: <%= 25.years.ago %>
   join_date: <%= 19.years.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103020
 
 feutemeteut:
   first_name: Feu
@@ -158,3 +169,4 @@ feutemeteut:
   email: eenofanderverschrikkelijkadres@maartenberg.nl
   birth_date: <%= 18.years.ago %>
   join_date: <%= 17.years.ago %>
+  calendar_id: 75a3ebf0-9e07-435f-b9cf-28e720103021
