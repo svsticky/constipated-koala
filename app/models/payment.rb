@@ -1,7 +1,5 @@
 #:nodoc:
 class Payment < ApplicationRecord
-  require 'request'
-
   self.primary_key = :token
 
   attr_accessor :issuer, :payment_uri, :message
@@ -12,6 +10,7 @@ class Payment < ApplicationRecord
   validates :payment_type, presence: true
 
   enum status: { failed: 0, in_progress: 1, successful: 2 }
+  
   # Keep payconiq_online because it is still present in the database
   enum payment_type: { ideal: 0, payconiq_online: 1, pin: 3 }
   enum transaction_type: { checkout: 0, activity: 1 }
@@ -26,6 +25,7 @@ class Payment < ApplicationRecord
   after_validation :request_payment, on: :create
 
   include PgSearch::Model
+
   pg_search_scope :search_by_name,
                   against: [:trxid],
                   associated_against: {
@@ -47,38 +47,26 @@ class Payment < ApplicationRecord
 
     case payment_type.to_sym
     when :ideal
-      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       self.token = Digest::SHA256.hexdigest("#{ member.id }#{ Time.now.to_f }#{ redirect_uri }")
 
       webhook_url = if Rails.env.development?
-                      "#{ ENV['NGROK_HOST'] }/api/hook/mollie"
-                    else
-                      Rails.application.routes.url_helpers.mollie_hook_url
-                    end
+        "#{ ENV['NGROK_HOST'] }/api/hook/mollie"
+      else
+        Rails.application.routes.url_helpers.mollie_hook_url
+      end
 
-      request = http.post("/#{ ENV['MOLLIE_VERSION'] }/payments",
-                          amount: amount,
-                          description: description,
+      payment = Mollie::Payment.create(
+        amount: { value: amount.to_s, currency: 'EUR' },
+        description: description,
+        webhookUrl: webhook_url,
+        redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token),
+      )
 
-                          method: 'ideal',
-                          issuer: issuer,
-
-                          metadata: {
-                            member: member.name,
-                            transaction_type: transaction_type,
-                            transaction_id: transaction_id
-
-                          },
-                          webhookUrl: webhook_url,
-                          redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token))
-
-      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
-      response = http.send!(request)
-
-      self.trxid = response.id
-      self.payment_uri = response.links.paymentUrl
+      self.trxid = payment.id
+      self.payment_uri = payment._links['checkout']['href']
       self.status = :in_progress
-    # pin payment shouldn't have any extra work
+    
+      # pin payment shouldn't have any extra work
     when :pin
     end
   end
@@ -86,15 +74,11 @@ class Payment < ApplicationRecord
   def update_transaction!
     case payment_type.to_sym
     when :ideal
-      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
       @status = status
 
-      request = http.get("/#{ ENV['MOLLIE_VERSION'] }/payments/#{ trxid }")
-      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
+      payment = Mollie::Payment.get(trxid)
 
-      response = http.send!(request)
-
-      status_update(response.status)
+      status_update(payment.status)
 
       save!
 
@@ -161,13 +145,9 @@ class Payment < ApplicationRecord
     return [] if ENV['MOLLIE_TOKEN'].blank?
 
     Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
-      http = ConstipatedKoala::Request.new(ENV['MOLLIE_DOMAIN'])
+      method = Mollie::Method.get('ideal', include: 'issuers')
 
-      request = http.get("/#{ ENV['MOLLIE_VERSION'] }/issuers")
-      request['Authorization'] = "Bearer #{ ENV['MOLLIE_TOKEN'] }"
-
-      response = http.send!(request)
-      response.data.map { |issuer| [issuer.name, issuer.id] }
+      method.issuers.map { |issuer| [issuer["name"], issuer["id"]] }
     end
   end
 
@@ -179,12 +159,12 @@ class Payment < ApplicationRecord
 
   def status_update(new_status)
     self.status = case new_status.downcase
-                  when "succeeded", "paid"
-                    :successful
-                  when "expired", "canceled", "failed", "cancelled", "authorization_failed"
-                    :failed
-                  else
-                    :in_progress
-                  end
+    when "succeeded", "paid"
+      :successful
+    when "expired", "canceled", "failed", "cancelled", "authorization_failed"
+      :failed
+    else
+      :in_progress
+    end
   end
 end
