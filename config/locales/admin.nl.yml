@@ -2,6 +2,9 @@
 nl:
   admin:
     activities:
+      is_payable: Betaalbaar
+      is_not_payable: Niet betaalbaar
+      free: Gratis
       added_reservist: is op de deelnemerslijst geplaatst
       copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
