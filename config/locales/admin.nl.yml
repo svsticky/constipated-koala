@@ -2,20 +2,20 @@
 nl:
   admin:
     activities:
-      is_payable: Betaalbaar
-      is_not_payable: Niet betaalbaar
-      free: Gratis
       added_reservist: is op de deelnemerslijst geplaatst
       copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
       filters: Filters
       financial: Financieel
+      free: Gratis
       has_not_paid: heeft nog niet betaald
       has_paid: heeft betaald
       info:
         already_added: Deze persoon is al toegevoegd
         price_changed: Het deelname bedrag is veranderd
         price_error: Geen verbinding of geen nummer
+      is_not_payable: Niet betaalbaar
+      is_payable: Betaalbaar
       new: Nieuwe activiteit
       remove_participant: Deelname van %{user} verwijderen?
       save: Activiteit opslaan?
