@@ -2,20 +2,20 @@
 en:
   admin:
     activities:
-      is_payable: Payable
-      is_not_payable: Not payable
-      free: Free
       added_reservist: has been placed on the participants list
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
       filters: Filters
       financial: Financial
+      free: Free
       has_not_paid: has not yet paid
       has_paid: has paid
       info:
         already_added: This participant was already added
         price_changed: The participants fee has changed
         price_error: No connection or not a number
+      is_not_payable: Not payable
+      is_payable: Payable
       new: New activity
       remove_participant: Do you want to remove %{user} as participant?
       save: Save activity?
