@@ -550,7 +550,8 @@ CREATE TABLE public.members (
     consent integer DEFAULT 0,
     consent_at date,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    calendar_id uuid
 );
 
 
@@ -1450,6 +1451,13 @@ CREATE INDEX index_impressions_on_user_id ON public.impressions USING btree (use
 
 
 --
+-- Name: index_members_on_calendar_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_members_on_calendar_id ON public.members USING btree (calendar_id);
+
+
+--
 -- Name: index_members_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1737,6 +1745,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220406092056'),
 ('20220524203723'),
 ('20240125003700'),
-('20240809152416');
-
+('20240809152416'),
+('20240521180025');
 
