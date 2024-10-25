@@ -30,7 +30,7 @@ nl:
       full: VOL!
       index:
         activities_calendar: Activiteitenkalender
-        copy_ICS: Kopieer Webcal link
+        copy_ICS: Kopieer Webcal link voor alle activiteiten
         copy_ICS_personal: Kopieer gepersonaliseerde Webcal link
         no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
       info:
