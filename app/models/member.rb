@@ -16,7 +16,6 @@ class Member < ApplicationRecord
   validates :emergency_phone_number, presence: true, if: :underage?
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A.+@(?!(.+\.)*uu\.nl\z).+\..+\z/i }
-  validates :calendar_id, presence: true, uniqueness: true
 
   # An attr_accessor is basically a variable attached to the model but not stored in the database
   attr_accessor :require_student_id
@@ -202,11 +201,6 @@ class Member < ApplicationRecord
     end
 
     return groups.values
-  end
-
-  # Whilst we cannot assign an id on creation, we can assign an id before validation, which is almost the same
-  before_validation on: [:save, :create] do
-    self.calendar_id = SecureRandom.uuid if calendar_id.blank?
   end
 
   # Rails also has hooks you can hook on to the process of saving, updating or deleting. Here the join_date is automatically filled in on creating a new member

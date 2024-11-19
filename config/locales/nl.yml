@@ -33,10 +33,9 @@ nl:
         description: Beschrijving
         description_en: Engelse beschrijving
         description_nl: Nederlandse beschrijving
-        disclaimer: Gegevens in deze afspraak kunnen outdated zijn, omdat deze waren toegevoegd als een eenmalig kopie van wat toen bekend was. Up-to-date informatie staat op Koala.
         end_date: Einddatum
         end_time: Eindtijd
-        google_event: Kopiëer eenmalig naar agenda
+        google_event: Voeg toe aan je agenda
         is_alcoholic: Alcohol (18+)
         is_enrollable: Inschrijfbaar
         is_freshmans: Eerstejaars
@@ -416,15 +415,6 @@ nl:
       study: Studie(s)
       transactions: Transacties
   association_name: Studievereniging Sticky
-  calendars:
-    errors:
-      not_logged_in: Niet ingelogd
-      unkown_hash: Onbekende kalender hash
-    jargon:
-      activities: activiteiten
-      reservist: reservist
-    personalised_activities_calendar:
-      name: Sticky Activiteiten
   date:
     day_names:
     - zondag

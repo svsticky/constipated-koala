@@ -49,9 +49,6 @@ gem 'pg'
 # Full text search
 gem 'pg_search'
 
-# iCalendar feeds
-gem 'icalendar'
-
 group :production, :staging do
   gem 'sentry-raven'
   gem 'uglifier'

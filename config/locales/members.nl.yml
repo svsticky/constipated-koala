@@ -16,11 +16,6 @@ nl:
         unenroll: Uitschrijven
         update_info: Update info
       back_to_overview: Terug naar overzicht
-      calendar:
-        confirm_understand_icalendar:
-          confirm: Ik begrijp het
-          text: Koala zal de icalendar feed die je zojuist hebt gekopieerd te allen tijde bijwerken. Echter, is koala alleen op de hoogte van activiteiten waarvoor je je via Koala hebt ingeschreven, en niet via een ander platform (zoals Pretix of een Google form). Vergeet niet om die activiteiten handmatig aan je agenda toe te voegen.
-          title: Waarschuwing
       error:
         edit: Kon niet bijwerken!
         enroll: Kon niet inschrijven!
@@ -30,8 +25,7 @@ nl:
       full: VOL!
       index:
         activities_calendar: Activiteitenkalender
-        copy_ICS: Kopieer Webcal link voor alle activiteiten
-        copy_ICS_personal: Kopieer gepersonaliseerde Webcal link
+        copy_ICS: Kopieer Webcal link
         no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
       info:
         more_info: Meer info

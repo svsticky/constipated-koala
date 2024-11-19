@@ -121,6 +121,7 @@ class Members::ParticipantsController < ApplicationController
                participant_limit: @activity.participant_limit,
                participant_count: @activity.participants.count
              })
+      return
     else
       @new_enrollment = Participant.new(
         member_id: @member.id,

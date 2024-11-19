@@ -12,7 +12,7 @@ class MemberTest < ActiveSupport::TestCase
     'first_name' => '', 'last_name' => '',
     'address' => '', 'house_number' => '', 'postal_code' => '', 'city' => '',
     'phone_number' => '', 'emergency_phone_number' => '', 'email' => '',
-    'birth_date' => nil, 'join_date' => nil, 'calendar_id' => ''
+    'birth_date' => nil, 'join_date' => nil
   }
 
   # Verify that a Member model with the minimal set of attributes defined above

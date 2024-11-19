@@ -1,5 +1,3 @@
-require 'icalendar' # https://github.com/icalendar/icalendar
-
 # Represents an activity in the database.
 #:nodoc:
 class Activity < ApplicationRecord
@@ -226,34 +224,6 @@ class Activity < ApplicationRecord
     Activity.combine_dt(end_date, end_time)
   end
 
-  def whole_day?
-    return !start_time && !end_time
-  end
-
-  # Format a datetime in UTC for the iCalendar format
-  def format_utc(datetime)
-    datetime.utc.strftime('%Y%m%dT%H%M%SZ')
-  end
-
-  # Format a datetime to a whole day for the iCalendar format
-  def format_whole_day(datetime)
-    datetime.utc.strftime('%Y%m%d')
-    # For whole days, do not convert to UTC, because if 'start' is a date, it's
-    # time will be 00:00:00 and will be converted to the previous day
-  end
-
-  # Properly format the start datetime, depending on if the event is a whole day event or not
-  def calendar_start
-    normalised_start = start_time ? start : start.change(hour: 0, min: 0) # Won't have effect if whole_day
-    return whole_day? ? format_whole_day(normalised_start) : format_utc(normalised_start)
-  end
-
-  # Properly format the end datetime, depending on if the event is a whole day event or not
-  def calendar_end
-    normalised_end = end_time ? self.end : self.end.change(hour: 23, min: 59) # Won't have effect if whole_day
-    return whole_day? ? format_whole_day(normalised_end + 1.day) : format_utc(normalised_end) # +1 day, end is exclusive
-  end
-
   def when_open
     Activity.combine_dt(open_date, open_time)
   end
@@ -390,21 +360,19 @@ class Activity < ApplicationRecord
     return "https://koala.svsticky.nl/activities/#{ id }"
   end
 
-  def description_localised(locale)
-    return locale == :nl ? description_nl : description_en
-  end
-
-  # This generates an URL representing a calendar activity template, filled with data from the koala activity
+  # pass along locale default to nil
   def google_event(loc = nil)
     return nil if start.nil? || self.end.nil?
 
+    fmt_dt = ->(dt) { dt.utc.strftime('%Y%m%dT%H%M%SZ') }
+
     loc = I18n.locale if loc.nil?
-    disclaimer = "[#{ I18n.t('activerecord.attributes.activity.disclaimer') }]"
-    description = "#{ activity_url }\n\n#{ description_localised(loc) }\n\n#{ disclaimer }"
+    description = "#{ activity_url }\n\n#{ loc == :nl ? description_nl : description_en }"
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
-    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ calendar_start }%2F#{ calendar_end }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
+    calendar_end = end_time.nil? ? self.end.change(hour: 23, min: 59) : self.end
+    return "https://www.google.com/calendar/render?action=TEMPLATE&text=#{ uri_name }&dates=#{ fmt_dt.call(start) }%2F#{ fmt_dt.call(calendar_end) }&details=#{ uri_description }&location=#{ uri_location }&sf=true&output=xml"
   end
 
   # Add a message containing the Activity's id and name to the logs before deleting the activity.
@@ -426,7 +394,7 @@ class Activity < ApplicationRecord
                   location: location,
                   price: pc,
                   url: activity_url,
-                  description: description_localised(loc),
+                  description: loc == :nl ? description_nl : description_en,
                   locale: loc)
   end
 
@@ -440,26 +408,5 @@ class Activity < ApplicationRecord
     edt = edt.present? ? " -#{ edt }" : ""
 
     return fmt_dt.call(start_date) + fmt_tm.call(start_time) + edt
-  end
-
-  # Converts a sticky activity to an iCalendar event
-  def to_calendar_event(locale)
-    event = Icalendar::Event.new
-    event.uid = id.to_s
-
-    if whole_day? # Adhire to the iCalendar spec
-      event.dtstart = Icalendar::Values::Date.new(calendar_start)
-      event.dtstart.ical_param("VALUE", "DATE")
-      event.dtend = Icalendar::Values::Date.new(calendar_end)
-      event.dtend.ical_param("VALUE", "DATE")
-    else
-      event.dtstart = calendar_start
-      event.dtend = calendar_end
-    end
-
-    event.summary = name
-    event.description = description_localised(locale)
-    event.location = location
-    return event
   end
 end

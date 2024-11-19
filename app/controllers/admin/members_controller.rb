@@ -75,6 +75,7 @@ class Admin::MembersController < ApplicationController
       impressionist(@member, 'nieuwe lid')
       redirect_to(@member)
     else
+
       # If the member hasn't filled in a study, again show an empty field
       @member.educations.build(id: '-1') if @member.educations.empty?
 
