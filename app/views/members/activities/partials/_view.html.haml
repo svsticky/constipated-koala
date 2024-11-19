@@ -79,17 +79,18 @@
   - if view =='show'
     .card-body.show-activity-topborder
       %strong= I18n.t("activerecord.attributes.activity.description")
-      <br/>
-      - if @user.language == 'nl' && !activity.description_nl.blank?
-        = simple_format(activity.description_nl)
-      - elsif @user.language == 'en' && !activity.description_en.blank?
-        = simple_format(activity.description_en)
-      - elsif !activity.description_nl.blank?
-        = simple_format(activity.description_nl)
-      - elsif !activity.description_en.blank?
-        = simple_format(activity.description_en)
-      - else
-        = I18n.t("activerecord.missing_value_placeholders.activity.description")
+      .ql-snow
+        .ql-editor{style: 'padding: 0; overflow-y: initial'}<
+          - if @user.language == 'nl' && !activity.description_nl.blank?
+            = sanitize activity.description_nl, tags: %w(strong em u s a br p span ol ul li pre blockquote sup sub), attributes: %w(style class href title)
+          - elsif @user.language == 'en' && !activity.description_en.blank?
+            = sanitize activity.description_en, tags: %w(strong em u s a br p span ol ul li pre blockquote sup sub), attributes: %w(style class href title)
+          - elsif !activity.description_nl.blank?
+            = sanitize activity.description_nl, tags: %w(strong em u s a br p span ol ul li pre blockquote sup sub), attributes: %w(style class href title)
+          - elsif !activity.description_en.blank?
+            = sanitize activity.description_en, tags: %w(strong em u s a br p span ol ul li pre blockquote sup sub), attributes: %w(style class href title)
+          - else
+            = I18n.t("activerecord.missing_value_placeholders.activity.description")
     - if !activity.notes.blank?
       .card-body.show-activity-topborder
         %strong

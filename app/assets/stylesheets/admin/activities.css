@@ -149,3 +149,12 @@
 .activity_table-cell--pseudo-hidden {
     color: transparent;
 }
+
+.quill-editor .ql-editor {
+  min-height: 200px;
+}
+
+.ql-editor p, .ql-editor ol, .ql-editor ul {
+  margin-bottom: 1rem;
+  padding-left: 0;
+}

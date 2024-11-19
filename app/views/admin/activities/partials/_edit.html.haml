@@ -46,21 +46,29 @@
 
       .form-group
         .row
-          .col-md-12
+          .col-md-12.activity-description
             = label(:activity, :description_nl)
             %span.input-group-btn
               %button.btn.btn-clipboard-wapp{ :type => 'button', :"data-clipboard-text" => @activity.whatsapp_message(:nl) }
                 %i.fa.fa-copy
                 = I18n.t('admin.activities.copy_wa_msg')
-            = f.text_area :description_nl, :value => @activity.description_nl, :class => 'form-control', :rows => 8
+            .editor-container
+              = f.hidden_field :description_nl
+              .quill-editor
+                - if @activity.description_nl
+                  = sanitize @activity.description_nl, tags: %w(strong em u s a br p span ol ul li pre blockquote sup sub), attributes: %w(style class href title)
 
-          .col-md-12
+          .col-md-12.activity-description
             = label(:activity, :description_en)
             %span.input-group-btn
               %button.btn.btn-clipboard-wapp{ :type => 'button', :"data-clipboard-text" => @activity.whatsapp_message(:en) }
                 %i.fa.fa-copy
                 = I18n.t('admin.activities.copy_wa_msg')
-            = f.text_area :description_en, :value => @activity.description_en, :class => 'form-control', :rows => 8
+            .editor-container
+              = f.hidden_field :description_en
+              .quill-editor
+                - if @activity.description_en
+                  = sanitize @activity.description_en, tags: %w(strong em u s a br p span ol ul li pre blockquote sup sub), attributes: %w(style class href title)
 
       .form-group
         .row
