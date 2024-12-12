@@ -248,7 +248,8 @@ class Member < ApplicationRecord
 
   def underage_at?(event_date)
     return birth_date.blank? ||
-       ((18.years.ago + (event_date - Date.today)) < birth_date)
+       ((18.years.ago + (event_date - Date.today)) 
+       < birth_date)
   end
 
   def master?
