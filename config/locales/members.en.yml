@@ -19,7 +19,7 @@ en:
       calendar:
         confirm_understand_icalendar:
           confirm: I understand
-          text: Koala will maintain the icalendar feed you just copied, at all times. However, koala is only aware of activities for which you are enrolled through koala, and not trough some other platform (like Pretix or a Google form). Remember to add those activities to your calendar manually.
+          text: Koala will maintain the icalendar feed you just copied, at all times. However, koala is only aware of activities for which you are enrolled through koala, and not through some other platform (like Pretix or a Google form). Remember to add those activities to your calendar manually.
           title: Warning
       error:
         edit: Could not edit!
