@@ -57,7 +57,7 @@ class Payment < ApplicationRecord
       redirect_url = Rails.application.routes.url_helpers.payment_redirect_url(token: token)
 
       payment = Mollie::Payment.create(
-        amount: { value: "#{'%.2f' % amount}", currency: 'EUR' },
+        amount: { value: sprintf('%.2f', amount), currency: 'EUR' },
         method: 'ideal', # only ideal for now
         issuer: issuer,
         description: description,
