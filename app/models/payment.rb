@@ -62,7 +62,7 @@ class Payment < ApplicationRecord
         issuer: issuer,
         description: description,
         webhook_url: webhook_url,
-        redirect_url: redirect_url,
+        redirect_url: redirect_url
       )
 
       self.trxid = payment.id
