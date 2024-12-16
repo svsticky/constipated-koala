@@ -59,7 +59,6 @@ class Payment < ApplicationRecord
       payment = Mollie::Payment.create(
         amount: { value: format('%.2f', amount), currency: 'EUR' },
         method: 'ideal', # only ideal for now
-        issuer: issuer,
         description: description,
         webhook_url: webhook_url,
         redirect_url: redirect_url
@@ -140,17 +139,6 @@ class Payment < ApplicationRecord
       0
     when :pin
       0
-    end
-  end
-
-  def self.ideal_issuers
-    # cache the payment issuers for 12 hours, don't request it to often. Stored in tmp/cache
-    return [] if ENV['MOLLIE_TOKEN'].blank?
-
-    Rails.cache.fetch('mollie_issuers', expires_in: 12.hours) do
-      method = Mollie::Method.get('ideal', include: 'issuers')
-
-      method.issuers.map { |issuer| [issuer["name"], issuer["id"]] }
     end
   end
 
