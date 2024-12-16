@@ -54,12 +54,15 @@ class Payment < ApplicationRecord
                     else
                       Rails.application.routes.url_helpers.mollie_hook_url
                     end
+      redirect_url = Rails.application.routes.url_helpers.payment_redirect_url(token: token)
 
       payment = Mollie::Payment.create(
-        amount: { value: amount.to_s, currency: 'EUR' },
+        amount: { value: "#{'%.2f' % amount}", currency: 'EUR' },
+        method: 'ideal', # only ideal for now
+        issuer: issuer,
         description: description,
-        webhookUrl: webhook_url,
-        redirectUrl: Rails.application.routes.url_helpers.payment_redirect_url(token: token)
+        webhook_url: webhook_url,
+        redirect_url: redirect_url,
       )
 
       self.trxid = payment.id
@@ -158,10 +161,10 @@ class Payment < ApplicationRecord
   private
 
   def status_update(new_status)
-    self.status = case new_status.downcase
-                  when "succeeded", "paid"
+    self.status = case new_status
+                  when "paid", "authorized"
                     :successful
-                  when "expired", "canceled", "failed", "cancelled", "authorization_failed"
+                  when "expired", "failed", "canceled"
                     :failed
                   else
                     :in_progress
