@@ -27,7 +27,7 @@
                       - elsif activity.group.committee?
                         %span.badge.badge-success= activity.group.name.upcase
                       - else
-                        %span.label.badge-warning= activity.group.name.upcase
+                        %span.badge.badge-warning= activity.group.name.upcase
                   - else
                     %td
                       %span
@@ -43,3 +43,12 @@
                   - else
                     %td.d-none.d-md-block
                       %span
+
+                  %td
+                    - if activity.is_payable && activity.price != 0
+                      %span.badge.badge-success.size-small= I18n.t('admin.activities.is_payable')
+                    - elsif activity.price == 0
+                      %span.badge.badge-primary.size-small= I18n.t('admin.activities.free')
+                    - else
+                      %span.badge.badge-warning.size-small= I18n.t('admin.activities.is_not_payable')
+
