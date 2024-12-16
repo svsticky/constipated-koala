@@ -35,10 +35,10 @@ class Members::PaymentsController < ApplicationController
       redirect_to(member_payments_path)
       return
     end
+
     payment = Payment.new(
       description: description,
       amount: amount,
-      issuer: transaction_params[:bank],
       member: member,
       payment_type: :ideal,
       transaction_id: unpaid.pluck(:activity_id),
@@ -97,13 +97,12 @@ class Members::PaymentsController < ApplicationController
       description: description,
       amount: amount,
       member: member,
-      issuer: transaction_params[:bank],
       payment_type: :ideal,
-
       transaction_id: nil,
       transaction_type: :checkout,
       redirect_uri: member_payments_path
     )
+
     if payment.save
       redirect_to(payment.payment_uri)
     else
@@ -115,6 +114,6 @@ class Members::PaymentsController < ApplicationController
   private
 
   def transaction_params
-    params.permit(:amount, :bank, :activity_ids, :payment_type)
+    params.permit(:amount, :activity_ids, :payment_type)
   end
 end

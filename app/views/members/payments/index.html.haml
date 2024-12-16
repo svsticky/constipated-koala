@@ -42,13 +42,10 @@
                 %tr
                   %td
                   %td
-                    .ideal-activities
-                      = I18n.t("members.payments.unpaid_activity.footer.bank")
-                      .float-xl-right= f.select :bank, options_for_select(Payment::ideal_issuers), {}, {style: '', class:'ideal-activities'}
                   %td
                     %div
                       = I18n.t("members.payments.unpaid_activity.footer.transactioncosts")
-                    %span.transaction_cost_activities.ideal-activities{:price =>@transaction_costs}= number_to_currency(@transaction_costs, :unit => '€')
+                    %span.transaction_cost_activities.ideal-activities{:price => @transaction_costs}= number_to_currency(@transaction_costs, :unit => '€')
                 %tr
                   %td
                   %td
