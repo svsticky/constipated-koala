@@ -47,11 +47,7 @@ class Members::PaymentsController < ApplicationController
     )
     if payment.save
       # Check URI for safety (supresses brakeman warning)
-      if payment.payment_uri =~ URI::regexp
-        url = URI.parse(payment.payment_uri)
-      else
-        url = nil
-      end
+      url = (URI.parse(payment.payment_uri) if payment.payment_uri =~ URI::DEFAULT_PARSER.make_regexp)
       redirect_to(url)
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
@@ -111,11 +107,7 @@ class Members::PaymentsController < ApplicationController
 
     if payment.save
       # Check URI for safety (supresses brakeman warning)
-      if payment.payment_uri =~ URI::regexp
-        url = URI.parse(payment.payment_uri)
-      else
-        url = nil
-      end
+      url = (URI.parse(payment.payment_uri) if payment.payment_uri =~ URI::DEFAULT_PARSER.make_regexp)
       redirect_to(url)
     else
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
