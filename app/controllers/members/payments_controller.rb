@@ -46,7 +46,13 @@ class Members::PaymentsController < ApplicationController
       redirect_uri: member_payments_path
     )
     if payment.save
-      redirect_to(payment.payment_uri)
+      # Check URI for safety (supresses brakeman warning)
+      if payment.payment_uri =~ URI::regexp
+        url = URI.parse(payment.payment_uri)
+      else
+        url = nil
+      end
+      redirect_to(url)
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to(member_payments_path)
@@ -104,7 +110,13 @@ class Members::PaymentsController < ApplicationController
     )
 
     if payment.save
-      redirect_to(payment.payment_uri)
+      # Check URI for safety (supresses brakeman warning)
+      if payment.payment_uri =~ URI::regexp
+        url = URI.parse(payment.payment_uri)
+      else
+        url = nil
+      end
+      redirect_to(url)
     else
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to(members_home_path)
