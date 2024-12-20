@@ -47,8 +47,19 @@ class Members::PaymentsController < ApplicationController
     )
     if payment.save
       # Check URI for safety (supresses brakeman warning)
-      url = (URI.parse(payment.payment_uri) if payment.payment_uri =~ URI::DEFAULT_PARSER.make_regexp)
-      redirect_to(url)
+      url = begin
+        URI.parse(payment.payment_uri)
+      rescue StandardError
+        nil
+      end
+
+      # Check if it's a valid URI and matches your whitelist of acceptable domains (e.g., only http(s)://example.com)
+      if url.is_a?(URI::HTTP) && ['mollie.com'].include?(url.host)
+        redirect_to(url)
+      else
+        # Fallback to a safe default redirect if the URI is invalid or not in the whitelist
+        redirect_to(root_path)
+      end
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to(member_payments_path)
@@ -107,8 +118,19 @@ class Members::PaymentsController < ApplicationController
 
     if payment.save
       # Check URI for safety (supresses brakeman warning)
-      url = (URI.parse(payment.payment_uri) if payment.payment_uri =~ URI::DEFAULT_PARSER.make_regexp)
-      redirect_to(url)
+      url = begin
+        URI.parse(payment.payment_uri)
+      rescue StandardError
+        nil
+      end
+
+      # Check if it's a valid URI and matches your whitelist of acceptable domains (e.g., only http(s)://example.com)
+      if url.is_a?(URI::HTTP) && ['mollie.com'].include?(url.host)
+        redirect_to(url)
+      else
+        # Fallback to a safe default redirect if the URI is invalid or not in the whitelist
+        redirect_to(root_path)
+      end
     else
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to(members_home_path)
