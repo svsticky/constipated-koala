@@ -390,17 +390,21 @@ class Activity < ApplicationRecord
     return "https://koala.svsticky.nl/activities/#{ id }"
   end
 
+  # The description of the activity in the specified locale
   def description_localised(locale)
     return locale == :nl ? description_nl : description_en
   end
 
   # This generates an URL representing a calendar activity template, filled with data from the koala activity
-  def google_event(loc = nil)
+  def google_event(locale = nil)
     return nil if start.nil? || self.end.nil?
 
-    loc = I18n.locale if loc.nil?
-    disclaimer = "[#{ I18n.t('activerecord.attributes.activity.disclaimer') }]"
-    description = "#{ activity_url }\n\n#{ description_localised(loc) }\n\n#{ disclaimer }"
+    locale = I18n.locale if locale.nil?
+
+    disclaimer = "[#{ I18n.t('activerecord.attributes.activity.disclaimer', deep_interpolation: true,
+                                                                            datetime: DateTime.current.utc.to_s) }]"
+    description = "#{ activity_url }\n\n#{ description_localised(locale) }\n\n#{ disclaimer }"
+
     uri_name = URI.encode_www_form_component(name)
     uri_description = URI.encode_www_form_component(description)
     uri_location = URI.encode_www_form_component(location)
@@ -442,7 +446,7 @@ class Activity < ApplicationRecord
     return fmt_dt.call(start_date) + fmt_tm.call(start_time) + edt
   end
 
-  # Converts a sticky activity to an iCalendar event
+  # Converts a Sticky activity to an iCalendar event
   def to_calendar_event(locale)
     event = Icalendar::Event.new
     event.uid = id.to_s
@@ -458,7 +462,9 @@ class Activity < ApplicationRecord
     end
 
     event.summary = name
-    event.description = description_localised(locale)
+    event.description = "#{ activity_url }\r\n\r\n\
+      #{ description_localised(locale) }\r\n\r\n\
+      Last synced on: #{ DateTime.current.utc }"
     event.location = location
     return event
   end

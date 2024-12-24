@@ -33,7 +33,7 @@ nl:
         description: Beschrijving
         description_en: Engelse beschrijving
         description_nl: Nederlandse beschrijving
-        disclaimer: Gegevens in deze afspraak kunnen outdated zijn, omdat deze waren toegevoegd als een eenmalig kopie van wat toen bekend was. Up-to-date informatie staat op Koala.
+        disclaimer: Gegevens over deze activiteit zijn toegevoegd als een eenmalig kopie van wat bekend was op %{datetime}, en kunnen dus verouderd zijn.
         end_date: Einddatum
         end_time: Eindtijd
         google_event: Kopiëer eenmalig naar agenda

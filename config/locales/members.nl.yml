@@ -19,7 +19,7 @@ nl:
       calendar:
         confirm_understand_icalendar:
           confirm: Ik begrijp het
-          text: Koala zal de icalendar feed die je zojuist hebt gekopieerd te allen tijde bijwerken. Echter, is koala alleen op de hoogte van activiteiten waarvoor je je via Koala hebt ingeschreven, en niet via een ander platform (zoals Pretix of een Google Form). Vergeet niet om die activiteiten handmatig aan je agenda toe te voegen.
+          text: Koala zal de icalendar feed die je zojuist hebt gekopieerd naar je klembord ten aller tijde bijwerken. Echter, is koala alleen op de hoogte van activiteiten waarvoor je je via Koala hebt ingeschreven, en niet via een ander platform (zoals Pretix of een Google Form). Vergeet niet om die activiteiten handmatig aan je agenda toe te voegen.
           title: Waarschuwing
       error:
         edit: Kon niet bijwerken!
