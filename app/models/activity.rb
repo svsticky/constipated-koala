@@ -237,7 +237,7 @@ class Activity < ApplicationRecord
 
   # Format a datetime to a whole day for the iCalendar format
   def format_whole_day(datetime)
-    datetime.utc.strftime('%Y%m%d')
+    datetime.strftime('%Y%m%d')
     # For whole days, do not convert to UTC, because if 'start' is a date, it's
     # time will be 00:00:00 and will be converted to the previous day
   end
