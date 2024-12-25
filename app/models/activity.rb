@@ -462,9 +462,9 @@ class Activity < ApplicationRecord
     end
 
     event.summary = name
-    event.description = "#{ activity_url }\r\n\r\n\
-      #{ description_localised(locale) }\r\n\r\n\
-      Last synced on: #{ DateTime.current.utc }"
+    event.description = "#{ activity_url }\r\n\r\n"\
+                        "#{ description_localised(locale) }\r\n\r\n"\
+                        "Last synced on: #{ DateTime.current.utc }"
     event.location = location
     return event
   end
