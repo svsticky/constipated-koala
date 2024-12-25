@@ -27,6 +27,9 @@ gem 'impressionist', github: 'charlotte-ruby/impressionist'
 # rests calls for mailgun
 gem 'rest-client'
 
+# mollie
+gem 'mollie-api-ruby'
+
 gem 'responders'
 
 # pagination

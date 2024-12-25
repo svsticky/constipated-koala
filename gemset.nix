@@ -713,6 +713,16 @@
     };
     version = "5.15.0";
   };
+  mollie-api-ruby = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0z4z0cf5lq3bmdbjsdzjj2spvg351b32nzwrn9rf3zqm9rldai6w";
+      type = "gem";
+    };
+    version = "4.13.0";
+  };
   netrc = {
     groups = ["default"];
     platforms = [];
