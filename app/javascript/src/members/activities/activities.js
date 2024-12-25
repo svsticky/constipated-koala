@@ -10,15 +10,45 @@ import { Activity } from "./activity.js";
 var token, modal;
 
 function copyICSToClipboard() {
-  /* Link to copy */
-  var copy_text =
-    "https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
   new Clipboard("#copy-btn", {
     text: function () {
-      return copy_text;
+      return "https://calendar.google.com/calendar/ical/stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com/public/basic.ics";
     },
   });
 }
+
+function copyPersonalICSToClipboard() {
+  fetch("/api/calendar/fetch")
+    .then((response) => response.text())
+    .then((icsFeed) => {
+      new Clipboard("#copy-btn-personal", {
+        text: function () {
+          return icsFeed;
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+} // TODO makes an API call even if the button is not pressed
+
+document.getElementById("copy-btn-personal").addEventListener("click", (_) => {
+  Swal.fire({
+    title: I18n.t(
+      "members.activities.calendar.confirm_understand_icalendar.title",
+    ),
+    text: I18n.t(
+      "members.activities.calendar.confirm_understand_icalendar.text",
+    ),
+    icon: "warning",
+    showCancelButton: false,
+    confirmButtonText: I18n.t(
+      "members.activities.calendar.confirm_understand_icalendar.confirm",
+    ),
+  }).then((_) => {
+    /* Do nothing, warning has been displayed and that's enough */
+  });
+});
 
 export function get_activity_container() {
   return $("#activity-container");
@@ -244,6 +274,7 @@ $(document).on("ready page:load turbolinks:load", function () {
   initialize_enrollment();
   initialize_modal();
   copyICSToClipboard();
+  copyPersonalICSToClipboard();
 });
 
 document.addEventListener("turbolinks:load", function () {
