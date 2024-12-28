@@ -45,6 +45,7 @@ class Members::PaymentsController < ApplicationController
       transaction_type: :activity,
       redirect_uri: member_payments_path
     )
+
     if payment.save
       # Check URI for safety (supresses brakeman warning)
       url = begin
@@ -54,8 +55,8 @@ class Members::PaymentsController < ApplicationController
       end
 
       # Check if it's a valid URI and matches your whitelist of acceptable domains (e.g., only http(s)://example.com)
-      if url.is_a?(URI::HTTP) && ['mollie.com'].include?(url.host)
-        redirect_to(url)
+      if url.is_a?(URI::HTTP) && ['www.mollie.com'].include?(url.host)
+        redirect_to(url.to_s)
       else
         # Fallback to a safe default redirect if the URI is invalid or not in the whitelist
         redirect_to(root_path)

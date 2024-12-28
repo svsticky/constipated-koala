@@ -65,6 +65,9 @@ class Payment < ApplicationRecord
       )
 
       self.trxid = payment.id
+
+      # The host of this url is `www.mollie.com` so it will redirect to the mollie payment page
+      # if this ever chanes, the redirect_uri whitelist in the controller should be updated
       self.payment_uri = payment._links['checkout']['href']
       self.status = :in_progress
 
