@@ -55,7 +55,10 @@ class Members::PaymentsController < ApplicationController
       end
 
       # Check if it's a valid URI and matches your whitelist of acceptable domains (e.g., only http(s)://example.com)
-      if url.is_a?(URI::HTTP) && ['www.mollie.com'].include?(url.host)
+      if url.is_a?(URI::HTTP) && [
+          'www.mollie.com', # staging
+          'pay.ideal.nl', # production
+        ].include?(url.host)
         redirect_to(url.to_s)
       else
         # Fallback to a safe default redirect if the URI is invalid or not in the whitelist
