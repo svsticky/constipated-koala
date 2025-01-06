@@ -93,8 +93,8 @@ nl:
       payments: Betalingen
       pictures: Foto's
       vacancies: Vacatures
-      wiki: Stickypedia
       voeljeveilig: VoelJeVeilig
+      wiki: Stickypedia
     payments:
       mongoose:
         credit: Tegoed
