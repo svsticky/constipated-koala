@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.1'
 
 # use of Haml and rabl
 gem 'haml'
@@ -22,7 +22,7 @@ gem 'devise'
 gem 'doorkeeper'
 gem 'doorkeeper-openid_connect'
 
-gem 'impressionist', github: 'charlotte-ruby/impressionist'
+gem 'impressionist'
 
 # rests calls for mailgun
 gem 'rest-client'
@@ -39,12 +39,14 @@ gem 'pagy'
 gem 'image_processing'
 gem 'rails-settings-cached', '~> 0.7'
 
+gem 'psych', '< 4'
+
 # phone number validation
 gem 'telephone_number'
 
 gem 'csv'
-gem 'i18n-js'
-gem 'sidekiq'
+gem 'i18n-js', '~> 3.9'
+gem 'sidekiq', '~> 6.4'
 
 # Database
 gem 'pg'
@@ -59,7 +61,7 @@ group :production, :staging do
 end
 
 group :development, :test, :staging do
-  gem 'faker'
+  gem 'faker', '~> 2.19'
 end
 
 group :development do
