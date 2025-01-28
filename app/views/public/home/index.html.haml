@@ -249,9 +249,6 @@
                     .form-group.field
                       %label{for: ''}= I18n.t(:payment_method, scope: 'form')
                       = select_tag 'method', options_for_select(['IDEAL'], @method), { :class => 'form-control' }
-                    .form-group.field
-                      %label{for: '', :id => 'bank'}= I18n.t(:bank, scope: 'form')
-                      = select_tag 'bank', options_for_select(Payment::ideal_issuers, @bank), { :class => 'form-control' }
 
             %button.btn.btn-primary{type: 'submit'}= I18n.t(:finish_signup, scope: 'form')
 
