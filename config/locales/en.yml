@@ -33,9 +33,10 @@ en:
         description: Description
         description_en: English description
         description_nl: Dutch description
+        disclaimer: Data about this activity has been added as a one-time copy from what was known on %{datetime}, and as such could be outdated.
         end_date: Enddate
         end_time: Endtime
-        google_event: Add to calendar
+        google_event: Copy once to calendar
         is_alcoholic: Alcoholic(18+)
         is_enrollable: Enrollable
         is_freshmans: First year students
@@ -415,6 +416,15 @@ en:
       study: Study/Studies
       transactions: Transactions
   association_name: Study association Sticky
+  calendars:
+    errors:
+      not_logged_in: Not logged in
+      unkown_hash: Unkown calendar hash
+    jargon:
+      activities: activities
+      reservist: reservist
+    personalised_activities_calendar:
+      name: Sticky Activities
   date:
     day_names:
     - Sunday

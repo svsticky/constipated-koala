@@ -543,6 +543,27 @@
     };
     version = "0.9.37";
   };
+  icalendar = {
+    dependencies = ["ice_cube"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "03ki7wm2iqr3dv7mgrxv2b8vbh42c7yv55dc33a077n8jnxhhc8z";
+      type = "gem";
+    };
+    version = "2.10.1";
+  };
+  ice_cube = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1dri4mcya1fwzrr9nzic8hj1jr28a2szjag63f9k7p2bw9fpw4fs";
+      type = "gem";
+    };
+    version = "0.16.4";
+  };
   image_processing = {
     dependencies = ["mini_magick" "ruby-vips"];
     groups = ["default"];
