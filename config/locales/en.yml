@@ -59,6 +59,7 @@ en:
         start_date: Startdate
         start_time: Starttime
         unenroll_date: Un-enroll date
+        payment_deadline: Payment deadline
       checkout_product:
         active: Active
         categories:

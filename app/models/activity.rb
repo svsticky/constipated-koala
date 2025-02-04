@@ -51,8 +51,13 @@ class Activity < ApplicationRecord
 
   scope :late_unpayable, lambda {
     # All participants who will receive payment reminders
-    where('NOT activities.is_payable AND activities.start_date <= ?', Date.today).joins(:participants)
-                                                                                 .where('participants.reservist IS FALSE
+    where(
+      'NOT activities.is_payable
+      AND activities.start_date <= ?
+      AND (activities.payment_deadline IS NULL OR activities.payment_deadline > ?)',
+      Date.today, Date.today
+    ).joins(:participants)
+      .where('participants.reservist IS FALSE
         AND
          (
           (activities.price IS NOT NULL
@@ -113,6 +118,8 @@ class Activity < ApplicationRecord
     joins(:participants).where('
       activities.is_payable
       AND
+      (activities.payment_deadline IS NULL OR activities.payment_deadline > ?)
+      AND
       participants.reservist IS FALSE
       AND
        (
@@ -132,7 +139,7 @@ class Activity < ApplicationRecord
          AND
          participants.price IS NOT NULL
         )
-      )').distinct
+      )', Date.today).distinct
   end
 
   def payment_mail_recipients

@@ -119,6 +119,11 @@
       .form-group
         .row
           .col-md-12
+            = label(:activity, :payment_deadline)
+            = f.date_field :payment_deadline, :value => @activity.payment_deadline, :class => 'form-control'
+      .form-group
+        .row
+          .col-md-12
             = label(:activity, :location)
             = f.text_field :location, :class => 'form-control'
       .form-group

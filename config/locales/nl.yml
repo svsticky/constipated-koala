@@ -59,6 +59,7 @@ nl:
         start_date: Begindatum
         start_time: Begintijd
         unenroll_date: Uitschrijfdeadline
+        payment_date: Betalingsdeadline
       checkout_product:
         active: Actief
         categories:
