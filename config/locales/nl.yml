@@ -53,13 +53,13 @@ nl:
         notes_public: Publiek
         organized_by: Organisator
         participant_limit: Deelnemerslimiet
+        payment_date: Betalingsdeadline
         price: Prijs
         show_on_website: Toon op website
         show_participants: Deelnemers zichtbaar
         start_date: Begindatum
         start_time: Begintijd
         unenroll_date: Uitschrijfdeadline
-        payment_date: Betalingsdeadline
       checkout_product:
         active: Actief
         categories:
