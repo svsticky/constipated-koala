@@ -41,6 +41,8 @@ dates.each do |start_date|
     description_nl: Faker::Lorem.paragraph(sentence_count: 5),
     description_en: Faker::Lorem.paragraph(sentence_count: 5),
 
+    payment_deadline: Faker::Boolean.boolean(true_ratio: 0.5) ? Faker::Date::between(from: start_date, to: start_date + 90.days) : nil,
+
     is_enrollable: enrollable,
     is_masters: Faker::Boolean.boolean(true_ratio: 0.2),
     is_viewable: viewable,

@@ -54,7 +54,7 @@ class Activity < ApplicationRecord
     where(
       'NOT activities.is_payable
       AND activities.start_date <= ?
-      AND (activities.payment_deadline IS NULL OR activities.payment_deadline > ?)',
+      AND (activities.payment_deadline IS NULL OR activities.payment_deadline <= ?)',
       Date.today, Date.today
     ).joins(:participants)
       .where('participants.reservist IS FALSE
@@ -118,7 +118,7 @@ class Activity < ApplicationRecord
     joins(:participants).where('
       activities.is_payable
       AND
-      (activities.payment_deadline IS NULL OR activities.payment_deadline > ?)
+      (activities.payment_deadline IS NULL OR activities.payment_deadline <= ?)
       AND
       participants.reservist IS FALSE
       AND
