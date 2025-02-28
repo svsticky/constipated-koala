@@ -33,7 +33,7 @@ Most notably, Koala integrates with MailChimp, MailGun and Mollie.
 
 ```shell
 # Add hosts for different subdomains on your own computer for development
-$ echo "127.0.0.1 koala.rails.local intro.rails.local" >> /etc/hosts
+$ echo "127.0.0.1 koala.rails.local wordlid.rails.local" >> /etc/hosts
 ```
 
 ## Running Koala

@@ -33,7 +33,7 @@ Rails.application.configure do
   }
 
   config.hosts << 'koala.rails.local'
-  config.hosts << 'intro.rails.local'
+  config.hosts << 'wordlid.rails.local'
   config.hosts << 'leden.rails.local'
   config.hosts << 'members.rails.local'
 

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   use_doorkeeper_openid_connect
 
-  constraints subdomain: ['intro', 'intro.dev'] do
+  constraints subdomain: ['wordlid', 'wordlid.dev'] do
     scope module: 'public' do
       get  '/', to: 'home#index', as: 'public'
       post '/', to: 'home#create'
