@@ -94,7 +94,7 @@ Rails.application.configure do
   }
 
   config.hosts << "koala.dev.svsticky.nl"
-  config.hosts << "intro.dev.svsticky.nl"
+  config.hosts << "wordlid.dev.svsticky.nl"
   config.hosts << "leden.dev.svsticky.nl"
   config.hosts << "members.dev.svsticky.nl"
 
