@@ -25,14 +25,18 @@
         .col-lg-10.col-sm-12
           %input#onderwerp.form-control{ :name => 'subject', :type => 'text', :value => "#{I18n.t('association_name')} | #{subject}" }
 
-      %input#html.form-control{ type: "hidden", name: "html" }
-      #editor.form-control
-        - if mail.present?
-          = render :template => "mailings/participants/inform", :locals => { subject: subject }
+      .form-group.row
+        .col-lg-12
+          .editor-container
+            %input#html.form-control{ type: "hidden", name: "html" }
+            .quill-editor
+              - if mail.present?
+                = render :template => "mailings/participants/inform", :locals => { subject: subject }
 
-      .mail-actions
-        - if recipients.length() > 0
-          %button.btn.btn-primary#btn-send{ type: 'submit' }= I18n.t('layouts.partials.mail.send')
-        - else
-          %button.btn.btn-primary#btn-send{ type: 'submit', :disabled => 'disabled' }= I18n.t('layouts.partials.mail.send')
-        .btn.btn-default.disabled{ :disabled => 'disabled' }= I18n.t('layouts.partials.mail.draft')
+      .form-group.row.mail-actions
+        .col-lg-12
+          - if recipients.length() > 0
+            %button.btn.btn-primary#btn-send{ type: 'submit' }= I18n.t('layouts.partials.mail.send')
+          - else
+            %button.btn.btn-primary#btn-send{ type: 'submit', :disabled => 'disabled' }= I18n.t('layouts.partials.mail.send')
+          .btn.btn-default.disabled{ :disabled => 'disabled' }= I18n.t('layouts.partials.mail.draft')
