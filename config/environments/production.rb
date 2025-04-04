@@ -94,6 +94,8 @@ Rails.application.configure do
 
   config.hosts << 'koala.svsticky.nl'
   config.hosts << 'wordlid.svsticky.nl'
+  config.hosts << 'signup.svsticky.nl'
+  config.hosts << 'join.svsticky.nl'
   config.hosts << 'leden.svsticky.nl'
   config.hosts << 'members.svsticky.nl'
 
