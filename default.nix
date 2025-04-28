@@ -81,6 +81,9 @@ in
     #     echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
     #   fi
     # '';
+    shellHook = ''
+      yarn
+    '';
 
     LC_ALL = "C.UTF-8";
   }
