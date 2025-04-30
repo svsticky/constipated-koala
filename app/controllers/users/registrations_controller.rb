@@ -5,46 +5,6 @@ class Users::RegistrationsController < ActionController::Base
 
   layout 'doorkeeper'
 
-  def new
-    @user = User.new
-    render('devise/registrations/new')
-  end
-
-  def create
-    @user = User.find_by(email: sign_up_params[:email])
-    if @user && !@user.confirmed_at
-      @user.resend_confirmation!(:confirmation_instructions)
-      flash[:notice] = I18n.t('devise.registrations.already_signed_up_unconfirmed')
-
-      redirect_to(:new_user_session)
-      return
-    elsif @user&.confirmed_at
-      @user.send_reset_password_instructions
-      flash[:notice] = I18n.t('devise.passwords.send_instructions')
-
-      redirect_to(:new_user_session)
-      return
-    end
-
-    @user = User.new(sign_up_params)
-    @user.credentials = Member.find_by(email: sign_up_params[:email])
-
-    flash[:alert] = nil
-
-    if @user.credentials.nil?
-      flash[:alert] = I18n.t(:not_found_in_database, scope: 'devise.registrations')
-      render('devise/registrations/new')
-      return
-    end
-
-    if @user.save
-      flash[:notice] = I18n.t(:signed_up_but_unconfirmed, scope: 'devise.registrations')
-      redirect_to(:new_user_session)
-    else
-      render('devise/registrations/new')
-    end
-  end
-
   # show page for first confirmation setting a new password for new enrollments
   def edit
     @user = User.find_by(confirmation_token: params[:confirmation_token])
