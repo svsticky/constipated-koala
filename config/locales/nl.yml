@@ -53,6 +53,7 @@ nl:
         notes_public: Publiek
         organized_by: Organisator
         participant_limit: Deelnemerslimiet
+        payment_deadline: Betalingsdeadline
         price: Prijs
         show_on_website: Toon op website
         show_participants: Deelnemers zichtbaar

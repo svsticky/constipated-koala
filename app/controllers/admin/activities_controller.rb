@@ -99,6 +99,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :open_date,
                                      :open_time,
                                      :unenroll_date,
+                                     :payment_deadline,
                                      :comments,
                                      :price,
                                      :location,

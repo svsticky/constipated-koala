@@ -53,6 +53,7 @@ en:
         notes_public: Public
         organized_by: Organisator
         participant_limit: Participant limit
+        payment_deadline: Payment deadline
         price: Price
         show_on_website: On website
         show_participants: Show participants

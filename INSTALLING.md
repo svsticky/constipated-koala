@@ -141,7 +141,7 @@ only accessible from the computer where you're running the server.
 In order to have the server actually work, you'll need to run this command once:
 
 ```console
-echo "127.0.0.1    koala.rails.local members.rails.local leden.rails.local intro.rails.local" | sudo tee -a /etc/hosts
+echo "127.0.0.1    koala.rails.local members.rails.local leden.rails.local wordlid.rails.local signup.rails.local join.rails.local" | sudo tee -a /etc/hosts
 ```
 
 After this, when the server is running, you can open

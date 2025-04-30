@@ -25,6 +25,10 @@ node :unenroll_date do |activity|
   activity.unenroll_date&.iso8601
 end
 
+node :payment_deadline do |activity|
+  activity.payment_deadline&.iso8601
+end
+
 node :attendees do |activity|
   activity.participant_filter(activity.ordered_attendees)
 end
