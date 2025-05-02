@@ -21,7 +21,7 @@ To get started, you will need:
 - Docker and docker-compose
 
 ```shell
-sudo apt install git docker.io docker-compose
+sudo apt install git docker.io
 ```
 
 NOTE: You need to log out and log in again to apply this!
@@ -51,7 +51,7 @@ To actually run Koala, we need to set up the database. Let's first start the
 database and Koala:
 
 ``` shell
-docker-compose up --build
+docker compose up --build
 ```
 
 Docker wil now download and set up PostgreSQL, Redis and Koala itself. This can
@@ -60,7 +60,7 @@ take a little while.
 Once this is done, you can set up the database with this command:
 
 ```console
-docker-compose exec koala-development rails db:setup
+docker compose exec -it koala-development rails db:setup
 ```
 
 This creates the database for you and fills it with fake test data.
