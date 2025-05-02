@@ -11,7 +11,6 @@ services:
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     volumes:
       - 'redis_data:/bitnami/redis/data'
-    network_mode: "host"
 
   postgres-db:
     image: postgres:13
@@ -19,7 +18,6 @@ services:
     environment:
       POSTGRES_USER: koala
       POSTGRES_PASSWORD: "koala123"
-    network_mode: "host"
 
   koala-development:
     build: .
@@ -43,7 +41,8 @@ services:
       - ./vendor:/app/vendor:ro
       - ./.env:/app/.env:ro
 
-    network_mode: "host"
+    ports:
+      - "3000:3000"
 
 volumes:
   redis_data:

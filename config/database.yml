@@ -15,7 +15,7 @@ development:
 test:
   adapter: postgresql
   database: koala-test
-  host: localhost
+  host: <%= ENV['DATABASE_HOST'] %>
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   port: <%= ENV['DATABASE_PORT'] %>
