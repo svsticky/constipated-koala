@@ -232,6 +232,14 @@ div.container.col-md-9 {
   width: auto;
 }
 
+.topbar-options {
+  margin-left: 10px;
+}
+
+.topbar-options > div {
+  margin: 0 10px 10px 0;
+}
+
 /* xs: 1 */
 @media(max-width: 900px) {
 	#activity-container .flexwrap {

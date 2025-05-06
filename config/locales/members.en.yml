@@ -27,6 +27,8 @@ en:
         activities_calendar: Activities calendar
         copy_ICS: Copy Webcal link
         no_activities: There are no activities for which you can enroll at the moment
+        show_all: Show all
+        show_registered: Show only registered
       info:
         more_info: More info
         notes_mandatory: Extra info required!
