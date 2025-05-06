@@ -101,7 +101,20 @@ class Member < ApplicationRecord
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
-    write_attribute(:first_name, first_name.downcase.titleize)
+    splits=first_name.split(/[ -]/)
+
+    result = ""
+    index = 0
+    for split in splits do
+      result += split.downcase.titleize
+
+      index += split.length+1
+      if index < first_name.length-1
+        result += first_name[index-1]
+      end
+    end
+
+    write_attribute(:first_name, result)
   end
 
   def infix=(infix)
@@ -110,7 +123,20 @@ class Member < ApplicationRecord
   end
 
   def last_name=(last_name)
-    write_attribute(:last_name, last_name.downcase.titleize)
+    splits=last_name.split(/[ -]/)
+
+    result = ""
+    index = 0
+    for split in splits do
+      result += split.downcase.titleize
+
+      index += split.length+1
+      if index < last_name.length-1
+        result += last_name[index-1]
+      end
+    end
+
+    write_attribute(:last_name, result)
   end
 
   # lowercase on email
