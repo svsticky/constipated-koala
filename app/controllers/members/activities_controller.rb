@@ -21,6 +21,9 @@ class Members::ActivitiesController < ApplicationController
                          Date.today, Date.today)
                   .where(is_viewable: true)
                   .order(:start_date, :start_time)
+
+    @activities = @activities.joins(:members).where(members: { id: @member.id }) if params["show"] == "registered"
+
     @activities = @activities.reject(&:ended?)
   end
 

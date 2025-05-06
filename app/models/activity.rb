@@ -1,6 +1,8 @@
 # Represents an activity in the database.
 #:nodoc:
 class Activity < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
+
   validates :name, presence: true
   validates :name, length: { maximum: 52 }
 
@@ -392,7 +394,7 @@ class Activity < ApplicationRecord
     pc = if price <= 0
            I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
          else
-           "€#{ price }"
+           number_to_currency(price, unit: "€")
          end
 
     return I18n.t('admin.activities.wa_msg',
