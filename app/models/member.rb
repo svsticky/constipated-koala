@@ -101,19 +101,7 @@ class Member < ApplicationRecord
 
   # An attribute can be changed on setting, for example the names are starting with a cap
   def first_name=(first_name)
-    splits = first_name.split(/[ -]/)
-
-    result = ""
-    index = 0
-    splits.each do |split|
-      result += split.downcase.titleize
-
-      index += split.length + 1
-
-      result += first_name[index - 1] if index < first_name.length - 1
-    end
-
-    write_attribute(:first_name, result)
+    write_attribute(:first_name, format_name(first_name))
   end
 
   def infix=(infix)
@@ -122,19 +110,7 @@ class Member < ApplicationRecord
   end
 
   def last_name=(last_name)
-    splits = last_name.split(/[ -]/)
-
-    result = ""
-    index = 0
-    splits.each do |split|
-      result += split.downcase.titleize
-
-      index += split.length + 1
-
-      result += last_name[index - 1] if index < last_name.length - 1
-    end
-
-    write_attribute(:last_name, result)
+    write_attribute(:last_name, format_name(last_name))
   end
 
   # lowercase on email
@@ -469,5 +445,21 @@ class Member < ApplicationRecord
 
   def fire_webhook
     WebhookJob.perform_later("member", id)
+  end
+
+  def format_name(name)
+    splits = name.split(/[ -]/)
+
+    result = ""
+    index = 0
+    splits.each do |split|
+      result += split.downcase.titleize
+
+      index += split.length + 1
+
+      result += name[index - 1] if index < name.length - 1
+    end
+
+    result
   end
 end
