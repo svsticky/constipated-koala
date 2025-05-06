@@ -394,7 +394,7 @@ class Activity < ApplicationRecord
     pc = if price <= 0
            I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
          else
-           number_to_currency(price, :unit => "€")
+           number_to_currency(price, unit: "€")
          end
 
     return I18n.t('admin.activities.wa_msg',
