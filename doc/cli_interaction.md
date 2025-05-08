@@ -15,7 +15,7 @@ properly to talk to koala and its database.
 If you love one-liners:
 
 ```bash
-$ sudo -u koala nix-shell --run 'dotenv bundle exec rake --tasks'
+$ cd /var/www/koala.svsticky.nl && sudo -u koala nix-shell --run 'dotenv bundle exec rake --tasks'
 rake about                                        # List versions of all Rails frameworks and the environment
 rake action_mailbox:ingress:exim                  # Relay an inbound email from Exim to Action Mailbox (URL and INGRESS_PASSWORD required)
 rake action_mailbox:ingress:postfix               # Relay an inbound email from Postfix to Action Mailbox (URL and INGRESS_PASSWORD required)
@@ -28,12 +28,14 @@ rake action_mailbox:install                       # Installs Action Mailbox and 
 
 Koala is complicated.
 Thus, every command must be run in a nix-shell.
-Also, you must ensure you have read permissions for all koala's files.
+Also, you must ensure you have read permissions for all koala's files, and are
+in the right place.
 Lastly, all environment variables must be loaded.
 
 Hence, you must do the following in some sorts in preperation:
 
 ```
+cd /var/www/koala.svsticky.nl/
 sudo -u koala bash
 nix-shell
 ```
@@ -100,3 +102,4 @@ no
 All rake tasks are interpreted and found from `/lib/tasks/`.
 If you need to understand the workings of a task, find the rake file in there.
 You can also of course change the rake files or create new ones.
+
