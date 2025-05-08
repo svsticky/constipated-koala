@@ -234,6 +234,8 @@ div.container.col-md-9 {
 
 .topbar-options {
   margin-left: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .topbar-options > div {
