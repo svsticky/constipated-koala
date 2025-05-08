@@ -41,7 +41,8 @@ nix-shell
 ```
 
 Now that your environment is prepared, you can do all sorts of commands.
-However, if you need to make use of environment variables (when in doubt: yes), prefix all commands with `dotenv`:
+However, if you need to make use of environment variables (when in doubt: yes),
+prefix all commands with `dotenv`:
 
 ```
 dotenv rake --tasks
@@ -96,6 +97,18 @@ This shows all possible rake tasks. Let's drop the database (don't)!
 $ dotenv bundle exec rake db:drop
 no
 ```
+
+#### Tasks with arguments
+
+Some tasks require arguments. Do _not_ give them with '"' characters. Do it like so:
+
+```
+$ dotenv bundle exec rake 'admin:create[kippie@dehaan.nl, someDutchPassword]'
+Created kippie@dehaan.nl!
+```
+
+Note how the rake task is surrounded with '', which is not always needed I
+believe, but better safe than sorry.
 
 ### Configuration
 
