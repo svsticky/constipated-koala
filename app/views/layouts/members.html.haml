@@ -35,7 +35,7 @@
 
           .top-nav
             .email.d-none.d-md-block
-              %span= current_user.email
+              %span= current_user.credentials.name
 
             .d-none.d-md-block
               = link_to destroy_user_session_path, 'data-method' => :delete do
