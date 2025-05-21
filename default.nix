@@ -3,10 +3,10 @@
 let
   pkgs = sources.nixpkgs {};
   gitignore = sources.gitignore{ lib = pkgs.lib; };
-  node = import ./nix/node.nix { inherit pkgs; };
+  # node = import ./nix/node.nix { inherit pkgs; };
   gems = pkgs.bundlerEnv {
     name = "koala";
-    ruby = pkgs.ruby_3_0;
+    ruby = pkgs.ruby_3_1;
     gemdir = ./.;
     gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
@@ -16,16 +16,17 @@ let
       };
     };
   };
-  node-path = "${(node.shell.override{src = node-jail;}).nodeDependencies}/lib/node_modules";
-  node-jail = import ./nix/node-jail.nix {};
+  node-path = "./node_modules";
+  # node-path = "${(node.shell.override{src = node-jail;}).nodeDependencies}/lib/node_modules";
+  # node-jail = import ./nix/node-jail.nix {};
 in
   pkgs.stdenv.mkDerivation {
     name = "koala";
     propagatedBuildInputs = with pkgs; [
       shared-mime-info
       gems
-      nodejs
-      ruby_3_0
+      nodejs_22
+      ruby_3_1
       curl
       imagemagick
       ghostscript
@@ -36,7 +37,7 @@ in
       postgresql_13
       jq
       bundix
-      nodePackages.node2nix
+      # nodePackages.node2nix
       which
     ];
 
@@ -48,7 +49,6 @@ in
     '';
 
     buildPhase = ''
-      ln -s -f ${node-path} node_modules
       rm bin/rails
       cp $rails_wrapper bin/rails
       bundle exec "bin/rails assets:precompile"
@@ -71,15 +71,18 @@ in
       filter = gitignore.gitignoreFilter ./.;
     };
 
-    NODE_PATH = node-path;
+    # NODE_PATH = node-path;
 
+    # shellHook = ''
+    #   if [[ ( ! -e node_modules ) || ( -h node_modules ) ]]; then
+    #     rm node_modules
+    #     ln -sf ${node-path} node_modules
+    #   else
+    #     echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
+    #   fi
+    # '';
     shellHook = ''
-      if [[ ( ! -e node_modules ) || ( -h node_modules ) ]]; then
-        rm node_modules
-        ln -sf ${node-path} node_modules
-      else
-        echo "Existing node_modules directory detected, please remove this and restart your nix-shell"
-      fi
+      yarn
     '';
 
     LC_ALL = "C.UTF-8";
