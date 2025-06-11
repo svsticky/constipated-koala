@@ -176,7 +176,7 @@ class Members::ParticipantsController < ApplicationController
   end
 
   def participant_alcohol_check?
-    @activity.is_alcoholic? && @member.underage?
+    @activity.is_alcoholic? && @member.underage_at?(@activity.start)
   end
 
   # [PATCH] /activities/:id/participants
