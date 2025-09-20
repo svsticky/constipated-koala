@@ -10,6 +10,10 @@ nl:
     confirm: Weet je zeker dat je deze mail wilt versturen?
     devise:
       activation_instructions:
+        buddy_system:
+          name: "Buddy systeem"
+          description: "Wil jij graag naar de aankomende activiteiten of borrel, maar twijfel je omdat je nog niet zoveel mensen kent?\nSchrijf je dan in voor het buddysysteem! We doen ons best om je te koppelen aan iemand die al wat langer actief is binnen Sticky. Zo leer je snel de ins en outs van de vereniging kennen.\nJe kunt samen met je buddy naar een activiteit of borrel gaan, zodat je in elk geval een bekend gezicht ziet. Ook kun je bij je buddy terecht met al je vragen over Sticky, de universiteit of het leven in Utrecht.\nLijkt dit je wat? Schrijf je dan in via de volgende knop!"
+          buddy_description_link_name: "Meld je aan"
         about_sticky: 'Bij Sticky kun je terecht voor alles wat jij als student Informatica, Informatiekunde of Gametechnologie nodig hebt! Zoals je wellicht al vernomen hebt, kun je altijd een gratis kop koffie en een koekje scoren in onze kamer (BBG 2.81), of een ander(e) drankje/snack. In de kamer is ook altijd iemand van het bestuur aanwezig om al jouw vragen te beantwoorden. Naast deze plek om te chillen tijdens pauzes of tussen de colleges door, organiseren we ook nog eens enorm veel woestgave activiteiten! Deze activiteiten zijn altijd in lijn met één van de drie pijlers van Sticky: onderwijs, bedrijfsleven en gezelligheid.'
         account_activation_instructions: 'Activeer je account door op onderstaande knop te klikken:'
         account_activation_link: Activeer je account voor ons ledenbeheersysteem door naar %{url} te gaan.
