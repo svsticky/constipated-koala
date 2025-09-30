@@ -10,7 +10,7 @@
       = I18n.t 'members.activities.index.show_registered'
 
   -# Webcal links
-  - if @activities.any?
+  - if @activities_exist
     .btn-group{role: "group", 'aria-label': "..."}
       = link_to 'https://calendar.google.com/calendar/embed?src=stickyutrecht.nl_thvhicj5ijouaacp1elsv1hceo%40group.calendar.google.com&ctz=Europe%2FAmsterdam', class: 'btn btn-info', target: '_blank' do
         = I18n.t 'members.activities.index.activities_calendar'
