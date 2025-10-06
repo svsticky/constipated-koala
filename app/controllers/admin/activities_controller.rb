@@ -11,20 +11,32 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.new
   end
 
-  def weekoverzicht(locale)
-    @weekoverzicht = (["**#{ t('admin.activities.weekoverzicht', locale: locale) }**"] + (0..4).map do |n|
-      week_day = Date.current.beginning_of_week + n.days
-      acs = Activity.where(start_date: week_day).all
-      next if acs.empty?
+  def week_start
+    d = Date.current.beginning_of_week
+    d += 1.week if Date.current.beginning_of_week + 2.days <= Date.current
+    d
+  end
+  helper_method :week_start
 
-      res = "**#{ l(acs[0].start_date, format: '%A', locale: locale).capitalize }**\n"
-      res + acs.map do |ac|
-        ac_string = "\n"
-        ac_string += locale == :nl ? ac.description_nl : ac.description_en
-        ac_string += "\n\nhttps://koala.svsticky.nl/activities/#{ ac.id }\n"
-        ac_string
-      end.join("\n&\n")
-    end).join("\n")
+  def weekoverzicht(locale)
+    res = "**#{ t('admin.activities.weekoverzicht', locale: locale) }**\n\n"
+    res += (0..4).map do |n|
+      week_day = week_start + n.days
+      acs = Activity.where(start_date: week_day).all
+      header = "**#{ l(week_day, format: '%A', locale: locale).capitalize }**\n"
+      if acs.empty?
+        "#{ header }\n#{ t('admin.activities.no_activity', locale: locale) }\n"
+      else
+        header + acs.map do |ac|
+          %(
+#{ locale == :nl ? ac.description_nl : ac.description_en }
+
+https://koala.svsticky.nl/activities/#{ ac.id }
+          )
+        end.join("\n&\n")
+      end
+    end.join("\n")
+    res
   end
   helper_method :weekoverzicht
 
