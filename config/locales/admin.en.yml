@@ -2,6 +2,7 @@
 en:
   admin:
     activities:
+      weekoverzicht: Week overview
       added_reservist: has been placed on the participants list
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
