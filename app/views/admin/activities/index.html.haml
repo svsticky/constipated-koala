@@ -51,4 +51,9 @@
                       %span.badge.badge-primary.size-small= I18n.t('admin.activities.free')
                     - else
                       %span.badge.badge-warning.size-small= I18n.t('admin.activities.is_not_payable')
-
+        .card
+          .card-header.year
+            %i.fab.fa-whatsapp
+            Weekoverzicht
+          %textarea.form-control{rows: 6}= weekoverzicht :nl
+          %textarea.form-control{rows: 6}= weekoverzicht :en

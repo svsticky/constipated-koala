@@ -27,6 +27,7 @@ nl:
         %{url}
 
         %{description}
+      weekoverzicht: Weekoverzicht
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?

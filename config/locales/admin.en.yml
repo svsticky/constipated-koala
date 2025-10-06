@@ -27,6 +27,7 @@ en:
         %{url}
 
         %{description}
+      weekoverzicht: Week overview
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?
