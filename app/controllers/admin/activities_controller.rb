@@ -8,6 +8,21 @@ class Admin::ActivitiesController < ApplicationController
       ["#{ year }-#{ year + 1 }", year]
     end.reverse
 
+    @weekoverzicht = (["**Weekoverzicht**"] + (0..4).map do |n|
+      week_day = Date.current.beginning_of_week + n.days
+      acs = Activity.where(start_date: week_day).all
+      if !acs.empty?
+        res = "**" + l(acs[0].start_date, format: "%A").capitalize + "**\n"
+        res += acs.map do |ac|
+          ac_string = "\n"
+          ac_string += ac.description_en + "\n\n"
+          ac_string += "https://koala.svsticky.nl/activities/" + ac.id.to_s + "\n"
+          ac_string
+        end.join("\n&\n")
+        res += "\n"
+      end
+    end).join "\n"
+
     @activity = Activity.new
   end
 
