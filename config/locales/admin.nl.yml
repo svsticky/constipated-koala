@@ -2,7 +2,6 @@
 nl:
   admin:
     activities:
-      weekoverzicht: Weekoverzicht
       added_reservist: is op de deelnemerslijst geplaatst
       copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
@@ -28,6 +27,7 @@ nl:
         %{url}
 
         %{description}
+      weekoverzicht: Weekoverzicht
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?

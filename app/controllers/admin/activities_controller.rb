@@ -12,20 +12,19 @@ class Admin::ActivitiesController < ApplicationController
   end
 
   def weekoverzicht(locale)
-    @weekoverzicht = (["**" + t("admin.activities.weekoverzicht", locale: locale) + "**"] + (0..4).map do |n|
+    @weekoverzicht = (["**#{ t('admin.activities.weekoverzicht', locale: locale) }**"] + (0..4).map do |n|
       week_day = Date.current.beginning_of_week + n.days
       acs = Activity.where(start_date: week_day).all
-      if !acs.empty?
-        res = "**" + l(acs[0].start_date, format: "%A", locale: locale).capitalize + "**\n"
-        res += acs.map do |ac|
-          ac_string = "\n"
-          ac_string += locale == :nl ? ac.description_nl : ac.description_en
-          ac_string += "\n\nhttps://koala.svsticky.nl/activities/" + ac.id.to_s + "\n"
-          ac_string
-        end.join("\n&\n")
-        res += "\n"
-      end
-    end).join "\n"
+      next if acs.empty?
+
+      res = "**#{ l(acs[0].start_date, format: '%A', locale: locale).capitalize }**\n"
+      res + acs.map do |ac|
+        ac_string = "\n"
+        ac_string += locale == :nl ? ac.description_nl : ac.description_en
+        ac_string += "\n\nhttps://koala.svsticky.nl/activities/#{ ac.id }\n"
+        ac_string
+      end.join("\n&\n")
+    end).join("\n")
   end
   helper_method :weekoverzicht
 

@@ -2,7 +2,6 @@
 en:
   admin:
     activities:
-      weekoverzicht: Week overview
       added_reservist: has been placed on the participants list
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
@@ -28,6 +27,7 @@ en:
         %{url}
 
         %{description}
+      weekoverzicht: Week overview
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?
