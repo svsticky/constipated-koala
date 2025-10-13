@@ -27,6 +27,8 @@ nl:
         activities_calendar: Activiteitenkalender
         copy_ICS: Kopieer Webcal link
         no_activities: Er zijn op het moment geen activiteiten waar je je voor kunt inschrijven
+        show_all: Laat alles zien
+        show_registered: Alleen ingeschreven
       info:
         more_info: Meer info
         notes_mandatory: Extra info vereist!
@@ -84,6 +86,7 @@ nl:
         upgrade: Opwaarderen
     navigation:
       books: Boeken
+      committeeclash: Commissiestrijd
       declarations: DigiDecs
       discord: Discord server
       edit_profile: Gegevens bewerken
@@ -93,6 +96,7 @@ nl:
       payments: Betalingen
       pictures: Foto's
       vacancies: Vacatures
+      voeljeveilig: VoelJeVeilig
       wiki: Stickypedia
     payments:
       mongoose:

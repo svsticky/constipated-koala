@@ -12,6 +12,46 @@ import { setup_intl_tel_input } from "../intl_tel_number";
 $(document).on("ready page:load turbolinks:load", function () {
   setup_intl_tel_input();
 
+  $(window).on("keydown", (evt) => {
+    // <input>, <textarea>, or the mailer input field
+    if (
+      $("input").is(":focus") ||
+      $("textarea").is(":focus") ||
+      document.getElementById("editor")?.contains(document.activeElement)
+    ) {
+      // Cancel if any inputs are selected
+      return;
+    }
+
+    // Edit member
+    if (evt.key === "e") {
+      document.getElementById("member-btn-edit")?.click();
+    }
+
+    // Cancel editing
+    if (evt.key === "Escape" || (evt.key === "Delete" && evt.ctrlKey)) {
+      document.getElementById("admin-member-edit-btn-cancel")?.click();
+      return;
+    }
+
+    // Save editing
+    if (evt.key === "Enter" && evt.ctrlKey) {
+      document.getElementById("admin-member-edit-btn-save")?.click();
+    }
+
+    // Set status of first study to 'Afgestudeerd'
+    if (evt.key === "a" && !evt.ctrlKey) {
+      $($(".educ-status select")[0]).val("inactive").change();
+    }
+
+    // Set status of second study to 'Afgestudeerd'
+    if (evt.key === "a" && evt.ctrlKey) {
+      evt.preventDefault();
+
+      $($(".educ-status select")[1]).val("inactive").change();
+    }
+  });
+
   $(".education label a.close").bind("click", function () {
     var row = $(".education .copyable:last")
       .clone()

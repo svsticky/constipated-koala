@@ -493,7 +493,7 @@ function addColumnClassToColumns() {
 }
 
 function addCollapseCallbackToTableHeader() {
-  $("#participants-table > thead > tr")
+  $("#participants-taunenrollble > thead > tr")
     .find("td")
     .each(function (_) {
       $(this).append("✂️");

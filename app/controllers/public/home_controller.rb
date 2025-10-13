@@ -20,11 +20,9 @@ class Public::HomeController < PublicController
     activities = Activity.find(public_post_params[:participant_attributes].to_h.select { |_, participant| participant['participate'].nil? || participant['participate'].to_b == true }.map { |_, participant| participant['id'].to_i })
     total = 0
 
-    flash[:error] = I18n.t(:no_bank_provided, scope: 'activerecord.errors.subscribe') if non_master_omits_bank
     @member.valid? unless flash[:error].nil?
 
     if flash[:error].nil? && @member.save
-
       # create account and send welcome email
       user = User.create_on_member_enrollment!(@member)
       user.resend_confirmation!(:activation_instructions)
@@ -52,14 +50,11 @@ class Public::HomeController < PublicController
 
       transaction = Payment.new(
         description: I18n.t("form.introduction", user: @member.name),
-        amount: total,
-        issuer: params[:bank],
+        amount: total - Settings.mongoose_ideal_costs, # Transaction costs are paid by the association
         member: @member,
-
         transaction_id: activities.map(&:id),
         transaction_type: :activity,
         payment_type: :ideal,
-
         redirect_uri: public_url
       )
 
@@ -121,12 +116,7 @@ class Public::HomeController < PublicController
                                    :student_id,
                                    :birth_date,
                                    :join_date,
-                                   :bank,
                                    participant_attributes: [:id, :participate],
                                    educations_attributes: [:id, :study_id, :_destroy])
-  end
-
-  def non_master_omits_bank
-    params[:bank].blank? && @member.educations.none? { |education| Study.find(education.study_id).masters }
   end
 end

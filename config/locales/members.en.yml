@@ -27,6 +27,8 @@ en:
         activities_calendar: Activities calendar
         copy_ICS: Copy Webcal link
         no_activities: There are no activities for which you can enroll at the moment
+        show_all: Show all
+        show_registered: Show only registered
       info:
         more_info: More info
         notes_mandatory: Extra info required!
@@ -84,6 +86,7 @@ en:
         upgrade: Top up
     navigation:
       books: Books
+      committeeclash: Committeeclash
       declarations: DigiDecs
       discord: Discord server
       edit_profile: Edit profile
@@ -93,6 +96,7 @@ en:
       payments: Payments
       pictures: Pictures
       vacancies: Vacancies
+      voeljeveilig: Feel Safe
       wiki: Stickypedia
     payments:
       mongoose:

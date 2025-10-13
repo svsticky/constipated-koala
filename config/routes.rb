@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   use_doorkeeper_openid_connect
 
-  constraints subdomain: ['intro', 'intro.dev'] do
+  constraints subdomain: ['wordlid', 'wordlid.dev', 'signup', 'signup.dev', 'join', 'join.dev'] do
     scope module: 'public' do
       get  '/', to: 'home#index', as: 'public'
       post '/', to: 'home#create'
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     authenticate :user, ->(u) { !u.admin? } do
       scope module: 'members' do
         root to: 'home#index', as: :users_root
+
+        get '/activities/69420', to: redirect('/CommITCrowd.jpg')
 
         get   'edit',                           to: 'home#edit', as: :users_edit
         post  'edit',                           to: 'home#update'

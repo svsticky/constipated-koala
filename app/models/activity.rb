@@ -1,6 +1,8 @@
 # Represents an activity in the database.
 #:nodoc:
 class Activity < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
+
   validates :name, presence: true
   validates :name, length: { maximum: 52 }
 
@@ -51,8 +53,13 @@ class Activity < ApplicationRecord
 
   scope :late_unpayable, lambda {
     # All participants who will receive payment reminders
-    where('NOT activities.is_payable AND activities.start_date <= ?', Date.today).joins(:participants)
-                                                                                 .where('participants.reservist IS FALSE
+    where(
+      'NOT activities.is_payable
+      AND activities.start_date <= ?
+      AND (activities.payment_deadline IS NULL OR activities.payment_deadline <= ?)',
+      Date.today, Date.today
+    ).joins(:participants)
+      .where('participants.reservist IS FALSE
         AND
          (
           (activities.price IS NOT NULL
@@ -113,6 +120,8 @@ class Activity < ApplicationRecord
     joins(:participants).where('
       activities.is_payable
       AND
+      (activities.payment_deadline IS NULL OR activities.payment_deadline <= ?)
+      AND
       participants.reservist IS FALSE
       AND
        (
@@ -132,7 +141,7 @@ class Activity < ApplicationRecord
          AND
          participants.price IS NOT NULL
         )
-      )').distinct
+      )', Date.today).distinct
   end
 
   def payment_mail_recipients
@@ -385,7 +394,7 @@ class Activity < ApplicationRecord
     pc = if price <= 0
            I18n.t('activerecord.missing_value_placeholders.activity.free', locale: loc)
          else
-           "€#{ price }"
+           number_to_currency(price, unit: "€")
          end
 
     return I18n.t('admin.activities.wa_msg',

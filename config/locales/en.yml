@@ -53,6 +53,7 @@ en:
         notes_public: Public
         organized_by: Organisator
         participant_limit: Participant limit
+        payment_deadline: Payment deadline
         price: Price
         show_on_website: On website
         show_participants: Show participants
@@ -219,6 +220,7 @@ en:
           atec: MSc Technical Artificial Intelligence
           ckem: MSc Content & Knowledge Engineering
           cosc: MSc Computing Science
+          ds: MSc Data Science
           gmte: MSc Game and Media Technology
           gt: BSc Gametechnology
           hci: MSc Human Computer Interaction
@@ -382,6 +384,7 @@ en:
     labels:
       activities:
         date: Date
+        opens_from: Enrollable from
         time: Time
         when: When
     messages:

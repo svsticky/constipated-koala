@@ -15,6 +15,25 @@ $(document).on("ready page:load turbolinks:load", function () {
     return confirm(I18n.t("admin.general.confirmation"));
   });
 
+  $(window).on("keydown", (evt) => {
+    // <input>, <textarea>, or the mailer input field
+    if (
+      $("input").is(":focus") ||
+      $("textarea").is(":focus") ||
+      document.getElementById("editor")?.contains(document.activeElement)
+    ) {
+      // Cancel if any inputs are selected
+      return;
+    }
+
+    // Select the search bar on '/'
+    if (evt.key === "s" || evt.key === "/") {
+      evt.preventDefault();
+
+      $("#search")?.focus();
+    }
+  });
+
   $(".page.search .input-group ul.dropdown-menu")
     .find("li")
     .on("mouseenter", function () {

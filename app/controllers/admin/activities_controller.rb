@@ -11,6 +11,35 @@ class Admin::ActivitiesController < ApplicationController
     @activity = Activity.new
   end
 
+  def week_start
+    d = Date.current.beginning_of_week
+    d += 1.week if Date.current.beginning_of_week + 2.days <= Date.current
+    d
+  end
+  helper_method :week_start
+
+  def weekoverzicht(locale)
+    res = "**#{ t('admin.activities.weekoverzicht', locale: locale) }**\n\n"
+    res += (0..4).map do |n|
+      week_day = week_start + n.days
+      acs = Activity.where(start_date: week_day).all
+      header = "**#{ l(week_day, format: '%A', locale: locale).capitalize }**\n"
+      if acs.empty?
+        "#{ header }\n#{ t('admin.activities.no_activity', locale: locale) }\n"
+      else
+        header + acs.map do |ac|
+          %(
+#{ locale == :nl ? ac.description_nl : ac.description_en }
+
+https://koala.svsticky.nl/activities/#{ ac.id }
+          )
+        end.join("\n&\n")
+      end
+    end.join("\n")
+    res
+  end
+  helper_method :weekoverzicht
+
   def show
     @is_summarized = params['summary_only'] || params['summary_csv']
     @is_summarized_as_csv = params['summary_csv']
@@ -99,6 +128,7 @@ class Admin::ActivitiesController < ApplicationController
                                      :open_date,
                                      :open_time,
                                      :unenroll_date,
+                                     :payment_deadline,
                                      :comments,
                                      :price,
                                      :location,

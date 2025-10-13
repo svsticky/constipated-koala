@@ -53,6 +53,7 @@ nl:
         notes_public: Publiek
         organized_by: Organisator
         participant_limit: Deelnemerslimiet
+        payment_deadline: Betalingsdeadline
         price: Prijs
         show_on_website: Toon op website
         show_participants: Deelnemers zichtbaar
@@ -219,6 +220,7 @@ nl:
           atec: MSc Technical Artificial Intelligence
           ckem: MSc Content & Knowledge Engineering
           cosc: MSc Computing Science
+          ds: MSc Data Science
           gmte: MSc Game and Media Technology
           gt: BSc Gametechnologie
           hci: MSc Human Computer Interaction
@@ -382,6 +384,7 @@ nl:
     labels:
       activities:
         date: Datum
+        opens_from: Inschrijfbaar vanaf
         time: Tijd
         when: Wanneer
     messages:

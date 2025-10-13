@@ -35,7 +35,7 @@
 
           .top-nav
             .email.d-none.d-md-block
-              %span= current_user.email
+              %span= current_user.credentials.name
 
             .d-none.d-md-block
               = link_to destroy_user_session_path, 'data-method' => :delete do
@@ -84,12 +84,18 @@
               = link_to "https://github.com/svsticky/", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t('members.navigation.github')
                 %i.fab.fa-github
-              = link_to "https://svsticky.nl/discord/", :class => 'list-group-item list-group-item-action' do
+              = link_to "https://svsticky.nl/discord", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t('members.navigation.discord')
                 %i.fab.fa-discord
               = link_to "https://wiki.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t('members.navigation.wiki')
                 %i.fa.fa-info-circle
+              = link_to "https://voeljeveilig.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
+                %span= I18n.t('members.navigation.voeljeveilig')
+                %i.fa.fa-shield-alt
+              = link_to "https://committeeclash.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
+                %span= I18n.t('members.navigation.committeeclash')
+                %i.fa.fa-trophy
             -# Signout button for mobile
             = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-md-none' do
               %span= I18n.t('devise.sessions.new.sign_out')

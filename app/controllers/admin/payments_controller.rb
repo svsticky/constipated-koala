@@ -124,6 +124,7 @@ class Admin::PaymentsController < ApplicationController
                                                                 end_date, '%Y-%m-%d'
                                                               ) }"
                                           end }"
+
     relation_code = Settings.ideal_relation_code
     csv << ["Factuurdatum", Date.today, description, Settings.payment_condition_code.to_s,
             relation_code]
@@ -134,12 +135,11 @@ class Admin::PaymentsController < ApplicationController
         # now create every transaction row with the following date: Blank, ledger account,
         # transaction description, VAT number, amount, cost_location ()
         a = Activity.find_by(id: activity_id)
-        csv << if a && a.name == "Lidmaatschap"
-                 # Dislike this way of doing it but need better ways to find membership activities
-                 # An alternative could be activity_id == Settings['intro.membership'],
-                 # this would make it only pass for last year membership activity
+        csv << if a && (a.name == "Lidmaatschap" || a.id == Settings['intro.membership'])
+                 # Check on the name to allow previous years to be exported.
+
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
-                  p.currency + payment.transaction_fee, ""]
+                  p.currency, ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
                  ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
@@ -156,8 +156,13 @@ class Admin::PaymentsController < ApplicationController
       csv << ["", Settings.mongoose_ledger_number, "Mongoose - #{ payment.member_id }", "9",
               payment.amount - Settings.mongoose_ideal_costs, ""]
     end
+    # minus lidmaatschap payments
+    activity_amount = payments.where(transaction_type: :activity).count - payments.where(
+      transaction_type: :activity,
+      transaction_id: Settings['intro.membership']
+    ).count
+    # TODO: should probably be backwards compatible but we don't log all membership activities
 
-    activity_amount = payments.where(transaction_type: :activity).count
     mongoose_amount = payments.where(transaction_type: :checkout).count
     trx_cost = "Transaction costs #{ Settings.mongoose_ideal_costs } x #{ activity_amount }"
     trx_cost_amount = (Settings.mongoose_ideal_costs * activity_amount).round(2)
@@ -166,6 +171,11 @@ class Admin::PaymentsController < ApplicationController
 
     csv << ["", Settings.accountancy_ledger_number, trx_cost, "21",
             trx_cost_amount, Settings.accountancy_cost_location]
+
+    # As of December 2023, mongoose has been decoupled from Koala
+    # Exports after that don't really have to include the mongoose costs or TRX costs
+    return unless trx_mongoose_amount != 0
+
     csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
             trx_mongoose_amount, Settings.accountancy_cost_location]
   end

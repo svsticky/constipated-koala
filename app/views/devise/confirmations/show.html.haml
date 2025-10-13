@@ -18,7 +18,7 @@
           = flash[:notice]
 
     %fieldset
-      %h4= I18n.t 'devise.confirmations.new.instruction'
+      %h4.dark:text-white= I18n.t 'devise.confirmations.new.instruction'
 
       .form-group
         .input-group
@@ -39,7 +39,7 @@
         = f.submit t('devise.confirmations.new.submit'), :class => 'btn btn-primary btn-block'
 
 .row
-  .text-center
+  .text-center.dark:text-white
     = link_to (I18n.t 'devise.registrations.login'), new_user_session_path
     |
     = link_to (I18n.t 'devise.registrations.sign_up'), new_registration_path

@@ -35,18 +35,35 @@ class Members::PaymentsController < ApplicationController
       redirect_to(member_payments_path)
       return
     end
+
     payment = Payment.new(
       description: description,
       amount: amount,
-      issuer: transaction_params[:bank],
       member: member,
       payment_type: :ideal,
       transaction_id: unpaid.pluck(:activity_id),
       transaction_type: :activity,
       redirect_uri: member_payments_path
     )
+
     if payment.save
-      redirect_to(payment.payment_uri)
+      # Check URI for safety (supresses brakeman warning)
+      url = begin
+        URI.parse(payment.payment_uri)
+      rescue StandardError
+        nil
+      end
+
+      # Check if it's a valid URI and matches your whitelist of acceptable domains (e.g., only http(s)://example.com)
+      if url.is_a?(URI::HTTP) && [
+        'www.mollie.com', # staging
+        'pay.ideal.nl' # production
+      ].include?(url.host)
+        redirect_to(url.to_s)
+      else
+        # Fallback to a safe default redirect if the URI is invalid or not in the whitelist
+        redirect_to(root_path)
+      end
     else
       flash[:notice] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to(member_payments_path)
@@ -97,15 +114,27 @@ class Members::PaymentsController < ApplicationController
       description: description,
       amount: amount,
       member: member,
-      issuer: transaction_params[:bank],
       payment_type: :ideal,
-
       transaction_id: nil,
       transaction_type: :checkout,
       redirect_uri: member_payments_path
     )
+
     if payment.save
-      redirect_to(payment.payment_uri)
+      # Check URI for safety (supresses brakeman warning)
+      url = begin
+        URI.parse(payment.payment_uri)
+      rescue StandardError
+        nil
+      end
+
+      # Check if it's a valid URI and matches your whitelist of acceptable domains (e.g., only http(s)://example.com)
+      if url.is_a?(URI::HTTP) && ['mollie.com'].include?(url.host)
+        redirect_to(url)
+      else
+        # Fallback to a safe default redirect if the URI is invalid or not in the whitelist
+        redirect_to(root_path)
+      end
     else
       flash[:warning] = I18n.t('failed', scope: 'activerecord.errors.models.payment')
       redirect_to(members_home_path)
@@ -115,6 +144,6 @@ class Members::PaymentsController < ApplicationController
   private
 
   def transaction_params
-    params.permit(:amount, :bank, :activity_ids, :payment_type)
+    params.permit(:amount, :activity_ids, :payment_type)
   end
 end

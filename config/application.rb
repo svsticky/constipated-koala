@@ -75,3 +75,8 @@ module ConstipatedKoala
     config.middleware.use(I18n::JS::Middleware)
   end
 end
+
+# Mollie configuration
+Mollie::Client.configure do |config|
+  config.api_key = ENV['MOLLIE_TOKEN']
+end

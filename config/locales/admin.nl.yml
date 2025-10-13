@@ -7,13 +7,17 @@ nl:
       ended: Afgelopen
       filters: Filters
       financial: Financieel
+      free: Gratis
       has_not_paid: heeft nog niet betaald
       has_paid: heeft betaald
       info:
         already_added: Deze persoon is al toegevoegd
         price_changed: Het deelname bedrag is veranderd
         price_error: Geen verbinding of geen nummer
+      is_not_payable: Niet betaalbaar
+      is_payable: Betaalbaar
       new: Nieuwe activiteit
+      no_activity: Geen activiteit :(
       remove_participant: Deelname van %{user} verwijderen?
       save: Activiteit opslaan?
       single: Activiteit
@@ -24,6 +28,7 @@ nl:
         %{url}
 
         %{description}
+      weekoverzicht: Weekoverzicht
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?

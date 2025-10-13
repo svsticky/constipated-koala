@@ -26,6 +26,10 @@
   font-size: 30px;
 }
 
+.size-small {
+  font-size: 10px;
+}
+
 .card .table {
   margin-bottom: 0;
 }
