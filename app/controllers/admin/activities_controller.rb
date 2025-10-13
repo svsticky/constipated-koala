@@ -19,11 +19,11 @@ class Admin::ActivitiesController < ApplicationController
   helper_method :week_start
 
   def weekoverzicht(locale)
-    res = "**#{ t('admin.activities.weekoverzicht', locale: locale) }**\n\n"
+    res = "*#{ t('admin.activities.weekoverzicht.header', locale: locale) }*\n\n"
     res += (0..4).map do |n|
       week_day = week_start + n.days
-      acs = Activity.where(start_date: week_day).all
-      header = "**#{ l(week_day, format: '%A', locale: locale).capitalize }**\n"
+      acs = Activity.where(start_date: week_day, include_in_weekoverzicht: true).all
+      header = "*#{ l(week_day, format: '%A', locale: locale).capitalize }*"
       if acs.empty?
         "#{ header }\n#{ t('admin.activities.no_activity', locale: locale) }\n"
       else
@@ -36,6 +36,13 @@ https://koala.svsticky.nl/activities/#{ ac.id }
         end.join("\n&\n")
       end
     end.join("\n")
+    header = "\n*#{ t('admin.activities.weekoverzicht.borrel', locale: locale) }*"
+    borrels = Activity.where("start_date >= ? AND start_date <= ? AND is_borrel = TRUE AND include_in_weekoverzicht = FALSE", week_start, week_start + 7.days)
+    if borrels.empty?
+      res += "#{ header }\n#{ t('admin.activities.weekoverzicht.no_borrel', locale:locale) }"
+    else
+      res += header + "\n#{ locale == :nl ? "Op" : "On" } #{ l(borrels[0].start_date, format: '%A', locale: locale) }!"
+    end
     res
   end
   helper_method :weekoverzicht
@@ -138,6 +145,8 @@ https://koala.svsticky.nl/activities/#{ ac.id }
                                      :notes_mandatory,
                                      :notes_public,
                                      :is_alcoholic,
+                                     :is_borrel,
+                                     :include_in_weekoverzicht,
                                      :is_enrollable,
                                      :is_viewable,
                                      :is_payable,

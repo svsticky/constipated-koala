@@ -6,6 +6,7 @@ en:
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
       filters: Filters
+      borrels: Drinks
       financial: Financial
       free: Free
       has_not_paid: has not yet paid
@@ -28,7 +29,10 @@ en:
         %{url}
 
         %{description}
-      weekoverzicht: Week overview
+      weekoverzicht:
+        header: Week overview
+        borrel: Weekly drinks
+        no_borrel: No drinks this week! Wanbeleid!
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?
