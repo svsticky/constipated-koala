@@ -37,8 +37,5 @@
       .form-group
         = f.submit I18n.t('devise.sessions.new.sign_in'), :class => 'btn btn-primary btn-block'
 
-.row
-  .text-center.mx-auto.dark:text-white
-    = link_to (I18n.t 'devise.registrations.password_recovery'), new_user_password_path
-    |
-    = link_to (I18n.t 'devise.registrations.sign_up'), new_registration_path
+= render 'devise/partials/form_footer'
+
