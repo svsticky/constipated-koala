@@ -16,7 +16,7 @@ namespace :admin do
 
   desc 'Set the password for the admin with the given email'
   task :set_password, [:email, :password] => :environment do |_, args|
-    admin = Admin.all().find { |a| a.user.email == args[:email] }
+    admin = Admin.all.find { |a| a.user.email == args[:email] }
     admin.user.password = args[:password]
     if admin.user.save!
       puts "Successfully changed password"
