@@ -14,6 +14,17 @@ namespace :admin do
     end
   end
 
+  desc 'Set the password for the admin with the given email'
+  task :set_password, [:email, :password] => :environment do |_, args|
+    admin = Admin.all.find { |a| a.user.email == args[:email] }
+    admin.user.password = args[:password]
+    if admin.user.save!
+      puts "Successfully changed password"
+    else
+      puts "Could not change password"
+    end
+  end
+
   desc 'Delete a normal user, that is it\'s login access'
   task :remove, [:email] => :environment do |_, args|
     user = User.find_by(email: args[:email])
