@@ -37,12 +37,11 @@ https://koala.svsticky.nl/activities/#{ ac.id }
       end
     end.join("\n")
     header = "\n*#{ t('admin.activities.weekoverzicht.borrel', locale: locale) }*"
-    borrels = Activity.where("start_date >= ? AND start_date <= ? AND is_borrel = TRUE AND include_in_weekoverzicht = FALSE", week_start, week_start + 7.days)
-    if borrels.empty?
-      res += "#{ header }\n#{ t('admin.activities.weekoverzicht.no_borrel', locale:locale) }"
-    else
-      res += header + "\n#{ locale == :nl ? "Op" : "On" } #{ l(borrels[0].start_date, format: '%A', locale: locale) }!"
-    end
+    borrels = Activity.where("start_date >= ? AND start_date <= ? \
+    AND is_borrel = TRUE AND include_in_weekoverzicht = FALSE", week_start, week_start + 7.days)
+    res += if borrels.empty? then \
+      "#{ header }\n#{ t('admin.activities.weekoverzicht.no_borrel', locale: locale) }" else \
+      header + "\n#{ locale == :nl ? 'Op' : 'On' } #{ l(borrels[0].start_date, format: '%A', locale: locale) }!"
     res
   end
   helper_method :weekoverzicht
