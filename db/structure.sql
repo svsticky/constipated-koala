@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-=======
-\restrict Z5e1NmCxecR0fcrdELI8p39K7gdLEZ5wSdIhwOs5ISrIyhQZZyzNiWSWN151go6
-
--- Dumped from database version 13.22 (Debian 13.22-1.pgdg13+1)
--- Dumped by pg_dump version 13.22 (Debian 13.22-0+deb11u1)
-
->>>>>>> 304db25a (fixed linter issues)
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
