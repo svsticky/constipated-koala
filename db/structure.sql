@@ -1660,11 +1660,6 @@ ALTER TABLE ONLY public.active_storage_variant_records
 -- PostgreSQL database dump complete
 --
 
-<<<<<<< HEAD
-=======
-\unrestrict Z5e1NmCxecR0fcrdELI8p39K7gdLEZ5wSdIhwOs5ISrIyhQZZyzNiWSWN151go6
-
->>>>>>> 304db25a (fixed linter issues)
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
@@ -1746,12 +1741,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240125003700'),
 ('20240809152416'),
 ('20250204130332'),
-<<<<<<< HEAD
-('20250204135006');
-=======
 ('20250204135006'),
 ('20251016140400'),
 ('20251017101241');
->>>>>>> 304db25a (fixed linter issues)
 
 
