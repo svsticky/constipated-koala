@@ -48,8 +48,9 @@ nl:
         member_is_spare: Is reserve
         member_payed: Heeft betaald
         name: Naam
-        notes: Extra specificatie
+        notes_en: Extra specificatie (EN)
         notes_mandatory: Verplicht
+        notes_nl: Extra specificatie (NL)
         notes_public: Publiek
         organized_by: Organisator
         participant_limit: Deelnemerslimiet

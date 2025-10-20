@@ -48,8 +48,9 @@ en:
         member_is_spare: Is spare
         member_payed: Member payed
         name: Name
-        notes: Extra notes
+        notes_en: Extra notes (EN)
         notes_mandatory: Mandatory
+        notes_nl: Extra notes (NL)
         notes_public: Public
         organized_by: Organisator
         participant_limit: Participant limit
