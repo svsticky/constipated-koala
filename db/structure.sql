@@ -148,7 +148,7 @@ CREATE TABLE public.activities (
     participant_limit integer,
     location character varying,
     unenroll_date date,
-    notes character varying,
+    notes_nl character varying,
     is_viewable boolean,
     notes_mandatory boolean,
     notes_public boolean,
@@ -164,7 +164,8 @@ CREATE TABLE public.activities (
     is_sophomores boolean,
     is_seniors boolean,
     payable_updated_at date,
-    payment_deadline date
+    payment_deadline date,
+    notes_en character varying
 );
 
 
@@ -1740,6 +1741,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240125003700'),
 ('20240809152416'),
 ('20250204130332'),
-('20250204135006');
+('20250204135006'),
+('20251016140400'),
+('20251017101241');
 
 

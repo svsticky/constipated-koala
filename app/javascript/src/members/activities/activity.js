@@ -111,10 +111,13 @@ export class Activity {
     );
   }
   has_notes() {
-    return this.notes.length !== 0;
+    return this.notes_en.length !== 0 || this.notes_nl.length !== 0;
   }
   are_notes_filled() {
-    return $.trim(this.notes.val()).length > 0;
+    return (
+      $.trim(this.notes_en.val()).length > 0 ||
+      $.trim(this.notes_nl.val()).length > 0
+    );
   }
   /**
    * Returns if this is the first activity in the view.
@@ -189,7 +192,7 @@ Object.defineProperties(Activity.prototype, {
         type: method,
         data: {
           authenticity_token: this.token,
-          par_notes: this.notes.val(),
+          par_notes: this.notes_en.val(),
         },
       })
         .done(function (response) {
@@ -373,8 +376,12 @@ Object.defineProperties(
       return this.panel.find(".activity-title").html();
     },
 
-    notes: function () {
-      return this.panel.find(".notes");
+    notes_en: function () {
+      return this.panel.find(".notes_en");
+    },
+
+    notes_nl: function () {
+      return this.panel.find(".notes_nl");
     },
 
     notes_mandatory: function () {

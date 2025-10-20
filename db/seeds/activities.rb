@@ -24,6 +24,7 @@ dates.each do |start_date|
   viewable = Faker::Boolean.boolean(true_ratio: 0.9)
   enrollable = viewable ? Faker::Boolean.boolean(true_ratio: 0.9) : false
   notes = Faker::Boolean.boolean(true_ratio: 0.2) ? Faker::Lorem.question : nil
+  englishNotes = Faker::Boolean.boolean(true_ratio: 0.5)
 
   activity = Activity.create(
     name: Faker::Hacker.ingverb.capitalize,
@@ -56,7 +57,8 @@ dates.each do |start_date|
 
     VAT: ["0", "9", "21"].sample,
 
-    notes: notes,
+    notes_en: englishNotes ? notes : nil,
+    notes_nl: !englishNotes ? notes : nil,
     notes_mandatory: !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.2) : false,
     notes_public: !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : false
   )
@@ -78,7 +80,7 @@ dates.each do |start_date|
   eligible = eligible.select(&:freshman?) if activity.is_freshmans
   eligible = eligible.select(&:master?) if activity.is_masters
 
-  response = !activity.notes.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(true_ratio: 0.3)) ? Faker::Measurement.height : nil
+  response = !activity.notes_en.nil? || !activity.notes_nl.nil? && (activity.notes_mandatory || Faker::Boolean.boolean(true_ratio: 0.3)) ? Faker::Measurement.height : nil
 
   eligible.sample(Faker::Number.within(range: 18..22)).each do |member|
     Participant.create(
