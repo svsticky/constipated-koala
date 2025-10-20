@@ -35,7 +35,8 @@ class Activity < ApplicationRecord
     end
   end
 
-  validates :notes, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
+  validates :notes_en, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
+  validates :notes_nl, presence: true, if: proc { |a| a.notes_public? || a.notes_mandatory? }
 
   is_impressionable
 

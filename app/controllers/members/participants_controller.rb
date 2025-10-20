@@ -168,7 +168,8 @@ class Members::ParticipantsController < ApplicationController
   end
 
   def participant_notes_check?
-    @activity.notes.present? && @activity.notes_mandatory && params[:par_notes].blank?
+    (@activity.notes_nl.present? || @activity.notes_en.present?) \
+      && @activity.notes_mandatory && params[:par_notes].blank?
   end
 
   def participant_limit_check?
