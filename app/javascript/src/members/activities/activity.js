@@ -114,7 +114,10 @@ export class Activity {
     return this.notes_en.length !== 0 || this.notes_nl.length !== 0;
   }
   are_notes_filled() {
-    return $.trim(this.notes_en.val()).length > 0 || $.trim(this.notes_nl.val()).length > 0;
+    return (
+      $.trim(this.notes_en.val()).length > 0 ||
+      $.trim(this.notes_nl.val()).length > 0
+    );
   }
   /**
    * Returns if this is the first activity in the view.
