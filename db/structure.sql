@@ -148,7 +148,7 @@ CREATE TABLE public.activities (
     participant_limit integer,
     location character varying,
     unenroll_date date,
-    notes character varying,
+    notes_nl character varying,
     is_viewable boolean,
     notes_mandatory boolean,
     notes_public boolean,
