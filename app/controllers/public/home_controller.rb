@@ -19,10 +19,13 @@ class Public::HomeController < PublicController
 
     # Get the language from the Accept-Language header
     locale = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.start_with?('nl') ? 'nl' : 'en'
-    
+
     # Redirect to /?l=nl/... or /?l=en/...
     new_params = request.query_parameters.merge(l: locale)
-    redirect_to url_for(params: new_params.merge(only_path: true)), allow_other_host: false
+    redirect_to(
+      url_for(params: new_params.merge(only_path: true)),
+      allow_other_host: false
+    )
   end
 
   def create
