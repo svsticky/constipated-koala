@@ -13,6 +13,19 @@ class Public::HomeController < PublicController
     @participate = @activities.map(&:id)
   end
 
+  private
+
+  def redirect_to_locale
+    # Check if the URL already contains a locale
+    return if request.path.match?(/^\/\?l=(nl|en)(\/|$)/)
+
+    # Get the language from the Accept-Language header
+    locale = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.start_with?('nl') ? 'nl' : 'en'
+
+    # Redirect to /?l=nl/... or /?l=en/...
+    redirect_to("/?l=#{locale}#{request.path}", allow_other_host: false)
+  end
+
   def create
     @member = Member.new(public_post_params.except(:participant_attributes))
     @member.require_student_id = true
@@ -25,6 +38,12 @@ class Public::HomeController < PublicController
     if flash[:error].nil? && @member.save
       # create account and send welcome email
       user = User.create_on_member_enrollment!(@member)
+      if request.path.start_with?('/?l=nl')
+        user.language = 0
+      elsif request.path.start_with?('/?l=en')
+        user.language = 1
+      end
+      user.save
       user.resend_confirmation!(:activation_instructions)
 
       impressionist(@member)
