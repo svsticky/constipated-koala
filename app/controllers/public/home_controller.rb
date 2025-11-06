@@ -13,8 +13,6 @@ class Public::HomeController < PublicController
     @participate = @activities.map(&:id)
   end
 
-  private
-
   def redirect_to_locale
     # Check if the URL already contains a locale
     return if request.path.match?(/^\/\?l=(nl|en)(\/|$)/)
@@ -23,7 +21,7 @@ class Public::HomeController < PublicController
     locale = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.start_with?('nl') ? 'nl' : 'en'
 
     # Redirect to /?l=nl/... or /?l=en/...
-    redirect_to("/?l=#{locale}#{request.path}", allow_other_host: false)
+    redirect_to("/?l=#{ locale }#{ request.path }", allow_other_host: false)
   end
 
   def create
