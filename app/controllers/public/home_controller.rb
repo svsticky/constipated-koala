@@ -1,6 +1,7 @@
 #:nodoc:
 class Public::HomeController < PublicController
   layout false
+  before_action :redirect_to_locale, only: [:index]
 
   def index
     @member = Member.new
