@@ -24,7 +24,7 @@ class Public::HomeController < PublicController
     # Redirect to /?l=nl/... or /?l=en/...
     new_params = request.query_parameters.merge(l: locale)
     redirect_to(
-      url_for(params: new_params.merge(only_path: true)),
+      url_for(params: new_params),
       allow_other_host: false
     )
   end
