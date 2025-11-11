@@ -1,6 +1,7 @@
 #:nodoc:
 class Public::HomeController < PublicController
   layout false
+  before_action :redirect_to_locale, only: [:index]
 
   def index
     @member = Member.new
@@ -11,6 +12,21 @@ class Public::HomeController < PublicController
     @activities = Activity.find(Settings['intro.activities'])
 
     @participate = @activities.map(&:id)
+  end
+
+  def redirect_to_locale
+    # Check if the URL already contains a locale
+    return if params[:l].in?(%w[nl en])
+
+    # Get the language from the Accept-Language header
+    locale = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.start_with?('nl') ? 'nl' : 'en'
+
+    # Redirect to /?l=nl/... or /?l=en/...
+    new_params = request.query_parameters.merge(l: locale)
+    redirect_to(
+      url_for(params: new_params),
+      allow_other_host: false
+    )
   end
 
   def create
@@ -25,6 +41,8 @@ class Public::HomeController < PublicController
     if flash[:error].nil? && @member.save
       # create account and send welcome email
       user = User.create_on_member_enrollment!(@member)
+      user.language = { 'nl' => 0, 'en' => 1 }[params[:l]] if params[:l].present?
+      user.save
       user.resend_confirmation!(:activation_instructions)
 
       impressionist(@member)
