@@ -93,6 +93,9 @@
               = link_to "https://voeljeveilig.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
                 %span= I18n.t('members.navigation.voeljeveilig')
                 %i.fa.fa-shield-alt
+              = link_to "https://committeeclash.svsticky.nl/", :class => 'list-group-item list-group-item-action' do
+                %span= I18n.t('members.navigation.committeeclash')
+                %i.fa.fa-trophy
             -# Signout button for mobile
             = link_to destroy_user_session_path, 'data-method' => :delete, :class => 'list-group-item list-group-item-action d-md-none' do
               %span= I18n.t('devise.sessions.new.sign_out')

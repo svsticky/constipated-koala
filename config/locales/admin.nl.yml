@@ -17,6 +17,7 @@ nl:
       is_not_payable: Niet betaalbaar
       is_payable: Betaalbaar
       new: Nieuwe activiteit
+      no_activity: Geen activiteit :(
       remove_participant: Deelname van %{user} verwijderen?
       save: Activiteit opslaan?
       single: Activiteit
@@ -27,6 +28,7 @@ nl:
         %{url}
 
         %{description}
+      weekoverzicht: Weekoverzicht
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?
