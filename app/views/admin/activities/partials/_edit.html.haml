@@ -214,6 +214,10 @@
           .col-lg-6
             = f.label :VAT
             = f.text_field :VAT, default: "21", data: {original: @activity.VAT}
+        .row
+          .col-lg-6
+            = f.label :cost_unit
+            = f.text_field :cost_unit, data: {original: @activity.cost_unit}
 
       %button.btn.btn-success.wait{type: 'submit'}= I18n.t('editing.save')
       - if (@activity.id)

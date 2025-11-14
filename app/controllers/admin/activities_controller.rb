@@ -130,6 +130,7 @@ https://koala.svsticky.nl/activities/#{ ac.id }
                                      :unenroll_date,
                                      :payment_deadline,
                                      :comments,
+                                     :cost_unit,
                                      :price,
                                      :location,
                                      :poster,

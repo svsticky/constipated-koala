@@ -1,3 +1,8 @@
+\restrict zAj1LUUEeGereiXRvyc4nsedBrQvYxJaFfECXUvyKOgCaHSe3iUnPKoleL1eYL0
+
+-- Dumped from database version 13.22 (Debian 13.22-1.pgdg13+1)
+-- Dumped by pg_dump version 13.22 (Debian 13.22-0+deb11u1)
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -164,7 +169,8 @@ CREATE TABLE public.activities (
     is_sophomores boolean,
     is_seniors boolean,
     payable_updated_at date,
-    payment_deadline date
+    payment_deadline date,
+    cost_unit character varying
 );
 
 
@@ -1659,6 +1665,8 @@ ALTER TABLE ONLY public.active_storage_variant_records
 -- PostgreSQL database dump complete
 --
 
+\unrestrict zAj1LUUEeGereiXRvyc4nsedBrQvYxJaFfECXUvyKOgCaHSe3iUnPKoleL1eYL0
+
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
@@ -1740,6 +1748,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240125003700'),
 ('20240809152416'),
 ('20250204130332'),
-('20250204135006');
+('20250204135006'),
+('20251113134139');
 
 

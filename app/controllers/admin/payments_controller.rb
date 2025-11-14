@@ -146,7 +146,7 @@ class Admin::PaymentsController < ApplicationController
                   p.currency, ""]
                else
                  ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }",
-                  p.activity.VAT, p.currency, p.activity.group.cost_location]
+                  p.activity.VAT, p.currency, p.activity.group.cost_location, p.activity.cost_unit]
                end
       end
     end
