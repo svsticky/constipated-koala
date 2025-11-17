@@ -24,9 +24,11 @@ dates.each do |start_date|
   viewable = Faker::Boolean.boolean(true_ratio: 0.9)
   enrollable = viewable ? Faker::Boolean.boolean(true_ratio: 0.9) : false
   notes = Faker::Boolean.boolean(true_ratio: 0.2) ? Faker::Lorem.question : nil
+  group = Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample.id : nil
+  name = Faker::Hacker.ingverb.capitalize
 
   activity = Activity.create(
-    name: Faker::Hacker.ingverb.capitalize,
+    name: name,
     price: Faker::Commerce.price / 5,
 
     # TODO: use date as timefield as well in model, perhaps add boolean for all day
@@ -37,7 +39,7 @@ dates.each do |start_date|
     end_time: @part ? Faker::Time.between_dates(from: start_date, to: Date.today, period: :evening) : nil,
 
     location: Faker::TvShows::FamilyGuy.location,
-    organized_by: Faker::Boolean.boolean(true_ratio: 0.8) ? Group.all.sample.id : nil,
+    organized_by: group,
     description_nl: Faker::Lorem.paragraph(sentence_count: 5),
     description_en: Faker::Lorem.paragraph(sentence_count: 5),
 
@@ -58,7 +60,9 @@ dates.each do |start_date|
 
     notes: notes,
     notes_mandatory: !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.2) : false,
-    notes_public: !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : false
+    notes_public: !notes.nil? ? Faker::Boolean.boolean(true_ratio: 0.6) : false,
+
+    cost_unit: group.to_s + name[0,3]
   )
 
   puts "   [#{ activity.valid? ? ' Ok ' : 'Fail' }] #{ activity.name } (#{ start_date })#{ ', enrollable' if enrollable }"

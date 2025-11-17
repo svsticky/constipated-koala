@@ -3,10 +3,13 @@ require Rails.root.join('db', 'seeds', 'members.rb')
 # Create committees
 puts '-- Creating committees'
 8.times do
+  name = Faker::Team.unique.name
+
   group = Group.create(
-    name: Faker::Team.unique.name,
+    name: name,
     category: 2,
-    created_at: Faker::Date.between(from: 3.years.ago, to: Date.today - 1.year)
+    created_at: Faker::Date.between(from: 3.years.ago, to: Date.today - 1.year),
+    cost_location: name[0,4]
   )
 
   puts "   [#{ group.valid? ? ' Ok ' : 'Fail' }] #{ group.name } (#{ group.created_at.study_year }-#{ Date.today.study_year })"
