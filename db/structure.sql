@@ -1,8 +1,3 @@
-\restrict zAj1LUUEeGereiXRvyc4nsedBrQvYxJaFfECXUvyKOgCaHSe3iUnPKoleL1eYL0
-
--- Dumped from database version 13.22 (Debian 13.22-1.pgdg13+1)
--- Dumped by pg_dump version 13.22 (Debian 13.22-0+deb11u1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -1664,8 +1659,6 @@ ALTER TABLE ONLY public.active_storage_variant_records
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict zAj1LUUEeGereiXRvyc4nsedBrQvYxJaFfECXUvyKOgCaHSe3iUnPKoleL1eYL0
 
 SET search_path TO "$user", public;
 
