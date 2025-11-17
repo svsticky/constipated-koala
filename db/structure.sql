@@ -164,7 +164,8 @@ CREATE TABLE public.activities (
     is_sophomores boolean,
     is_seniors boolean,
     payable_updated_at date,
-    payment_deadline date
+    payment_deadline date,
+    cost_unit character varying
 );
 
 
@@ -1740,6 +1741,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240125003700'),
 ('20240809152416'),
 ('20250204130332'),
-('20250204135006');
+('20250204135006'),
+('20251113134139');
 
 
