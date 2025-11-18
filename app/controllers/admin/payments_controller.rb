@@ -142,11 +142,15 @@ class Admin::PaymentsController < ApplicationController
                   p.currency, ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
-                 ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT,
-                  p.currency, ""]
+                 if p.activity.cost_unit.blank?
+                   ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, "", ""]
+                 else
+                   ["", "1302", "#{ p.activity.name } - #{ p.member_id }", p.activity.VAT, p.currency, "",
+                    p.activity.cost_unit]
+                 end
                else
                  ["", p.activity.group.ledgernr, "#{ p.activity.name } - #{ p.member_id }",
-                  p.activity.VAT, p.currency, p.activity.group.cost_location]
+                  p.activity.VAT, p.currency, p.activity.group.cost_location, p.activity.cost_unit]
                end
       end
     end
