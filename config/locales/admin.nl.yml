@@ -3,10 +3,10 @@ nl:
   admin:
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
+      borrels: Borrels
       copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
       filters: Filters
-      borrels: Borrels
       financial: Financieel
       free: Gratis
       has_not_paid: heeft nog niet betaald
@@ -30,8 +30,8 @@ nl:
 
         %{description}
       weekoverzicht:
-        header: Weekoverzicht
         borrel: Wekelijkse borrel
+        header: Weekoverzicht
         no_borrel: Geen borrel deze week! Wanbeleid!
     cards:
       activate: Activeer

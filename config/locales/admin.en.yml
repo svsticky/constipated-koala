@@ -3,10 +3,10 @@ en:
   admin:
     activities:
       added_reservist: has been placed on the participants list
+      borrels: Drinks
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
       filters: Filters
-      borrels: Drinks
       financial: Financial
       free: Free
       has_not_paid: has not yet paid
@@ -30,8 +30,8 @@ en:
 
         %{description}
       weekoverzicht:
-        header: Week overview
         borrel: Weekly drinks
+        header: Week overview
         no_borrel: No drinks this week! Wanbeleid!
     cards:
       activate: Activate
