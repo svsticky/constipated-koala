@@ -3,6 +3,7 @@ en:
   admin:
     activities:
       added_reservist: has been placed on the participants list
+      borrels: Drinks
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
       filters: Filters
@@ -28,7 +29,10 @@ en:
         %{url}
 
         %{description}
-      weekoverzicht: Week overview
+      weekoverzicht:
+        borrel: Weekly drinks
+        header: Week overview
+        no_borrel: No drinks this week! Wanbeleid!
     cards:
       activate: Activate
       activate_confirm: Do you want to activate card %{uuid}?

@@ -36,7 +36,9 @@ nl:
         end_date: Einddatum
         end_time: Eindtijd
         google_event: Voeg toe aan je agenda
+        include_in_weekoverzicht: Neem op in weekoverzicht
         is_alcoholic: Alcohol (18+)
+        is_borrel: Wekelijkse (hype)borrel
         is_enrollable: Inschrijfbaar
         is_freshmans: Eerstejaars
         is_masters: Masters
