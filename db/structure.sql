@@ -1,5 +1,3 @@
-\restrict aQn2BlAYMdmvVx4jjmzgKjFssoDAAvXC4XnESwIQupjgrIoWQSkgXm0aroO2SDq
-
 -- Dumped from database version 13.22 (Debian 13.22-1.pgdg13+1)
 -- Dumped by pg_dump version 13.22 (Debian 13.22-0+deb11u1)
 
@@ -1665,8 +1663,6 @@ ALTER TABLE ONLY public.active_storage_variant_records
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict aQn2BlAYMdmvVx4jjmzgKjFssoDAAvXC4XnESwIQupjgrIoWQSkgXm0aroO2SDq
 
 SET search_path TO "$user", public;
 
