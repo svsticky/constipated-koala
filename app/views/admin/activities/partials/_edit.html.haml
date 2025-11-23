@@ -197,9 +197,23 @@
             = f.check_box :is_masters, checked: @activity.is_masters
             = f.label :is_masters
         .row
-          .col-md-4
+          .col-md-6
             = f.check_box :is_alcoholic, checked: @activity.is_alcoholic
             = f.label :is_alcoholic
+        .row
+          .col
+            %hr
+          .col-auto
+            = I18n.t('admin.activities.borrels')
+          .col
+            %hr
+        .row
+          .col-md-6
+            = f.check_box :is_borrel, checked: @activity.is_borrel
+            = f.label :is_borrel
+          .col-md-6
+            = f.check_box :include_in_weekoverzicht, checked: @activity.include_in_weekoverzicht
+            = f.label :include_in_weekoverzicht
         .row
           .col
             %hr
@@ -214,6 +228,10 @@
           .col-lg-6
             = f.label :VAT
             = f.text_field :VAT, default: "21", data: {original: @activity.VAT}
+        .row
+          .col-lg-6
+            = f.label :cost_unit
+            = f.text_field :cost_unit, data: {original: @activity.cost_unit}
 
       %button.btn.btn-success.wait{type: 'submit'}= I18n.t('editing.save')
       - if (@activity.id)

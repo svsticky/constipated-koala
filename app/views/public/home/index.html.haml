@@ -86,7 +86,7 @@
     #enroll.enroll.py-5
       .container
         .row
-          = form_for :member, url: public_path, method: :post, html: { class: 'col form-validation' }do |f|
+          = form_for :member, url: public_path(l: params[:l]), method: :post, html: { class: 'col form-validation' }do |f|
             - if @member.errors.any? || !flash[:error].nil?
               #signup-errors.bd-callout.bd-callout-danger.mt-0
                 %h4.alert-heading= I18n.t(:incomplete, scope: 'activerecord.errors')

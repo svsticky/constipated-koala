@@ -36,7 +36,9 @@ en:
         end_date: Enddate
         end_time: Endtime
         google_event: Add to calendar
-        is_alcoholic: Alcoholic(18+)
+        include_in_weekoverzicht: Include in weekly summary
+        is_alcoholic: Alcoholic (18+)
+        is_borrel: Weekly (hype) drinks
         is_enrollable: Enrollable
         is_freshmans: First year students
         is_masters: Masters
