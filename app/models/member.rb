@@ -246,6 +246,12 @@ class Member < ApplicationRecord
     !adult?
   end
 
+  def underage_at?(event_date)
+    return true if birth_date.blank?
+
+    return birth_date + 18.years > event_date
+  end
+
   def master?
     educations.any? do |education|
       education.status == 'active' && Study.find(education.study_id).masters

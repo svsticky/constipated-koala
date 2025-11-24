@@ -3,6 +3,7 @@ nl:
   admin:
     activities:
       added_reservist: is op de deelnemerslijst geplaatst
+      borrels: Borrels
       copy_wa_msg: Kopieer voor WhatsApp
       ended: Afgelopen
       filters: Filters
@@ -28,7 +29,10 @@ nl:
         %{url}
 
         %{description}
-      weekoverzicht: Weekoverzicht
+      weekoverzicht:
+        borrel: Wekelijkse borrel
+        header: Weekoverzicht
+        no_borrel: Geen borrel deze week! Wanbeleid!
     cards:
       activate: Activeer
       activate_confirm: Kaart %{uuid} activeren?

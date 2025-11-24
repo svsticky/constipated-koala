@@ -1,7 +1,9 @@
 -#
   @param {participant} participant  - Participant for this row of the table
 
-%tr{ :class => ('in-debt' unless participant.currency.nil? || participant.currency == 0 || participant.paid), :data => { :id => participant.id || '{0}', :'data-activities-id' => @activity.id, :email => participant.member.email || '{3}', reservist: participant.reservist.to_s || 'false' }  }
+%tr{ :class => ('in-debt' unless participant.currency.nil? || participant.currency == 0 || participant.paid),
+     :style => ('background-color: rgba(253, 213, 208, 1);' if participant.member.underage_at?(@activity.start_date)),
+     :data => { :id => participant.id || '{0}', :'data-activities-id' => @activity.id, :email => participant.member.email || '{3}', reservist: participant.reservist.to_s || 'false' }  }
   %td
     - if participant.member.name.blank?
       %a{:href => '/members/{1}'}
