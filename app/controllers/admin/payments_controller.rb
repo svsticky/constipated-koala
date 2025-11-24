@@ -139,7 +139,7 @@ class Admin::PaymentsController < ApplicationController
                  # Check on the name to allow previous years to be exported.
 
                  ["", "8000", "#{ p.activity.name } - #{ p.member_id }", '0',
-                  p.currency, ""]
+                  p.currency, "", ""]
                elsif p.activity.group.nil? ||
                      (!p.activity.group.nil? && p.activity.group.ledgernr.blank?)
                  if p.activity.cost_unit.blank?
@@ -174,13 +174,13 @@ class Admin::PaymentsController < ApplicationController
     trx_mongoose_amount = (Settings.mongoose_ideal_costs * mongoose_amount).round(2)
 
     csv << ["", Settings.accountancy_ledger_number, trx_cost, "21",
-            trx_cost_amount, Settings.accountancy_cost_location]
+            trx_cost_amount, Settings.accountancy_cost_location, ""]
 
     # As of December 2023, mongoose has been decoupled from Koala
     # Exports after that don't really have to include the mongoose costs or TRX costs
     return unless trx_mongoose_amount != 0
 
     csv << ["", Settings.accountancy_ledger_number, trx_mongoose_cost, "21",
-            trx_mongoose_amount, Settings.accountancy_cost_location]
+            trx_mongoose_amount, Settings.accountancy_cost_location, ""]
   end
 end
