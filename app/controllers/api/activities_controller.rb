@@ -21,7 +21,7 @@ class Api::ActivitiesController < ApiController
       # Allow nil to mean no limit on the end date
       @activities = @activities.where('end_date <= ?', Date.parse(params[:to])) if params[:to].present?
 
-      @activities = activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
+      @activities = @activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
 
       @activities = @activities.reject(&:ended?) if params[:from].blank?
       @activities
