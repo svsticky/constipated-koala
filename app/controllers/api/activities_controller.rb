@@ -23,7 +23,8 @@ class Api::ActivitiesController < ApiController
 
       @activities = activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
 
-      @activities = @activities.reject(&:ended?) if params[:start].blank?
+      @activities = @activities.reject(&:ended?) if params[:from].blank?
+      @activities
     end
   end
 
