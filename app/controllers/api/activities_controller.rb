@@ -12,12 +12,18 @@ class Api::ActivitiesController < ApiController
         params[:date],
         params[:date]
       ).order(:start_date).limit(params[:limit] ||= 10).offset(params[:offset] ||= 0)
-
     else
-      @activities = Activity.where('(end_date IS NULL AND start_date >= ?) OR end_date >= ?',
-                                   Date.today, Date.today).order(:start_date).where(is_viewable: true)
-      @activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
-      @activities = @activities.reject(&:ended?)
+      from = if params[:from].present? then Date.parse(params[:from]) else Date.today end
+      @activities = Activity.where('start_date >= ?', from)
+        .order(:start_date)
+        .where(is_viewable: true)
+
+      # Allow nil to mean no limit on the end date
+      @activities = @activities.where('end_date <= ?', Date.parse(params[:to])) if params[:to].present?
+
+      @activities = activities.limit!(params[:limit]).offset(params[:offset] ||= 0) if params[:limit].present?
+
+      @activities = @activities.reject(&:ended?) unless params[:start].present?
     end
   end
 
