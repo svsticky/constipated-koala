@@ -1,3 +1,5 @@
+\restrict fvaBAwvHj6nQdFyKETJT5mpeFKgYHn5knMaL0bftBBlUasftAyx9MqnveRrguWv
+
 -- Dumped from database version 13.22 (Debian 13.22-1.pgdg13+1)
 -- Dumped by pg_dump version 13.22 (Debian 13.22-0+deb11u1)
 
@@ -168,9 +170,9 @@ CREATE TABLE public.activities (
     is_seniors boolean,
     payable_updated_at date,
     payment_deadline date,
+    cost_unit character varying,
     is_borrel boolean,
-    include_in_weekoverzicht boolean DEFAULT true,
-    cost_unit character varying
+    include_in_weekoverzicht boolean DEFAULT true
 );
 
 
@@ -1665,6 +1667,8 @@ ALTER TABLE ONLY public.active_storage_variant_records
 -- PostgreSQL database dump complete
 --
 
+\unrestrict fvaBAwvHj6nQdFyKETJT5mpeFKgYHn5knMaL0bftBBlUasftAyx9MqnveRrguWv
+
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
@@ -1750,4 +1754,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20251013182502'),
 ('20251013221303'),
 ('20251113134139');
+
 

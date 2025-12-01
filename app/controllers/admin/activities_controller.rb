@@ -42,7 +42,7 @@ https://koala.svsticky.nl/activities/#{ ac.id }
     res += if borrels.empty?
              "#{ header }\n#{ t('admin.activities.weekoverzicht.no_borrel', locale: locale) }"
            else
-             header + "\n#{ locale == :nl ? 'Op' : 'On' } #{ l(borrels[0].start_date, format: '%A', locale: locale) }!"
+             header + "\n#{ borrels[0].include_in_weekoverzicht ? borrels[0].name : (t('admin.activities.weekoverzicht.borrel', locale: locale)) } #{ locale == :nl ? 'op' : 'on' } #{ l(borrels[0].start_date, format: '%A', locale: locale) } #{ locale == :nl ? 'in' : 'at' } #{ borrels[0].location }!"
            end
     res
   end
