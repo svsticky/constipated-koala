@@ -297,6 +297,6 @@
 
       %span.footer
         = I18n.t('members.home.edit.download.generated')
-        = I18n.l(Time.now)
+        = I18n.l(Time.zone.now)
         = I18n.t('members.home.edit.download.for')
         = @member.name
