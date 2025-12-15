@@ -25,4 +25,10 @@ $(document).on("ready page:load turbolinks:load", function () {
     params.year = $(this).val();
     location.search = $.param(params);
   });
+
+  document.getElementById("cookie-dismiss").addEventListener("click", e => {
+    document.cookie = "cookies_accepted=ctf_6769420";
+    const banner = e.target.parentElement;
+    banner.parentElement.removeChild(banner);
+  })
 });

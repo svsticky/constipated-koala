@@ -40,6 +40,23 @@
             .d-none.d-md-block
               = link_to destroy_user_session_path, 'data-method' => :delete do
                 %i.fa.fa-sign-out-alt
+      
+      - if cookies[:cookies_accepted].blank?
+        %section.header.bg-info.position-relative.text-light.d-flex.justify-content-between{style: 'z-index: 100; font-weight: 900; padding: .5rem 15px; height: min-content'}
+          %i.fas.fa-cookie-bite.my-auto.pr-2
+          %p.d-block.my-auto
+            - if current_user.language == 'en'
+              Koala now uses cookies for its
+              <a href="https://hacc.svsticky.nl">"recently improved functionality"</a>.
+              By continuing to use koala, you accept our <a href="/cookies.txt">cookie policy</a>.
+              For any questions about this policy, you can contact us via
+              <a href="mailto:support@svsticky.nl">support@svsticky.nl</a>.
+            - else
+              Koala gebruikt nu cookies voor haar
+              <a href="https://hacc.svsticky.nl">"recentelijk verbeterde functionaliteit"</a>.
+              Door verder gebruik te maken van koala, accepteer je onze <a href="/cookies.txt">cookieverklaring</a>.
+              Voor vragen kan je contact opnemen via <a href="mailto:support@svsticky.nl">support@svsticky.nl</a>.
+          %i.fas.fa-times.my-auto.pl-2#cookie-dismiss{style: 'cursor: pointer'}
 
       %aside#sidebar-container{role: 'navigation'}
         #sidebar-wrapper
