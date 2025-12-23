@@ -168,9 +168,9 @@ CREATE TABLE public.activities (
     is_seniors boolean,
     payable_updated_at date,
     payment_deadline date,
+    cost_unit character varying,
     is_borrel boolean,
-    include_in_weekoverzicht boolean DEFAULT true,
-    cost_unit character varying
+    include_in_weekoverzicht boolean DEFAULT true
 );
 
 
@@ -1750,4 +1750,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20251013182502'),
 ('20251013221303'),
 ('20251113134139');
-

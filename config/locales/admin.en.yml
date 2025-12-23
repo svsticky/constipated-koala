@@ -3,7 +3,6 @@ en:
   admin:
     activities:
       added_reservist: has been placed on the participants list
-      borrels: Drinks
       copy_wa_msg: Copy for WhatsApp
       ended: Ended
       filters: Filters
