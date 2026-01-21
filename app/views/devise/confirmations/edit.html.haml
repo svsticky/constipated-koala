@@ -47,8 +47,5 @@
         = f.submit t('devise.confirmations.activate_account'), :class => 'btn btn-primary btn-block'
         -# i18n todo
 
-.row
-  .text-center.dark:text-white
-    = link_to (I18n.t 'devise.registrations.password_recovery'), new_user_password_path
-    |
-    = link_to (I18n.t 'devise.registrations.login'), new_user_session_path
+= render 'devise/partials/form_footer'
+
