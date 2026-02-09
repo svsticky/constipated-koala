@@ -6,8 +6,6 @@ module Mailings
 
     def confirmation_instructions(record, token, _opts = {})
       url = confirmation_url(record, confirmation_token: token)
-      # FIXME: confirmation_url might occassionaly return an url to the activation page. We don't know why
-      url = url.sub("/activate", "/confirmation")
 
       if Rails.env.development?
         Rails.logger.debug { "Sending confirmation instructions to #{ record.credentials.name } <#{ record.unconfirmed_email }> with activation URL #{ url }" }
