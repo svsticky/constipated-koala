@@ -97,17 +97,6 @@ module Mailings
       mail(record.email, nil, "#{ I18n.t('mailings.devise.activation_instructions.welcome') } | #{ I18n.t('mailings.devise.confirmation_instructions.activate_account') }", html, text)
     end
 
-    private
-
-    def whatsapp_promo_link
-      if I18n.locale == :en
-        "https://svsticky.nl/promochannel"
-      else
-        # Fallback is NL
-        "https://svsticky.nl/promokanaal"
-      end
-    end
-
     def reset_password_instructions(record, token, _opts = {})
       Rails.logger.debug(edit_password_url(record, reset_password_token: token)) if Rails.env.development?
 
@@ -129,6 +118,17 @@ module Mailings
       PLAINTEXT
 
       return mail(record.email, nil, "#{ I18n.t('mailings.devise.reset_passwords_instructions.reset_password') } Sticky", html, text)
+    end
+
+    private
+
+    def whatsapp_promo_link
+      if I18n.locale == :en
+        "https://svsticky.nl/promochannel"
+      else
+        # Fallback is NL
+        "https://svsticky.nl/promokanaal"
+      end
     end
 
     def forced_confirm_email(record, current_user, _opts = {})
