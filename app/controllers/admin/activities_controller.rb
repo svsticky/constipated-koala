@@ -3,7 +3,7 @@ class Admin::ActivitiesController < ApplicationController
   impressionist actions: [:update, :destroy]
 
   def index
-    @activities = Activity.study_year(params['year']).order(start_date: :desc)
+    @activities = Activity.study_year(params['year']).order(start_date: :desc, start_time: :desc)
     @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
       ["#{ year }-#{ year + 1 }", year]
     end.reverse
@@ -22,7 +22,7 @@ class Admin::ActivitiesController < ApplicationController
     res = "*#{ t('admin.activities.weekoverzicht.header', locale: locale) }*\n\n"
     res += (0..4).map do |n|
       week_day = week_start + n.days
-      acs = Activity.where(start_date: week_day, include_in_weekoverzicht: true).all
+      acs = Activity.where(start_date: week_day, include_in_weekoverzicht: true).all.order(start_time: :asc)
       header = "*#{ l(week_day, format: '%A', locale: locale).capitalize }*"
       if acs.empty?
         "#{ header }\n#{ t('admin.activities.no_activity', locale: locale) }\n"
