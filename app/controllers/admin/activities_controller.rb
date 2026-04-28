@@ -3,7 +3,12 @@ class Admin::ActivitiesController < ApplicationController
   impressionist actions: [:update, :destroy]
 
   def index
-    @activities = Activity.study_year(params['year']).order(start_date: :desc)
+    # Order by start_date desc so the newest day floats to the top, then by
+    # start_time asc within a day so same-day activities read chronologically
+    # (issue #1215). Without the secondary key, same-day rows came back in
+    # whatever order the database happened to return — visibly descending in
+    # the reporter's case but really just undefined.
+    @activities = Activity.study_year(params['year']).order(start_date: :desc, start_time: :asc)
     @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
       ["#{ year }-#{ year + 1 }", year]
     end.reverse
@@ -22,7 +27,9 @@ class Admin::ActivitiesController < ApplicationController
     res = "*#{ t('admin.activities.weekoverzicht.header', locale: locale) }*\n\n"
     res += (0..4).map do |n|
       week_day = week_start + n.days
-      acs = Activity.where(start_date: week_day, include_in_weekoverzicht: true).all
+      # Weekoverzicht reads the admin index, so apply the same chronological
+      # secondary sort within a day (issue #1215).
+      acs = Activity.where(start_date: week_day, include_in_weekoverzicht: true).order(start_time: :asc).all
       header = "*#{ l(week_day, format: '%A', locale: locale).capitalize }*"
       if acs.empty?
         "#{ header }\n#{ t('admin.activities.no_activity', locale: locale) }\n"
@@ -65,7 +72,8 @@ https://koala.svsticky.nl/activities/#{ ac.id }
       impressionist(@activity)
       redirect_to(@activity)
     else
-      @activities = Activity.all.order(start_date: :desc)
+      # Same chronological secondary sort as the index path above (issue #1215).
+      @activities = Activity.all.order(start_date: :desc, start_time: :asc)
       @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
         ["#{ year }-#{ year + 1 }", year]
       end.reverse
