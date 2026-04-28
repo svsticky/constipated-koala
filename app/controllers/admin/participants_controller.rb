@@ -31,6 +31,10 @@ class Admin::ParticipantsController < ApplicationController
       @participant.update(price: params[:price])
     end
 
+    if params[:mail_enrolled].present?
+      # notify participant of enrollment
+      Mailings::Participants.enrolled_auto(@participant).deliver_later
+
     if @participant.save
       impressionist(@participant, message)
       render(status: :ok)

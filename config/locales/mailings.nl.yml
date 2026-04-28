@@ -56,6 +56,8 @@ nl:
       enrolled:
         activity_start_html: De activiteit begint op <strong>%{activity_start}</strong> en %{price}. Tot dan!
         button_instructions_html: Je kunt je tot <strong>%{unenroll_date}</strong> uitschrijven voor deze activiteit. Dit kun je doen op de pagina van de activiteit.
+        enrolled_auto: Je bent automatisch ingeschreven voor %{activity}.
+        subject_auto: Automatisch ingeschreven voor %{activity}
         cost: kost
         free: is gratis
         free_spot_html: Geweldig nieuws! Er is een plaats vrijgekomen voor <strong>%{activity_name}</strong>. Hiervoor ben je automatisch ingeschreven vanaf de reservelijst.

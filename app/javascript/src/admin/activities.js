@@ -41,6 +41,22 @@ function addCommitteeMembers({ target }) {
   $.getJSON("/activities/" + activity_id + "/committee_members").then(
     (data) => {
       data.forEach((member) => {
+        $.ajax({
+          url:
+            "/activities/" +
+            row.attr("data-activities-id") +
+            "/participants/" +
+            row.attr("data-id"),
+          type: "PATCH",
+          data: {
+            authenticity_token: token,
+            mail_enrolled: true,
+          },
+        })
+        .fail(function (error) {
+          toastr.error(error.statusText, error.status);
+        });
+        
         participant.enroll(activity_id, member.member.id);
       });
     },

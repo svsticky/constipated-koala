@@ -56,6 +56,8 @@ en:
       enrolled:
         activity_start_html: The activity starts at <strong>%{activity_start}</strong> and costs %{price}. See you there!
         button_instructions_html: You can un-enroll until <strong>%{unenroll_date}</strong>. You can do this at the activity's page.
+        enrolled_auto: You have been enrolled automatically for %{activity}.
+        subject_auto: Enrolled automatically for %{activity}
         cost: costs
         free: is free
         free_spot_html: Great news! A free spot appeared for <strong>%{activity_name}</strong>. You were automatically enrolled from the spares list.
