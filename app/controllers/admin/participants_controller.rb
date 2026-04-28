@@ -34,6 +34,7 @@ class Admin::ParticipantsController < ApplicationController
     if params[:mail_enrolled].present?
       # notify participant of enrollment
       Mailings::Participants.enrolled_auto(@participant).deliver_later
+    end
 
     if @participant.save
       impressionist(@participant, message)
