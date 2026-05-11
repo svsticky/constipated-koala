@@ -6,7 +6,7 @@ class Admin::ActivitiesController < ApplicationController
     # Order by start_date desc so the newest day floats to the top, then by
     # start_time asc within a day so same-day activities read chronologically
     # (issue #1215). Without the secondary key, same-day rows came back in
-    # whatever order the database happened to return — visibly descending in
+    # whatever order the database happened to return, visibly descending in
     # the reporter's case but really just undefined.
     @activities = Activity.study_year(params['year']).order(start_date: :desc, start_time: :asc)
     @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
