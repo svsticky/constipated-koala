@@ -65,7 +65,7 @@ https://koala.svsticky.nl/activities/#{ ac.id }
       impressionist(@activity)
       redirect_to(@activity)
     else
-      @activities = Activity.all.order(start_date: :desc)
+      @activities = Activity.all.order(start_date: :desc, start_time: :desc)
       @years = (Activity.take(1).first.start_date.year..Date.today.study_year).map do |year|
         ["#{ year }-#{ year + 1 }", year]
       end.reverse
