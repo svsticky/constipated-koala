@@ -30,6 +30,10 @@ en:
         see_you_soon: See you soon!
         welcome: Welcome to Sticky!
         wrap_up_html: Curious about which activities we will soon organize? You can find more information in our member portal, %{koala_link_start} Koala%{link_end}, and you can enroll there too! In this member portal you can also edit your profile.
+        buddy_system:
+          name: "Buddy system"
+          description: "Want to attend upcoming activities or drinks, but unsure because you don't know many people yet? Then sign up for the buddy system! We'll do our best to pair you with someone who's been active in Sticky for a while. This way, you'll quickly get to know the ins and outs of the association. You can go to an activity or drinks with your buddy, so you'll definitely see a familiar face. You can also ask your buddy any questions you have about Sticky, the university, or life in Utrecht. Sound like you? Then sign up using the button below!"
+          buddy_description_link_name: "Sign up"
       changed_instructions:
         changed_email: Emailaddress changed
         inform_change_text: Your emailaddress is changed to %{new_email}. Please contact us as soon as possible (by replying to this email) if this change was not done by you.
