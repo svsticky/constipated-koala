@@ -35,6 +35,7 @@ function bind_activities() {
   // [POST] participants
   $("#btn-add-committee").on("click", addCommitteeMembers);
 }
+
 // adds the committee members to the activity
 function addCommitteeMembers({ target }) {
   const activity_id = $(target).data("id");
@@ -46,6 +47,7 @@ function addCommitteeMembers({ target }) {
     },
   );
 }
+
 /*
  * Participant namespace containing all participant related functions
  */
@@ -411,6 +413,8 @@ $(document).on("ready page:load turbolinks:load", function () {
 
   copyPromoToClipboard();
 
+  $(".activity-description").editor();
+
   $("form#mail").mail();
 
   $("#activity_is_viewable").on("click", function () {
@@ -507,6 +511,7 @@ function addCollapseCallbackToTableHeader() {
       );
     });
 }
+
 /*
  * Contains the poster related handlers
  */

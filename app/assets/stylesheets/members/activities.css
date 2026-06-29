@@ -269,3 +269,8 @@ div.container.col-md-9 {
 		width: 25%;
 	}
 }
+
+.ql-editor p, .ql-editor ol, .ql-editor ul {
+  margin-bottom: 1rem;
+  padding-left: 0;
+}

@@ -18,9 +18,11 @@ $(document).on("ready page:load turbolinks:load", function () {
   $(window).on("keydown", (evt) => {
     // <input>, <textarea>, or the mailer input field
     if (
-      $("input").is(":focus") ||
-      $("textarea").is(":focus") ||
-      document.getElementById("editor")?.contains(document.activeElement)
+      document.activeElement &&
+      (["input", "textarea"].includes(
+        document.activeElement.tagName.toLowerCase(),
+      ) ||
+        document.activeElement.isContentEditable)
     ) {
       // Cancel if any inputs are selected
       return;
